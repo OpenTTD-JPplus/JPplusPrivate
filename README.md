@@ -34,6 +34,6 @@
 | --- | --- |
 |![Eidan 5000 series](/gfx/Tokyo/tozai/5000series/5000series_purchase.png)| Eidan 5000 series |
 |![Tokyo Metro 05 series](/gfx/Tokyo/tozai/05series/05series_purchase.png)| Tokyo Metro 05 series |
-|![Tokyo Metro 07 series](/gfx/Tokyo/tozai/05series/07series_purchase.png)| Tokyo Metro 07 series |
+|![Tokyo Metro 07 series](/gfx/Tokyo/tozai/07series/07series_purchase.png)| Tokyo Metro 07 series |
 |![Toyo Rapid 1000 series](/gfx/Tokyo/tozai/toyo1000/toyo1000_purchase.png)| Toyo Rapid 1000 series |
 |![Toyo Rapid 2000 series](/gfx/Tokyo/tozai/toyo2000/toyo2000_purchase.png)| Toyo Rapid 2000 series |
