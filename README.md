@@ -3,7 +3,7 @@
 
 ## Credits
 **Coding:** Yozora <br>
-**Graphics:** Yozora <br>
+**Graphics:** Yozora, Saya <br>
 **Thanks to:** Tinny, Emperor Jake, Asuza, Erato, Saya <br>
 
 ## Ginza Line
