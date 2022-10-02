@@ -34,7 +34,16 @@
 | --- | --- |
 |![Eidan 5000 series](/gfx/Tokyo/tozai/5000series/5000series_purchase.png)| Eidan 5000 series |
 |![Tokyo Metro 05 series](/gfx/Tokyo/tozai/05series/05series_purchase.png)| Eidan 05 series |
-|![Tokyo Metro 07 series](/gfx/Tokyo/tozai/07series/07series_purchase.png)| Eidan series |
+|![Tokyo Metro 07 series](/gfx/Tokyo/tozai/07series/07series_purchase.png)| Eidan 07 series |
 |![Tokyo Metro 15000 series](/gfx/Tokyo/tozai/15000series/15000series_purchase.png)| Tokyo Metro 15000 series |
 |![Toyo Rapid 1000 series](/gfx/Tokyo/tozai/toyo1000/toyo1000_purchase.png)| Toyo Rapid 1000 series |
 |![Toyo Rapid 2000 series](/gfx/Tokyo/tozai/toyo2000/toyo2000_purchase.png)| Toyo Rapid 2000 series |
+
+## Chiyoda Line
+| | Train |
+| --- | --- |
+|![Eidan 5000 series](/gfx/Tokyo/chiyoda/5000series/5000series_purchase.png)| Eidan 5000 series |
+|![Eidan 06 series](/gfx/Tokyo/chiyoda/06series/06series_purchase.png)| Eidan 06 series |
+|![Eidan 05 series](/gfx/Tokyo/chiyoda/05series/05series_purchase.png)| Eidan 05 series |
+|![Tokyo Metro 15000 series](/gfx/Tokyo/chiyoda/16000series/16000series_purchase.png)| Tokyo Metro 15000 series |
+
