@@ -1,0 +1,167 @@
+//Welcome to the example header!
+grf {
+    /* This grf is part of NML, therefore "NML" is chosen as the first three
+     * characters of the GRFID. It is the first real grf defined as part of
+     * NML, therefore the last character is set to 0. Successive grfs will
+     * have 1, 2, etc. there, to make sure each example grf has a unique GRFID.
+     */
+    grfid: "YZ\AA\01";
+    /* GRF name and description strings are defined in the lang files */
+    name: string(STR_NAME);
+    desc: string(STR_DESC);
+    /* This is the first version, start numbering at 0. */
+    version: 2;
+    min_compatible_version: 0;
+    url: string(URL);
+
+
+param 0 {
+				//basecosts
+		param_basecostbuy {
+				type: int;
+				name: string(STR_PARAM_NAME_BASECOSTMODBUY);
+				desc: string(STR_PARAM_DESC_BASECOSTMODBUY);
+				min_value: 0;
+				max_value: 2;
+				def_value: 1;
+				names: {
+								0: string(STR_PARAM_LOW);
+								1: string(STR_PARAM_NORMAL);
+								2: string(STR_PARAM_HIGH);
+						};
+				}
+		}
+
+		//runningcosts
+param 1 {
+				param_basecostrun {
+						type: int;
+						name: string(STR_PARAM_NAME_BASECOSTMODRUN);
+						desc: string(STR_PARAM_DESC_BASECOSTMODRUN);
+						min_value: 1;
+						max_value: 3;
+						def_value: 2;
+						names: {
+												//0: string(STR_PARAM_VLOW);
+												1: string(STR_PARAM_LOW);
+												2: string(STR_PARAM_NORMAL);
+												3: string(STR_PARAM_HIGH);
+												//4: string(STR_PARAM_VHIGH);
+						};
+				}
+}
+   param 2 {
+				param_basecapacity {
+						type: int;
+						name: string(STR_PARAM_NAME_CAPACITY);
+						desc: string(STR_PARAM_DESC_CAPACITY);
+						min_value: 0;
+						max_value: 2;
+						def_value: 2;
+						names: {
+												0: string(STR_PARAM_LOW_CAPACITY);
+												1: string(STR_PARAM_NORMAL_CAPACITY);
+												2: string(STR_PARAM_HIGH_CAPACITY);
+						};
+				}
+		}     
+
+}
+basecost {
+		 PR_BUILD_VEHICLE : param_basecostbuy;
+		 PR_RUNNING: param_basecostrun +1; //3
+}
+
+railtypetable {
+    RT_NABE: [NABE, ELRL],
+	RT_SAB3: [SAB3, "3RDR", ELRL]
+}
+param_capacity_0 = 70;
+param_capacity_1 = 80;
+param_capacity_2 = 100;
+param_loading_1D = 30;
+param_loading_2D = 40 ;
+param_loading_3D = 50;
+param_loading_4D = 80;
+
+if (param_basecapacity == 0) {
+	param_capacity_mod = -60;
+}
+if (param_basecapacity == 1) {
+	param_capacity_mod = -30;
+}
+if (param_basecapacity == 2) {
+	param_capacity_mod = 0;
+}
+template tmpl_std(x,y) {
+    // parameters x, y: coordinates of top-left corner of first sprite
+    [x, 	 y,	8, 	24,		-3, 	-16] //short
+	[x +9, 	 y,	22,	20,		-13,	-13] //dia1
+	[x +32,  y,	32,	17,		-14,	-13] //long
+	[x +65,  y,	22,	20,		-5, 	-12] //dia2
+	[x +88,  y,	8, 	24,		-3, 	-16] //short
+	[x +97,  y,	22,	20,		-13,	-13] //dia1
+	[x +120, y,	32,	17,		-14,	-13] //long
+	[x+153,  y,	22,	20,		-5, 	-12] //dia2
+}
+template tmpl_std_rev(x,y){
+[x +88,  y,	8, 	24,		-3, 	-16] //short
+[x +97,  y,	22,	20,		-13,	-13] //dia1
+[x +120, y,	32,	17,		-14,	-13] //long
+[x+153,  y,	22,	20,		-5, 	-12] //dia2
+[x, 	 y,	8, 	24,		-3, 	-16] //short
+[x +9, 	 y,	22,	20,		-13,	-13] //dia1
+[x +32,  y,	32,	17,		-14,	-13] //long
+[x +65,  y,	22,	20,		-5, 	-12] //dia2
+}
+template tmpl_purchase (x, y) {
+		[x , y, 88, 15, -30, -8]
+}
+spriteset (dummy_sprites, "gfx/empty.png")
+{
+  [0, 0, 2, 2, 0, 0, CROP]
+}
+//ginza
+#include "src/Tokyo/ginza/tk_gz_type1000.pnml"
+#include "src/Tokyo/ginza/tk_gz_type1100.pnml"
+#include "src/Tokyo/ginza/tk_gz_type100.pnml"
+#include "src/Tokyo/ginza/tk_gz_type1300.pnml"
+#include "src/Tokyo/ginza/tk_gz_type1700.pnml"
+#include "src/Tokyo/ginza/tk_gz_type1900.pnml"
+#include "src/Tokyo/ginza/tk_gz_01series.pnml"
+#include "src/Tokyo/ginza/tk_gz_1000series.pnml"
+//marunouchi
+#include "src/Tokyo/marunouchi/tk_mn_type1900.pnml"
+#include "src/Tokyo/marunouchi/tk_mn_2000series.pnml"
+//hibiya
+#include "src/Tokyo/hibiya/tk_hb_13000series.pnml"
+//tozai
+#include "src/Tokyo/tozai/tk_tz_5000series.pnml"
+#include "src/Tokyo/tozai/tk_tz_05series.pnml"
+#include "src/Tokyo/tozai/tk_tz_07series.pnml"
+#include "src/Tokyo/tozai/tk_tz_15000series.pnml"
+#include "src/Tokyo/tozai/tk_tz_toyo1000.pnml"
+#include "src/Tokyo/tozai/tk_tz_toyo2000.pnml"
+//chiyoda
+#include "src/Tokyo/chiyoda/tk_ch_5000series.pnml"
+#include "src/Tokyo/chiyoda/tk_ch_6000series.pnml"
+#include "src/Tokyo/chiyoda/tk_ch_06series.pnml"
+#include "src/Tokyo/chiyoda/tk_ch_16000series.pnml"
+//chiyoda kita-ayase-branch
+#include "src/Tokyo/chiyoda/tk_ch_5000series_br.pnml"
+#include "src/Tokyo/chiyoda/tk_ch_6000series_br.pnml"
+#include "src/Tokyo/chiyoda/tk_ch_05series.pnml"
+
+
+
+
+
+
+
+
+//Sorting the purchase list
+
+sort(FEAT_TRAINS, [
+3,
+1,
+]);
