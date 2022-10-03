@@ -4,7 +4,7 @@
 ## Credits
 **Coding:** Yozora <br>
 **Graphics:** Yozora, Saya <br>
-**Thanks to:** Tinny, Emperor Jake, Asuza, Erato, Saya <br>
+**Thanks to:** Tinny, Emperor Jake, Asuza, Erato, Saya, Ivano <br>
 
 ## Ginza Line
 | | Train |
@@ -46,4 +46,13 @@
 |![Eidan 06 series](/gfx/Tokyo/chiyoda/06series/06series_purchase.png)| Eidan 06 series |
 |![Eidan 05 series](/gfx/Tokyo/chiyoda/05series/05series_purchase.png)| Eidan 05 series |
 |![Tokyo Metro 15000 series](/gfx/Tokyo/chiyoda/16000series/16000series_purchase.png)| Tokyo Metro 15000 series |
+
+## Yurakucho and Futokushin Line
+| | Train |
+| --- | --- |
+|![Eidan 07 series](/gfx/Tokyo/yurakucho_fukutoshin/07series/07series_purchase.png)| Eidan 07 series |
+|![Eidan 06 series](/gfx/Tokyo/yurakucho_fukutoshin/7000series/7000series_purchase.png)| Eidan 7000 series |
+|![Tokyo Metro 10000 series](/gfx/Tokyo/yurakucho_fukutoshin/10000series/10000series_purchase.png)| Tokyo Metro 10000 series |
+|![Tokyo Metro 17000 series](/gfx/Tokyo/yurakucho_fukutoshin/17000series/17000series_purchase.png)| Tokyo Metro 17000 series |
+
 
