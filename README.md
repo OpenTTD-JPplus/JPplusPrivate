@@ -47,7 +47,7 @@
 |![Eidan 05 series](/gfx/Tokyo/chiyoda/05series/05series_purchase.png)| Eidan 05 series |
 |![Tokyo Metro 15000 series](/gfx/Tokyo/chiyoda/16000series/16000series_purchase.png)| Tokyo Metro 15000 series |
 
-## Yurakucho and Futokushin Line
+## Yurakucho and Fukutoshin Line
 | | Train |
 | --- | --- |
 |![Eidan 07 series](/gfx/Tokyo/yurakucho_fukutoshin/07series/07series_purchase.png)| Eidan 07 series |
