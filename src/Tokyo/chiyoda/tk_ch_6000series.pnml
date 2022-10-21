@@ -14,7 +14,8 @@ spriteset (tk_ch_6000series_first_old,       "gfx/gfx_placeholder.png") { tmpl_s
 spriteset (tk_ch_6000series_first_mot_old,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (tk_ch_6000series_wag_old,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (tk_ch_6000series_mot_old,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
-
+spriteset (tk_ch_6000series_mot_1_old,      "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_ch_6000series_mot_1_old_rev,      "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (tk_ch_6000series_last_old,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
 spriteset (tk_ch_6000series_last_mot_old,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
 
@@ -35,7 +36,8 @@ alternative_sprites(tk_ch_6000series_first_old, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32B
 alternative_sprites(tk_ch_6000series_first_mot_old, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/chiyoda/6000series/6000series_old.png"){ tmpl_std(0, 100) }
 alternative_sprites(tk_ch_6000series_wag_old, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/chiyoda/6000series/6000series_old.png"){ tmpl_std(0, 75) }
 alternative_sprites(tk_ch_6000series_mot_old, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/chiyoda/6000series/6000series_old.png"){ tmpl_std(0, 50) }
-//alternative_sprites(tk_ch_6000series_mot_rev_old, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/chiyoda/6000series/6000series_old.png"){ tmpl_std_rev(0, 75) }
+alternative_sprites(tk_ch_6000series_mot_1_old, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/chiyoda/6000series/6000series_old.png"){ tmpl_std_rev(0, 150) }
+alternative_sprites(tk_ch_6000series_mot_1_old_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/chiyoda/6000series/6000series_old.png"){ tmpl_std_rev(0, 150) }
 alternative_sprites(tk_ch_6000series_last_old, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/chiyoda/6000series/6000series_old.png"){ tmpl_std_rev(0, 25) }
 alternative_sprites(tk_ch_6000series_last_mot_old, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/chiyoda/6000series/6000series_old.png"){ tmpl_std_rev(0, 125) }
 
@@ -103,12 +105,30 @@ switch(FEAT_TRAINS, SELF, tk_ch_6000series_main_3_rev,position_in_consist %3){
     1: tk_ch_6000series_mot_1_rev;
     2: tk_ch_6000series_last_mot;
 }
+switch(FEAT_TRAINS, SELF, tk_ch_6000series_main_3_old,position_in_consist %3){
+    0: tk_ch_6000series_first_mot_old;
+    1: tk_ch_6000series_mot_1_old_rev;
+    2: tk_ch_6000series_last_old;
+}
+switch(FEAT_TRAINS, SELF, tk_ch_6000series_main_3_old_rev,position_in_consist %3){
+    0: tk_ch_6000series_first_old;
+    1: tk_ch_6000series_mot_1_old;
+    2: tk_ch_6000series_last_mot_old;
+}
+
 switch(FEAT_TRAINS, PARENT, tk_ch_6000_rev_check_3, vehicle_is_reversed){
 0: tk_ch_6000series_main_3;
 tk_ch_6000series_main_3_rev;
 }
+switch(FEAT_TRAINS, PARENT, tk_ch_6000_rev_check_3_old, vehicle_is_reversed){
+0: tk_ch_6000series_main_3_old;
+tk_ch_6000series_main_3_old_rev;
+}
 
-
+switch(FEAT_TRAINS, SELF, tk_ch_6000_3_main, [build_year>1972 || date_of_last_service>date(1972,1,1)] ){
+  1: tk_ch_6000_rev_check_3;
+  tk_ch_6000_rev_check_3_old;
+}
 
 item(FEAT_TRAINS, tk_ch_6000series) {
     property {

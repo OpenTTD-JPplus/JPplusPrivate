@@ -7,6 +7,9 @@ spriteset (tk_ch_5000series_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 
 spriteset (tk_ch_5000series_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (tk_ch_5000series_last,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
 spriteset (tk_ch_5000series_last_mot,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
+spriteset (tk_ch_5000series_mot_1,       "gfx/gfx_placeholder.png") { tmpl_std(0, 50) }
+spriteset (tk_ch_5000series_mot_1_rev,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
+
 alternative_sprites(tk_ch_5000series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/chiyoda/5000series/5000series_purchase.png"){ tmpl_purchase(0, 0) }
 alternative_sprites(tk_ch_5000series_first, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/chiyoda/5000series/5000series.png"){ tmpl_std(0, 0) }
 alternative_sprites(tk_ch_5000series_first_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/chiyoda/5000series/5000series.png"){ tmpl_std(0, 100) }
@@ -16,11 +19,15 @@ alternative_sprites(tk_ch_5000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,   
 alternative_sprites(tk_ch_5000series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/chiyoda/5000series/5000series.png"){ tmpl_std_rev(0, 75) }
 alternative_sprites(tk_ch_5000series_last, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/chiyoda/5000series/5000series.png"){ tmpl_std_rev(0, 25) }
 alternative_sprites(tk_ch_5000series_last_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/chiyoda/5000series/5000series.png"){ tmpl_std_rev(0, 125) }
+alternative_sprites(tk_ch_5000series_mot_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/chiyoda/5000series/5000series.png"){ tmpl_std(0, 150) }
+alternative_sprites(tk_ch_5000series_mot_1_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/chiyoda/5000series/5000series.png"){ tmpl_std_rev(0, 150) }
 
 switch(FEAT_TRAINS, SELF, tk_ch_5000series_main,position_in_consist %10){
     0: tk_ch_5000series_first;
     1: tk_ch_5000series_mot;
     3: tk_ch_5000series_mot;
+    4: tk_ch_5000series_last;
+    5: tk_ch_5000series_first;
     6: tk_ch_5000series_mot;
     8: tk_ch_5000series_mot;
     9: tk_ch_5000series_last;
@@ -30,6 +37,8 @@ switch(FEAT_TRAINS, SELF, tk_ch_5000series_main_rev,position_in_consist %10){
     0: tk_ch_5000series_first;
     1: tk_ch_5000series_mot_rev;
     3: tk_ch_5000series_mot_rev;
+    4: tk_ch_5000series_last;
+    5: tk_ch_5000series_first;
     6: tk_ch_5000series_mot_rev;
     8: tk_ch_5000series_mot_rev;
     9: tk_ch_5000series_last;
@@ -45,12 +54,12 @@ switch (FEAT_TRAINS, SELF, tk_ch_5000series_articulated_part, extra_callback_inf
 switch(FEAT_TRAINS, SELF, tk_ch_5000series_main_3,position_in_consist %3){
     0: tk_ch_5000series_first_mot;
     2: tk_ch_5000series_last;
-    tk_ch_5000series_mot;
+    tk_ch_5000series_mot_1;
 }
 switch(FEAT_TRAINS, SELF, tk_ch_5000series_main_rev_3,position_in_consist %3){
     0: tk_ch_5000series_first;
     2: tk_ch_5000series_last_mot;
-    tk_ch_5000series_mot_rev;
+    tk_ch_5000series_mot_1_rev;
 }
 switch(FEAT_TRAINS, PARENT, tk_ch_5000_rev_check_3, vehicle_is_reversed){
 0: tk_ch_5000series_main_3;
