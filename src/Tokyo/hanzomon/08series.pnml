@@ -17,6 +17,18 @@ switch(FEAT_TRAINS, SELF, tk_hz_08series_main,position_in_consist %10){
     9: tk_hz_08series_last;
     tk_hz_08series_wag;
 }
+switch(FEAT_TRAINS, SELF, tk_hz_08series_main_rev,position_in_consist %10){
+    0: tk_hz_08series_first;
+    2: tk_hz_08series_mot;
+    5: tk_hz_08series_mot;
+    8: tk_hz_08series_mot;
+    9: tk_hz_08series_last;
+    tk_hz_08series_wag;
+}
+switch(FEAT_TRAINS, PARENT, tk_hz_08series_rev_check, vehicle_is_reversed){
+0: tk_hz_08series_main;
+tk_hz_08series_main_rev;
+}
 
 switch (FEAT_TRAINS, SELF, tk_hz_08series_articulated_part, extra_callback_info1){
 0 .. 9: return tk_hz_08series;
@@ -59,7 +71,7 @@ item(FEAT_TRAINS, tk_hz_08series) {
         length: 8;
     }
 	graphics {
-        default: tk_hz_08series_main;
+        default: tk_hz_08series_rev_check;
         articulated_part:				tk_hz_08series_articulated_part;
         purchase: tk_hz_08series_purchase;
         can_attach_wagon: return string(STR_many_cars);
