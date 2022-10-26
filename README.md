@@ -55,4 +55,16 @@
 |![Tokyo Metro 10000 series](/gfx/Tokyo/yurakucho_fukutoshin/10000series/10000series_purchase.png)| Tokyo Metro 10000 series |
 |![Tokyo Metro 17000 series](/gfx/Tokyo/yurakucho_fukutoshin/17000series/17000series_purchase.png)| Tokyo Metro 17000 series |
 
+## Hazonmon Line
+| | Train |
+| --- | --- |
+|![Eidan 8000 series](/gfx/Tokyo/hanzomon/8000series/8000series_purchase.png)| Eidan 8000 series |
+|![Eidan 08 series](/gfx/Tokyo/hanzomon/08series/08series_purchase.png)| Eidan 08 series |
+|![Tokyo Metro 18000 series](/gfx/Tokyo/hanzomon/18000series/18000series_purchase.png)| Tokyo Metro 18000 series |
+## Namboku Line
+| | Train |
+| --- | --- |
+|![Eidan 9000 series](/gfx/Tokyo/namboku/9000series/9000series_purchase.png)| Eidan 9000 series |
+|![Saitama 2000 series](/gfx/Tokyo/namboku/saitama2000/saitama2000_purchase.png)| Saitama rapid 2000 series |
+
 
