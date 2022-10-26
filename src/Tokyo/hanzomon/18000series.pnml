@@ -1,0 +1,83 @@
+spriteset (tk_hz_18000series_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
+spriteset (tk_hz_18000series_first,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_hz_18000series_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_hz_18000series_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_hz_18000series_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_hz_18000series_last,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
+alternative_sprites(tk_hz_18000series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/hanzomon/18000series/18000series_purchase.png"){ tmpl_purchase(0, 0) }
+alternative_sprites(tk_hz_18000series_first, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/hanzomon/18000series/18000series.png"){ tmpl_std(0, 0) }
+alternative_sprites(tk_hz_18000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/hanzomon/18000series/18000series.png"){ tmpl_std(0, 50) }
+alternative_sprites(tk_hz_18000series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/hanzomon/18000series/18000series.png"){ tmpl_std_rev(0, 50) }
+alternative_sprites(tk_hz_18000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/hanzomon/18000series/18000series.png"){ tmpl_std(0, 75) }
+alternative_sprites(tk_hz_18000series_last, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/hanzomon/18000series/18000series.png"){ tmpl_std_rev(0, 25) }
+
+switch(FEAT_TRAINS, SELF, tk_hz_18000series_main,position_in_consist %10){
+    0: tk_hz_18000series_first;
+    1: tk_hz_18000series_mot;
+    3: tk_hz_18000series_mot;
+    6: tk_hz_18000series_mot;
+    8: tk_hz_18000series_mot;
+    9: tk_hz_18000series_last;
+    tk_hz_18000series_wag;
+}
+switch(FEAT_TRAINS, SELF, tk_hz_18000series_main_rev,position_in_consist %10){
+    0: tk_hz_18000series_first;
+    3: tk_hz_18000series_mot_rev;
+    6: tk_hz_18000series_mot_rev;
+    8: tk_hz_18000series_mot_rev;
+    9: tk_hz_18000series_last;
+    tk_hz_18000series_wag;
+}
+switch(FEAT_TRAINS, PARENT, tk_hz_18000series_rev_check, vehicle_is_reversed){
+0: tk_hz_18000series_main;
+tk_hz_18000series_main_rev;
+}
+
+switch (FEAT_TRAINS, SELF, tk_hz_18000series_articulated_part, extra_callback_info1){
+0 .. 9: return tk_hz_18000series;
+}
+item(FEAT_TRAINS, tk_hz_18000series) {
+    property {
+        name: string(STR_tk_hz_18000series_name);
+        introduction_date: date(2020, 1, 1);
+        model_life: VEHICLE_NEVER_EXPIRES;
+        vehicle_life: 30;
+        reliability_decay: 23;
+
+        cargo_capacity: 151+param_capacity_mod;
+        loading_speed: param_loading_4D;
+        cost_factor: 36;
+        running_cost_factor: 91;
+
+        speed: 120 km/h;
+        track_type: RT_NABE;
+        power: 3280 kW;
+        weight: 270 ton;
+
+        climates_available: ALL_CLIMATES;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_MU);
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: bitmask();
+        refit_cost: 0;
+        dual_headed: 0;
+        ai_engine_rank: 0;
+
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+        
+        tractive_effort_coefficient: 0.2;
+        air_drag_coefficient: 0.07;
+        bitmask_vehicle_info: 0;
+        length: 8;
+    }
+	graphics {
+        default: tk_hz_18000series_rev_check;
+        articulated_part:				tk_hz_18000series_articulated_part;
+        purchase: tk_hz_18000series_purchase;
+        can_attach_wagon: return string(STR_many_cars);
+        additional_text: return string(tk_hz_18000series_DESC);
+    }
+}
