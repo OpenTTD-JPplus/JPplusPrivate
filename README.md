@@ -55,7 +55,7 @@
 |![Tokyo Metro 10000 series](/gfx/Tokyo/yurakucho_fukutoshin/10000series/10000series_purchase.png)| Tokyo Metro 10000 series |
 |![Tokyo Metro 17000 series](/gfx/Tokyo/yurakucho_fukutoshin/17000series/17000series_purchase.png)| Tokyo Metro 17000 series |
 
-## Hazonmon Line
+## Hanzomon Line
 | | Train |
 | --- | --- |
 |![Eidan 8000 series](/gfx/Tokyo/hanzomon/8000series/8000series_purchase.png)| Eidan 8000 series |
