@@ -73,7 +73,8 @@ basecost {
 
 railtypetable {
     RT_NABE: [NABE, ELRL],
-	RT_SAB3: [SAB3, "3RDR", ELRL]
+	RT_SAB3: [SAB3, "3RDR", ELRL],
+	RT_ELRL: [ELRL]
 }
 param_capacity_0 = 70;
 param_capacity_1 = 80;
@@ -82,6 +83,11 @@ param_loading_1D = 30;
 param_loading_2D = 40 ;
 param_loading_3D = 50;
 param_loading_4D = 80;
+
+switch (FEAT_TRAINS, SELF, sw_length_2_8_2, position_in_articulated_veh % 3) {
+        1: return 7;
+        return 1;
+    }
 
 if (param_basecapacity == 0) {
 	param_capacity_mod = -60;
@@ -94,14 +100,36 @@ if (param_basecapacity == 2) {
 }
 template tmpl_std(x,y) {
     // parameters x, y: coordinates of top-left corner of first sprite
-    [x, 	 y,	8, 	24,		-3, 	-16] //short
-	[x +9, 	 y,	22,	20,		-13,	-13] //dia1
-	[x +32,  y,	32,	17,		-14,	-13] //long
+    [x, 	 y,	8, 	24,		-3, 	-18] //short
+	[x +9, 	 y,	22,	20,		-11,	-14] //dia1
+	[x +32,  y,	32,	17,		-10,	-13] //long
 	[x +65,  y,	22,	20,		-5, 	-12] //dia2
 	[x +88,  y,	8, 	24,		-3, 	-16] //short
 	[x +97,  y,	22,	20,		-13,	-13] //dia1
 	[x +120, y,	32,	17,		-14,	-13] //long
 	[x+153,  y,	22,	20,		-5, 	-12] //dia2
+}
+template tmpl_std_20m(x,y) {
+    // parameters x, y: coordinates of top-left corner of first sprite
+    [x, 	 y,	8, 	26,		-3, 	-16] //short
+	[x +9, 	 y,	24,	20,		-13,	-13] //dia1
+	[x +34,  y,	36,	17,		-14,	-13] //long
+	[x +71,  y,	24,	20,		-7, 	-12] //dia2
+	[x +96,  y,	8, 	26,		-3, 	-18] //short
+	[x +105,  y,	24,	20,		-11,	-14] //dia1
+	[x +130, y,	36,	17,		-10,	-13] //long
+	[x+167,  y,	24,	20,		-5, 	-11] //dia2
+}
+template tmpl_std_20m_rev(x,y) {
+    // parameters x, y: coordinates of top-left corner of first sprite
+    [x+96, 	 y,	8, 	26,		-3, 	-16] //short
+	[x +105, 	 y,	24,	20,		-13,	-13] //dia1
+	[x +130,  y,	36,	17,		-14,	-13] //long
+	[x +167,  y,	24,	20,		-7, 	-12] //dia2
+	[x,  y,	8, 	26,		-3, 	-18] //short
+	[x +9,  y,	24,	20,		-11,	-14] //dia1
+	[x +34, y,	36,	17,		-10,	-13] //long
+	[x+71,  y,	24,	20,		-5, 	-11] //dia2
 }
 template tmpl_std_rev(x,y){
 [x +88,  y,	8, 	24,		-3, 	-16] //short
@@ -165,3 +193,5 @@ spriteset (dummy_sprites, "gfx/empty.png")
 #include "src/Tokyo/namboku/saitama2000.pnml"
 //asakusa
 #include "src/Tokyo/asakusa/toei5500.pnml"
+
+#include "src/Tokyo/mita/toei6500.pnml"
