@@ -11,57 +11,38 @@ alternative_sprites(tk_mt_toei6300series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP
 alternative_sprites(tk_mt_toei6300series_last, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6300/toei6300.png"){ tmpl_std_20m_rev(0, 27) }
 
 
-switch(FEAT_TRAINS, SELF, tk_mt_toei6300series_consist,position_in_consist %24){
-    1: tk_mt_toei6300series_first; // 1 car
-    4: tk_mt_toei6300series_wag; // 2 car
-    7: tk_mt_toei6300series_mot; // 3 car
-    10: tk_mt_toei6300series_wag; // 4 car
-    13: tk_mt_toei6300series_wag; // 5 car
-    16: tk_mt_toei6300series_wag; // 6 car
-    19: tk_mt_toei6300series_mot; // 7 car
-    22: tk_mt_toei6300series_last; // 8 car
-    dummy_sprites;
-}
-switch(FEAT_TRAINS, SELF, tk_mt_toei6300series_consist_rev,position_in_consist %24){
+switch(FEAT_TRAINS, SELF, tk_mt_toei6300series_consist,position_in_consist %18){
     1: tk_mt_toei6300series_first; // 1 car
     4: tk_mt_toei6300series_mot; // 2 car
     7: tk_mt_toei6300series_wag; // 3 car
     10: tk_mt_toei6300series_wag; // 4 car
-    13: tk_mt_toei6300series_wag; // 5 car
-    16: tk_mt_toei6300series_mot; // 6 car
-    19: tk_mt_toei6300series_wag; // 7 car
-    22: tk_mt_toei6300series_last; // 8 car
+    13: tk_mt_toei6300series_mot; // 5 car
+    16: tk_mt_toei6300series_last; // 6 car
     dummy_sprites;
-}
-
-switch(FEAT_TRAINS, PARENT, tk_mt_toei6300series_main,vehicle_is_reversed){
-    1: tk_mt_toei6300series_consist;
-    tk_mt_toei6300series_consist_rev;
-
 }
 
 
 switch (FEAT_TRAINS, SELF, tk_mt_toei6300series_articulated_part, extra_callback_info1){
-0 .. 24: return tk_mt_toei6300series;
+0 .. 18: return tk_mt_toei6300series;
 }
 
 item(FEAT_TRAINS, tk_mt_toei6300series) {
     property {
         name: string(STR_tk_mt_toei6300series_name);
-        introduction_date: date(2020, 1, 1);
+        introduction_date: date(1993, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 30;
         reliability_decay: 23;
 
-        cargo_capacity: 147+param_capacity_mod;
+        cargo_capacity: 163+param_capacity_mod;
         loading_speed: param_loading_3D;
-        cost_factor: 29;
-        running_cost_factor: 73;
+        cost_factor: 49;
+        running_cost_factor: 76;
 
         speed: 120 km/h;
-        track_type: RT_NABE;
-        power: 2720 kW;
-        weight: 251 ton;
+        track_type: TR_1067;
+        power: 2880 kW;
+        weight: 183 ton;
 
         climates_available: ALL_CLIMATES;
         ai_special_flag: AI_FLAG_PASSENGER;
@@ -83,7 +64,7 @@ item(FEAT_TRAINS, tk_mt_toei6300series) {
         
     }
 	graphics {
-        default: tk_mt_toei6300series_main;
+        default: tk_mt_toei6300series_consist;
         articulated_part:tk_mt_toei6300series_articulated_part;
         purchase: tk_mt_toei6300series_purchase;
         can_attach_wagon: return string(STR_many_cars);
