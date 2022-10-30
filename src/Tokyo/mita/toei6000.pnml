@@ -7,6 +7,14 @@ spriteset (tk_mt_toei6000series_last,       "gfx/gfx_placeholder.png") { tmpl_st
 spriteset (tk_mt_toei6000series_first_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (tk_mt_toei6000series_last_mot,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
 
+spriteset (tk_mt_toei6000series_first_new,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_mt_toei6000series_mot_new,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_mt_toei6000series_mot_rev_new,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_mt_toei6000series_wag_new,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_mt_toei6000series_last_new,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
+spriteset (tk_mt_toei6000series_first_mot_new,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_mt_toei6000series_last_mot_new,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
+
 alternative_sprites(tk_mt_toei6000series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6000/toei6000_purchase.png"){ tmpl_purchase(0, 0) }
 alternative_sprites(tk_mt_toei6000series_first, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6000/toei6000.png"){ tmpl_std_20m(0, 0) }
 alternative_sprites(tk_mt_toei6000series_last, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6000/toei6000.png"){ tmpl_std_20m_rev(0, 27) }
@@ -15,6 +23,16 @@ alternative_sprites(tk_mt_toei6000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP
 alternative_sprites(tk_mt_toei6000series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6000/toei6000.png"){ tmpl_std_20m_rev(0, 81) }
 alternative_sprites(tk_mt_toei6000series_first_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6000/toei6000.png"){ tmpl_std_20m(0, 108) }
 alternative_sprites(tk_mt_toei6000series_last_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6000/toei6000.png"){ tmpl_std_20m_rev(0, 135) }
+
+alternative_sprites(tk_mt_toei6000series_first_new, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6000/toei6000_new.png"){ tmpl_std_20m(0, 0) }
+alternative_sprites(tk_mt_toei6000series_last_new, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6000/toei6000_new.png"){ tmpl_std_20m_rev(0, 27) }
+alternative_sprites(tk_mt_toei6000series_wag_new, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6000/toei6000_new.png"){ tmpl_std_20m(0, 54) }
+alternative_sprites(tk_mt_toei6000series_mot_new, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6000/toei6000_new.png"){ tmpl_std_20m(0, 81) }
+alternative_sprites(tk_mt_toei6000series_mot_rev_new, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6000/toei6000_new.png"){ tmpl_std_20m_rev(0, 81) }
+alternative_sprites(tk_mt_toei6000series_first_mot_new, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6000/toei6000_new.png"){ tmpl_std_20m(0, 108) }
+alternative_sprites(tk_mt_toei6000series_last_mot_new, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6000/toei6000_new.png"){ tmpl_std_20m_rev(0, 135) }
+
+
 
 
 switch(FEAT_TRAINS, SELF, tk_mt_toei6000series_consist,position_in_consist %18){
@@ -36,12 +54,38 @@ switch(FEAT_TRAINS, SELF, tk_mt_toei6000series_consist_rev,position_in_consist %
     dummy_sprites;
 }
 
+switch(FEAT_TRAINS, SELF, tk_mt_toei6000series_consist_new,position_in_consist %18){
+    1: tk_mt_toei6000series_first_mot_new; // 1 car
+    4: tk_mt_toei6000series_wag_new; // 2 car
+    7: tk_mt_toei6000series_mot_new; // 3 car
+    10: tk_mt_toei6000series_wag_new; // 4 car
+    13: tk_mt_toei6000series_mot_new; // 5 car
+    16: tk_mt_toei6000series_last_new; // 6 car
+    dummy_sprites;
+}
+switch(FEAT_TRAINS, SELF, tk_mt_toei6000series_consist_rev_new,position_in_consist %18){
+    1: tk_mt_toei6000series_first_new; // 1 car
+    4: tk_mt_toei6000series_mot_rev_new; // 2 car
+    7: tk_mt_toei6000series_wag_new; // 3 car
+    10: tk_mt_toei6000series_mot_rev_new; // 4 car
+    13: tk_mt_toei6000series_wag_new; // 5 car
+    16: tk_mt_toei6000series_last_mot_new; // 6 car
+    dummy_sprites;
+}
+
 switch(FEAT_TRAINS, PARENT, tk_mt_toei6000series_main,vehicle_is_reversed){
     1: tk_mt_toei6000series_consist;
     tk_mt_toei6000series_consist_rev;
-
+}
+switch(FEAT_TRAINS, PARENT, tk_mt_toei6000series_main_new,vehicle_is_reversed){
+    1: tk_mt_toei6000series_consist_new;
+    tk_mt_toei6000series_consist_rev_new;
 }
 
+switch(FEAT_TRAINS, SELF, tk_mt_toei6000_date, [build_year>1972 || date_of_last_service>date(1972,1,1)] ){
+  1: tk_mt_toei6000series_main_new;
+  default: tk_mt_toei6000series_main;
+}
 
 switch (FEAT_TRAINS, SELF, tk_mt_toei6000series_articulated_part, extra_callback_info1){
 0 .. 18: return tk_mt_toei6000series;
@@ -50,20 +94,20 @@ switch (FEAT_TRAINS, SELF, tk_mt_toei6000series_articulated_part, extra_callback
 item(FEAT_TRAINS, tk_mt_toei6000series) {
     property {
         name: string(STR_tk_mt_toei6000series_name);
-        introduction_date: date(2020, 1, 1);
-        model_life: VEHICLE_NEVER_EXPIRES;
+        introduction_date: date(1968, 1, 1);
+        model_life: 30;
         vehicle_life: 30;
         reliability_decay: 23;
 
-        cargo_capacity: 147+param_capacity_mod;
+        cargo_capacity: 163+param_capacity_mod;
         loading_speed: param_loading_3D;
-        cost_factor: 29;
-        running_cost_factor: 73;
+        cost_factor: 46;
+        running_cost_factor: 71;
 
-        speed: 120 km/h;
-        track_type: RT_NABE;
-        power: 2720 kW;
-        weight: 251 ton;
+        speed: 100 km/h;
+        track_type: TR_1067;
+        power: 2400 kW;
+        weight: 215 ton;
 
         climates_available: ALL_CLIMATES;
         ai_special_flag: AI_FLAG_PASSENGER;
@@ -85,7 +129,7 @@ item(FEAT_TRAINS, tk_mt_toei6000series) {
         
     }
 	graphics {
-        default: tk_mt_toei6000series_main;
+        default: tk_mt_toei6000_date;
         articulated_part:tk_mt_toei6000series_articulated_part;
         purchase: tk_mt_toei6000series_purchase;
         can_attach_wagon: return string(STR_many_cars);
