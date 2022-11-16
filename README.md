@@ -76,7 +76,11 @@
 |![Toei 6000 series](/gfx/Tokyo/mita/toei6000/toei6000_purchase.png)| Toei 6000 series |
 |![Toei 6300 series](/gfx/Tokyo/mita/toei6300/toei6300_purchase.png)| Toei 6300 series |
 |![Toei 6500 series](/gfx/Tokyo/mita/toei6500/toei6500_purchase.png)| Toei 6500 series |
-
+## Shinjuku Line
+| | Train |
+| --- | --- |
+|![Toei 10-000 series](/gfx/Tokyo/shinjuku/toei10_000/toei10_000_purchase.png)| Toei 10-000 series |
+|![Toei 10-300 series](/gfx/Tokyo/shinjuku/toei10_300/toei10_300_purchase.png)| Toei 10-300 series |
 
 
 
