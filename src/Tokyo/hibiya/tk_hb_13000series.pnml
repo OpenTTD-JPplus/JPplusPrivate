@@ -13,29 +13,80 @@ alternative_sprites(tk_hb_13000series_mot_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,
 alternative_sprites(tk_hb_13000series_mot_1_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/hibiya/13000series/13000series.png"){ tmpl_std_20m_rev(0, 54) }
 alternative_sprites(tk_hb_13000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/hibiya/13000series/13000series.png"){ tmpl_std_20m(0, 81) }
 
-
-switch (FEAT_TRAINS, SELF, tk_hb_13000series_articulated_part, extra_callback_info1){
+switch (FEAT_TRAINS, SELF, sw_tk_hb_13000series_articulated_part, extra_callback_info1){
 0 .. 2: return tk_hb_13000series;
 }
-switch (FEAT_TRAINS, SELF, tk_hb_13000series_mucar, extra_callback_info1){
-0 .. 2: return mu_car;
-}
+//power changer
 
-switch(FEAT_TRAINS, SELF, tk_hb_13000series_main,position_in_consist){
-    1: tk_hb_13000series_front;
-    default: dummy_sprites;
-}
-switch(FEAT_TRAINS, SELF, tk_hb_13000series_main_back,position_in_consist_from_end){
-    1: tk_hb_13000series_end;
-    default: tk_hb_13000series_main;
-}
-switch(FEAT_TRAINS, SELF, tk_hb_13000series_attach_vehid, vehicle_type_id) {
-  default: return CB_RESULT_ATTACH_ALLOW;
-}
-switch(FEAT_TRAINS, SELF, tk_hb_13000series_mains,position_in_consist %3){
+//front-end-checker
+switch(FEAT_TRAINS, SELF, sw_tk_hb_13000series_wag_gfx,position_in_articulated_veh){
     1: tk_hb_13000series_wag;
     default: dummy_sprites;
 }
+switch(FEAT_TRAINS, SELF, sw_tk_hb_13000series_end_gfx,position_in_consist_from_end){
+    0: dummy_sprites;
+    1: tk_hb_13000series_end;
+    2: dummy_sprites;
+    4: tk_hb_13000series_mot_1_rev;
+    default: sw_tk_hb_13000series_wag_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_13000series_def_gfx,position_in_consist){
+    0: dummy_sprites;
+    1: tk_hb_13000series_front;
+    2: dummy_sprites;
+    4: tk_hb_13000series_mot_1;
+    default: sw_tk_hb_13000series_end_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_13000series_mot_7_gfx,position_in_consist){
+10: tk_hb_13000series_mot;
+default: sw_tk_hb_13000series_def_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_13000series_mot_8_gfx,position_in_consist){
+10: tk_hb_13000series_mot_1;
+13: tk_hb_13000series_mot_1_rev;
+default: sw_tk_hb_13000series_def_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_13000series_mot_9_gfx,position_in_consist){
+13: tk_hb_13000series_mot;
+default: sw_tk_hb_13000series_def_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_13000series_mot_10_gfx,position_in_consist){
+13: tk_hb_13000series_mot_1;
+16: tk_hb_13000series_mot_1_rev;
+default: sw_tk_hb_13000series_def_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_13000series_main_gfx,num_vehs_in_consist){
+21: sw_tk_hb_13000series_mot_7_gfx;
+24: sw_tk_hb_13000series_mot_8_gfx;
+27: sw_tk_hb_13000series_mot_9_gfx;
+30: sw_tk_hb_13000series_mot_10_gfx;
+default: sw_tk_hb_13000series_def_gfx;
+}
+//capacity-changer
+switch(FEAT_TRAINS, SELF, sw_tk_hb_13000series_def_capacity,position_in_articulated_veh){
+    0: 1;
+    1: 149+param_capacity_mod;
+    2: 1;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_13000series_end_capacity,position_in_consist_from_end){
+    0: 1;
+    1: 138+param_capacity_mod;
+    2: 1;
+    default: sw_tk_hb_13000series_def_capacity;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_13000series_main_capacity,position_in_consist){
+    0: 1;
+    1: 138+param_capacity_mod;
+    2: 1;
+    default: sw_tk_hb_13000series_end_capacity;
+}
+//attachable vehicles
+switch(FEAT_TRAINS, SELF, tk_hb_13000series_attach_vehid, vehicle_type_id) {
+  tk_hb_13000series: return CB_RESULT_ATTACH_ALLOW;
+  mu_car: return CB_RESULT_ATTACH_ALLOW;
+  return string(STR_attach);
+}
+
 
 
 item(FEAT_TRAINS, tk_hb_13000series) {
@@ -45,7 +96,7 @@ item(FEAT_TRAINS, tk_hb_13000series) {
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 30;
 
-        cargo_capacity: 49+param_capacity_mod;
+        cargo_capacity: 141/3;
         loading_speed: param_loading_4D;
         cost_factor: 57;
         running_cost_factor: 89;
@@ -53,7 +104,7 @@ item(FEAT_TRAINS, tk_hb_13000series) {
         speed: 110 km/h;
         track_type: TR_1067;
         power: 410 kW;
-        weight: 70 ton;
+        weight: 35 ton;
 
         climates_available: ALL_CLIMATES;
         ai_special_flag: AI_FLAG_PASSENGER;
@@ -74,21 +125,22 @@ item(FEAT_TRAINS, tk_hb_13000series) {
         bitmask_vehicle_info: 0;
     }
 	graphics {
-        default: tk_hb_13000series_main_back;
-        articulated_part: tk_hb_13000series_articulated_part;
+        default: sw_tk_hb_13000series_main_gfx;
+        articulated_part: sw_tk_hb_13000series_articulated_part;
         purchase: tk_hb_13000series_purchase;
         can_attach_wagon: tk_hb_13000series_attach_vehid;
+        start_stop: sw_stop_start_4;
         additional_text: return string(tk_hb_13000series_DESC);
         length: sw_length_2_8_2;
     }
     livery_override(mu_car){
-        default:                      tk_hb_13000series_mains;
-        cargo_capacity:               40;
+        default:                      sw_tk_hb_13000series_main_gfx;
+        cargo_capacity:               sw_tk_hb_13000series_main_capacity;
         loading_speed:                param_loading_4D;
-        //articulated_part: sw_mucar_articulated_part;
+        articulated_part: sw_mucar_articulated_part;
         //cargo_subtype_text:           sw_6340_subtypetext_mucar;
-        power: 120;
-        weight: 23;
-        length: 7;
+        power: 550;
+        weight: 34;
+        length: sw_length_2_8_2;
       }
 }
