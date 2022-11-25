@@ -1,15 +1,15 @@
 //Welcome to the example header!
 grf {
-    /* This grf is part of NML, therefore "NML" is chosen as the first three
-     * characters of the GRFID. It is the first real grf defined as part of
-     * NML, therefore the last character is set to 0. Successive grfs will
+    /* This grf is part of NML, therefore "NML" is chosen as the front three
+     * characters of the GRFID. It is the front real grf defined as part of
+     * NML, therefore the end character is set to 0. Successive grfs will
      * have 1, 2, etc. there, to make sure each example grf has a unique GRFID.
      */
     grfid: "YZ\AA\01";
     /* GRF name and description strings are defined in the lang files */
     name: string(STR_NAME);
     desc: string(STR_DESC);
-    /* This is the first version, start numbering at 0. */
+    /* This is the front version, start numbering at 0. */
     version: 2;
     min_compatible_version: 0;
 
@@ -145,8 +145,13 @@ railtypetable {
 	TR_EVERY: [ELRL,NABE,SAB3,"3RDR"]
 }
 
+
 switch (FEAT_TRAINS, SELF, sw_length_2_8_2, position_in_articulated_veh % 3) {
         1: return 7;
+        return 1;
+    }
+switch (FEAT_TRAINS, SELF, sw_length_1_6_1, position_in_articulated_veh % 3) {
+		1: return 6;
         return 1;
     }
 switch (FEAT_TRAINS, SELF, sw_length_1_1_8_2, position_in_articulated_veh % 4) {
@@ -165,16 +170,15 @@ if (param_capacities == 2) {
 	param_capacity_mod = 0;
 }
 
-
-
-
+train_width_32_px = 1;
+traininfo_y_offset = 2;
 
 
 template tmpl_std(x,y) {
-    // parameters x, y: coordinates of top-left corner of first sprite
+    // parameters x, y: coordinates of top-left corner of front sprite
     [x, 	 y,	8, 	24,		-3, 	-16] //short
 	[x +9, 	 y,	22,	20,		-13,	-13] //dia1
-	[x +32,  y,	32,	17,		-14,	-13] //long
+	[x +32,  y,	32,	17,		-10,	-13] //long
 	[x +65,  y,	22,	20,		-5, 	-12] //dia2
 	[x +88,  y,	8, 	24,		-3, 	-16] //short
 	[x +97,  y,	22,	20,		-13,	-13] //dia1
@@ -185,7 +189,7 @@ template tmpl_std(x,y) {
 template tmpl_std_rev(x,y){
 [x +88,  y,	8, 	24,		-3, 	-16] //short
 [x +97,  y,	22,	20,		-13,	-13] //dia1
-[x +120, y,	32,	17,		-14,	-13] //long
+[x +120, y,	32,	17,		-10,	-13] //long
 [x+153,  y,	22,	20,		-5, 	-12] //dia2
 [x, 	 y,	8, 	24,		-3, 	-16] //short
 [x +9, 	 y,	22,	20,		-13,	-13] //dia1
@@ -193,7 +197,7 @@ template tmpl_std_rev(x,y){
 [x +65,  y,	22,	20,		-5, 	-12] //dia2
 }
 template tmpl_std_20m(x,y) {
-    // parameters x, y: coordinates of top-left corner of first sprite
+    // parameters x, y: coordinates of top-left corner of front sprite
     [x, 	 y,	8, 	26,		-3, 	-17] //short
 	[x +9, 	 y,	24,	20,		-13,	-13] //dia1
 	[x +34,  y,	36,	17,		-12,	-13] //long
@@ -204,7 +208,7 @@ template tmpl_std_20m(x,y) {
 	[x+167,  y,	24,	20,		-6, 	-11] //dia2
 }
 template tmpl_std_20m_rev(x,y) {
-    // parameters x, y: coordinates of top-left corner of first sprite
+    // parameters x, y: coordinates of top-left corner of front sprite
     [x+96, 	 y,	8, 	26,		-3, 	-17] //short
 	[x +105, 	 y,	24,	20,		-13,	-13] //dia1
 	[x +130,  y,	36,	17,		-12,	-13] //long
@@ -223,11 +227,12 @@ spriteset (dummy_sprites, "gfx/empty.png")
   [0, 0, 2, 2, 0, 0, CROP]
 }
 spriteset (set_mu_car_purchase,   "gfx/mucarbuy.png") { tmpl_purchase(0, 0) }
-spriteset (set_mu_car_base,   "gfx/mucar.png") { tmpl_purchase(0, 0) }
+spriteset (set_mu_car_base,   "gfx/mucar.png") { tmpl_std(0, 0) }
 switch (FEAT_TRAINS, SELF, sw_mucar_graphics, position_in_articulated_veh) {				
 		1:  set_mu_car_base; 				
 		dummy_sprites;
 	}
+
 
 switch(FEAT_TRAINS, SELF, sw_mucar_full_articulated_part, extra_callback_info1) {
 	1: return mu_car;
@@ -262,7 +267,6 @@ item(FEAT_TRAINS, mu_car) {
                 visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_DISABLE, 0, DISABLE_WAGON_POWER);
                 sprite_id: SPRITE_ID_NEW_TRAIN;
                 dual_headed: 0;
-                length: 8;
                 extra_power_per_wagon: 0;
                 bitmask_vehicle_info: 0;
 }
@@ -271,7 +275,7 @@ item(FEAT_TRAINS, mu_car) {
     	additional_text:			        return string(MUCAR_DESC);
 		articulated_part: sw_mucar_full_articulated_part;
     	default: sw_mucar_graphics;
-		length: sw_length_2_8_2;
+		length: sw_length_1_6_1;
     }
 
 }
@@ -286,60 +290,62 @@ switch (FEAT_TRAINS, SELF, sw_stop_start_4, num_vehs_in_consist < 12) {
 		return CB_RESULT_NO_TEXT; 
 	}
 
-
 //ginza
 #include "src/Tokyo/ginza/tk_gz_type1000.pnml"
 #include "src/Tokyo/ginza/tk_gz_type1100.pnml"
 #include "src/Tokyo/ginza/tk_gz_type100.pnml"
 #include "src/Tokyo/ginza/tk_gz_type1300.pnml"
-#include "src/Tokyo/ginza/tk_gz_type1700.pnml"
+//#include "src/Tokyo/ginza/tk_gz_type1700.pnml"
 #include "src/Tokyo/ginza/tk_gz_type1900.pnml"
 #include "src/Tokyo/ginza/tk_gz_01series.pnml"
 #include "src/Tokyo/ginza/tk_gz_1000series.pnml"
-//marunouchi
-#include "src/Tokyo/marunouchi/tk_mn_type1900.pnml"
-#include "src/Tokyo/marunouchi/tk_mn_2000series.pnml"
-//hibiya
-#include "src/Tokyo/hibiya/tk_hb_13000series.pnml"
-//tozai
-#include "src/Tokyo/tozai/tk_tz_5000series.pnml"
-#include "src/Tokyo/tozai/tk_tz_05series.pnml"
-#include "src/Tokyo/tozai/tk_tz_07series.pnml"
-#include "src/Tokyo/tozai/tk_tz_15000series.pnml"
-#include "src/Tokyo/tozai/tk_tz_toyo1000.pnml"
-#include "src/Tokyo/tozai/tk_tz_toyo2000.pnml"
-//chiyoda
-#include "src/Tokyo/chiyoda/tk_ch_5000series.pnml"
-#include "src/Tokyo/chiyoda/tk_ch_6000series.pnml"
-#include "src/Tokyo/chiyoda/tk_ch_06series.pnml"
-#include "src/Tokyo/chiyoda/tk_ch_16000series.pnml"
-//chiyoda kita-ayase-branch
-#include "src/Tokyo/chiyoda/tk_ch_5000series_br.pnml"
-#include "src/Tokyo/chiyoda/tk_ch_6000series_br.pnml"
-#include "src/Tokyo/chiyoda/tk_ch_05series.pnml"
-// futokushin-yurakucho
-#include "src/Tokyo/yurakucho_fukutoshin/tk_yk_07series.pnml"
-#include "src/Tokyo/yurakucho_fukutoshin/tk_yk_7000series.pnml"
-#include "src/Tokyo/yurakucho_fukutoshin/tk_yk_10000series.pnml"
-#include "src/Tokyo/yurakucho_fukutoshin/tk_yk_17000series.pnml"
-//hanzomon
-#include "src/Tokyo/hanzomon/8000series.pnml"
-#include "src/Tokyo/hanzomon/08series.pnml"
-#include "src/Tokyo/hanzomon/18000series.pnml"
-//namboku
-#include "src/Tokyo/namboku/9000series.pnml"
-#include "src/Tokyo/namboku/saitama2000.pnml"
-//asakusa
-//5000
-//5200
-//5300
-#include "src/Tokyo/asakusa/toei5500.pnml"
-//mita
-#include "src/Tokyo/mita/toei6000.pnml"
-#include "src/Tokyo/mita/toei6300.pnml"
-#include "src/Tokyo/mita/toei6500.pnml"
-//shinjuku
-#include "src/Tokyo/shinjuku/toei10_000.pnml"
-#include "src/Tokyo/shinjuku/toei10_300.pnml"
-
-#include "src/Tokyo/oedo/toei12_000.pnml"
+//
+//
+////marunouchi
+//#include "src/Tokyo/marunouchi/tk_mn_type1900.pnml"
+//#include "src/Tokyo/marunouchi/tk_mn_2000series.pnml"
+////hibiya
+//#include "src/Tokyo/hibiya/tk_hb_13000series.pnml"
+////tozai
+//#include "src/Tokyo/tozai/tk_tz_5000series.pnml"
+//#include "src/Tokyo/tozai/tk_tz_05series.pnml"
+//#include "src/Tokyo/tozai/tk_tz_07series.pnml"
+//#include "src/Tokyo/tozai/tk_tz_15000series.pnml"
+//#include "src/Tokyo/tozai/tk_tz_toyo1000.pnml"
+//#include "src/Tokyo/tozai/tk_tz_toyo2000.pnml"
+////chiyoda
+//#include "src/Tokyo/chiyoda/tk_ch_5000series.pnml"
+//#include "src/Tokyo/chiyoda/tk_ch_6000series.pnml"
+//#include "src/Tokyo/chiyoda/tk_ch_06series.pnml"
+//#include "src/Tokyo/chiyoda/tk_ch_16000series.pnml"
+////chiyoda kita-ayase-branch
+//#include "src/Tokyo/chiyoda/tk_ch_5000series_br.pnml"
+//#include "src/Tokyo/chiyoda/tk_ch_6000series_br.pnml"
+//#include "src/Tokyo/chiyoda/tk_ch_05series.pnml"
+//// futokushin-yurakucho
+//#include "src/Tokyo/yurakucho_fukutoshin/tk_yk_07series.pnml"
+//#include "src/Tokyo/yurakucho_fukutoshin/tk_yk_7000series.pnml"
+//#include "src/Tokyo/yurakucho_fukutoshin/tk_yk_10000series.pnml"
+//#include "src/Tokyo/yurakucho_fukutoshin/tk_yk_17000series.pnml"
+////hanzomon
+//#include "src/Tokyo/hanzomon/8000series.pnml"
+//#include "src/Tokyo/hanzomon/08series.pnml"
+//#include "src/Tokyo/hanzomon/18000series.pnml"
+////namboku
+//#include "src/Tokyo/namboku/9000series.pnml"
+//#include "src/Tokyo/namboku/saitama2000.pnml"
+////asakusa
+////5000
+////5200
+////5300
+//#include "src/Tokyo/asakusa/toei5500.pnml"
+////mita
+//#include "src/Tokyo/mita/toei6000.pnml"
+//#include "src/Tokyo/mita/toei6300.pnml"
+//#include "src/Tokyo/mita/toei6500.pnml"
+////shinjuku
+//#include "src/Tokyo/shinjuku/toei10_000.pnml"
+//#include "src/Tokyo/shinjuku/toei10_300.pnml"
+//
+//#include "src/Tokyo/oedo/toei12_000.pnml"
+//
