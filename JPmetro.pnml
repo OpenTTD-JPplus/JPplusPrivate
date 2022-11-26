@@ -132,8 +132,9 @@ if (param_run == 1) { RUNNING_COST_MOD = 3; }
 if (param_run == 2) { RUNNING_COST_MOD = 4; }
 
 basecost {
-	PR_BUILD_VEHICLE_TRAIN: PURCHASE_COST_MOD;
-	PR_RUNNING_TRAIN_ELECTRIC: RUNNING_COST_MOD;
+	PR_BUILD_VEHICLE_TRAIN: param_buy-2;
+	PR_BUILD_VEHICLE_WAGON: param_buy +3;
+	PR_RUNNING_TRAIN_ELECTRIC: param_run;
 }
 
 railtypetable {
@@ -284,7 +285,14 @@ switch(FEAT_TRAINS, SELF, sw_mucar_articulated_part, extra_callback_info1) {
     2: return mu_car;
     return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
 }
-
+switch (FEAT_TRAINS, SELF, sw_stop_start_2, num_vehs_in_consist < 9) {				
+		1:  return string(STR_FEW_CARS_2_ERROR); 				
+		return CB_RESULT_NO_TEXT; 
+	}
+switch (FEAT_TRAINS, SELF, sw_stop_start_3, num_vehs_in_consist < 9) {				
+		1:  return string(STR_FEW_CARS_3_ERROR); 				
+		return CB_RESULT_NO_TEXT; 
+	}
 switch (FEAT_TRAINS, SELF, sw_stop_start_4, num_vehs_in_consist < 12) {				
 		1:  return string(STR_FEW_CARS_4_ERROR); 				
 		return CB_RESULT_NO_TEXT; 
@@ -295,15 +303,15 @@ switch (FEAT_TRAINS, SELF, sw_stop_start_4, num_vehs_in_consist < 12) {
 #include "src/Tokyo/ginza/tk_gz_type1100.pnml"
 #include "src/Tokyo/ginza/tk_gz_type100.pnml"
 #include "src/Tokyo/ginza/tk_gz_type1300.pnml"
-//#include "src/Tokyo/ginza/tk_gz_type1700.pnml"
 #include "src/Tokyo/ginza/tk_gz_type1900.pnml"
 #include "src/Tokyo/ginza/tk_gz_01series.pnml"
 #include "src/Tokyo/ginza/tk_gz_1000series.pnml"
-//
-//
+
 //marunouchi
-#include "src/Tokyo/marunouchi/tk_mn_type1900.pnml"
-#include "src/Tokyo/marunouchi/tk_mn_2000series.pnml"
+#include "src/Tokyo/marunouchi/type1900.pnml"
+#include "src/Tokyo/marunouchi/eidan500.pnml"
+#include "src/Tokyo/marunouchi/eidan02.pnml"
+#include "src/Tokyo/marunouchi/2000series.pnml"
 ////hibiya
 //#include "src/Tokyo/hibiya/tk_hb_13000series.pnml"
 ////tozai
