@@ -101,6 +101,7 @@ if (param_capacities == 0) {
 	param_loading_2D = 10; // 2 doors //
 	param_loading_3D = 20; // 3 doors //
 	param_loading_4D = 40; // 4 doors //
+	param_loading_5D = 55; // 5 doors //
 }
 
 if (param_capacities == 1) {
@@ -108,6 +109,7 @@ if (param_capacities == 1) {
 	param_loading_2D = 20; // 2 doors //
 	param_loading_3D = 30; // 3 doors //
 	param_loading_4D = 50; // 4 doors //
+	param_loading_5D = 65; // 5 doors //
 }
 
 if (param_capacities == 2) {
@@ -115,6 +117,7 @@ if (param_capacities == 2) {
 	param_loading_2D = 30; // 2 doors //
 	param_loading_3D = 40; // 3 doors //
 	param_loading_4D = 60; // 4 doors //
+	param_loading_5D = 75; // 5 doors //
 }
 
 if (param_capacities == 3) {
@@ -122,6 +125,7 @@ if (param_capacities == 3) {
 	param_loading_2D = 40; // 2 doors //
 	param_loading_3D = 50; // 3 doors //
 	param_loading_4D = 80; // 4 doors //
+	param_loading_5D = 95; // 5 doors //
 }
 
 if (param_buy == 0) { PURCHASE_COST_MOD = -1; }
@@ -286,7 +290,7 @@ switch(FEAT_TRAINS, SELF, sw_mucar_articulated_part, extra_callback_info1) {
     2: return mu_car;
     return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
 }
-switch (FEAT_TRAINS, SELF, sw_stop_start_2, num_vehs_in_consist < 9) {				
+switch (FEAT_TRAINS, SELF, sw_stop_start_2, num_vehs_in_consist < 6) {				
 		1:  return string(STR_FEW_CARS_2_ERROR); 				
 		return CB_RESULT_NO_TEXT; 
 	}
@@ -378,8 +382,8 @@ item(FEAT_TRAINS, tk_gz_t1000) {
 
         cargo_capacity: (80/3+param_capacity_mod);
         loading_speed: param_loading_3D;
-        cost_factor: 4;
-        running_cost_factor: 9;
+        cost_factor: 18;
+        running_cost_factor: 48;
 
         speed: 55 km/h;
         track_type: TR_1435_M;
@@ -423,7 +427,7 @@ item(FEAT_TRAINS, tk_gz_t1000) {
         length: sw_length_1_6_1;
       }
 }
-# 1 "JPmetro.pnml" 302
+# 1 "JPmetro.pnml" 306
 # 1 "src/Tokyo/ginza/tk_gz_type1100.pnml" 1
 spriteset (tk_gz_type1100_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
 spriteset (tk_gz_type1100_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
@@ -468,8 +472,8 @@ item(FEAT_TRAINS, tk_gz_t1100) {
 
         cargo_capacity: 80/3+param_capacity_mod;
         loading_speed: param_loading_3D;
-        cost_factor: 4;
-        running_cost_factor: 9;
+        cost_factor: 19;
+        running_cost_factor: 49;
 
         speed: 55 km/h;
         track_type: TR_1435_M;
@@ -512,7 +516,7 @@ item(FEAT_TRAINS, tk_gz_t1100) {
         length: sw_length_1_6_1;
       }
 }
-# 1 "JPmetro.pnml" 302
+# 1 "JPmetro.pnml" 306
 # 1 "src/Tokyo/ginza/tk_gz_type100.pnml" 1
 spriteset (tk_gz_type100_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
 alternative_sprites(tk_gz_type100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type100/type100_purchase.png"){ tmpl_purchase(0, 0) }
@@ -585,8 +589,8 @@ item(FEAT_TRAINS, tk_gz_t100) {
 
         cargo_capacity: 70/3+param_capacity_mod; //change
         loading_speed: param_loading_3D; //change
-        cost_factor: 4; //change
-        running_cost_factor: 9; //change
+        cost_factor: 17; //change
+        running_cost_factor: 47; //change
 
         speed: 55 km/h;
         track_type: TR_1435_M;
@@ -630,7 +634,7 @@ item(FEAT_TRAINS, tk_gz_t100) {
         length: sw_length_1_6_1;
       }
 }
-# 1 "JPmetro.pnml" 302
+# 1 "JPmetro.pnml" 306
 # 1 "src/Tokyo/ginza/tk_gz_type1300.pnml" 1
 spriteset (tk_gz_type1300_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
 spriteset (tk_gz_type1300_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
@@ -755,8 +759,8 @@ item(FEAT_TRAINS, tk_gz_t1300) {
 
         cargo_capacity: 98/3+param_capacity_mod;
         loading_speed: param_loading_3D;
-        cost_factor: 4;
-        running_cost_factor: 9;
+        cost_factor: 20;
+        running_cost_factor: 50;
 
         speed: 65 km/h;
         track_type: TR_1435_M;
@@ -800,7 +804,7 @@ item(FEAT_TRAINS, tk_gz_t1300) {
         length: sw_length_1_6_1;
       }
 }
-# 1 "JPmetro.pnml" 302
+# 1 "JPmetro.pnml" 306
 # 1 "src/Tokyo/ginza/tk_gz_type1900.pnml" 1
 spriteset (tk_gz_type1900_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
 spriteset (tk_gz_type1900_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
@@ -875,12 +879,12 @@ item(FEAT_TRAINS, tk_gz_t1900) {
         introduction_date: date(1959, 1, 1);
         model_life: 29;
         vehicle_life: 34;
-        reliability_decay:22;
+        reliability_decay:23;
 
         cargo_capacity: 100/3+param_capacity_mod;
         loading_speed: param_loading_3D;
-        cost_factor: 28;
-        running_cost_factor: 54;
+        cost_factor: 20;
+        running_cost_factor: 50;
 
         speed: 65 km/h;
         track_type: TR_1435_M;
@@ -924,7 +928,7 @@ item(FEAT_TRAINS, tk_gz_t1900) {
         length: sw_length_1_6_1;
       }
 }
-# 1 "JPmetro.pnml" 302
+# 1 "JPmetro.pnml" 306
 # 1 "src/Tokyo/ginza/tk_gz_01series.pnml" 1
 spriteset (tk_gz_01s_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
 spriteset (tk_gz_01s_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
@@ -984,12 +988,12 @@ item(FEAT_TRAINS, tk_gz_01s) {
         introduction_date: date(1983, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 30;
-        reliability_decay:22;
+        reliability_decay:21;
 
         cargo_capacity: 99/3+param_capacity_mod;
         loading_speed: param_loading_3D;
-        cost_factor: 36;
-        running_cost_factor: 56;
+        cost_factor: 19;
+        running_cost_factor: 49;
 
         speed: 75 km/h;
         track_type: TR_1435_M;
@@ -1034,7 +1038,7 @@ item(FEAT_TRAINS, tk_gz_01s) {
         length: sw_length_1_6_1;
       }
 }
-# 1 "JPmetro.pnml" 302
+# 1 "JPmetro.pnml" 306
 # 1 "src/Tokyo/ginza/tk_gz_1000series.pnml" 1
 spriteset (tk_gz_1000s_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
 spriteset (tk_gz_1000s_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
@@ -1098,8 +1102,8 @@ item(FEAT_TRAINS, tk_gz_1000s) {
 
         cargo_capacity: 93/3+param_capacity_mod;
         loading_speed: param_loading_3D;
-        cost_factor: 34;
-        running_cost_factor: 53;
+        cost_factor: 21;
+        running_cost_factor: 51;
 
         speed: 80 km/h;
         track_type: TR_1435_M;
@@ -1143,7 +1147,7 @@ item(FEAT_TRAINS, tk_gz_1000s) {
         length: sw_length_1_6_1;
       }
 }
-# 1 "JPmetro.pnml" 302
+# 1 "JPmetro.pnml" 306
 
 //marunouchi
 # 1 "src/Tokyo/marunouchi/type1900.pnml" 1
@@ -1188,7 +1192,7 @@ item(FEAT_TRAINS, tk_mn_t1900) {
         model_life: 21;
         vehicle_life: 24;
 
-        cargo_capacity: 98/3+param_capacity_mod;
+        cargo_capacity: 99/3+param_capacity_mod;
         loading_speed: param_loading_3D;
         cost_factor: 17;
         running_cost_factor: 47;
@@ -1238,7 +1242,7 @@ item(FEAT_TRAINS, tk_mn_t1900) {
 
 
 }
-# 1 "JPmetro.pnml" 302
+# 1 "JPmetro.pnml" 306
 # 1 "src/Tokyo/marunouchi/eidan500.pnml" 1
 spriteset (tk_mn_eidan500_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
 spriteset (tk_mn_eidan500_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
@@ -1346,7 +1350,7 @@ item(FEAT_TRAINS, eidan500) {
         length: sw_length_1_6_1;
       }
 }
-# 1 "JPmetro.pnml" 302
+# 1 "JPmetro.pnml" 306
 # 1 "src/Tokyo/marunouchi/eidan02.pnml" 1
 spriteset (tk_mn_eidan02_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
 spriteset (tk_mn_eidan02_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
@@ -1489,7 +1493,7 @@ item(FEAT_TRAINS, tk_mn_eidan02) {
         length: sw_length_1_6_1;
       }
 }
-# 1 "JPmetro.pnml" 302
+# 1 "JPmetro.pnml" 306
 # 1 "src/Tokyo/marunouchi/2000series.pnml" 1
 spriteset (tk_mn_2000s_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
 spriteset (tk_mn_2000s_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
@@ -1597,10 +1601,426 @@ item(FEAT_TRAINS, tk_mn_2000s) {
         length: sw_length_1_6_1;
       }
 }
-# 1 "JPmetro.pnml" 302
-////hibiya
+# 1 "JPmetro.pnml" 306
+
+//hibiya
+# 1 "src/Tokyo/hibiya/eidan3000.pnml" 1
+spriteset (tk_hb_eidan3000_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
+spriteset (tk_hb_eidan3000_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_hb_eidan3000_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_hb_eidan3000_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_hb_eidan3000_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_hb_eidan3000_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
+alternative_sprites(tk_hb_eidan3000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/hibiya/eidan3000/eidan3000_purchase.png"){ tmpl_purchase(0, 0) }
+alternative_sprites(tk_hb_eidan3000_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/hibiya/eidan3000/eidan3000.png"){ tmpl_std(0, 0) }
+alternative_sprites(tk_hb_eidan3000_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/hibiya/eidan3000/eidan3000.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(tk_hb_eidan3000_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/hibiya/eidan3000/eidan3000.png"){ tmpl_std(0, 50) }
+alternative_sprites(tk_hb_eidan3000_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/hibiya/eidan3000/eidan3000.png"){ tmpl_std_rev(0, 50) }
+alternative_sprites(tk_hb_eidan3000_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/hibiya/eidan3000/eidan3000.png"){ tmpl_std(0, 75) }
+
+switch (FEAT_TRAINS, SELF, sw_tk_hb_eidan3000_articulated_part, extra_callback_info1){
+0 .. 2: return tk_hb_eidan3000;
+}
+//setup
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan3000_wag_gfx,position_in_articulated_veh){
+    1: tk_hb_eidan3000_wag;
+    default: dummy_sprites;
+}
+//panto-placers
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan3000_mot_def_gfx,position_in_consist %9){
+7: tk_hb_eidan3000_mot;
+default: sw_tk_hb_eidan3000_wag_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan3000_mot_def_rev_gfx,position_in_consist_from_end %9){
+7: tk_hb_eidan3000_mot_rev;
+default: sw_tk_hb_eidan3000_wag_gfx;
+}
+switch(FEAT_TRAINS, PARENT, sw_tk_hb_eidan3000_mot_def_main_gfx,vehicle_is_reversed){
+    1: sw_tk_hb_eidan3000_mot_def_rev_gfx;
+    sw_tk_hb_eidan3000_mot_def_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan3000_mot_8_gfx,position_in_consist %12){
+    1: tk_hb_eidan3000_front;
+    4: tk_hb_eidan3000_wag;
+    7: tk_hb_eidan3000_wag;
+    10: tk_hb_eidan3000_end;
+    default: dummy_sprites;
+}
+
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan3000_end_gfx,position_in_consist_from_end){
+    1: tk_hb_eidan3000_end;
+    4: tk_hb_eidan3000_wag;
+    default: sw_tk_hb_eidan3000_mot_def_main_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan3000_front_gfx,position_in_consist){
+    1: tk_hb_eidan3000_front;
+    default: sw_tk_hb_eidan3000_end_gfx;
+}
+//main gfx 
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan3000_main_gfx,num_vehs_in_consist){
+12: sw_tk_hb_eidan3000_mot_8_gfx;
+24: sw_tk_hb_eidan3000_mot_8_gfx;
+36: sw_tk_hb_eidan3000_mot_8_gfx;
+48: sw_tk_hb_eidan3000_mot_8_gfx;
+default: sw_tk_hb_eidan3000_front_gfx;
+}
+//capacity-changer
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan3000_wag_capacity,position_in_articulated_veh){
+    0: 1;
+    1: 126+param_capacity_mod;
+    2: 1;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan3000_main_capacity,position_in_consist_from_end){
+    0: 1;
+    1: 118+param_capacity_mod;
+    2: 1;
+    default: sw_tk_hb_eidan3000_wag_capacity;
+}
+//attachable vehicles
+switch(FEAT_TRAINS, SELF, tk_hb_eidan3000_attach_vehid, vehicle_type_id) {
+  mu_car: return CB_RESULT_ATTACH_ALLOW;
+  return string(STR_attach);
+}
+
+
+item(FEAT_TRAINS, tk_hb_eidan3000) {
+    property {
+        name: string(STR_tk_hb_eidan3000_name);
+        introduction_date: date(1961, 1, 1);
+        model_life: 32;
+        vehicle_life: 33;
+
+        speed: 100 km/h;
+        track_type: TR_1067;
+        power: 300 kW;
+        weight: 33 ton;
+
+        cargo_capacity: 121/3;
+        loading_speed: param_loading_3D;
+
+        reliability_decay: 22;
+        cost_factor: 19;
+        running_cost_factor: 49;
+        
+        climates_available: ALL_CLIMATES;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_MU);
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: bitmask();
+        refit_cost: 0;
+        dual_headed: 0;
+        ai_engine_rank: 0;
+
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+        
+        tractive_effort_coefficient: 0.2;
+        air_drag_coefficient: 0.07;
+        bitmask_vehicle_info: 0;
+    }
+	graphics {
+        default: sw_tk_hb_eidan3000_main_gfx;
+        articulated_part: sw_tk_hb_eidan3000_articulated_part;
+        purchase: tk_hb_eidan3000_purchase;
+        can_attach_wagon: tk_hb_eidan3000_attach_vehid;
+        additional_text: return string(tk_hb_eidan3000_DESC);
+        length: sw_length_1_6_1;
+        start_stop: sw_stop_start_2;
+    }
+    livery_override(mu_car){
+        default:                      sw_tk_hb_eidan3000_main_gfx;
+        cargo_capacity:               sw_tk_hb_eidan3000_main_capacity;
+        loading_speed:                param_loading_3D;
+        articulated_part: sw_mucar_articulated_part;
+        //cargo_subtype_text:           sw_6340_subtypetext_mucar;
+        power: 403;
+        weight: 31;
+        length: sw_length_1_6_1;
+      }
+}
+# 1 "JPmetro.pnml" 306
+# 1 "src/Tokyo/hibiya/eidan03.pnml" 1
+spriteset (tk_hb_eidan03_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
+spriteset (tk_hb_eidan03_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_hb_eidan03_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_hb_eidan03_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_hb_eidan03_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
+alternative_sprites(tk_hb_eidan03_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/hibiya/eidan03/eidan03_purchase.png"){ tmpl_purchase(0, 0) }
+alternative_sprites(tk_hb_eidan03_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/hibiya/eidan03/eidan03.png"){ tmpl_std(0, 0) }
+alternative_sprites(tk_hb_eidan03_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/hibiya/eidan03/eidan03.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(tk_hb_eidan03_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/hibiya/eidan03/eidan03.png"){ tmpl_std(0, 50) }
+alternative_sprites(tk_hb_eidan03_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/hibiya/eidan03/eidan03.png"){ tmpl_std(0, 75) }
+spriteset (tk_hb_eidan03_1_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_hb_eidan03_1_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_hb_eidan03_1_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_hb_eidan03_1_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
+alternative_sprites(tk_hb_eidan03_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/hibiya/eidan03/eidan03_5d.png"){ tmpl_std(0, 0) }
+alternative_sprites(tk_hb_eidan03_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/hibiya/eidan03/eidan03_5d.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(tk_hb_eidan03_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/hibiya/eidan03/eidan03_5d.png"){ tmpl_std(0, 50) }
+alternative_sprites(tk_hb_eidan03_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/hibiya/eidan03/eidan03_5d.png"){ tmpl_std(0, 75) }
+
+
+
+
+
+switch (FEAT_TRAINS, SELF, sw_tk_hb_eidan03_articulated_part, extra_callback_info1){
+0 .. 2: return tk_hb_eidan03;
+}
+//livery 1
+//setup
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_wag_gfx,position_in_articulated_veh){
+    1: tk_hb_eidan03_wag;
+    default: dummy_sprites;
+}
+//panto-placers
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_mot_def_gfx,position_in_consist %9){
+4: tk_hb_eidan03_mot;
+default: sw_tk_hb_eidan03_wag_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_mot_def_rev_gfx,position_in_consist_from_end %9){
+4: tk_hb_eidan03_mot;
+default: sw_tk_hb_eidan03_wag_gfx;
+}
+switch(FEAT_TRAINS, PARENT, sw_tk_hb_eidan03_mot_def_main_gfx,vehicle_is_reversed){
+    1: sw_tk_hb_eidan03_mot_def_rev_gfx;
+    sw_tk_hb_eidan03_mot_def_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_mot_8_gfx,position_in_consist %24){
+    1: tk_hb_eidan03_front;
+    4: tk_hb_eidan03_mot;
+    7: tk_hb_eidan03_wag;
+    10: tk_hb_eidan03_wag;
+    13: tk_hb_eidan03_wag;
+    16: tk_hb_eidan03_mot;
+    19: tk_hb_eidan03_wag;
+    22: tk_hb_eidan03_end;
+    default: dummy_sprites;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_mot_8_rev_gfx,position_in_consist %24){
+    1: tk_hb_eidan03_front;
+    4: tk_hb_eidan03_wag;
+    7: tk_hb_eidan03_mot;
+    10: tk_hb_eidan03_wag;
+    13: tk_hb_eidan03_wag;
+    16: tk_hb_eidan03_wag;
+    19: tk_hb_eidan03_mot;
+    22: tk_hb_eidan03_end;
+    default: dummy_sprites;
+}
+switch(FEAT_TRAINS, PARENT, sw_tk_hb_eidan03_mot_8_main_gfx,vehicle_is_reversed){
+    1: sw_tk_hb_eidan03_mot_8_rev_gfx;
+    sw_tk_hb_eidan03_mot_8_gfx;
+}
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_end_gfx,position_in_consist_from_end){
+    1: tk_hb_eidan03_end;
+    default: sw_tk_hb_eidan03_mot_def_main_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_front_gfx,position_in_consist){
+    1: tk_hb_eidan03_front;
+    default: sw_tk_hb_eidan03_end_gfx;
+}
+//main gfx 
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_livery_1,num_vehs_in_consist){
+24: sw_tk_hb_eidan03_mot_8_main_gfx;
+48: sw_tk_hb_eidan03_mot_8_main_gfx;
+default: sw_tk_hb_eidan03_front_gfx;
+}
+//livery 2
+//special checkers
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_1_wag_pos_check_0_gfx,position_in_consist_from_end){
+4: tk_hb_eidan03_1_mot;
+tk_hb_eidan03_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_1_wag_pos_check_gfx,position_in_consist){
+4: tk_hb_eidan03_1_mot;
+sw_tk_hb_eidan03_1_wag_pos_check_0_gfx;
+}
+//setup
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_1_wag_gfx,position_in_articulated_veh){
+    1: sw_tk_hb_eidan03_1_wag_pos_check_gfx;
+    default: dummy_sprites;
+}
+//panto-placers
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_1_mot_pos_check_0_gfx,position_in_consist_from_end){
+4: tk_hb_eidan03_1_mot;
+tk_hb_eidan03_mot;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_1_mot_pos_check_gfx,position_in_consist){
+4: tk_hb_eidan03_1_mot;
+sw_tk_hb_eidan03_1_mot_pos_check_0_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_1_mot_pos_check_0_rev_gfx,position_in_consist_from_end){
+4: tk_hb_eidan03_1_mot;
+tk_hb_eidan03_mot;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_1_mot_pos_check_rev_gfx,position_in_consist){
+4: tk_hb_eidan03_1_mot;
+sw_tk_hb_eidan03_1_mot_pos_check_0_rev_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_1_mot_def_gfx,position_in_consist %9){
+4: sw_tk_hb_eidan03_1_mot_pos_check_gfx;
+default: sw_tk_hb_eidan03_1_wag_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_1_mot_def_rev_gfx,position_in_consist_from_end %9){
+4: sw_tk_hb_eidan03_1_mot_pos_check_rev_gfx;
+default: sw_tk_hb_eidan03_1_wag_gfx;
+}
+switch(FEAT_TRAINS, PARENT, sw_tk_hb_eidan03_1_mot_def_main_gfx,vehicle_is_reversed){
+    1: sw_tk_hb_eidan03_1_mot_def_rev_gfx;
+    sw_tk_hb_eidan03_1_mot_def_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_1_mot_8_gfx,position_in_consist %24){
+    1: tk_hb_eidan03_1_front;
+    4: tk_hb_eidan03_1_mot;
+    7: tk_hb_eidan03_wag;
+    10: tk_hb_eidan03_wag;
+    13: tk_hb_eidan03_wag;
+    16: tk_hb_eidan03_wag;
+    19: tk_hb_eidan03_1_mot;
+    22: tk_hb_eidan03_1_end;
+    default: dummy_sprites;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_1_mot_8_rev_gfx,position_in_consist %24){
+    1: tk_hb_eidan03_1_front;
+    4: tk_hb_eidan03_1_wag;
+    7: tk_hb_eidan03_mot;
+    10: tk_hb_eidan03_wag;
+    13: tk_hb_eidan03_wag;
+    16: tk_hb_eidan03_wag;
+    19: tk_hb_eidan03_1_mot;
+    22: tk_hb_eidan03_1_end;
+    default: dummy_sprites;
+}
+switch(FEAT_TRAINS, PARENT, sw_tk_hb_eidan03_1_mot_8_main_gfx,vehicle_is_reversed){
+    1: sw_tk_hb_eidan03_1_mot_8_rev_gfx;
+    sw_tk_hb_eidan03_1_mot_8_gfx;
+}
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_1_end_gfx,position_in_consist_from_end){
+    1: tk_hb_eidan03_1_end;
+    default: sw_tk_hb_eidan03_1_mot_def_main_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_1_front_gfx,position_in_consist){
+    1: tk_hb_eidan03_1_front;
+    default: sw_tk_hb_eidan03_1_end_gfx;
+}
+//main gfx 
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_livery_2,num_vehs_in_consist){
+24: sw_tk_hb_eidan03_1_mot_8_main_gfx;
+48: sw_tk_hb_eidan03_1_mot_8_main_gfx;
+default: sw_tk_hb_eidan03_1_front_gfx;
+}
+/*-----------------------*/
+//livery randomizer 
+random_switch(FEAT_TRAINS, PARENT, sw_tk_hb_eidan03_livery_0){
+    3: sw_tk_hb_eidan03_livery_1;
+    1: sw_tk_hb_eidan03_livery_2;
+}
+switch(FEAT_TRAINS, SELF, tk_hb_eidan03_date, build_year>1990){
+  1: sw_tk_hb_eidan03_livery_0;
+  default: sw_tk_hb_eidan03_livery_1;
+}
+//livery selector 
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_lv, cargo_subtype){
+    0: sw_tk_hb_eidan03_livery_0;
+    1: sw_tk_hb_eidan03_livery_1;
+    2: sw_tk_hb_eidan03_livery_2;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_lv_desc, cargo_subtype){
+    0: string(LV_randomized);
+    1: string(LV_tk_hb_eidan03_1);
+    2: string(LV_tk_hb_eidan03_2);
+}
+//loading speed
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_loading, cargo_subtype){
+    0: param_loading_3D;
+    1: param_loading_3D;
+    2: param_loading_5D;
+}
+//capacity-changer
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_wag_capacity,position_in_articulated_veh){
+    0: 1;
+    1: 136+param_capacity_mod;
+    2: 1;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_main_capacity,position_in_consist_from_end){
+    0: 1;
+    1: 130+param_capacity_mod;
+    2: 1;
+    default: sw_tk_hb_eidan03_wag_capacity;
+}
+//attachable vehicles
+switch(FEAT_TRAINS, SELF, tk_hb_eidan03_attach_vehid, vehicle_type_id) {
+  mu_car: return CB_RESULT_ATTACH_ALLOW;
+  return string(STR_attach);
+}
+
+
+item(FEAT_TRAINS, tk_hb_eidan03) {
+    property {
+        name: string(STR_tk_hb_eidan03_name);
+        introduction_date: date(1988, 1, 1);
+        model_life: 32;
+        vehicle_life: 33;
+
+        speed: 110 km/h;
+        track_type: TR_1067;
+        power: 300 kW;
+        weight: 33 ton;
+
+        cargo_capacity: 132/3;
+        loading_speed: param_loading_3D;
+
+        reliability_decay: 22;
+        cost_factor: 19;
+        running_cost_factor: 49;
+        
+        climates_available: ALL_CLIMATES;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_MU);
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: bitmask();
+        refit_cost: 0;
+        dual_headed: 0;
+        ai_engine_rank: 0;
+
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+        
+        tractive_effort_coefficient: 0.2;
+        air_drag_coefficient: 0.07;
+        bitmask_vehicle_info: 0;
+    }
+	graphics {
+        default: sw_tk_hb_eidan03_lv;
+        articulated_part: sw_tk_hb_eidan03_articulated_part;
+        purchase: tk_hb_eidan03_purchase;
+        can_attach_wagon: tk_hb_eidan03_attach_vehid;
+        additional_text: return string(tk_hb_eidan03_DESC);
+        cargo_subtype_text:           sw_tk_hb_eidan03_lv_desc;
+        length: sw_length_1_6_1;
+        start_stop: sw_stop_start_2;
+    }
+    livery_override(mu_car){
+        default:                      sw_tk_hb_eidan03_lv;
+        cargo_capacity:               sw_tk_hb_eidan03_main_capacity;
+        loading_speed:                sw_tk_hb_eidan03_loading;
+        articulated_part: sw_mucar_articulated_part;
+        
+        power: 403;
+        weight: 31;
+        length: sw_length_1_6_1;
+      }
+}
+# 1 "JPmetro.pnml" 306
 //#include "src/Tokyo/hibiya/tk_hb_13000series.pnml"
-////tozai
+//tozai
 //#include "src/Tokyo/tozai/tk_tz_5000series.pnml"
 //#include "src/Tokyo/tozai/tk_tz_05series.pnml"
 //#include "src/Tokyo/tozai/tk_tz_07series.pnml"
