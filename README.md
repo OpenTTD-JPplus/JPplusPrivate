@@ -22,11 +22,16 @@
 | | Train |
 | --- | --- |
 |![Tokyo Metro Type 1900](/gfx/Tokyo/marunouchi/type1900/type1900_purchase.png)| Tokyo Metro Type 1900 |
+|![Eidan type 500](/gfx/Tokyo/marunouchi/eidan500/eidan500_purchase.png)| Eidan type 500 |
+|![Eidan 02 series](/gfx/Tokyo/marunouchi/eidan02/eidan02_purchase.png)| Eidan 02 series |
 |![Tokyo Metro 2000 series](/gfx/Tokyo/marunouchi/2000series/2000series_purchase.png)| Tokyo Metro 2000 series |
+
 
 ## Hibiya Line
 | | Train |
 | --- | --- |
+|![Eidan 3000 series](/gfx/Tokyo/hibiya/eidan3000/eidan3000_purchase.png)| Eidan 3000 series |
+|![Eidan 03 series](/gfx/Tokyo/hibiya/eidan03/eidan03_purchase.png)| Eidan 03 series |
 |![Tokyo Metro 13000 series](/gfx/Tokyo/hibiya/13000series/13000series_purchase.png)| Tokyo Metro 13000 series |
 
 ## Tozai Line
