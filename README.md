@@ -13,7 +13,6 @@
 |![Tokyo Metro Type 1100](/gfx/Tokyo/ginza/type1100/type1100_purchase.png)| Tokyo Metro Type 1100 |
 |![Tokyo Metro Type 100](/gfx/Tokyo/ginza/type100/type100_purchase.png)| Tokyo Metro Type 100 |
 |![Tokyo Metro Type 1300](/gfx/Tokyo/ginza/type1300/type1300_purchase.png)| Tokyo Metro Type 1300 |
-|![Tokyo Metro Type 1700](/gfx/Tokyo/ginza/type1700/type1700_purchase.png)| Tokyo Metro Type 1700 |
 |![Tokyo Metro Type 1900](/gfx/Tokyo/ginza/type1900/type1900_purchase.png)| Tokyo Metro Type 1900 |
 |![Eidan 01 series](/gfx/Tokyo/ginza/01series/01series_purchase.png)| Eidan 01 series |
 |![Tokyo Metro 1000 series](/gfx/Tokyo/ginza/1000series/1000series_purchase.png)| Tokyo Metro 1000 series |
