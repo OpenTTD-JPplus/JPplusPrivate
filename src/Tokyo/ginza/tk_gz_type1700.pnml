@@ -1,18 +1,18 @@
 spriteset (tk_gz_type1700_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
-spriteset (tk_gz_type1700_first,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_gz_type1700_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (tk_gz_type1700_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
-spriteset (tk_gz_type1700_last,       "gfx/gfx_placeholder.png") { tmpl_std(0, 50) }
+spriteset (tk_gz_type1700_end,       "gfx/gfx_placeholder.png") { tmpl_std(0, 50) }
 alternative_sprites(tk_gz_type1700_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type1700/type1700_purchase.png"){ tmpl_purchase(0, 0) }
-alternative_sprites(tk_gz_type1700_first, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type1700/type1700.png"){ tmpl_std(0, 0) }
+alternative_sprites(tk_gz_type1700_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type1700/type1700.png"){ tmpl_std(0, 0) }
 alternative_sprites(tk_gz_type1700_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type1700/type1700.png"){ tmpl_std(0, 25) }
-alternative_sprites(tk_gz_type1700_last, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type1700/type1700.png"){ tmpl_std_rev(0, 50) }
+alternative_sprites(tk_gz_type1700_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type1700/type1700.png"){ tmpl_std_rev(0, 50) }
 
 switch (FEAT_TRAINS, SELF, tk_gz_type1700_articulated_part, extra_callback_info1){
 0 .. 5: return tk_gz_type1700;
 }
 switch(FEAT_TRAINS, SELF, tk_gz_type1700_main,position_in_consist % 6){
-    0: tk_gz_type1700_first;
-    5: tk_gz_type1700_last;
+    0: tk_gz_type1700_front;
+    5: tk_gz_type1700_end;
     tk_gz_type1700_wag;
 }
 item(FEAT_TRAINS, tk_gz_type1700) {
@@ -50,7 +50,6 @@ item(FEAT_TRAINS, tk_gz_type1700) {
         tractive_effort_coefficient: 0.2;
         air_drag_coefficient: 0.07;
         bitmask_vehicle_info: 0;
-        length: 8;
     }
 	graphics {
         default: tk_gz_type1700_main;

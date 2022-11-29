@@ -1,59 +1,71 @@
 spriteset (tk_gz_type1000_purchase,   "gfx/gfx_placeholder.png") { tmpl_purchase(0, 0) }
 alternative_sprites(tk_gz_type1000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type1000/type1000_purchase.png"){ tmpl_purchase(0, 0) }
-spriteset (tk_gz_type1000_first,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_gz_type1000_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (tk_gz_type1000_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
-spriteset (tk_gz_type1000_last,       "gfx/gfx_placeholder.png") { tmpl_std(0, 50) }
-spriteset (tk_gz_type1000_first_1,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tk_gz_type1000_wag_1,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
-spriteset (tk_gz_type1000_last_1,       "gfx/gfx_placeholder.png") { tmpl_std(0, 50) }
+spriteset (tk_gz_type1000_end,       "gfx/gfx_placeholder.png") { tmpl_std(0, 50) }
+spriteset (tk_gz_type1000_1_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_gz_type1000_1_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_gz_type1000_1_end,       "gfx/gfx_placeholder.png") { tmpl_std(0, 50) }
 
-alternative_sprites(tk_gz_type1000_first, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type1000/type1000.png"){ tmpl_std(0, 0) }
+alternative_sprites(tk_gz_type1000_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type1000/type1000.png"){ tmpl_std(0, 0) }
 alternative_sprites(tk_gz_type1000_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type1000/type1000.png"){ tmpl_std(0, 25) }
-alternative_sprites(tk_gz_type1000_last, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type1000/type1000.png"){ tmpl_std_rev(0, 50) }
-alternative_sprites(tk_gz_type1000_first_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type1000/type1000.png"){ tmpl_std(0, 75) }
-alternative_sprites(tk_gz_type1000_wag_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type1000/type1000.png"){ tmpl_std(0, 100) }
-alternative_sprites(tk_gz_type1000_last_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type1000/type1000.png"){ tmpl_std_rev(0, 125) }
-
-switch(FEAT_TRAINS, SELF, tk_gz_type1000_consist_fix_1,position_in_consist_from_end){
-    0: tk_gz_type1000_last;
+alternative_sprites(tk_gz_type1000_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type1000/type1000.png"){ tmpl_std_rev(0, 50) }
+alternative_sprites(tk_gz_type1000_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type1000/type1000.png"){ tmpl_std(0, 75) }
+alternative_sprites(tk_gz_type1000_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type1000/type1000.png"){ tmpl_std(0, 100) }
+alternative_sprites(tk_gz_type1000_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type1000/type1000.png"){ tmpl_std_rev(0, 125) }
+//setup
+//basic gfx
+// livery 1
+switch(FEAT_TRAINS, SELF, sw_tk_gz_t1000_end_gfx,position_in_consist_from_end){
+    0: tk_gz_type1000_end;
     tk_gz_type1000_wag;
 }
-switch(FEAT_TRAINS, SELF, tk_gz_type1000_main_1,position_in_consist){
-    0: tk_gz_type1000_first;
-    tk_gz_type1000_consist_fix_1;
+switch(FEAT_TRAINS, SELF, sw_tk_gz_t1000_livery_1,position_in_consist){
+    0: tk_gz_type1000_front;
+    sw_tk_gz_t1000_end_gfx;
 }
-switch(FEAT_TRAINS, SELF, tk_gz_type1000_consist_fix_2,position_in_consist_from_end){
-    0: tk_gz_type1000_last_1;
-    tk_gz_type1000_wag_1;
+// livery 2
+switch(FEAT_TRAINS, SELF, sw_tk_gz_t1000_end_1_gfx,position_in_consist_from_end){
+    0: tk_gz_type1000_1_end;
+    tk_gz_type1000_1_wag;
 }
-switch(FEAT_TRAINS, SELF, tk_gz_type1000_main_2,position_in_consist){
-    0: tk_gz_type1000_first_1;
-    tk_gz_type1000_consist_fix_2;
+switch(FEAT_TRAINS, SELF, sw_tk_gz_t1000_livery_2,position_in_consist){
+    0: tk_gz_type1000_1_front;
+    sw_tk_gz_t1000_end_1_gfx;
 }
-random_switch(FEAT_TRAINS, PARENT, tk_gz_type1000_main){
-    3: tk_gz_type1000_main_1;
-    1: tk_gz_type1000_main_2;
+//livery-randomizer
+random_switch(FEAT_TRAINS, PARENT, sw_tk_gz_t1000_livery_0){
+    3: sw_tk_gz_t1000_livery_1;
+    1: sw_tk_gz_t1000_livery_2;
 }
-switch(FEAT_TRAINS, SELF, tk_gz_type1000_attach_vehid, vehicle_type_id) {
-  tk_gz_type1000_1: return CB_RESULT_ATTACH_ALLOW;
-  tk_gz_type1000_3: return CB_RESULT_ATTACH_ALLOW;
+//livery selector
+switch(FEAT_TRAINS, SELF, sw_tk_gz_t1000_lv, cargo_subtype){
+    0: sw_tk_gz_t1000_livery_0;
+    1: sw_tk_gz_t1000_livery_1;
+    2: sw_tk_gz_t1000_livery_2;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_gz_t1000_lv_desc, cargo_subtype){
+    0: string(LV_randomized);
+    1: string(LV_tk_gz_t1000_1);
+    2: string(LV_tk_gz_t1000_2);
+}
+//attachable vehicles
+switch(FEAT_TRAINS, SELF, sw_tk_gz_t1000_attach_vehid, vehicle_type_id) {
+  mu_car: return CB_RESULT_ATTACH_ALLOW;
   return string(STR_attach);
 }
-switch(FEAT_TRAINS, SELF, tk_gz_type1000_cargo, cargo_subtype) {
-  tk_gz_type1000_1: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_attach);
-}
-item(FEAT_TRAINS, tk_gz_type1000_1) {
+
+item(FEAT_TRAINS, tk_gz_t1000) {
     property {
-        name: string(STR_tk_gz_type1000_name_1);
+        name: string(STR_tk_gz_type1000_name);
         introduction_date: date(1927, 1, 1);
         model_life: 11;
         vehicle_life: 48;
 
         cargo_capacity: (80+param_capacity_mod);
         loading_speed: param_loading_3D;
-        cost_factor: 4;
-        running_cost_factor: 9;
+        cost_factor: 18;
+        running_cost_factor: 48;
 
         speed: 55 km/h;
         track_type: TR_1435_M;
@@ -77,59 +89,21 @@ item(FEAT_TRAINS, tk_gz_type1000_1) {
         tractive_effort_coefficient: 0.2;
         air_drag_coefficient: 0.07;
         bitmask_vehicle_info: 0;
-        length: 8;
     }
 	graphics {
-        default: tk_gz_type1000_main;
+        default: sw_tk_gz_t1000_lv;
         purchase: tk_gz_type1000_purchase;
-        can_attach_wagon: tk_gz_type1000_attach_vehid;
+        can_attach_wagon: sw_tk_gz_t1000_attach_vehid;
         additional_text: return string(tk_gz_type1000_DESC);
-    }
-}
-switch (FEAT_TRAINS, SELF, tk_gz_type1000_articulated_part, extra_callback_info1){
-0 .. 2: return tk_gz_type1000_3;
-}
-item(FEAT_TRAINS, tk_gz_type1000_3) {
-    property {
-        name: string(STR_tk_gz_type1000_name_3);
-        introduction_date: date(1927, 1, 1);
-        model_life: 11;
-        vehicle_life: 48;
-
-        cargo_capacity: 80+param_capacity_mod;
-        loading_speed: param_loading_3D;
-        cost_factor: 4;
-        running_cost_factor: 9;
-
-        speed: 55 km/h;
-        track_type: TR_1435_M;
-        power: 540 kW;
-        weight: 105 ton;
-
-        climates_available: ALL_CLIMATES;
-        ai_special_flag: AI_FLAG_PASSENGER;
-        sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
-        refittable_cargo_classes: bitmask(CC_PASSENGERS);
-        non_refittable_cargo_classes: bitmask();
-        refit_cost: 0;
-        dual_headed: 0;
-        ai_engine_rank: 0;
-
-        running_cost_base: RUNNING_COST_ELECTRIC;
-        engine_class: ENGINE_CLASS_ELECTRIC;
-        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
-        
-        tractive_effort_coefficient: 0.2;
-        air_drag_coefficient: 0.07;
-        bitmask_vehicle_info: 0;
+        cargo_subtype_text: sw_tk_gz_t1000_lv_desc;
         length: 8;
     }
-	graphics {
-        default: tk_gz_type1000_main;
-        purchase: tk_gz_type1000_purchase;
-        articulated_part: tk_gz_type1000_articulated_part;
-        can_attach_wagon: tk_gz_type1000_attach_vehid;
-        additional_text: return string(tk_gz_type1000_DESC);
-    }
+    livery_override(mu_car){
+        default:                      sw_tk_gz_t1000_lv;
+        cargo_capacity:               80+param_capacity_mod;
+        loading_speed:                param_loading_3D;
+        power: 241;
+        weight: 30;
+        length: 8;
+      }
 }

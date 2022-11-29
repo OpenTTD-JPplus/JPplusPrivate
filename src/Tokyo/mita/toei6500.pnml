@@ -1,67 +1,67 @@
-spriteset (tk_mt_toei6500series_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
-spriteset (tk_mt_toei6500series_first,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tk_mt_toei6500series_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
-spriteset (tk_mt_toei6500series_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
-spriteset (tk_mt_toei6500series_last,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
+spriteset (tk_mt_toei6500_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
+spriteset (tk_mt_toei6500_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_mt_toei6500_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_mt_toei6500_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_mt_toei6500_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
 
-alternative_sprites(tk_mt_toei6500series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6500/toei6500_purchase.png"){ tmpl_purchase(0, 0) }
-alternative_sprites(tk_mt_toei6500series_first, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6500/toei6500.png"){ tmpl_std_20m(0, 0) }
-alternative_sprites(tk_mt_toei6500series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6500/toei6500.png"){ tmpl_std_20m(0, 81) }
-alternative_sprites(tk_mt_toei6500series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6500/toei6500.png"){ tmpl_std_20m(0, 54) }
-alternative_sprites(tk_mt_toei6500series_last, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6500/toei6500.png"){ tmpl_std_20m_rev(0, 27) }
+alternative_sprites(tk_mt_toei6500_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6500/toei6500_purchase.png"){ tmpl_purchase(0, 0) }
+alternative_sprites(tk_mt_toei6500_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6500/toei6500.png"){ tmpl_std(0, 0) }
+alternative_sprites(tk_mt_toei6500_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6500/toei6500.png"){ tmpl_std(0, 50) }
+alternative_sprites(tk_mt_toei6500_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6500/toei6500.png"){ tmpl_std(0, 75) }
+alternative_sprites(tk_mt_toei6500_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/mita/toei6500/toei6500.png"){ tmpl_std_rev(0, 25) }
 
-
-switch(FEAT_TRAINS, SELF, tk_mt_toei6500series_consist,position_in_consist %24){
-    1: tk_mt_toei6500series_first; // 1 car
-    4: tk_mt_toei6500series_wag; // 2 car
-    7: tk_mt_toei6500series_mot; // 3 car
-    10: tk_mt_toei6500series_wag; // 4 car
-    13: tk_mt_toei6500series_wag; // 5 car
-    16: tk_mt_toei6500series_wag; // 6 car
-    19: tk_mt_toei6500series_mot; // 7 car
-    22: tk_mt_toei6500series_last; // 8 car
-    dummy_sprites;
+//livery 1
+//panto-placers
+switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6500_mot_gfx,position_in_consist %6){
+    1: tk_mt_toei6500_mot;
+    5: tk_mt_toei6500_mot;
+    default: tk_mt_toei6500_wag;
 }
-switch(FEAT_TRAINS, SELF, tk_mt_toei6500series_consist_rev,position_in_consist %24){
-    1: tk_mt_toei6500series_first; // 1 car
-    4: tk_mt_toei6500series_mot; // 2 car
-    7: tk_mt_toei6500series_wag; // 3 car
-    10: tk_mt_toei6500series_wag; // 4 car
-    13: tk_mt_toei6500series_wag; // 5 car
-    16: tk_mt_toei6500series_mot; // 6 car
-    19: tk_mt_toei6500series_wag; // 7 car
-    22: tk_mt_toei6500series_last; // 8 car
-    dummy_sprites;
+switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6500_mot_rev_gfx,position_in_consist_from_end %6){
+    1: tk_mt_toei6500_mot;
+    5: tk_mt_toei6500_mot;
+    default: tk_mt_toei6500_wag;
 }
-
-switch(FEAT_TRAINS, PARENT, tk_mt_toei6500series_main,vehicle_is_reversed){
-    1: tk_mt_toei6500series_consist;
-    tk_mt_toei6500series_consist_rev;
-
+switch(FEAT_TRAINS, PARENT, sw_tk_mt_toei6500_mot_main_gfx,vehicle_is_reversed){
+    1: sw_tk_mt_toei6500_mot_rev_gfx;
+    sw_tk_mt_toei6500_mot_gfx;
 }
-
-
-switch (FEAT_TRAINS, SELF, tk_mt_toei6500series_articulated_part, extra_callback_info1){
-0 .. 24: return tk_mt_toei6500series;
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6500_end_gfx,position_in_consist_from_end){
+    0: tk_mt_toei6500_end;
+    default: sw_tk_mt_toei6500_mot_main_gfx;
 }
-
-item(FEAT_TRAINS, tk_mt_toei6500series) {
+switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6500_livery_1,position_in_consist){
+    0: tk_mt_toei6500_front;
+    default: sw_tk_mt_toei6500_end_gfx;
+}
+//capacity-changer
+switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6500_main_capacity,position_in_consist_from_end){
+    0: 139+param_capacity_mod;
+    default: 149;
+}
+//attachable vehicles
+switch(FEAT_TRAINS, SELF, tk_mt_toei6500_attach_vehid, vehicle_type_id) {
+  mu_car_narrow: return CB_RESULT_ATTACH_ALLOW;
+  return string(STR_attach);
+}
+item(FEAT_TRAINS, tk_mt_toei6500) {
     property {
-        name: string(STR_tk_mt_toei6500series_name);
+        name: string(STR_tk_mt_toei6500_name);
         introduction_date: date(2020, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 30;
-        reliability_decay: 23;
+        reliability_decay: 21;
 
-        cargo_capacity: 55+param_capacity_mod;
+        cargo_capacity: 139+param_capacity_mod;
         loading_speed: param_loading_4D;
-        cost_factor: 65;
-        running_cost_factor: 102;
+        cost_factor: 21;
+        running_cost_factor: 51;
 
         speed: 120 km/h;
         track_type: TR_1067;
-        power: 2720 kW;
-        weight: 251 ton;
+        power: 680 kW;
+        weight: 26 ton;
 
         climates_available: ALL_CLIMATES;
         ai_special_flag: AI_FLAG_PASSENGER;
@@ -83,11 +83,17 @@ item(FEAT_TRAINS, tk_mt_toei6500series) {
         
     }
 	graphics {
-        default: tk_mt_toei6500series_main;
-        articulated_part:tk_mt_toei6500series_articulated_part;
-        purchase: tk_mt_toei6500series_purchase;
-        can_attach_wagon: return string(STR_many_cars);
-        additional_text: return string(tk_mt_toei6500series_DESC);
-        length: sw_length_2_8_2;
+        default: sw_tk_mt_toei6500_livery_1;
+        purchase: tk_mt_toei6500_purchase;
+        can_attach_wagon: tk_mt_toei6500_attach_vehid;
+        additional_text: return string(tk_mt_toei6500_DESC);
+        start_stop: sw_stop_start_3;   
     }
+    livery_override(mu_car_narrow){
+        cargo_capacity: sw_tk_mt_toei6500_main_capacity;
+        default:                      sw_tk_mt_toei6500_livery_1;
+        power: 912*3/7;
+        weight: 25;
+        length: 8;
+      }
 }
