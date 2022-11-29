@@ -1,51 +1,55 @@
 spriteset (tk_gz_type100_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
 alternative_sprites(tk_gz_type100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type100/type100_purchase.png"){ tmpl_purchase(0, 0) }
-spriteset (tk_gz_type100_tokyo_first,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tk_gz_type100_tokyo_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tk_gz_type100_tokyo_last,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_gz_type100_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_gz_type100_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_gz_type100_end,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
 
-alternative_sprites(tk_gz_type100_tokyo_first, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type100/type100.png"){ tmpl_std(0, 0) }
-alternative_sprites(tk_gz_type100_tokyo_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type100/type100.png"){ tmpl_std(0, 25) }
-alternative_sprites(tk_gz_type100_tokyo_last, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type100/type100.png"){ tmpl_std(0, 50) }
+alternative_sprites(tk_gz_type100_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type100/type100.png"){ tmpl_std(0, 0) }
+alternative_sprites(tk_gz_type100_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type100/type100.png"){ tmpl_std(0, 25) }
+alternative_sprites(tk_gz_type100_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type100/type100.png"){ tmpl_std(0, 50) }
 
-spriteset (type100_osaka_first,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (type100_osaka_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (type100_osaka_last,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-alternative_sprites(type100_osaka_first, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type100/type100.png"){ tmpl_std(0, 75) }
-alternative_sprites(type100_osaka_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type100/type100.png"){ tmpl_std(0, 100) }
-alternative_sprites(type100_osaka_last, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type100/type100.png"){ tmpl_std(0, 125) }
-
-switch(FEAT_TRAINS, SELF, tk_gz_type100_tokyo_consist_fix_1,position_in_consist){
-    0: tk_gz_type100_tokyo_first;
-    tk_gz_type100_tokyo_wag;
+spriteset (type100_1_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (type100_1_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (type100_1_end,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+alternative_sprites(type100_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type100/type100.png"){ tmpl_std(0, 75) }
+alternative_sprites(type100_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type100/type100.png"){ tmpl_std(0, 100) }
+alternative_sprites(type100_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/type100/type100.png"){ tmpl_std(0, 125) }
+//setup
+//basic gfx
+// livery 1
+switch(FEAT_TRAINS, SELF, sw_tk_gz_t100_end_gfx,position_in_consist_from_end){
+    0: tk_gz_type100_end;
+    tk_gz_type100_wag;
 }
-switch(FEAT_TRAINS, SELF, type100_osaka_consist_fix_1,position_in_consist){
-    0: type100_osaka_first;
-    type100_osaka_wag;
+switch(FEAT_TRAINS, SELF, sw_tk_gz_t100_livery_1,position_in_consist){
+    0: tk_gz_type100_front;
+    sw_tk_gz_t100_end_gfx;
 }
-switch(FEAT_TRAINS, SELF, tk_gz_type100_tokyo_main,position_in_consist_from_end){
-    0: tk_gz_type100_tokyo_last;
-tk_gz_type100_tokyo_consist_fix_1;
+// livery 2
+switch(FEAT_TRAINS, SELF, sw_t100_end_1_gfx,position_in_consist_from_end){
+    0: type100_1_end;
+    type100_1_wag;
 }
-switch(FEAT_TRAINS, SELF, type100_osaka_main,position_in_consist_from_end){
-    0: type100_osaka_last;
-type100_osaka_consist_fix_1;
+switch(FEAT_TRAINS, SELF, sw_t100_livery_2,position_in_consist){
+    0: type100_1_front;
+    sw_t100_end_1_gfx;
 }
-switch(FEAT_TRAINS, SELF, tk_gz_type100_main, cargo_subtype){
-    0: tk_gz_type100_tokyo_main;
-    1: type100_osaka_main;
+//livery selector
+switch(FEAT_TRAINS, SELF, sw_tk_gz_t100_lv, cargo_subtype){
+    0: sw_tk_gz_t100_livery_1;
+    1: sw_t100_livery_2;
 }
-switch(FEAT_TRAINS, SELF, lv_tk_gz_type100, cargo_subtype){
-    0: string(LV_tk_gz_type100_sybtype_tokyo);
-    1: string(LV_type100_sybtype_osaka);
+switch(FEAT_TRAINS, SELF, sw_tk_gz_t100_lv_desc, cargo_subtype){
+    0: string(LV_tk_gz_t100_1);
+    1: string(LV_tk_gz_t100_2);
 }
-
-switch(FEAT_TRAINS, SELF, tk_gz_type100_attach_vehid, vehicle_type_id) {
-  tk_gz_type100: return CB_RESULT_ATTACH_ALLOW;
+//attachable vehicles
+switch(FEAT_TRAINS, SELF, sw_tk_gz_t100_attach_vehid, vehicle_type_id) {
+  mu_car: return CB_RESULT_ATTACH_ALLOW;
   return string(STR_attach);
 }
 
-item(FEAT_TRAINS, tk_gz_type100) {
+item(FEAT_TRAINS, tk_gz_t100) {
     property {
         name: string(STR_tk_gz_type100_name);
         introduction_date: date(1937, 1, 1);
@@ -54,8 +58,8 @@ item(FEAT_TRAINS, tk_gz_type100) {
 
         cargo_capacity: 70+param_capacity_mod; //change
         loading_speed: param_loading_3D; //change
-        cost_factor: 4; //change
-        running_cost_factor: 9; //change
+        cost_factor: 17; //change
+        running_cost_factor: 47; //change
 
         speed: 55 km/h;
         track_type: TR_1435_M;
@@ -79,13 +83,21 @@ item(FEAT_TRAINS, tk_gz_type100) {
         tractive_effort_coefficient: 0.2;
         air_drag_coefficient: 0.07;
         bitmask_vehicle_info: 0;
-        length: 8;
     }
 	graphics {
-        default: tk_gz_type100_main;
+        default: sw_tk_gz_t100_lv;
         purchase: tk_gz_type100_purchase;
-        cargo_subtype_text: lv_tk_gz_type100;
-        can_attach_wagon:tk_gz_type100_attach_vehid;
+        can_attach_wagon: sw_tk_gz_t100_attach_vehid;
         additional_text: return string(tk_gz_type100_DESC);
+        cargo_subtype_text: sw_tk_gz_t100_lv_desc;
+        length: 8;
     }
+    livery_override(mu_car){
+        default:                      sw_tk_gz_t100_lv;
+        cargo_capacity:               70+param_capacity_mod;
+        loading_speed:                param_loading_3D;
+        power: 241;
+        weight: 34;
+        length: 8;
+      }
 }

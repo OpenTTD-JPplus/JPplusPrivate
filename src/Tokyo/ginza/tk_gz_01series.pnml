@@ -1,41 +1,52 @@
-spriteset (tk_gz_m01series_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
-spriteset (tk_gz_m01series_first,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tk_gz_m01series_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
-spriteset (tk_gz_m01series_last,       "gfx/gfx_placeholder.png") { tmpl_std(0, 50) }
-alternative_sprites(tk_gz_m01series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/01series/01series_purchase.png"){ tmpl_purchase(0, 0) }
-alternative_sprites(tk_gz_m01series_first, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/01series/01series.png"){ tmpl_std(0, 0) }
-alternative_sprites(tk_gz_m01series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/01series/01series.png"){ tmpl_std(0, 25) }
-alternative_sprites(tk_gz_m01series_last, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/01series/01series.png"){ tmpl_std_rev(0, 50) }
+spriteset (tk_gz_01s_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
+spriteset (tk_gz_01s_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_gz_01s_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_gz_01s_end,       "gfx/gfx_placeholder.png") { tmpl_std(0, 50) }
+alternative_sprites(tk_gz_01s_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/01series/01series_purchase.png"){ tmpl_purchase(0, 0) }
+alternative_sprites(tk_gz_01s_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/01series/01series.png"){ tmpl_std(0, 0) }
+alternative_sprites(tk_gz_01s_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/01series/01series.png"){ tmpl_std(0, 25) }
+alternative_sprites(tk_gz_01s_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/ginza/01series/01series.png"){ tmpl_std_rev(0, 50) }
 
-switch(FEAT_TRAINS, SELF, tk_gz_m01series_consist_fix_1,position_in_consist_from_end){
-    0: tk_gz_m01series_last;
-    tk_gz_m01series_wag;
+//setup
+//basic gfx
+// livery 1
+switch(FEAT_TRAINS, SELF, sw_tk_gz_01s_end_gfx,position_in_consist_from_end){
+    0: tk_gz_01s_end;
+    tk_gz_01s_wag;
 }
-switch(FEAT_TRAINS, SELF, tk_gz_m01series_main,position_in_consist){
-    0: tk_gz_m01series_first;
-    tk_gz_m01series_consist_fix_1;
+switch(FEAT_TRAINS, SELF, sw_tk_gz_01s_livery_1,position_in_consist){
+    0: tk_gz_01s_front;
+    sw_tk_gz_01s_end_gfx;
+}
+//livery-randomizer
+//capacity-changer
+switch(FEAT_TRAINS, SELF, sw_tk_gz_01s_main_capacity,position_in_consist_from_end){
+    0: 100+param_capacity_mod;
+    default: 102;
+}
+//attachable vehicles
+switch(FEAT_TRAINS, SELF, sw_tk_gz_01s_attach_vehid, vehicle_type_id) {
+  mu_car: return CB_RESULT_ATTACH_ALLOW;
+  return string(STR_attach);
 }
 
-switch (FEAT_TRAINS, SELF, tk_gz_m01series_articulated_part, extra_callback_info1){
-0 .. 5: return tk_gz_m01series;
-}
-item(FEAT_TRAINS, tk_gz_m01series) {
+item(FEAT_TRAINS, tk_gz_01s) {
     property {
-        name: string(STR_tk_gz_m01series_name_6);
+        name: string(STR_tk_gz_01s_name);
         introduction_date: date(1983, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 30;
-        reliability_decay:22;
+        reliability_decay:21;
 
-        cargo_capacity: 101+param_capacity_mod;
+        cargo_capacity: 100+param_capacity_mod;
         loading_speed: param_loading_3D;
-        cost_factor: 36;
-        running_cost_factor: 56;
+        cost_factor: 19;
+        running_cost_factor: 49;
 
         speed: 75 km/h;
         track_type: TR_1435_M;
-        power: 1440 kW;
-        weight: 174 ton;
+        power: 240 kW;
+        weight: 29 ton;
 
         climates_available: ALL_CLIMATES;
         ai_special_flag: AI_FLAG_PASSENGER;
@@ -57,10 +68,19 @@ item(FEAT_TRAINS, tk_gz_m01series) {
         //length: 8;
     }
 	graphics {
-        default: tk_gz_m01series_main;
-        purchase: tk_gz_m01series_purchase;
-        articulated_part: tk_gz_m01series_articulated_part;
-        can_attach_wagon: return string(STR_many_cars);
-        additional_text: return string(tk_gz_m01series_DESC);
+        default: sw_tk_gz_01s_livery_1;
+        purchase: tk_gz_01s_purchase;
+        can_attach_wagon: sw_tk_gz_01s_attach_vehid;
+        additional_text: return string(tk_gz_01s_DESC);
+        length: 8;
+        start_stop: sw_stop_start_3;
     }
+    livery_override(mu_car){
+        default:                      sw_tk_gz_01s_livery_1;
+        cargo_capacity:               sw_tk_gz_01s_main_capacity;
+        loading_speed:                param_loading_3D;
+        power: 322;
+        weight: 24;
+        length: 8;
+      }
 }

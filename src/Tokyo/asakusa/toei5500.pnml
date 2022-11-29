@@ -1,53 +1,67 @@
-spriteset (tk_as_toei5500series_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
-spriteset (tk_as_toei5500series_first,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tk_as_toei5500series_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
-spriteset (tk_as_toei5500series_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
-spriteset (tk_as_toei5500series_last,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
-alternative_sprites(tk_as_toei5500series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/asakusa/toei5500/toei5500_purchase.png"){ tmpl_purchase(0, 0) }
-alternative_sprites(tk_as_toei5500series_first, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/asakusa/toei5500/toei5500.png"){ tmpl_std(0, 0) }
-alternative_sprites(tk_as_toei5500series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/asakusa/toei5500/toei5500.png"){ tmpl_std(0, 54) }
-alternative_sprites(tk_as_toei5500series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/asakusa/toei5500/toei5500.png"){ tmpl_std(0, 75) }
-alternative_sprites(tk_as_toei5500series_last, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/asakusa/toei5500/toei5500.png"){ tmpl_std_rev(0, 27) }
+spriteset (tk_as_toei5500_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
+spriteset (tk_as_toei5500_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_as_toei5500_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_as_toei5500_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_as_toei5500_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
+alternative_sprites(tk_as_toei5500_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/asakusa/toei5500/toei5500_purchase.png"){ tmpl_purchase(0, 0) }
+alternative_sprites(tk_as_toei5500_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/asakusa/toei5500/toei5500.png"){ tmpl_std(0, 0) }
+alternative_sprites(tk_as_toei5500_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/asakusa/toei5500/toei5500.png"){ tmpl_std(0, 50) }
+alternative_sprites(tk_as_toei5500_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/asakusa/toei5500/toei5500.png"){ tmpl_std(0, 75) }
+alternative_sprites(tk_as_toei5500_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Tokyo/asakusa/toei5500/toei5500.png"){ tmpl_std_rev(0, 25) }
 
-switch(FEAT_TRAINS, SELF, tk_as_toei5500series_main,position_in_consist %8){
-    0: tk_as_toei5500series_first;
-    2: tk_as_toei5500series_mot;
-    5: tk_as_toei5500series_mot;
-    7: tk_as_toei5500series_last;
-    tk_as_toei5500series_wag;
+//livery 1
+//panto-placers
+switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_mot_gfx,position_in_consist %6){
+    2: tk_as_toei5500_mot;
+    5: tk_as_toei5500_mot;
+    default: tk_as_toei5500_wag;
 }
-switch(FEAT_TRAINS, SELF, tk_as_toei5500series_main_rev,position_in_consist %8){
-    0: tk_as_toei5500series_first;
-    2: tk_as_toei5500series_mot;
-    5: tk_as_toei5500series_mot;
-    7: tk_as_toei5500series_last;
-    tk_as_toei5500series_wag;
+switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_mot_rev_gfx,position_in_consist_from_end %6){
+    2: tk_as_toei5500_mot;
+    5: tk_as_toei5500_mot;
+    default: tk_as_toei5500_wag;
 }
-switch(FEAT_TRAINS, PARENT, tk_as_toei5500series_rev_check, vehicle_is_reversed){
-0: tk_as_toei5500series_main;
-tk_as_toei5500series_main_rev;
+switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5500_mot_main_gfx,vehicle_is_reversed){
+    1: sw_tk_as_toei5500_mot_rev_gfx;
+    sw_tk_as_toei5500_mot_gfx;
+}
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_end_gfx,position_in_consist_from_end){
+    0: tk_as_toei5500_end;
+    default: sw_tk_as_toei5500_mot_main_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_livery_1,position_in_consist){
+    0: tk_as_toei5500_front;
+    default: sw_tk_as_toei5500_end_gfx;
+}
+//capacity-changer
+switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_main_capacity,position_in_consist_from_end){
+    0: 121+param_capacity_mod;
+    default: 134;
+}
+//attachable vehicles
+switch(FEAT_TRAINS, SELF, tk_as_toei5500_attach_vehid, vehicle_type_id) {
+  mu_car: return CB_RESULT_ATTACH_ALLOW;
+  return string(STR_attach);
 }
 
-switch (FEAT_TRAINS, SELF, tk_as_toei5500series_articulated_part, extra_callback_info1){
-0 .. 7: return tk_as_toei5500series;
-}
-item(FEAT_TRAINS, tk_as_toei5500series) {
+item(FEAT_TRAINS, tk_as_toei5500) {
     property {
-        name: string(STR_tk_as_toei5500series_name);
+        name: string(STR_tk_as_toei5500_name);
         introduction_date: date(2017, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 30;
         reliability_decay: 23;
 
-        cargo_capacity: 174+param_capacity_mod;
+        cargo_capacity: 121+param_capacity_mod;
         loading_speed: param_loading_3D;
-        cost_factor: 72;
-        running_cost_factor: 113;
+        cost_factor: 20;
+        running_cost_factor: 50;
 
         speed: 130 km/h;
         track_type: TR_1435;
-        power: 3720 kW;
-        weight: 240 ton;
+        power: 620 kW;
+        weight: 30 ton;
 
         climates_available: ALL_CLIMATES;
         ai_special_flag: AI_FLAG_PASSENGER;
@@ -66,13 +80,19 @@ item(FEAT_TRAINS, tk_as_toei5500series) {
         tractive_effort_coefficient: 0.2;
         air_drag_coefficient: 0.07;
         bitmask_vehicle_info: 0;
-        length: 8;
     }
 	graphics {
-        default: tk_as_toei5500series_main;
-        articulated_part:				tk_as_toei5500series_articulated_part;
-        purchase: tk_as_toei5500series_purchase;
-        can_attach_wagon: return string(STR_many_cars);
-        additional_text: return string(tk_as_toei5500series_DESC);
+        default: sw_tk_as_toei5500_livery_1;
+        purchase: tk_as_toei5500_purchase;
+        can_attach_wagon: tk_as_toei5500_attach_vehid;
+        additional_text: return string(tk_as_toei5500_DESC);
+        start_stop: sw_stop_start_4;   
     }
+    livery_override(mu_car){
+        cargo_capacity: sw_tk_as_toei5500_main_capacity;
+        default:                      sw_tk_as_toei5500_livery_1;
+        power: 832*3/6;
+        weight: 30;
+        length: 8;
+      }
 }
