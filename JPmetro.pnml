@@ -10,8 +10,8 @@ grf {
     name: string(STR_NAME);
     desc: string(STR_DESC);
     /* This is the front version, start numbering at 0. */
-    version: 2;
-    min_compatible_version: 0;
+    version: 6;
+    min_compatible_version: 6;
 
 
 param 0 {
@@ -142,29 +142,16 @@ basecost {
 }
 
 railtypetable {
+	RAIL,
+	ELRL,
     TR_1067: [NABE, ELRL],
-	TR_1435_M: [SAB3, "3RDR", ELRL],
-	TR_1435: [ELRL],
+	TR_1435_M: [SAB3, "3RDR"],
+	TR_1435: [ELRL, RAIL],
 	TR_1372: [ELRL, NABE],
 	TR_1435_LNR: [ELRL],
-	TR_EVERY: [ELRL,NABE,SAB3,"3RDR"]
+	TR_EVERY: [RAIL,NABE]
 }
-
-
-switch (FEAT_TRAINS, SELF, sw_length_2_8_2, position_in_articulated_veh % 3) {
-        1: return 7;
-        return 1;
-    }
-switch (FEAT_TRAINS, SELF, sw_length_1_6_1, position_in_articulated_veh % 3) {
-		1: return 6;
-        return 1;
-    }
-switch (FEAT_TRAINS, SELF, sw_length_1_1_8_2, position_in_articulated_veh % 4) {
-        2: return 5;
-		3: return 2;
-        return 1;
-    }	
-
+	
 if (param_capacities == 0) {
 	param_capacity_mod = -60;
 }
@@ -183,22 +170,22 @@ template tmpl_std(x,y) {
     // parameters x, y: coordinates of top-left corner of front sprite
     [x, 	 y,	8, 	24,		-3, 	-16] //short
 	[x +9, 	 y,	22,	20,		-13,	-13] //dia1
-	[x +32,  y,	32,	17,		-10,	-13] //long
+	[x +32,  y,	32,	17,		-12,	-13] //long
 	[x +65,  y,	22,	20,		-5, 	-12] //dia2
 	[x +88,  y,	8, 	24,		-3, 	-16] //short
 	[x +97,  y,	22,	20,		-13,	-13] //dia1
-	[x +120, y,	32,	17,		-14,	-13] //long
+	[x +120, y,	32,	17,		-12,	-13] //long
 	[x+153,  y,	22,	20,		-5, 	-12] //dia2
 }
 
 template tmpl_std_rev(x,y){
 [x +88,  y,	8, 	24,		-3, 	-16] //short
 [x +97,  y,	22,	20,		-13,	-13] //dia1
-[x +120, y,	32,	17,		-10,	-13] //long
+[x +120, y,	32,	17,		-12,	-13] //long
 [x+153,  y,	22,	20,		-5, 	-12] //dia2
 [x, 	 y,	8, 	24,		-3, 	-16] //short
 [x +9, 	 y,	22,	20,		-13,	-13] //dia1
-[x +32,  y,	32,	17,		-14,	-13] //long
+[x +32,  y,	32,	17,		-12,	-13] //long
 [x +65,  y,	22,	20,		-5, 	-12] //dia2
 }
 template tmpl_std_20m(x,y) {
@@ -233,17 +220,6 @@ spriteset (dummy_sprites, "gfx/empty.png")
 }
 spriteset (set_mu_car_purchase,   "gfx/mucarbuy.png") { tmpl_purchase(0, 0) }
 spriteset (set_mu_car_base,   "gfx/mucar.png") { tmpl_std(0, 0) }
-switch (FEAT_TRAINS, SELF, sw_mucar_graphics, position_in_articulated_veh) {				
-		1:  set_mu_car_base; 				
-		dummy_sprites;
-	}
-
-
-switch(FEAT_TRAINS, SELF, sw_mucar_full_articulated_part, extra_callback_info1) {
-	1: return mu_car;
-    2: return mu_car;
-    return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
-}
 
 item(FEAT_TRAINS, mu_car) {
 	property {
@@ -265,7 +241,7 @@ item(FEAT_TRAINS, mu_car) {
                 refittable_cargo_classes: bitmask(CC_PASSENGERS);
                 cargo_age_period: 185;
                 refit_cost: 0;
-                track_type: TR_EVERY;
+				track_type:RAIL;
                 ai_special_flag: AI_FLAG_PASSENGER;
                 running_cost_base: RUNNING_COST_DIESEL;
                 engine_class: ENGINE_CLASS_STEAM;
@@ -278,26 +254,59 @@ item(FEAT_TRAINS, mu_car) {
  graphics {
 		purchase:                     set_mu_car_purchase;
     	additional_text:			        return string(MUCAR_DESC);
-		articulated_part: sw_mucar_full_articulated_part;
-    	default: sw_mucar_graphics;
-		length: sw_length_1_6_1;
+    	default: set_mu_car_base;
+		length: 8;
     }
 
 }
-switch(FEAT_TRAINS, SELF, sw_mucar_articulated_part, extra_callback_info1) {
-	1: return mu_car;
-    2: return mu_car;
-    return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
+item(FEAT_TRAINS, mu_car_narrow) {
+	property {
+        name:  string(MUCAR);
+        introduction_date: date(1800,1,1);
+        climates_available: ALL_CLIMATES;
+                model_life: VEHICLE_NEVER_EXPIRES;
+                vehicle_life: 60;
+                loading_speed: 0;
+                cost_factor: 64;
+                running_cost_factor: 6;
+                speed: 0 km/h;
+                power: 0 hp;
+                cargo_capacity: 1;
+                weight: 0 ton;
+                tractive_effort_coefficient: 0.3;
+                air_drag_coefficient: 0;
+                reliability_decay: 20;
+                refittable_cargo_classes: bitmask(CC_PASSENGERS);
+                cargo_age_period: 185;
+                refit_cost: 0;
+				track_type:TR_1067;
+                ai_special_flag: AI_FLAG_PASSENGER;
+                running_cost_base: RUNNING_COST_DIESEL;
+                engine_class: ENGINE_CLASS_STEAM;
+                visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_DISABLE, 0, DISABLE_WAGON_POWER);
+                sprite_id: SPRITE_ID_NEW_TRAIN;
+                dual_headed: 0;
+                extra_power_per_wagon: 0;
+                bitmask_vehicle_info: 0;
 }
-switch (FEAT_TRAINS, SELF, sw_stop_start_2, num_vehs_in_consist < 6) {				
+ graphics {
+		purchase:                     set_mu_car_purchase;
+    	additional_text:			        return string(MUCAR_DESC);
+    	default: set_mu_car_base;
+		length: 8;
+    }
+
+}
+
+switch (FEAT_TRAINS, SELF, sw_stop_start_2, num_vehs_in_consist < 2) {				
 		1:  return string(STR_FEW_CARS_2_ERROR); 				
 		return CB_RESULT_NO_TEXT; 
 	}
-switch (FEAT_TRAINS, SELF, sw_stop_start_3, num_vehs_in_consist < 9) {				
+switch (FEAT_TRAINS, SELF, sw_stop_start_3, num_vehs_in_consist < 3) {				
 		1:  return string(STR_FEW_CARS_3_ERROR); 				
 		return CB_RESULT_NO_TEXT; 
 	}
-switch (FEAT_TRAINS, SELF, sw_stop_start_4, num_vehs_in_consist < 12) {				
+switch (FEAT_TRAINS, SELF, sw_stop_start_4, num_vehs_in_consist < 4) {				
 		1:  return string(STR_FEW_CARS_4_ERROR); 				
 		return CB_RESULT_NO_TEXT; 
 	}
@@ -323,45 +332,50 @@ switch (FEAT_TRAINS, SELF, sw_stop_start_4, num_vehs_in_consist < 12) {
 #include "src/Tokyo/hibiya/13000series.pnml"
 
 //tozai
-//#include "src/Tokyo/tozai/tk_tz_5000series.pnml"
-//#include "src/Tokyo/tozai/tk_tz_05series.pnml"
-//#include "src/Tokyo/tozai/tk_tz_07series.pnml"
-//#include "src/Tokyo/tozai/tk_tz_15000series.pnml"
-//#include "src/Tokyo/tozai/tk_tz_toyo1000.pnml"
-//#include "src/Tokyo/tozai/tk_tz_toyo2000.pnml"
-////chiyoda
-//#include "src/Tokyo/chiyoda/tk_ch_5000series.pnml"
-//#include "src/Tokyo/chiyoda/tk_ch_6000series.pnml"
-//#include "src/Tokyo/chiyoda/tk_ch_06series.pnml"
-//#include "src/Tokyo/chiyoda/tk_ch_16000series.pnml"
-////chiyoda kita-ayase-branch
-//#include "src/Tokyo/chiyoda/tk_ch_5000series_br.pnml"
-//#include "src/Tokyo/chiyoda/tk_ch_6000series_br.pnml"
-//#include "src/Tokyo/chiyoda/tk_ch_05series.pnml"
-//// futokushin-yurakucho
-//#include "src/Tokyo/yurakucho_fukutoshin/tk_yk_07series.pnml"
-//#include "src/Tokyo/yurakucho_fukutoshin/tk_yk_7000series.pnml"
-//#include "src/Tokyo/yurakucho_fukutoshin/tk_yk_10000series.pnml"
-//#include "src/Tokyo/yurakucho_fukutoshin/tk_yk_17000series.pnml"
-////hanzomon
-//#include "src/Tokyo/hanzomon/8000series.pnml"
-//#include "src/Tokyo/hanzomon/08series.pnml"
-//#include "src/Tokyo/hanzomon/18000series.pnml"
-////namboku
-//#include "src/Tokyo/namboku/9000series.pnml"
-//#include "src/Tokyo/namboku/saitama2000.pnml"
-////asakusa
-////5000
-////5200
-////5300
-//#include "src/Tokyo/asakusa/toei5500.pnml"
-////mita
-//#include "src/Tokyo/mita/toei6000.pnml"
-//#include "src/Tokyo/mita/toei6300.pnml"
-//#include "src/Tokyo/mita/toei6500.pnml"
+#include "src/Tokyo/tozai/5000series.pnml"
+#include "src/Tokyo/tozai/05series.pnml"
+#include "src/Tokyo/tozai/07series.pnml"
+#include "src/Tokyo/tozai/15000series.pnml"
+#include "src/Tokyo/tozai/toyo1000.pnml"
+#include "src/Tokyo/tozai/toyo2000.pnml"
+
+//chiyoda
+#include "src/Tokyo/chiyoda/5000series.pnml"
+#include "src/Tokyo/chiyoda/6000series.pnml"
+#include "src/Tokyo/chiyoda/06series.pnml"
+#include "src/Tokyo/chiyoda/16000series.pnml"
+#include "src/Tokyo/chiyoda/05series.pnml"
+
+// futokushin-yurakucho
+#include "src/Tokyo/yurakucho_fukutoshin/07series.pnml"
+#include "src/Tokyo/yurakucho_fukutoshin/7000series.pnml"
+#include "src/Tokyo/yurakucho_fukutoshin/10000series.pnml"
+#include "src/Tokyo/yurakucho_fukutoshin/17000series.pnml"
+
+//hanzomon
+#include "src/Tokyo/hanzomon/8000series.pnml"
+#include "src/Tokyo/hanzomon/08series.pnml"
+#include "src/Tokyo/hanzomon/18000series.pnml"
+
+//namboku
+#include "src/Tokyo/namboku/9000series.pnml"
+#include "src/Tokyo/namboku/saitama2000.pnml"
+
+//asakusa
+#include "src/Tokyo/asakusa/toei5000.pnml"
+#include "src/Tokyo/asakusa/toei5200.pnml"
+#include "src/Tokyo/asakusa/toei5300.pnml"
+#include "src/Tokyo/asakusa/toei5500.pnml"
+
+//mita
+#include "src/Tokyo/mita/toei6000.pnml"
+#include "src/Tokyo/mita/toei6300.pnml"
+#include "src/Tokyo/mita/toei6500.pnml"
+
 ////shinjuku
-//#include "src/Tokyo/shinjuku/toei10_000.pnml"
-//#include "src/Tokyo/shinjuku/toei10_300.pnml"
-//
-//#include "src/Tokyo/oedo/toei12_000.pnml"
+#include "src/Tokyo/shinjuku/toei10_000.pnml"
+#include "src/Tokyo/shinjuku/toei10_300.pnml"
+
+//oedo
+#include "src/Tokyo/oedo/toei12_000.pnml"
 //
