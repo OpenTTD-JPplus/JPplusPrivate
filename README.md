@@ -68,7 +68,7 @@
 ## Namboku Line
 | | Train |
 | --- | --- |
-|![Eidan 9000 series](/gfx/Tokyo/namboku/9000series/9000series_purchase.png)| Eidan 9000 series |
+|![Eidan 9000 series](/gfx/Tokyo/namboku/eidan9000/eidan9000_purchase.png)| Eidan 9000 series |
 |![Saitama 2000 series](/gfx/Tokyo/namboku/saitama2000/saitama2000_purchase.png)| Saitama Rapid 2000 series |
 ## Asakusa Line
 | | Train |
