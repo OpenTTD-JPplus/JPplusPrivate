@@ -51,11 +51,11 @@ switch(FEAT_TRAINS, SELF, sw_tk_gz_t1000_lv_desc, cargo_subtype){
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, sw_tk_gz_t1000_attach_vehid, vehicle_type_id) {
-  mu_car: return CB_RESULT_ATTACH_ALLOW;
+  mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
   return string(STR_attach);
 }
 
-item(FEAT_TRAINS, tk_gz_t1000) {
+item(FEAT_TRAINS, tk_gz_t1000, 1000) {
     property {
         name: string(STR_tk_gz_type1000_name);
         introduction_date: date(1927, 1, 1);
@@ -98,7 +98,7 @@ item(FEAT_TRAINS, tk_gz_t1000) {
         cargo_subtype_text: sw_tk_gz_t1000_lv_desc;
         length: 8;
     }
-    livery_override(mu_car){
+    livery_override(mu_car_metro){
         default:                      sw_tk_gz_t1000_lv;
         cargo_capacity:               80+param_capacity_mod;
         loading_speed:                param_loading_3D;

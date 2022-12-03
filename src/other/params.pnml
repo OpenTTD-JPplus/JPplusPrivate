@@ -1,0 +1,161 @@
+grf {
+    /* This grf is part of NML, therefore "NML" is chosen as the front three
+     * characters of the GRFID. It is the front real grf defined as part of
+     * NML, therefore the end character is set to 0. Successive grfs will
+     * have 1, 2, etc. there, to make sure each example grf has a unique GRFID.
+     */
+    grfid: "YZ\AA\01";
+    /* GRF name and description strings are defined in the lang files */
+    name: string(STR_NAME);
+    desc: string(STR_DESC);
+    /* This is the front version, start numbering at 0. */
+    version: 6;
+    min_compatible_version: 6;
+
+/*param 4 { 
+    param_tiasdisable {
+        name: string(STR_PARAM_NAME_TIASDISABLE);
+					desc: string(STR_PARAM_DESC_TIASDISABLE);
+					type: bool;
+					bit:  0;
+					def_value: 0;
+    }
+}
+*/
+param 0 { 
+				//basecosts
+		param_buy {
+				type: int;
+				name: string(STR_PARAM_NAME_BASECOSTMODBUY);
+				desc: string(STR_PARAM_DESC_BASECOSTMODBUY);
+				min_value: 0;
+				max_value: 4;
+				def_value: 2;
+				names: {
+                    0: string(STR_PARAM_VLOW);
+                    1: string(STR_PARAM_LOW);
+				    2: string(STR_PARAM_NORMAL);
+				    3: string(STR_PARAM_HIGH);
+                    4: string(STR_PARAM_VHIGH);
+						};
+				}
+		}
+
+		//runningcosts
+
+param 1 {
+		param_run {
+			type: int;
+			name: string(STR_PARAM_RUN_NAME);
+			desc: string(STR_PARAM_RUN_DESC);
+			min_value: 0;
+			max_value: 4;
+			def_value: 2;
+			names: {
+				0: string(STR_PARAM_VLOW);
+                1: string(STR_PARAM_LOW);
+				2: string(STR_PARAM_NORMAL);
+				3: string(STR_PARAM_HIGH);
+                4: string(STR_PARAM_VHIGH);
+
+			};
+		}
+	}
+param 2 {
+				param_capacities {
+						type: int;
+						name: string(STR_PARAM_NAME_CAPACITY);
+						desc: string(STR_PARAM_DESC_CAPACITY);
+						min_value: 0;
+						max_value: 2;
+						def_value: 0;
+						names: {
+												0: string(STR_PARAM_REAL);
+												1: string(STR_PARAM_HIGH);
+												2: string(STR_PARAM_VHIGH);
+						};
+				}
+		}     
+}
+train_width_32_px = 1;
+traininfo_y_offset = 2;
+disable_item(FEAT_TRAINS);
+
+if (((grf_current_status("SZ\0D\00") == 0) && (grf_current_status("DP\30\00") == 0)) || ((grf_future_status("SZ\0D\00") == 0) && (grf_future_status("DP\30\00") == 0)) || ((grf_order_behind("SZ\0D\00") == 0) && (grf_order_behind("DP\30\00") == 0))) {
+	error( ERROR, string(GRF_JAPANSET));
+}
+if ((grf_current_status("mkw\E0") == 1)||(grf_future_status("mkw\E0") == 1)){
+	error( ERROR, string(GRF_TKMS));
+}
+
+//tias duplication
+/*
+if (param_tiasdisable == 1) {
+	engine_override("TB\01\01");
+
+	item(FEAT_TRAINS, item_TOEI5200_6, 0x49) {
+		property {
+			climates_available: NO_CLIMATE;
+		}
+	} 
+    item(FEAT_TRAINS, item_TOEI5200_8) {
+		property {
+			climates_available: NO_CLIMATE;
+		}
+	}
+}*/
+
+if (param_capacities == 0) {
+	param_loading_1D = 5; // 1 door //
+	param_loading_2D = 10; // 2 doors //
+	param_loading_3D = 20; // 3 doors //
+	param_loading_4D = 40; // 4 doors //
+	param_loading_5D = 55; // 5 doors //
+}
+
+if (param_capacities == 1) {
+	param_loading_1D = 10; // 1 door //
+	param_loading_2D = 20; // 2 doors //
+	param_loading_3D = 30; // 3 doors //
+	param_loading_4D = 50; // 4 doors //
+	param_loading_5D = 65; // 5 doors //
+}
+
+if (param_capacities == 2) {
+	param_loading_1D = 20; // 1 door //
+	param_loading_2D = 30; // 2 doors //
+	param_loading_3D = 40; // 3 doors //
+	param_loading_4D = 60; // 4 doors //
+	param_loading_5D = 75; // 5 doors //
+}
+
+
+if (param_capacities == 0) {
+	param_capacity_mod = 0;
+}
+if (param_capacities == 1) {
+	param_capacity_mod = 30;
+}
+if (param_capacities == 2) {
+	param_capacity_mod = 60;
+}
+
+basecost {
+	PR_BUILD_VEHICLE_TRAIN: param_buy-2;
+	PR_BUILD_VEHICLE_WAGON: param_buy +3;
+	PR_RUNNING_TRAIN_ELECTRIC: param_run+1;
+}
+
+railtypetable {
+	RAIL,
+	ELRL,
+    TR_1067: [NABE, ELRL],
+	TR_1435_M: [SAB3, "3RDR",ELRL],
+	TR_1435: [ELRL, RAIL],
+	TR_1372: [ELRL, NABE],
+	TR_1435_LNR: [ELRL],
+	TR_EVERY: [RAIL,NABE]
+}
+	
+
+

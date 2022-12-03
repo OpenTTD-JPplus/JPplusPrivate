@@ -46,19 +46,21 @@ switch(FEAT_TRAINS, PARENT, sw_tk_yk_10000series_8_mot_def_main_gfx,vehicle_is_r
     1: sw_tk_yk_10000series_8_mot_def_rev_gfx;
     sw_tk_yk_10000series_8_mot_def_gfx;
 }
+switch(FEAT_TRAINS, SELF, sw_tk_yk_10000series_length_check,num_vehs_in_consist){
+8: sw_tk_yk_10000series_8_mot_def_main_gfx;
+sw_tk_yk_10000series_mot_def_main_gfx;
+}
 //front-end-fixer
 switch(FEAT_TRAINS, SELF, sw_tk_yk_10000series_end_gfx,position_in_consist_from_end){
     0: tk_yk_10000series_end;
-    default: sw_tk_yk_10000series_mot_def_main_gfx;
+    default: sw_tk_yk_10000series_length_check;
 }
-switch(FEAT_TRAINS, SELF, sw_tk_yk_10000series_front_gfx,position_in_consist){
+switch(FEAT_TRAINS, SELF, sw_tk_yk_10000series_livery_1,position_in_consist){
     0: tk_yk_10000series_front;
     default: sw_tk_yk_10000series_end_gfx;
 }
-switch(FEAT_TRAINS, SELF, sw_tk_yk_10000series_livery_1,num_vehs_in_consist){
-8: sw_tk_yk_10000series_8_mot_def_main_gfx;
-default: sw_tk_yk_10000series_front_gfx;
-}
+
+
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_yk_10000series_main_capacity,position_in_consist_from_end){
     0: 143+param_capacity_mod;
@@ -70,7 +72,7 @@ switch(FEAT_TRAINS, SELF, tk_yk_10000series_attach_vehid, vehicle_type_id) {
   return string(STR_attach);
 }
 
-item(FEAT_TRAINS, tk_yk_10000series) {
+item(FEAT_TRAINS, tk_yk_10000series,1072) {
     property {
         name: string(STR_tk_yk_10000series_name);
         introduction_date: date(2006, 1, 1);
@@ -115,6 +117,7 @@ item(FEAT_TRAINS, tk_yk_10000series) {
         start_stop: sw_stop_start_4;   
     }
     livery_override(mu_car_narrow){
+        loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_yk_10000series_main_capacity;
         default:                      sw_tk_yk_10000series_livery_1;
         power: 885*4/9;
