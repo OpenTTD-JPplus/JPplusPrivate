@@ -1,172 +1,4 @@
-//Welcome to the example header!
-grf {
-    /* This grf is part of NML, therefore "NML" is chosen as the front three
-     * characters of the GRFID. It is the front real grf defined as part of
-     * NML, therefore the end character is set to 0. Successive grfs will
-     * have 1, 2, etc. there, to make sure each example grf has a unique GRFID.
-     */
-    grfid: "YZ\AA\01";
-    /* GRF name and description strings are defined in the lang files */
-    name: string(STR_NAME);
-    desc: string(STR_DESC);
-    /* This is the front version, start numbering at 0. */
-    version: 6;
-    min_compatible_version: 6;
-
-
-param 0 {
-				//basecosts
-		param_buy {
-				type: int;
-				name: string(STR_PARAM_NAME_BASECOSTMODBUY);
-				desc: string(STR_PARAM_DESC_BASECOSTMODBUY);
-				min_value: 0;
-				max_value: 2;
-				def_value: 1;
-				names: {
-								0: string(STR_PARAM_LOW);
-								1: string(STR_PARAM_NORMAL);
-								2: string(STR_PARAM_HIGH);
-						};
-				}
-		}
-
-		//runningcosts
-
-param {
-		param_run {
-			type: int;
-			name: string(STR_PARAM_RUN_NAME);
-			desc: string(STR_PARAM_RUN_DESC);
-			min_value: 0;
-			max_value: 2;
-			def_value: 1;
-			names: {
-				0: string(STR_PARAM_LOW);
-				1: string(STR_PARAM_NORMAL);
-				2: string(STR_PARAM_HIGH);
-
-			};
-		}
-	}
-param {
-				param_capacities {
-						type: int;
-						name: string(STR_PARAM_NAME_CAPACITY);
-						desc: string(STR_PARAM_DESC_CAPACITY);
-						min_value: 0;
-						max_value: 2;
-						def_value: 2;
-						names: {
-												0: string(STR_PARAM_LOW_CAPACITY);
-												1: string(STR_PARAM_NORMAL_CAPACITY);
-												2: string(STR_PARAM_HIGH_CAPACITY);
-						};
-				}
-		}     
-
-}
-
-if (param_capacities == 0) {
-	param_capacities_1 = 50; // old car //
-	param_capacities_2 = 65; // 16m car //
-	param_capacities_3 = 75; // normal car //
-	param_capacities_4 = 30; // express car //
-}
-
-if (param_capacities == 1) {
-	param_capacities_1 = 60; // old car //
-	param_capacities_2 = 75; // 16m car //
-	param_capacities_3 = 90; // normal car //
-	param_capacities_4 = 40; // express car //
-}
-
-if (param_capacities == 2) {
-	param_capacities_1 = 70; // old car //
-	param_capacities_2 = 85; // 16m car //
-	param_capacities_3 = 105; // normal car //
-	param_capacities_4 = 50; // express car //
-}
-
-if (param_capacities == 3) {
-	param_capacities_1 = 80; // old car //
-	param_capacities_2 = 100; // 16m car //
-	param_capacities_3 = 120; // normal car //
-	param_capacities_4 = 60; // express car //
-}
-
-if (param_capacities == 0) {
-	param_loading_1D = 5; // 1 door //
-	param_loading_2D = 10; // 2 doors //
-	param_loading_3D = 20; // 3 doors //
-	param_loading_4D = 40; // 4 doors //
-	param_loading_5D = 55; // 5 doors //
-}
-
-if (param_capacities == 1) {
-	param_loading_1D = 10; // 1 door //
-	param_loading_2D = 20; // 2 doors //
-	param_loading_3D = 30; // 3 doors //
-	param_loading_4D = 50; // 4 doors //
-	param_loading_5D = 65; // 5 doors //
-}
-
-if (param_capacities == 2) {
-	param_loading_1D = 20; // 1 door //
-	param_loading_2D = 30; // 2 doors //
-	param_loading_3D = 40; // 3 doors //
-	param_loading_4D = 60; // 4 doors //
-	param_loading_5D = 75; // 5 doors //
-}
-
-if (param_capacities == 3) {
-	param_loading_1D = 30; // 1 door //
-	param_loading_2D = 40; // 2 doors //
-	param_loading_3D = 50; // 3 doors //
-	param_loading_4D = 80; // 4 doors //
-	param_loading_5D = 95; // 5 doors //
-}
-
-if (param_buy == 0) { PURCHASE_COST_MOD = -1; }
-if (param_buy == 1) { PURCHASE_COST_MOD = 0; }
-if (param_buy == 2) { PURCHASE_COST_MOD = 1; }
-
-if (param_run == 0) { RUNNING_COST_MOD = 2; }
-if (param_run == 1) { RUNNING_COST_MOD = 3; }
-if (param_run == 2) { RUNNING_COST_MOD = 4; }
-
-
-basecost {
-	PR_BUILD_VEHICLE_TRAIN: param_buy-2;
-	PR_BUILD_VEHICLE_WAGON: param_buy +3;
-	PR_RUNNING_TRAIN_ELECTRIC: param_run;
-}
-
-railtypetable {
-	RAIL,
-	ELRL,
-    TR_1067: [NABE, ELRL],
-	TR_1435_M: [SAB3, "3RDR"],
-	TR_1435: [ELRL, RAIL],
-	TR_1372: [ELRL, NABE],
-	TR_1435_LNR: [ELRL],
-	TR_EVERY: [RAIL,NABE]
-}
-	
-if (param_capacities == 0) {
-	param_capacity_mod = -60;
-}
-if (param_capacities == 1) {
-	param_capacity_mod = -30;
-}
-if (param_capacities == 2) {
-	param_capacity_mod = 0;
-}
-
-train_width_32_px = 1;
-traininfo_y_offset = 2;
-
-
+#include "src/other/params.pnml"
 template tmpl_std(x,y) {
     // parameters x, y: coordinates of top-left corner of front sprite
     [x, 	 y,	8, 	24,		-3, 	-16] //short
@@ -189,40 +21,17 @@ template tmpl_std_rev(x,y){
 [x +32,  y,	32,	17,		-12,	-13] //long
 [x +65,  y,	22,	20,		-5, 	-12] //dia2
 }
-template tmpl_std_20m(x,y) {
-    // parameters x, y: coordinates of top-left corner of front sprite
-    [x, 	 y,	8, 	26,		-3, 	-17] //short
-	[x +9, 	 y,	24,	20,		-13,	-13] //dia1
-	[x +34,  y,	36,	17,		-12,	-13] //long
-	[x +71,  y,	24,	20,		-6, 	-11] //dia2
-	[x +96,  y,	8, 	26,		-3, 	-17] //short
-	[x +105,  y,	24,	20,		-13,	-13] //dia1
-	[x +130, y,	36,	17,		-12,	-13] //long
-	[x+167,  y,	24,	20,		-6, 	-11] //dia2
-}
-template tmpl_std_20m_rev(x,y) {
-    // parameters x, y: coordinates of top-left corner of front sprite
-    [x+96, 	 y,	8, 	26,		-3, 	-17] //short
-	[x +105, 	 y,	24,	20,		-13,	-13] //dia1
-	[x +130,  y,	36,	17,		-12,	-13] //long
-	[x +167,  y,	24,	20,		-6, 	-11] //dia2
-	[x,  y,	8, 	26,		-3, 	-17] //short
-	[x +9,  y,	24,	20,		-13,	-13] //dia1
-	[x +34, y,	36,	17,		-12,	-13] //long
-	[x+71,  y,	24,	20,		-6, 	-11] //dia2
-}
 template tmpl_purchase (x, y) {
-		[x , y, 88, 15, -30, -8]
+		 [x, y, 76, 15, -28, -10]
 }
-disable_item(FEAT_TRAINS);
+
 spriteset (dummy_sprites, "gfx/empty.png")
 {
   [0, 0, 2, 2, 0, 0, CROP]
 }
 spriteset (set_mu_car_purchase,   "gfx/mucarbuy.png") { tmpl_purchase(0, 0) }
 spriteset (set_mu_car_base,   "gfx/mucar.png") { tmpl_std(0, 0) }
-
-item(FEAT_TRAINS, mu_car) {
+item(FEAT_TRAINS, mu_car_metro, 100) {
 	property {
         name:  string(MUCAR);
         introduction_date: date(1800,1,1);
@@ -242,7 +51,7 @@ item(FEAT_TRAINS, mu_car) {
                 refittable_cargo_classes: bitmask(CC_PASSENGERS);
                 cargo_age_period: 185;
                 refit_cost: 0;
-				track_type:RAIL;
+				track_type:TR_1435_M;
                 ai_special_flag: AI_FLAG_PASSENGER;
                 running_cost_base: RUNNING_COST_DIESEL;
                 engine_class: ENGINE_CLASS_STEAM;
@@ -260,7 +69,45 @@ item(FEAT_TRAINS, mu_car) {
     }
 
 }
-item(FEAT_TRAINS, mu_car_narrow) {
+item(FEAT_TRAINS, mu_car, 101) {
+	property {
+        name:  string(MUCAR);
+        introduction_date: date(1800,1,1);
+        climates_available: ALL_CLIMATES;
+                model_life: VEHICLE_NEVER_EXPIRES;
+                vehicle_life: 60;
+                loading_speed: param_loading_3D;
+                cost_factor: 64;
+                running_cost_factor: 6;
+                speed: 0 km/h;
+                power: 0 hp;
+                cargo_capacity: 1;
+                weight: 0 ton;
+                tractive_effort_coefficient: 0.3;
+                air_drag_coefficient: 0;
+                reliability_decay: 20;
+                refittable_cargo_classes: bitmask(CC_PASSENGERS);
+                cargo_age_period: 185;
+                refit_cost: 0;
+				track_type:TR_1435;
+                ai_special_flag: AI_FLAG_PASSENGER;
+                running_cost_base: RUNNING_COST_DIESEL;
+                engine_class: ENGINE_CLASS_STEAM;
+                visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_DISABLE, 0, DISABLE_WAGON_POWER);
+                sprite_id: SPRITE_ID_NEW_TRAIN;
+                dual_headed: 0;
+                extra_power_per_wagon: 0;
+                bitmask_vehicle_info: 0;
+}
+ graphics {
+		purchase:                     set_mu_car_purchase;
+    	additional_text:			        return string(MUCAR_DESC);
+    	default: set_mu_car_base;
+		length: 8;
+    }
+
+}
+item(FEAT_TRAINS, mu_car_narrow, 102) {
 	property {
         name:  string(MUCAR);
         introduction_date: date(1800,1,1);
@@ -312,7 +159,12 @@ switch (FEAT_TRAINS, SELF, sw_stop_start_4, num_vehs_in_consist < 4) {
 		return CB_RESULT_NO_TEXT; 
 	}
 
-//ginza
+
+//10 id's default, 20 for big lines for future reserve
+// ginza 1000-1049, marunouchi 1050-1100 etc.
+
+//Tokyo
+//ginza 1000-1019
 #include "src/Tokyo/ginza/tk_gz_type1000.pnml"
 #include "src/Tokyo/ginza/tk_gz_type1100.pnml"
 #include "src/Tokyo/ginza/tk_gz_type100.pnml"
@@ -321,18 +173,18 @@ switch (FEAT_TRAINS, SELF, sw_stop_start_4, num_vehs_in_consist < 4) {
 #include "src/Tokyo/ginza/tk_gz_01series.pnml"
 #include "src/Tokyo/ginza/tk_gz_1000series.pnml"
 
-//marunouchi
+//marunouchi 1020-1029
 #include "src/Tokyo/marunouchi/type1900.pnml"
 #include "src/Tokyo/marunouchi/eidan500.pnml"
 #include "src/Tokyo/marunouchi/eidan02.pnml"
 #include "src/Tokyo/marunouchi/2000series.pnml"
 
-//hibiya
+//hibiya 1030-1039
 #include "src/Tokyo/hibiya/eidan3000.pnml"
 #include "src/Tokyo/hibiya/eidan03.pnml"
 #include "src/Tokyo/hibiya/13000series.pnml"
 
-//tozai
+//tozai 1040-1059
 #include "src/Tokyo/tozai/5000series.pnml"
 #include "src/Tokyo/tozai/05series.pnml"
 #include "src/Tokyo/tozai/07series.pnml"
@@ -340,43 +192,54 @@ switch (FEAT_TRAINS, SELF, sw_stop_start_4, num_vehs_in_consist < 4) {
 #include "src/Tokyo/tozai/toyo1000.pnml"
 #include "src/Tokyo/tozai/toyo2000.pnml"
 
-//chiyoda
+//chiyoda 1060-1079
 #include "src/Tokyo/chiyoda/5000series.pnml"
 #include "src/Tokyo/chiyoda/6000series.pnml"
 #include "src/Tokyo/chiyoda/06series.pnml"
 #include "src/Tokyo/chiyoda/16000series.pnml"
 #include "src/Tokyo/chiyoda/05series.pnml"
 
-// futokushin-yurakucho
+// futokushin-yurakucho 1080-1099;
 #include "src/Tokyo/yurakucho_fukutoshin/07series.pnml"
 #include "src/Tokyo/yurakucho_fukutoshin/7000series.pnml"
 #include "src/Tokyo/yurakucho_fukutoshin/10000series.pnml"
 #include "src/Tokyo/yurakucho_fukutoshin/17000series.pnml"
 
-//hanzomon
+//hanzomon 1100-1109
 #include "src/Tokyo/hanzomon/8000series.pnml"
 #include "src/Tokyo/hanzomon/08series.pnml"
 #include "src/Tokyo/hanzomon/18000series.pnml"
 
-//namboku
+//namboku 1110-1119
 #include "src/Tokyo/namboku/9000series.pnml"
 #include "src/Tokyo/namboku/saitama2000.pnml"
 
-//asakusa
+//asakusa 1120-1129
 #include "src/Tokyo/asakusa/toei5000.pnml"
 #include "src/Tokyo/asakusa/toei5200.pnml"
 #include "src/Tokyo/asakusa/toei5300.pnml"
 #include "src/Tokyo/asakusa/toei5500.pnml"
 
-//mita
+//mita 1130-1139
 #include "src/Tokyo/mita/toei6000.pnml"
 #include "src/Tokyo/mita/toei6300.pnml"
 #include "src/Tokyo/mita/toei6500.pnml"
 
-////shinjuku
+//shinjuku 1140-1149
 #include "src/Tokyo/shinjuku/toei10_000.pnml"
 #include "src/Tokyo/shinjuku/toei10_300.pnml"
 
-//oedo
+//oedo 1150-1159
 #include "src/Tokyo/oedo/toei12_000.pnml"
-//
+
+//reserved for future lines 1160-1199
+
+//Yokohama
+//Blue Line 1200-1209
+
+
+
+//Green Line + reserved 1210-1219;
+
+
+//Osaka
