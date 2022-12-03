@@ -73,6 +73,9 @@
 ## Asakusa Line
 | | Train |
 | --- | --- |
+|![Toei 5000 series](/gfx/Tokyo/asakusa/toei5000/toei5000_purchase.png)| Toei 5000 series |
+|![Toei 5200 series](/gfx/Tokyo/asakusa/toei5200/toei5200_purchase.png)| Toei 5200 series |
+|![Toei 5300 series](/gfx/Tokyo/asakusa/toei5300/toei5300_purchase.png)| Toei 5600 series |
 |![Toei 5500 series](/gfx/Tokyo/asakusa/toei5500/toei5500_purchase.png)| Toei 5500 series |
 ## Mita Line
 | | Train |
@@ -85,7 +88,10 @@
 | --- | --- |
 |![Toei 10-000 series](/gfx/Tokyo/shinjuku/toei10_000/toei10_000_purchase.png)| Toei 10-000 series |
 |![Toei 10-300 series](/gfx/Tokyo/shinjuku/toei10_300/toei10_300_purchase.png)| Toei 10-300 series |
-
+## Oedo
+| | Train |
+| --- | --- |
+|![Toei 12-000/600 series](/gfx/Tokyo/oedo/toei12_000/toei12_000_purchase.png)| Toei 12-000/600 series |
 
 
 
