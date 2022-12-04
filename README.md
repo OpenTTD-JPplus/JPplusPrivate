@@ -75,7 +75,7 @@
 | --- | --- |
 |![Toei 5000 series](/gfx/Tokyo/asakusa/toei5000/toei5000_purchase.png)| Toei 5000 series |
 |![Toei 5200 series](/gfx/Tokyo/asakusa/toei5200/toei5200_purchase.png)| Toei 5200 series |
-|![Toei 5300 series](/gfx/Tokyo/asakusa/toei5300/toei5300_purchase.png)| Toei 5600 series |
+|![Toei 5300 series](/gfx/Tokyo/asakusa/toei5300/toei5300_purchase.png)| Toei 5300 series |
 |![Toei 5500 series](/gfx/Tokyo/asakusa/toei5500/toei5500_purchase.png)| Toei 5500 series |
 ## Mita Line
 | | Train |
