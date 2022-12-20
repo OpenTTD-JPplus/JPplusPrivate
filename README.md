@@ -6,6 +6,11 @@
 **Graphics:** Yozora, Saya <br>
 **Thanks to:** Tinny, Emperor Jake, Asuza, Erato, Saya, Ivano <br>
 
+Support my work
+
+[<img src="https://github.com/Yozora3/technical_stuff/blob/main/logos/White.png?raw=true" width="200"/>](https://boosty.to/yozora3)
+
+
 ## Ginza Line
 | | Train |
 | --- | --- |
