@@ -82,7 +82,7 @@ traininfo_y_offset = 2;
 disable_item(FEAT_TRAINS);
 
 if (((grf_current_status("SZ\0D\00") == 0) && (grf_current_status("DP\30\00") == 0)) || ((grf_future_status("SZ\0D\00") == 0) && (grf_future_status("DP\30\00") == 0)) || ((grf_order_behind("SZ\0D\00") == 0) && (grf_order_behind("DP\30\00") == 0))) {
-	error( ERROR, string(GRF_JAPANSET));
+	error( WARNING, string(GRF_JAPANSET));
 }
 if ((grf_current_status("mkw\E0") == 1)||(grf_future_status("mkw\E0") == 1)){
 	error( ERROR, string(GRF_TKMS));
@@ -134,10 +134,10 @@ if (param_capacities == 0) {
 	param_capacity_mod = 0;
 }
 if (param_capacities == 1) {
-	param_capacity_mod = 30;
+	param_capacity_mod = 50;
 }
 if (param_capacities == 2) {
-	param_capacity_mod = 60;
+	param_capacity_mod = 100;
 }
 
 basecost {
@@ -149,8 +149,8 @@ basecost {
 railtypetable {
 	RAIL,
 	ELRL,
-    TR_1067: [NABE, ELRL],
-	TR_1435_M: [SAB3, "3RDR",ELRL],
+    TR_1067: [NABE, ELNG, ELRL],
+	TR_1435_M: [SAB3, "3RDR",MTRO,ELRL],
 	TR_1435: [ELRL, RAIL],
 	TR_1372: [ELRL, NABE],
 	TR_1435_LNR: [ELRL],
@@ -391,7 +391,7 @@ item(FEAT_TRAINS, tk_gz_t1000, 1000) {
         model_life: 11;
         vehicle_life: 48;
 
-        cargo_capacity: (80+param_capacity_mod);
+        cargo_capacity: 80+param_capacity_mod;
         loading_speed: param_loading_3D;
         cost_factor: 18;
         running_cost_factor: 48;
@@ -614,7 +614,7 @@ item(FEAT_TRAINS, tk_gz_t100) {
     }
     livery_override(mu_car_metro){
         default:                      sw_tk_gz_t100_lv;
-        cargo_capacity:               70+param_capacity_mod;
+        cargo_capacity:               70+param_capacity_mod+param_capacity_mod;
         loading_speed:                param_loading_3D;
         power: 241;
         weight: 34;
@@ -907,7 +907,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_gz_01s_livery_1,position_in_consist){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_gz_01s_main_capacity,position_in_consist_from_end){
     0: 100+param_capacity_mod;
-    default: 102;
+    default: 102+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, sw_tk_gz_01s_attach_vehid, vehicle_type_id) {
@@ -995,7 +995,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_gz_1000s_livery_1,position_in_consist){
 //capacity changer
 switch(FEAT_TRAINS, SELF, sw_tk_gz_1000s_main_capacity,position_in_consist_from_end){
     0: 93+param_capacity_mod;
-    default: 106;
+    default: 106+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, sw_tk_gz_1000s_attach_vehid, vehicle_type_id) {
@@ -1133,7 +1133,7 @@ item(FEAT_TRAINS, tk_mn_t1900,1020) {
     }
     livery_override(mu_car_metro){
         default:                      sw_tk_mn_t1900_livery_1;
-        cargo_capacity:               98/3+param_capacity_mod;
+        cargo_capacity:               99+param_capacity_mod;
         loading_speed:                param_loading_3D;
         power: 241;
         weight: 30;
@@ -1167,7 +1167,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan500_livery_1,position_in_consist){
 //capacity changer
 switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan500_main_capacity,position_in_consist_from_end){
     0: 122+param_capacity_mod;
-    default: 137;
+    default: 137+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan500_attach_vehid, vehicle_type_id) {
@@ -1283,7 +1283,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan02_lv_desc, cargo_subtype){
 //capacity changer
 switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan02_main_capacity,position_in_consist_from_end){
     0: 124+param_capacity_mod;
-    default: 136;
+    default: 136+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan02_attach_vehid, vehicle_type_id) {
@@ -1370,7 +1370,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_mn_2000s_livery_1,position_in_consist){
 //capacity changer
 switch(FEAT_TRAINS, SELF, sw_tk_mn_2000s_main_capacity,position_in_consist_from_end){
     0: 120+param_capacity_mod;
-    default: 122;
+    default: 122+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, sw_tk_mn_2000s_attach_vehid, vehicle_type_id) {
@@ -1490,7 +1490,7 @@ default: sw_tk_hb_eidan3000_front_gfx;
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan3000_main_capacity,position_in_consist_from_end){
     0: 120+param_capacity_mod;
-    default: 128;
+    default: 128+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_hb_eidan3000_attach_vehid, vehicle_type_id) {
@@ -1511,7 +1511,7 @@ item(FEAT_TRAINS, tk_hb_eidan3000, 1030) {
         power: 300 kW;
         weight: 33 ton;
 
-        cargo_capacity: 120;
+        cargo_capacity: 120+param_capacity_mod;
         loading_speed: param_loading_3D;
 
         reliability_decay: 22;
@@ -1739,7 +1739,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_loading, cargo_subtype){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_main_capacity,position_in_consist_from_end){
     0: 132+param_capacity_mod;
-    default: 138;
+    default: 138+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_hb_eidan03_attach_vehid, vehicle_type_id) {
@@ -1760,7 +1760,7 @@ item(FEAT_TRAINS, tk_hb_eidan03,1031) {
         power: 300 kW;
         weight: 33 ton;
 
-        cargo_capacity: 132;
+        cargo_capacity: 132+param_capacity_mod;
         loading_speed: param_loading_3D;
 
         reliability_decay: 22;
@@ -1893,7 +1893,7 @@ default: sw_tk_hb_13000series_def_gfx;
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_hb_13000series_main_capacity,position_in_consist_from_end){
     0: 140+param_capacity_mod;
-    default: 151;
+    default: 151+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_hb_13000series_attach_vehid, vehicle_type_id) {
@@ -2192,7 +2192,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_tz_5000series_lv_desc, cargo_subtype){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_tz_5000series_main_capacity,position_in_consist_from_end){
     0: 136+param_capacity_mod;
-    default: 144;
+    default: 144+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_tz_5000series_attach_vehid, vehicle_type_id) {
@@ -2403,7 +2403,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_tz_05series_lv_desc, cargo_subtype){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_tz_05series_main_capacity,position_in_consist_from_end){
     0: 138+param_capacity_mod;
-    default: 148;
+    default: 148+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_tz_05series_attach_vehid, vehicle_type_id) {
@@ -2512,7 +2512,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_tz_07series_front_gfx,position_in_consist){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_tz_07series_main_capacity,position_in_consist_from_end){
     0: 138+param_capacity_mod;
-    default: 152;
+    default: 152+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_tz_07series_attach_vehid, vehicle_type_id) {
@@ -2619,7 +2619,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_tz_15000series_front_gfx,position_in_consist){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_tz_15000series_main_capacity,position_in_consist_from_end){
     0: 143+param_capacity_mod;
-    default: 154;
+    default: 154+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_tz_15000series_attach_vehid, vehicle_type_id) {
@@ -2728,7 +2728,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo1000_front_gfx,position_in_consist){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo1000_main_capacity,position_in_consist_from_end){
     0: 136+param_capacity_mod;
-    default: 144;
+    default: 144+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_tz_toyo1000_attach_vehid, vehicle_type_id) {
@@ -2837,7 +2837,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo2000_front_gfx,position_in_consist){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo2000_main_capacity,position_in_consist_from_end){
     0: 143+param_capacity_mod;
-    default: 154;
+    default: 154+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_tz_toyo2000_attach_vehid, vehicle_type_id) {
@@ -2992,7 +2992,7 @@ default: sw_tk_ch_5000series_checker;
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_ch_5000series_main_capacity,position_in_consist_from_end){
     0: 143+param_capacity_mod;
-    default: 154;
+    default: 154+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_ch_5000series_attach_vehid, vehicle_type_id) {
@@ -3228,7 +3228,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_ch_6000series_lv_desc, cargo_subtype){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_ch_6000series_main_capacity,position_in_consist_from_end){
     0: 136+param_capacity_mod;
-    default: 144;
+    default: 144+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_ch_6000series_attach_vehid, vehicle_type_id) {
@@ -3244,7 +3244,7 @@ item(FEAT_TRAINS, tk_ch_6000series,1061) {
         vehicle_life: 50;
         reliability_decay: 21;
 
-        cargo_capacity: 580+param_capacity_mod;
+        cargo_capacity: 136+param_capacity_mod;
         loading_speed: param_loading_4D;
         cost_factor: 19;
         running_cost_factor: 49;
@@ -3339,7 +3339,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_front_gfx,position_in_consist){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_main_capacity,position_in_consist_from_end){
     0: 138+param_capacity_mod;
-    default: 152;
+    default: 152+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_ch_06series_attach_vehid, vehicle_type_id) {
@@ -3447,7 +3447,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_ch_16000series_front_gfx,position_in_consist){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_ch_16000series_main_capacity,position_in_consist_from_end){
     0: 143+param_capacity_mod;
-    default: 154;
+    default: 154+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_ch_16000series_attach_vehid, vehicle_type_id) {
@@ -3575,7 +3575,7 @@ default: sw_tk_ch_05series_front_gfx;
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_main_capacity,position_in_consist_from_end){
     0: 138+param_capacity_mod;
-    default: 148;
+    default: 148+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_ch_05series_attach_vehid, vehicle_type_id) {
@@ -3688,7 +3688,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_yk_07series_front_gfx,position_in_consist){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_yk_07series_main_capacity,position_in_consist_from_end){
     0: 138+param_capacity_mod;
-    default: 152;
+    default: 152+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_yk_07series_attach_vehid, vehicle_type_id) {
@@ -3945,7 +3945,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_yk_7000series_lv_desc, cargo_subtype){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_yk_7000series_main_capacity,position_in_consist_from_end){
     0: 136+param_capacity_mod;
-    default: 144;
+    default: 144+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_yk_7000series_attach_vehid, vehicle_type_id) {
@@ -4075,7 +4075,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_yk_10000series_livery_1,position_in_consist){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_yk_10000series_main_capacity,position_in_consist_from_end){
     0: 143+param_capacity_mod;
-    default: 154;
+    default: 154+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_yk_10000series_attach_vehid, vehicle_type_id) {
@@ -4207,7 +4207,7 @@ default: sw_tk_yk_17000series_front_gfx;
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_yk_17000series_main_capacity,position_in_consist_from_end){
     0: 143+param_capacity_mod;
-    default: 154;
+    default: 154+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_yk_17000series_attach_vehid, vehicle_type_id) {
@@ -4313,7 +4313,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_hz_8000series_front_gfx,position_in_consist){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_hz_8000series_main_capacity,position_in_consist_from_end){
     0: 136+param_capacity_mod;
-    default: 144;
+    default: 144+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_hz_8000series_attach_vehid, vehicle_type_id) {
@@ -4421,7 +4421,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_hz_08series_front_gfx,position_in_consist){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_hz_08series_main_capacity,position_in_consist_from_end){
     0: 141+param_capacity_mod;
-    default: 152;
+    default: 152+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_hz_08series_attach_vehid, vehicle_type_id) {
@@ -4554,7 +4554,7 @@ default: sw_tk_hz_18000series_front_gfx;
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_hz_18000series_main_capacity,position_in_consist_from_end){
     0: 143+param_capacity_mod;
-    default: 154;
+    default: 154+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_hz_18000series_attach_vehid, vehicle_type_id) {
@@ -4751,7 +4751,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_nm_eidan9000_lv_desc, cargo_subtype){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_nm_eidan9000_main_capacity,position_in_consist_from_end){
     0: 151+param_capacity_mod;
-    default: 140;
+    default: 140+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_nm_eidan9000_attach_vehid, vehicle_type_id) {
@@ -4856,7 +4856,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_nm_saitama2000_livery_1,position_in_consist){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_nm_saitama2000_main_capacity,position_in_consist_from_end){
     0: 151+param_capacity_mod;
-    default: 140;
+    default: 140+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_nm_saitama2000_attach_vehid, vehicle_type_id) {
@@ -5197,7 +5197,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_lv_desc, cargo_subtype){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_main_capacity,position_in_consist_from_end){
     0: 140+param_capacity_mod;
-    default: 150;
+    default: 150+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_as_toei5000_attach_vehid, vehicle_type_id) {
@@ -5395,7 +5395,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_as_toei5200_lv_desc, cargo_subtype){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_as_toei5200_main_capacity,position_in_consist_from_end){
     0: 140+param_capacity_mod;
-    default: 150;
+    default: 150+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_as_toei5200_attach_vehid, vehicle_type_id) {
@@ -5501,7 +5501,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_as_toei5300_livery_1,position_in_consist){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_as_toei5300_main_capacity,position_in_consist_from_end){
     0: 123+param_capacity_mod;
-    default: 134;
+    default: 134+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_as_toei5300_attach_vehid, vehicle_type_id) {
@@ -5602,7 +5602,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_livery_1,position_in_consist){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_main_capacity,position_in_consist_from_end){
     0: 121+param_capacity_mod;
-    default: 134;
+    default: 134+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_as_toei5500_attach_vehid, vehicle_type_id) {
@@ -5787,9 +5787,9 @@ switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6000_lv_desc, cargo_subtype){
     2: string(LV_tk_mt_toei6000_2);
 }
 //capacity-changer
-switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6000_main_capacity,position_in_consist_from_end){
+switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6000_main_capacity,position_in_vehid_chain_from_end){
     0: 150+param_capacity_mod;
-    default: 170;
+    default: 170+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_mt_toei6000_attach_vehid, vehicle_type_id) {
@@ -5894,7 +5894,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_livery_1,position_in_consist){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_main_capacity,position_in_consist_from_end){
     0: 145+param_capacity_mod;
-    default: 150;
+    default: 150+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_mt_toei6300_attach_vehid, vehicle_type_id) {
@@ -5997,7 +5997,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6500_livery_1,position_in_consist){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6500_main_capacity,position_in_consist_from_end){
     0: 139+param_capacity_mod;
-    default: 149;
+    default: 149+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_mt_toei6500_attach_vehid, vehicle_type_id) {
@@ -6216,7 +6216,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_lv_desc, cargo_subtype){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_main_capacity,position_in_consist_from_end){
     0: 138+param_capacity_mod;
-    default: 149;
+    default: 149+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_attach_vehid, vehicle_type_id) {
@@ -6487,7 +6487,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_lv_desc, cargo_subtype){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_main_capacity,position_in_consist_from_end){
     0: 138+param_capacity_mod;
-    default: 150;
+    default: 150+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_sj_toei10_300_attach_vehid, vehicle_type_id) {
@@ -6501,7 +6501,7 @@ item(FEAT_TRAINS, tk_sj_toei10_300,1141) {
     property {
         name: string(str_tk_sj_toei10_300_name);
         introduction_date: date(2004, 1, 1);
-        cargo_capacity: 48+param_capacity_mod;
+        cargo_capacity: 138+param_capacity_mod;
         speed: 120 km/h;
         power: 380 kW;
         weight: 23 ton;
@@ -6864,7 +6864,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_od_toei12_000_lv_date_sel, build_year>2011){
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_od_toei12_000_main_capacity,position_in_consist_from_end){
     0: 90+param_capacity_mod;
-    default: 100;
+    default: 100+param_capacity_mod;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_od_toei12_000_attach_vehid, vehicle_type_id) {
