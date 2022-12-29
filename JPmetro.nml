@@ -75,7 +75,8 @@ param 2 {
 												2: string(STR_PARAM_VHIGH);
 						};
 				}
-		}     
+		}
+
 }
 train_width_32_px = 1;
 traininfo_y_offset = 2;
@@ -87,6 +88,8 @@ if (((grf_current_status("SZ\0D\00") == 0) && (grf_current_status("DP\30\00") ==
 if ((grf_current_status("mkw\E0") == 1)||(grf_future_status("mkw\E0") == 1)){
 	error( ERROR, string(GRF_TKMS));
 }
+
+
 
 //tias duplication
 /*
@@ -194,7 +197,7 @@ spriteset (set_mu_car_purchase,   "gfx/mucarbuy.png") { tmpl_purchase(0, 0) }
 spriteset (set_mu_car_base,   "gfx/mucar.png") { tmpl_std(0, 0) }
 item(FEAT_TRAINS, mu_car_metro, 100) {
 	property {
-        name:  string(MUCAR);
+        name:  string(MUCAR_1435_M);
         introduction_date: date(1800,1,1);
         climates_available: ALL_CLIMATES;
                 model_life: VEHICLE_NEVER_EXPIRES;
@@ -232,7 +235,7 @@ item(FEAT_TRAINS, mu_car_metro, 100) {
 }
 item(FEAT_TRAINS, mu_car, 101) {
 	property {
-        name:  string(MUCAR);
+        name:  string(MUCAR_1435);
         introduction_date: date(1800,1,1);
         climates_available: ALL_CLIMATES;
                 model_life: VEHICLE_NEVER_EXPIRES;
@@ -270,7 +273,7 @@ item(FEAT_TRAINS, mu_car, 101) {
 }
 item(FEAT_TRAINS, mu_car_narrow, 102) {
 	property {
-        name:  string(MUCAR);
+        name:  string(MUCAR_1067);
         introduction_date: date(1800,1,1);
         climates_available: ALL_CLIMATES;
                 model_life: VEHICLE_NEVER_EXPIRES;
@@ -391,7 +394,7 @@ item(FEAT_TRAINS, tk_gz_t1000, 1000) {
         model_life: 11;
         vehicle_life: 48;
 
-        cargo_capacity: 80+param_capacity_mod;
+        cargo_capacity: 90+param_capacity_mod;
         loading_speed: param_loading_3D;
         cost_factor: 18;
         running_cost_factor: 48;
@@ -472,7 +475,7 @@ item(FEAT_TRAINS, tk_gz_t1100, 1001) {
         model_life: 9;
         vehicle_life: 51;
 
-        cargo_capacity: 80+param_capacity_mod;
+        cargo_capacity: 90+param_capacity_mod;
         loading_speed: param_loading_3D;
         cost_factor: 19;
         running_cost_factor: 49;
@@ -569,14 +572,14 @@ switch(FEAT_TRAINS, SELF, sw_tk_gz_t100_attach_vehid, vehicle_type_id) {
   return string(STR_attach);
 }
 
-item(FEAT_TRAINS, tk_gz_t100) {
+item(FEAT_TRAINS, tk_gz_t100, 1002) {
     property {
         name: string(STR_tk_gz_type100_name);
         introduction_date: date(1937, 1, 1);
         model_life: 17;
         vehicle_life: 44;
 
-        cargo_capacity: 70+param_capacity_mod; //change
+        cargo_capacity: 85+param_capacity_mod; //change
         loading_speed: param_loading_3D; //change
         cost_factor: 17; //change
         running_cost_factor: 47; //change
@@ -717,7 +720,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_gz_t1300_attach_vehid, vehicle_type_id) {
   return string(STR_attach);
 }
 
-item(FEAT_TRAINS, tk_gz_t1300, 1002) {
+item(FEAT_TRAINS, tk_gz_t1300, 1003) {
     property {
         name: string(STR_tk_gz_type1300_name);
         introduction_date: date(1957, 1, 1);
@@ -828,7 +831,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_gz_t1900_attach_vehid, vehicle_type_id) {
   return string(STR_attach);
 }
 
-item(FEAT_TRAINS, tk_gz_t1900, 1003) {
+item(FEAT_TRAINS, tk_gz_t1900, 1004) {
     property {
         name: string(STR_tk_gz_type1900_name);
         introduction_date: date(1959, 1, 1);
@@ -915,7 +918,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_gz_01s_attach_vehid, vehicle_type_id) {
   return string(STR_attach);
 }
 
-item(FEAT_TRAINS, tk_gz_01s, 1004) {
+item(FEAT_TRAINS, tk_gz_01s, 1005) {
     property {
         name: string(STR_tk_gz_01s_name);
         introduction_date: date(1983, 1, 1);
@@ -1003,7 +1006,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_gz_1000s_attach_vehid, vehicle_type_id) {
   return string(STR_attach);
 }
 
-item(FEAT_TRAINS, tk_gz_1000s, 1005) {
+item(FEAT_TRAINS, tk_gz_1000s, 1006) {
     property {
         name: string(STR_tk_gz_1000s_name);
         introduction_date: date(2011, 1, 1);
@@ -6930,10 +6933,659 @@ item(FEAT_TRAINS, tk_od_toei12_000,1150) {
 
 //Yokohama
 //Blue Line 1200-1209
+# 1 "src/Yokohama/1000series.pnml" 1
+spriteset (yk_bl_1000series_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
+alternative_sprites(yk_bl_1000series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/1000series/1000series_purchase.png"){ tmpl_purchase(0, 0) }
+
+spriteset (yk_bl_1000series_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (yk_bl_1000series_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+spriteset (yk_bl_1000series_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+
+spriteset (yk_bl_2000series_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (yk_bl_2000series_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+spriteset (yk_bl_2000series_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+
+alternative_sprites(yk_bl_1000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/1000series/1000series.png"){ tmpl_std(0, 0) }
+alternative_sprites(yk_bl_1000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/1000series/1000series.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(yk_bl_1000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/1000series/1000series.png"){ tmpl_std(0, 50) }
+
+alternative_sprites(yk_bl_2000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/1000series/2000series.png"){ tmpl_std(0, 0) }
+alternative_sprites(yk_bl_2000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/1000series/2000series.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(yk_bl_2000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/1000series/2000series.png"){ tmpl_std(0, 50) }
 
 
+//livery 1000
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_yk_bl_1000series_end_gfx,position_in_consist_from_end){
+    0: yk_bl_1000series_end;
+    default: yk_bl_1000series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_bl_1000series_livery_1,position_in_consist){
+    0: yk_bl_1000series_front;
+    default: sw_yk_bl_1000series_end_gfx;
+}
+//livery 2000
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_yk_bl_2000series_end_gfx,position_in_consist_from_end){
+    0: yk_bl_2000series_end;
+    default: yk_bl_2000series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_bl_2000series_livery_1,position_in_consist){
+    0: yk_bl_2000series_front;
+    default: sw_yk_bl_2000series_end_gfx;
+}
+//randomized livery 1983-2006
+random_switch(FEAT_TRAINS, PARENT, sw_yk_bl_1000series_livery_0){
+    1: sw_yk_bl_1000series_livery_1;
+    1: sw_yk_bl_2000series_livery_1;
+}
+
+//timed-livery selector
+switch(FEAT_TRAINS, SELF, sw_yk_bl_1000series_lv_desc_1, cargo_subtype){
+    0: string(LV_time_randomized);
+    1: string(LV_yk_bl_1000series_1);
+}
+switch(FEAT_TRAINS, SELF, sw_yk_bl_1000series_lv_desc_2, cargo_subtype){
+    0: string(LV_time_randomized);
+    1: string(LV_yk_bl_1000series_1);
+    2: string(LV_yk_bl_2000series_1);
+}
+switch(FEAT_TRAINS, SELF, sw_yk_bl_1000series_lv_desc, build_year<1984){
+  1: sw_yk_bl_1000series_lv_desc_1;
+  default: sw_yk_bl_1000series_lv_desc_2;
+}
+//liveries
+switch(FEAT_TRAINS, SELF, sw_yk_bl_1000series_lv, cargo_subtype){
+    0: sw_yk_bl_1000series_livery_0;
+    1: sw_yk_bl_1000series_livery_1;
+    2: sw_yk_bl_2000series_livery_1;
+}
+//capacity-changer
+switch(FEAT_TRAINS, SELF, sw_yk_bl_1000series_main_capacity,position_in_consist_from_end){
+    0: 140+param_capacity_mod;
+    default: 150+param_capacity_mod;
+}
+//attachable vehicles
+switch(FEAT_TRAINS, SELF, yk_bl_1000series_attach_vehid, vehicle_type_id) {
+  mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
+  return string(STR_attach);
+}
+
+item(FEAT_TRAINS, yk_bl_1000series,1200) {
+    property {
+        name: string(STR_yk_bl_1000series_name);
+        introduction_date: date(1972, 1, 1);
+        model_life: VEHICLE_NEVER_EXPIRES;
+        vehicle_life: 30;
+        reliability_decay: 23;
+
+        cargo_capacity: 140+param_capacity_mod;
+        loading_speed: param_loading_3D;
+        cost_factor: 20;
+        running_cost_factor: 50;
+
+        speed: 90 km/h;
+        track_type: TR_1435_M;
+        power: 560 kW;
+        weight: 27 ton;
+
+        climates_available: ALL_CLIMATES;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_MU);
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: bitmask();
+        refit_cost: 0;
+        dual_headed: 0;
+        ai_engine_rank: 0;
+
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+        
+        tractive_effort_coefficient: 0.2;
+        air_drag_coefficient: 0.07;
+        bitmask_vehicle_info: 0;
+    }
+	graphics {
+        default: sw_yk_bl_1000series_lv;
+        purchase: yk_bl_1000series_purchase;
+        can_attach_wagon: yk_bl_1000series_attach_vehid;
+        additional_text: return string(yk_bl_1000series_DESC);
+        cargo_subtype_text: sw_yk_bl_1000series_lv_desc;
+        start_stop: sw_stop_start_3;   
+    }
+    livery_override(mu_car_metro){
+        loading_speed: param_loading_3D;
+        cargo_capacity: sw_yk_bl_1000series_main_capacity;
+        default:                      sw_yk_bl_1000series_lv;
+        power: 751*3/5;
+        weight: 33;
+        length: 8;
+      }
+}
+# 1 "JPmetro.pnml" 1
+# 1 "src/Yokohama/3000series.pnml" 1
+spriteset (yk_bl_3000series_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
+alternative_sprites(yk_bl_3000series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/3000series/3000series_purchase.png"){ tmpl_purchase(0, 0) }
+
+spriteset (yk_bl_3000series_a_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (yk_bl_3000series_a_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+spriteset (yk_bl_3000series_a_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+
+spriteset (yk_bl_3000series_n_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (yk_bl_3000series_n_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+spriteset (yk_bl_3000series_n_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+
+spriteset (yk_bl_3000series_r_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (yk_bl_3000series_r_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+spriteset (yk_bl_3000series_r_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+
+spriteset (yk_bl_3000series_s_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (yk_bl_3000series_s_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+spriteset (yk_bl_3000series_s_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+
+spriteset (yk_bl_3000series_v_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (yk_bl_3000series_v_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+spriteset (yk_bl_3000series_v_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+
+
+alternative_sprites(yk_bl_3000series_a_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/3000series/3000A.png"){ tmpl_std(0, 0) }
+alternative_sprites(yk_bl_3000series_a_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/3000series/3000A.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(yk_bl_3000series_a_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/3000series/3000A.png"){ tmpl_std(0, 50) }
+
+alternative_sprites(yk_bl_3000series_n_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/3000series/3000N.png"){ tmpl_std(0, 0) }
+alternative_sprites(yk_bl_3000series_n_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/3000series/3000N.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(yk_bl_3000series_n_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/3000series/3000N.png"){ tmpl_std(0, 50) }
+
+alternative_sprites(yk_bl_3000series_r_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/3000series/3000R.png"){ tmpl_std(0, 0) }
+alternative_sprites(yk_bl_3000series_r_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/3000series/3000R.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(yk_bl_3000series_r_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/3000series/3000R.png"){ tmpl_std(0, 50) }
+
+alternative_sprites(yk_bl_3000series_s_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/3000series/3000S.png"){ tmpl_std(0, 0) }
+alternative_sprites(yk_bl_3000series_s_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/3000series/3000S.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(yk_bl_3000series_s_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/3000series/3000S.png"){ tmpl_std(0, 50) }
+
+alternative_sprites(yk_bl_3000series_v_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/3000series/3000V.png"){ tmpl_std(0, 0) }
+alternative_sprites(yk_bl_3000series_v_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/3000series/3000V.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(yk_bl_3000series_v_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/3000series/3000V.png"){ tmpl_std(0, 50) }
+
+
+//livery 3000_a
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_a_end_gfx,position_in_consist_from_end){
+    0: yk_bl_3000series_a_end;
+    default: yk_bl_3000series_a_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_livery_1,position_in_consist){
+    0: yk_bl_3000series_a_front;
+    default: sw_yk_bl_3000series_a_end_gfx;
+}
+//livery 300_n
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_n_end_gfx,position_in_consist_from_end){
+    0: yk_bl_3000series_n_end;
+    default: yk_bl_3000series_n_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_livery_2,position_in_consist){
+    0: yk_bl_3000series_n_front;
+    default: sw_yk_bl_3000series_n_end_gfx;
+}
+//livery 3000_r
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_r_end_gfx,position_in_consist_from_end){
+    0: yk_bl_3000series_r_end;
+    default: yk_bl_3000series_r_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_livery_3,position_in_consist){
+    0: yk_bl_3000series_r_front;
+    default: sw_yk_bl_3000series_r_end_gfx;
+}
+//livery 3000_s
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_s_end_gfx,position_in_consist_from_end){
+    0: yk_bl_3000series_s_end;
+    default: yk_bl_3000series_s_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_livery_4,position_in_consist){
+    0: yk_bl_3000series_s_front;
+    default: sw_yk_bl_3000series_s_end_gfx;
+}
+//livery 3000_v
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_v_end_gfx,position_in_consist_from_end){
+    0: yk_bl_3000series_v_end;
+    default: yk_bl_3000series_v_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_livery_5,position_in_consist){
+    0: yk_bl_3000series_v_front;
+    default: sw_yk_bl_3000series_v_end_gfx;
+}
+
+//randomized livery 1992-xx
+//random_switch(FEAT_TRAINS, PARENT, sw_yk_bl_3000series_consist_1){
+//    1: sw_yk_bl_3000series_livery_1;
+//    1: sw_yk_bl_3000series_livery_1;
+//}
+//randomized livery 1999-xx
+random_switch(FEAT_TRAINS, PARENT, sw_yk_bl_3000series_consist_2){
+    1: sw_yk_bl_3000series_livery_1;
+    2: sw_yk_bl_3000series_livery_2;
+}
+//randomized livery 2004-xx
+random_switch(FEAT_TRAINS, PARENT, sw_yk_bl_3000series_consist_3){
+    1: sw_yk_bl_3000series_consist_2;
+    2: sw_yk_bl_3000series_livery_3;
+   // 2: sw_yk_bl_3000series_livery_4;
+}
+//randomized livery 2006-xx
+random_switch(FEAT_TRAINS, PARENT, sw_yk_bl_3000series_consist_4){
+    1: sw_yk_bl_3000series_consist_3;
+    2: sw_yk_bl_3000series_livery_4;
+}
+//randomized livery 2017-xx
+random_switch(FEAT_TRAINS, PARENT, sw_yk_bl_3000series_consist_5){
+    1: sw_yk_bl_3000series_consist_4;
+    1: sw_yk_bl_3000series_livery_5;
+}
+//livery time-setter
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_time_2, build_year>1998&&build_year<2004){
+  1: sw_yk_bl_3000series_consist_2;
+  sw_yk_bl_3000series_livery_1;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_time_3, build_year>2003&&build_year<2006){
+  1: sw_yk_bl_3000series_consist_3;
+sw_yk_bl_3000series_time_2;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_time_4, build_year>2005&&build_year<2017){
+  1: sw_yk_bl_3000series_consist_4;
+sw_yk_bl_3000series_time_3;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_livery_0, build_year>2016){
+  1: sw_yk_bl_3000series_consist_5;
+sw_yk_bl_3000series_time_4;
+}
+//timed-livery selector
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_lv_desc_1, cargo_subtype){
+    0: string(LV_time_randomized);
+    1: string(LV_yk_bl_3000series_1);
+}
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_lv_desc_2, cargo_subtype){
+    0: string(LV_time_randomized);
+    1: string(LV_yk_bl_3000series_1);
+    2: string(LV_yk_bl_3000series_2);
+}
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_lv_desc_3, cargo_subtype){
+    0: string(LV_time_randomized);
+    1: string(LV_yk_bl_3000series_1);
+    2: string(LV_yk_bl_3000series_2);
+    3: string(LV_yk_bl_3000series_3);
+}
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_lv_desc_4, cargo_subtype){
+    0: string(LV_time_randomized);
+    1: string(LV_yk_bl_3000series_1);
+    2: string(LV_yk_bl_3000series_2);
+    3: string(LV_yk_bl_3000series_3);
+    4: string(LV_yk_bl_3000series_4);
+}
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_lv_desc_5, cargo_subtype){
+    0: string(LV_time_randomized);
+    1: string(LV_yk_bl_3000series_1);
+    2: string(LV_yk_bl_3000series_2);
+    3: string(LV_yk_bl_3000series_3);
+    4: string(LV_yk_bl_3000series_4);
+    5: string(LV_yk_bl_3000series_5);
+}
+//time checkers
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_lv_desc_time_2, build_year>1998&&build_year<2004){
+  1: sw_yk_bl_3000series_lv_desc_2;
+  default: sw_yk_bl_3000series_lv_desc_1;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_lv_desc_time_3, build_year>2003&&build_year<2006){
+  1: sw_yk_bl_3000series_lv_desc_3;
+sw_yk_bl_3000series_lv_desc_time_2;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_lv_desc_time_4, build_year>2005&&build_year<2017){
+  1: sw_yk_bl_3000series_lv_desc_4;
+sw_yk_bl_3000series_lv_desc_time_3;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_lv_desc, build_year>2016){
+  1: sw_yk_bl_3000series_lv_desc_5;
+sw_yk_bl_3000series_lv_desc_time_4;
+}
+//liveries
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_lv, cargo_subtype){
+    0: sw_yk_bl_3000series_livery_0;
+    1: sw_yk_bl_3000series_livery_1;
+    2: sw_yk_bl_3000series_livery_2;
+    3: sw_yk_bl_3000series_livery_3;
+    4: sw_yk_bl_3000series_livery_4;
+    5: sw_yk_bl_3000series_livery_5;
+}
+//capacity-changer
+
+switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_main_capacity,position_in_consist_from_end){
+    0: 122+param_capacity_mod;
+    default: 133+param_capacity_mod;
+}
+
+//attachable vehicles
+switch(FEAT_TRAINS, SELF, yk_bl_3000series_attach_vehid, vehicle_type_id) {
+  mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
+  return string(STR_attach);
+}
+
+item(FEAT_TRAINS, yk_bl_3000series,1201) {
+    property {
+        name: string(STR_yk_bl_3000series_name);
+        introduction_date: date(1992, 1, 1);
+        model_life: VEHICLE_NEVER_EXPIRES;
+        vehicle_life: 30;
+        reliability_decay: 23;
+
+        cargo_capacity: 122+param_capacity_mod;
+        loading_speed: param_loading_3D;
+        cost_factor: 21;
+        running_cost_factor: 50;
+
+        speed: 90 km/h;
+        track_type: TR_1435_M;
+        power: 560 kW;
+        weight: 27 ton;
+
+        climates_available: ALL_CLIMATES;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_MU);
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: bitmask();
+        refit_cost: 0;
+        dual_headed: 0;
+        ai_engine_rank: 0;
+
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+        
+        tractive_effort_coefficient: 0.2;
+        air_drag_coefficient: 0.07;
+        bitmask_vehicle_info: 0;
+    }
+	graphics {
+        default: sw_yk_bl_3000series_lv;
+        purchase: yk_bl_3000series_purchase;
+        can_attach_wagon: yk_bl_3000series_attach_vehid;
+        additional_text: return string(yk_bl_3000series_DESC);
+        cargo_subtype_text: sw_yk_bl_3000series_lv_desc;
+        cargo_capacity: sw_yk_bl_3000series_main_capacity;
+        start_stop: sw_stop_start_3;   
+    }
+    livery_override(mu_car_metro){
+        loading_speed: param_loading_3D;
+        cargo_capacity: sw_yk_bl_3000series_main_capacity;
+        default:                      sw_yk_bl_3000series_lv;
+        power: 751*3/5;
+        weight: 33;
+        length: 8;
+      }
+}
+# 1 "JPmetro.pnml" 1
+# 1 "src/Yokohama/4000series.pnml" 1
+spriteset (yk_bl_4000series_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
+alternative_sprites(yk_bl_4000series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/4000series/4000series_purchase.png"){ tmpl_purchase(0, 0) }
+
+spriteset (yk_bl_4000series_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (yk_bl_4000series_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+spriteset (yk_bl_4000series_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+
+alternative_sprites(yk_bl_4000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/4000series/4000series.png"){ tmpl_std(0, 0) }
+alternative_sprites(yk_bl_4000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/4000series/4000series.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(yk_bl_4000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/BlueLine/4000series/4000series.png"){ tmpl_std(0, 50) }
+
+//livery 1
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_yk_bl_4000series_end_gfx,position_in_consist_from_end){
+    0: yk_bl_4000series_end;
+    default: yk_bl_4000series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_bl_4000series_livery_1,position_in_consist){
+    0: yk_bl_4000series_front;
+    default: sw_yk_bl_4000series_end_gfx;
+}
+
+//capacity-changer
+switch(FEAT_TRAINS, SELF, sw_yk_bl_4000series_main_capacity,position_in_consist_from_end){
+    0: 121+param_capacity_mod;
+    default: 131+param_capacity_mod;
+}
+//attachable vehicles
+switch(FEAT_TRAINS, SELF, yk_bl_4000series_attach_vehid, vehicle_type_id) {
+  mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
+  return string(STR_attach);
+}
+
+item(FEAT_TRAINS, yk_bl_4000series,1202) {
+    property {
+        name: string(STR_yk_bl_4000series_name);
+        introduction_date: date(2021, 1, 1);
+        model_life: VEHICLE_NEVER_EXPIRES;
+        vehicle_life: 30;
+        reliability_decay: 23;
+
+        cargo_capacity: 121+param_capacity_mod;
+        loading_speed: param_loading_3D;
+        cost_factor: 21;
+        running_cost_factor: 51;
+
+        speed: 90 km/h;
+        track_type: TR_1435_M;
+        power: 560 kW;
+        weight: 35 ton;
+
+        climates_available: ALL_CLIMATES;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_MU);
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: bitmask();
+        refit_cost: 0;
+        dual_headed: 0;
+        ai_engine_rank: 0;
+
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+        
+        tractive_effort_coefficient: 0.2;
+        air_drag_coefficient: 0.07;
+        bitmask_vehicle_info: 0;
+    }
+	graphics {
+        default: sw_yk_bl_4000series_livery_1;
+        purchase: yk_bl_4000series_purchase;
+        can_attach_wagon: yk_bl_4000series_attach_vehid;
+        additional_text: return string(yk_bl_4000series_DESC);
+        start_stop: sw_stop_start_3;   
+    }
+    livery_override(mu_car_metro){
+        loading_speed: param_loading_3D;
+        cargo_capacity: sw_yk_bl_4000series_main_capacity;
+        default:                      sw_yk_bl_4000series_livery_1;
+        power: 751*3/5;
+        weight: 32;
+        length: 8;
+      }
+}
+# 1 "JPmetro.pnml" 1
 
 //Green Line + reserved 1210-1219;
+# 1 "src/Yokohama/10000series.pnml" 1
+spriteset (yk_gl_10000series_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
+alternative_sprites(yk_gl_10000series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series_purchase.png"){ tmpl_purchase(0, 0) }
 
+spriteset (yk_gl_10000series_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (yk_gl_10000series_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+spriteset (yk_gl_10000series_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (yk_gl_10000series_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (yk_gl_10000series_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+
+spriteset (yk_gl_10000series_3_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (yk_gl_10000series_3_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+spriteset (yk_gl_10000series_3_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (yk_gl_10000series_3_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (yk_gl_10000series_3_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+
+alternative_sprites(yk_gl_10000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series.png"){ tmpl_std(0, 0) }
+alternative_sprites(yk_gl_10000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(yk_gl_10000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series.png"){ tmpl_std(0, 50) }
+alternative_sprites(yk_gl_10000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series.png"){ tmpl_std(0, 75) }
+alternative_sprites(yk_gl_10000series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series.png"){ tmpl_std_rev(0, 75) }
+
+alternative_sprites(yk_gl_10000series_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series_3.png"){ tmpl_std(0, 0) }
+alternative_sprites(yk_gl_10000series_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series_3.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(yk_gl_10000series_3_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series_3.png"){ tmpl_std(0, 50) }
+alternative_sprites(yk_gl_10000series_3_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series_3.png"){ tmpl_std(0, 75) }
+alternative_sprites(yk_gl_10000series_3_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series_3.png"){ tmpl_std_rev(0, 75) }
+
+//livery 1
+//special liveries
+
+//panto
+switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_mot_gfx,position_in_consist %3){
+    2: yk_gl_10000series_mot_rev; // 3 car
+    yk_gl_10000series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_mot_rev_gfx,position_in_consist_from_end %3){
+    2: yk_gl_10000series_mot; // 3 car
+    yk_gl_10000series_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_yk_gl_10000series_mot_def_gfx,vehicle_is_reversed){
+    1: sw_yk_gl_10000series_mot_rev_gfx;
+    sw_yk_gl_10000series_mot_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_mot_main_gfx,num_vehs_in_consist){
+    4: yk_gl_10000series_wag;
+    sw_yk_gl_10000series_mot_def_gfx;
+    
+}
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_end_gfx,position_in_consist_from_end){
+    0: yk_gl_10000series_end;
+    default: sw_yk_gl_10000series_mot_main_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_livery_1,position_in_consist){
+    0: yk_gl_10000series_front;
+    default: sw_yk_gl_10000series_end_gfx;
+}
+//livery 2
+//panto
+switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_3_mot_gfx,position_in_consist %3){
+    2: yk_gl_10000series_3_mot_rev; // 3 car
+    yk_gl_10000series_3_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_3_mot_rev_gfx,position_in_consist_from_end %3){
+    2: yk_gl_10000series_3_mot; // 3 car
+    yk_gl_10000series_3_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_yk_gl_10000series_3_mot_def_gfx,vehicle_is_reversed){
+    1: sw_yk_gl_10000series_3_mot_rev_gfx;
+    sw_yk_gl_10000series_3_mot_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_3_mot_main_gfx,num_vehs_in_consist){
+    4: yk_gl_10000series_3_wag;
+    sw_yk_gl_10000series_3_mot_def_gfx;
+    
+}
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_3_end_gfx,position_in_consist_from_end){
+    0: yk_gl_10000series_3_end;
+    default: sw_yk_gl_10000series_3_mot_main_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_livery_3,position_in_consist){
+    0: yk_gl_10000series_3_front;
+    default: sw_yk_gl_10000series_3_end_gfx;
+}
+//randomized livery 1983-2006
+random_switch(FEAT_TRAINS, PARENT, sw_yk_gl_10000series_livery_0){
+    4: sw_yk_gl_10000series_livery_1;
+    1: sw_yk_gl_10000series_livery_3;
+}
+//timed-livery selector
+switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_lv_desc, cargo_subtype){
+    0: string(LV_randomized);
+    1: string(LV_yk_gl_10000series_1);
+    2: string(LV_yk_gl_10000series_3);
+}
+//liveries
+switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_lv, cargo_subtype){
+    0: sw_yk_gl_10000series_livery_0;
+    1: sw_yk_gl_10000series_livery_1;
+    2: sw_yk_gl_10000series_livery_3;
+}
+//capacity-changer
+switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_main_capacity,position_in_consist_from_end){
+    0: 88+param_capacity_mod;
+    default: 102+param_capacity_mod;
+}
+//attachable vehicles
+switch(FEAT_TRAINS, SELF, yk_gl_10000series_attach_vehid, vehicle_type_id) {
+  mu_car: return CB_RESULT_ATTACH_ALLOW;
+  return string(STR_attach);
+}
+
+item(FEAT_TRAINS, yk_gl_10000series,1210) {
+    property {
+        name: string(STR_yk_gl_10000series_name);
+        introduction_date: date(2006, 1, 1);
+        model_life: VEHICLE_NEVER_EXPIRES;
+        vehicle_life: 30;
+        reliability_decay: 23;
+
+        cargo_capacity: 88+param_capacity_mod;
+        loading_speed: param_loading_3D;
+        cost_factor: 20;
+        running_cost_factor: 50;
+
+        speed: 80 km/h;
+        track_type: TR_1435_M;
+        power: 540 kW;
+        weight: 27 ton;
+
+        climates_available: ALL_CLIMATES;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_MU);
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: bitmask();
+        refit_cost: 0;
+        dual_headed: 0;
+        ai_engine_rank: 0;
+
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+        
+        tractive_effort_coefficient: 0.2;
+        air_drag_coefficient: 0.07;
+        bitmask_vehicle_info: 0;
+    }
+	graphics {
+        default: sw_yk_gl_10000series_lv;
+        purchase: yk_gl_10000series_purchase;
+        can_attach_wagon: yk_gl_10000series_attach_vehid;
+        additional_text: return string(yk_gl_10000series_DESC);
+        cargo_subtype_text: sw_yk_gl_10000series_lv_desc;
+        start_stop: sw_stop_start_3;   
+    }
+    livery_override(mu_car){
+        loading_speed: param_loading_3D;
+        cargo_capacity: sw_yk_gl_10000series_main_capacity;
+        default:                      sw_yk_gl_10000series_lv;
+        power: 725;
+        weight: 26;
+        length: 8;
+      }
+}
+# 1 "JPmetro.pnml" 1
 
 //Osaka
