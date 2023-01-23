@@ -67,12 +67,13 @@ param 2 {
 						name: string(STR_PARAM_NAME_CAPACITY);
 						desc: string(STR_PARAM_DESC_CAPACITY);
 						min_value: 0;
-						max_value: 2;
+						max_value: 3;
 						def_value: 0;
 						names: {
 												0: string(STR_PARAM_REAL);
 												1: string(STR_PARAM_HIGH);
 												2: string(STR_PARAM_VHIGH);
+												3: string(STR_PARAM_SHIGH);
 						};
 				}
 		}
@@ -131,6 +132,13 @@ if (param_capacities == 2) {
 	param_loading_4D = 60; // 4 doors //
 	param_loading_5D = 75; // 5 doors //
 }
+if (param_capacities == 3) {
+	param_loading_1D = 30; // 1 door //
+	param_loading_2D = 40; // 2 doors //
+	param_loading_3D = 50; // 3 doors //
+	param_loading_4D = 70; // 4 doors //
+	param_loading_5D = 85; // 5 doors //
+}
 
 
 if (param_capacities == 0) {
@@ -142,6 +150,10 @@ if (param_capacities == 1) {
 if (param_capacities == 2) {
 	param_capacity_mod = 50;
 }
+if (param_capacities == 3) {
+	param_capacity_mod = 100;
+}
+
 
 basecost {
 	PR_BUILD_VEHICLE_TRAIN: param_buy-2;
@@ -1913,7 +1925,7 @@ item(FEAT_TRAINS, tk_hb_13000series,1032) {
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 30;
 
-        cargo_capacity: 140;
+        cargo_capacity: 140+param_capacity_mod;
         loading_speed: param_loading_4D;
         cost_factor: 21;
         running_cost_factor: 51;
