@@ -152,8 +152,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_lv_desc, cargo_subtype){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_main_capacity,position_in_consist_from_end){
-    0: 138+param_capacity_mod;
-    default: 149+param_capacity_mod;
+    0: 138*param_capacity_mod/3;
+    default: 149*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_attach_vehid, vehicle_type_id) {
@@ -168,7 +168,7 @@ item(FEAT_TRAINS, tk_sj_toei10_000,1140) {
     property {
         name: string(str_tk_sj_toei10_000_name);
         introduction_date: date(1971, 1, 1);
-        cargo_capacity: 138+param_capacity_mod;
+        cargo_capacity: 138;
         speed: 120 km/h;
         power:495 kW;
         weight: 25 ton;
@@ -206,7 +206,8 @@ item(FEAT_TRAINS, tk_sj_toei10_000,1140) {
         can_attach_wagon: tk_sj_toei10_000_attach_vehid;
         additional_text: return string(str_tk_sj_toei10_000_desc);
         cargo_subtype_text: sw_tk_sj_toei10_000_lv_desc;
-        start_stop: sw_stop_start_4;   
+        start_stop: sw_stop_start_4;
+        cargo_capacity: 138*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;

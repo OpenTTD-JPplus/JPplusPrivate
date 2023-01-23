@@ -180,8 +180,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_loading, cargo_subtype){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_main_capacity,position_in_consist_from_end){
-    0: 132+param_capacity_mod;
-    default: 138+param_capacity_mod;
+    0: 132*param_capacity_mod/3;
+    default: 138*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_hb_eidan03_attach_vehid, vehicle_type_id) {
@@ -202,7 +202,7 @@ item(FEAT_TRAINS, tk_hb_eidan03,1031) {
         power: 300 kW;
         weight: 33 ton;
 
-        cargo_capacity: 132+param_capacity_mod;
+        cargo_capacity: 132;
         loading_speed: param_loading_3D;
 
         reliability_decay: 22;
@@ -235,6 +235,7 @@ item(FEAT_TRAINS, tk_hb_eidan03,1031) {
         cargo_subtype_text:           sw_tk_hb_eidan03_lv_desc;
         length: 8;
         start_stop: sw_stop_start_2;
+        cargo_capacity: 132*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         default:                      sw_tk_hb_eidan03_lv;

@@ -37,8 +37,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6500_livery_1,position_in_consist){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6500_main_capacity,position_in_consist_from_end){
-    0: 139+param_capacity_mod;
-    default: 149+param_capacity_mod;
+    0: 139*param_capacity_mod/3;
+    default: 149*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_mt_toei6500_attach_vehid, vehicle_type_id) {
@@ -53,7 +53,7 @@ item(FEAT_TRAINS, tk_mt_toei6500,1132) {
         vehicle_life: 30;
         reliability_decay: 21;
 
-        cargo_capacity: 139+param_capacity_mod;
+        cargo_capacity: 139;
         loading_speed: param_loading_4D;
         cost_factor: 21;
         running_cost_factor: 51;
@@ -88,6 +88,7 @@ item(FEAT_TRAINS, tk_mt_toei6500,1132) {
         can_attach_wagon: tk_mt_toei6500_attach_vehid;
         additional_text: return string(tk_mt_toei6500_DESC);
         start_stop: sw_stop_start_3;   
+        cargo_capacity: 139*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;

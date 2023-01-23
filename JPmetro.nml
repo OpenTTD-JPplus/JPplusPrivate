@@ -67,17 +67,28 @@ param 2 {
 						name: string(STR_PARAM_NAME_CAPACITY);
 						desc: string(STR_PARAM_DESC_CAPACITY);
 						min_value: 0;
-						max_value: 3;
+						max_value: 4;
 						def_value: 0;
 						names: {
-												0: string(STR_PARAM_REAL);
-												1: string(STR_PARAM_HIGH);
-												2: string(STR_PARAM_VHIGH);
-												3: string(STR_PARAM_SHIGH);
+												0: string(STR_PARAM_CAP_0);
+												1: string(STR_PARAM_CAP_1);
+												2: string(STR_PARAM_CAP_2);
+												3: string(STR_PARAM_CAP_3);
+												4: string(STR_PARAM_CAP_4);
 						};
 				}
 		}
+param 6 {
+			 param_custom_capacity {
+						type: int;
+						name: string(STR_PARAM_CUSTOMCAPACITY);
+						desc: string(STR_PARAM_CUSTOMCAPACITYDESC);
+						min_value: 1;
+						max_value: 10;
+						def_value: 1;
 
+			 }
+		}
 }
 train_width_32_px = 1;
 traininfo_y_offset = 2;
@@ -139,20 +150,34 @@ if (param_capacities == 3) {
 	param_loading_4D = 70; // 4 doors //
 	param_loading_5D = 85; // 5 doors //
 }
+if (param_capacities == 4) {
+	param_loading_1D = 40; // 1 door //
+	param_loading_2D = 50; // 2 doors //
+	param_loading_3D = 60; // 3 doors //
+	param_loading_4D = 80; // 4 doors //
+	param_loading_5D = 95; // 5 doors //
+}
 
 
 if (param_capacities == 0) {
-	param_capacity_mod = 0;
+	param_capacity_mod = 2;
 }
 if (param_capacities == 1) {
-	param_capacity_mod = 25;
+	param_capacity_mod = 3;
 }
 if (param_capacities == 2) {
-	param_capacity_mod = 50;
+	param_capacity_mod = 4;
 }
 if (param_capacities == 3) {
-	param_capacity_mod = 100;
+	param_capacity_mod = 5;
 }
+if (param_capacities == 4) {
+	param_capacity_mod = param_custom_capacity;
+}
+
+
+
+param_capacity_mod_set = 255;
 
 
 basecost {
@@ -406,7 +431,7 @@ item(FEAT_TRAINS, tk_gz_t1000, 1000) {
         model_life: 11;
         vehicle_life: 48;
 
-        cargo_capacity: 90+param_capacity_mod;
+        cargo_capacity: 90;
         loading_speed: param_loading_3D;
         cost_factor: 18;
         running_cost_factor: 48;
@@ -441,10 +466,11 @@ item(FEAT_TRAINS, tk_gz_t1000, 1000) {
         additional_text: return string(tk_gz_type1000_DESC);
         cargo_subtype_text: sw_tk_gz_t1000_lv_desc;
         length: 8;
+        cargo_capacity: 90*param_capacity_mod/3;
     }
     livery_override(mu_car_metro){
         default:                      sw_tk_gz_t1000_lv;
-        cargo_capacity:               80+param_capacity_mod;
+        cargo_capacity:               80*param_capacity_mod/3;
         loading_speed:                param_loading_3D;
         power: 241;
         weight: 30;
@@ -487,7 +513,7 @@ item(FEAT_TRAINS, tk_gz_t1100, 1001) {
         model_life: 9;
         vehicle_life: 51;
 
-        cargo_capacity: 90+param_capacity_mod;
+        cargo_capacity: 90;
         loading_speed: param_loading_3D;
         cost_factor: 19;
         running_cost_factor: 49;
@@ -521,10 +547,11 @@ item(FEAT_TRAINS, tk_gz_t1100, 1001) {
         can_attach_wagon: sw_tk_gz_t1100_attach_vehid;
         additional_text: return string(tk_gz_type1100_DESC);
         length: 8;
+        cargo_capacity: 90*param_capacity_mod/3;
     }
     livery_override(mu_car_metro){
         default:                      sw_tk_gz_t1100_livery_1;
-        cargo_capacity:               80+param_capacity_mod;
+        cargo_capacity:               80*param_capacity_mod/3;
         loading_speed:                param_loading_3D;
         power: 550;
         weight: 30;
@@ -591,7 +618,7 @@ item(FEAT_TRAINS, tk_gz_t100, 1002) {
         model_life: 17;
         vehicle_life: 44;
 
-        cargo_capacity: 85+param_capacity_mod; //change
+        cargo_capacity: 85; //change
         loading_speed: param_loading_3D; //change
         cost_factor: 17; //change
         running_cost_factor: 47; //change
@@ -626,10 +653,11 @@ item(FEAT_TRAINS, tk_gz_t100, 1002) {
         additional_text: return string(tk_gz_type100_DESC);
         cargo_subtype_text: sw_tk_gz_t100_lv_desc;
         length: 8;
+        cargo_capacity: 85*param_capacity_mod/3;
     }
     livery_override(mu_car_metro){
         default:                      sw_tk_gz_t100_lv;
-        cargo_capacity:               70+param_capacity_mod+param_capacity_mod;
+        cargo_capacity:               70*param_capacity_mod/3*param_capacity_mod/3;
         loading_speed:                param_loading_3D;
         power: 241;
         weight: 34;
@@ -740,7 +768,7 @@ item(FEAT_TRAINS, tk_gz_t1300, 1003) {
         vehicle_life: 30;
         reliability_decay: 23;
 
-        cargo_capacity: 98+param_capacity_mod;
+        cargo_capacity: 98;
         loading_speed: param_loading_3D;
         cost_factor: 20;
         running_cost_factor: 50;
@@ -775,10 +803,11 @@ item(FEAT_TRAINS, tk_gz_t1300, 1003) {
         additional_text: return string(tk_gz_type1300_DESC);
         cargo_subtype_text: sw_tk_gz_t1300_lv_desc;
         length: 8;
+        cargo_capacity: 98*param_capacity_mod/3;
     }
     livery_override(mu_car_metro){
         default:                      sw_tk_gz_t1300_lv;
-        cargo_capacity:               98+param_capacity_mod;
+        cargo_capacity:               98*param_capacity_mod/3;
         loading_speed:                param_loading_3D;
         power: 241;
         weight: 30;
@@ -851,7 +880,7 @@ item(FEAT_TRAINS, tk_gz_t1900, 1004) {
         vehicle_life: 34;
         reliability_decay:23;
 
-        cargo_capacity: 95+param_capacity_mod;
+        cargo_capacity: 95;
         loading_speed: param_loading_3D;
         cost_factor: 20;
         running_cost_factor: 50;
@@ -886,10 +915,11 @@ item(FEAT_TRAINS, tk_gz_t1900, 1004) {
         additional_text: return string(tk_gz_type1900_DESC);
         cargo_subtype_text: sw_tk_gz_t1900_lv_desc;
         length: 8;
+        cargo_capacity: 95*param_capacity_mod/3;
     }
     livery_override(mu_car_metro){
         default:                      sw_tk_gz_t1900_lv;
-        cargo_capacity:               95+param_capacity_mod;
+        cargo_capacity:               95*param_capacity_mod/3;
         loading_speed:                param_loading_3D;
         power: 550;
         weight: 24;
@@ -921,8 +951,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_gz_01s_livery_1,position_in_consist){
 //livery-randomizer
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_gz_01s_main_capacity,position_in_consist_from_end){
-    0: 100+param_capacity_mod;
-    default: 102+param_capacity_mod;
+    0: 100*param_capacity_mod/3;
+    default: 102*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, sw_tk_gz_01s_attach_vehid, vehicle_type_id) {
@@ -938,7 +968,7 @@ item(FEAT_TRAINS, tk_gz_01s, 1005) {
         vehicle_life: 30;
         reliability_decay:21;
 
-        cargo_capacity: 100+param_capacity_mod;
+        cargo_capacity: 100;
         loading_speed: param_loading_3D;
         cost_factor: 19;
         running_cost_factor: 49;
@@ -974,6 +1004,7 @@ item(FEAT_TRAINS, tk_gz_01s, 1005) {
         additional_text: return string(tk_gz_01s_DESC);
         length: 8;
         start_stop: sw_stop_start_3;
+        cargo_capacity: 100*param_capacity_mod/3;
     }
     livery_override(mu_car_metro){
         default:                      sw_tk_gz_01s_livery_1;
@@ -1009,8 +1040,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_gz_1000s_livery_1,position_in_consist){
 //livery-randomizer
 //capacity changer
 switch(FEAT_TRAINS, SELF, sw_tk_gz_1000s_main_capacity,position_in_consist_from_end){
-    0: 93+param_capacity_mod;
-    default: 106+param_capacity_mod;
+    0: 93*param_capacity_mod/3;
+    default: 106*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, sw_tk_gz_1000s_attach_vehid, vehicle_type_id) {
@@ -1026,7 +1057,7 @@ item(FEAT_TRAINS, tk_gz_1000s, 1006) {
         vehicle_life: 30;
         reliability_decay: 22;
 
-        cargo_capacity: 93+param_capacity_mod;
+        cargo_capacity: 93;
         loading_speed: param_loading_3D;
         cost_factor: 21;
         running_cost_factor: 51;
@@ -1061,6 +1092,7 @@ item(FEAT_TRAINS, tk_gz_1000s, 1006) {
         additional_text: return string(tk_gz_1000s_DESC);
         length: 8;
         start_stop: sw_stop_start_3;
+        cargo_capacity: 93*param_capacity_mod/3;
     }
     livery_override(mu_car_metro){
         default:                      sw_tk_gz_1000s_livery_1;
@@ -1109,7 +1141,7 @@ item(FEAT_TRAINS, tk_mn_t1900,1020) {
         model_life: 21;
         vehicle_life: 24;
 
-        cargo_capacity: 99+param_capacity_mod;
+        cargo_capacity: 99;
         loading_speed: param_loading_3D;
         cost_factor: 17;
         running_cost_factor: 47;
@@ -1144,11 +1176,12 @@ item(FEAT_TRAINS, tk_mn_t1900,1020) {
         can_attach_wagon: sw_tk_mn_t1900_attach_vehid;
         additional_text: return string(tk_mn_type1900_DESC);
         length: 8;
+        cargo_capacity: 99*param_capacity_mod/3;
         
     }
     livery_override(mu_car_metro){
         default:                      sw_tk_mn_t1900_livery_1;
-        cargo_capacity:               99+param_capacity_mod;
+        cargo_capacity:               99*param_capacity_mod/3;
         loading_speed:                param_loading_3D;
         power: 241;
         weight: 30;
@@ -1181,8 +1214,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan500_livery_1,position_in_consist){
 }
 //capacity changer
 switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan500_main_capacity,position_in_consist_from_end){
-    0: 122+param_capacity_mod;
-    default: 137+param_capacity_mod;
+    0: 122*param_capacity_mod/3;
+    default: 137*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan500_attach_vehid, vehicle_type_id) {
@@ -1198,7 +1231,7 @@ item(FEAT_TRAINS, eidan500,1021) {
         vehicle_life: 30;
         reliability_decay: 22;
 
-        cargo_capacity: 122+param_capacity_mod;
+        cargo_capacity: 122;
         loading_speed: param_loading_3D;
         cost_factor: 19;
         running_cost_factor: 49;
@@ -1233,6 +1266,7 @@ item(FEAT_TRAINS, eidan500,1021) {
         additional_text: return string(tk_mn_eidan500_DESC);
         length: 8;
         start_stop: sw_stop_start_2;
+        cargo_capacity: 122*param_capacity_mod/3;
     }
     livery_override(mu_car_metro){
         default:                      sw_tk_mn_eidan500_livery_1;
@@ -1297,8 +1331,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan02_lv_desc, cargo_subtype){
 }
 //capacity changer
 switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan02_main_capacity,position_in_consist_from_end){
-    0: 124+param_capacity_mod;
-    default: 136+param_capacity_mod;
+    0: 124*param_capacity_mod/3;
+    default: 136*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan02_attach_vehid, vehicle_type_id) {
@@ -1314,7 +1348,7 @@ item(FEAT_TRAINS, tk_mn_eidan02,1022) {
         vehicle_life: 34;
         reliability_decay:22;
 
-        cargo_capacity: 124+param_capacity_mod;
+        cargo_capacity: 124;
         loading_speed: param_loading_3D;
         cost_factor: 20;
         running_cost_factor: 50;
@@ -1350,6 +1384,7 @@ item(FEAT_TRAINS, tk_mn_eidan02,1022) {
         cargo_subtype_text: sw_tk_mn_eidan02_lv_desc;
         length: 8;
         start_stop: sw_stop_start_3;
+        cargo_capacity: 124*param_capacity_mod/3;
     }
     livery_override(mu_car_metro){
         default:                      sw_tk_mn_eidan02_lv;
@@ -1384,8 +1419,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_mn_2000s_livery_1,position_in_consist){
 }
 //capacity changer
 switch(FEAT_TRAINS, SELF, sw_tk_mn_2000s_main_capacity,position_in_consist_from_end){
-    0: 120+param_capacity_mod;
-    default: 122+param_capacity_mod;
+    0: 120*param_capacity_mod/3;
+    default: 122*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, sw_tk_mn_2000s_attach_vehid, vehicle_type_id) {
@@ -1401,7 +1436,7 @@ item(FEAT_TRAINS, tk_mn_2000s,1023) {
         vehicle_life: 30;
         reliability_decay: 22;
 
-        cargo_capacity: 123+param_capacity_mod;
+        cargo_capacity: 123;
         loading_speed: param_loading_3D;
         cost_factor: 21;
         running_cost_factor: 51;
@@ -1436,6 +1471,7 @@ item(FEAT_TRAINS, tk_mn_2000s,1023) {
         additional_text: return string(tk_mn_2000s_DESC);
         length: 8;
         start_stop: sw_stop_start_3;
+        cargo_capacity: 123*param_capacity_mod/3;
     }
     livery_override(mu_car_metro){
         default:                      sw_tk_mn_2000s_livery_1;
@@ -1504,8 +1540,8 @@ default: sw_tk_hb_eidan3000_front_gfx;
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan3000_main_capacity,position_in_consist_from_end){
-    0: 120+param_capacity_mod;
-    default: 128+param_capacity_mod;
+    0: 120*param_capacity_mod/3;
+    default: 128*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_hb_eidan3000_attach_vehid, vehicle_type_id) {
@@ -1526,7 +1562,7 @@ item(FEAT_TRAINS, tk_hb_eidan3000, 1030) {
         power: 300 kW;
         weight: 33 ton;
 
-        cargo_capacity: 120+param_capacity_mod;
+        cargo_capacity: 120;
         loading_speed: param_loading_3D;
 
         reliability_decay: 22;
@@ -1558,6 +1594,7 @@ item(FEAT_TRAINS, tk_hb_eidan3000, 1030) {
         additional_text: return string(tk_hb_eidan3000_DESC);
         length: 8;
         start_stop: sw_stop_start_2;
+        cargo_capacity: 120*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         default:                      sw_tk_hb_eidan3000_main_gfx;
@@ -1753,8 +1790,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_loading, cargo_subtype){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_main_capacity,position_in_consist_from_end){
-    0: 132+param_capacity_mod;
-    default: 138+param_capacity_mod;
+    0: 132*param_capacity_mod/3;
+    default: 138*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_hb_eidan03_attach_vehid, vehicle_type_id) {
@@ -1775,7 +1812,7 @@ item(FEAT_TRAINS, tk_hb_eidan03,1031) {
         power: 300 kW;
         weight: 33 ton;
 
-        cargo_capacity: 132+param_capacity_mod;
+        cargo_capacity: 132;
         loading_speed: param_loading_3D;
 
         reliability_decay: 22;
@@ -1808,6 +1845,7 @@ item(FEAT_TRAINS, tk_hb_eidan03,1031) {
         cargo_subtype_text:           sw_tk_hb_eidan03_lv_desc;
         length: 8;
         start_stop: sw_stop_start_2;
+        cargo_capacity: 132*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         default:                      sw_tk_hb_eidan03_lv;
@@ -1907,8 +1945,8 @@ default: sw_tk_hb_13000series_def_gfx;
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_hb_13000series_main_capacity,position_in_consist_from_end){
-    0: 140+param_capacity_mod;
-    default: 151+param_capacity_mod;
+    0: 140*param_capacity_mod/3;
+    default: 151*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_hb_13000series_attach_vehid, vehicle_type_id) {
@@ -1925,7 +1963,7 @@ item(FEAT_TRAINS, tk_hb_13000series,1032) {
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 30;
 
-        cargo_capacity: 140+param_capacity_mod;
+        cargo_capacity: 140;
         loading_speed: param_loading_4D;
         cost_factor: 21;
         running_cost_factor: 51;
@@ -1960,6 +1998,7 @@ item(FEAT_TRAINS, tk_hb_13000series,1032) {
         start_stop: sw_stop_start_4;
         additional_text: return string(tk_hb_13000series_DESC);
         length: 8;
+        cargo_capacity: 140*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         default:                      sw_tk_hb_13000series_main_gfx;
@@ -2206,8 +2245,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_tz_5000series_lv_desc, cargo_subtype){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_tz_5000series_main_capacity,position_in_consist_from_end){
-    0: 136+param_capacity_mod;
-    default: 144+param_capacity_mod;
+    0: 136*param_capacity_mod/3;
+    default: 144*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_tz_5000series_attach_vehid, vehicle_type_id) {
@@ -2223,7 +2262,7 @@ item(FEAT_TRAINS, tk_tz_5000series,1040) {
         vehicle_life: 43;
         reliability_decay: 21;
 
-        cargo_capacity: 136+param_capacity_mod;
+        cargo_capacity: 136;
         loading_speed: param_loading_4D;
         cost_factor: 19;
         running_cost_factor: 49;
@@ -2259,7 +2298,7 @@ item(FEAT_TRAINS, tk_tz_5000series,1040) {
         additional_text: return string(tk_tz_5000series_DESC);
         cargo_subtype_text:           sw_tk_tz_5000series_lv_desc;
         start_stop: sw_stop_start_3;
-        
+        cargo_capacity: 136*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -2417,8 +2456,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_tz_05series_lv_desc, cargo_subtype){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_tz_05series_main_capacity,position_in_consist_from_end){
-    0: 138+param_capacity_mod;
-    default: 148+param_capacity_mod;
+    0: 138*param_capacity_mod/3;
+    default: 148*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_tz_05series_attach_vehid, vehicle_type_id) {
@@ -2434,7 +2473,7 @@ item(FEAT_TRAINS, tk_tz_05series,1041) {
         vehicle_life: 30;
         reliability_decay: 23;
 
-        cargo_capacity: 138+param_capacity_mod;
+        cargo_capacity: 138;
         loading_speed: param_loading_4D;
         cost_factor: 20;
         running_cost_factor: 49;
@@ -2470,6 +2509,7 @@ item(FEAT_TRAINS, tk_tz_05series,1041) {
         additional_text: return string(tk_tz_05series_DESC);
         cargo_subtype_text:           sw_tk_tz_05series_lv_desc;
         start_stop: sw_stop_start_3;   
+         cargo_capacity: 138*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -2526,8 +2566,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_tz_07series_front_gfx,position_in_consist){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_tz_07series_main_capacity,position_in_consist_from_end){
-    0: 138+param_capacity_mod;
-    default: 152+param_capacity_mod;
+    0: 138*param_capacity_mod/3;
+    default: 152*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_tz_07series_attach_vehid, vehicle_type_id) {
@@ -2542,7 +2582,7 @@ item(FEAT_TRAINS, tk_tz_07series,1042) {
         vehicle_life: 30;
         reliability_decay: 23;
 
-        cargo_capacity: 138+param_capacity_mod;
+        cargo_capacity: 138;
         loading_speed: param_loading_4D;
         cost_factor: 20;
         running_cost_factor: 50;
@@ -2577,6 +2617,7 @@ item(FEAT_TRAINS, tk_tz_07series,1042) {
         can_attach_wagon: tk_tz_07series_attach_vehid;
         additional_text: return string(tk_tz_07series_DESC);
         start_stop: sw_stop_start_4;   
+        cargo_capacity: 138*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -2633,8 +2674,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_tz_15000series_front_gfx,position_in_consist){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_tz_15000series_main_capacity,position_in_consist_from_end){
-    0: 143+param_capacity_mod;
-    default: 154+param_capacity_mod;
+    0: 143*param_capacity_mod/3;
+    default: 154*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_tz_15000series_attach_vehid, vehicle_type_id) {
@@ -2650,7 +2691,7 @@ item(FEAT_TRAINS, tk_tz_15000series,1043) {
         vehicle_life: 30;
         reliability_decay: 22;
 
-        cargo_capacity: 143+param_capacity_mod;
+        cargo_capacity: 143*param_capacity_mod/3;
         loading_speed: param_loading_4D;
         cost_factor: 22;
         running_cost_factor: 52;
@@ -2684,7 +2725,8 @@ item(FEAT_TRAINS, tk_tz_15000series,1043) {
         purchase: tk_tz_15000series_purchase;
         can_attach_wagon: tk_tz_15000series_attach_vehid;
         additional_text: return string(tk_tz_15000series_DESC);
-        start_stop: sw_stop_start_4;   
+        start_stop: sw_stop_start_4;  
+        cargo_capacity: 143*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -2742,8 +2784,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo1000_front_gfx,position_in_consist){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo1000_main_capacity,position_in_consist_from_end){
-    0: 136+param_capacity_mod;
-    default: 144+param_capacity_mod;
+    0: 136*param_capacity_mod/3;
+    default: 144*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_tz_toyo1000_attach_vehid, vehicle_type_id) {
@@ -2760,7 +2802,7 @@ item(FEAT_TRAINS, tk_tz_toyo1000,1050) {
         vehicle_life: 20;
         reliability_decay: 23;
 
-        cargo_capacity: 136+param_capacity_mod;
+        cargo_capacity: 136;
         loading_speed: param_loading_4D;
         cost_factor: 19;
         running_cost_factor: 49;
@@ -2795,6 +2837,7 @@ item(FEAT_TRAINS, tk_tz_toyo1000,1050) {
         can_attach_wagon: tk_tz_toyo1000_attach_vehid;
         additional_text: return string(tk_tz_toyo1000_DESC);
         start_stop: sw_stop_start_4;
+        cargo_capacity: 136*param_capacity_mod/3;
         
     }
     livery_override(mu_car_narrow){
@@ -2851,8 +2894,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo2000_front_gfx,position_in_consist){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo2000_main_capacity,position_in_consist_from_end){
-    0: 143+param_capacity_mod;
-    default: 154+param_capacity_mod;
+    0: 143*param_capacity_mod/3;
+    default: 154*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_tz_toyo2000_attach_vehid, vehicle_type_id) {
@@ -2868,7 +2911,7 @@ item(FEAT_TRAINS, tk_tz_toyo2000,1051) {
         vehicle_life: 30;
         reliability_decay: 23;
 
-        cargo_capacity: 143+param_capacity_mod;
+        cargo_capacity: 143*param_capacity_mod/3;
         loading_speed: param_loading_4D;
         cost_factor: 20;
         running_cost_factor: 50;
@@ -3006,8 +3049,8 @@ default: sw_tk_ch_5000series_checker;
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_ch_5000series_main_capacity,position_in_consist_from_end){
-    0: 143+param_capacity_mod;
-    default: 154+param_capacity_mod;
+    0: 136*param_capacity_mod/3;
+    default: 144*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_ch_5000series_attach_vehid, vehicle_type_id) {
@@ -3024,7 +3067,7 @@ item(FEAT_TRAINS, tk_ch_5000series,1060) {
         vehicle_life: 38;
         reliability_decay: 21;
 
-        cargo_capacity: 140+param_capacity_mod;
+        cargo_capacity: 136;
         loading_speed: param_loading_4D;
         cost_factor: 19;
         running_cost_factor: 49;
@@ -3059,7 +3102,7 @@ item(FEAT_TRAINS, tk_ch_5000series,1060) {
         can_attach_wagon: tk_ch_5000series_attach_vehid;
         additional_text: return string(tk_ch_5000series_DESC);
         start_stop: sw_stop_start_3;
-        
+        cargo_capacity: 136*param_capacity_mod/3;   
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -3242,8 +3285,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_ch_6000series_lv_desc, cargo_subtype){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_ch_6000series_main_capacity,position_in_consist_from_end){
-    0: 136+param_capacity_mod;
-    default: 144+param_capacity_mod;
+    0: 136*param_capacity_mod/3;
+    default: 144*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_ch_6000series_attach_vehid, vehicle_type_id) {
@@ -3259,7 +3302,7 @@ item(FEAT_TRAINS, tk_ch_6000series,1061) {
         vehicle_life: 50;
         reliability_decay: 21;
 
-        cargo_capacity: 136+param_capacity_mod;
+        cargo_capacity: 136;
         loading_speed: param_loading_4D;
         cost_factor: 19;
         running_cost_factor: 49;
@@ -3295,7 +3338,7 @@ item(FEAT_TRAINS, tk_ch_6000series,1061) {
         additional_text: return string(tk_ch_6000series_DESC);
         cargo_subtype_text:           sw_tk_ch_6000series_lv_desc;
         start_stop: sw_stop_start_3;
-        
+        cargo_capacity: 136*param_capacity_mod/3; 
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -3353,8 +3396,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_front_gfx,position_in_consist){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_main_capacity,position_in_consist_from_end){
-    0: 138+param_capacity_mod;
-    default: 152+param_capacity_mod;
+    0: 138*param_capacity_mod/3;
+    default: 152*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_ch_06series_attach_vehid, vehicle_type_id) {
@@ -3370,7 +3413,7 @@ item(FEAT_TRAINS, tk_ch_06series,1062) {
         vehicle_life: 30;
         reliability_decay: 24;
 
-        cargo_capacity: 138+param_capacity_mod;
+        cargo_capacity: 138;
         loading_speed: param_loading_4D;
         cost_factor: 20;
         running_cost_factor: 50;
@@ -3404,7 +3447,8 @@ item(FEAT_TRAINS, tk_ch_06series,1062) {
         purchase: tk_ch_06series_purchase;
         can_attach_wagon: tk_ch_06series_attach_vehid;
         additional_text: return string(tk_ch_06series_DESC);
-        start_stop: sw_stop_start_4;   
+        start_stop: sw_stop_start_4;
+        cargo_capacity: 138*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -3461,8 +3505,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_ch_16000series_front_gfx,position_in_consist){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_ch_16000series_main_capacity,position_in_consist_from_end){
-    0: 143+param_capacity_mod;
-    default: 154+param_capacity_mod;
+    0: 143*param_capacity_mod/3;
+    default: 154*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_ch_16000series_attach_vehid, vehicle_type_id) {
@@ -3477,7 +3521,7 @@ item(FEAT_TRAINS, tk_ch_16000series,1063) {
         vehicle_life: 30;
         reliability_decay: 21;
 
-        cargo_capacity: 143+param_capacity_mod;
+        cargo_capacity: 143;
         loading_speed: param_loading_4D;
         cost_factor: 22;
         running_cost_factor: 52;
@@ -3511,7 +3555,8 @@ item(FEAT_TRAINS, tk_ch_16000series,1063) {
         purchase: tk_ch_16000series_purchase;
         can_attach_wagon: tk_ch_16000series_attach_vehid;
         additional_text: return string(tk_ch_16000series_DESC);
-        start_stop: sw_stop_start_4;   
+        start_stop: sw_stop_start_4;
+        cargo_capacity: 143*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -3589,8 +3634,8 @@ default: sw_tk_ch_05series_front_gfx;
 //livery selector 
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_main_capacity,position_in_consist_from_end){
-    0: 138+param_capacity_mod;
-    default: 148+param_capacity_mod;
+    0: 138*param_capacity_mod/3;
+    default: 148*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_ch_05series_attach_vehid, vehicle_type_id) {
@@ -3609,7 +3654,7 @@ item(FEAT_TRAINS, tk_ch_05series,1070) {
         vehicle_life: 30;
         reliability_decay: 21;
 
-        cargo_capacity: 138+param_capacity_mod;
+        cargo_capacity: 138;
         loading_speed: param_loading_4D;
         cost_factor: 20;
         running_cost_factor: 50;
@@ -3643,7 +3688,8 @@ item(FEAT_TRAINS, tk_ch_05series,1070) {
         purchase: tk_ch_05series_purchase;
         can_attach_wagon: tk_ch_05series_attach_vehid;
         additional_text: return string(tk_ch_05series_DESC);
-        start_stop: sw_stop_start_3;   
+        start_stop: sw_stop_start_3;
+        cargo_capacity: 138*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -3702,8 +3748,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_yk_07series_front_gfx,position_in_consist){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_yk_07series_main_capacity,position_in_consist_from_end){
-    0: 138+param_capacity_mod;
-    default: 152+param_capacity_mod;
+    0: 138*param_capacity_mod/3;
+    default: 152*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_yk_07series_attach_vehid, vehicle_type_id) {
@@ -3718,7 +3764,7 @@ item(FEAT_TRAINS, tk_yk_07series, 1081) {
         vehicle_life: 20;
         reliability_decay: 23;
 
-        cargo_capacity: 138+param_capacity_mod;
+        cargo_capacity: 138;
         loading_speed: param_loading_4D;
         cost_factor: 20;
         running_cost_factor: 51;
@@ -3753,6 +3799,7 @@ item(FEAT_TRAINS, tk_yk_07series, 1081) {
         can_attach_wagon: tk_yk_07series_attach_vehid;
         additional_text: return string(tk_yk_07series_DESC);
         start_stop: sw_stop_start_4;   
+        cargo_capacity: 138*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -3959,8 +4006,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_yk_7000series_lv_desc, cargo_subtype){
 
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_yk_7000series_main_capacity,position_in_consist_from_end){
-    0: 136+param_capacity_mod;
-    default: 144+param_capacity_mod;
+    0: 136*param_capacity_mod/3;
+    default: 144*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_yk_7000series_attach_vehid, vehicle_type_id) {
@@ -3976,7 +4023,7 @@ item(FEAT_TRAINS, tk_yk_7000series,1080) {
         vehicle_life: 48;
         reliability_decay: 21;
 
-        cargo_capacity: 136+param_capacity_mod;
+        cargo_capacity: 136;
         loading_speed: param_loading_4D;
         cost_factor: 19;
         running_cost_factor: 49;
@@ -4012,6 +4059,7 @@ item(FEAT_TRAINS, tk_yk_7000series,1080) {
         additional_text: return string(tk_yk_7000series_DESC);
         start_stop: sw_stop_start_4;   
         cargo_subtype_text:           sw_tk_yk_7000series_lv_desc;
+        cargo_capacity: 136*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -4089,8 +4137,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_yk_10000series_livery_1,position_in_consist){
 
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_yk_10000series_main_capacity,position_in_consist_from_end){
-    0: 143+param_capacity_mod;
-    default: 154+param_capacity_mod;
+    0: 143*param_capacity_mod/3;
+    default: 154*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_yk_10000series_attach_vehid, vehicle_type_id) {
@@ -4106,7 +4154,7 @@ item(FEAT_TRAINS, tk_yk_10000series,1082) {
         vehicle_life: 30;
         reliability_decay: 21;
 
-        cargo_capacity: 143+param_capacity_mod;
+        cargo_capacity: 143;
         loading_speed: param_loading_4D;
         cost_factor: 21;
         running_cost_factor: 51;
@@ -4140,7 +4188,8 @@ item(FEAT_TRAINS, tk_yk_10000series,1082) {
         purchase: tk_yk_10000series_purchase;
         can_attach_wagon: tk_yk_10000series_attach_vehid;
         additional_text: return string(tk_yk_10000series_DESC);
-        start_stop: sw_stop_start_4;   
+        start_stop: sw_stop_start_4;  
+        cargo_capacity: 143*param_capacity_mod/3; 
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -4221,8 +4270,8 @@ default: sw_tk_yk_17000series_front_gfx;
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_yk_17000series_main_capacity,position_in_consist_from_end){
-    0: 143+param_capacity_mod;
-    default: 154+param_capacity_mod;
+    0: 143*param_capacity_mod/3;
+    default: 154*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_yk_17000series_attach_vehid, vehicle_type_id) {
@@ -4238,7 +4287,7 @@ item(FEAT_TRAINS, tk_yk_17000series,1083) {
         vehicle_life: 30;
         reliability_decay: 21;
 
-        cargo_capacity: 143+param_capacity_mod;
+        cargo_capacity: 143;
         loading_speed: param_loading_4D;
         cost_factor: 22;
         running_cost_factor: 52;
@@ -4273,6 +4322,7 @@ item(FEAT_TRAINS, tk_yk_17000series,1083) {
         can_attach_wagon: tk_yk_17000series_attach_vehid;
         additional_text: return string(tk_yk_17000series_DESC);
         start_stop: sw_stop_start_4;   
+        cargo_capacity: 143*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -4327,8 +4377,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_hz_8000series_front_gfx,position_in_consist){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_hz_8000series_main_capacity,position_in_consist_from_end){
-    0: 136+param_capacity_mod;
-    default: 144+param_capacity_mod;
+    0: 136*param_capacity_mod/3;
+    default: 144*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_hz_8000series_attach_vehid, vehicle_type_id) {
@@ -4344,7 +4394,7 @@ item(FEAT_TRAINS, tk_hz_8000series,1100) {
         vehicle_life: 30;
         reliability_decay: 23;
 
-        cargo_capacity: 136+param_capacity_mod;
+        cargo_capacity: 136;
         loading_speed: param_loading_4D;
         cost_factor: 19;
         running_cost_factor: 49;
@@ -4379,6 +4429,7 @@ item(FEAT_TRAINS, tk_hz_8000series,1100) {
         can_attach_wagon: tk_hz_8000series_attach_vehid;
         additional_text: return string(tk_hz_8000series_DESC);
         start_stop: sw_stop_start_4;   
+        cargo_capacity: 136*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -4435,8 +4486,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_hz_08series_front_gfx,position_in_consist){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_hz_08series_main_capacity,position_in_consist_from_end){
-    0: 141+param_capacity_mod;
-    default: 152+param_capacity_mod;
+    0: 141*param_capacity_mod/3;
+    default: 152*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_hz_08series_attach_vehid, vehicle_type_id) {
@@ -4452,7 +4503,7 @@ item(FEAT_TRAINS, tk_hz_08series,1101) {
         vehicle_life: 30;
         reliability_decay: 22;
 
-        cargo_capacity: 141+param_capacity_mod;
+        cargo_capacity: 141;
         loading_speed: param_loading_4D;
         cost_factor: 20;
         running_cost_factor: 50;
@@ -4487,6 +4538,7 @@ item(FEAT_TRAINS, tk_hz_08series,1101) {
         can_attach_wagon: tk_hz_08series_attach_vehid;
         additional_text: return string(tk_hz_08series_DESC);
         start_stop: sw_stop_start_4;   
+        cargo_capacity: 141*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -4568,8 +4620,8 @@ default: sw_tk_hz_18000series_front_gfx;
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_hz_18000series_main_capacity,position_in_consist_from_end){
-    0: 143+param_capacity_mod;
-    default: 154+param_capacity_mod;
+    0: 142*param_capacity_mod/3;
+    default: 153*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_hz_18000series_attach_vehid, vehicle_type_id) {
@@ -4585,7 +4637,7 @@ item(FEAT_TRAINS, tk_hz_18000series,1102) {
         vehicle_life: 30;
         reliability_decay: 23;
 
-        cargo_capacity: 151+param_capacity_mod;
+        cargo_capacity: 142;
         loading_speed: param_loading_4D;
         cost_factor: 22;
         running_cost_factor: 52;
@@ -4620,6 +4672,7 @@ item(FEAT_TRAINS, tk_hz_18000series,1102) {
         can_attach_wagon: tk_hz_18000series_attach_vehid;
         additional_text: return string(tk_hz_18000series_DESC);
         start_stop: sw_stop_start_4;   
+        cargo_capacity: 142*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -4765,8 +4818,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_nm_eidan9000_lv_desc, cargo_subtype){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_nm_eidan9000_main_capacity,position_in_consist_from_end){
-    0: 151+param_capacity_mod;
-    default: 140+param_capacity_mod;
+    0: 151*param_capacity_mod/3;
+    default: 140*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_nm_eidan9000_attach_vehid, vehicle_type_id) {
@@ -4784,7 +4837,7 @@ item(FEAT_TRAINS, tk_nm_eidan9000,1110) {
         vehicle_life: 30;
         reliability_decay: 22;
 
-        cargo_capacity: 140+param_capacity_mod;
+        cargo_capacity: 140;
         loading_speed: param_loading_4D;
         cost_factor: 20;
         running_cost_factor: 50;
@@ -4820,6 +4873,7 @@ item(FEAT_TRAINS, tk_nm_eidan9000,1110) {
         additional_text: return string(tk_nm_eidan9000_DESC);
         start_stop: sw_stop_start_4;   
         cargo_subtype_text:           sw_tk_nm_eidan9000_lv_desc;
+        cargo_capacity: 140*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -4870,8 +4924,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_nm_saitama2000_livery_1,position_in_consist){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_nm_saitama2000_main_capacity,position_in_consist_from_end){
-    0: 151+param_capacity_mod;
-    default: 140+param_capacity_mod;
+    0: 151*param_capacity_mod/3;
+    default: 140*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_nm_saitama2000_attach_vehid, vehicle_type_id) {
@@ -4889,7 +4943,7 @@ item(FEAT_TRAINS, tk_nm_saitama2000,1115) {
         vehicle_life: 30;
         reliability_decay: 22;
 
-        cargo_capacity: 146+param_capacity_mod;
+        cargo_capacity: 146;
         loading_speed: param_loading_4D;
         cost_factor: 20;
         running_cost_factor: 50;
@@ -4924,6 +4978,7 @@ item(FEAT_TRAINS, tk_nm_saitama2000,1115) {
         can_attach_wagon: tk_nm_saitama2000_attach_vehid;
         additional_text: return string(tk_nm_saitama2000_DESC);
         start_stop: sw_stop_start_4;   
+        cargo_capacity: 146*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -5211,8 +5266,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_lv_desc, cargo_subtype){
 
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_main_capacity,position_in_consist_from_end){
-    0: 140+param_capacity_mod;
-    default: 150+param_capacity_mod;
+    0: 140*param_capacity_mod/3;
+    default: 150*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_as_toei5000_attach_vehid, vehicle_type_id) {
@@ -5228,7 +5283,7 @@ item(FEAT_TRAINS, tk_as_toei5000,1120) {
         vehicle_life: 30;
         reliability_decay: 23;
 
-        cargo_capacity: 140+param_capacity_mod;
+        cargo_capacity: 140;
         loading_speed: param_loading_3D;
         cost_factor: 19;
         running_cost_factor: 49;
@@ -5264,6 +5319,7 @@ item(FEAT_TRAINS, tk_as_toei5000,1120) {
         additional_text: return string(tk_as_toei5000_DESC);
         cargo_subtype_text: sw_tk_as_toei5000_lv_desc;
         start_stop: sw_stop_start_4; 
+        cargo_capacity: 140*param_capacity_mod/3;
           
     }
     livery_override(mu_car){
@@ -5409,8 +5465,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_as_toei5200_lv_desc, cargo_subtype){
 
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_as_toei5200_main_capacity,position_in_consist_from_end){
-    0: 140+param_capacity_mod;
-    default: 150+param_capacity_mod;
+    0: 140*param_capacity_mod/3;
+    default: 150*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_as_toei5200_attach_vehid, vehicle_type_id) {
@@ -5426,7 +5482,7 @@ item(FEAT_TRAINS, tk_as_toei5200,1121) {
         vehicle_life: 30;
         reliability_decay: 23;
 
-        cargo_capacity: 140+param_capacity_mod;
+        cargo_capacity: 140;
         loading_speed: param_loading_3D;
         cost_factor: 20;
         running_cost_factor: 50;
@@ -5460,7 +5516,8 @@ item(FEAT_TRAINS, tk_as_toei5200,1121) {
         can_attach_wagon: tk_as_toei5200_attach_vehid;
         additional_text: return string(tk_as_toei5200_DESC);
         cargo_subtype_text: sw_tk_as_toei5200_lv_desc;
-        start_stop: sw_stop_start_3;   
+        start_stop: sw_stop_start_3;
+        cargo_capacity: 140*param_capacity_mod/3;   
     }
     livery_override(mu_car){
         loading_speed: param_loading_3D;
@@ -5515,8 +5572,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_as_toei5300_livery_1,position_in_consist){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_as_toei5300_main_capacity,position_in_consist_from_end){
-    0: 123+param_capacity_mod;
-    default: 134+param_capacity_mod;
+    0: 123*param_capacity_mod/3;
+    default: 134*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_as_toei5300_attach_vehid, vehicle_type_id) {
@@ -5532,7 +5589,7 @@ item(FEAT_TRAINS, tk_as_toei5300,1122) {
         vehicle_life: 30;
         reliability_decay: 23;
 
-        cargo_capacity: 123+param_capacity_mod;
+        cargo_capacity: 123;
         loading_speed: param_loading_3D;
         cost_factor: 19;
         running_cost_factor: 49;
@@ -5566,6 +5623,7 @@ item(FEAT_TRAINS, tk_as_toei5300,1122) {
         can_attach_wagon: tk_as_toei5300_attach_vehid;
         additional_text: return string(tk_as_toei5300_DESC);
         start_stop: sw_stop_start_4;   
+        cargo_capacity: 123*param_capacity_mod/3;
     }
     livery_override(mu_car){
         loading_speed: param_loading_3D;
@@ -5616,8 +5674,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_livery_1,position_in_consist){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_main_capacity,position_in_consist_from_end){
-    0: 121+param_capacity_mod;
-    default: 134+param_capacity_mod;
+    0: 121*param_capacity_mod/3;
+    default: 134*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_as_toei5500_attach_vehid, vehicle_type_id) {
@@ -5633,7 +5691,7 @@ item(FEAT_TRAINS, tk_as_toei5500,1123) {
         vehicle_life: 30;
         reliability_decay: 23;
 
-        cargo_capacity: 121+param_capacity_mod;
+        cargo_capacity: 121;
         loading_speed: param_loading_3D;
         cost_factor: 20;
         running_cost_factor: 50;
@@ -5666,7 +5724,8 @@ item(FEAT_TRAINS, tk_as_toei5500,1123) {
         purchase: tk_as_toei5500_purchase;
         can_attach_wagon: tk_as_toei5500_attach_vehid;
         additional_text: return string(tk_as_toei5500_DESC);
-        start_stop: sw_stop_start_4;   
+        start_stop: sw_stop_start_4; 
+        cargo_capacity: 121*param_capacity_mod/3;
     }
     livery_override(mu_car){
         loading_speed: param_loading_3D;
@@ -5803,8 +5862,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6000_lv_desc, cargo_subtype){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6000_main_capacity,position_in_vehid_chain_from_end){
-    0: 150+param_capacity_mod;
-    default: 170+param_capacity_mod;
+    0: 150*param_capacity_mod/3;
+    default: 170*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_mt_toei6000_attach_vehid, vehicle_type_id) {
@@ -5822,7 +5881,7 @@ item(FEAT_TRAINS, tk_mt_toei6000,1130) {
         vehicle_life: 30;
         reliability_decay: 23;
 
-        cargo_capacity: 150+param_capacity_mod;
+        cargo_capacity: 150;
         loading_speed: param_loading_4D;
         cost_factor: 19;
         running_cost_factor: 49;
@@ -5857,7 +5916,8 @@ item(FEAT_TRAINS, tk_mt_toei6000,1130) {
         can_attach_wagon: tk_mt_toei6000_attach_vehid;
         additional_text: return string(tk_mt_toei6000_DESC);
         cargo_subtype_text: sw_tk_mt_toei6000_lv_desc;
-        start_stop: sw_stop_start_3;   
+        start_stop: sw_stop_start_3;  
+        cargo_capacity: 150*param_capacity_mod/3; 
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -5908,8 +5968,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_livery_1,position_in_consist){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_main_capacity,position_in_consist_from_end){
-    0: 145+param_capacity_mod;
-    default: 150+param_capacity_mod;
+    0: 145*param_capacity_mod/3;
+    default: 150*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_mt_toei6300_attach_vehid, vehicle_type_id) {
@@ -5925,7 +5985,7 @@ item(FEAT_TRAINS, tk_mt_toei6300,1131) {
         vehicle_life: 30;
         reliability_decay: 22;
 
-        cargo_capacity: 145+param_capacity_mod;
+        cargo_capacity: 145;
         loading_speed: param_loading_4D;
         cost_factor: 20;
         running_cost_factor: 50;
@@ -5960,6 +6020,7 @@ item(FEAT_TRAINS, tk_mt_toei6300,1131) {
         can_attach_wagon: tk_mt_toei6300_attach_vehid;
         additional_text: return string(tk_mt_toei6300_DESC);
         start_stop: sw_stop_start_3;   
+        cargo_capacity: 145*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -6011,8 +6072,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6500_livery_1,position_in_consist){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6500_main_capacity,position_in_consist_from_end){
-    0: 139+param_capacity_mod;
-    default: 149+param_capacity_mod;
+    0: 139*param_capacity_mod/3;
+    default: 149*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_mt_toei6500_attach_vehid, vehicle_type_id) {
@@ -6027,7 +6088,7 @@ item(FEAT_TRAINS, tk_mt_toei6500,1132) {
         vehicle_life: 30;
         reliability_decay: 21;
 
-        cargo_capacity: 139+param_capacity_mod;
+        cargo_capacity: 139;
         loading_speed: param_loading_4D;
         cost_factor: 21;
         running_cost_factor: 51;
@@ -6062,6 +6123,7 @@ item(FEAT_TRAINS, tk_mt_toei6500,1132) {
         can_attach_wagon: tk_mt_toei6500_attach_vehid;
         additional_text: return string(tk_mt_toei6500_DESC);
         start_stop: sw_stop_start_3;   
+        cargo_capacity: 139*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -6230,8 +6292,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_lv_desc, cargo_subtype){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_main_capacity,position_in_consist_from_end){
-    0: 138+param_capacity_mod;
-    default: 149+param_capacity_mod;
+    0: 138*param_capacity_mod/3;
+    default: 149*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_attach_vehid, vehicle_type_id) {
@@ -6246,7 +6308,7 @@ item(FEAT_TRAINS, tk_sj_toei10_000,1140) {
     property {
         name: string(str_tk_sj_toei10_000_name);
         introduction_date: date(1971, 1, 1);
-        cargo_capacity: 138+param_capacity_mod;
+        cargo_capacity: 138;
         speed: 120 km/h;
         power:495 kW;
         weight: 25 ton;
@@ -6284,7 +6346,8 @@ item(FEAT_TRAINS, tk_sj_toei10_000,1140) {
         can_attach_wagon: tk_sj_toei10_000_attach_vehid;
         additional_text: return string(str_tk_sj_toei10_000_desc);
         cargo_subtype_text: sw_tk_sj_toei10_000_lv_desc;
-        start_stop: sw_stop_start_4;   
+        start_stop: sw_stop_start_4;
+        cargo_capacity: 138*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -6501,8 +6564,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_lv_desc, cargo_subtype){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_main_capacity,position_in_consist_from_end){
-    0: 138+param_capacity_mod;
-    default: 150+param_capacity_mod;
+    0: 138*param_capacity_mod/3;
+    default: 150*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_sj_toei10_300_attach_vehid, vehicle_type_id) {
@@ -6516,7 +6579,7 @@ item(FEAT_TRAINS, tk_sj_toei10_300,1141) {
     property {
         name: string(str_tk_sj_toei10_300_name);
         introduction_date: date(2004, 1, 1);
-        cargo_capacity: 138+param_capacity_mod;
+        cargo_capacity: 138;
         speed: 120 km/h;
         power: 380 kW;
         weight: 23 ton;
@@ -6555,6 +6618,7 @@ item(FEAT_TRAINS, tk_sj_toei10_300,1141) {
         additional_text: return string(str_tk_sj_toei10_300_desc);
         cargo_subtype_text: sw_tk_sj_toei10_300_lv_desc;
         start_stop: sw_stop_start_4;   
+        cargo_capacity: 138*param_capacity_mod/3;
     }
 	livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -6878,8 +6942,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_od_toei12_000_lv_date_sel, build_year>2011){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_od_toei12_000_main_capacity,position_in_consist_from_end){
-    0: 90+param_capacity_mod;
-    default: 100+param_capacity_mod;
+    0: 90*param_capacity_mod/3;
+    default: 100*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_od_toei12_000_attach_vehid, vehicle_type_id) {
@@ -6891,7 +6955,7 @@ item(FEAT_TRAINS, tk_od_toei12_000,1150) {
     property {
         name: string(str_tk_od_toei12_000_name);
         introduction_date: date(1990, 1, 1);
-        cargo_capacity: 90+param_capacity_mod;
+        cargo_capacity: 90;
         speed: 70 km/h;
         power: 240 kW;
         weight: 20 ton;
@@ -6929,6 +6993,7 @@ item(FEAT_TRAINS, tk_od_toei12_000,1150) {
         can_attach_wagon: tk_od_toei12_000_attach_vehid;
         additional_text: return string(str_tk_od_toei12_000_desc);
         cargo_subtype_text: sw_tk_od_toei12_000_lv_date_sel;
+        cargo_capacity: 90*param_capacity_mod/3;
     }
     livery_override(mu_car){
         loading_speed: param_loading_3D;
@@ -7014,8 +7079,8 @@ switch(FEAT_TRAINS, SELF, sw_yk_bl_1000series_lv, cargo_subtype){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_yk_bl_1000series_main_capacity,position_in_consist_from_end){
-    0: 140+param_capacity_mod;
-    default: 150+param_capacity_mod;
+    0: 140*param_capacity_mod/3;
+    default: 150*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, yk_bl_1000series_attach_vehid, vehicle_type_id) {
@@ -7031,7 +7096,7 @@ item(FEAT_TRAINS, yk_bl_1000series,1200) {
         vehicle_life: 30;
         reliability_decay: 23;
 
-        cargo_capacity: 140+param_capacity_mod;
+        cargo_capacity: 140;
         loading_speed: param_loading_3D;
         cost_factor: 20;
         running_cost_factor: 50;
@@ -7065,7 +7130,8 @@ item(FEAT_TRAINS, yk_bl_1000series,1200) {
         can_attach_wagon: yk_bl_1000series_attach_vehid;
         additional_text: return string(yk_bl_1000series_DESC);
         cargo_subtype_text: sw_yk_bl_1000series_lv_desc;
-        start_stop: sw_stop_start_3;   
+        start_stop: sw_stop_start_3; 
+        cargo_capacity: 140*param_capacity_mod/3;  
     }
     livery_override(mu_car_metro){
         loading_speed: param_loading_3D;
@@ -7277,8 +7343,8 @@ switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_lv, cargo_subtype){
 //capacity-changer
 
 switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_main_capacity,position_in_consist_from_end){
-    0: 122+param_capacity_mod;
-    default: 133+param_capacity_mod;
+    0: 122*param_capacity_mod/3;
+    default: 133*param_capacity_mod/3;
 }
 
 //attachable vehicles
@@ -7295,7 +7361,7 @@ item(FEAT_TRAINS, yk_bl_3000series,1201) {
         vehicle_life: 30;
         reliability_decay: 23;
 
-        cargo_capacity: 122+param_capacity_mod;
+        cargo_capacity: 122;
         loading_speed: param_loading_3D;
         cost_factor: 21;
         running_cost_factor: 50;
@@ -7329,8 +7395,8 @@ item(FEAT_TRAINS, yk_bl_3000series,1201) {
         can_attach_wagon: yk_bl_3000series_attach_vehid;
         additional_text: return string(yk_bl_3000series_DESC);
         cargo_subtype_text: sw_yk_bl_3000series_lv_desc;
-        cargo_capacity: sw_yk_bl_3000series_main_capacity;
-        start_stop: sw_stop_start_3;   
+        start_stop: sw_stop_start_3; 
+        cargo_capacity: 122*param_capacity_mod/3;  
     }
     livery_override(mu_car_metro){
         loading_speed: param_loading_3D;
@@ -7367,8 +7433,8 @@ switch(FEAT_TRAINS, SELF, sw_yk_bl_4000series_livery_1,position_in_consist){
 
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_yk_bl_4000series_main_capacity,position_in_consist_from_end){
-    0: 121+param_capacity_mod;
-    default: 131+param_capacity_mod;
+    0: 121*param_capacity_mod/3;
+    default: 131*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, yk_bl_4000series_attach_vehid, vehicle_type_id) {
@@ -7384,7 +7450,7 @@ item(FEAT_TRAINS, yk_bl_4000series,1202) {
         vehicle_life: 30;
         reliability_decay: 23;
 
-        cargo_capacity: 121+param_capacity_mod;
+        cargo_capacity: 121;
         loading_speed: param_loading_3D;
         cost_factor: 21;
         running_cost_factor: 51;
@@ -7417,7 +7483,8 @@ item(FEAT_TRAINS, yk_bl_4000series,1202) {
         purchase: yk_bl_4000series_purchase;
         can_attach_wagon: yk_bl_4000series_attach_vehid;
         additional_text: return string(yk_bl_4000series_DESC);
-        start_stop: sw_stop_start_3;   
+        start_stop: sw_stop_start_3; 
+        cargo_capacity: 121*param_capacity_mod/3;  
     }
     livery_override(mu_car_metro){
         loading_speed: param_loading_3D;
@@ -7536,8 +7603,8 @@ switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_lv, cargo_subtype){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_main_capacity,position_in_consist_from_end){
-    0: 88+param_capacity_mod;
-    default: 102+param_capacity_mod;
+    0: 88*param_capacity_mod/3;
+    default: 102*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, yk_gl_10000series_attach_vehid, vehicle_type_id) {
@@ -7553,7 +7620,7 @@ item(FEAT_TRAINS, yk_gl_10000series,1210) {
         vehicle_life: 30;
         reliability_decay: 23;
 
-        cargo_capacity: 88+param_capacity_mod;
+        cargo_capacity: 88;
         loading_speed: param_loading_3D;
         cost_factor: 20;
         running_cost_factor: 50;
@@ -7587,7 +7654,8 @@ item(FEAT_TRAINS, yk_gl_10000series,1210) {
         can_attach_wagon: yk_gl_10000series_attach_vehid;
         additional_text: return string(yk_gl_10000series_DESC);
         cargo_subtype_text: sw_yk_gl_10000series_lv_desc;
-        start_stop: sw_stop_start_3;   
+        start_stop: sw_stop_start_3;  
+        cargo_capacity: 88*param_capacity_mod/3; 
     }
     livery_override(mu_car){
         loading_speed: param_loading_3D;
