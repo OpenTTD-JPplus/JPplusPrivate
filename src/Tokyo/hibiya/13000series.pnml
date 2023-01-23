@@ -84,8 +84,8 @@ default: sw_tk_hb_13000series_def_gfx;
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_hb_13000series_main_capacity,position_in_consist_from_end){
-    0: 140+param_capacity_mod;
-    default: 151+param_capacity_mod;
+    0: 140*param_capacity_mod/3;
+    default: 151*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_hb_13000series_attach_vehid, vehicle_type_id) {
@@ -102,7 +102,7 @@ item(FEAT_TRAINS, tk_hb_13000series,1032) {
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 30;
 
-        cargo_capacity: 140+param_capacity_mod;
+        cargo_capacity: 140;
         loading_speed: param_loading_4D;
         cost_factor: 21;
         running_cost_factor: 51;
@@ -137,6 +137,7 @@ item(FEAT_TRAINS, tk_hb_13000series,1032) {
         start_stop: sw_stop_start_4;
         additional_text: return string(tk_hb_13000series_DESC);
         length: 8;
+        cargo_capacity: 140*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         default:                      sw_tk_hb_13000series_main_gfx;

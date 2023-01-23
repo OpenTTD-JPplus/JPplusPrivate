@@ -299,8 +299,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_od_toei12_000_lv_date_sel, build_year>2011){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_od_toei12_000_main_capacity,position_in_consist_from_end){
-    0: 90+param_capacity_mod;
-    default: 100+param_capacity_mod;
+    0: 90*param_capacity_mod/3;
+    default: 100*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_od_toei12_000_attach_vehid, vehicle_type_id) {
@@ -312,7 +312,7 @@ item(FEAT_TRAINS, tk_od_toei12_000,1150) {
     property {
         name: string(str_tk_od_toei12_000_name);
         introduction_date: date(1990, 1, 1);
-        cargo_capacity: 90+param_capacity_mod;
+        cargo_capacity: 90;
         speed: 70 km/h;
         power: 240 kW;
         weight: 20 ton;
@@ -350,6 +350,7 @@ item(FEAT_TRAINS, tk_od_toei12_000,1150) {
         can_attach_wagon: tk_od_toei12_000_attach_vehid;
         additional_text: return string(str_tk_od_toei12_000_desc);
         cargo_subtype_text: sw_tk_od_toei12_000_lv_date_sel;
+        cargo_capacity: 90*param_capacity_mod/3;
     }
     livery_override(mu_car){
         loading_speed: param_loading_3D;

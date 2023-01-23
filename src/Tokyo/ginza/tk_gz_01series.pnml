@@ -21,8 +21,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_gz_01s_livery_1,position_in_consist){
 //livery-randomizer
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_gz_01s_main_capacity,position_in_consist_from_end){
-    0: 100+param_capacity_mod;
-    default: 102+param_capacity_mod;
+    0: 100*param_capacity_mod/3;
+    default: 102*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, sw_tk_gz_01s_attach_vehid, vehicle_type_id) {
@@ -38,7 +38,7 @@ item(FEAT_TRAINS, tk_gz_01s, 1005) {
         vehicle_life: 30;
         reliability_decay:21;
 
-        cargo_capacity: 100+param_capacity_mod;
+        cargo_capacity: 100;
         loading_speed: param_loading_3D;
         cost_factor: 19;
         running_cost_factor: 49;
@@ -74,6 +74,7 @@ item(FEAT_TRAINS, tk_gz_01s, 1005) {
         additional_text: return string(tk_gz_01s_DESC);
         length: 8;
         start_stop: sw_stop_start_3;
+        cargo_capacity: 100*param_capacity_mod/3;
     }
     livery_override(mu_car_metro){
         default:                      sw_tk_gz_01s_livery_1;

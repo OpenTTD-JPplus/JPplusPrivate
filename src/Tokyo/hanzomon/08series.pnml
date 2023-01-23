@@ -42,8 +42,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_hz_08series_front_gfx,position_in_consist){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_hz_08series_main_capacity,position_in_consist_from_end){
-    0: 141+param_capacity_mod;
-    default: 152+param_capacity_mod;
+    0: 141*param_capacity_mod/3;
+    default: 152*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_hz_08series_attach_vehid, vehicle_type_id) {
@@ -59,7 +59,7 @@ item(FEAT_TRAINS, tk_hz_08series,1101) {
         vehicle_life: 30;
         reliability_decay: 22;
 
-        cargo_capacity: 141+param_capacity_mod;
+        cargo_capacity: 141;
         loading_speed: param_loading_4D;
         cost_factor: 20;
         running_cost_factor: 50;
@@ -94,6 +94,7 @@ item(FEAT_TRAINS, tk_hz_08series,1101) {
         can_attach_wagon: tk_hz_08series_attach_vehid;
         additional_text: return string(tk_hz_08series_DESC);
         start_stop: sw_stop_start_4;   
+        cargo_capacity: 141*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;

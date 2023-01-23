@@ -43,8 +43,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo1000_front_gfx,position_in_consist){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo1000_main_capacity,position_in_consist_from_end){
-    0: 136+param_capacity_mod;
-    default: 144+param_capacity_mod;
+    0: 136*param_capacity_mod/3;
+    default: 144*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_tz_toyo1000_attach_vehid, vehicle_type_id) {
@@ -61,7 +61,7 @@ item(FEAT_TRAINS, tk_tz_toyo1000,1050) {
         vehicle_life: 20;
         reliability_decay: 23;
 
-        cargo_capacity: 136+param_capacity_mod;
+        cargo_capacity: 136;
         loading_speed: param_loading_4D;
         cost_factor: 19;
         running_cost_factor: 49;
@@ -96,6 +96,7 @@ item(FEAT_TRAINS, tk_tz_toyo1000,1050) {
         can_attach_wagon: tk_tz_toyo1000_attach_vehid;
         additional_text: return string(tk_tz_toyo1000_DESC);
         start_stop: sw_stop_start_4;
+        cargo_capacity: 136*param_capacity_mod/3;
         
     }
     livery_override(mu_car_narrow){

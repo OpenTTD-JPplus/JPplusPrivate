@@ -65,17 +65,28 @@ param 2 {
 						name: string(STR_PARAM_NAME_CAPACITY);
 						desc: string(STR_PARAM_DESC_CAPACITY);
 						min_value: 0;
-						max_value: 3;
+						max_value: 4;
 						def_value: 0;
 						names: {
-												0: string(STR_PARAM_REAL);
-												1: string(STR_PARAM_HIGH);
-												2: string(STR_PARAM_VHIGH);
-												3: string(STR_PARAM_SHIGH);
+												0: string(STR_PARAM_CAP_0);
+												1: string(STR_PARAM_CAP_1);
+												2: string(STR_PARAM_CAP_2);
+												3: string(STR_PARAM_CAP_3);
+												4: string(STR_PARAM_CAP_4);
 						};
 				}
 		}
+param 6 {
+			 param_custom_capacity {
+						type: int;
+						name: string(STR_PARAM_CUSTOMCAPACITY);
+						desc: string(STR_PARAM_CUSTOMCAPACITYDESC);
+						min_value: 1;
+						max_value: 10;
+						def_value: 1;
 
+			 }
+		}
 }
 train_width_32_px = 1;
 traininfo_y_offset = 2;
@@ -137,20 +148,34 @@ if (param_capacities == 3) {
 	param_loading_4D = 70; // 4 doors //
 	param_loading_5D = 85; // 5 doors //
 }
+if (param_capacities == 4) {
+	param_loading_1D = 40; // 1 door //
+	param_loading_2D = 50; // 2 doors //
+	param_loading_3D = 60; // 3 doors //
+	param_loading_4D = 80; // 4 doors //
+	param_loading_5D = 95; // 5 doors //
+}
 
 
 if (param_capacities == 0) {
-	param_capacity_mod = 0;
+	param_capacity_mod = 2;
 }
 if (param_capacities == 1) {
-	param_capacity_mod = 25;
+	param_capacity_mod = 3;
 }
 if (param_capacities == 2) {
-	param_capacity_mod = 50;
+	param_capacity_mod = 4;
 }
 if (param_capacities == 3) {
-	param_capacity_mod = 100;
+	param_capacity_mod = 5;
 }
+if (param_capacities == 4) {
+	param_capacity_mod = param_custom_capacity;
+}
+
+
+
+param_capacity_mod_set = 255;
 
 
 basecost {
