@@ -1,24 +1,24 @@
 #include "src/other/params.pnml"
 template tmpl_std(x,y) {
     // parameters x, y: coordinates of top-left corner of front sprite
-    [x, 	 y,	8, 	24,		-3, 	-16] //short
-	[x +9, 	 y,	22,	20,		-13,	-13] //dia1
-	[x +32,  y,	32,	17,		-12,	-13] //long
-	[x +65,  y,	22,	20,		-5, 	-12] //dia2
-	[x +88,  y,	8, 	24,		-3, 	-16] //short
-	[x +97,  y,	22,	20,		-13,	-13] //dia1
-	[x +120, y,	32,	17,		-12,	-13] //long
-	[x+153,  y,	22,	20,		-5, 	-12] //dia2
+[x, 	 y,	8, 	24,		-3, 	-16] //short
+[x +9, 	 y,	22,	20,		-13,	-13] //dia1
+[x +32,  y,	32,	17,		-14,	-13] //long
+[x +65,  y,	22,	20,		-5, 	-12] //dia2
+[x +88,  y,	8, 	24,		-3, 	-16] //short
+[x +97,  y,	22,	20,		-13,	-13] //dia1
+[x +120, y,	32,	17,		-14,	-13] //long
+[x+153,  y,	22,	20,		-5, 	-12] //dia2
 }
 
 template tmpl_std_rev(x,y){
 [x +88,  y,	8, 	24,		-3, 	-16] //short
 [x +97,  y,	22,	20,		-13,	-13] //dia1
-[x +120, y,	32,	17,		-12,	-13] //long
+[x +120, y,	32,	17,		-14,	-13] //long
 [x+153,  y,	22,	20,		-5, 	-12] //dia2
 [x, 	 y,	8, 	24,		-3, 	-16] //short
 [x +9, 	 y,	22,	20,		-13,	-13] //dia1
-[x +32,  y,	32,	17,		-12,	-13] //long
+[x +32,  y,	32,	17,		-14,	-13] //long
 [x +65,  y,	22,	20,		-5, 	-12] //dia2
 }
 template tmpl_purchase (x, y) {
@@ -158,6 +158,11 @@ switch (FEAT_TRAINS, SELF, sw_stop_start_4, num_vehs_in_consist < 4) {
 		1:  return string(STR_FEW_CARS_4_ERROR); 				
 		return CB_RESULT_NO_TEXT; 
 	}
+switch (FEAT_TRAINS, SELF, sw_stop_start_even, num_vehs_in_consist %2) {				
+		0:  return string(STR_FEW_CARS_EVEN_ERROR); 				
+		return CB_RESULT_NO_TEXT; 
+	}
+
 
 
 //10 id's default, 20 for big lines for future reserve
@@ -249,16 +254,20 @@ switch (FEAT_TRAINS, SELF, sw_stop_start_4, num_vehs_in_consist < 4) {
 #include "src/Osaka/namboku_mido/9000series.pnml"
 
 //namboku 1230-1249
-
+#include "src/Osaka/namboku_mido/type100.pnml"
+#include "src/Osaka/namboku_mido/type500.pnml"
+#include "src/Osaka/namboku_mido/type1000.pnml"
 #include "src/Osaka/namboku_mido/50series.pnml"
-#include "src/Osaka/namboku_mido/30series.pnml"
-//10a(20old)
-//21
-//30000
-//multi-end---------------
-//100-400
-//500-600
-//1000-12000
+#include "src/Osaka/namboku_mido/30series.pnml" 
+#include "src/Osaka/namboku_mido/10series.pnml" 
+#include "src/Osaka/namboku_mido/21series.pnml" 
+#include "src/Osaka/namboku_mido/30000series.pnml" 
+
+//tanimachi 1250-1259
+#include "src/Osaka/tanimachi/30series.pnml"
+
+
+
 
 
 //
