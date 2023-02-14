@@ -1,0 +1,82 @@
+spriteset (os_nm_500series_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
+alternative_sprites(os_nm_500series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Osaka/namboku_mido_sen/500series/type500_purchase.png"){ tmpl_purchase(0, 0) }
+
+spriteset (os_nm_500series_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (os_nm_500series_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+spriteset (os_nm_500series_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+//
+alternative_sprites(os_nm_500series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Osaka/namboku_mido_sen/500series/type500.png"){ tmpl_std(0, 0) }
+alternative_sprites(os_nm_500series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Osaka/namboku_mido_sen/500series/type500.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(os_nm_500series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Osaka/namboku_mido_sen/500series/type500.png"){ tmpl_std(0, 50) }
+
+
+//namboku
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_os_nm_500series_end_gfx,position_in_consist_from_end){
+    0: os_nm_500series_end;
+    default: os_nm_500series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_os_nm_500series_livery_1,position_in_consist){
+    0: os_nm_500series_front;
+    default: sw_os_nm_500series_end_gfx;
+}
+//capacity-changer
+//attachable vehicles
+switch(FEAT_TRAINS, SELF, os_nm_500series_attach_vehid, vehicle_type_id) {
+  mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
+  return string(STR_attach);
+}
+
+item(FEAT_TRAINS, os_nm_500series,1231) {
+    property {
+        name: string(STR_os_nm_500series_name);
+        introduction_date: date(1949, 1, 1);
+        model_life: 39;
+        vehicle_life: 39;
+        reliability_decay: 22;
+
+        cargo_capacity: 84;
+        loading_speed: param_loading_3D;
+        cost_factor: 19;
+        running_cost_factor: 49;
+
+        speed: 65 km/h;
+        track_type: TR_1435_M;
+        power: 340 kW;
+        weight: 40 ton;
+
+        climates_available: ALL_CLIMATES;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_MU);
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: bitmask();
+        refit_cost: 0;
+        dual_headed: 0;
+        ai_engine_rank: 0;
+
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+        
+        tractive_effort_coefficient: 0.2;
+        air_drag_coefficient: 0.07;
+        bitmask_vehicle_info: 0;
+    }
+	graphics {
+        default: sw_os_nm_500series_livery_1;
+        purchase: os_nm_500series_purchase;
+        can_attach_wagon: os_nm_500series_attach_vehid;
+        additional_text: return string(os_nm_500series_DESC);
+        start_stop: sw_stop_start_2; 
+        cargo_capacity: 84*param_capacity_mod/3;  
+    }
+    livery_override(mu_car_metro){
+        loading_speed: param_loading_3D;
+        cargo_capacity: 84*param_capacity_mod/3;  
+        default:                      sw_os_nm_500series_livery_1;
+        power: 456;
+        weight: 40;
+        length: 8;
+      }
+}

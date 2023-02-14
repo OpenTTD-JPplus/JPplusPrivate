@@ -12,9 +12,17 @@ alternative_sprites(os_nm_50series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,     
 alternative_sprites(os_nm_50series_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Osaka/namboku_mido_sen/50series/50series.png"){ tmpl_std_rev(0, 50) }
 
 //wagon specialgfx
-switch(FEAT_TRAINS, SELF, sw_os_nm_50series_wag_gfx,position_in_consist %2){
+switch(FEAT_TRAINS, SELF, sw_os_nm_50series_wag_1_gfx,position_in_consist %2){
     0: os_nm_50series_wag;
     default: os_nm_50series_wag_rev;
+}
+switch(FEAT_TRAINS, SELF, sw_os_nm_50series_wag_rev_gfx,position_in_consist_from_end %2){
+    0: os_nm_50series_wag_rev;
+    default: os_nm_50series_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_os_nm_50series_wag_gfx,vehicle_is_reversed){
+    1: sw_os_nm_50series_wag_1_gfx;
+    default: sw_os_nm_50series_wag_rev_gfx;
 }
 //namboku
 //front-end-fixer
@@ -37,7 +45,7 @@ switch(FEAT_TRAINS, SELF, os_nm_50series_attach_vehid, vehicle_type_id) {
   return string(STR_attach);
 }
 
-item(FEAT_TRAINS, os_nm_50series,1232) {
+item(FEAT_TRAINS, os_nm_50series,1234) {
     property {
         name: string(STR_os_nm_50series_name);
         introduction_date: date(1960, 1, 1);
