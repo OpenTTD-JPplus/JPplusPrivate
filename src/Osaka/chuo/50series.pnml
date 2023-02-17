@@ -20,10 +20,9 @@ alternative_sprites(os_ch_50series_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, 
 alternative_sprites(os_ch_50series_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Osaka/chuo/50series/50series_1.png"){ tmpl_std_rev(0, 25) }
 alternative_sprites(os_ch_50series_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Osaka/chuo/50series/50series_1.png"){ tmpl_std(0, 50) }
 alternative_sprites(os_ch_50series_1_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Osaka/chuo/50series/50series_1.png"){ tmpl_std_rev(0, 50) }
-//
 
 
-//livery 1
+//livery white
 //wagon specialgfx
 switch(FEAT_TRAINS, SELF, sw_os_ch_50series_wag_1_gfx,position_in_consist %2){
     0: os_ch_50series_wag;
@@ -46,7 +45,8 @@ switch(FEAT_TRAINS, SELF, sw_os_ch_50series_livery_1,position_in_consist){
     0: os_ch_50series_front;
     default: sw_os_ch_50series_end_gfx;
 }
-//livery 2
+
+//livery green
 //wagon specialgfx
 switch(FEAT_TRAINS, SELF, sw_os_ch_50series_1_wag_1_gfx,position_in_consist %2){
     0: os_ch_50series_1_wag;
@@ -72,15 +72,15 @@ switch(FEAT_TRAINS, SELF, sw_os_ch_50series_livery_2,position_in_consist){
 
 //randomizer
 random_switch(FEAT_TRAINS, PARENT, sw_os_ch_50series_livery_0){
-    2: sw_os_ch_50series_livery_1;
+    1: sw_os_ch_50series_livery_1;
     1: sw_os_ch_50series_livery_2;
 }
 
 //livery selector
 switch(FEAT_TRAINS, SELF, sw_os_ch_50series_lv_desc, cargo_subtype){
-    0: string(LV_time_randomized);
-    1: string(LV_os_ch_50series_1);
-    2: string(LV_os_ch_50series_2);
+    0: string(LV_randomized);
+    1: string(LV_WHITE);
+    2: string(LV_GREEN);
 }
 //liveries
 switch(FEAT_TRAINS, SELF, sw_os_ch_50series_lv, cargo_subtype){
@@ -105,9 +105,9 @@ switch(FEAT_TRAINS, SELF, os_ch_50series_attach_vehid, vehicle_type_id) {
 item(FEAT_TRAINS, os_ch_50series,1271) {
     property {
         name: string(STR_os_ch_50series_name);
-        introduction_date: date(1960, 1, 1);
-        model_life: 34;
-        vehicle_life: 50;
+        introduction_date: date(1970, 1, 1);
+        model_life: 22;
+        vehicle_life: 32;
         reliability_decay: 22;
 
         cargo_capacity: 72;
