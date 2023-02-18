@@ -1,0 +1,84 @@
+spriteset (os_ch_kintetsu7000_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
+alternative_sprites(os_ch_kintetsu7000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Osaka/chuo/kintetsu7000/kintetsu7000_purchase.png"){ tmpl_purchase(0, 0) }
+
+spriteset (os_ch_kintetsu7000_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (os_ch_kintetsu7000_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+spriteset (os_ch_kintetsu7000_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+
+alternative_sprites(os_ch_kintetsu7000_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Osaka/chuo/kintetsu7000/kintetsu7000.png"){ tmpl_std(0, 0) }
+alternative_sprites(os_ch_kintetsu7000_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Osaka/chuo/kintetsu7000/kintetsu7000.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(os_ch_kintetsu7000_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Osaka/chuo/kintetsu7000/kintetsu7000.png"){ tmpl_std(0, 50) }
+
+
+//livery 1
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_os_ch_kintetsu7000_end_gfx,position_in_consist_from_end){
+    0: os_ch_kintetsu7000_end;
+    default: os_ch_kintetsu7000_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_os_ch_kintetsu7000_livery_1,position_in_consist){
+    0: os_ch_kintetsu7000_front;
+    default: sw_os_ch_kintetsu7000_end_gfx;
+}
+
+//capacity-changer
+switch(FEAT_TRAINS, SELF, sw_os_ch_kintetsu7000_main_capacity,position_in_consist_from_end){
+    0: 125*param_capacity_mod/3;
+    default: 135*param_capacity_mod/3;
+}
+//attachable vehicles
+switch(FEAT_TRAINS, SELF, os_ch_kintetsu7000_attach_vehid, vehicle_type_id) {
+  mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
+  return string(STR_attach);
+}
+
+item(FEAT_TRAINS, os_ch_kintetsu7000,1277) {
+    property {
+        name: string(STR_os_ch_kintetsu7000_name);
+        cargo_capacity: 130;
+        climates_available: ALL_CLIMATES;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_MU);
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: bitmask();
+        refit_cost: 0;
+        dual_headed: 0;
+        ai_engine_rank: 0;
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+        tractive_effort_coefficient: 0.2;
+        air_drag_coefficient: 0.07;
+        bitmask_vehicle_info: 0;
+
+        introduction_date: date(1984, 1, 1);
+        model_life: VEHICLE_NEVER_EXPIRES;
+        vehicle_life: 30;
+        reliability_decay: 22;
+
+        cost_factor: 21;
+        running_cost_factor: 51;
+        speed: 95 km/h;
+        track_type: TR_1435_M;
+        power: 560 kW;
+        weight: 32 ton;
+        loading_speed: param_loading_4D;
+    }
+	graphics {
+        default: sw_os_ch_kintetsu7000_livery_1;
+        purchase: os_ch_kintetsu7000_purchase;
+        can_attach_wagon: os_ch_kintetsu7000_attach_vehid;
+        additional_text: return string(os_ch_kintetsu7000_DESC);
+        start_stop: sw_stop_start_3; 
+        cargo_capacity: 125*param_capacity_mod/3;  
+    }
+    livery_override(mu_car_metro){
+        loading_speed: param_loading_4D;
+        cargo_capacity: sw_os_ch_kintetsu7000_main_capacity;
+        default:                      sw_os_ch_kintetsu7000_livery_1;
+        power: 753*2/5;
+        weight: 35;
+        length: 8; 
+      }
+}
