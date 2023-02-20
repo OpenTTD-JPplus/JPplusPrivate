@@ -37,14 +37,12 @@ alternative_sprites(os_ts_70series_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,   
 
 //livery 1 1988-xx
 //panto placer
-switch(FEAT_TRAINS, SELF, sw_os_ts_70series_panto_placer,position_in_consist %7){
+switch(FEAT_TRAINS, SELF, sw_os_ts_70series_panto_placer,position_in_consist %5){
     3: os_ts_70series_mot;
-    7: os_ts_70series_mot;
     os_ts_70series_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_os_ts_70series_panto_placer_rev,position_in_consist_from_end %7){
+switch(FEAT_TRAINS, SELF, sw_os_ts_70series_panto_placer_rev,position_in_consist_from_end %5){
     3: os_ts_70series_mot;
-    7: os_ts_70series_mot;
     os_ts_70series_wag;
 }
 
@@ -74,14 +72,12 @@ switch(FEAT_TRAINS, SELF, sw_os_ts_70series_livery_1,position_in_consist){
 }
 //livery 2 1996-xx
 //panto placer
-switch(FEAT_TRAINS, SELF, sw_os_ts_70series_1_panto_placer,position_in_consist %7){
+switch(FEAT_TRAINS, SELF, sw_os_ts_70series_1_panto_placer,position_in_consist %5){
     3: os_ts_70series_1_mot;
-    7: os_ts_70series_1_mot;
     os_ts_70series_1_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_os_ts_70series_1_panto_placer_rev,position_in_consist_from_end %7){
+switch(FEAT_TRAINS, SELF, sw_os_ts_70series_1_panto_placer_rev,position_in_consist_from_end %5){
     3: os_ts_70series_1_mot;
-    7: os_ts_70series_1_mot;
     os_ts_70series_1_wag;
 }
 
@@ -111,14 +107,12 @@ switch(FEAT_TRAINS, SELF, sw_os_ts_70series_livery_2,position_in_consist){
 }
 //livery 3 1996-xx
 //panto placer
-switch(FEAT_TRAINS, SELF, sw_os_ts_70series_2_panto_placer,position_in_consist %7){
+switch(FEAT_TRAINS, SELF, sw_os_ts_70series_2_panto_placer,position_in_consist %5){
     3: os_ts_70series_2_mot;
-    7: os_ts_70series_2_mot;
     os_ts_70series_2_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_os_ts_70series_2_panto_placer_rev,position_in_consist_from_end %7){
+switch(FEAT_TRAINS, SELF, sw_os_ts_70series_2_panto_placer_rev,position_in_consist_from_end %5){
     3: os_ts_70series_2_mot;
-    7: os_ts_70series_2_mot;
     os_ts_70series_2_wag;
 }
 
@@ -209,7 +203,7 @@ switch(FEAT_TRAINS, SELF, os_ts_70series_attach_vehid, vehicle_type_id) {
 item(FEAT_TRAINS, os_ts_70series,1300) {
     property {
         cargo_capacity: 130;
-        climates_available: ALL_CLIMATES;
+        climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
         misc_flags: bitmask(TRAIN_FLAG_MU);
