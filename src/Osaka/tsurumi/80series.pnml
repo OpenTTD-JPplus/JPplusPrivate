@@ -14,14 +14,12 @@ alternative_sprites(os_ts_80series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,     
 
 //livery 1
 //panto placer
-switch(FEAT_TRAINS, SELF, sw_os_ts_80series_panto_placer,position_in_consist %7){
+switch(FEAT_TRAINS, SELF, sw_os_ts_80series_panto_placer,position_in_consist %5){
     3: os_ts_80series_mot;
-    7: os_ts_80series_mot;
     os_ts_80series_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_os_ts_80series_panto_placer_rev,position_in_consist_from_end %7){
+switch(FEAT_TRAINS, SELF, sw_os_ts_80series_panto_placer_rev,position_in_consist_from_end %5){
     3: os_ts_80series_mot;
-    7: os_ts_80series_mot;
     os_ts_80series_wag;
 }
 
@@ -65,7 +63,7 @@ switch(FEAT_TRAINS, SELF, os_ts_80series_attach_vehid, vehicle_type_id) {
 item(FEAT_TRAINS, os_ts_80series,1301) {
     property {
         cargo_capacity: 130;
-        climates_available: ALL_CLIMATES;
+        climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
         misc_flags: bitmask(TRAIN_FLAG_MU);
