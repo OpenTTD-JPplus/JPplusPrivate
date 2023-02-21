@@ -1,6 +1,6 @@
 # JP+Metro
 JP+Metro is a NewGRF for OpenTTD, bringing Japanese metro trains to the game.<br>
-This is a sister set to 🚋[JP+ Multiple units](https://github.com/Tintinfan/JPplusSet), 🚂[JP+ Engines & Wagons](https://github.com/EmperorJake/JPengines) and 🚅[JP+ Shinkansen](https://github.com/KeepinItRail/JPplusShinkansen)
+A sister set to 🚋[JP+ Multiple units](https://github.com/Tintinfan/JPplusSet), 🚂[JP+ Engines & Wagons](https://github.com/EmperorJake/JPengines) and 🚅[JP+ Shinkansen](https://github.com/KeepinItRail/JPplusShinkansen)
 
 ## Provide a feedback:<br>
 [<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Google_Forms_logo_%282014-2020%29.svg/745px-Google_Forms_logo_%282014-2020%29.svg.png" width="40"/>](https://docs.google.com/forms/d/e/1FAIpQLSfDiigPU3KL-KpCF6zEf4sLvGMuQJOHy7J8mgaQdfFO27U1Jw/viewform?usp=sharing)
