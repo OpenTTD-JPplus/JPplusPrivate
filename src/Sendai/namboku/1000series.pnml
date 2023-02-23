@@ -86,10 +86,6 @@ switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_livery_1,position_in_consist){
 //front-end-fixer end
 
 //capacity-changer
-switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_main_capacity,position_in_consist_from_end){
-    0: 144*param_capacity_mod/3;
-    default: 144*param_capacity_mod/3;
-}
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, sn_nm_1000series_attach_vehid, vehicle_type_id) {
   mu_car_narrow: return CB_RESULT_ATTACH_ALLOW;
@@ -140,9 +136,9 @@ item(FEAT_TRAINS, sn_nm_1000series,1430) {
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
-        cargo_capacity: sw_sn_nm_1000series_main_capacity;
+        cargo_capacity: 144*param_capacity_mod/3;
         default:                      sw_sn_nm_1000series_livery_1;
-        power: 429;
+        power: 429*2/3;
         weight: 32;
         length: 8; 
       }
