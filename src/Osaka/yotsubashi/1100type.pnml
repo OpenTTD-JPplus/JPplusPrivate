@@ -78,7 +78,7 @@ random_switch(FEAT_TRAINS, PARENT, sw_os_yb_1100type_livery_0){
 
 //livery selector
 switch(FEAT_TRAINS, SELF, sw_os_yb_1100type_lv_desc, cargo_subtype){
-    0: string(LV_randomized);
+    0: string(LV_RANDOM);
     1: string(LV_os_yb_1100type_1);
     2: string(LV_os_yb_1100type_2);
 }
@@ -95,13 +95,13 @@ switch(FEAT_TRAINS, SELF, sw_os_yb_1100type_lv, cargo_subtype){
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, os_yb_1100type_attach_vehid, vehicle_type_id) {
   mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_attach);
+  return string(STR_ATTACH_ERROR);
 }
 
 
 item(FEAT_TRAINS, os_yb_1100type,1260) {
     property {
-        name: string(STR_os_yb_1100type_name);
+        name: string(STR_os_yb_1100type_NAME);
         introduction_date: date(1957, 1, 1);
         model_life: 35;
         vehicle_life: 35;
@@ -140,7 +140,7 @@ item(FEAT_TRAINS, os_yb_1100type,1260) {
         default: sw_os_yb_1100type_lv;
         purchase: os_yb_1100type_purchase;
         can_attach_wagon: os_yb_1100type_attach_vehid;
-        additional_text: return string(os_yb_1100type_DESC);
+        additional_text: return string(STR_os_yb_1100type_DESC);
         cargo_subtype_text: sw_os_yb_1100type_lv_desc;
         start_stop: sw_stop_start_2; 
         cargo_capacity: 72*param_capacity_mod/3;  

@@ -49,12 +49,12 @@ switch(FEAT_TRAINS, PARENT, sw_os_ch_6000type_length_check,num_vehs_in_consist){
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, os_ch_6000type_attach_vehid, vehicle_type_id) {
   mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_attach);
+  return string(STR_ATTACH_ERROR);
 }
 
 item(FEAT_TRAINS, os_ch_6000type,1270) {
     property {
-        name: string(STR_os_ch_6000type_name);
+        name: string(STR_os_ch_6000type_NAME);
         introduction_date: date(1961, 1, 1);
         model_life: 22;
         vehicle_life: 32;
@@ -62,8 +62,8 @@ item(FEAT_TRAINS, os_ch_6000type,1270) {
 
         cargo_capacity: 72;
         loading_speed: param_loading_3D;
-        cost_factor: 19;
-        running_cost_factor: 49;
+        cost_factor: 16;
+        running_cost_factor: 46;
 
         speed: 65 km/h;
         track_type: TR_1435_M;
@@ -92,7 +92,7 @@ item(FEAT_TRAINS, os_ch_6000type,1270) {
         default: sw_os_ch_6000type_length_check;
         purchase: os_ch_6000type_purchase;
         can_attach_wagon: os_ch_6000type_attach_vehid;
-        additional_text: return string(os_ch_6000type_DESC);
+        additional_text: return string(STR_os_ch_6000type_DESC);
         //start_stop: sw_stop_start_4; 
         cargo_capacity: 72*param_capacity_mod/3;  
     }

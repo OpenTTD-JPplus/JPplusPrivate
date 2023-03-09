@@ -78,7 +78,7 @@ random_switch(FEAT_TRAINS, PARENT, sw_os_tm_50series_livery_0){
 
 //livery selector
 switch(FEAT_TRAINS, SELF, sw_os_tm_50series_lv_desc, cargo_subtype){
-    0: string(LV_randomized);
+    0: string(LV_RANDOM);
     1: string(LV_WHITE);
     2: string(LV_GREEN);
 }
@@ -94,13 +94,13 @@ switch(FEAT_TRAINS, SELF, sw_os_tm_50series_lv, cargo_subtype){
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, os_tm_50series_attach_vehid, vehicle_type_id) {
   mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_attach);
+  return string(STR_ATTACH_ERROR);
 }
 
 
 item(FEAT_TRAINS, os_tm_50series,1250) {
     property {
-        name: string(STR_os_tm_50series_name);
+        name: string(STR_os_tm_50series_NAME);
         introduction_date: date(1967, 1, 1);
         model_life: 25;
         vehicle_life: 32;
@@ -108,8 +108,8 @@ item(FEAT_TRAINS, os_tm_50series,1250) {
 
         cargo_capacity: 72;
         loading_speed: param_loading_3D;
-        cost_factor: 19;
-        running_cost_factor: 49;
+        cost_factor: 16;
+        running_cost_factor: 46;
 
         speed: 70 km/h;
         track_type: TR_1435_M;
@@ -139,7 +139,7 @@ item(FEAT_TRAINS, os_tm_50series,1250) {
         default: sw_os_tm_50series_lv;
         purchase: os_tm_50series_purchase;
         can_attach_wagon: os_tm_50series_attach_vehid;
-        additional_text: return string(os_tm_50series_DESC);
+        additional_text: return string(STR_os_tm_50series_DESC);
         cargo_subtype_text: sw_os_tm_50series_lv_desc;
         //start_stop: sw_stop_start_2; 
         cargo_capacity: 72*param_capacity_mod/3;  

@@ -44,19 +44,19 @@ switch(FEAT_TRAINS, SELF, sw_tk_gz_t1900_lv, cargo_subtype){
     2: sw_tk_gz_t1900_livery_2;
 }
 switch(FEAT_TRAINS, SELF, sw_tk_gz_t1900_lv_desc, cargo_subtype){
-    0: string(LV_randomized);
-    1: string(LV_tk_gz_t1900_1);
-    2: string(LV_tk_gz_t1900_2);
+    0: string(LV_RANDOM);
+    1: string(LV_tk_gz_type1900_1);
+    2: string(LV_tk_gz_type1900_2);
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, sw_tk_gz_t1900_attach_vehid, vehicle_type_id) {
   mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_attach);
+  return string(STR_ATTACH_ERROR);
 }
 
 item(FEAT_TRAINS, tk_gz_t1900, 1004) {
     property {
-        name: string(STR_tk_gz_type1900_name);
+        name: string(STR_tk_gz_type1900_NAME);
         introduction_date: date(1959, 1, 1);
         model_life: 29;
         vehicle_life: 34;
@@ -64,10 +64,10 @@ item(FEAT_TRAINS, tk_gz_t1900, 1004) {
 
         cargo_capacity: 95;
         loading_speed: param_loading_3D;
-        cost_factor: 20;
-        running_cost_factor: 50;
+        cost_factor: 17;
+        running_cost_factor: 47;
 
-        speed: 65 km/h;
+        speed: 70 km/h;
         track_type: TR_1435_M;
         power: 220 kW;
         weight: 29 ton;
@@ -94,7 +94,7 @@ item(FEAT_TRAINS, tk_gz_t1900, 1004) {
         default: sw_tk_gz_t1900_lv;
         purchase: tk_gz_type1900_purchase;
         can_attach_wagon: sw_tk_gz_t1900_attach_vehid;
-        additional_text: return string(tk_gz_type1900_DESC);
+        additional_text: return string(STR_tk_gz_type1900_DESC);
         cargo_subtype_text: sw_tk_gz_t1900_lv_desc;
         length: 8;
         cargo_capacity: 95*param_capacity_mod/3;

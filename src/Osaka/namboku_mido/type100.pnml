@@ -52,11 +52,11 @@ switch(FEAT_TRAINS, SELF, sw_os_nm_100series_livery_0,build_year<1943){
 
 //timed-livery selector
 switch(FEAT_TRAINS, SELF, sw_os_nm_100series_lv_desc_1, cargo_subtype){
-    0: string(LV_time_randomized);
+    0: string(LV_TIME_RANDOM);
     1: string(LV_os_nm_100series_1);
 }
 switch(FEAT_TRAINS, SELF, sw_os_nm_100series_lv_desc_2, cargo_subtype){
-    0: string(LV_time_randomized);
+    0: string(LV_TIME_RANDOM);
     1: string(LV_os_nm_100series_1);
     2: string(LV_os_nm_400series_1);
 }
@@ -78,12 +78,12 @@ switch(FEAT_TRAINS, SELF, sw_os_nm_100series_lv, cargo_subtype){
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, os_nm_100series_attach_vehid, vehicle_type_id) {
   mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_attach);
+  return string(STR_ATTACH_ERROR);
 }
 
 item(FEAT_TRAINS, os_nm_100series,1230) {
     property {
-        name: string(STR_os_nm_100series_name);
+        name: string(STR_os_nm_100series_NAME);
         introduction_date: date(1931, 1, 1);
         model_life: 41;
         vehicle_life: 41;
@@ -91,8 +91,8 @@ item(FEAT_TRAINS, os_nm_100series,1230) {
 
         cargo_capacity: 84;
         loading_speed: param_loading_3D;
-        cost_factor: 17;
-        running_cost_factor: 47;
+        cost_factor: 15;
+        running_cost_factor: 45;
 
         speed: 60 km/h;
         track_type: TR_1435_M;
@@ -121,7 +121,7 @@ item(FEAT_TRAINS, os_nm_100series,1230) {
         default: sw_os_nm_100series_lv;
         purchase: os_nm_100series_purchase;
         can_attach_wagon: os_nm_100series_attach_vehid;
-        additional_text: return string(os_nm_100series_DESC);
+        additional_text: return string(STR_os_nm_100series_DESC);
         cargo_subtype_text: sw_os_nm_100series_lv_desc;
         //start_stop: sw_stop_start_3; 
         cargo_capacity: 84*param_capacity_mod/3;  

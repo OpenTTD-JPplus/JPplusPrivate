@@ -45,7 +45,7 @@ random_switch(FEAT_TRAINS, PARENT, sw_os_sn_25series_livery_0){
 
 //timed-livery selector
 switch(FEAT_TRAINS, SELF, sw_os_sn_25series_lv_desc, cargo_subtype){
-    0: string(LV_time_randomized);
+    0: string(LV_TIME_RANDOM);
     1: string(LV_os_sn_25series_1);
     2: string(LV_os_sn_25series_2);
 }
@@ -63,12 +63,12 @@ switch(FEAT_TRAINS, SELF, sw_os_sn_25series_main_capacity,position_in_consist_fr
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, os_sn_25series_attach_vehid, vehicle_type_id) {
   mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_attach);
+  return string(STR_ATTACH_ERROR);
 }
 
 item(FEAT_TRAINS, os_sn_25series,1283) {
     property {
-        name: string(STR_os_sn_25series_name);
+        name: string(STR_os_sn_25series_NAME);
         introduction_date: date(1991, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 40;
@@ -107,7 +107,7 @@ item(FEAT_TRAINS, os_sn_25series,1283) {
         default: sw_os_sn_25series_lv;
         purchase: os_sn_25series_purchase;
         can_attach_wagon: os_sn_25series_attach_vehid;
-        additional_text: return string(os_sn_25series_DESC);
+        additional_text: return string(STR_os_sn_25series_DESC);
         cargo_subtype_text: sw_os_sn_25series_lv_desc;
         start_stop: sw_stop_start_4; 
         cargo_capacity: 130*param_capacity_mod/3;  

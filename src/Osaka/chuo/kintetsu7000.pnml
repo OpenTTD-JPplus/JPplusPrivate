@@ -29,12 +29,12 @@ switch(FEAT_TRAINS, SELF, sw_os_ch_kintetsu7000_main_capacity,position_in_consis
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, os_ch_kintetsu7000_attach_vehid, vehicle_type_id) {
   mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_attach);
+  return string(STR_ATTACH_ERROR);
 }
 
 item(FEAT_TRAINS, os_ch_kintetsu7000,1277) {
     property {
-        name: string(STR_os_ch_kintetsu7000_name);
+        name: string(STR_os_ch_kintetsu7000_NAME);
         cargo_capacity: 130;
         climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
@@ -69,7 +69,7 @@ item(FEAT_TRAINS, os_ch_kintetsu7000,1277) {
         default: sw_os_ch_kintetsu7000_livery_1;
         purchase: os_ch_kintetsu7000_purchase;
         can_attach_wagon: os_ch_kintetsu7000_attach_vehid;
-        additional_text: return string(os_ch_kintetsu7000_DESC);
+        additional_text: return string(STR_os_ch_kintetsu7000_DESC);
         start_stop: sw_stop_start_3; 
         cargo_capacity: 125*param_capacity_mod/3;  
     }
