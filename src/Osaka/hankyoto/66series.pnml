@@ -95,7 +95,7 @@ switch(FEAT_TRAINS, SELF, sw_os_hk_66series_livery_0,current_year>2011){
 //old stuff
 //livery selector
 switch(FEAT_TRAINS, SELF, sw_os_hk_66series_lv_desc_old, cargo_subtype){
-    0: string(LV_time_randomized);
+    0: string(LV_TIME_RANDOM);
     1: string(LV_OLD);
 }
 //liveries
@@ -106,7 +106,7 @@ switch(FEAT_TRAINS, SELF, sw_os_hk_66series_lv_old, cargo_subtype){
 //new stuff
 
 switch(FEAT_TRAINS, SELF, sw_os_hk_66series_lv_desc_new, cargo_subtype){
-    0: string(LV_time_randomized);
+    0: string(LV_TIME_RANDOM);
     1: string(LV_OLD);
     2: string(LV_NEW);
 }
@@ -135,7 +135,7 @@ switch(FEAT_TRAINS, SELF, sw_os_hk_66series_main_capacity,position_in_consist_fr
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, os_hk_66series_attach_vehid, vehicle_type_id) {
   mu_car: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_attach);
+  return string(STR_ATTACH_ERROR);
 }
 
 item(FEAT_TRAINS, os_hk_66series,1291) {
@@ -157,7 +157,7 @@ item(FEAT_TRAINS, os_hk_66series,1291) {
         air_drag_coefficient: 0.07;
         bitmask_vehicle_info: 0;
 
-        name: string(STR_os_hk_66series_name);
+        name: string(STR_os_hk_66series_NAME);
         introduction_date: date(1990, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 35;
@@ -175,7 +175,7 @@ item(FEAT_TRAINS, os_hk_66series,1291) {
         default: sw_os_hk_66series_lv;
         purchase: os_hk_66series_purchase;
         can_attach_wagon: os_hk_66series_attach_vehid;
-        additional_text: return string(STR_os_hk_60series_desc);
+        additional_text: return string(STR_os_hk_60series_DESC);
         cargo_subtype_text: sw_os_hk_66series_lv_desc;
         start_stop: sw_stop_start_3; 
         cargo_capacity: 134*param_capacity_mod/3;  

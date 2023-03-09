@@ -80,21 +80,21 @@ switch(FEAT_TRAINS, SELF, sw_tk_gz_t1300_lv, cargo_subtype){
     2: sw_tk_gz_t1300_livery_2;
 }
 switch(FEAT_TRAINS, SELF, sw_tk_gz_t1300_lv_desc, cargo_subtype){
-    0: string(LV_randomized);
-    1: string(LV_tk_gz_t1300_1);
-    2: string(LV_tk_gz_t1300_2);
-    3: string(LV_tk_gz_t1300_3);
-    4: string(LV_tk_gz_t1300_4);
+    0: string(LV_RANDOM);
+    1: string(LV_tk_gz_type1300_1);
+    2: string(LV_tk_gz_type1300_2);
+    3: string(LV_tk_gz_type1300_3);
+    4: string(LV_tk_gz_type1300_4);
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, sw_tk_gz_t1300_attach_vehid, vehicle_type_id) {
   mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_attach);
+  return string(STR_ATTACH_ERROR);
 }
 
 item(FEAT_TRAINS, tk_gz_t1300, 1003) {
     property {
-        name: string(STR_tk_gz_type1300_name);
+        name: string(STR_tk_gz_type1300_NAME);
         introduction_date: date(1957, 1, 1);
         model_life: 10;
         vehicle_life: 30;
@@ -102,8 +102,8 @@ item(FEAT_TRAINS, tk_gz_t1300, 1003) {
 
         cargo_capacity: 98;
         loading_speed: param_loading_3D;
-        cost_factor: 20;
-        running_cost_factor: 50;
+        cost_factor: 16;
+        running_cost_factor: 46;
 
         speed: 65 km/h;
         track_type: TR_1435_M;
@@ -132,7 +132,7 @@ item(FEAT_TRAINS, tk_gz_t1300, 1003) {
         default: sw_tk_gz_t1300_lv;
         purchase: tk_gz_type1300_purchase;
         can_attach_wagon: sw_tk_gz_t1300_attach_vehid;
-        additional_text: return string(tk_gz_type1300_DESC);
+        additional_text: return string(STR_tk_gz_type1000_1300_DESC);
         cargo_subtype_text: sw_tk_gz_t1300_lv_desc;
         length: 8;
         cargo_capacity: 98*param_capacity_mod/3;

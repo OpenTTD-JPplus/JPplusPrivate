@@ -156,7 +156,7 @@ switch(FEAT_TRAINS, SELF, sw_os_ts_70series_livery_0,current_year>1995){
 //1988 stuff
 //livery selector
 switch(FEAT_TRAINS, SELF, sw_os_ts_70series_lv_desc_old, cargo_subtype){
-    0: string(LV_time_randomized);
+    0: string(LV_TIME_RANDOM);
     1: string(LV_os_ts_70series_1);
 }
 //liveries
@@ -166,7 +166,7 @@ switch(FEAT_TRAINS, SELF, sw_os_ts_70series_lv_old, cargo_subtype){
 }
 //1996 stuff
 switch(FEAT_TRAINS, SELF, sw_os_ts_70series_lv_desc_new, cargo_subtype){
-    0: string(LV_time_randomized);
+    0: string(LV_TIME_RANDOM);
     1: string(LV_os_ts_70series_1);
     2: string(LV_os_ts_70series_2);
     3: string(LV_os_ts_70series_3);
@@ -197,7 +197,7 @@ switch(FEAT_TRAINS, SELF, sw_os_ts_70series_main_capacity,position_in_consist_fr
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, os_ts_70series_attach_vehid, vehicle_type_id) {
   mu_car: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_attach);
+  return string(STR_ATTACH_ERROR);
 }
 
 item(FEAT_TRAINS, os_ts_70series,1300) {
@@ -219,14 +219,14 @@ item(FEAT_TRAINS, os_ts_70series,1300) {
         air_drag_coefficient: 0.07;
         bitmask_vehicle_info: 0;
 
-        name: string(STR_os_ts_70series_name);
+        name: string(STR_os_ts_70series_NAME);
         introduction_date: date(1988, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 40;
         reliability_decay: 22;
 
-        cost_factor: 21;
-        running_cost_factor: 51;
+        cost_factor: 19;
+        running_cost_factor: 49;
         speed: 70 km/h;
         track_type: TR_1435;
         power: 200 kW;
@@ -237,7 +237,7 @@ item(FEAT_TRAINS, os_ts_70series,1300) {
         default: sw_os_ts_70series_lv;
         purchase: os_ts_70series_purchase;
         can_attach_wagon: os_ts_70series_attach_vehid;
-        additional_text: return string(STR_os_ts_70series_desc);
+        additional_text: return string(STR_os_ts_70series_DESC);
         cargo_subtype_text: sw_os_ts_70series_lv_desc;
         start_stop: sw_stop_start_3; 
         cargo_capacity: 89*param_capacity_mod/3;  

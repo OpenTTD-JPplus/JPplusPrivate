@@ -117,7 +117,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_as_toei5200_lv, cargo_subtype){
     2: sw_tk_as_toei5200_livery_2;
 }
 switch(FEAT_TRAINS, SELF, sw_tk_as_toei5200_lv_desc, cargo_subtype){
-    0: string(LV_time_randomized);
+    0: string(LV_TIME_RANDOM);
     1: string(LV_tk_as_toei5200_1);
     2: string(LV_tk_as_toei5200_2);
 }
@@ -136,12 +136,12 @@ switch(FEAT_TRAINS, SELF, sw_tk_as_toei5200_main_capacity,position_in_consist_fr
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_as_toei5200_attach_vehid, vehicle_type_id) {
   mu_car: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_attach);
+  return string(STR_ATTACH_ERROR);
 }
 
 item(FEAT_TRAINS, tk_as_toei5200,1121) {
     property {
-        name: string(STR_tk_as_toei5200_name);
+        name: string(STR_tk_as_toei5200_NAME);
         introduction_date: date(1976, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 40;
@@ -179,7 +179,7 @@ item(FEAT_TRAINS, tk_as_toei5200,1121) {
         default: sw_tk_as_toei5200_lv;
         purchase: tk_as_toei5200_purchase;
         can_attach_wagon: tk_as_toei5200_attach_vehid;
-        additional_text: return string(tk_as_toei5200_DESC);
+        additional_text: return string(STR_tk_as_toei5200_DESC);
         cargo_subtype_text: sw_tk_as_toei5200_lv_desc;
         start_stop: sw_stop_start_3;
         cargo_capacity: 140*param_capacity_mod/3;   
