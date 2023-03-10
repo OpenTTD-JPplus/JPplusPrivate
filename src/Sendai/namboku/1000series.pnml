@@ -5,23 +5,30 @@ spriteset (sn_nm_1000series_front,       "gfx/gfx_placeholder.png") { tmpl_std(0
 spriteset (sn_nm_1000series_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
 spriteset (sn_nm_1000series_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (sn_nm_1000series_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (sn_nm_1000series_front_f,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (sn_nm_1000series_end_f,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (sn_nm_1000series_weath_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (sn_nm_1000series_weath_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
 spriteset (sn_nm_1000series_weath_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (sn_nm_1000series_weath_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (sn_nm_1000series_weath_front_f,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (sn_nm_1000series_weath_end_f,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
 
 alternative_sprites(sn_nm_1000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Sendai/namboku/1000series/1000series.png"){ tmpl_std(0, 0) }
 alternative_sprites(sn_nm_1000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Sendai/namboku/1000series/1000series.png"){ tmpl_std_rev(0, 25) }
 alternative_sprites(sn_nm_1000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Sendai/namboku/1000series/1000series.png"){ tmpl_std(0, 75) }
 alternative_sprites(sn_nm_1000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Sendai/namboku/1000series/1000series.png"){ tmpl_std(0, 50) }
+alternative_sprites(sn_nm_1000series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Sendai/namboku/1000series/1000series.png"){ tmpl_std(0, 100) }
+alternative_sprites(sn_nm_1000series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Sendai/namboku/1000series/1000series.png"){ tmpl_std_rev(0, 100) }
+
 alternative_sprites(sn_nm_1000series_weath_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Sendai/namboku/1000series/1000series_weath.png"){ tmpl_std(0, 0) }
 alternative_sprites(sn_nm_1000series_weath_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Sendai/namboku/1000series/1000series_weath.png"){ tmpl_std_rev(0, 25) }
 alternative_sprites(sn_nm_1000series_weath_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Sendai/namboku/1000series/1000series_weath.png"){ tmpl_std(0, 75) }
 alternative_sprites(sn_nm_1000series_weath_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Sendai/namboku/1000series/1000series_weath.png"){ tmpl_std(0, 50) }
-
+alternative_sprites(sn_nm_1000series_weath_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Sendai/namboku/1000series/1000series_weath.png"){ tmpl_std(0, 100) }
+alternative_sprites(sn_nm_1000series_weath_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Sendai/namboku/1000series/1000series_weath.png"){ tmpl_std_rev(0, 100) }
 //livery 1
 //version selector
-
 switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_front_gfx,(current_year-build_year>15)){
     1: sn_nm_1000series_weath_front;
     sn_nm_1000series_front;
@@ -38,6 +45,15 @@ switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_wag_gfx,(current_year-build_year>1
     1: sn_nm_1000series_weath_wag;
     sn_nm_1000series_wag;
 }
+switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_front_f_gfx,(current_year-build_year>15)){
+    1: sn_nm_1000series_weath_front_f;
+    sn_nm_1000series_front_f;
+}
+switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_end_f_gfx,(current_year-build_year>15)){
+    1: sn_nm_1000series_weath_end_f;
+    sn_nm_1000series_end_f;
+}
+
 //version selector end
 
 //panto placer
@@ -74,10 +90,31 @@ switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_panto_placer_main,num_vehs_in_cons
 }
 //panto placer end 
 
+//fake head-end placer
+switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_fake_placer,position_in_consist){
+    3: sw_sn_nm_1000series_end_f_gfx;
+    4: sw_sn_nm_1000series_front_f_gfx;
+sw_sn_nm_1000series_panto_placer_main;
+}
+switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_fake_placer_rev,position_in_consist_from_end){
+    3: sn_nm_1000series_front_f;
+    4: sn_nm_1000series_end_f;
+sw_sn_nm_1000series_panto_placer_main;
+}
+switch(FEAT_TRAINS, PARENT, sw_sn_nm_1000series_fake_placer_gfx,vehicle_is_reversed){
+    1: sw_sn_nm_1000series_fake_placer_rev;
+    sw_sn_nm_1000series_fake_placer;
+}
+switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_fake_placer_main,num_vehs_in_consist>6){
+    1: sw_sn_nm_1000series_fake_placer_gfx;
+sw_sn_nm_1000series_panto_placer_main;
+}
+//fake head-end placer end
+
 //front-end-fixer
 switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_end,position_in_consist_from_end){
     0: sw_sn_nm_1000series_end_gfx;
-    default: sw_sn_nm_1000series_panto_placer_main;
+    default: sw_sn_nm_1000series_fake_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_livery_1,position_in_consist){
     0: sw_sn_nm_1000series_front_gfx;
