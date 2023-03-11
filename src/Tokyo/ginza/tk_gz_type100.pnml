@@ -25,24 +25,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_gz_t100_livery_1,position_in_consist){
     0: tk_gz_type100_front;
     sw_tk_gz_t100_end_gfx;
 }
-// livery 2
-switch(FEAT_TRAINS, SELF, sw_t100_end_1_gfx,position_in_consist_from_end){
-    0: type100_1_end;
-    type100_1_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_t100_livery_2,position_in_consist){
-    0: type100_1_front;
-    sw_t100_end_1_gfx;
-}
-//livery selector
-switch(FEAT_TRAINS, SELF, sw_tk_gz_t100_lv, cargo_subtype){
-    0: sw_tk_gz_t100_livery_1;
-    1: sw_t100_livery_2;
-}
-switch(FEAT_TRAINS, SELF, sw_tk_gz_t100_lv_desc, cargo_subtype){
-    0: string(LV_tk_gz_type100_1);
-    1: string(LV_tk_gz_type100_2);
-}
+
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, sw_tk_gz_t100_attach_vehid, vehicle_type_id) {
   mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
@@ -85,16 +68,28 @@ item(FEAT_TRAINS, tk_gz_t100, 1002) {
         bitmask_vehicle_info: 0;
     }
 	graphics {
-        default: sw_tk_gz_t100_lv;
+        default: sw_tk_gz_t100_livery_1;
         purchase: tk_gz_type100_purchase;
         can_attach_wagon: sw_tk_gz_t100_attach_vehid;
-        additional_text: return string(STR_tk_gz_type1000_1300_DESC);
-        cargo_subtype_text: sw_tk_gz_t100_lv_desc;
+        additional_text:    string(STR_CONCAT_6,
+                            string(STR_STANDARDGAUGE),
+                            string(STR_FORMATION),
+                            string(STR_tk_gz_type1000_1300_DESC),
+                            string(STR_CARS),
+                            string(STR_CITY,
+                            string(STR_TOKYOMETRO,
+                            string(STR_OPERATOR)
+                            ),
+                            ),
+                            string(STR_LINES_USED,
+                            string(STR_TOKYO_GINZA)
+                            ),
+                        );
         length: 8;
         cargo_capacity: 85*param_capacity_mod/3;
     }
     livery_override(mu_car_metro){
-        default:                      sw_tk_gz_t100_lv;
+        default:                      sw_tk_gz_t100_livery_1;
         cargo_capacity:               70*param_capacity_mod/3*param_capacity_mod/3;
         loading_speed:                param_loading_3D;
         power: 241;
