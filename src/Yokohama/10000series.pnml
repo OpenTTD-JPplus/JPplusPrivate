@@ -6,25 +6,32 @@ spriteset (yk_gl_10000series_end,       "gfx/gfx_placeholder.png") { tmpl_std_re
 spriteset (yk_gl_10000series_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (yk_gl_10000series_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (yk_gl_10000series_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (yk_gl_10000series_front_f,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (yk_gl_10000series_end_f,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
 
 spriteset (yk_gl_10000series_3_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (yk_gl_10000series_3_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
 spriteset (yk_gl_10000series_3_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (yk_gl_10000series_3_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (yk_gl_10000series_3_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (yk_gl_10000series_3_front_f,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (yk_gl_10000series_3_end_f,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
 
 alternative_sprites(yk_gl_10000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series.png"){ tmpl_std(0, 0) }
 alternative_sprites(yk_gl_10000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series.png"){ tmpl_std_rev(0, 25) }
 alternative_sprites(yk_gl_10000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series.png"){ tmpl_std(0, 50) }
 alternative_sprites(yk_gl_10000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series.png"){ tmpl_std(0, 75) }
 alternative_sprites(yk_gl_10000series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series.png"){ tmpl_std_rev(0, 75) }
+alternative_sprites(yk_gl_10000series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series.png"){ tmpl_std(0, 100) }
+alternative_sprites(yk_gl_10000series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series.png"){ tmpl_std_rev(0, 100) }
 
 alternative_sprites(yk_gl_10000series_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series_3.png"){ tmpl_std(0, 0) }
 alternative_sprites(yk_gl_10000series_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series_3.png"){ tmpl_std_rev(0, 25) }
 alternative_sprites(yk_gl_10000series_3_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series_3.png"){ tmpl_std(0, 50) }
 alternative_sprites(yk_gl_10000series_3_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series_3.png"){ tmpl_std(0, 75) }
 alternative_sprites(yk_gl_10000series_3_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series_3.png"){ tmpl_std_rev(0, 75) }
-
+alternative_sprites(yk_gl_10000series_3_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series.png"){ tmpl_std(0, 100) }
+alternative_sprites(yk_gl_10000series_3_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/Yokohama/GreenLine/10000series/10000series.png"){ tmpl_std_rev(0, 100) }
 //livery 1
 //special liveries
 
@@ -46,10 +53,31 @@ switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_mot_main_gfx,num_vehs_in_consist)
     sw_yk_gl_10000series_mot_def_gfx;
     
 }
+
+//fake head-end placer
+switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_fake_placer,position_in_consist){
+    4: yk_gl_10000series_end_f;
+    5: yk_gl_10000series_front_f;
+sw_yk_gl_10000series_mot_main_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_fake_placer_rev,position_in_consist_from_end){
+    4: yk_gl_10000series_front_f;
+    5: yk_gl_10000series_end_f;
+sw_yk_gl_10000series_mot_main_gfx;
+}
+switch(FEAT_TRAINS, PARENT, sw_yk_gl_10000series_fake_placer_gfx,vehicle_is_reversed){
+    1: sw_yk_gl_10000series_fake_placer_rev;
+    sw_yk_gl_10000series_fake_placer;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_fake_placer_main,num_vehs_in_consist>9){
+    1: sw_yk_gl_10000series_fake_placer_gfx;
+sw_yk_gl_10000series_mot_main_gfx;
+}
+//fake head-end placer end
 //front-end-fixer
 switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_end_gfx,position_in_consist_from_end){
     0: yk_gl_10000series_end;
-    default: sw_yk_gl_10000series_mot_main_gfx;
+    default: sw_yk_gl_10000series_fake_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_livery_1,position_in_consist){
     0: yk_gl_10000series_front;
@@ -74,10 +102,31 @@ switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_3_mot_main_gfx,num_vehs_in_consis
     sw_yk_gl_10000series_3_mot_def_gfx;
     
 }
+
+//fake head-end placer
+switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_3_fake_placer,position_in_consist){
+    4: yk_gl_10000series_3_end_f;
+    5: yk_gl_10000series_3_front_f;
+sw_yk_gl_10000series_3_mot_main_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_3_fake_placer_rev,position_in_consist_from_end){
+    4: yk_gl_10000series_3_front_f;
+    5: yk_gl_10000series_3_end_f;
+sw_yk_gl_10000series_3_mot_main_gfx;
+}
+switch(FEAT_TRAINS, PARENT, sw_yk_gl_10000series_3_fake_placer_gfx,vehicle_is_reversed){
+    1: sw_yk_gl_10000series_3_fake_placer_rev;
+    sw_yk_gl_10000series_3_fake_placer;
+}
+switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_3_fake_placer_main,num_vehs_in_consist>9){
+    1: sw_yk_gl_10000series_3_fake_placer_gfx;
+sw_yk_gl_10000series_3_mot_main_gfx;
+}
+//fake head-end placer end
 //front-end-fixer
 switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_3_end_gfx,position_in_consist_from_end){
     0: yk_gl_10000series_3_end;
-    default: sw_yk_gl_10000series_3_mot_main_gfx;
+    default: sw_yk_gl_10000series_3_fake_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_livery_3,position_in_consist){
     0: yk_gl_10000series_3_front;
