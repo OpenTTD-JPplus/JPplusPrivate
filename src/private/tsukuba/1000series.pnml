@@ -4,7 +4,7 @@ alternative_sprites(tsukuba_1000series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32
 spriteset (tsukuba_1000series_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (tsukuba_1000series_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
 spriteset (tsukuba_1000series_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
-spriteset (tsukuba_1000series_mot_re,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tsukuba_1000series_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (tsukuba_1000series_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (tsukuba_1000series_front_f,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (tsukuba_1000series_end_f,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
@@ -21,12 +21,14 @@ alternative_sprites(tsukuba_1000series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP
 //special gfx
 //panto placer
 //1
-switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_panto_placer,position_in_vehid_chain %3){
-    1: tsukuba_1000series_mot;
+switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_panto_placer,position_in_vehid_chain %5){
+    0: tsukuba_1000series_mot;
+    2: tsukuba_1000series_mot;
     tsukuba_1000series_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_panto_placer_rev,position_in_vehid_chain_from_end %3){
-    2: tsukuba_1000series_mot_rev;
+switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_panto_placer_rev,position_in_vehid_chain_from_end %5){
+    1: tsukuba_1000series_mot_rev;
+    3: tsukuba_1000series_mot_rev;
     tsukuba_1000series_wag;
 }
 switch(FEAT_TRAINS, PARENT, sw_tsukuba_1000series_panto_placer_main_1,vehicle_is_reversed){
@@ -35,11 +37,11 @@ switch(FEAT_TRAINS, PARENT, sw_tsukuba_1000series_panto_placer_main_1,vehicle_is
 }
 //2
 switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_1_panto_placer,position_in_vehid_chain %3){
-    0: tsukuba_1000series_mot;
+    1: tsukuba_1000series_mot;
     tsukuba_1000series_wag;
 }
 switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_1_panto_placer_rev,position_in_vehid_chain_from_end %3){
-    1: tsukuba_1000series_mot_rev;
+    2: tsukuba_1000series_mot_rev;
     tsukuba_1000series_wag;
 }
 switch(FEAT_TRAINS, PARENT, sw_tsukuba_1000series_panto_placer_main_2,vehicle_is_reversed){
@@ -48,8 +50,8 @@ switch(FEAT_TRAINS, PARENT, sw_tsukuba_1000series_panto_placer_main_2,vehicle_is
 }
 
 switch(FEAT_TRAINS, PARENT, sw_tsukuba_1000series_panto_placer_main,num_vehs_in_consist){
-0..3:sw_tsukuba_1000series_panto_placer_main_2;
-6:sw_tsukuba_1000series_panto_placer_main_2;
+4..5:sw_tsukuba_1000series_panto_placer_main_2;
+7:sw_tsukuba_1000series_panto_placer_main_2;
 sw_tsukuba_1000series_panto_placer_main_1;
 }
 //panto placer end 
@@ -83,8 +85,8 @@ switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_livery_1,position_in_vehid_chain
 
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_main_capacity,position_in_vehid_chain){
-    0: 146*param_capacity_mod/3;
-    default: 156*param_capacity_mod/3;
+    0: 147*param_capacity_mod/3;
+    default: 158*param_capacity_mod/3;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tsukuba_1000series_attach_vehid, vehicle_type_id) {
@@ -93,7 +95,7 @@ switch(FEAT_TRAINS, SELF, tsukuba_1000series_attach_vehid, vehicle_type_id) {
   return CB_RESULT_ATTACH_ALLOW;
 }
 
-item(FEAT_TRAINS, tsukuba_1000series,2290) {
+item(FEAT_TRAINS, tsukuba_1000series,2295) {
     property {
         cargo_capacity: 130;
         climates_available: param_disable_semiPrivate == 0 ? ALL_CLIMATES : NO_CLIMATE;
@@ -113,17 +115,17 @@ item(FEAT_TRAINS, tsukuba_1000series,2290) {
         bitmask_vehicle_info: 0;
 
         name: string(STR_tsukuba_1000series_NAME);
-        introduction_date: date(1995, 1, 1);
+        introduction_date: date(2003, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 40;
         reliability_decay: 22;
 
-        cost_factor: 20;
-        running_cost_factor: 50;
-        speed: 110 km/h;
+        cost_factor: 19;
+        running_cost_factor: 49;
+        speed: 130 km/h;
         track_type: TR_1067;
-        power: 380 kW;
-        weight: 34 ton;
+        power: 760 kW;
+        weight: 32 ton;
         loading_speed: param_loading_4D;
     }
 	graphics {
@@ -133,28 +135,28 @@ item(FEAT_TRAINS, tsukuba_1000series,2290) {
         additional_text:    string(STR_CONCAT_7,
                             string(STR_NARROWGAUGE),
                             string(STR_FORMATION),
-                            string(STR_tsukuba_1000series_DESC),
+                            string(STR_6_CARS),
                             string(STR_CARS),
                             string(STR_COUPLER,
-                            string(STR_SHIBATA)),
+                            string(STR_KNUCKLE)),
                             string(STR_USAGE,
                             string(STR_COMMUTER),
                             string(STR_DC),
                             ),
                             string(STR_OPERATOR_PRIVATE,
-                            string(STR_tsukuba),
+                            string(STR_TSUKUBA),
                             ),
                             
                         );
         start_stop: sw_stop_start_3; 
-        cargo_capacity: 146*param_capacity_mod/3;  
+        cargo_capacity: 147*param_capacity_mod/3;  
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tsukuba_1000series_main_capacity;
         default:                      sw_tsukuba_1000series_livery_1;
-        power: 509*5/9;
-        weight: 34;
+        power: 1019*2/5;
+        weight: 31;
         length: 8; 
       }
 }
