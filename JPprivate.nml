@@ -301,6 +301,7 @@ railtypetable {
 
 
 # 1 "JPprivate.pnml" 1
+
 template tmpl_std(x,y) {
     // parameters x, y: coordinates of top-left corner of front sprite
 [x, 	 y,	8, 	24,		-3, 	-16] //short
@@ -474,6 +475,134 @@ switch (FEAT_TRAINS, SELF, sw_stop_start_3, num_vehs_in_consist < 3) {
 
 //JP+ PRIVATE
 // 2000-2049 Tokyu
+# 1 "src/private/tokyu/tokyu_deha1.pnml" 1
+spriteset (tokyu_deha1_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
+alternative_sprites(tokyu_deha1_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tokyu/tokyu_deha1/tokyu_deha1_purchase.png"){ tmpl_purchase(0, 0) }
+
+spriteset (tokyu_deha1_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tokyu_deha1_front_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tokyu_deha1_end,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tokyu_deha1_end_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tokyu_deha1_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+
+alternative_sprites(tokyu_deha1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tokyu/tokyu_deha1/tokyu_deha1.png"){ tmpl_std(0, 0) }
+alternative_sprites(tokyu_deha1_front_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tokyu/tokyu_deha1/tokyu_deha1.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(tokyu_deha1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tokyu/tokyu_deha1/tokyu_deha1.png"){ tmpl_std(0, 50) }
+alternative_sprites(tokyu_deha1_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tokyu/tokyu_deha1/tokyu_deha1.png"){ tmpl_std_rev(0, 50) }
+alternative_sprites(tokyu_deha1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tokyu/tokyu_deha1/tokyu_deha1.png"){ tmpl_symm_std(0, 75) }
+//livery 1
+//special gfx
+
+//front-end-fixer
+switch(FEAT_TRAINS, PARENT, sw_tokyu_deha1_front_gfx, vehicle_is_reversed){
+    1:tokyu_deha1_front_rev;
+    tokyu_deha1_front;
+}
+
+switch(FEAT_TRAINS, PARENT, sw_tokyu_deha1_end_gfx, vehicle_is_reversed){
+    1:tokyu_deha1_end_rev;
+    tokyu_deha1_end;
+}
+
+//panto placer
+//var 1
+switch(FEAT_TRAINS, SELF, sw_tokyu_deha1_panto_placer,position_in_consist %2){
+    0: sw_tokyu_deha1_end_gfx;
+    tokyu_deha1_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_tokyu_deha1_panto_placer_rev,position_in_consist_from_end %2){
+    0: sw_tokyu_deha1_end_gfx;
+    tokyu_deha1_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_tokyu_deha1_panto_placer_main,vehicle_is_reversed){
+    1: sw_tokyu_deha1_panto_placer_rev;
+    sw_tokyu_deha1_panto_placer;
+}
+
+switch(FEAT_TRAINS, SELF, sw_tokyu_deha1_end_fix, position_in_consist_from_end){
+    0:sw_tokyu_deha1_end_gfx;
+    sw_tokyu_deha1_panto_placer_main;
+}
+
+switch(FEAT_TRAINS, SELF, sw_tokyu_deha1_livery_0,vehicle_type_id){
+    mu_car_narrow:sw_tokyu_deha1_end_fix;
+    sw_tokyu_deha1_front_gfx;
+}
+
+//capacity-changer
+//attachable vehicles
+switch(FEAT_TRAINS, SELF, tokyu_deha1_attach_vehid, vehicle_type_id) {
+  mu_car_narrow:  return CB_RESULT_ATTACH_ALLOW;
+  return string(STR_ATTACH_ERROR);
+}
+
+item(FEAT_TRAINS, tokyu_deha1,2000) {
+    property {
+        cargo_capacity: 130;
+        climates_available: param_disable_tokyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_MU);
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: bitmask();
+        refit_cost: 0;
+        dual_headed: 0;
+        ai_engine_rank: 0;
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+        tractive_effort_coefficient: 0.2;
+        air_drag_coefficient: 0.07;
+        bitmask_vehicle_info: 0;
+
+        name: string(STR_tokyu_deha1_NAME);
+        introduction_date: date(1923, 1, 1);
+        model_life: 20;
+        vehicle_life: 45;
+        reliability_decay: 22;
+
+        cost_factor: 18;
+        running_cost_factor: 48;
+        speed: 70 km/h;
+        track_type: TR_1067;
+        power: 420 kW;
+        weight: 33 ton;
+        loading_speed: param_loading_3D;
+    }
+	graphics {
+        default: sw_tokyu_deha1_livery_0;
+        purchase: tokyu_deha1_purchase;
+        can_attach_wagon: tokyu_deha1_attach_vehid;
+        additional_text:    string(STR_CONCAT_7,
+                            string(STR_NARROWGAUGE),
+                            string(STR_FORMATION),
+                            string(STR_tokyu_deha1_DESC),
+                            string(STR_CARS),
+                            string(STR_COUPLER,
+                            string(STR_KNUCKLE)),
+                            string(STR_USAGE,
+                            string(STR_COMMUTER),
+                            string(STR_DC),
+                            ),
+                            string(STR_OPERATOR_PRIVATE,
+                            string(STR_TOKYU),
+                            ),
+                            
+                        ); 
+        cargo_capacity: 80*param_capacity_mod/3;  
+        length: 7; 
+    }
+    livery_override(mu_car_narrow){
+        loading_speed: param_loading_3D;
+        cargo_capacity: 80*param_capacity_mod/3;
+        default:                      sw_tokyu_deha1_livery_0;
+        power: 563*2/3;
+        weight: 33;
+        length: 7; 
+      }
+}
+# 1 "JPprivate.pnml" 1
+
 # 1 "src/private/tokyu/tokyu5000_old.pnml" 1
 spriteset (tokyu5000_old_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
 alternative_sprites(tokyu5000_old_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tokyu/tokyu5000_old/old5000_purchase.png"){ tmpl_purchase(0, 0) }
@@ -590,7 +719,7 @@ switch(FEAT_TRAINS, SELF, tokyu5000_old_attach_vehid, vehicle_type_id) {
 item(FEAT_TRAINS, tokyu5000_old,2010) {
     property {
         cargo_capacity: 130;
-        climates_available: param_disable_semiPrivate == 0 ? ALL_CLIMATES : NO_CLIMATE;
+        climates_available: param_disable_tokyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
         misc_flags: bitmask(TRAIN_FLAG_MU);
@@ -674,7 +803,7 @@ alternative_sprites(tokyu5200_old_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  
 alternative_sprites(tokyu5200_old_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tokyu/tokyu5000_old/old5200.png"){ tmpl_std_rev(0, 25) }
 
 //livery 1
-//special gfx
+//special 
 //panto placer
 //1
 switch(FEAT_TRAINS, SELF, sw_tokyu5200_old_panto_placer,position_in_consist %3){
@@ -761,7 +890,7 @@ switch(FEAT_TRAINS, SELF, tokyu5200_old_attach_vehid, vehicle_type_id) {
 item(FEAT_TRAINS, tokyu5200_old,2011) {
     property {
         cargo_capacity: 130;
-        climates_available: param_disable_semiPrivate == 0 ? ALL_CLIMATES : NO_CLIMATE;
+        climates_available: param_disable_tokyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
         misc_flags: bitmask(TRAIN_FLAG_MU);
@@ -3004,13 +3133,13 @@ alternative_sprites(tokyu8590_1_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
 //panto placer
 //var 1
 switch(FEAT_TRAINS, SELF, sw_tokyu8090_panto_placer,position_in_consist %5){
-    1: tokyu8090_mot_2;
-    3: tokyu8090_mot_2;
+    1: tokyu8090_mot_2_rev;
+    3: tokyu8090_mot_2_rev;
     tokyu8090_wag;
 }
 switch(FEAT_TRAINS, SELF, sw_tokyu8090_panto_placer_rev,position_in_consist_from_end %5){
-    1: tokyu8090_mot_2_rev;
-    3: tokyu8090_mot_2_rev;
+    1: tokyu8090_mot_2;
+    3: tokyu8090_mot_2;
     tokyu8090_wag;
 }
 switch(FEAT_TRAINS, PARENT, sw_tokyu8090_panto_placer_main,vehicle_is_reversed){
@@ -3022,20 +3151,20 @@ switch(FEAT_TRAINS, PARENT, sw_tokyu8090_panto_placer_main,vehicle_is_reversed){
 
 //fake head-end placer
 switch(FEAT_TRAINS, SELF, sw_tokyu8090_fake_placer,position_in_vehid_chain +1){
-    3: tokyu8090_end_f;
-    4: tokyu8090_front_f;
+    4: tokyu8090_end_f;
+    5: tokyu8090_front_f;
 sw_tokyu8090_panto_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tokyu8090_fake_placer_rev,position_in_vehid_chain_from_end){
-    3: tokyu8090_front_f;
-    4: tokyu8090_end_f;
+    4: tokyu8090_front_f;
+    5: tokyu8090_end_f;
 sw_tokyu8090_panto_placer_main;
 }
 switch(FEAT_TRAINS, PARENT, sw_tokyu8090_fake_placer_gfx,vehicle_is_reversed){
     1: sw_tokyu8090_fake_placer_rev;
     sw_tokyu8090_fake_placer;
 }
-switch(FEAT_TRAINS, SELF, sw_tokyu8090_fake_placer_main,num_vehs_in_vehid_chain>7){
+switch(FEAT_TRAINS, SELF, sw_tokyu8090_fake_placer_main,num_vehs_in_vehid_chain>9){
     1: sw_tokyu8090_fake_placer_gfx;
 sw_tokyu8090_panto_placer_main;
 }
@@ -3063,13 +3192,13 @@ switch(FEAT_TRAINS, SELF, sw_tokyu8090_livery_1,vehicle_type_id){
 //panto placer
 //var 1
 switch(FEAT_TRAINS, SELF, sw_tokyu8090_1_panto_placer,position_in_consist %5){
-    1: tokyu8090_1_mot_2;
-    3: tokyu8090_1_mot_2;
+    1: tokyu8090_1_mot_2_rev;
+    3: tokyu8090_1_mot_2_rev;
     tokyu8090_1_wag;
 }
 switch(FEAT_TRAINS, SELF, sw_tokyu8090_1_panto_placer_rev,position_in_consist_from_end %5){
-    1: tokyu8090_1_mot_2_rev;
-    3: tokyu8090_1_mot_2_rev;
+    1: tokyu8090_1_mot_2;
+    3: tokyu8090_1_mot_2;
     tokyu8090_1_wag;
 }
 switch(FEAT_TRAINS, PARENT, sw_tokyu8090_1_panto_placer_main,vehicle_is_reversed){
@@ -3081,20 +3210,20 @@ switch(FEAT_TRAINS, PARENT, sw_tokyu8090_1_panto_placer_main,vehicle_is_reversed
 
 //fake head-end placer
 switch(FEAT_TRAINS, SELF, sw_tokyu8090_1_fake_placer,position_in_vehid_chain +1){
-    3: tokyu8090_1_end_f;
-    4: tokyu8090_1_front_f;
+    7: tokyu8090_1_end_f;
+    8: tokyu8090_1_front_f;
 sw_tokyu8090_1_panto_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tokyu8090_1_fake_placer_rev,position_in_vehid_chain_from_end){
-    3: tokyu8090_1_front_f;
-    4: tokyu8090_1_end_f;
+    7: tokyu8090_1_front_f;
+    8: tokyu8090_1_end_f;
 sw_tokyu8090_1_panto_placer_main;
 }
 switch(FEAT_TRAINS, PARENT, sw_tokyu8090_1_fake_placer_gfx,vehicle_is_reversed){
     1: sw_tokyu8090_1_fake_placer_rev;
     sw_tokyu8090_1_fake_placer;
 }
-switch(FEAT_TRAINS, SELF, sw_tokyu8090_1_fake_placer_main,num_vehs_in_vehid_chain>7){
+switch(FEAT_TRAINS, SELF, sw_tokyu8090_1_fake_placer_main,num_vehs_in_vehid_chain>10){
     1: sw_tokyu8090_1_fake_placer_gfx;
 sw_tokyu8090_1_panto_placer_main;
 }
@@ -3121,11 +3250,11 @@ switch(FEAT_TRAINS, SELF, sw_tokyu8090_livery_2,vehicle_type_id){
 //panto placer
 //var 1
 switch(FEAT_TRAINS, SELF, sw_tokyu8090_2_panto_placer,position_in_consist %2){
-    1: tokyu8090_2_mot;
+    1: tokyu8090_2_mot_rev;
     tokyu8090_2_wag;
 }
 switch(FEAT_TRAINS, SELF, sw_tokyu8090_2_panto_placer_rev,position_in_consist_from_end %2){
-    1: tokyu8090_2_mot_rev;
+    1: tokyu8090_2_mot;
     tokyu8090_2_wag;
 }
 switch(FEAT_TRAINS, PARENT, sw_tokyu8090_2_panto_placer_main,vehicle_is_reversed){
@@ -3137,20 +3266,20 @@ switch(FEAT_TRAINS, PARENT, sw_tokyu8090_2_panto_placer_main,vehicle_is_reversed
 
 //fake head-end placer
 switch(FEAT_TRAINS, SELF, sw_tokyu8090_2_fake_placer,position_in_vehid_chain +1){
-    3: tokyu8090_2_end_f;
-    4: tokyu8090_2_front_f;
+    7: tokyu8090_2_end_f;
+    8: tokyu8090_2_front_f;
 sw_tokyu8090_2_panto_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tokyu8090_2_fake_placer_rev,position_in_vehid_chain_from_end){
-    3: tokyu8090_2_front_f;
-    4: tokyu8090_2_end_f;
+    7: tokyu8090_2_front_f;
+    8: tokyu8090_2_end_f;
 sw_tokyu8090_2_panto_placer_main;
 }
 switch(FEAT_TRAINS, PARENT, sw_tokyu8090_2_fake_placer_gfx,vehicle_is_reversed){
     1: sw_tokyu8090_2_fake_placer_rev;
     sw_tokyu8090_2_fake_placer;
 }
-switch(FEAT_TRAINS, SELF, sw_tokyu8090_2_fake_placer_main,num_vehs_in_vehid_chain>7){
+switch(FEAT_TRAINS, SELF, sw_tokyu8090_2_fake_placer_main,num_vehs_in_vehid_chain>10){
     1: sw_tokyu8090_2_fake_placer_gfx;
 sw_tokyu8090_2_panto_placer_main;
 }
@@ -3187,12 +3316,12 @@ switch(FEAT_TRAINS, PARENT, sw_tokyu8590_end_gfx,vehicle_is_reversed){
 }
 //panto placer
 //var 1
-switch(FEAT_TRAINS, SELF, sw_tokyu8590_panto_placer,position_in_consist %3){
-    1: tokyu8590_mot;
+switch(FEAT_TRAINS, SELF, sw_tokyu8590_panto_placer,position_in_consist %2){
+    1: tokyu8590_mot_rev;
     tokyu8590_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tokyu8590_panto_placer_rev,position_in_consist_from_end %3){
-    1: tokyu8590_mot_rev;
+switch(FEAT_TRAINS, SELF, sw_tokyu8590_panto_placer_rev,position_in_consist_from_end %2){
+    1: tokyu8590_mot;
     tokyu8590_wag;
 }
 switch(FEAT_TRAINS, PARENT, sw_tokyu8590_panto_placer_main_1,vehicle_is_reversed){
@@ -3201,13 +3330,13 @@ switch(FEAT_TRAINS, PARENT, sw_tokyu8590_panto_placer_main_1,vehicle_is_reversed
 }
 //var 2
 switch(FEAT_TRAINS, SELF, sw_tokyu8590_panto_placer_1,position_in_consist %5){
-    1: tokyu8590_mot;
-    4: tokyu8590_mot;
+    1: tokyu8590_mot_rev;
+    4: tokyu8590_mot_rev;
     tokyu8590_wag;
 }
 switch(FEAT_TRAINS, SELF, sw_tokyu8590_panto_placer_1_rev,position_in_consist_from_end %5){
-    1: tokyu8590_mot_rev;
-    4: tokyu8590_mot_rev;
+    1: tokyu8590_mot;
+    4: tokyu8590_mot;
     tokyu8590_wag;
 }
 switch(FEAT_TRAINS, PARENT, sw_tokyu8590_panto_placer_main_2,vehicle_is_reversed){
@@ -3216,7 +3345,7 @@ switch(FEAT_TRAINS, PARENT, sw_tokyu8590_panto_placer_main_2,vehicle_is_reversed
 }
 
 switch(FEAT_TRAINS, SELF, sw_tokyu8590_panto_placer_main, num_vehs_in_consist){
-    0..8:sw_tokyu8590_panto_placer_main_1;
+    0..6:sw_tokyu8590_panto_placer_main_1;
 sw_tokyu8590_panto_placer_main_2;
 }
 //panto placer end 
@@ -3273,11 +3402,11 @@ switch(FEAT_TRAINS, PARENT, sw_tokyu8590_1_end_gfx,vehicle_is_reversed){
 //panto placer
 //var 1
 switch(FEAT_TRAINS, SELF, sw_tokyu8590_1_panto_placer,position_in_consist %3){
-    1: tokyu8590_1_mot;
+    1: tokyu8590_1_mot_rev;
     tokyu8590_1_wag;
 }
 switch(FEAT_TRAINS, SELF, sw_tokyu8590_1_panto_placer_rev,position_in_consist_from_end %3){
-    1: tokyu8590_1_mot_rev;
+    1: tokyu8590_1_mot;
     tokyu8590_1_wag;
 }
 switch(FEAT_TRAINS, PARENT, sw_tokyu8590_1_panto_placer_main,vehicle_is_reversed){
@@ -3312,7 +3441,7 @@ sw_tokyu8590_1_panto_placer_main;
 //front-end-fixer
 switch(FEAT_TRAINS, SELF, sw_tokyu8590_1_end_gfx_main,position_in_vehid_chain_from_end){
     0: sw_tokyu8590_1_end_gfx;
-    1: tokyu8590_1_wag;
+    //1: tokyu8590_1_wag;
     default: sw_tokyu8590_1_fake_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tokyu8590_1_front_gfx_main,position_in_vehid_chain_from_end){
@@ -3425,10 +3554,10 @@ item(FEAT_TRAINS, tokyu8090,2018) {
         introduction_date: date(1980, 1, 1);
         model_life: 39;
         vehicle_life: 39;
-        reliability_decay: 22;
+        reliability_decay: 21;
 
         cost_factor: 20;
-        running_cost_factor: 50;
+        running_cost_factor: 49;
         speed: 110 km/h;
         track_type: TR_1067;
         power: 520 kW;
