@@ -1,5 +1,5 @@
-# JP+Metro
-JP+Metro is a NewGRF for OpenTTD, bringing Japanese metro trains to the game.<br>
+# JP+Major Private Companies
+JP+Major Private Companies is a NewGRF for OpenTTD, bringing trains of the largest Japanese private companies to the game.<br>
 A sister set to 🚋[JP+ Multiple units](https://github.com/Tintinfan/JPplusSet), 🚂[JP+ Engines & Wagons](https://github.com/EmperorJake/JPengines) and 🚅[JP+ Shinkansen](https://github.com/KeepinItRail/JPplusShinkansen)
 
 ## Provide a feedback:<br>
