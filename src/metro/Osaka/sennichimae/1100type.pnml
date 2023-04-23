@@ -1,0 +1,173 @@
+spriteset (os_sn_1100type_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
+alternative_sprites(os_sn_1100type_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/sennichimae/1100type/1100type_purchase.png"){ tmpl_purchase(0, 0) }
+
+spriteset (os_sn_1100type_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (os_sn_1100type_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+spriteset (os_sn_1100type_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (os_sn_1100type_wag_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+//
+alternative_sprites(os_sn_1100type_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/sennichimae/1100type/1100type.png"){ tmpl_std(0, 0) }
+alternative_sprites(os_sn_1100type_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/sennichimae/1100type/1100type.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(os_sn_1100type_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/sennichimae/1100type/1100type.png"){ tmpl_std(0, 50) }
+alternative_sprites(os_sn_1100type_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/sennichimae/1100type/1100type.png"){ tmpl_std_rev(0, 50) }
+//
+spriteset (os_sn_1100type_1_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (os_sn_1100type_1_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+spriteset (os_sn_1100type_1_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (os_sn_1100type_1_wag_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+//
+alternative_sprites(os_sn_1100type_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/sennichimae/1100type/1100type_1.png"){ tmpl_std(0, 0) }
+alternative_sprites(os_sn_1100type_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/sennichimae/1100type/1100type_1.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(os_sn_1100type_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/sennichimae/1100type/1100type_1.png"){ tmpl_std(0, 50) }
+alternative_sprites(os_sn_1100type_1_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/sennichimae/1100type/1100type_1.png"){ tmpl_std_rev(0, 50) }
+
+
+//livery white
+//wagon specialgfx
+switch(FEAT_TRAINS, SELF, sw_os_sn_1100type_wag_1_gfx,position_in_consist %2){
+    0: os_sn_1100type_wag;
+    default: os_sn_1100type_wag_rev;
+}
+switch(FEAT_TRAINS, SELF, sw_os_sn_1100type_wag_rev_gfx,position_in_consist_from_end %2){
+    0: os_sn_1100type_wag_rev;
+    default: os_sn_1100type_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_os_sn_1100type_wag_gfx,vehicle_is_reversed){
+    1: sw_os_sn_1100type_wag_1_gfx;
+    default: sw_os_sn_1100type_wag_rev_gfx;
+}
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_os_sn_1100type_end_gfx,position_in_consist_from_end){
+    0: os_sn_1100type_end;
+    default: sw_os_sn_1100type_wag_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_os_sn_1100type_livery_1,position_in_consist){
+    0: os_sn_1100type_front;
+    default: sw_os_sn_1100type_end_gfx;
+}
+
+//livery green
+//wagon specialgfx
+switch(FEAT_TRAINS, SELF, sw_os_sn_1100type_1_wag_1_gfx,position_in_consist %2){
+    0: os_sn_1100type_1_wag;
+    default: os_sn_1100type_1_wag_rev;
+}
+switch(FEAT_TRAINS, SELF, sw_os_sn_1100type_1_wag_rev_gfx,position_in_consist_from_end %2){
+    0: os_sn_1100type_1_wag_rev;
+    default: os_sn_1100type_1_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_os_sn_1100type_1_wag_gfx,vehicle_is_reversed){
+    1: sw_os_sn_1100type_1_wag_1_gfx;
+    default: sw_os_sn_1100type_1_wag_rev_gfx;
+}
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_os_sn_1100type_1_end_gfx,position_in_consist_from_end){
+    0: os_sn_1100type_1_end;
+    default: sw_os_sn_1100type_1_wag_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_os_sn_1100type_livery_2,position_in_consist){
+    0: os_sn_1100type_1_front;
+    default: sw_os_sn_1100type_1_end_gfx;
+}
+
+//randomizer
+random_switch(FEAT_TRAINS, PARENT, sw_os_sn_1100type_livery_0){
+    1: sw_os_sn_1100type_livery_1;
+    1: sw_os_sn_1100type_livery_2;
+}
+
+//livery selector
+switch(FEAT_TRAINS, SELF, sw_os_sn_1100type_lv_desc, cargo_subtype){
+    0: string(LV_RANDOM);
+    1: string(LV_WHITE);
+    2: string(LV_GREEN);
+}
+//liveries
+switch(FEAT_TRAINS, SELF, sw_os_sn_1100type_lv, cargo_subtype){
+    0: sw_os_sn_1100type_livery_0;
+    1: sw_os_sn_1100type_livery_1;
+    2: sw_os_sn_1100type_livery_2;
+}
+
+//capacity-changer
+switch(FEAT_TRAINS, SELF, sw_os_sn_1100type_main_capacity,position_in_consist_from_end){
+    0: 72*param_capacity_mod/3;
+    default: 74*param_capacity_mod/3;
+}
+
+//attachable vehicles
+switch(FEAT_TRAINS, SELF, os_sn_1100type_attach_vehid, vehicle_type_id) {
+  mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
+  return string(STR_ATTACH_ERROR);
+}
+
+
+item(FEAT_TRAINS, os_sn_1100type,1280) {
+    property {
+        name: string(STR_os_sn_1100type_NAME);
+        introduction_date: date(1957, 1, 1);
+        model_life: 35;
+        vehicle_life: 35;
+        reliability_decay: 22;
+
+        cargo_capacity: 72;
+        loading_speed: param_loading_3D;
+        cost_factor: 19;
+        running_cost_factor: 49;
+
+        speed: 70 km/h;
+        track_type: TR_1435_M;
+        power: 360 kW;
+        weight: 36 ton;
+
+        climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_MU);
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: bitmask();
+        refit_cost: 0;
+        dual_headed: 0;
+        ai_engine_rank: 0;
+        variant_group: 1232;
+
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+        
+        tractive_effort_coefficient: 0.2;
+        air_drag_coefficient: 0.07;
+        bitmask_vehicle_info: 0;
+    }
+	graphics {
+        default: sw_os_sn_1100type_lv;
+        purchase: os_sn_1100type_purchase;
+        can_attach_wagon: os_sn_1100type_attach_vehid;
+        additional_text:    string(STR_CONCAT_6,
+                            string(STR_STANDARDGAUGE),
+                            string(STR_FORMATION),
+                            string(STR_os_sn_1100type_DESC),
+                            string(STR_CARS),
+                            string(STR_CITY,
+                            string(STR_OSAKA,
+                            string(STR_OPERATOR),
+                            string(STR_OSAKAMETRO),
+                            ),
+                            ),
+                            string(STR_LINES_USED,
+                            string(STR_OSAKA_SENNICHI)
+                            ),
+                        );
+        cargo_subtype_text: sw_os_sn_1100type_lv_desc;
+        start_stop: sw_stop_start_2; 
+        cargo_capacity: 72*param_capacity_mod/3;  
+    }
+    livery_override(mu_car_metro){
+        loading_speed: param_loading_3D;
+        cargo_capacity: sw_os_sn_1100type_main_capacity;
+        default:                      sw_os_sn_1100type_lv;
+        power: 483;
+        weight: 36;
+        length: 8;
+      }
+}

@@ -1,0 +1,205 @@
+spriteset (os_hk_66series_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
+alternative_sprites(os_hk_66series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/hankyoto/66series/66series_purchase.png"){ tmpl_purchase(0, 0) }
+
+//livery 1
+spriteset (os_hk_66series_old_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (os_hk_66series_old_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+spriteset (os_hk_66series_old_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (os_hk_66series_old_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+
+alternative_sprites(os_hk_66series_old_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/hankyoto/66series/66series_old.png"){ tmpl_std(0, 0) }
+alternative_sprites(os_hk_66series_old_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/hankyoto/66series/66series_old.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(os_hk_66series_old_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/hankyoto/66series/66series_old.png"){ tmpl_std(0, 50) }
+alternative_sprites(os_hk_66series_old_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/hankyoto/66series/66series_old.png"){ tmpl_std(0, 75) }
+//livery 2
+spriteset (os_hk_66series_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (os_hk_66series_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+spriteset (os_hk_66series_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (os_hk_66series_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+
+alternative_sprites(os_hk_66series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/hankyoto/66series/66series.png"){ tmpl_std(0, 0) }
+alternative_sprites(os_hk_66series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/hankyoto/66series/66series.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(os_hk_66series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/hankyoto/66series/66series.png"){ tmpl_std(0, 50) }
+alternative_sprites(os_hk_66series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/hankyoto/66series/66series.png"){ tmpl_std(0, 75) }
+
+//livery 1 1990-2012
+//panto placer
+
+switch(FEAT_TRAINS, SELF, sw_os_hk_66series_old_panto_placer_long,position_in_consist %4){
+    1: os_hk_66series_old_mot;
+    os_hk_66series_old_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_os_hk_66series_old_panto_placer_long_rev,position_in_consist_from_end %4){
+    1: os_hk_66series_old_mot;
+    os_hk_66series_old_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_os_hk_66series_old_panto_rev_checker,vehicle_is_reversed){
+    1: sw_os_hk_66series_old_panto_placer_long_rev;
+    sw_os_hk_66series_old_panto_placer_long;
+}
+
+switch(FEAT_TRAINS, SELF, sw_os_hk_66series_old_length_checker,num_vehs_in_consist >8){
+    1:sw_os_hk_66series_old_panto_rev_checker;
+    os_hk_66series_old_wag;
+}
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_os_hk_66series_old_end_gfx,position_in_consist_from_end){
+    0: os_hk_66series_old_end;
+    1: os_hk_66series_old_mot;
+    default: sw_os_hk_66series_old_length_checker;
+}
+switch(FEAT_TRAINS, SELF, sw_os_hk_66series_livery_1,position_in_consist){
+    0: os_hk_66series_old_front;
+    1: os_hk_66series_old_mot;
+    default: sw_os_hk_66series_old_end_gfx;
+}
+//livery 2 2012-xx
+//panto placer
+switch(FEAT_TRAINS, SELF, sw_os_hk_66series_panto_placer_long,position_in_consist %4){
+    1: os_hk_66series_mot;
+    os_hk_66series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_os_hk_66series_panto_placer_long_rev,position_in_consist_from_end %4){
+    1: os_hk_66series_mot;
+    os_hk_66series_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_os_hk_66series_panto_rev_checker,vehicle_is_reversed){
+    1: sw_os_hk_66series_panto_placer_long_rev;
+    sw_os_hk_66series_panto_placer_long;
+}
+
+switch(FEAT_TRAINS, SELF, sw_os_hk_66series_length_checker,num_vehs_in_consist >8){
+    1:sw_os_hk_66series_panto_rev_checker;
+    os_hk_66series_wag;
+}
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_os_hk_66series_end_gfx,position_in_consist_from_end){
+    0: os_hk_66series_end;
+    1: os_hk_66series_mot;
+    default: sw_os_hk_66series_length_checker;
+}
+switch(FEAT_TRAINS, SELF, sw_os_hk_66series_livery_2,position_in_consist){
+    0: os_hk_66series_front;
+    1: os_hk_66series_mot;
+    default: sw_os_hk_66series_end_gfx;
+}
+random_switch(FEAT_TRAINS, PARENT, sw_os_hk_66series_livery_0_gfx){
+    1: sw_os_hk_66series_livery_1;
+    1: sw_os_hk_66series_livery_2;
+}
+//time randomizer
+switch(FEAT_TRAINS, SELF, sw_os_hk_66series_livery_0,current_year>2011){
+    1: sw_os_hk_66series_livery_0_gfx;
+    sw_os_hk_66series_livery_1;
+}
+//old stuff
+//livery selector
+switch(FEAT_TRAINS, SELF, sw_os_hk_66series_lv_desc_old, cargo_subtype){
+    0: string(LV_TIME_RANDOM);
+    1: string(LV_OLD);
+}
+//liveries
+switch(FEAT_TRAINS, SELF, sw_os_hk_66series_lv_old, cargo_subtype){
+    0: sw_os_hk_66series_livery_0;
+    1: sw_os_hk_66series_livery_1;
+}
+//new stuff
+
+switch(FEAT_TRAINS, SELF, sw_os_hk_66series_lv_desc_new, cargo_subtype){
+    0: string(LV_TIME_RANDOM);
+    1: string(LV_OLD);
+    2: string(LV_NEW);
+}
+//liveries
+switch(FEAT_TRAINS, SELF, sw_os_hk_66series_lv_new, cargo_subtype){
+    0: sw_os_hk_66series_livery_0;
+    1: sw_os_hk_66series_livery_1;
+    2: sw_os_hk_66series_livery_2;
+}
+//time suff
+switch(FEAT_TRAINS, SELF, sw_os_hk_66series_lv_desc,current_year>2011){
+    1: sw_os_hk_66series_lv_desc_new;
+    sw_os_hk_66series_lv_desc_old;
+}
+switch(FEAT_TRAINS, SELF, sw_os_hk_66series_lv,current_year>2011){
+    1: sw_os_hk_66series_lv_new;
+    sw_os_hk_66series_lv_old;
+}
+
+
+//capacity-changer
+switch(FEAT_TRAINS, SELF, sw_os_hk_66series_main_capacity,position_in_consist_from_end){
+    0: 134*param_capacity_mod/3;
+    default: 140*param_capacity_mod/3;
+}
+//attachable vehicles
+switch(FEAT_TRAINS, SELF, os_hk_66series_attach_vehid, vehicle_type_id) {
+  mu_car: return CB_RESULT_ATTACH_ALLOW;
+  return string(STR_ATTACH_ERROR);
+}
+
+item(FEAT_TRAINS, os_hk_66series,1291) {
+    property {
+        cargo_capacity: 130;
+        climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_MU);
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: bitmask();
+        refit_cost: 0;
+        dual_headed: 0;
+        ai_engine_rank: 0;
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+        tractive_effort_coefficient: 0.2;
+        air_drag_coefficient: 0.07;
+        bitmask_vehicle_info: 0;
+
+        name: string(STR_os_hk_66series_NAME);
+        introduction_date: date(1990, 1, 1);
+        model_life: VEHICLE_NEVER_EXPIRES;
+        vehicle_life: 35;
+        reliability_decay: 21;
+
+        cost_factor: 21;
+        running_cost_factor: 51;
+        speed: 110 km/h;
+        track_type: TR_1435;
+        power: 480 kW;
+        weight: 23 ton;
+        loading_speed: param_loading_3D;
+    }
+	graphics {
+        default: sw_os_hk_66series_lv;
+        purchase: os_hk_66series_purchase;
+        can_attach_wagon: os_hk_66series_attach_vehid;
+        additional_text:    string(STR_CONCAT_6,
+                            string(STR_STANDARDGAUGE),
+                            string(STR_FORMATION),
+                            string(STR_os_hk_60series_DESC),
+                            string(STR_CARS),
+                            string(STR_CITY,
+                            string(STR_OSAKA,
+                            string(STR_OPERATOR),
+                            string(STR_OSAKAMETRO),
+                            ),
+                            ),
+                            string(STR_LINES_USED,
+                            string(STR_OSAKA_SAKAISUJI)
+                            ),
+                        );
+        cargo_subtype_text: sw_os_hk_66series_lv_desc;
+        start_stop: sw_stop_start_3; 
+        cargo_capacity: 134*param_capacity_mod/3;  
+    }
+    livery_override(mu_car){
+        loading_speed: param_loading_3D;
+        cargo_capacity: sw_os_hk_66series_main_capacity;
+        default:                      sw_os_hk_66series_lv;
+        power: 643*5/7;
+        weight: 29;
+        length: 8; 
+      }
+}
