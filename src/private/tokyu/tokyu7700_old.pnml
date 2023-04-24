@@ -145,7 +145,7 @@ switch(FEAT_TRAINS, PARENT, sw_tokyu7700_old_1_fake_placer_gfx,vehicle_is_revers
     1: sw_tokyu7700_old_1_fake_placer_rev;
     sw_tokyu7700_old_1_fake_placer;
 }
-switch(FEAT_TRAINS, SELF, sw_tokyu7700_old_1_fake_placer_main,num_vehs_in_vehid_chain>3){
+switch(FEAT_TRAINS, SELF, sw_tokyu7700_old_1_fake_placer_main,num_vehs_in_vehid_chain>4){
     1: sw_tokyu7700_old_1_fake_placer_gfx;
 sw_tokyu7700_old_1_panto_placer_main_1;
 }
@@ -172,12 +172,12 @@ random_switch(FEAT_TRAINS, PARENT, sw_tokyu7700_old_livery_0){
     1:sw_tokyu7700_old_livery_1;
     1:sw_tokyu7700_old_livery_2;
 }
-switch(FEAT_TRAINS, SELF, sw_tokyu7700_old_lv, cargo_subtype){
+switch(FEAT_TRAINS, PARENT, sw_tokyu7700_old_lv, cargo_subtype){
     0:sw_tokyu7700_old_livery_0;
     1:sw_tokyu7700_old_livery_1;
     2:sw_tokyu7700_old_livery_2;
 }
-switch(FEAT_TRAINS, SELF, sw_tokyu7700_old_lv_desc, cargo_subtype){
+switch(FEAT_TRAINS, PARENT, sw_tokyu7700_old_lv_desc, cargo_subtype){
     0:string(LV_RANDOM);
     1:string(LV_DEFAULT);
     2:string(LV_tokyu7700_1);
@@ -207,7 +207,7 @@ switch(FEAT_TRAINS, SELF, tokyu7700_old_attach_vehid, vehicle_type_id) {
   return CB_RESULT_ATTACH_ALLOW;
 }
 
-item(FEAT_TRAINS, tokyu7700_old,2016) {
+item(FEAT_TRAINS, tokyu7700_old,2011) {
     property {
         cargo_capacity: 130;
         climates_available: param_disable_tokyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
@@ -226,7 +226,7 @@ item(FEAT_TRAINS, tokyu7700_old,2016) {
         air_drag_coefficient: 0.07;
         bitmask_vehicle_info: 0;
 
-        variant_group:2013;
+        variant_group:2008;
         name: string(STR_tokyu7700_old_NAME);
         introduction_date: date(1987, 1, 1);
         model_life: 38;
