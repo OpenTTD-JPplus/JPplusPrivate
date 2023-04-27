@@ -30,22 +30,39 @@ switch(FEAT_TRAINS, PARENT, sw_tokyu2000_panto_placer_main_1,vehicle_is_reversed
 switch(FEAT_TRAINS, SELF, sw_tokyu2000_panto_placer_1,position_in_consist %4){
     1: tokyu9000_mot;
     2: tokyu9000_mot;
-    3: tokyu9000_mot;
     tokyu9000_wag;
 }
 switch(FEAT_TRAINS, SELF, sw_tokyu2000_panto_placer_1_rev,position_in_consist_from_end %4){
     1: tokyu9000_mot_rev;
     2: tokyu9000_mot_rev;
-    3: tokyu9000_mot_rev;
     tokyu9000_wag;
 }
 switch(FEAT_TRAINS, PARENT, sw_tokyu2000_panto_placer_main_2,vehicle_is_reversed){
     1: sw_tokyu2000_panto_placer_1_rev;
     sw_tokyu2000_panto_placer_1;
 }
+//var 3
+//var 1
+switch(FEAT_TRAINS, SELF, sw_tokyu2000_panto_placer_2,position_in_consist %3){
+    2: tokyu2000_2_mot;
+    tokyu2000_2_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_tokyu2000_panto_placer_2_rev,position_in_consist_from_end %3){
+    2: tokyu2000_2_mot;
+    tokyu2000_2_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_tokyu2000_panto_placer_main_3,vehicle_is_reversed){
+    1: sw_tokyu2000_panto_placer_2_rev;
+    sw_tokyu2000_panto_placer_2;
+}
+//year depend
+switch(FEAT_TRAINS, PARENT, sw_tokyu2000_panto_placer_time, build_year){
+    0..2016:sw_tokyu2000_panto_placer_main_1;
+    sw_tokyu2000_panto_placer_main_3;
+}
 switch(FEAT_TRAINS, PARENT, sw_tokyu2000_panto_placer_main,num_vehs_in_consist){
     0..6: sw_tokyu2000_panto_placer_main_2;
-    sw_tokyu2000_panto_placer_main_1;
+    sw_tokyu2000_panto_placer_time;
 }
 //panto placer end 
 //fake head-end placer
@@ -170,6 +187,13 @@ switch(FEAT_TRAINS, PARENT, sw_tokyu2000_lv_desc,cargo_subtype){
     1: string(LV_tokyu9000_2);
 }
 
+// power switch
+switch(FEAT_TRAINS, PARENT, sw_tokyu2000_power_time, build_year){
+    0..2016: 680*1342/1000; 
+     700*1342/1000;
+}
+
+
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tokyu2000_capacity,position_in_vehid_chain_from_end){
     0: 130*param_capacity_mod/3;
@@ -181,11 +205,11 @@ switch(FEAT_TRAINS, SELF, sw_tokyu2000_capacity_1,position_in_vehid_chain){
 }
 switch(FEAT_TRAINS, SELF, sw_tokyu2000_capacity_main,vehicle_type_id){
     mu_car_narrow:sw_tokyu2000_capacity;
-    mu_car:sw_tokyu2000_capacity;
     sw_tokyu2000_capacity_1;
 }
 //capacity-changer end
 
+//test
 
 //attachable vehicles -- will be changed later
 switch(FEAT_TRAINS, SELF, tokyu2000_attach_vehid, vehicle_type_id) {
@@ -196,39 +220,35 @@ switch(FEAT_TRAINS, SELF, tokyu2000_attach_vehid, vehicle_type_id) {
 
 item(FEAT_TRAINS, tokyu2000,2016) {
     property {
-        cargo_capacity: 130;
-        climates_available: param_disable_tokyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
-        ai_special_flag: AI_FLAG_PASSENGER;
-        sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
-        non_refittable_cargo_classes: bitmask();
-        refit_cost: 0;
-        dual_headed: 0;
-        ai_engine_rank: 0;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        misc_flags: bitmask(TRAIN_FLAG_MU);
+        sprite_id: SPRITE_ID_NEW_TRAIN;
         running_cost_base: RUNNING_COST_ELECTRIC;
         engine_class: ENGINE_CLASS_ELECTRIC;
-        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
-        tractive_effort_coefficient: 0.2;
+        tractive_effort_coefficient: 0.3;
+        cargo_capacity: 39; //overriden
+        power: 39; //overriden
         air_drag_coefficient: 0.07;
-        bitmask_vehicle_info: 0;
 
+        track_type: TR_1067_DC;
+        climates_available: param_disable_tokyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_tokyu2000_NAME);
         introduction_date: date(1992, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 40;
         reliability_decay: 21;
 
-        cost_factor: 19;
-        running_cost_factor: 49;
+        cost_factor: 22;
+        running_cost_factor: 52;
         speed: 120 km/h;
-        track_type: TR_1067;
-        power: 700 kW;
         weight: 33 ton;
         loading_speed: param_loading_4D;
     }
 	graphics {
         default: sw_tokyu2000_lv;
+        power: sw_tokyu2000_power_time;
         purchase: tokyu9000_purchase;
         can_attach_wagon: tokyu2000_attach_vehid;
         start_stop: sw_stop_start_3; 
@@ -256,7 +276,7 @@ item(FEAT_TRAINS, tokyu2000,2016) {
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tokyu2000_capacity_main;
         default: sw_tokyu2000_lv;
-        power:938*5/9;
+        power:sw_tokyu2000_power_time()*5/9;
         weight: 31;
       }
 }
