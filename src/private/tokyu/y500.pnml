@@ -18,42 +18,43 @@ alternative_sprites(y500_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/
 alternative_sprites(y500_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tokyu/tokyu5000/y500.png"){ tmpl_std(0, 75) }
 alternative_sprites(y500_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tokyu/tokyu5000/y500.png"){ tmpl_std_rev(0, 75) }
 
-//livery 1
+//*livery 1
 //special gfx
 //wagon gfx
-switch(FEAT_TRAINS, SELF, sw_y500_wag_gfx_1, ((num_vehs_in_vehid_chain)/position_in_consist>1)){
-    1:y500_wag;
-    y500_wag_rev;
-}
-switch(FEAT_TRAINS, SELF, sw_y500_wag_gfx_2, ((num_vehs_in_vehid_chain)/position_in_consist_from_end>1)){
+switch(FEAT_TRAINS, SELF, sw_y500_wag_gfx_1, 1+position_in_vehid_chain>(num_vehs_in_vehid_chain/2)){
     1:y500_wag_rev;
     y500_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_y500_wag_gfx_2, position_in_vehid_chain_from_end>(num_vehs_in_vehid_chain/2)){
+    1:y500_wag;
+    y500_wag_rev;
 }
 switch(FEAT_TRAINS, PARENT, sw_y500_wag_gfx, vehicle_is_reversed){
     1:sw_y500_wag_gfx_2;
     sw_y500_wag_gfx_1;
 }
 //motor car gfx
-switch(FEAT_TRAINS, SELF, sw_y500_mot_gfx_1, ((num_vehs_in_vehid_chain)/position_in_consist>1)){
-    1:y500_mot;
-    y500_mot_rev;
-}
-switch(FEAT_TRAINS, SELF, sw_y500_mot_gfx_2, ((num_vehs_in_vehid_chain)/position_in_consist_from_end>1)){
+switch(FEAT_TRAINS, SELF, sw_y500_mot_gfx_1, 1+position_in_vehid_chain>(num_vehs_in_vehid_chain/2)){
     1:y500_mot_rev;
     y500_mot;
+}
+switch(FEAT_TRAINS, SELF, sw_y500_mot_gfx_2, position_in_vehid_chain_from_end>(num_vehs_in_vehid_chain/2)){
+    1:y500_mot;
+    y500_mot_rev;
 }
 switch(FEAT_TRAINS, PARENT, sw_y500_mot_gfx, vehicle_is_reversed){
     1:sw_y500_mot_gfx_2;
     sw_y500_mot_gfx_1;
 }
+
 //panto placer
 //var 1
-switch(FEAT_TRAINS, SELF, sw_y500_panto_placer_1,position_in_consist %7){
+switch(FEAT_TRAINS, SELF, sw_y500_panto_placer_1,1+position_in_vehid_chain %7){
     2: sw_y500_mot_gfx;
     6: sw_y500_mot_gfx;
     sw_y500_wag_gfx;
 }
-switch(FEAT_TRAINS, SELF, sw_y500_panto_placer_1_rev,position_in_consist_from_end %7){
+switch(FEAT_TRAINS, SELF, sw_y500_panto_placer_1_rev,position_in_vehid_chain_from_end %7){
     2: sw_y500_mot_gfx;
     6: sw_y500_mot_gfx;
     sw_y500_wag_gfx;
@@ -64,12 +65,12 @@ switch(FEAT_TRAINS, PARENT, sw_y500_panto_placer_main_1,vehicle_is_reversed){
 }
 
 //var 2
-switch(FEAT_TRAINS, SELF, sw_y500_panto_placer_2,position_in_consist %7){
+switch(FEAT_TRAINS, SELF, sw_y500_panto_placer_2,1+position_in_vehid_chain %7){
     1: sw_y500_mot_gfx;
     5: sw_y500_mot_gfx;
     sw_y500_wag_gfx;
 }
-switch(FEAT_TRAINS, SELF, sw_y500_panto_placer_2_rev,position_in_consist_from_end %7){
+switch(FEAT_TRAINS, SELF, sw_y500_panto_placer_2_rev,position_in_vehid_chain_from_end %7){
     1: sw_y500_mot_gfx;
     5: sw_y500_mot_gfx;
     sw_y500_wag_gfx;
@@ -80,12 +81,12 @@ switch(FEAT_TRAINS, PARENT, sw_y500_panto_placer_main_2,vehicle_is_reversed){
 }
 
 //var 3. For short forms
-switch(FEAT_TRAINS, SELF, sw_y500_panto_placer_3,position_in_consist %5){
+switch(FEAT_TRAINS, SELF, sw_y500_panto_placer_3,1+position_in_vehid_chain %5){
     1: sw_y500_mot_gfx;
     4: sw_y500_mot_gfx;
     sw_y500_wag_gfx;
 }
-switch(FEAT_TRAINS, SELF, sw_y500_panto_placer_3_rev,position_in_consist_from_end %5){
+switch(FEAT_TRAINS, SELF, sw_y500_panto_placer_3_rev,position_in_vehid_chain_from_end %5){
     1: sw_y500_mot_gfx;
     4: sw_y500_mot_gfx;
     sw_y500_wag_gfx;
@@ -95,7 +96,7 @@ switch(FEAT_TRAINS, PARENT, sw_y500_panto_placer_main_3,vehicle_is_reversed){
     sw_y500_panto_placer_3;
 }
 
-switch(FEAT_TRAINS, PARENT, sw_y500_panto_placer_main,num_vehs_in_consist){
+switch(FEAT_TRAINS, SELF, sw_y500_panto_placer_main,num_vehs_in_vehid_chain+1){
     0..3:sw_y500_panto_placer_main_3;
     6:sw_y500_panto_placer_main_3;
     7: sw_y500_panto_placer_main_2;
@@ -131,7 +132,7 @@ switch(FEAT_TRAINS, SELF, sw_y500_capacity_main,vehicle_type_id){
     sw_y500_capacity_1;
 }
 
-//attachable vehicles -- will be changed later
+//TODO: attachable vehicles -- will be changed later
 switch(FEAT_TRAINS, SELF, y500_attach_vehid, vehicle_type_id) {
   mu_car: return string(STR_ATTACH_1067_ERROR);
   mu_car_metro: return string(STR_ATTACH_1067_ERROR);

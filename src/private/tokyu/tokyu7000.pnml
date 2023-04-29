@@ -16,15 +16,14 @@ alternative_sprites(tokyu7000_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx
 alternative_sprites(tokyu7000_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tokyu/tokyu7000/tokyu7000.png"){ tmpl_std(0, 100) }
 alternative_sprites(tokyu7000_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tokyu/tokyu7000/tokyu7000.png"){ tmpl_std_rev(0, 100) }
 
-//livery 1
-
+//*livery 1
 //panto placer
 //var 1
-switch(FEAT_TRAINS, SELF, sw_tokyu7000_panto_placer_1,position_in_consist %3){
+switch(FEAT_TRAINS, SELF, sw_tokyu7000_panto_placer_1,position_in_vehid_chain %3+1){
     1: tokyu7000_mot;
     tokyu7000_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tokyu7000_panto_placer_1_rev,position_in_consist_from_end %3){
+switch(FEAT_TRAINS, SELF, sw_tokyu7000_panto_placer_1_rev,(position_in_vehid_chain_from_end %3)){
     1: tokyu7000_mot;
     tokyu7000_wag;
 }
@@ -34,12 +33,12 @@ switch(FEAT_TRAINS, PARENT, sw_tokyu7000_panto_placer_main_1,vehicle_is_reversed
 }
 
 //var 2
-switch(FEAT_TRAINS, SELF, sw_tokyu7000_panto_placer_2,position_in_consist %3){
-    2: tokyu7000_mot;
+switch(FEAT_TRAINS, SELF, sw_tokyu7000_panto_placer_2,position_in_vehid_chain %3){
+    1: tokyu7000_mot;
     tokyu7000_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tokyu7000_panto_placer_2_rev,position_in_consist_from_end %3){
-    2: tokyu7000_mot;
+switch(FEAT_TRAINS, SELF, sw_tokyu7000_panto_placer_2_rev,(position_in_vehid_chain_from_end %3)-1){
+    1: tokyu7000_mot;
     tokyu7000_wag;
 }
 switch(FEAT_TRAINS, PARENT, sw_tokyu7000_panto_placer_main_2,vehicle_is_reversed){
@@ -47,7 +46,7 @@ switch(FEAT_TRAINS, PARENT, sw_tokyu7000_panto_placer_main_2,vehicle_is_reversed
     sw_tokyu7000_panto_placer_2;
 }
 
-switch(FEAT_TRAINS, PARENT, sw_tokyu7000_panto_placer_main,num_vehs_in_consist){
+switch(FEAT_TRAINS, SELF, sw_tokyu7000_panto_placer_main,num_vehs_in_vehid_chain+1){
     0..4:sw_tokyu7000_panto_placer_main_1;
     6: sw_tokyu7000_panto_placer_main_1;
     sw_tokyu7000_panto_placer_main_2;
@@ -108,7 +107,7 @@ switch(FEAT_TRAINS, PARENT, sw_tokyu7000_power, num_vehs_in_consist){
     760*1342/3000;
 }
 
-//attachable vehicles -- will be changed later
+//TODO: attachable vehicles -- will be changed later
 switch(FEAT_TRAINS, SELF, tokyu7000_attach_vehid, vehicle_type_id) {
   mu_car: return string(STR_ATTACH_1067_ERROR);
   mu_car_metro: return string(STR_ATTACH_1067_ERROR);
@@ -129,7 +128,7 @@ item(FEAT_TRAINS, tokyu7000,2022) {
         ai_special_flag: AI_FLAG_PASSENGER;
 
         climates_available: param_disable_tokyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
-        //variant_group:2019;
+        //variant_group:;
         
         name: string(STR_tokyu7000_NAME);
         introduction_date: date(2007, 1, 1);
@@ -143,7 +142,7 @@ item(FEAT_TRAINS, tokyu7000,2022) {
         track_type: TR_1067_DC;
         power: 760 kW;
         weight: 30 ton;
-        loading_speed: param_loading_4D;
+        loading_speed: param_loading_3D;
     }
 	graphics {
         default: sw_tokyu7000_lv;
@@ -171,7 +170,7 @@ item(FEAT_TRAINS, tokyu7000,2022) {
          
     }
     livery_override(mu_car_narrow){
-        loading_speed: param_loading_4D;
+        loading_speed: param_loading_3D;
         cargo_capacity: sw_tokyu7000_capacity_main;
         default: sw_tokyu7000_lv;
         power:sw_tokyu7000_power;
