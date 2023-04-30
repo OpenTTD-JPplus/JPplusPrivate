@@ -21,12 +21,12 @@ alternative_sprites(tsukuba_3000series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP
 //special gfx
 //panto placer
 //1
-switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_panto_placer,position_in_consist %5){
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_panto_placer,1+position_in_vehid_chain %5){
     1: tsukuba_3000series_mot;
     3: tsukuba_3000series_mot;
     tsukuba_3000series_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_panto_placer_rev,position_in_consist %5){
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_panto_placer_rev,position_in_vehid_chain_from_end %5){
     1: tsukuba_3000series_mot_rev;
     3: tsukuba_3000series_mot_rev;
     tsukuba_3000series_wag;
@@ -36,11 +36,11 @@ switch(FEAT_TRAINS, PARENT, sw_tsukuba_3000series_panto_placer_main_1,vehicle_is
     sw_tsukuba_3000series_panto_placer;
 }
 //2
-switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_1_panto_placer,position_in_consist %3){
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_1_panto_placer,1+position_in_vehid_chain %3){
     1: tsukuba_3000series_mot;
     tsukuba_3000series_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_1_panto_placer_rev,position_in_consist %3){
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_1_panto_placer_rev,position_in_vehid_chain_from_end %3){
     1: tsukuba_3000series_mot_rev;
     tsukuba_3000series_wag;
 }
@@ -49,7 +49,7 @@ switch(FEAT_TRAINS, PARENT, sw_tsukuba_3000series_panto_placer_main_2,vehicle_is
     sw_tsukuba_3000series_1_panto_placer;
 }
 
-switch(FEAT_TRAINS, PARENT, sw_tsukuba_3000series_panto_placer_main,num_vehs_in_consist){
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_panto_placer_main,num_vehs_in_vehid_chain+1){
 4..5:sw_tsukuba_3000series_panto_placer_main_2;
 7:sw_tsukuba_3000series_panto_placer_main_2;
 sw_tsukuba_3000series_panto_placer_main_1;
@@ -57,14 +57,14 @@ sw_tsukuba_3000series_panto_placer_main_1;
 //panto placer end 
 
 //fake head-end placer
-switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_fake_placer,position_in_consist){
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_fake_placer,1+position_in_vehid_chain){
     4: tsukuba_3000series_end_f;
     5: tsukuba_3000series_front_f;
 sw_tsukuba_3000series_panto_placer_main;
 }
-switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_fake_placer_rev,position_in_consist){
-    5: tsukuba_3000series_front_f;
-    4: tsukuba_3000series_end_f;
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_fake_placer_rev,position_in_vehid_chain_from_end){
+    4: tsukuba_3000series_front_f;
+    5: tsukuba_3000series_end_f;
 sw_tsukuba_3000series_panto_placer_main;
 }
 switch(FEAT_TRAINS, PARENT, sw_tsukuba_3000series_fake_placer_gfx,vehicle_is_reversed){
@@ -120,8 +120,8 @@ item(FEAT_TRAINS, tsukuba_3000series,2297) {
         vehicle_life: 40;
         reliability_decay: 20;
 
-        cost_factor: 21;
-        running_cost_factor: 51;
+        cost_factor: 22;
+        running_cost_factor: 52;
         speed: 130 km/h;
         track_type: TR_1067_DC;
         power: 760 kW;
