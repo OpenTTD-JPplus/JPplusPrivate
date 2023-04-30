@@ -21,13 +21,13 @@ alternative_sprites(tokyu3000_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx
 //*livery 1
 //panto placer
 //var 1
-switch(FEAT_TRAINS, SELF, sw_tokyu3000_panto_placer_1,position_in_consist %7){
+switch(FEAT_TRAINS, SELF, sw_tokyu3000_panto_placer_1,1+position_in_vehid_chain %7){
     2: tokyu3000_mot;
     4: tokyu3000_mot_1;
     6: tokyu3000_mot;
     tokyu3000_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tokyu3000_panto_placer_1_rev,position_in_consist_from_end %7){
+switch(FEAT_TRAINS, SELF, sw_tokyu3000_panto_placer_1_rev,position_in_vehid_chain_from_end %7){
     2: tokyu3000_mot;
     4: tokyu3000_mot_1_rev;
     6: tokyu3000_mot;
@@ -39,12 +39,12 @@ switch(FEAT_TRAINS, PARENT, sw_tokyu3000_panto_placer_main_1,vehicle_is_reversed
 }
 
 //var 2
-switch(FEAT_TRAINS, SELF, sw_tokyu3000_panto_placer_2,position_in_consist %5){
+switch(FEAT_TRAINS, SELF, sw_tokyu3000_panto_placer_2,1+position_in_vehid_chain %5){
     2: tokyu3000_mot;
     4: tokyu3000_mot;
     tokyu3000_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tokyu3000_panto_placer_2_rev,position_in_consist_from_end %5){
+switch(FEAT_TRAINS, SELF, sw_tokyu3000_panto_placer_2_rev,position_in_vehid_chain_from_end %5){
     2: tokyu3000_mot;
     4: tokyu3000_mot;
     tokyu3000_wag;
@@ -55,11 +55,11 @@ switch(FEAT_TRAINS, PARENT, sw_tokyu3000_panto_placer_main_2,vehicle_is_reversed
 }
 
 //var 3
-switch(FEAT_TRAINS, SELF, sw_tokyu3000_panto_placer_3,position_in_consist %4){
+switch(FEAT_TRAINS, SELF, sw_tokyu3000_panto_placer_3,1+position_in_vehid_chain %4){
     2: tokyu3000_mot;
     tokyu3000_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tokyu3000_panto_placer_3_rev,position_in_consist_from_end %4){
+switch(FEAT_TRAINS, SELF, sw_tokyu3000_panto_placer_3_rev,position_in_vehid_chain_from_end %4){
     2: tokyu3000_mot;
     tokyu3000_wag;
 }
@@ -69,11 +69,11 @@ switch(FEAT_TRAINS, PARENT, sw_tokyu3000_panto_placer_main_3,vehicle_is_reversed
 }
 
 //var 4
-switch(FEAT_TRAINS, SELF, sw_tokyu3000_panto_placer_4,position_in_consist %3){
+switch(FEAT_TRAINS, SELF, sw_tokyu3000_panto_placer_4,1+position_in_vehid_chain %3){
     1: tokyu3000_mot;
     tokyu3000_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tokyu3000_panto_placer_4_rev,position_in_consist_from_end %3){
+switch(FEAT_TRAINS, SELF, sw_tokyu3000_panto_placer_4_rev,position_in_vehid_chain_from_end %3){
     1: tokyu3000_mot;
     tokyu3000_wag;
 }
@@ -85,7 +85,7 @@ switch(FEAT_TRAINS,PARENT,sw_tokyu3000_panto_placer_time,(build_year<2000||date_
     1:sw_tokyu3000_panto_placer_main_3;
     sw_tokyu3000_panto_placer_main_1;
 }
-switch(FEAT_TRAINS, PARENT, sw_tokyu3000_panto_placer_main,num_vehs_in_consist){
+switch(FEAT_TRAINS, SELF, sw_tokyu3000_panto_placer_main,num_vehs_in_vehid_chain+1){
     0..3:sw_tokyu3000_panto_placer_main_4;
     4..7: sw_tokyu3000_panto_placer_main_2;
     sw_tokyu3000_panto_placer_time;
@@ -120,6 +120,10 @@ switch(FEAT_TRAINS, SELF, sw_tokyu3000_front_gfx_main,position_in_vehid_chain_fr
     0: tokyu3000_front;
     default: sw_tokyu3000_fake_placer_main;
 }
+switch(FEAT_TRAINS, SELF, sw_tokyu3000_lv,vehicle_type_id){
+    mu_car_narrow:sw_tokyu3000_end_gfx_main;
+    sw_tokyu3000_front_gfx_main;
+}
 
 //post fixers
 //capacity-changer
@@ -144,11 +148,6 @@ switch(FEAT_TRAINS, SELF, tokyu3000_attach_vehid, vehicle_type_id) {
   return CB_RESULT_ATTACH_ALLOW;
 }
 
-switch(FEAT_TRAINS, SELF, sw_tokyu3000_lv,vehicle_type_id){
-    mu_car_narrow:sw_tokyu3000_end_gfx_main;
-    sw_tokyu3000_front_gfx_main;
-}
-
 item(FEAT_TRAINS, tokyu3000,2017) {
     property {
         visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
@@ -168,7 +167,7 @@ item(FEAT_TRAINS, tokyu3000,2017) {
         introduction_date: date(1999, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 40;
-        reliability_decay: 21;
+        reliability_decay: 20;
 
         cost_factor: 21;
         running_cost_factor: 51;
@@ -185,8 +184,10 @@ item(FEAT_TRAINS, tokyu3000,2017) {
         start_stop: sw_stop_start_3; 
         cargo_capacity: sw_tokyu3000_capacity_main; 
         //cargo_subtype_text: sw_tokyu3000_lv_desc;
-        additional_text:    string(STR_CONCAT_7,
+        additional_text:    string(STR_CONCAT_8,
                             string(STR_NARROWGAUGE),
+                            string(STR_LOAD_SPEED,
+                            string(STR_4_DOOR),),
                             string(STR_FORMATION),
                             string(STR_tokyu3000_DESC),
                             string(STR_CARS),
