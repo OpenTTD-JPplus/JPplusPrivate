@@ -1,8 +1,8 @@
 ##grflangid 0x01
 STR_NAME:JP+ Major Private Companies
 STR_DESC:{WHITE}JP{RED}+{WHITE}Major Private Companies{BLACK} introducing private companies rolling stock from all over Japan.{}Sister set to {WHITE}JP{RED}+{WHITE}MU, JP{RED}+{WHITE}Shinkansen{BLACK} and {WHITE}JP{RED}+{WHITE}Engines & Wagons{BLACK}{}{}{TINYFONT}{GREEN}Drawn by{LTBLUE} Yozora, *SaYa*, Toni Babelony, Takamaro {GREEN}{}Coded by{LTBLUE} Yozora{}{}{SILVER}GPLv2{}2023
-STR_GRF_URL:https://github.com/Yozora3/JPplusMetro
-
+STR_GRF_URL:https://github.com/Yozora3/JPplusPrivate
+#TODO Change URL
 # param stuff
 STR_PARAM_NAME_BASECOSTMODBUY:Buy costs
 STR_PARAM_DESC_BASECOSTMODBUY:Define the purchase costs of vehicle
@@ -11,7 +11,7 @@ STR_PARAM_RUN_NAME:Running costs
 STR_PARAM_RUN_DESC:Define the running costs of vehicles
 
 STR_PARAM_NAME_CAPACITY: Train capacity
-STR_PARAM_DESC_CAPACITY: 100% — Commuters have enough personal space and are able to take a seat or stand while holding onto the straps or hand rails.{} 150% — Commuters have enough personal space to read a newspaper.{} 200% — Commuters are pressed against each other in each compartment but can still read small magazines.{} 250% — Commuters are pressed against each other, unable to move.{} Custom — Use if you hate your commuters.{} Select 100% for the best experience with JP+MU's{} 150% - Yozora's {WHITE}favourite{BLACK}
+STR_PARAM_DESC_CAPACITY: 100% — Commuters have enough personal space and are able to take a seat or stand while holding onto the straps or hand rails.{} 150% — Commuters have enough personal space to read a newspaper.{} 200% — Commuters are pressed against each other in each compartment but can still read small magazines.{} 250% — Commuters are pressed against each other, unable to move.{} Custom — Use if you hate your commuters.{} {WHITE}Select 150% for the best experience{BLACK}
 
 STR_PARAM_CAP_0:100%
 STR_PARAM_CAP_1:150%
@@ -19,8 +19,8 @@ STR_PARAM_CAP_2:200%
 STR_PARAM_CAP_3:250%
 STR_PARAM_CAP_4:Custom
 
-STR_PARAM_CUSTOMCAPACITY: Multiply capacity. Works only if metro capacity set to "custom"
-STR_PARAM_CUSTOMCAPACITYDESC:Impossible in real life.
+STR_PARAM_CUSTOMCAPACITY: Multiply capacity. Works only if train capacity set to "custom"
+STR_PARAM_CUSTOMCAPACITYDESC:Do you hate your commuters so much? Come on, they are unable to move already!
 
 # often used strings
 STR_PARAM_VLOW:Very Low
@@ -44,27 +44,46 @@ LV_GREEN: Green Painted
 LV_CREAMY: Cream Painted
 # desc used strings
 STR_CONCAT_6:{STRING}{STRING}{STRING}{STRING}{STRING}{STRING}
+STR_CONCAT_8:{STRING}{STRING}{STRING}{STRING}{STRING}{STRING}{STRING}{STRING}
 
-STR_USAGE:Usage: {STRING} {STRING}
+STR_LOAD_SPEED:{BLACK}Loading Speed: {GOLD}{STRING}{}
+STR_SLIDE_2:2 Slide Doors (Very Slow)
+STR_SLIDE_3:3 Slide Doors (Slow)
+STR_3_DOOR:3 Doors
+STR_4_DOOR:4 Doors
+STR_5_DOOR_REFIT:4 Doors (refit to 5 available)
+STR_6_DOOR_REFIT:4 Doors (refit to 6 available)
+
+STR_COUPLER:{BLACK}Coupling: {GOLD}{STRING}{}
+STR_SHIBATA:Shibata
+STR_KNUCKLE:Knuckle
+
+
+
+STR_USAGE:{BLACK}Usage: {STRING} {STRING}{}
 
 STR_COMMUTER:{SILVER}General
 STR_EXPRESS:{LTBLUE}Express
 STR_LIMITED:{RED}Limited Express
 
-STR_AC: /{LTBLUE} AC Type
-STR_DC: /{RED} DC Type
+STR_AC: {BLACK}/{LTBLUE} AC Type
+STR_DC: {BLACK}/{RED} DC Type
 STR_CARS: cars{}
 STR_CITY:{BLACK}City: {STRING}
 STR_OPERATOR:{BLACK}Operator: 
+STR_OPERATOR_PRIVATE:{BLACK}Operator: {STRING}
 STR_LINES_USED:{BLACK}Lines used: {STRING}
 # gauge
-STR_NARROWGAUGE:{BLACK}Gauge:{GOLD} Narrow/Kyōki (1,067mm){}
-STR_STANDARDGAUGE:{BLACK}Gauge:{GOLD} Standard/Hyōjyun (1,435mm){}
+STR_NARROWGAUGE:{BLACK}Gauge:{GOLD} Narrow (1,067mm){}
+STR_STANDARDGAUGE:{BLACK}Gauge:{GOLD} Standard (1,435mm){}
 STR_SCOTCHGAUGE:{BLACK}Gauge:{GOLD} Scotch Gauge (1,372mm){}
 
 # formation
 STR_FORMATION:{BLACK}Real Formations: {GOLD}
 # often used lengths
+STR_1_CARS:1
+STR_2_CARS:2
+STR_3_CARS:3
 STR_4_CARS:4
 STR_6_CARS:6
 STR_8_CARS:8
@@ -84,6 +103,14 @@ STR_KOBE:{GREEN}Kobe{}{STRING}{LTBLUE}Kobe Transportation Bureau{}
 STR_FUKUOKA:{LTBLUE}Fukuoka{}{STRING}{LTBLUE}Fukuoka Transportation Bureau{}
 # private railways
 
+STR_TOKYU:{ORANGE}Tokyu Corporation
+STR_TOBU:{BLUE}Tobu Railway
+STR_SEIBU:{LTBLUE}Seibu Railway
+STR_ODAKYU:{BLUE}Odakyu Electric Railway
+
+STR_TWR:{LTBLUE}Tokyo Waterfront Area Rapid Transit
+STR_TSUKUBA:{BLUE}Tsukuba Express
+STR_MINATO:{BLUE}Yokohama Minatomirai Railway
 
 STR_KINTETSU:{GREEN}Kintetsu Railway{}
 # metro lines 
@@ -142,19 +169,24 @@ STR_PARAM_DISABLE_FUKUOKA:Disable Fukuoka metro trains
 STR_PARAM_DISABLE_SAPPORO:Disable Sapporo metro trains (future)
 
 # JP+MajorPrivateCompanies
-STR_PARAM_DISABLE_TOKYU:Disable all Tokyu trains
-
+STR_PARAM_DISABLE_TOKYU:Disable Tokyu trains
+STR_PARAM_DISABLE_TOBU:Disable Tobu trains
+STR_PARAM_DISABLE_SEIBU:Disable Seibu trains
+STR_PARAM_DISABLE_ODAKYU:Disable Odakyu trains
 
 STR_PARAM_DISABLE_SEMI_MAJOR:Disable all semi-major companies trains
-STR_PARAM_DISABLE_SEMI_MAJOR_DESC:TWR,...
+STR_PARAM_DISABLE_SEMI_MAJOR_DESC:(TWR, Tsukuba Express)
 # errors
 STR_ATTACH_ERROR:You can attach only Private MU cars
+STR_ATTACH_1067_ERROR:You can attach only 1067 mm Private MU cars
+STR_ATTACH_1435_ERROR:You can attach only 1435 mm Private MU cars
+
 STR_FEW_CARS_2_ERROR:Consist requires at least 2 cars
 STR_FEW_CARS_3_ERROR:Consist requires at least 3 cars
 STR_FEW_CARS_4_ERROR:Consist requires at least 4 cars
 
-GRF_TKMS:{WHITE}Please remove {YELLOW}Tokyo Metro Set{WHITE} to avoid duplicates.{}JP+Metro contains every vehicle of it. 
-GRF_JAPANSET:{WHITE}Please use {YELLOW}JapanSet3 Tracks {WHITE}or {YELLOW}any other grf that adds subway and narrow tracks {WHITE}for the best game experience.
+GRF_TKMS:{WHITE}Please remove {YELLOW}Tokyo Metro Set{WHITE} to avoid duplicates.{}JP+Private contains every vehicle of it. 
+GRF_JAPANSET:{WHITE}Please use {YELLOW}JapanSet3 Tracks {WHITE}or {YELLOW}any other grf that adds metro and narrow tracks {WHITE}for the best game experience.
 
 # mu_cars
 MUCAR_1435_M:JP+ Private MU (third rail)
@@ -167,7 +199,7 @@ MUCAR_DESC:{BLUE}Used to represent {GREEN}motor and trailer cars{BLUE} within a 
 # ---------------------------------------------------------------------------------------
 # Ginza line
 # repeating descriptions
-STR_tk_gz_type1000_1300_DESC:Up to 4
+STR_tk_gz_type1000_1300_DESC:1-4
 
 STR_tk_gz_type100_NAME:Eidan type 100
 STR_tk_gz_type1000_NAME:Eidan type 1000
@@ -182,7 +214,7 @@ LV_tk_gz_type1300_3: Type 1500
 LV_tk_gz_type1300_4: Type 1700
 
 STR_tk_gz_type1900_NAME:Eidan type 1900
-STR_tk_gz_type1900_DESC:3 or 6
+STR_tk_gz_type1900_DESC:3,6
 LV_tk_gz_type1900_1: Type 1900
 LV_tk_gz_type1900_2: Type 2000
 
@@ -195,10 +227,10 @@ STR_tk_mn__type1900_NAME:Eidan type 1900
 STR_tk_mn_TYPE1900_DESC:3
 
 STR_tk_mn_eidan500_NAME:Eidan type 500
-STR_tk_mn_eidan500_DESC:2 to 6
+STR_tk_mn_eidan500_DESC:2-6
 
 STR_tk_mn_eidan02_NAME:Eidan 02 series
-STR_tk_mn_eidan02_DESC:3 or 6
+STR_tk_mn_eidan02_DESC:3,6
 LV_rk_mn_eidan02_1: Default red stripe livery
 LV_rk_mn_eidan02_2: Anniversary red livery
 
@@ -251,7 +283,7 @@ STR_tk_ch_16000series_NAME:Tokyo Metro 16000 series
 # Yurakucho-Fukutoshin line
 # repeating descriptions
 # 7000, 10000, 17000 series
-STR_tk_yk_7000_10000_17000series_DESC:8 or 10
+STR_tk_yk_7000_10000_17000series_DESC:8,10
 
 STR_tk_yk_7000series_NAME:Eidan 7000 series
 LV_tk_yk_7000series_1: Fukutoshin Brown Stripe livery
@@ -277,10 +309,10 @@ STR_tk_nm_saitama2000_NAME:Saitama Rapid Railway 2000 series
 # ---------------------------------------------------------------------------------------
 # Asakusa Line
 STR_tk_as_toei5000_NAME:Toei 5000 series
-STR_tk_as_toei5000_DESC:4 or 6
+STR_tk_as_toei5000_DESC:4,6
 
 STR_tk_as_toei5200_NAME:Toei 5200 series
-STR_tk_as_toei5200_DESC:6 or 8
+STR_tk_as_toei5200_DESC:6,8
 
 STR_tk_as_toei5300_NAME:Toei 5300 series
 STR_tk_as_toei5500_NAME:Toei 5500 series
@@ -298,7 +330,7 @@ LV_tk_sj_toei10_000_2: 7th batch
 LV_tk_sj_toei10_000_3:8th batch
 
 STR_tk_sj_toei10_300_NAME:Toei 10-300 series
-STR_tk_sj_toei10_300_DESC:8 or 10 cars
+STR_tk_sj_toei10_300_DESC:8,10 cars
 LV_tk_sj_toei10_300_r:10-300R series
 LV_tk_sj_toei10_300_1: 1-2nd batches
 LV_tk_sj_toei10_300_2: 3-4th batches
@@ -334,7 +366,7 @@ STR_yk_bl_4000series_NAME:Yokohama Subway 4000 series
 # Green line
 
 STR_yk_gl_10000series_NAME:Yokohama Subway 10000 series
-yk_gl_10000series_DESC:4 or 6
+yk_gl_10000series_DESC:4,6
 LV_yk_gl_10000series_1: Cyan Stripes livery
 LV_yk_gl_10000series_3: Yokohama Streetcar Anniversary livery
 # ---------------------------------------------------------------------------------------
@@ -365,7 +397,7 @@ STR_os_nm_1000series_DESC:2-6
 LV_os_nm_1000series_1: Type 1000
 LV_os_nm_1200series_1: Type 1200
 
-STR_os_nm_30series_DESC:4 or 8
+STR_os_nm_30series_DESC:4,8
 
 STR_os_nm_50series_DESC:2,4,6
 
@@ -388,7 +420,7 @@ LV_os_tm_30series_3: Steel New livery
 LV_os_tm_30series_4: Aluminium New livery
 
 STR_os_tm_20series_NAME:Osaka 20 series
-STR_os_tm_20series_DESC:4 or 6
+STR_os_tm_20series_DESC:4,6
 
 STR_os_tm_22series_NAME:Osaka 22 series
 LV_os_tm_22series_1: Single stripe livery
@@ -420,10 +452,10 @@ LV_os_yb_23series_2: Double stripe livery
 STR_os_ch_6000type_NAME:Osaka 6000 type
 STR_os_ch_6000type_DESC:1-4
 
-STR_os_ch_30series_DESC:4 or 6
+STR_os_ch_30series_DESC:4,6
 
 STR_os_ch_20series_NAME:Osaka 20 series
-STR_os_ch_20series_DESC:4 or 6
+STR_os_ch_20series_DESC:4,6
 
 STR_os_ch_24series_NAME:Osaka 24 series
 LV_os_ch_24series_1: Single stripe livery
@@ -463,7 +495,7 @@ STR_os_ts_80series_NAME:Osaka 80 series
 # Kyoto
 # ---------------------------------------------------------------------------------------
 # Karasuma Line
-STR_kt_ks_10series_DESC:4 or 6
+STR_kt_ks_10series_DESC:4,6
 
 STR_kt_ks_10series_NAME:Kyoto 10 series
 STR_kt_ks_20series_NAME:Kyoto 20 series
@@ -516,7 +548,7 @@ STR_sn_tz_2000series_NAME:Sendai 2000 series
 # Kobe
 # ---------------------------------------------------------------------------------------
 # Seishin-Yamate Line
-STR_kb_sy_2000_7000series_DESC:5 or 6
+STR_kb_sy_2000_7000series_DESC:5,6
 
 STR_kb_sy_1000series_NAME:Kobe 1000 series
 STR_kb_sy_2000series_NAME:Kobe 2000 series
@@ -543,3 +575,94 @@ STR_fk_kk_2000series_NAME:Fukuoka 2000 series
 STR_fk_nk_3000series_NAME:Fukuoka 3000 series
 LV_fk_nk_3000series_3000: 3000 series
 LV_fk_nk_3000series_3000a: 3000A series
+
+
+# ---------------------------------------------------------------------------------------
+# JP+ Private
+# ---------------------------------------------------------------------------------------
+# Tokyu
+STR_tokyu_deha1_NAME:Tokyu DeHa 1 type
+STR_tokyu_deha3450_NAME:Tokyu DeHa 3450 type
+STR_tokyu3300_old_NAME:Tokyu DeHa 3300 type
+STR_tokyu3300_old_DESC:2,3
+STR_tokyu3500_old_NAME:Tokyu DeHa 3400-3600 type
+STR_tokyu3500_old_DESC:2-5
+LV_tokyu3500_lv_3: Revival Livery
+STR_tokyu3800_old_NAME:Tokyu DeHa 3700/3800 type
+STR_tokyu5000_old_NAME:Tokyu 5000 series
+STR_tokyu5000_old_DESC:3-6
+STR_tokyu5200_old_NAME:Tokyu 5200 series
+STR_tokyu5200_old_DESC:3-5
+STR_tokyu6000_old_NAME:Tokyu 6000 series
+STR_tokyu6000_old_DESC:2,4,6,8
+STR_tokyu7000_old_NAME:Tokyu 7000 series
+STR_tokyu7200_old_NAME:Tokyu 7200 series
+STR_tokyu7200_old_DESC:2,3,4,6,8
+STR_tokyu7600_old_NAME:Tokyu 7600 series
+STR_tokyu7700_old_NAME:Tokyu 7700 series
+STR_tokyu7700_old_DESC:3,4,6
+LV_tokyu7700_1: Red Stripe
+STR_tokyu8000_NAME:Tokyu 8000/8500 series
+STR_tokyu8000_DESC:4,5,8,10
+LV_tokyu8000_1: Tokyu 8000 old livery
+LV_tokyu8000_2: Tokyu 8000 1992 renewal livery
+LV_tokyu8500_1: Tokyu 8500 default livery
+LV_tokyu8500_2: Tokyu 8500 Bunkamura Livery
+STR_tokyu8090_NAME:Tokyu 8090/8590 series
+STR_tokyu8090_DESC:5,8,10
+LV_tokyu8090_1:Tokyu 8090 Red Stripe
+LV_tokyu8090_2:Tokyu 8090 Orange Stripe
+LV_tokyu8590_1:Tokyu 8590 Red Stripe
+LV_tokyu8590_2:Tokyu 8590 Orange Stripe
+STR_tokyu9000_NAME:Tokyu 9000 series
+STR_tokyu9000_DESC:5,8
+LV_tokyu9000_1: Red Stripe
+LV_tokyu9000_2: Orange Stripe
+STR_tokyu1000_NAME:Tokyu 1000 series
+STR_tokyu1000_DESC:3,8
+STR_tokyu2000_NAME:Tokyu 9020/2000 series
+STR_tokyu2000_DESC:5,8,10
+LV_tokyu1000_2: Kinaru Livery
+LV_tokyu1000_3: Green Livery
+LV_tokyu1000_4: Green Stripe Livery 
+STR_tokyu3000_NAME:Tokyu 3000 series
+STR_tokyu3000_DESC:6,8
+STR_y000_NAME:Yokohama Rapid Y000 series
+STR_tokyu5000_NAME:Tokyu 5000/5050/5080 series
+STR_tokyu5000_DESC:6,8,10
+LV_tokyu5000_1: Den-en-toshi 5000 series
+LV_tokyu5000_2: Den-en-toshi 5000 series (6 door cars)
+LV_tokyu5050_3: Toyoko 5050 series
+LV_tokyu5050_4: Toyoko 5050 series (Q-seat)
+LV_tokyu5050_5: Toyoko 5050 series Shibuya Hikarie
+LV_tokyu5050_6: Toyoko 5050 series Green Frog
+LV_tokyu5080_7: Toyoko 5050 series 100 year anniversary
+LV_tokyu5080_8: Meguro 5080 series
+STR_y500_NAME:Yokohama Rapid Y500 series
+STR_tokyu6000_NAME:Tokyu 6000 series
+STR_tokyu6000_DESC:6,7
+LB_tokyu6000_2: Q-seat
+STR_tokyu7000_NAME:Tokyu 7000 series
+STR_tokyu2020_NAME:Tokyu 2020/6020/3020 series
+STR_tokyu2020_DESC:6,7,8,10
+LV_tokyu2020_1: Den-en-toshi 2020 series
+LV_tokyu2020_2: Den-en-toshi 2020 series 100 year anniversary
+LV_tokyu6020_3: Oimachi 6020 series
+LV_tokyu6020_4: Oimachi 6020 series (Q-seat)
+LV_tokyu3020_5: Meguro 3020 series
+LV_tokyu3020_6: Meguro 3020 series 100 year anniversary
+
+# Tobu
+
+# Seibu
+
+# Odakyu
+
+# TWR
+STR_twr_70_000series_NAME:TWR 70-000 series
+STR_twr_70_000series_DESC:4,6,10
+
+# Tsukuba
+STR_tsukuba_1000series_NAME:TX 1000 series
+STR_tsukuba_2000series_NAME:TX 2000 series
+STR_tsukuba_3000series_NAME:TX 3000 series
