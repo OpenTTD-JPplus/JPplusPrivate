@@ -47,7 +47,7 @@ switch(FEAT_TRAINS, PARENT, sw_twr_70_000series_panto_placer_main_2,vehicle_is_r
     sw_twr_70_000series_1_panto_placer;
 }
 
-switch(FEAT_TRAINS, PARENT, sw_twr_70_000series_panto_placer_main,num_vehs_in_consist){
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_panto_placer_main,num_vehs_in_vehid_chain+1){
 0..3:sw_twr_70_000series_panto_placer_main_2;
 6:sw_twr_70_000series_panto_placer_main_2;
 sw_twr_70_000series_panto_placer_main_1;
@@ -55,12 +55,12 @@ sw_twr_70_000series_panto_placer_main_1;
 //panto placer end 
 
 //fake head-end placer
-switch(FEAT_TRAINS, SELF, sw_twr_70_000series_fake_placer,position_in_consist){
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_fake_placer,1+position_in_vehid_chain){
     6: twr_70_000series_end_f;
     7: twr_70_000series_front_f;
 sw_twr_70_000series_panto_placer_main;
 }
-switch(FEAT_TRAINS, SELF, sw_twr_70_000series_fake_placer_rev,position_in_consist){
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_fake_placer_rev,position_in_vehid_chain_from_end){
     6: twr_70_000series_front_f;
     7: twr_70_000series_end_f;
 sw_twr_70_000series_panto_placer_main;
@@ -118,8 +118,8 @@ item(FEAT_TRAINS, twr_70_000series,2290) {
         vehicle_life: 40;
         reliability_decay: 20;
 
-        cost_factor: 20;
-        running_cost_factor: 50;
+        cost_factor: 18;
+        running_cost_factor: 48;
         speed: 110 km/h;
         track_type: TR_1067_DC;
         power: 380 kW;

@@ -25,7 +25,7 @@ alternative_sprites(tokyu1000_mot_2_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,    
 alternative_sprites(tokyu1000_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tokyu/tokyu1000/tokyu1000.png"){ tmpl_symm_std(0, 125) }
 alternative_sprites(tokyu1000_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tokyu/tokyu1000/tokyu1000.png"){ tmpl_std(0, 150) }
 alternative_sprites(tokyu1000_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tokyu/tokyu1000/tokyu1000.png"){ tmpl_std_rev(0, 175) }
-//Bunkamura livery
+//Blue-Yellow livery
 spriteset (tokyu1000_2_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (tokyu1000_2_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 0) }
 spriteset (tokyu1000_2_end_rev,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 0) }
@@ -207,7 +207,7 @@ switch(FEAT_TRAINS, SELF, sw_tokyu1000_livery_1_2,vehicle_type_id){
     sw_tokyu1000_1_front_gfx_main;
 }
 
-//*Bunkamura
+//*Blue-Yellow
 //special gfx
 switch(FEAT_TRAINS, PARENT, sw_tokyu1000_2_front_gfx,vehicle_is_reversed){
     1: tokyu1000_2_front_mot;
@@ -435,7 +435,7 @@ switch(FEAT_TRAINS, PARENT, sw_tokyu1000_livery_1_gfx, build_year>2000){
     1:sw_tokyu1000_livery_1_random;
     sw_tokyu1000_livery_1_2;
 }
-switch(FEAT_TRAINS, PARENT, sw_tokyu1000_livery_1, num_vehs_in_consist){
+switch(FEAT_TRAINS, SELF, sw_tokyu1000_livery_1, num_vehs_in_vehid_chain+1){
     0..5:sw_tokyu1000_livery_1_1;
     sw_tokyu1000_livery_1_gfx;
 }
@@ -508,7 +508,7 @@ item(FEAT_TRAINS, tokyu1000,2015) {
         vehicle_life: 36;
         reliability_decay: 20;
 
-        cost_factor: 18;
+        cost_factor: 19;
         running_cost_factor: 49;
         speed: 110 km/h;
         track_type: TR_1067_DC;
