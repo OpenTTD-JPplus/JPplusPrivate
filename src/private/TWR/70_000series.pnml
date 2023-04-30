@@ -1,0 +1,162 @@
+spriteset (twr_70_000series_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
+alternative_sprites(twr_70_000series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/TWR/70_000series/70_000series_purchase.png"){ tmpl_purchase(0, 0) }
+
+spriteset (twr_70_000series_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (twr_70_000series_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+spriteset (twr_70_000series_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (twr_70_000series_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (twr_70_000series_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (twr_70_000series_front_f,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (twr_70_000series_end_f,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+
+alternative_sprites(twr_70_000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/TWR/70_000series/70_000series.png"){ tmpl_std(0, 0) }
+alternative_sprites(twr_70_000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/TWR/70_000series/70_000series.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(twr_70_000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/TWR/70_000series/70_000series.png"){ tmpl_std(0, 50) }
+alternative_sprites(twr_70_000series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/TWR/70_000series/70_000series.png"){ tmpl_std_rev(0, 50) }
+alternative_sprites(twr_70_000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/TWR/70_000series/70_000series.png"){ tmpl_symm_std(0, 75) }
+alternative_sprites(twr_70_000series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/TWR/70_000series/70_000series.png"){ tmpl_std(0, 100) }
+alternative_sprites(twr_70_000series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/TWR/70_000series/70_000series.png"){ tmpl_std_rev(0, 100) }
+
+//*livery 1
+//special gfx
+//panto placer
+//1
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_panto_placer,position_in_vehid_chain %3){
+    1: twr_70_000series_mot;
+    twr_70_000series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_panto_placer_rev,position_in_vehid_chain_from_end %3){
+    2: twr_70_000series_mot_rev;
+    twr_70_000series_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_twr_70_000series_panto_placer_main_1,vehicle_is_reversed){
+    1: sw_twr_70_000series_panto_placer_rev;
+    sw_twr_70_000series_panto_placer;
+}
+//2
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_1_panto_placer,position_in_vehid_chain %3){
+    0: twr_70_000series_mot;
+    twr_70_000series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_1_panto_placer_rev,position_in_vehid_chain_from_end %3){
+    1: twr_70_000series_mot_rev;
+    twr_70_000series_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_twr_70_000series_panto_placer_main_2,vehicle_is_reversed){
+    1: sw_twr_70_000series_1_panto_placer_rev;
+    sw_twr_70_000series_1_panto_placer;
+}
+
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_panto_placer_main,num_vehs_in_vehid_chain+1){
+0..3:sw_twr_70_000series_panto_placer_main_2;
+6:sw_twr_70_000series_panto_placer_main_2;
+sw_twr_70_000series_panto_placer_main_1;
+}
+//panto placer end 
+
+//fake head-end placer
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_fake_placer,1+position_in_vehid_chain){
+    6: twr_70_000series_end_f;
+    7: twr_70_000series_front_f;
+sw_twr_70_000series_panto_placer_main;
+}
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_fake_placer_rev,position_in_vehid_chain_from_end){
+    6: twr_70_000series_front_f;
+    7: twr_70_000series_end_f;
+sw_twr_70_000series_panto_placer_main;
+}
+switch(FEAT_TRAINS, PARENT, sw_twr_70_000series_fake_placer_gfx,vehicle_is_reversed){
+    1: sw_twr_70_000series_fake_placer_rev;
+    sw_twr_70_000series_fake_placer;
+}
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_fake_placer_main,num_vehs_in_vehid_chain>11){
+    1: sw_twr_70_000series_fake_placer_gfx;
+sw_twr_70_000series_panto_placer_main;
+}
+//fake head-end placer end
+
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_livery_1,position_in_vehid_chain_from_end){
+    0: twr_70_000series_end;
+    default: sw_twr_70_000series_fake_placer_main;
+}
+
+//capacity-changer
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_main_capacity,position_in_vehid_chain){
+    0: 146*param_capacity_mod/3;
+    default: 156*param_capacity_mod/3;
+}
+//attachable vehicles
+switch(FEAT_TRAINS, SELF, twr_70_000series_attach_vehid, vehicle_type_id) {
+  mu_car: return string(STR_ATTACH_1067_ERROR);
+  mu_car_metro: return string(STR_ATTACH_1067_ERROR);
+  return CB_RESULT_ATTACH_ALLOW;
+}
+
+item(FEAT_TRAINS, twr_70_000series,2290) {
+    property {
+        cargo_capacity: 130;
+        climates_available: param_disable_semiPrivate == 0 ? ALL_CLIMATES : NO_CLIMATE;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_MU);
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: bitmask();
+        refit_cost: 0;
+        dual_headed: 0;
+        ai_engine_rank: 0;
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+        tractive_effort_coefficient: 0.3;
+        air_drag_coefficient: 0.07;
+        bitmask_vehicle_info: 0;
+
+        name: string(STR_twr_70_000series_NAME);
+        introduction_date: date(1995, 1, 1);
+        model_life: VEHICLE_NEVER_EXPIRES;
+        vehicle_life: 40;
+        reliability_decay: 20;
+
+        cost_factor: 18;
+        running_cost_factor: 48;
+        speed: 110 km/h;
+        track_type: TR_1067_DC;
+        power: 380 kW;
+        weight: 34 ton;
+        loading_speed: param_loading_4D;
+    }
+	graphics {
+        default: twr_70_000series_front;
+        purchase: twr_70_000series_purchase;
+        can_attach_wagon: twr_70_000series_attach_vehid;
+        additional_text:    string(STR_CONCAT_8,
+                            string(STR_NARROWGAUGE),
+                            string(STR_LOAD_SPEED,
+                            string(STR_4_DOOR),),
+                            string(STR_FORMATION),
+                            string(STR_twr_70_000series_DESC),
+                            string(STR_CARS),
+                            string(STR_COUPLER,
+                            string(STR_SHIBATA)),
+                            string(STR_USAGE,
+                            string(STR_COMMUTER),
+                            string(STR_DC),
+                            ),
+                            string(STR_OPERATOR_PRIVATE,
+                            string(STR_TWR),
+                            ),
+                            
+                        );
+        start_stop: sw_stop_start_3; 
+        cargo_capacity: 146*param_capacity_mod/3;  
+    }
+    livery_override(mu_car_narrow){
+        loading_speed: param_loading_4D;
+        cargo_capacity: sw_twr_70_000series_main_capacity;
+        default:                      sw_twr_70_000series_livery_1;
+        power: 509*5/9;
+        weight: 34;
+        length: 8; 
+      }
+}

@@ -1,0 +1,120 @@
+spriteset (tk_tz_15000series_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
+spriteset (tk_tz_15000series_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_tz_15000series_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_tz_15000series_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_tz_15000series_mot_1,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_tz_15000series_mot_1_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_tz_15000series_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
+alternative_sprites(tk_tz_15000series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/tozai/15000series/15000series_purchase.png"){ tmpl_purchase(0, 0) }
+alternative_sprites(tk_tz_15000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/tozai/15000series/15000series.png"){ tmpl_std(0, 0) }
+alternative_sprites(tk_tz_15000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/tozai/15000series/15000series.png"){ tmpl_std(0, 100) }
+alternative_sprites(tk_tz_15000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/tozai/15000series/15000series.png"){ tmpl_std(0, 50) }
+alternative_sprites(tk_tz_15000series_mot_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/tozai/15000series/15000series.png"){ tmpl_std(0, 75) }
+alternative_sprites(tk_tz_15000series_mot_1_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/tozai/15000series/15000series.png"){ tmpl_std_rev(0, 75) }
+alternative_sprites(tk_tz_15000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/tozai/15000series/15000series.png"){ tmpl_std_rev(0, 25) }
+
+//*livery 1
+//panto-placers
+switch(FEAT_TRAINS, SELF, sw_tk_tz_15000series_mot_def_gfx,position_in_consist %10){
+    1: tk_tz_15000series_mot;
+    4: tk_tz_15000series_mot_1;
+    7: tk_tz_15000series_mot;
+    default: tk_tz_15000series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_tz_15000series_mot_def_rev_gfx,position_in_consist_from_end %10){
+    1: tk_tz_15000series_mot;
+    4: tk_tz_15000series_mot_1_rev;
+    7: tk_tz_15000series_mot;
+    default: tk_tz_15000series_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_tk_tz_15000series_mot_def_main_gfx,vehicle_is_reversed){
+    1: sw_tk_tz_15000series_mot_def_rev_gfx;
+    sw_tk_tz_15000series_mot_def_gfx;
+}
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_tk_tz_15000series_end_gfx,position_in_consist_from_end){
+    0: tk_tz_15000series_end;
+    default: sw_tk_tz_15000series_mot_def_main_gfx;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_tz_15000series_front_gfx,position_in_consist){
+    0: tk_tz_15000series_front;
+    default: sw_tk_tz_15000series_end_gfx;
+}
+//capacity-changer
+switch(FEAT_TRAINS, SELF, sw_tk_tz_15000series_main_capacity,position_in_consist_from_end){
+    0: 143*param_capacity_mod/3;
+    default: 154*param_capacity_mod/3;
+}
+//attachable vehicles
+switch(FEAT_TRAINS, SELF, tk_tz_15000series_attach_vehid, vehicle_type_id) {
+  mu_car_narrow: return CB_RESULT_ATTACH_ALLOW;
+  return string(STR_ATTACH_ERROR);
+}
+
+item(FEAT_TRAINS, tk_tz_15000series,1043) {
+    property {
+        name: string(STR_tk_tz_15000series_NAME);
+        introduction_date: date(2010, 1, 1);
+        model_life: VEHICLE_NEVER_EXPIRES;
+        vehicle_life: 40;
+        reliability_decay: 20;
+
+        cargo_capacity: 143*param_capacity_mod/3;
+        loading_speed: param_loading_4D;
+        cost_factor: 22;
+        running_cost_factor: 52;
+
+        speed: 120 km/h;
+        track_type: TR_1067_DC;
+        power: 900 kW;
+        weight: 34 ton;
+
+        climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_MU);
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: bitmask();
+        refit_cost: 0;
+        dual_headed: 0;
+        ai_engine_rank: 0;
+
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+        
+        tractive_effort_coefficient: 0.3;
+        air_drag_coefficient: 0.15000;
+        bitmask_vehicle_info: 0;
+        length: 8;
+    }
+	graphics {
+        default: sw_tk_tz_15000series_front_gfx;
+        purchase: tk_tz_15000series_purchase;
+        can_attach_wagon: tk_tz_15000series_attach_vehid;
+        additional_text:    string(STR_CONCAT_6,
+                            string(STR_NARROWGAUGE),
+                            string(STR_FORMATION),
+                            string(STR_10_CARS),
+                            string(STR_CARS),
+                            string(STR_CITY,
+                            string(STR_TOKYOMETRO,
+                            string(STR_OPERATOR)
+                            ),
+                            ),
+                            string(STR_LINES_USED,
+                            string(STR_TOKYO_TOZAI)
+                            ),
+                        );
+        start_stop: sw_stop_start_4;  
+        cargo_capacity: 143*param_capacity_mod/3;
+    }
+    livery_override(mu_car_narrow){
+        loading_speed: param_loading_4D;
+        cargo_capacity: sw_tk_tz_15000series_main_capacity;
+        default:                      sw_tk_tz_15000series_front_gfx;
+        power: 1207*4/9;
+        weight: 25;
+        length: 8;
+      }
+}

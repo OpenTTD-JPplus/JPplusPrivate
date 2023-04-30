@@ -1,0 +1,182 @@
+spriteset (ng_mj_2000series_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
+alternative_sprites(ng_mj_2000series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Nagoya/meijo/2000series/2000series_purchase.png"){ tmpl_purchase(0, 0) }
+
+spriteset (ng_mj_2000series_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (ng_mj_2000series_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+spriteset (ng_mj_2000series_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (ng_mj_2000series_front_f,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (ng_mj_2000series_end_f,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+
+alternative_sprites(ng_mj_2000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Nagoya/meijo/2000series/2000series.png"){ tmpl_std(0, 0) }
+alternative_sprites(ng_mj_2000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Nagoya/meijo/2000series/2000series.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(ng_mj_2000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Nagoya/meijo/2000series/2000series.png"){ tmpl_std(0, 50) }
+alternative_sprites(ng_mj_2000series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Nagoya/meijo/2000series/2000series.png"){ tmpl_std(0, 25) }
+alternative_sprites(ng_mj_2000series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Nagoya/meijo/2000series/2000series.png"){ tmpl_std_rev(0, 25) }
+
+spriteset (ng_mj_2000series_1_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (ng_mj_2000series_1_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+spriteset (ng_mj_2000series_1_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (ng_mj_2000series_1_front_f,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (ng_mj_2000series_1_end_f,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+
+alternative_sprites(ng_mj_2000series_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Nagoya/meijo/2000series/2000series_1.png"){ tmpl_std(0, 0) }
+alternative_sprites(ng_mj_2000series_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Nagoya/meijo/2000series/2000series_1.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(ng_mj_2000series_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Nagoya/meijo/2000series/2000series_1.png"){ tmpl_std(0, 50) }
+alternative_sprites(ng_mj_2000series_1_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Nagoya/meijo/2000series/2000series_1.png"){ tmpl_std(0, 25) }
+alternative_sprites(ng_mj_2000series_1_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Nagoya/meijo/2000series/2000series_1.png"){ tmpl_std_rev(0, 25) }
+
+//*livery 1
+//fake head-end placer
+switch(FEAT_TRAINS, SELF, sw_ng_mj_2000series_fake_placer,position_in_consist){
+    5: ng_mj_2000series_end_f;
+    6: ng_mj_2000series_front_f;
+ng_mj_2000series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_ng_mj_2000series_fake_placer_rev,position_in_consist_from_end){
+    5: ng_mj_2000series_front_f;
+    6: ng_mj_2000series_end_f;
+ng_mj_2000series_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_ng_mj_2000series_fake_placer_gfx,vehicle_is_reversed){
+    1: sw_ng_mj_2000series_fake_placer_rev;
+    sw_ng_mj_2000series_fake_placer;
+}
+switch(FEAT_TRAINS, SELF, sw_ng_mj_2000series_fake_placer_main,num_vehs_in_consist>9){
+    1: sw_ng_mj_2000series_fake_placer_gfx;
+ng_mj_2000series_wag;
+}
+//fake head-end placer end
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_ng_mj_2000series_end_gfx,position_in_consist_from_end){
+    0: ng_mj_2000series_end;
+    default: sw_ng_mj_2000series_fake_placer_main;
+}
+switch(FEAT_TRAINS, SELF, sw_ng_mj_2000series_livery_1,position_in_consist){
+    0: ng_mj_2000series_front;
+    default: sw_ng_mj_2000series_end_gfx;
+}
+
+//*livery 2
+//fake head-end placer
+switch(FEAT_TRAINS, SELF, sw_ng_mj_2000series_1_fake_placer,position_in_consist){
+    5: ng_mj_2000series_1_end_f;
+    6: ng_mj_2000series_1_front_f;
+ng_mj_2000series_1_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_ng_mj_2000series_1_fake_placer_rev,position_in_consist_from_end){
+    5: ng_mj_2000series_1_front_f;
+    6: ng_mj_2000series_1_end_f;
+ng_mj_2000series_1_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_ng_mj_2000series_1_fake_placer_gfx,vehicle_is_reversed){
+    1: sw_ng_mj_2000series_1_fake_placer_rev;
+    sw_ng_mj_2000series_1_fake_placer;
+}
+switch(FEAT_TRAINS, SELF, sw_ng_mj_2000series_1_fake_placer_main,num_vehs_in_consist>9){
+    1: sw_ng_mj_2000series_1_fake_placer_gfx;
+ng_mj_2000series_1_wag;
+}
+//fake head-end placer end
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_ng_mj_2000series_1_end_gfx,position_in_consist_from_end){
+    0: ng_mj_2000series_1_end;
+    default: sw_ng_mj_2000series_1_fake_placer_main;
+}
+switch(FEAT_TRAINS, SELF, sw_ng_mj_2000series_livery_2,position_in_consist){
+    0: ng_mj_2000series_1_front;
+    default: sw_ng_mj_2000series_1_end_gfx;
+}
+
+//lv selecting
+random_switch(FEAT_TRAINS, PARENT, sw_ng_mj_2000series_livery_0){
+    3:sw_ng_mj_2000series_livery_1;
+    1:sw_ng_mj_2000series_livery_2;
+}
+
+//livery selector
+switch(FEAT_TRAINS, SELF, sw_ng_mj_2000series_lv_desc, cargo_subtype){
+    0: string(LV_RANDOM);
+    1: string(LV_DEFAULT);
+    2: string(LV_ng_mj_2000series_1);
+}
+switch(FEAT_TRAINS, SELF, sw_ng_mj_2000series_lv, cargo_subtype){
+    0: sw_ng_mj_2000series_livery_0;
+    1: sw_ng_mj_2000series_livery_1;
+    2: sw_ng_mj_2000series_livery_2;
+}
+
+//capacity-changer
+switch(FEAT_TRAINS, SELF, sw_ng_mj_2000series_main_capacity,position_in_consist_from_end){
+    0: 97*param_capacity_mod/3;
+    default: 107*param_capacity_mod/3;
+}
+//attachable vehicles
+switch(FEAT_TRAINS, SELF, ng_mj_2000series_attach_vehid, vehicle_type_id) {
+  mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
+  return string(STR_ATTACH_ERROR);
+}
+
+item(FEAT_TRAINS, ng_mj_2000series,1381) {
+    property {
+        cargo_capacity: 130;
+        climates_available: param_disable_nagoya == 0 ? ALL_CLIMATES : NO_CLIMATE;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_MU);
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: bitmask();
+        refit_cost: 0;
+        dual_headed: 0;
+        ai_engine_rank: 0;
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+        tractive_effort_coefficient: 0.3;
+        air_drag_coefficient: 0.07;
+        bitmask_vehicle_info: 0;
+
+        name: string(STR_ng_mj_2000series_NAME);
+        introduction_date: date(1989, 1, 1);
+        model_life: VEHICLE_NEVER_EXPIRES;
+        vehicle_life: 40;
+        reliability_decay: 20;
+
+        cost_factor: 19;
+        running_cost_factor: 49;
+        speed: 80 km/h;
+        track_type: TR_1435_M;
+        power: 300 kW;
+        weight: 24 ton;
+        loading_speed: param_loading_3D;
+    }
+	graphics {
+        default: sw_ng_mj_2000series_lv;
+        purchase: ng_mj_2000series_purchase;
+        can_attach_wagon: ng_mj_2000series_attach_vehid;
+        cargo_subtype_text:sw_ng_mj_2000series_lv_desc;
+        additional_text:    string(STR_CONCAT_6,
+                            string(STR_STANDARDGAUGE),
+                            string(STR_FORMATION),
+                            string(STR_6_CARS),
+                            string(STR_CARS),
+                            string(STR_CITY,
+                            string(STR_NAGOYA,
+                            string(STR_OPERATOR)
+                            ),
+                            ),
+                            string(STR_LINES_USED,
+                            string(STR_NAGOYA_MEIJO)
+                            ),
+                        );
+        start_stop: sw_stop_start_3; 
+        cargo_capacity: 96*param_capacity_mod/3;  
+    }
+    livery_override(mu_car_metro){
+        loading_speed: param_loading_3D;
+        cargo_capacity: sw_ng_mj_2000series_main_capacity;
+        default:                      sw_ng_mj_2000series_lv;
+        power: 402*3/5;
+        weight: 24;
+        length: 8; 
+      }
+}

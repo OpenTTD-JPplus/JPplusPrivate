@@ -1,0 +1,167 @@
+spriteset (kt_tz_50series_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
+alternative_sprites(kt_tz_50series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Kyoto/tozai/50series/50series_purchase.png"){ tmpl_purchase(0, 0) }
+//*livery 1
+spriteset (kt_tz_50series_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (kt_tz_50series_end,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+spriteset (kt_tz_50series_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (kt_tz_50series_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (kt_tz_50series_front_f,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (kt_tz_50series_end_f,       "gfx/gfx_placeholder.png") { tmpl_std_rev(0, 25) }
+
+alternative_sprites(kt_tz_50series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Kyoto/tozai/50series/50series.png"){ tmpl_std(0, 0) }
+alternative_sprites(kt_tz_50series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Kyoto/tozai/50series/50series.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(kt_tz_50series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Kyoto/tozai/50series/50series.png"){ tmpl_std(0, 75) }
+alternative_sprites(kt_tz_50series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Kyoto/tozai/50series/50series.png"){ tmpl_std(0, 50) }
+alternative_sprites(kt_tz_50series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Kyoto/tozai/50series/50series.png"){ tmpl_std(0, 100) }
+alternative_sprites(kt_tz_50series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Kyoto/tozai/50series/50series.png"){ tmpl_std_rev(0, 100) }
+
+//*livery 1
+
+//panto placer
+switch(FEAT_TRAINS, SELF, sw_kt_tz_50series_panto_placer_1,position_in_consist %6){
+    1: kt_tz_50series_mot;
+    3: kt_tz_50series_mot;
+    kt_tz_50series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_kt_tz_50series_panto_placer_1_rev,position_in_consist_from_end %6){
+    1: kt_tz_50series_mot;
+    3: kt_tz_50series_mot;
+    kt_tz_50series_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_kt_tz_50series_panto_placer_1_main,vehicle_is_reversed){
+    1: sw_kt_tz_50series_panto_placer_1_rev;
+    sw_kt_tz_50series_panto_placer_1;
+}
+// 2
+switch(FEAT_TRAINS, SELF, sw_kt_tz_50series_panto_placer_2,position_in_consist %7){
+    2: kt_tz_50series_mot;
+    4: kt_tz_50series_mot;
+    kt_tz_50series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_kt_tz_50series_panto_placer_2_rev,position_in_consist_from_end %7){
+    2: kt_tz_50series_mot;
+    4: kt_tz_50series_mot;
+    kt_tz_50series_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_kt_tz_50series_panto_placer_2_main,vehicle_is_reversed){
+    1: sw_kt_tz_50series_panto_placer_2_rev;
+    sw_kt_tz_50series_panto_placer_2;
+}
+//panto main
+switch(FEAT_TRAINS, SELF, sw_kt_tz_50series_panto_placer_main,num_vehs_in_consist){
+    4..5: sw_kt_tz_50series_panto_placer_2_main;
+    7..8: sw_kt_tz_50series_panto_placer_2_main;
+    sw_kt_tz_50series_panto_placer_1_main;
+}
+//panto placer end 
+
+
+//fake head-end placer
+switch(FEAT_TRAINS, SELF, sw_kt_tz_50series_fake_placer,position_in_consist){
+    5: kt_tz_50series_end_f;
+    6: kt_tz_50series_front_f;
+sw_kt_tz_50series_panto_placer_main;
+}
+switch(FEAT_TRAINS, SELF, sw_kt_tz_50series_fake_placer_rev,position_in_consist_from_end){
+    5: kt_tz_50series_front_f;
+    6: kt_tz_50series_end_f;
+sw_kt_tz_50series_panto_placer_main;
+}
+switch(FEAT_TRAINS, PARENT, sw_kt_tz_50series_fake_placer_gfx,vehicle_is_reversed){
+    1: sw_kt_tz_50series_fake_placer_rev;
+    sw_kt_tz_50series_fake_placer;
+}
+switch(FEAT_TRAINS, SELF, sw_kt_tz_50series_fake_placer_main,num_vehs_in_consist>8){
+    1: sw_kt_tz_50series_fake_placer_gfx;
+sw_kt_tz_50series_panto_placer_main;
+}
+//fake head-end placer end
+
+
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_kt_tz_50series_end,position_in_consist_from_end){
+    0: kt_tz_50series_end;
+    default: sw_kt_tz_50series_fake_placer_main;
+}
+switch(FEAT_TRAINS, SELF, sw_kt_tz_50series_livery_1,position_in_consist){
+    0: kt_tz_50series_front;
+    default: sw_kt_tz_50series_end;
+}
+//front-end-fixer end
+
+//capacity-changer
+switch(FEAT_TRAINS, SELF, sw_kt_tz_50series_main_capacity,position_in_consist_from_end){
+    0: 82*param_capacity_mod/3;
+    default: 104*param_capacity_mod/3;
+}
+//attachable vehicles
+switch(FEAT_TRAINS, SELF, kt_tz_50series_attach_vehid, vehicle_type_id) {
+  mu_car: return CB_RESULT_ATTACH_ALLOW;
+  return string(STR_ATTACH_ERROR);
+}
+
+
+item(FEAT_TRAINS, kt_tz_50series,1360) {
+    property {
+        cargo_capacity: 130;
+        climates_available: param_disable_kyoto == 0 ? ALL_CLIMATES : NO_CLIMATE;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_MU);
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: bitmask();
+        refit_cost: 0;
+        dual_headed: 0;
+        ai_engine_rank: 0;
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+        tractive_effort_coefficient: 0.3;
+        air_drag_coefficient: 0.07;
+        bitmask_vehicle_info: 0;
+
+        name: string(STR_kt_tz_50series_NAME);
+        introduction_date: date(1997, 1, 1);
+        model_life: VEHICLE_NEVER_EXPIRES;
+        vehicle_life: 40;
+        reliability_decay: 20;
+
+        cost_factor: 20;
+        running_cost_factor: 50;
+        speed: 85 km/h;
+        track_type: TR_1435;
+        power: 340 kW;
+        weight: 25 ton;
+        loading_speed: param_loading_3D;
+    }
+	graphics {
+        default: sw_kt_tz_50series_livery_1;
+        purchase: kt_tz_50series_purchase;
+        can_attach_wagon: kt_tz_50series_attach_vehid;
+        additional_text:    string(STR_CONCAT_6,
+                            string(STR_STANDARDGAUGE),
+                            string(STR_FORMATION),
+                            string(STR_6_CARS),
+                            string(STR_CARS),
+                            string(STR_CITY,
+                            string(STR_KYOTO,
+                            string(STR_OPERATOR)
+                            ),
+                            ),
+                            string(STR_LINES_USED,
+                            string(STR_KYOTO_TOZAI)
+                            ),
+                        );
+        start_stop: sw_stop_start_3; 
+        cargo_capacity: 144*param_capacity_mod/3;  
+    }
+    livery_override(mu_car){
+        loading_speed: param_loading_3D;
+        cargo_capacity: sw_kt_tz_50series_main_capacity;
+        default:                      sw_kt_tz_50series_livery_1;
+        power: 456*3/5;
+        weight: 25;
+        length: 8; 
+      }
+}
+
