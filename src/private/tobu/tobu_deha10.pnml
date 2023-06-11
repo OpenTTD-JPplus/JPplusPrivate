@@ -468,6 +468,22 @@ switch(FEAT_TRAINS, SELF, sw_tobu_deha10_lv_desc, current_year){
 }
 
 //post fixers
+//speed fix
+switch(FEAT_TRAINS, SELF, sw_tobu_deha10_speed_fix_0, build_year){
+    1930..1948:return 85;
+    return 95;
+}
+
+switch(FEAT_TRAINS, SELF, sw_tobu_deha10_speed_fix, cargo_subtype){
+    0:sw_tobu_deha10_speed_fix_0;
+    1:return 85;
+    2:return 95;
+    3:return 95;
+    4:return 95;
+    5:return 95;
+    6:return 95;
+}
+
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tobu_deha10_attach_vehid, vehicle_type_id) {
   mu_car: return string(STR_ATTACH_1067_ERROR);
@@ -502,13 +518,14 @@ item(FEAT_TRAINS, tobu_deha10,2066) {
 
         cost_factor: 12;
         running_cost_factor: 42;
-        speed: 75 km/h;
+        speed: 90 km/h;
         track_type: TR_1067_DC;
-        power: 240 kW;
-        weight: 33 ton;
+        power: 220 kW;
+        weight: 41 ton;
         loading_speed: param_loading_2D;
     }
 	graphics {
+        speed: sw_tobu_deha10_speed_fix;
         default: sw_tobu_deha10_lv;
         purchase: tobu_deha10_purchase;
         can_attach_wagon: tobu_deha10_attach_vehid;
@@ -523,7 +540,9 @@ item(FEAT_TRAINS, tobu_deha10,2066) {
                             string(STR_COUPLER,
                             string(STR_KNUCKLE)),
                             string(STR_USAGE,
+                            string(STR_CONCAT_2_OR,
                             string(STR_COMMUTER),
+                            string(STR_LIMITED),),
                             string(STR_DC),
                             ),
                             string(STR_OPERATOR_PRIVATE,
@@ -532,13 +551,13 @@ item(FEAT_TRAINS, tobu_deha10,2066) {
                             
                         );
                          
-        cargo_capacity: 92*param_capacity_mod/3;  
+        cargo_capacity: 138*param_capacity_mod/3;  
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_2D;
-        cargo_capacity: 92*param_capacity_mod/3;
+        cargo_capacity: 138*param_capacity_mod/3;
         default:                      sw_tobu_deha10_lv;
-        power: 240*1342/1000;
-        weight: 33;
+        power: 220*1342/1000;
+        weight: 41;
       }
 }
