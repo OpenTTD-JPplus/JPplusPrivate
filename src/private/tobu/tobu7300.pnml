@@ -330,6 +330,11 @@ switch(FEAT_TRAINS, SELF, sw_tobu7300_lv_desc, current_year){
     sw_tobu7300_lv_3_desc;
 }
 
+//power fixer
+switch(FEAT_TRAINS, SELF, tobu7300_power, position_in_vehid_chain %2) {
+  1: return 512*1342/1000;
+  return 0;
+}
 
 //post fixers
 //attachable vehicles
@@ -368,11 +373,12 @@ item(FEAT_TRAINS, tobu7300,2067) {
         running_cost_factor: 42;
         speed: 100 km/h;
         track_type: TR_1067_DC;
-        power: 284 kW;
+        power: 512 kW;
         weight: 41 ton;
         loading_speed: param_loading_4D;
     }
 	graphics {
+        start_stop: sw_stop_start_2;
         default: sw_tobu7300_lv;
         purchase: tobu7300_purchase;
         can_attach_wagon: tobu7300_attach_vehid;
@@ -402,7 +408,7 @@ item(FEAT_TRAINS, tobu7300,2067) {
         loading_speed: param_loading_4D;
         cargo_capacity: 159*param_capacity_mod/3;
         default:                      sw_tobu7300_lv;
-        power: 284*1342/2000;
+        power: tobu7300_power;
         weight: 41;
       }
 }
