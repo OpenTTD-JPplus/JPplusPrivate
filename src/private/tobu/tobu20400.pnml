@@ -99,20 +99,6 @@ switch(FEAT_TRAINS, SELF, sw_tobu20400_capacity_main,vehicle_type_id){
     mu_car_narrow:sw_tobu20400_capacity;
     sw_tobu20400_capacity_1;
 }
-//power fix
-switch(FEAT_TRAINS, SELF, sw_tobu20400_power,position_in_vehid_chain_from_end%12){
-    1..6:return 150;
-    return 0;
-}
-switch(FEAT_TRAINS, SELF, sw_tobu20400_power_1,position_in_vehid_chain){
-    0: return 0;
-    sw_tobu20400_power;
-}
-switch(FEAT_TRAINS, SELF, sw_tobu20400_power_main,vehicle_type_id){
-    mu_car_narrow:sw_tobu20400_power;
-    sw_tobu20400_power_1;
-}
-
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tobu20400_attach_vehid, vehicle_type_id) {
   mu_car: return string(STR_ATTACH_1067_ERROR);
@@ -120,7 +106,7 @@ switch(FEAT_TRAINS, SELF, tobu20400_attach_vehid, vehicle_type_id) {
   return CB_RESULT_ATTACH_ALLOW;
 }
 
-item(FEAT_TRAINS, tobu20400,2077) {
+item(FEAT_TRAINS, tobu20400,2076) {
     property {
         cargo_capacity: 130;
         ai_special_flag: AI_FLAG_PASSENGER;
@@ -137,7 +123,7 @@ item(FEAT_TRAINS, tobu20400,2077) {
         tractive_effort_coefficient: 0.3;
         air_drag_coefficient: 0.07;
         bitmask_vehicle_info: 0;
-        variant_group:2076;
+        variant_group:2075;
         
         climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_tobu20400_NAME);
@@ -155,7 +141,7 @@ item(FEAT_TRAINS, tobu20400,2077) {
         loading_speed: param_loading_3D;
     }
 	graphics {
-        power:sw_tobu20400_power_main()*4*1342/1000;
+        power:sw_tobu20000_power_main()*4*1342/1000;
         start_stop: sw_stop_start_3;
         default: sw_tobu20400_lv;
         purchase: tobu20400_purchase;
@@ -186,7 +172,7 @@ item(FEAT_TRAINS, tobu20400,2077) {
         loading_speed: param_loading_3D;
         cargo_capacity: sw_tobu20400_capacity_main()*param_capacity_mod/3;
         default:                      sw_tobu20400_lv;
-        power:  sw_tobu20400_power_main()*4*1342/1000;
+        power:  sw_tobu20000_power_main()*4*1342/1000;
         weight: 33;
       }
 }

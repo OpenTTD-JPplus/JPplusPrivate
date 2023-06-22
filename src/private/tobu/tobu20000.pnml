@@ -107,22 +107,18 @@ switch(FEAT_TRAINS, SELF, sw_tobu20000_capacity_main,vehicle_type_id){
     sw_tobu20000_capacity_1;
 }
 //power fix
-switch(FEAT_TRAINS, PARENT, sw_tobu20000_power_0,num_vehs_in_consist){
+switch(FEAT_TRAINS, SELF, sw_tobu20000_power,position_in_vehid_chain_from_end%5){
+    1..2:return 140;
+    4:return 140;
+    return 0;
+}
+switch(FEAT_TRAINS, SELF, sw_tobu20000_head_power,num_vehs_in_consist){
     2: return 140;
     return 0;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu20000_power,position_in_vehid_chain_from_end%12){
-    0: sw_tobu20000_power_0;
-    1..6:return 140;
-    return 0;
-}
-switch(FEAT_TRAINS, SELF, sw_tobu20000_power_1,position_in_vehid_chain){
-    0: return 0;
-    sw_tobu20000_power;
-}
 switch(FEAT_TRAINS, SELF, sw_tobu20000_power_main,vehicle_type_id){
     mu_car_narrow:sw_tobu20000_power;
-    sw_tobu20000_power_1;
+    sw_tobu20000_head_power;
 }
 
 //attachable vehicles
@@ -132,7 +128,7 @@ switch(FEAT_TRAINS, SELF, tobu20000_attach_vehid, vehicle_type_id) {
   return CB_RESULT_ATTACH_ALLOW;
 }
 
-item(FEAT_TRAINS, tobu20000,2076) {
+item(FEAT_TRAINS, tobu20000,2075) {
     property {
         cargo_capacity: 130;
         ai_special_flag: AI_FLAG_PASSENGER;
