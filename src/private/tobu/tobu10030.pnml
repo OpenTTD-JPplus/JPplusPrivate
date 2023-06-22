@@ -215,24 +215,16 @@ switch(FEAT_TRAINS, SELF, sw_tobu10030_livery_2,vehicle_type_id){
 }
 
 //livery controller
-switch(FEAT_TRAINS, PARENT, sw_tobu10030_lv_1,cargo_subtype){
+switch(FEAT_TRAINS, PARENT, sw_tobu10030_lv,cargo_subtype){
     0: sw_tobu10030_livery_1;
+    1: sw_tobu10030_livery_2;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu10030_lv_1_desc,cargo_subtype){
     0: string(LV_DEFAULT);
 }
-
-switch(FEAT_TRAINS, PARENT, sw_tobu10030_lv_2,cargo_subtype){
-    0: sw_tobu10030_livery_1;
-    1: sw_tobu10030_livery_2;
-}
 switch(FEAT_TRAINS, SELF, sw_tobu10030_lv_2_desc,cargo_subtype){
     0: string(LV_DEFAULT);
     1: string(LV_tobu10030_2);
-}
-switch(FEAT_TRAINS, PARENT, sw_tobu10030_lv,current_year){
-    0..2012: sw_tobu10030_lv_1;
-    sw_tobu10030_lv_2;
 }
 
 switch(FEAT_TRAINS, SELF, sw_tobu10030_lv_desc,current_year){
@@ -262,7 +254,7 @@ switch(FEAT_TRAINS, SELF, tobu10030_attach_vehid, vehicle_type_id) {
   return CB_RESULT_ATTACH_ALLOW;
 }
 
-item(FEAT_TRAINS, tobu10030_1,2075) {
+item(FEAT_TRAINS, tobu10030_1,2074) {
     property {
         cargo_capacity: 130;
         ai_special_flag: AI_FLAG_PASSENGER;
@@ -279,7 +271,7 @@ item(FEAT_TRAINS, tobu10030_1,2075) {
         tractive_effort_coefficient: 0.3;
         air_drag_coefficient: 0.07;
         bitmask_vehicle_info: 0;
-        variant_group:2074;
+        variant_group:2073;
         
         climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_tobu10030_NAME);

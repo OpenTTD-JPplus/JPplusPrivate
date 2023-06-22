@@ -177,32 +177,25 @@ switch(FEAT_TRAINS, SELF, sw_tokyu3500_old_livery_0, current_year){
     sw_tokyu3500_old_livery_0_new;
 }
 //livery selector old
-switch(FEAT_TRAINS, SELF, sw_tokyu3500_lv_0, cargo_subtype){
-    0:sw_tokyu3500_old_livery_0;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu3500_lv_0_desc, cargo_subtype){
-    0:string(LV_TIME_RANDOM);
-}
-//livery selector new
-switch(FEAT_TRAINS, PARENT, sw_tokyu3500_lv_1, cargo_subtype){
+switch(FEAT_TRAINS, PARENT, sw_tokyu3500_lv, cargo_subtype){
     0:sw_tokyu3500_old_livery_0;
     1:sw_tokyu3500_old_livery_1;
     2:sw_tokyu3500_old_livery_2;
     3:sw_tokyu3500_old_livery_3;
 }
+
+switch(FEAT_TRAINS, SELF, sw_tokyu3500_lv_0_desc, cargo_subtype){
+    0:string(LV_TIME_RANDOM);
+    1:string(LV_OLD);
+}
+//livery selector new
 switch(FEAT_TRAINS, PARENT, sw_tokyu3500_lv_1_desc, cargo_subtype){
     0:string(LV_TIME_RANDOM);
     1:string(LV_OLD);
     2:string(LV_AC);
     3:string(LV_tokyu3500_lv_3);
 }
-//main gfx
-switch(FEAT_TRAINS, PARENT, sw_tokyu3500_old_lv, current_year){
-    0..1977:sw_tokyu3500_lv_0;
-    sw_tokyu3500_lv_1;
-}
-
-switch(FEAT_TRAINS, PARENT, sw_tokyu3500_old_lv_desc, current_year){
+switch(FEAT_TRAINS, SELF, sw_tokyu3500_old_lv_desc, current_year){
     0..1977:sw_tokyu3500_lv_0_desc;
     sw_tokyu3500_lv_1_desc;
 }
@@ -242,7 +235,7 @@ item(FEAT_TRAINS, tokyu3500_old,2003) {
         loading_speed: param_loading_3D;
     }
 	graphics {
-        default: sw_tokyu3500_old_lv;
+        default: sw_tokyu3500_lv;
         purchase: tokyu3500_old_purchase;
         cargo_subtype_text:sw_tokyu3500_old_lv_desc;
         start_stop: sw_stop_start_2; 
@@ -270,7 +263,7 @@ item(FEAT_TRAINS, tokyu3500_old,2003) {
     livery_override(mu_car_narrow){
         loading_speed: param_loading_3D;
         cargo_capacity: 100*param_capacity_mod/3;
-        default: sw_tokyu3500_old_lv;
+        default: sw_tokyu3500_lv;
         power: 220*1342/1000;
         weight: 33;
       }
