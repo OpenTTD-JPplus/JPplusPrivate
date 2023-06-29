@@ -10,11 +10,11 @@ grf {
     name: string(STR_NAME);
     desc: string(STR_DESC);
 	url: string(STR_GRF_URL);
-    version: 12;
+    version: 13;
     min_compatible_version: 6;
 
 param 0 { 
-				//basecosts
+	//*basecosts
 		param_buy {
 				type: int;
 				name: string(STR_PARAM_NAME_BASECOSTMODBUY);
@@ -32,8 +32,7 @@ param 0 {
 				}
 		}
 
-		//runningcosts
-
+	//*runningcosts
 param 1 {
 		param_run {
 			type: int;
@@ -52,6 +51,7 @@ param 1 {
 			};
 		}
 	}
+	//*capacity
 param 2 {
 				param_capacities {
 						type: int;
@@ -80,7 +80,7 @@ param 3 {
 
 			 }
 		}
-
+	//*disablers
 param 4 {
 			param_disable_tokyo {
 						type: bool;
@@ -193,18 +193,7 @@ param 14 {
 }
 }
 
-train_width_32_px = 1;
-// traininfo_y_offset = 2;
-disable_item(FEAT_TRAINS);
-
-if (((grf_future_status("SZ\0D\00") == 0) && (grf_future_status("DP\30\00") == 0))) {
-	error( WARNING, string(GRF_JAPANSET));
-}
-if ((grf_current_status("mkw\E0") == 1)||(grf_future_status("mkw\E0") == 1)){
-	error( ERROR, string(GRF_TKMS));
-}
-
-
+	//*param based variables
 if (param_capacities == 0 || param_capacities == 1) {
 	param_loading_1D = 10; // 1 door //
 	param_loading_2D = 20; // 2 doors //
@@ -220,7 +209,7 @@ if (param_capacities == 2) {
 	param_loading_3D = 40; // 3 doors //
 	param_loading_4D = 50; // 4 doors //
 	param_loading_5D = 80; // 5 doors //
-	param_loading_6D = 90; // 5 doors //
+	param_loading_6D = 90; // 6 doors //
 }
 if (param_capacities == 3) {
 	param_loading_1D = 30; // 1 door //
@@ -228,7 +217,7 @@ if (param_capacities == 3) {
 	param_loading_3D = 50; // 3 doors //
 	param_loading_4D = 70; // 4 doors //
 	param_loading_5D = 100; // 5 doors //
-	param_loading_6D = 120; // 5 doors //
+	param_loading_6D = 120; // 6 doors //
 }
 if (param_capacities == 4) {
 	param_loading_1D = 40; // 1 door //
@@ -236,7 +225,7 @@ if (param_capacities == 4) {
 	param_loading_3D = 60; // 3 doors //
 	param_loading_4D = 80; // 4 doors //
 	param_loading_5D = 120; // 5 doors //
-	param_loading_6D = 140; // 5 doors //
+	param_loading_6D = 140; // 6  doors //
 }
 
 
@@ -256,32 +245,39 @@ if (param_capacities == 4) {
 	param_capacity_mod = param_custom_capacity;
 }
 
-train_width_32_px = 1;
-traininfo_y_offset = 2;
-
 if (param_buy == 0) { PURCHASE_COST_MOD = -2; }
 if (param_buy == 1) { PURCHASE_COST_MOD = -1; }
 if (param_buy == 2) { PURCHASE_COST_MOD = 0; }
 if (param_buy == 3) { PURCHASE_COST_MOD = 1; }
 if (param_buy == 4) { PURCHASE_COST_MOD = 2; }
 
-//*cargo aging
+	//*cargo aging
 //TODO by a param
 local_cargo_age = 185;
 rapid_cargo_age = 231;
 express_cargo_age = 278;
 
+train_width_32_px = 1;
+traininfo_y_offset = 2;
+disable_item(FEAT_TRAINS);
 
+if (((grf_future_status("SZ\0D\00") == 0) && (grf_future_status("DP\30\00") == 0))) {
+	error( WARNING, string(GRF_JAPANSET));
+}
+if ((grf_current_status("mkw\E0") == 1)||(grf_future_status("mkw\E0") == 1)){
+	error( ERROR, string(GRF_TKMS));
+}
 
 railtypetable {
 	RAIL,
 	ELRL,
     TR_1067_DC: [NABE, ELNG, ELRL],
+    TR_1067_AC: [NABE, ELNG, ELRL],
 	TR_1435_M: [SAB3, "3RDR",MTRO,ELRL],
-	TR_1435: [ELRL, RAIL],
+	TR_1435_DC: [ELRL],
+	TR_1435_AC: [ELRL],
 	TR_1372: [ELRL, NABE],
 	TR_1435_LNR: [ELRL],
-	TR_EVERY: [RAIL,NABE]
 }
 	
 
@@ -392,7 +388,7 @@ item(FEAT_TRAINS, mu_car, 101) {
                 refittable_cargo_classes: bitmask(CC_PASSENGERS);
                 cargo_age_period: 185;
                 refit_cost: 0;
-				track_type:TR_1435;
+				track_type:TR_1435_DC;
                 ai_special_flag: AI_FLAG_PASSENGER;
                 running_cost_base: RUNNING_COST_DIESEL;
                 engine_class: ENGINE_CLASS_STEAM;
@@ -787,7 +783,7 @@ item(FEAT_TRAINS, tk_gz_t100, 1002) {
     }
     livery_override(mu_car_metro){
         default:                      sw_tk_gz_t100_livery_1;
-        cargo_capacity:               70*param_capacity_mod/3*param_capacity_mod/3;
+        cargo_capacity:               70*param_capacity_mod/3;
         loading_speed:                param_loading_3D;
         power: 241;
         weight: 34;
@@ -1231,7 +1227,7 @@ item(FEAT_TRAINS, tk_gz_1000s, 1006) {
         cost_factor: 18;
         running_cost_factor: 48;
 
-        speed: 80 km/h;
+        speed: 90 km/h;
         track_type: TR_1435_M;
         power: 200 kW;
         weight: 30 ton;
@@ -1662,7 +1658,7 @@ item(FEAT_TRAINS, tk_mn_2000s,1023) {
         cost_factor: 19;
         running_cost_factor: 49;
 
-        speed: 80 km/h;
+        speed: 90 km/h;
         track_type: TR_1435_M;
         power: 200 kW;
         weight: 30 ton;
@@ -5823,7 +5819,7 @@ item(FEAT_TRAINS, tk_as_toei5000,1120) {
         running_cost_factor: 49;
 
         speed: 100 km/h;
-        track_type: TR_1435;
+        track_type: TR_1435_DC;
         power: 340 kW;
         weight: 34 ton;
 
@@ -6035,7 +6031,7 @@ item(FEAT_TRAINS, tk_as_toei5200,1121) {
         running_cost_factor: 50;
 
         speed: 100 km/h;
-        track_type: TR_1435;
+        track_type: TR_1435_DC;
         power: 340 kW;
         weight: 34 ton;
 
@@ -6155,7 +6151,7 @@ item(FEAT_TRAINS, tk_as_toei5300,1122) {
         running_cost_factor: 49;
 
         speed: 120 km/h;
-        track_type: TR_1435;
+        track_type: TR_1435_DC;
         power: 620 kW;
         weight: 24 ton;
 
@@ -6270,7 +6266,7 @@ item(FEAT_TRAINS, tk_as_toei5500,1123) {
         running_cost_factor: 50;
 
         speed: 130 km/h;
-        track_type: TR_1435;
+        track_type: TR_1435_DC;
         power: 620 kW;
         weight: 30 ton;
 
@@ -7607,7 +7603,7 @@ item(FEAT_TRAINS, tk_od_toei12_000,1150) {
         name: string(STR_tk_od_toei12_000_NAME);
         introduction_date: date(1990, 1, 1);
         cargo_capacity: 90;
-        speed: 70 km/h;
+        speed: 80 km/h;
         power: 240 kW;
         weight: 20 ton;
         
@@ -13371,7 +13367,7 @@ item(FEAT_TRAINS, os_hk_60series,1290) {
         cost_factor: 20;
         running_cost_factor: 50;
         speed: 100 km/h;
-        track_type: TR_1435;
+        track_type: TR_1435_DC;
         power: 480 kW;
         weight: 25 ton;
         loading_speed: param_loading_3D;
@@ -13578,7 +13574,7 @@ item(FEAT_TRAINS, os_hk_66series,1291) {
         cost_factor: 21;
         running_cost_factor: 51;
         speed: 110 km/h;
-        track_type: TR_1435;
+        track_type: TR_1435_DC;
         power: 480 kW;
         weight: 23 ton;
         loading_speed: param_loading_3D;
@@ -13848,8 +13844,8 @@ item(FEAT_TRAINS, os_ts_70series,1300) {
 
         cost_factor: 19;
         running_cost_factor: 49;
-        speed: 70 km/h;
-        track_type: TR_1435;
+        speed: 100 km/h;
+        track_type: TR_1435_DC;
         power: 200 kW;
         weight: 24 ton;
         loading_speed: param_loading_3D;
@@ -13977,8 +13973,8 @@ item(FEAT_TRAINS, os_ts_80series,1301) {
 
         cost_factor: 19;
         running_cost_factor: 49;
-        speed: 70 km/h;
-        track_type: TR_1435;
+        speed: 110 km/h;
+        track_type: TR_1435_DC;
         power: 200 kW;
         weight: 24 ton;
         loading_speed: param_loading_3D;
@@ -14108,7 +14104,7 @@ item(FEAT_TRAINS, os_iz_80series,1310) {
 
         cost_factor: 19;
         running_cost_factor: 49;
-        speed: 70 km/h;
+        speed: 110 km/h;
         track_type: TR_1435_LNR;
         power: 200 kW;
         weight: 24 ton;
@@ -14291,7 +14287,7 @@ item(FEAT_TRAINS, kt_ks_10series,1350) {
         cost_factor: 20;
         running_cost_factor: 50;
         speed: 105 km/h;
-        track_type: TR_1435;
+        track_type: TR_1435_DC;
         power: 560 kW;
         weight: 35 ton;
         loading_speed: param_loading_4D;
@@ -14472,7 +14468,7 @@ item(FEAT_TRAINS, kt_ks_20series,1351) {
         cost_factor: 22;
         running_cost_factor: 52;
         speed: 105 km/h;
-        track_type: TR_1435;
+        track_type: TR_1435_DC;
         power: 560 kW;
         weight: 30 ton;
         loading_speed: param_loading_4D;
@@ -14642,7 +14638,7 @@ item(FEAT_TRAINS, kt_tz_50series,1360) {
         cost_factor: 20;
         running_cost_factor: 50;
         speed: 85 km/h;
-        track_type: TR_1435;
+        track_type: TR_1435_DC;
         power: 340 kW;
         weight: 25 ton;
         loading_speed: param_loading_3D;
@@ -15296,7 +15292,7 @@ item(FEAT_TRAINS, ng_hg_n1000series,1374) {
 
         cost_factor: 19;
         running_cost_factor: 49;
-        speed: 80 km/h;
+        speed: 90 km/h;
         track_type: TR_1435_M;
         power: 300 kW;
         weight: 25 ton;
@@ -16872,7 +16868,7 @@ item(FEAT_TRAINS, sn_nm_1000series,1430) {
 
         cost_factor: 20;
         running_cost_factor: 50;
-        speed: 85 km/h;
+        speed: 105 km/h;
         track_type: TR_1067_DC;
         power: 320 kW;
         weight: 32 ton;
@@ -17140,8 +17136,8 @@ item(FEAT_TRAINS, sn_tz_2000series,1435) {
 
         cost_factor: 18;
         running_cost_factor: 48;
-        speed: 85 km/h;
-        track_type: TR_1435;
+        speed: 105 km/h;
+        track_type: TR_1435_DC;
         power: 560 kW;
         weight: 32 ton;
         loading_speed: param_loading_3D;
@@ -17310,7 +17306,7 @@ item(FEAT_TRAINS, kb_sy_1000series,1440) {
         cost_factor: 19;
         running_cost_factor: 49;
         speed: 100 km/h;
-        track_type: TR_1435;
+        track_type: TR_1435_DC;
         power: 520 kW;
         weight: 28 ton;
         loading_speed: param_loading_3D;
@@ -17474,7 +17470,7 @@ item(FEAT_TRAINS, kb_sy_2000series,1441) {
         cost_factor: 20;
         running_cost_factor: 50;
         speed: 100 km/h;
-        track_type: TR_1435;
+        track_type: TR_1435_DC;
         power: 520 kW;
         weight: 28 ton;
         loading_speed: param_loading_3D;
@@ -17754,7 +17750,7 @@ item(FEAT_TRAINS, kb_sy_3000series,1442) {
         cost_factor: 20;
         running_cost_factor: 50;
         speed: 100 km/h;
-        track_type: TR_1435;
+        track_type: TR_1435_DC;
         power: 520 kW;
         weight: 28 ton;
         loading_speed: param_loading_3D;
@@ -17919,7 +17915,7 @@ item(FEAT_TRAINS, kb_sy_7000series,1443) {
         cost_factor: 20;
         running_cost_factor: 50;
         speed: 100 km/h;
-        track_type: TR_1435;
+        track_type: TR_1435_DC;
         power: 520 kW;
         weight: 28 ton;
         loading_speed: param_loading_3D;
@@ -18083,7 +18079,7 @@ item(FEAT_TRAINS, kb_sy_6000series,1444) {
         cost_factor: 21;
         running_cost_factor: 51;
         speed: 100 km/h;
-        track_type: TR_1435;
+        track_type: TR_1435_DC;
         power: 340 kW;
         weight: 29 ton;
         loading_speed: param_loading_3D;
@@ -18231,8 +18227,8 @@ item(FEAT_TRAINS, kb_kg_5000series,1447) {
 
         cost_factor: 19;
         running_cost_factor: 49;
-        speed: 80 km/h;
-        track_type: TR_1435;
+        speed: 100 km/h;
+        track_type: TR_1435_DC;
         power: 270 kW;
         weight: 27 ton;
         loading_speed: param_loading_3D;
@@ -18816,7 +18812,7 @@ item(FEAT_TRAINS, fk_nk_3000series,1455) {
         cost_factor: 19;
         running_cost_factor: 49;
         speed: 120 km/h;
-        track_type: TR_1435;
+        track_type: TR_1435_DC;
         power: 300 kW;
         weight: 27 ton;
         loading_speed: param_loading_3D;
@@ -19880,7 +19876,6 @@ sw_tokyu5000_old_panto_placer_main;
 //front-end-fixer
 switch(FEAT_TRAINS, SELF, sw_tokyu5000_old_end_gfx_main,position_in_vehid_chain_from_end){
     0: tokyu5000_old_end;
-    1: tokyu5000_old_wag;
     default: sw_tokyu5000_old_fake_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tokyu5000_old_front_gfx_main,position_in_vehid_chain_from_end){
@@ -20194,16 +20189,16 @@ switch(FEAT_TRAINS, PARENT, sw_tokyu6000_old_end_gfx,vehicle_is_reversed){
 //panto placer
 //var 1
 switch(FEAT_TRAINS, SELF, sw_tokyu6000_old_panto_placer,position_in_vehid_chain %2){
-    0: tokyu6000_old_mot_rev;
+    1: tokyu6000_old_mot;
     tokyu6000_old_wag;
 }
 switch(FEAT_TRAINS, SELF, sw_tokyu6000_old_panto_placer_rev,1-position_in_vehid_chain_from_end %2){
-    0: tokyu6000_old_mot;
+    1: tokyu6000_old_mot_rev;
     tokyu6000_old_wag;
 }
 switch(FEAT_TRAINS, PARENT, sw_tokyu6000_old_panto_placer_main_1,vehicle_is_reversed){
-    1: sw_tokyu6000_old_panto_placer;
-    sw_tokyu6000_old_panto_placer_rev;
+    1:sw_tokyu6000_old_panto_placer_rev;
+    sw_tokyu6000_old_panto_placer;
 }
 
 //fake head-end placer
@@ -22951,18 +22946,12 @@ alternative_sprites(tokyu9000_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx
 //*livery 1
 //panto placer
 //var 1
-switch(FEAT_TRAINS, SELF, sw_tokyu9000_panto_placer,1+position_in_vehid_chain %7){
+switch(FEAT_TRAINS, SELF, sw_tokyu9000_panto_placer,1+position_in_vehid_chain %2){
     1: tokyu9000_mot_1;
-    3: tokyu9000_mot_1;
-    5: tokyu9000_mot_1;
-    6: tokyu9000_mot_1;
     tokyu9000_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tokyu9000_panto_placer_rev,position_in_vehid_chain_from_end %7){
+switch(FEAT_TRAINS, SELF, sw_tokyu9000_panto_placer_rev,position_in_vehid_chain_from_end %2){
     1: tokyu9000_mot_1_rev;
-    3: tokyu9000_mot_1_rev;
-    5: tokyu9000_mot_1_rev;
-    6: tokyu9000_mot_1_rev;
     tokyu9000_wag;
 }
 switch(FEAT_TRAINS, PARENT, sw_tokyu9000_panto_placer_main_1,vehicle_is_reversed){
@@ -23298,12 +23287,12 @@ switch(FEAT_TRAINS, PARENT, sw_tokyu1000_end_gfx,vehicle_is_reversed){
 }
 //panto placer
 //var 1
-switch(FEAT_TRAINS, SELF, sw_tokyu1000_panto_placer,1+position_in_vehid_chain %3){
-    2: tokyu1000_mot_1_rev;
+switch(FEAT_TRAINS, SELF, sw_tokyu1000_panto_placer,1+position_in_vehid_chain %2){
+    1: tokyu1000_mot_1_rev;
     tokyu1000_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tokyu1000_panto_placer_rev,position_in_vehid_chain_from_end %3){
-    2: tokyu1000_mot_1;
+switch(FEAT_TRAINS, SELF, sw_tokyu1000_panto_placer_rev,position_in_vehid_chain_from_end %2){
+    1: tokyu1000_mot_1;
     tokyu1000_wag;
 }
 switch(FEAT_TRAINS, PARENT, sw_tokyu1000_panto_placer_main_1_1,vehicle_is_reversed){
@@ -23369,11 +23358,11 @@ switch(FEAT_TRAINS, SELF, sw_tokyu1000_livery_1_1,vehicle_type_id){
 //panto placer
 //var 1
 switch(FEAT_TRAINS, SELF, sw_tokyu1000_1_panto_placer,1+position_in_vehid_chain %2){
-    0: tokyu1000_mot_1_rev;
+    1: tokyu1000_mot_1_rev;
     tokyu1000_wag;
 }
 switch(FEAT_TRAINS, SELF, sw_tokyu1000_1_panto_placer_rev,position_in_vehid_chain_from_end %2){
-    0: tokyu1000_mot_1;
+    1: tokyu1000_mot_1;
     tokyu1000_wag;
 }
 switch(FEAT_TRAINS, PARENT, sw_tokyu1000_panto_placer_main_2,vehicle_is_reversed){
@@ -23429,12 +23418,12 @@ switch(FEAT_TRAINS, PARENT, sw_tokyu1000_2_end_gfx,vehicle_is_reversed){
 
 //panto placer
 //var 1
-switch(FEAT_TRAINS, SELF, sw_tokyu1000_2_panto_placer,1+position_in_vehid_chain %3){
-    2: tokyu1000_2_mot_rev;
+switch(FEAT_TRAINS, SELF, sw_tokyu1000_2_panto_placer,1+position_in_vehid_chain %2){
+    1: tokyu1000_2_mot_rev;
     tokyu1000_2_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tokyu1000_2_panto_placer_rev,position_in_vehid_chain_from_end %3){
-    2: tokyu1000_2_mot;
+switch(FEAT_TRAINS, SELF, sw_tokyu1000_2_panto_placer_rev,position_in_vehid_chain_from_end %2){
+    1: tokyu1000_2_mot;
     tokyu1000_2_wag;
 }
 switch(FEAT_TRAINS, PARENT, sw_tokyu1000_2_panto_placer_main_1_1,vehicle_is_reversed){
@@ -23499,12 +23488,12 @@ switch(FEAT_TRAINS, SELF, sw_tokyu1000_livery_2,vehicle_type_id){
 //*Aoi Gaeru
 //panto placer
 //var 1
-switch(FEAT_TRAINS, SELF, sw_tokyu1000_3_panto_placer,1+position_in_vehid_chain %3){
-    2: tokyu1000_3_mot_rev;
+switch(FEAT_TRAINS, SELF, sw_tokyu1000_3_panto_placer,1+position_in_vehid_chain %2){
+    1: tokyu1000_3_mot_rev;
     tokyu1000_3_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tokyu1000_3_panto_placer_rev,position_in_vehid_chain_from_end %3){
-    2: tokyu1000_3_mot;
+switch(FEAT_TRAINS, SELF, sw_tokyu1000_3_panto_placer_rev,position_in_vehid_chain_from_end %2){
+    1: tokyu1000_3_mot;
     tokyu1000_3_wag;
 }
 switch(FEAT_TRAINS, PARENT, sw_tokyu1000_3_panto_placer_main_1_1,vehicle_is_reversed){
@@ -23581,12 +23570,12 @@ switch(FEAT_TRAINS, PARENT, sw_tokyu1000_4_panto_placer_main_3_1,vehicle_is_reve
     sw_tokyu1000_4_panto_placer;
 }
 //var 2
-switch(FEAT_TRAINS, SELF, sw_tokyu1000_4_panto_placer_1,1+position_in_vehid_chain %3){
-    2: tokyu1000_4_mot;
+switch(FEAT_TRAINS, SELF, sw_tokyu1000_4_panto_placer_1,1+position_in_vehid_chain %2){
+    1: tokyu1000_4_mot;
     tokyu1000_4_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tokyu1000_4_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
-    2: tokyu1000_4_mot;
+switch(FEAT_TRAINS, SELF, sw_tokyu1000_4_panto_placer_1_rev,position_in_vehid_chain_from_end %2){
+    1: tokyu1000_4_mot;
     tokyu1000_4_wag;
 }
 switch(FEAT_TRAINS, PARENT, sw_tokyu1000_4_panto_placer_main_3_2,vehicle_is_reversed){
@@ -34116,13 +34105,9 @@ switch(FEAT_TRAINS, SELF, sw_tobu70000_capacity_main,vehicle_type_id){
     sw_tobu70000_capacity_1;
 }
 //power fix
-switch(FEAT_TRAINS, SELF, sw_tobu70000_power,position_in_vehid_chain_from_end%8){
+switch(FEAT_TRAINS, SELF, sw_tobu70000_power_main,position_in_vehid_chain_from_end%8){
     0..6:return 205;
     return 0;
-}
-switch(FEAT_TRAINS, SELF, sw_tobu70000_power_main,vehicle_type_id){
-    mu_car_narrow:sw_tobu70000_power;
-    sw_tobu70000_power;
 }
 
 //attachable vehicles
