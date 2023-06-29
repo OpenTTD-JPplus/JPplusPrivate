@@ -8,11 +8,11 @@ grf {
     name: string(STR_NAME);
     desc: string(STR_DESC);
 	url: string(STR_GRF_URL);
-    version: 12;
+    version: 13;
     min_compatible_version: 6;
 
 param 0 { 
-				//basecosts
+	//*basecosts
 		param_buy {
 				type: int;
 				name: string(STR_PARAM_NAME_BASECOSTMODBUY);
@@ -30,8 +30,7 @@ param 0 {
 				}
 		}
 
-		//runningcosts
-
+	//*runningcosts
 param 1 {
 		param_run {
 			type: int;
@@ -50,6 +49,7 @@ param 1 {
 			};
 		}
 	}
+	//*capacity
 param 2 {
 				param_capacities {
 						type: int;
@@ -78,7 +78,7 @@ param 3 {
 
 			 }
 		}
-
+	//*disablers
 param 4 {
 			param_disable_tokyo {
 						type: bool;
@@ -191,18 +191,7 @@ param 14 {
 }
 }
 
-train_width_32_px = 1;
-// traininfo_y_offset = 2;
-disable_item(FEAT_TRAINS);
-
-if (((grf_future_status("SZ\0D\00") == 0) && (grf_future_status("DP\30\00") == 0))) {
-	error( WARNING, string(GRF_JAPANSET));
-}
-if ((grf_current_status("mkw\E0") == 1)||(grf_future_status("mkw\E0") == 1)){
-	error( ERROR, string(GRF_TKMS));
-}
-
-
+	//*param based variables
 if (param_capacities == 0 || param_capacities == 1) {
 	param_loading_1D = 10; // 1 door //
 	param_loading_2D = 20; // 2 doors //
@@ -218,7 +207,7 @@ if (param_capacities == 2) {
 	param_loading_3D = 40; // 3 doors //
 	param_loading_4D = 50; // 4 doors //
 	param_loading_5D = 80; // 5 doors //
-	param_loading_6D = 90; // 5 doors //
+	param_loading_6D = 90; // 6 doors //
 }
 if (param_capacities == 3) {
 	param_loading_1D = 30; // 1 door //
@@ -226,7 +215,7 @@ if (param_capacities == 3) {
 	param_loading_3D = 50; // 3 doors //
 	param_loading_4D = 70; // 4 doors //
 	param_loading_5D = 100; // 5 doors //
-	param_loading_6D = 120; // 5 doors //
+	param_loading_6D = 120; // 6 doors //
 }
 if (param_capacities == 4) {
 	param_loading_1D = 40; // 1 door //
@@ -234,7 +223,7 @@ if (param_capacities == 4) {
 	param_loading_3D = 60; // 3 doors //
 	param_loading_4D = 80; // 4 doors //
 	param_loading_5D = 120; // 5 doors //
-	param_loading_6D = 140; // 5 doors //
+	param_loading_6D = 140; // 6  doors //
 }
 
 
@@ -254,32 +243,39 @@ if (param_capacities == 4) {
 	param_capacity_mod = param_custom_capacity;
 }
 
-train_width_32_px = 1;
-traininfo_y_offset = 2;
-
 if (param_buy == 0) { PURCHASE_COST_MOD = -2; }
 if (param_buy == 1) { PURCHASE_COST_MOD = -1; }
 if (param_buy == 2) { PURCHASE_COST_MOD = 0; }
 if (param_buy == 3) { PURCHASE_COST_MOD = 1; }
 if (param_buy == 4) { PURCHASE_COST_MOD = 2; }
 
-//*cargo aging
+	//*cargo aging
 //TODO by a param
 local_cargo_age = 185;
 rapid_cargo_age = 231;
 express_cargo_age = 278;
 
+train_width_32_px = 1;
+traininfo_y_offset = 2;
+disable_item(FEAT_TRAINS);
 
+if (((grf_future_status("SZ\0D\00") == 0) && (grf_future_status("DP\30\00") == 0))) {
+	error( WARNING, string(GRF_JAPANSET));
+}
+if ((grf_current_status("mkw\E0") == 1)||(grf_future_status("mkw\E0") == 1)){
+	error( ERROR, string(GRF_TKMS));
+}
 
 railtypetable {
 	RAIL,
 	ELRL,
     TR_1067_DC: [NABE, ELNG, ELRL],
+    TR_1067_AC: [NABE, ELNG, ELRL],
 	TR_1435_M: [SAB3, "3RDR",MTRO,ELRL],
-	TR_1435: [ELRL, RAIL],
+	TR_1435_DC: [ELRL],
+	TR_1435_AC: [ELRL],
 	TR_1372: [ELRL, NABE],
 	TR_1435_LNR: [ELRL],
-	TR_EVERY: [RAIL,NABE]
 }
 	
 
