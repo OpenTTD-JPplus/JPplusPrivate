@@ -16,23 +16,7 @@ spriteset (tk_as_toei5000_old_mot_rev,       "gfx/metro/Tokyo/asakusa/toei5000/t
 spriteset (tk_as_toei5000_old_wag,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_old.png") { tmpl_std(0, 50) }
 spriteset (tk_as_toei5000_old_front_mot,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_old.png") { tmpl_std(0, 100) }
 spriteset (tk_as_toei5000_old_end_mot,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_old.png") { tmpl_std_rev(0, 125) }
-/*
-alternative_sprites(tk_as_toei5000_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png"){ tmpl_std(0, 0) }
-alternative_sprites(tk_as_toei5000_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png"){ tmpl_std_rev(0, 25) }
-alternative_sprites(tk_as_toei5000_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png"){ tmpl_std(0, 50) }
-alternative_sprites(tk_as_toei5000_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png"){ tmpl_std_rev(0, 50) }
-alternative_sprites(tk_as_toei5000_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png"){ tmpl_std(0, 75) }
-alternative_sprites(tk_as_toei5000_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png"){ tmpl_std(0, 100) }
-alternative_sprites(tk_as_toei5000_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png"){ tmpl_std_rev(0, 125) }
 
-alternative_sprites(tk_as_toei5000_old_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5000/toei5000_old.png"){ tmpl_std(0, 0) }
-alternative_sprites(tk_as_toei5000_old_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5000/toei5000_old.png"){ tmpl_std_rev(0, 25) }
-alternative_sprites(tk_as_toei5000_old_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5000/toei5000_old.png"){ tmpl_std_rev(0, 75) }
-alternative_sprites(tk_as_toei5000_old_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5000/toei5000_old.png"){ tmpl_std(0, 75) }
-alternative_sprites(tk_as_toei5000_old_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5000/toei5000_old.png"){ tmpl_std(0, 50) }
-alternative_sprites(tk_as_toei5000_old_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5000/toei5000_old.png"){ tmpl_std(0, 100) }
-alternative_sprites(tk_as_toei5000_old_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5000/toei5000_old.png"){ tmpl_std_rev(0, 125) }
-*/
 //*livery 1
 //panto-placers
 switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_mot_gfx,position_in_consist %6){
@@ -173,11 +157,21 @@ switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_old_4_1_main_gfx,position_in_consist
     2: tk_as_toei5000_old_wag;
     3: tk_as_toei5000_old_end_mot;
 }
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_old_4_2_main_gfx,position_in_consist %4){
+switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_old_4_2_main_gfx_1,position_in_consist %4){
     0: tk_as_toei5000_old_front_mot;
-    1: tk_as_toei5000_old_end_mot;
+    1: tk_as_toei5000_old_end;
     2: tk_as_toei5000_old_front_mot;
+    3: tk_as_toei5000_old_end;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_old_4_2_main_gfx_2,position_in_consist %4){
+    0: tk_as_toei5000_old_front;
+    1: tk_as_toei5000_old_end_mot;
+    2: tk_as_toei5000_old_front;
     3: tk_as_toei5000_old_end_mot;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_old_4_2_main_gfx,vehicle_is_reversed){
+    1:sw_tk_as_toei5000_old_4_2_main_gfx_2;
+    sw_tk_as_toei5000_old_4_2_main_gfx_1;
 }
 random_switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_old_4_main_gfx){
     2: sw_tk_as_toei5000_old_4_1_main_gfx;
@@ -257,7 +251,7 @@ switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_livery_0, build_year<1982){
     sw_tk_as_toei5000_livery_1;
 }
 //livery selector
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_lv, cargo_subtype){
+switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_lv, cargo_subtype){
     0: sw_tk_as_toei5000_livery_0;
     1: sw_tk_as_toei5000_livery_1;
     2: sw_tk_as_toei5000_livery_2;
