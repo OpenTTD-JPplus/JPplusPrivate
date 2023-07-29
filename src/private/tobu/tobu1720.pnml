@@ -30,46 +30,48 @@ alternative_sprites(tobu1720_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
 //*livery 1
   //panto placer
     //var 1
-    switch(FEAT_TRAINS, SELF, sw_tobu1720_panto_placer_1,position_in_vehid_chain %4){
+    switch(FEAT_TRAINS, SELF, sw_tobu1720_panto_placer_1,position_in_vehid_chain %6){
         0: tobu1720_wag;
         1: tobu1720_wag_1;
         2: tobu1720_mot;
         3: tobu1720_wag_2;
         tobu1720_wag_2;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu1720_panto_placer_1_rev,position_in_vehid_chain_from_end %4 -1){
+    switch(FEAT_TRAINS, SELF, sw_tobu1720_panto_placer_1_rev,position_in_vehid_chain_from_end %6 -1){
         0: tobu1720_wag_rev;
         1: tobu1720_wag_1_rev;
         2: tobu1720_mot_rev;
         3: tobu1720_wag_2_rev;
         tobu1720_wag_2_rev;
     }
-    switch(FEAT_TRAINS, PARENT, sw_tobu1720_panto_placer_main,vehicle_is_reversed){
+    switch(FEAT_TRAINS, PARENT, sw_tobu1720_panto_placer_main_1,vehicle_is_reversed){
         1: sw_tobu1720_panto_placer_1_rev;
         sw_tobu1720_panto_placer_1;
     }
-    // //var 2
-    // switch(FEAT_TRAINS, SELF, sw_tobu1720_panto_placer_2,position_in_vehid_chain %4){
-    //     0: tobu1720_mot_2;
-    //     1: tobu1720_wag_rev;
-    //     2: tobu1720_mot;
-    //     tobu1720_wag;
-    // }
-    // switch(FEAT_TRAINS, SELF, sw_tobu1720_panto_placer_2_rev,position_in_vehid_chain_from_end-1 %4){
-    //     0: tobu1720_mot_2_rev;
-    //     1: tobu1720_wag;
-    //     2: tobu1720_mot_rev;
-    //     tobu1720_wag_rev;
-    // }
-    // switch(FEAT_TRAINS, PARENT, sw_tobu1720_panto_placer_main_2,vehicle_is_reversed){
-    //     1: sw_tobu1720_panto_placer_2_rev;
-    //     sw_tobu1720_panto_placer_2;
-    // }
+    //var 2
+    switch(FEAT_TRAINS, SELF, sw_tobu1720_panto_placer_2,position_in_vehid_chain %4){
+        0: tobu1720_wag;
+        1: tobu1720_wag_1;
+        2: tobu1720_mot;
+        3: tobu1720_wag_2;
+        tobu1720_wag_2;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tobu1720_panto_placer_2_rev,position_in_vehid_chain_from_end %4 -1){
+        0: tobu1720_wag_rev;
+        1: tobu1720_wag_1_rev;
+        2: tobu1720_mot_rev;
+        3: tobu1720_wag_2_rev;
+        tobu1720_wag_2_rev;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_tobu1720_panto_placer_main_2,vehicle_is_reversed){
+        1: sw_tobu1720_panto_placer_2_rev;
+        sw_tobu1720_panto_placer_2;
+    }
     //main
-    // switch(FEAT_TRAINS, SELF, sw_tobu1720_panto_placer_main,num_vehs_in_vehid_chain+1){
-    //     0..5:sw_tobu1720_panto_placer_main_2;
-    //     sw_tobu1720_panto_placer_main_1;
-    // }
+    switch(FEAT_TRAINS, SELF, sw_tobu1720_panto_placer_main,num_vehs_in_vehid_chain+1){
+        0..5:sw_tobu1720_panto_placer_main_2;
+        sw_tobu1720_panto_placer_main_1;
+    }
 
   //fake head-end placer
     switch(FEAT_TRAINS, SELF, sw_tobu1720_fake_placer,position_in_vehid_chain +1){
