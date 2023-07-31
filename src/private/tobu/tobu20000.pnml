@@ -107,13 +107,18 @@ switch(FEAT_TRAINS, SELF, sw_tobu20000_capacity_main,vehicle_type_id){
     sw_tobu20000_capacity_1;
 }
 //power fix
-switch(FEAT_TRAINS, SELF, sw_tobu20000_power,position_in_vehid_chain_from_end%5){
-    1..2:return 140;
-    4:return 140;
+//1992
+switch(FEAT_TRAINS, SELF, sw_tobu20000_power_0,build_year){
+    0..1991 :return 140;
+    return 150;
+}
+
+switch(FEAT_TRAINS, SELF, sw_tobu20000_power,position_in_vehid_chain_from_end%8){
+    1..6:sw_tobu20000_power_0;
     return 0;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu20000_head_power,num_vehs_in_consist){
-    2: return 140;
+    2: sw_tobu20000_power_0;
     return 0;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu20000_power_main,vehicle_type_id){
@@ -150,11 +155,11 @@ item(FEAT_TRAINS, tobu20000,2075) {
         name: string(STR_tobu20000_NAME);
         introduction_date: date(1988, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
-        vehicle_life: 32;
+        vehicle_life: 35;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 17;
+        running_cost_factor: 47;
         speed: 110 km/h;
         track_type: TR_1067_DC;
         power: 1 kW;

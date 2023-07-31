@@ -654,6 +654,11 @@ switch(FEAT_TRAINS, SELF, sw_tobu_deha10_lv_desc, current_year){
 }
 
 //post fixers
+//power fix
+    switch(FEAT_TRAINS, SELF, sw_tobu_deha10_power,position_in_vehid_chain%2){
+        1:return 0;
+        return 440;
+    }
 //speed fix
 switch(FEAT_TRAINS, SELF, sw_tobu_deha10_speed_fix_0, build_year){
     1930..1948:return 85;
@@ -698,12 +703,12 @@ item(FEAT_TRAINS, tobu_deha10,2066) {
         climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_tobu_deha10_NAME);
         introduction_date: date(1934, 1, 1);
-        model_life: 20;
-        vehicle_life: 46;
+        vehicle_life: 41;
+        model_life: 31;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 13;
+        running_cost_factor: 43;
         speed: 90 km/h;
         track_type: TR_1067_DC;
         power: 440 kW;
@@ -744,7 +749,7 @@ item(FEAT_TRAINS, tobu_deha10,2066) {
         loading_speed: sw_tobu_deha10_loading_fix;
         cargo_capacity: 138*param_capacity_mod/3;
         default:                      sw_tobu_deha10_lv;
-        power: 440*1342/2000;
+        power: sw_tobu_deha10_power()*1342/1000;
         weight: 41;
       }
 }

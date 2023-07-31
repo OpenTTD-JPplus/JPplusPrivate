@@ -10,7 +10,7 @@ grf {
     name: string(STR_NAME);
     desc: string(STR_DESC);
 	url: string(STR_GRF_URL);
-    version: 13;
+    version: 210;
     min_compatible_version: 6;
 
 param 0 { 
@@ -80,8 +80,19 @@ param 3 {
 
 			 }
 		}
-	//*disablers
 param 4 {
+			 param_boost_rapid {
+						type: int;
+						name: string(STR_PARAM_BOOST_RAPID);
+						desc: string(STR_PARAM_BOOST_RAPID_DESC);
+						min_value: 0;
+						max_value: 4;
+						def_value: 0;
+
+			 }
+		}
+	//*disablers
+param 6 {
 			param_disable_tokyo {
 						type: bool;
 						name: string(STR_PARAM_DISABLE_TOKYO);
@@ -91,7 +102,7 @@ param 4 {
 
 			}
 		}
-param 5 {
+param 7 {
 			param_disable_yokohama {
 						type: bool;
 						name: string(STR_PARAM_DISABLE_YOKOHAMA);
@@ -101,7 +112,7 @@ param 5 {
 
 			}
 		}
-param 6 {
+param 8 {
 			param_disable_osaka {
 						type: bool;
 						name: string(STR_PARAM_DISABLE_OSAKA);
@@ -111,7 +122,7 @@ param 6 {
 
 			}
 		}
-param 7 {
+param 9 {
 	param_disable_kyoto {
 				type: bool;
 				name: string(STR_PARAM_DISABLE_KYOTO);
@@ -120,8 +131,8 @@ param 7 {
 				def_value: 0;
 
 	}
-}
-param 8 {
+		}
+param 10 {
 	param_disable_nagoya {
 				type: bool;
 				name: string(STR_PARAM_DISABLE_NAGOYA);
@@ -129,9 +140,9 @@ param 8 {
 				bit:  0;
 				def_value: 0;
 
-	}
-}
-param 9 {
+				}
+		}
+param 11 {
 	param_disable_sendai {
 				type: bool;
 				name: string(STR_PARAM_DISABLE_SENDAI);
@@ -139,9 +150,9 @@ param 9 {
 				bit:  0;
 				def_value: 0;
 
-	}
-}
-param 10 {
+				}
+		}
+param 12 {
 	param_disable_kobe {
 				type: bool;
 				name: string(STR_PARAM_DISABLE_KOBE);
@@ -149,9 +160,9 @@ param 10 {
 				bit:  0;
 				def_value: 0;
 
+				}
 	}
-}
-param 11 {
+param 13 {
 	param_disable_fukuoka {
 				type: bool;
 				name: string(STR_PARAM_DISABLE_FUKUOKA);
@@ -159,9 +170,9 @@ param 11 {
 				bit:  0;
 				def_value: 0;
 
+				}
 	}
-}
-param 12 {
+param 14 {
 	param_disable_semiPrivate {
 				type: bool;
 				name: string(STR_PARAM_DISABLE_SEMI_MAJOR);
@@ -169,9 +180,9 @@ param 12 {
 				bit:  0;
 				def_value: 0;
 
+				}
 	}
-}
-param 13 {
+param 15 {
 	param_disable_tokyu {
 				type: bool;
 				name: string(STR_PARAM_DISABLE_TOKYU);
@@ -179,83 +190,98 @@ param 13 {
 				bit:  0;
 				def_value: 0;
 
+				}
 	}
-}
-param 14 {
+param 16 {
 	param_disable_tobu {
 				type: bool;
 				name: string(STR_PARAM_DISABLE_TOBU);
 				desc: string(STR_PARAM_DISABLE_TOBU);
 				bit:  0;
 				def_value: 0;
+				}
+		}
 
+}
+
+//*param based variables
+	if (param_capacities == 0 || param_capacities == 1) {
+		param_loading_1D = 10; // 1 door //
+		param_loading_2D = 20; // 2 doors //
+		param_loading_3D = 30; // 3 doors //
+		param_loading_4D = 40; // 4 doors //
+		param_loading_5D = 60; // 5 doors //
+		param_loading_6D = 70; // 6 doors //
 	}
-}
-}
 
-	//*param based variables
-if (param_capacities == 0 || param_capacities == 1) {
-	param_loading_1D = 10; // 1 door //
-	param_loading_2D = 20; // 2 doors //
-	param_loading_3D = 30; // 3 doors //
-	param_loading_4D = 40; // 4 doors //
-	param_loading_5D = 60; // 5 doors //
-	param_loading_6D = 70; // 6 doors //
-}
+	if (param_capacities == 2) {
+		param_loading_1D = 20; // 1 door //
+		param_loading_2D = 30; // 2 doors //
+		param_loading_3D = 40; // 3 doors //
+		param_loading_4D = 50; // 4 doors //
+		param_loading_5D = 80; // 5 doors //
+		param_loading_6D = 90; // 6 doors //
+	}
+	if (param_capacities == 3) {
+		param_loading_1D = 30; // 1 door //
+		param_loading_2D = 40; // 2 doors //
+		param_loading_3D = 50; // 3 doors //
+		param_loading_4D = 70; // 4 doors //
+		param_loading_5D = 100; // 5 doors //
+		param_loading_6D = 120; // 6 doors //
+	}
+	if (param_capacities == 4) {
+		param_loading_1D = 40; // 1 door //
+		param_loading_2D = 50; // 2 doors //
+		param_loading_3D = 60; // 3 doors //
+		param_loading_4D = 80; // 4 doors //
+		param_loading_5D = 120; // 5 doors //
+		param_loading_6D = 140; // 6  doors //
+	}
 
-if (param_capacities == 2) {
-	param_loading_1D = 20; // 1 door //
-	param_loading_2D = 30; // 2 doors //
-	param_loading_3D = 40; // 3 doors //
-	param_loading_4D = 50; // 4 doors //
-	param_loading_5D = 80; // 5 doors //
-	param_loading_6D = 90; // 6 doors //
-}
-if (param_capacities == 3) {
-	param_loading_1D = 30; // 1 door //
-	param_loading_2D = 40; // 2 doors //
-	param_loading_3D = 50; // 3 doors //
-	param_loading_4D = 70; // 4 doors //
-	param_loading_5D = 100; // 5 doors //
-	param_loading_6D = 120; // 6 doors //
-}
-if (param_capacities == 4) {
-	param_loading_1D = 40; // 1 door //
-	param_loading_2D = 50; // 2 doors //
-	param_loading_3D = 60; // 3 doors //
-	param_loading_4D = 80; // 4 doors //
-	param_loading_5D = 120; // 5 doors //
-	param_loading_6D = 140; // 6  doors //
-}
+	if (param_boost_rapid == 0) {
+		boost_rapid_mod = 2;
+	}
+	if (param_boost_rapid == 1) {
+		boost_rapid_mod = 3;
+	}	
+	if (param_boost_rapid == 2) {
+		boost_rapid_mod = 4;
+	}
+	if (param_boost_rapid == 3) {
+		boost_rapid_mod = 5;
+	}
+	if (param_boost_rapid == 4) {
+		boost_rapid_mod = 6;
+	}
 
+	if (param_capacities == 0) {
+		param_capacity_mod = 2;
+	}
+	if (param_capacities == 1) {
+		param_capacity_mod = 3;
+	}
+	if (param_capacities == 2) {
+		param_capacity_mod = 4;
+	}
+	if (param_capacities == 3) {
+		param_capacity_mod = 5;
+	}
+	if (param_capacities == 4) {
+		param_capacity_mod = param_custom_capacity;
+	}
 
-if (param_capacities == 0) {
-	param_capacity_mod = 2;
-}
-if (param_capacities == 1) {
-	param_capacity_mod = 3;
-}
-if (param_capacities == 2) {
-	param_capacity_mod = 4;
-}
-if (param_capacities == 3) {
-	param_capacity_mod = 5;
-}
-if (param_capacities == 4) {
-	param_capacity_mod = param_custom_capacity;
-}
+	if (param_buy == 0) { PURCHASE_COST_MOD = -2; }
+	if (param_buy == 1) { PURCHASE_COST_MOD = -1; }
+	if (param_buy == 2) { PURCHASE_COST_MOD = 0; }
+	if (param_buy == 3) { PURCHASE_COST_MOD = 1; }
+	if (param_buy == 4) { PURCHASE_COST_MOD = 2; }
 
-if (param_buy == 0) { PURCHASE_COST_MOD = -2; }
-if (param_buy == 1) { PURCHASE_COST_MOD = -1; }
-if (param_buy == 2) { PURCHASE_COST_MOD = 0; }
-if (param_buy == 3) { PURCHASE_COST_MOD = 1; }
-if (param_buy == 4) { PURCHASE_COST_MOD = 2; }
-
-	//*cargo aging
-//TODO by a param
-local_cargo_age = 185;
-rapid_cargo_age = 231;
-express_cargo_age = 278;
+//*cargo aging
+	//TODO by a param
+	local_cargo_age = 185;
+	rapid_cargo_age = 231;
+	express_cargo_age = 278;
 
 train_width_32_px = 1;
 traininfo_y_offset = 2;
@@ -269,15 +295,13 @@ if ((grf_current_status("mkw\E0") == 1)||(grf_future_status("mkw\E0") == 1)){
 }
 
 railtypetable {
-	RAIL,
-	ELRL,
-    TR_1067_DC: [NABE, ELNG, ELRL],
+    TR_1067_DC: [NABE, ELNG, ELRL], //JP+Tracks AC/DC
     TR_1067_AC: [NABE, ELNG, ELRL],
-	TR_1435_M: [SAB3, "3RDR",MTRO,ELRL],
 	TR_1435_DC: [ELRL],
 	TR_1435_AC: [ELRL],
-	TR_1372: [ELRL, NABE],
-	TR_1435_LNR: [ELRL],
+	TR_1435_M: [SAB3, "3RDR", MTRO, ELRL],
+	TR_1435_LNR: [ELRL], //wait for JP+Tracks
+	TR_1372: [ELRL], //wait for JP+Tracks
 }
 	
 
@@ -27386,8 +27410,8 @@ item(FEAT_TRAINS, tobu5700,2050) {
         climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_tobu5700_NAME);
         introduction_date: date(1951, 1, 1);
-        model_life: 20;
         vehicle_life: 40;
+        model_life: 35;
         reliability_decay: 20;
 
         cost_factor: 12;
@@ -27524,12 +27548,12 @@ item(FEAT_TRAINS, tobu1700,2051) {
         climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_tobu1700_NAME);
         introduction_date: date(1956, 1, 1);
-        model_life: 20;
-        vehicle_life: 40;
+        vehicle_life: 35;
+        model_life: 30;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 19;
+        running_cost_factor: 49;
         speed: 105 km/h;
         track_type: TR_1067_DC;
         power: 300 kW;
@@ -27645,10 +27669,31 @@ alternative_sprites(tobu1720_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
         1: sw_tobu1720_panto_placer_2_rev;
         sw_tobu1720_panto_placer_2;
     }
+    //var 3
+    switch(FEAT_TRAINS, SELF, sw_tobu1720_panto_placer_3,position_in_vehid_chain %8){
+        0: tobu1720_wag;
+        1: tobu1720_mot_rev;
+        2: tobu1720_wag_1;
+        4: tobu1720_mot;
+        tobu1720_wag_2;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tobu1720_panto_placer_3_rev,position_in_vehid_chain_from_end %8 -1){
+        0: tobu1720_wag_rev;
+        1: tobu1720_mot;
+        2: tobu1720_wag_1_rev;
+        4: tobu1720_mot_rev;
+        tobu1720_wag_2_rev;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_tobu1720_panto_placer_main_3,vehicle_is_reversed){
+        1: sw_tobu1720_panto_placer_3_rev;
+        sw_tobu1720_panto_placer_3;
+    }
     //main
     switch(FEAT_TRAINS, SELF, sw_tobu1720_panto_placer_main,num_vehs_in_vehid_chain+1){
         0..5:sw_tobu1720_panto_placer_main_2;
-        sw_tobu1720_panto_placer_main_1;
+        6..7: sw_tobu1720_panto_placer_main_1;
+        12..13: sw_tobu1720_panto_placer_main_1;
+        sw_tobu1720_panto_placer_main_3;
     }
 
   //fake head-end placer
@@ -27717,13 +27762,13 @@ item(FEAT_TRAINS, tobu1720,2052) {
         
         climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_tobu1720_NAME);
-        introduction_date: date(1956, 1, 1);
-        model_life: 17;
-        vehicle_life: 22;
+        introduction_date: date(1960, 1, 1);
+        vehicle_life: 31;
+        model_life: 26;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 20;
+        running_cost_factor: 50;
         speed: 120 km/h;
         track_type: TR_1067_DC;
         power: 520 kW;
@@ -27826,14 +27871,22 @@ alternative_sprites(tobu6000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
     return 0;
     }
 //capacity-changer
-    switch(FEAT_TRAINS, SELF, sw_tobu6000_capacity_1,position_in_vehid_chain_from_end %2){
+    switch(FEAT_TRAINS, SELF, sw_tobu6000_capacity_1_0,position_in_vehid_chain %2){
         0: 145*param_capacity_mod/3;
         default: 150*param_capacity_mod/3;
     }
+    switch(FEAT_TRAINS, SELF, sw_tobu6000_capacity_1,vehicle_type_id){
+        mu_car_narrow:sw_tobu6000_capacity_1_0;
+        150*param_capacity_mod/3;
+    }
     //limited service
-    switch(FEAT_TRAINS, SELF, sw_tobu6000_capacity_2,position_in_vehid_chain %2){
+    switch(FEAT_TRAINS, SELF, sw_tobu6000_capacity_2_0,position_in_vehid_chain %2){
         0: 81*param_capacity_mod/3;
         default: 84*param_capacity_mod/3;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tobu6000_capacity_2,vehicle_type_id){
+        mu_car_narrow:sw_tobu6000_capacity_2_0;
+        84*param_capacity_mod/3;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu6000_capacity,cargo_subtype){
         0:sw_tobu6000_capacity_2;
@@ -27884,12 +27937,12 @@ item(FEAT_TRAINS, tobu6000,2053) {
         climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_tobu6000_NAME);
         introduction_date: date(1964, 1, 1);
-        model_life: 17;
         vehicle_life: 22;
+        model_life: 17;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 16;
+        running_cost_factor: 46;
         speed: 110 km/h;
         track_type: TR_1067_DC;
         power: 520 kW;
@@ -28061,13 +28114,13 @@ alternative_sprites(tobu1800_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
 
   //panto placer
     //var 1
-    switch(FEAT_TRAINS, SELF, sw_tobu1800_1_panto_placer_1,position_in_vehid_chain %4){
+    switch(FEAT_TRAINS, SELF, sw_tobu1800_1_panto_placer_1,position_in_vehid_chain %5){
         1: tobu1800_1_mot_2_gfx;
         2: tobu1800_1_wag_rev_gfx;
         3: tobu1800_1_mot_gfx;
         tobu1800_1_wag_gfx;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu1800_1_panto_placer_1_rev,position_in_vehid_chain_from_end-1 %4){
+    switch(FEAT_TRAINS, SELF, sw_tobu1800_1_panto_placer_1_rev,position_in_vehid_chain_from_end %5-1){
         1: tobu1800_1_mot_2_rev_gfx;
         2: tobu1800_1_wag_gfx;
         3: tobu1800_1_mot_rev_gfx;
@@ -28084,7 +28137,7 @@ alternative_sprites(tobu1800_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
         2: tobu1800_1_mot_gfx;
         tobu1800_1_wag_gfx;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu1800_1_panto_placer_2_rev,position_in_vehid_chain_from_end-1 %4){
+    switch(FEAT_TRAINS, SELF, sw_tobu1800_1_panto_placer_2_rev,position_in_vehid_chain_from_end %4 -1){
         0: tobu1800_1_mot_2_rev_gfx;
         1: tobu1800_1_wag_gfx;
         2: tobu1800_1_mot_rev_gfx;
@@ -28102,20 +28155,20 @@ alternative_sprites(tobu1800_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
 
   //fake head-end placer
     switch(FEAT_TRAINS, SELF, sw_tobu1800_1_fake_placer,position_in_vehid_chain +1){
-        3: tobu1800_1_end_rev_gfx;
-        4: tobu1800_1_end_gfx;
+        3: tobu1800_1_end_gfx;
+        4: tobu1800_1_end_rev_gfx;
     sw_tobu1800_1_panto_placer_main;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu1800_1_fake_placer_rev,position_in_vehid_chain_from_end ){
-        3: tobu1800_1_end_gfx;
-        4: tobu1800_1_end_rev_gfx;
+        3: tobu1800_1_end_rev_gfx;
+        4: tobu1800_1_end_gfx;
     sw_tobu1800_1_panto_placer_main;
     }
     switch(FEAT_TRAINS, PARENT, sw_tobu1800_1_fake_placer_gfx,vehicle_is_reversed){
         1: sw_tobu1800_1_fake_placer_rev;
         sw_tobu1800_1_fake_placer;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu1800_1_fake_placer_main,num_vehs_in_vehid_chain>8 - 1){
+    switch(FEAT_TRAINS, SELF, sw_tobu1800_1_fake_placer_main,num_vehs_in_vehid_chain>10 - 1){
         1: sw_tobu1800_1_fake_placer_gfx;
     sw_tobu1800_1_panto_placer_main;
     }
@@ -28137,13 +28190,13 @@ alternative_sprites(tobu1800_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
 //*livery 2
   //panto placer
     //var 1
-    switch(FEAT_TRAINS, SELF, sw_tobu1800_2_panto_placer_1,position_in_vehid_chain %4){
+    switch(FEAT_TRAINS, SELF, sw_tobu1800_2_panto_placer_1,position_in_vehid_chain %5){
         1: tobu1800_2_mot_2;
         2: tobu1800_2_wag_rev;
         3: tobu1800_2_mot;
         tobu1800_2_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu1800_2_panto_placer_1_rev,position_in_vehid_chain_from_end-1 %4){
+    switch(FEAT_TRAINS, SELF, sw_tobu1800_2_panto_placer_1_rev,position_in_vehid_chain_from_end %5 -1){
         1: tobu1800_2_mot_2_rev;
         2: tobu1800_2_wag;
         3: tobu1800_2_mot_rev;
@@ -28160,7 +28213,7 @@ alternative_sprites(tobu1800_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
         2: tobu1800_2_mot;
         tobu1800_2_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu1800_2_panto_placer_2_rev,position_in_vehid_chain_from_end-1 %4){
+    switch(FEAT_TRAINS, SELF, sw_tobu1800_2_panto_placer_2_rev,position_in_vehid_chain_from_end %4 -1){
         0: tobu1800_2_mot_2_rev;
         1: tobu1800_2_wag;
         2: tobu1800_2_mot_rev;
@@ -28178,20 +28231,20 @@ alternative_sprites(tobu1800_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
 
   //fake head-end placer
     switch(FEAT_TRAINS, SELF, sw_tobu1800_2_fake_placer,position_in_vehid_chain +1){
-        3: tobu1800_2_end_rev;
-        4: tobu1800_2_end;
+        3: tobu1800_2_end;
+        4: tobu1800_2_end_rev;
     sw_tobu1800_2_panto_placer_main;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu1800_2_fake_placer_rev,position_in_vehid_chain_from_end ){
-        3: tobu1800_2_end;
-        4: tobu1800_2_end_rev;
+        3: tobu1800_2_end_rev;
+        4: tobu1800_2_end;
     sw_tobu1800_2_panto_placer_main;
     }
     switch(FEAT_TRAINS, PARENT, sw_tobu1800_2_fake_placer_gfx,vehicle_is_reversed){
         1: sw_tobu1800_2_fake_placer_rev;
         sw_tobu1800_2_fake_placer;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu1800_2_fake_placer_main,num_vehs_in_vehid_chain>8 - 1){
+    switch(FEAT_TRAINS, SELF, sw_tobu1800_2_fake_placer_main,num_vehs_in_vehid_chain>10 - 1){
         1: sw_tobu1800_2_fake_placer_gfx;
     sw_tobu1800_2_panto_placer_main;
     }
@@ -28213,13 +28266,13 @@ alternative_sprites(tobu1800_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
 //*livery 3
   //panto placer
     //var 1
-    switch(FEAT_TRAINS, SELF, sw_tobu1800_3_panto_placer_1,position_in_vehid_chain %4){
+    switch(FEAT_TRAINS, SELF, sw_tobu1800_3_panto_placer_1,position_in_vehid_chain %5){
         1: tobu1800_3_mot_2;
         2: tobu1800_3_wag_rev;
         3: tobu1800_3_mot;
         tobu1800_3_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu1800_3_panto_placer_1_rev,position_in_vehid_chain_from_end-1 %4){
+    switch(FEAT_TRAINS, SELF, sw_tobu1800_3_panto_placer_1_rev,position_in_vehid_chain_from_end %5 -1){
         1: tobu1800_3_mot_2_rev;
         2: tobu1800_3_wag;
         3: tobu1800_3_mot_rev;
@@ -28236,7 +28289,7 @@ alternative_sprites(tobu1800_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
         2: tobu1800_3_mot;
         tobu1800_3_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu1800_3_panto_placer_2_rev,position_in_vehid_chain_from_end-1 %4){
+    switch(FEAT_TRAINS, SELF, sw_tobu1800_3_panto_placer_2_rev,position_in_vehid_chain_from_end %4 -1){
         0: tobu1800_3_mot_2_rev;
         1: tobu1800_3_wag;
         2: tobu1800_3_mot_rev;
@@ -28254,20 +28307,20 @@ alternative_sprites(tobu1800_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
 
   //fake head-end placer
     switch(FEAT_TRAINS, SELF, sw_tobu1800_3_fake_placer,position_in_vehid_chain +1){
-        3: tobu1800_3_end_rev;
-        4: tobu1800_3_end;
+        3: tobu1800_3_end;
+        4: tobu1800_3_end_rev;
     sw_tobu1800_3_panto_placer_main;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu1800_3_fake_placer_rev,position_in_vehid_chain_from_end ){
-        3: tobu1800_3_end;
-        4: tobu1800_3_end_rev;
+        3: tobu1800_3_end_rev;
+        4: tobu1800_3_end;
     sw_tobu1800_3_panto_placer_main;
     }
     switch(FEAT_TRAINS, PARENT, sw_tobu1800_3_fake_placer_gfx,vehicle_is_reversed){
         1: sw_tobu1800_3_fake_placer_rev;
         sw_tobu1800_3_fake_placer;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu1800_3_fake_placer_main,num_vehs_in_vehid_chain>8 - 1){
+    switch(FEAT_TRAINS, SELF, sw_tobu1800_3_fake_placer_main,num_vehs_in_vehid_chain>10 - 1){
         1: sw_tobu1800_3_fake_placer_gfx;
     sw_tobu1800_3_panto_placer_main;
     }
@@ -28385,12 +28438,12 @@ item(FEAT_TRAINS, tobu1800,2055) {
         climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_tobu1800_NAME);
         introduction_date: date(1969, 1, 1);
-        model_life: 17;
-        vehicle_life: 22;
+        vehicle_life: 49;
+        model_life: 44;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 17;
+        running_cost_factor: 47;
         speed: 110 km/h;
         track_type: TR_1067_DC;
         power: 520 kW;
@@ -28634,12 +28687,15 @@ alternative_sprites(tobu6050_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
     return 0;
     }
 //capacity-changer
-    switch(FEAT_TRAINS, SELF, sw_tobu6050_capacity,position_in_vehid_chain_from_end %2){
+    switch(FEAT_TRAINS, SELF, sw_tobu6050_capacity_1,position_in_vehid_chain %2){
         0: 145*param_capacity_mod/3;
         default: 150*param_capacity_mod/3;
     }
-
-  //attachable vehicles
+    switch(FEAT_TRAINS, SELF, sw_tobu6050_capacity,vehicle_type_id){
+        mu_car_narrow:sw_tobu6050_capacity_1;
+        150*param_capacity_mod/3;
+    }
+//attachable vehicles
     switch(FEAT_TRAINS, SELF, tobu6050_attach_vehid, vehicle_type_id) {
     mu_car_narrow:  return CB_RESULT_ATTACH_ALLOW;
     return string(STR_ATTACH_ERROR);
@@ -28667,12 +28723,12 @@ item(FEAT_TRAINS, tobu6050,2054) {
         climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_tobu6050_NAME);
         introduction_date: date(1985, 1, 1);
-        model_life: 17;
-        vehicle_life: 22;
+        vehicle_life: 37;
+        model_life: 32;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 17;
+        running_cost_factor: 47;
         speed: 110 km/h;
         track_type: TR_1067_DC;
         power: 520 kW;
@@ -28694,7 +28750,7 @@ item(FEAT_TRAINS, tobu6050,2054) {
                             string(STR_tobu5000s_DESC),
                             string(STR_CARS),
                             string(STR_COUPLER,
-                            string(STR_KNUCKLE)),
+                            string(STR_SHIBATA)),
                             string(STR_USAGE,
                             string(STR_EXPRESS),
                             string(STR_DC),
@@ -28716,7 +28772,7 @@ item(FEAT_TRAINS, tobu6050,2054) {
       }
 }
 # 1 "src/import/jp_private.pnml" 4
-//#include "src/private/tobu/tobu634.pnml"   
+//TODO#include "src/private/tobu/tobu634.pnml"   
 # 1 "src/private/tobu/tobu100.pnml"      1
 spriteset (tobu100_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
 alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_purchase.png"){ tmpl_purchase(0, 0) }
@@ -28869,7 +28925,7 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
         3: tobu100_1_mot;
         tobu100_1_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu100_1_panto_placer_1_rev,position_in_vehid_chain_from_end-1 %6){
+    switch(FEAT_TRAINS, SELF, sw_tobu100_1_panto_placer_1_rev,position_in_vehid_chain_from_end %6 -1){
         0: tobu100_1_mot;
         2: tobu100_1_mot_1_rev;
         3: tobu100_1_mot_rev;
@@ -28886,7 +28942,7 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
         4:tobu100_1_mot;
         tobu100_1_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu100_1_panto_placer_2_rev,position_in_vehid_chain_from_end-1 %8){
+    switch(FEAT_TRAINS, SELF, sw_tobu100_1_panto_placer_2_rev,position_in_vehid_chain_from_end %8 -1){
         0: tobu100_1_mot;
         2: tobu100_1_mot_1_rev;
         4:tobu100_1_mot_rev;
@@ -28902,7 +28958,7 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
         1: tobu100_1_mot;
         tobu100_1_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu100_1_panto_placer_3_rev,position_in_vehid_chain_from_end-1 %3){
+    switch(FEAT_TRAINS, SELF, sw_tobu100_1_panto_placer_3_rev,position_in_vehid_chain_from_end %3 -1){
         0: tobu100_1_mot_1;
         1: tobu100_1_mot_rev;
         tobu100_1_wag_rev;
@@ -28974,7 +29030,7 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
         3: tobu100_2_mot;
         tobu100_2_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu100_2_panto_placer_1_rev,position_in_vehid_chain_from_end-1 %6){
+    switch(FEAT_TRAINS, SELF, sw_tobu100_2_panto_placer_1_rev,position_in_vehid_chain_from_end %6 -1){
         0: tobu100_2_mot;
         2: tobu100_2_mot_1_rev;
         3: tobu100_2_mot_rev;
@@ -28991,7 +29047,7 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
         4:tobu100_2_mot;
         tobu100_2_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu100_2_panto_placer_2_rev,position_in_vehid_chain_from_end-1 %8){
+    switch(FEAT_TRAINS, SELF, sw_tobu100_2_panto_placer_2_rev,position_in_vehid_chain_from_end %8 -1){
         0: tobu100_2_mot;
         2: tobu100_2_mot_1_rev;
         4:tobu100_2_mot_rev;
@@ -29007,7 +29063,7 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
         1: tobu100_2_mot;
         tobu100_2_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu100_2_panto_placer_3_rev,position_in_vehid_chain_from_end-1 %3){
+    switch(FEAT_TRAINS, SELF, sw_tobu100_2_panto_placer_3_rev,position_in_vehid_chain_from_end %3 -1){
         0: tobu100_2_mot_1;
         1: tobu100_2_mot_rev;
         tobu100_2_wag_rev;
@@ -29079,7 +29135,7 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
         3: tobu100_3_mot;
         tobu100_3_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu100_3_panto_placer_1_rev,position_in_vehid_chain_from_end-1 %6){
+    switch(FEAT_TRAINS, SELF, sw_tobu100_3_panto_placer_1_rev,position_in_vehid_chain_from_end %6 -1){
         0: tobu100_3_mot;
         2: tobu100_3_mot_1_rev;
         3: tobu100_3_mot_rev;
@@ -29096,7 +29152,7 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
         4:tobu100_3_mot;
         tobu100_3_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu100_3_panto_placer_2_rev,position_in_vehid_chain_from_end-1 %8){
+    switch(FEAT_TRAINS, SELF, sw_tobu100_3_panto_placer_2_rev,position_in_vehid_chain_from_end %8 -1){
         0: tobu100_3_mot;
         2: tobu100_3_mot_1_rev;
         4:tobu100_3_mot_rev;
@@ -29112,7 +29168,7 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
         1: tobu100_3_mot;
         tobu100_3_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu100_3_panto_placer_3_rev,position_in_vehid_chain_from_end-1 %3){
+    switch(FEAT_TRAINS, SELF, sw_tobu100_3_panto_placer_3_rev,position_in_vehid_chain_from_end %3 -1){
         0: tobu100_3_mot_1;
         1: tobu100_3_mot_rev;
         tobu100_3_wag_rev;
@@ -29184,7 +29240,7 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
         3: tobu100_4_mot;
         tobu100_4_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu100_4_panto_placer_1_rev,position_in_vehid_chain_from_end-1 %6){
+    switch(FEAT_TRAINS, SELF, sw_tobu100_4_panto_placer_1_rev,position_in_vehid_chain_from_end %6 -1){
         0: tobu100_4_mot;
         2: tobu100_4_mot_1_rev;
         3: tobu100_4_mot_rev;
@@ -29201,7 +29257,7 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
         4:tobu100_4_mot;
         tobu100_4_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu100_4_panto_placer_2_rev,position_in_vehid_chain_from_end-1 %8){
+    switch(FEAT_TRAINS, SELF, sw_tobu100_4_panto_placer_2_rev,position_in_vehid_chain_from_end %8 -1){
         0: tobu100_4_mot;
         2: tobu100_4_mot_1_rev;
         4:tobu100_4_mot_rev;
@@ -29217,7 +29273,7 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
         1: tobu100_4_mot;
         tobu100_4_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu100_4_panto_placer_3_rev,position_in_vehid_chain_from_end-1 %3){
+    switch(FEAT_TRAINS, SELF, sw_tobu100_4_panto_placer_3_rev,position_in_vehid_chain_from_end %3 -1){
         0: tobu100_4_mot_1;
         1: tobu100_4_mot_rev;
         tobu100_4_wag_rev;
@@ -29277,7 +29333,7 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
         3: tobu100_5_mot;
         tobu100_5_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu100_5_panto_placer_1_rev,position_in_vehid_chain_from_end-1 %6){
+    switch(FEAT_TRAINS, SELF, sw_tobu100_5_panto_placer_1_rev,position_in_vehid_chain_from_end %6 -1){
         0: tobu100_5_mot;
         2: tobu100_5_mot_1_rev;
         3: tobu100_5_mot_rev;
@@ -29294,7 +29350,7 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
         4:tobu100_5_mot;
         tobu100_5_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu100_5_panto_placer_2_rev,position_in_vehid_chain_from_end-1 %8){
+    switch(FEAT_TRAINS, SELF, sw_tobu100_5_panto_placer_2_rev,position_in_vehid_chain_from_end %8 -1){
         0: tobu100_5_mot;
         2: tobu100_5_mot_1_rev;
         4:tobu100_5_mot_rev;
@@ -29310,7 +29366,7 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
         1: tobu100_5_mot;
         tobu100_5_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu100_5_panto_placer_3_rev,position_in_vehid_chain_from_end-1 %3){
+    switch(FEAT_TRAINS, SELF, sw_tobu100_5_panto_placer_3_rev,position_in_vehid_chain_from_end %3 -1){
         0: tobu100_5_mot_1;
         1: tobu100_5_mot_rev;
         tobu100_5_wag_rev;
@@ -29370,7 +29426,7 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
         3: tobu100_6_mot;
         tobu100_6_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu100_6_panto_placer_1_rev,position_in_vehid_chain_from_end-1 %6){
+    switch(FEAT_TRAINS, SELF, sw_tobu100_6_panto_placer_1_rev,position_in_vehid_chain_from_end %6 -1){
         0: tobu100_6_mot;
         2: tobu100_6_mot_1_rev;
         3: tobu100_6_mot_rev;
@@ -29387,7 +29443,7 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
         4:tobu100_6_mot;
         tobu100_6_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu100_6_panto_placer_2_rev,position_in_vehid_chain_from_end-1 %8){
+    switch(FEAT_TRAINS, SELF, sw_tobu100_6_panto_placer_2_rev,position_in_vehid_chain_from_end %8 -1){
         0: tobu100_6_mot;
         2: tobu100_6_mot_1_rev;
         4:tobu100_6_mot_rev;
@@ -29403,7 +29459,7 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
         1: tobu100_6_mot;
         tobu100_6_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu100_6_panto_placer_3_rev,position_in_vehid_chain_from_end-1 %3){
+    switch(FEAT_TRAINS, SELF, sw_tobu100_6_panto_placer_3_rev,position_in_vehid_chain_from_end %3 -1){
         0: tobu100_6_mot_1;
         1: tobu100_6_mot_rev;
         tobu100_6_wag_rev;
@@ -29544,21 +29600,26 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
 //*post fixers
   //capacity-changer
     switch(FEAT_TRAINS, SELF, sw_tobu100_capacity,position_in_vehid_chain_from_end%6){
-        0: 44*param_capacity_mod/3;
-        1: 64*param_capacity_mod/3;
-        2: 36*param_capacity_mod/3;
-        3: 56*param_capacity_mod/3;
-        4: 64*param_capacity_mod/3;
-        5: 24*param_capacity_mod/3;
-        default: 64*param_capacity_mod/3;
+        0: 44*boost_rapid_mod/2*param_capacity_mod/3;
+        1: 64*boost_rapid_mod/2*param_capacity_mod/3;
+        2: 36*boost_rapid_mod/2*param_capacity_mod/3;
+        3: 56*boost_rapid_mod/2*param_capacity_mod/3;
+        4: 64*boost_rapid_mod/2*param_capacity_mod/3;
+        5: 24*boost_rapid_mod/2*param_capacity_mod/3;
+        default: 64*boost_rapid_mod/2*param_capacity_mod/3;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu100_capacity_1,position_in_vehid_chain){
-        0: 24*param_capacity_mod/3;
+        0: 24*boost_rapid_mod/2*param_capacity_mod/3;
         default: sw_tobu100_capacity;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu100_capacity_main,vehicle_type_id){
         mu_car_narrow:sw_tobu100_capacity;
         sw_tobu100_capacity_1;
+    }
+  //power
+    switch(FEAT_TRAINS, SELF, sw_tobu100_power,position_in_vehid_chain%7){
+        0..4: return 150*4*1342/1000;
+        return 0;
     }
   //attachable vehicles
     switch(FEAT_TRAINS, SELF, tobu100_attach_vehid, vehicle_type_id) {
@@ -29589,11 +29650,11 @@ item(FEAT_TRAINS, tobu100,2058) {
         name: string(STR_tobu100_NAME);
         introduction_date: date(1990, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
-        vehicle_life: 32;
+        vehicle_life: 35;
         reliability_decay: 20;
 
-        cost_factor: 13;
-        running_cost_factor: 40;
+        cost_factor: 24;
+        running_cost_factor: 52;
         speed: 130 km/h;
         track_type: TR_1067_DC;
         power: 1 kW;
@@ -29633,7 +29694,7 @@ item(FEAT_TRAINS, tobu100,2058) {
         loading_speed: param_loading_1D;
         cargo_capacity: sw_tobu100_capacity_main()*param_capacity_mod/3;
         default:                      sw_tobu100_lv;
-        power:  150*4*1342/1000;
+        power:  sw_tobu100_power;
         weight: 36;
       }
 }
@@ -30052,11 +30113,11 @@ item(FEAT_TRAINS, tobu200,2059) {
         name: string(STR_tobu200_NAME);
         introduction_date: date(1990, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
-        vehicle_life: 32;
+        vehicle_life: 35;
         reliability_decay: 20;
 
-        cost_factor: 13;
-        running_cost_factor: 40;
+        cost_factor: 20;
+        running_cost_factor: 50;
         speed: 120 km/h;
         track_type: TR_1067_DC;
         power: 1 kW;
@@ -30130,13 +30191,13 @@ alternative_sprites(tobu300_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
 //*livery 1
   //panto placer
     //var 1
-    switch(FEAT_TRAINS, SELF, sw_tobu300_panto_placer_1,position_in_vehid_chain %4){
+    switch(FEAT_TRAINS, SELF, sw_tobu300_panto_placer_1,position_in_vehid_chain %5){
         1: tobu300_mot_2;
         2: tobu300_wag_rev;
         3: tobu300_mot;
         tobu300_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu300_panto_placer_1_rev,position_in_vehid_chain_from_end-1 %4){
+    switch(FEAT_TRAINS, SELF, sw_tobu300_panto_placer_1_rev,position_in_vehid_chain_from_end %5 -1){
         1: tobu300_mot_2_rev;
         2: tobu300_wag;
         3: tobu300_mot_rev;
@@ -30153,7 +30214,7 @@ alternative_sprites(tobu300_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
         2: tobu300_mot;
         tobu300_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu300_panto_placer_2_rev,position_in_vehid_chain_from_end-1 %4){
+    switch(FEAT_TRAINS, SELF, sw_tobu300_panto_placer_2_rev,position_in_vehid_chain_from_end %4 -1){
         0: tobu300_mot_2_rev;
         1: tobu300_wag;
         2: tobu300_mot_rev;
@@ -30184,7 +30245,7 @@ alternative_sprites(tobu300_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
         1: sw_tobu300_fake_placer_rev;
         sw_tobu300_fake_placer;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu300_fake_placer_main,num_vehs_in_vehid_chain>7 - 1){
+    switch(FEAT_TRAINS, SELF, sw_tobu300_fake_placer_main,num_vehs_in_vehid_chain>10 - 1){
         1: sw_tobu300_fake_placer_gfx;
     sw_tobu300_panto_placer_main;
     }
@@ -30251,12 +30312,12 @@ item(FEAT_TRAINS, tobu300,2060) {
         climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_tobu300_NAME);
         introduction_date: date(1991, 1, 1);
-        model_life: 17;
-        vehicle_life: 22;
+        vehicle_life: 31;
+        model_life: 26;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 18;
+        running_cost_factor: 48;
         speed: 110 km/h;
         track_type: TR_1067_DC;
         power: 520 kW;
@@ -30447,8 +30508,8 @@ item(FEAT_TRAINS, tobu500,2061) {
         vehicle_life: 22;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 21;
+        running_cost_factor: 51;
         speed: 130 km/h;
         track_type: TR_1067_DC;
         power: 520 kW;
@@ -30466,7 +30527,7 @@ item(FEAT_TRAINS, tobu500,2061) {
                             string(STR_LOAD_SPEED,
                             string(STR_1_DOOR),),
                             string(STR_FORMATION),
-                            string(STR_6_CARS),
+                            string(STR_tobu500_DESC),
                             string(STR_CARS),
                             string(STR_COUPLER,
                             string(STR_SHIBATA)),
@@ -30479,7 +30540,7 @@ item(FEAT_TRAINS, tobu500,2061) {
                             ),
                             
                         );
-        cargo_capacity: 23*param_capacity_mod/3;
+        cargo_capacity: 112*param_capacity_mod/3;
         power: sw_tobu500_power_main()*1342/1000;  
     }
     livery_override(mu_car_narrow){
@@ -30601,11 +30662,11 @@ alternative_sprites(tobu100n_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
 
 //capacity-changer
     switch(FEAT_TRAINS, SELF, sw_tobu100n_capacity,position_in_vehid_chain_from_end%6){
-        0: 20*param_capacity_mod/3;
-        1: 35*param_capacity_mod/3;
-        4: 22*param_capacity_mod/3;
-        5: 23*param_capacity_mod/3;
-        default: 56*param_capacity_mod/3;
+        0: 20*boost_rapid_mod/2*param_capacity_mod/3;
+        1: 35*boost_rapid_mod/2*param_capacity_mod/3;
+        4: 22*boost_rapid_mod/2*param_capacity_mod/3;
+        5: 23*boost_rapid_mod/2*param_capacity_mod/3;
+        default: 56*boost_rapid_mod/2*param_capacity_mod/3;
     }
     //power fix
     switch(FEAT_TRAINS, SELF, sw_tobu100n_power,position_in_vehid_chain_from_end%5){
@@ -30652,8 +30713,8 @@ item(FEAT_TRAINS, tobu100n,2062) {
         vehicle_life: 22;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 25;
+        running_cost_factor: 52;
         speed: 130 km/h;
         track_type: TR_1067_DC;
         power: 520 kW;
@@ -30684,7 +30745,7 @@ item(FEAT_TRAINS, tobu100n,2062) {
                             ),
                             
                         );
-        cargo_capacity: 23*param_capacity_mod/3;
+        cargo_capacity: 23*boost_rapid_mod/2*param_capacity_mod/3;
         power: sw_tobu100n_power_main()*4*1342/1000;  
     }
     livery_override(mu_car_narrow){
@@ -30748,7 +30809,11 @@ switch(FEAT_TRAINS, SELF, sw_tobu_deha1_livery_0,vehicle_type_id){
     mu_car_narrow:sw_tobu_deha1_end_fix;
     sw_tobu_deha1_front_gfx;
 }
-
+//power fix
+    switch(FEAT_TRAINS, SELF, sw_tobu_deha1_power,position_in_vehid_chain%2){
+        1:return 0;
+        return 240;
+    }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tobu_deha1_attach_vehid, vehicle_type_id) {
   mu_car_narrow:  return CB_RESULT_ATTACH_ALLOW;
@@ -30776,8 +30841,8 @@ item(FEAT_TRAINS, tobu_deha1,2065) {
         climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_tobu_deha1_NAME);
         introduction_date: date(1924, 1, 1);
-        model_life: 20;
-        vehicle_life: 46;
+        model_life: 47;
+        vehicle_life: 57;
         reliability_decay: 20;
 
         cost_factor: 12;
@@ -30818,7 +30883,7 @@ item(FEAT_TRAINS, tobu_deha1,2065) {
         loading_speed: param_loading_2D;
         cargo_capacity: 92*param_capacity_mod/3;
         default:                      sw_tobu_deha1_livery_0;
-        power: 240*1342/2000;
+        power: sw_tobu_deha1_power()*1342/1000;
         weight: 33;
         length: 7; 
       }
@@ -31481,6 +31546,11 @@ switch(FEAT_TRAINS, SELF, sw_tobu_deha10_lv_desc, current_year){
 }
 
 //post fixers
+//power fix
+    switch(FEAT_TRAINS, SELF, sw_tobu_deha10_power,position_in_vehid_chain%2){
+        1:return 0;
+        return 440;
+    }
 //speed fix
 switch(FEAT_TRAINS, SELF, sw_tobu_deha10_speed_fix_0, build_year){
     1930..1948:return 85;
@@ -31525,12 +31595,12 @@ item(FEAT_TRAINS, tobu_deha10,2066) {
         climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_tobu_deha10_NAME);
         introduction_date: date(1934, 1, 1);
-        model_life: 20;
-        vehicle_life: 46;
+        vehicle_life: 41;
+        model_life: 31;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 13;
+        running_cost_factor: 43;
         speed: 90 km/h;
         track_type: TR_1067_DC;
         power: 440 kW;
@@ -31571,7 +31641,7 @@ item(FEAT_TRAINS, tobu_deha10,2066) {
         loading_speed: sw_tobu_deha10_loading_fix;
         cargo_capacity: 138*param_capacity_mod/3;
         default:                      sw_tobu_deha10_lv;
-        power: 440*1342/2000;
+        power: sw_tobu_deha10_power()*1342/1000;
         weight: 41;
       }
 }
@@ -31928,12 +31998,12 @@ item(FEAT_TRAINS, tobu7300,2067) {
         climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_tobu7300_NAME);
         introduction_date: date(1947, 1, 1);
-        model_life: 20;
-        vehicle_life: 46;
+        vehicle_life: 38;
+        model_life: 33;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 15;
+        running_cost_factor: 45;
         speed: 100 km/h;
         track_type: TR_1067_DC;
         power: 512 kW;
@@ -32236,12 +32306,12 @@ item(FEAT_TRAINS, tobu2000,2068) {
         climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_tobu2000_NAME);
         introduction_date: date(1961, 1, 1);
-        model_life: 32;
-        vehicle_life: 32;
+        vehicle_life: 35;
+        model_life: 30;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 17;
+        running_cost_factor: 47;
         speed: 110 km/h;
         track_type: TR_1067_DC;
         power: 300 kW;
@@ -32381,173 +32451,173 @@ alternative_sprites(tobu8000_2_ac_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,    
 alternative_sprites(tobu8000_2_ac_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_2_ac.png"){ tmpl_symm_std(0, 150) }
 
 //livery 3
-spriteset (tobu8000_3_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_3_end,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_3_end_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_3_front_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_3_end_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_3_end_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_3_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_3_end,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_3_end_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_3_front_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_3_end_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_3_end_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
 
-alternative_sprites(tobu8000_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_3.png"){ tmpl_std(0, 0) }
-alternative_sprites(tobu8000_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_3.png"){ tmpl_std_rev(0, 25) }
-alternative_sprites(tobu8000_3_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_3.png"){ tmpl_std(0, 25) }
-alternative_sprites(tobu8000_3_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_3.png"){ tmpl_std(0, 50) }
-alternative_sprites(tobu8000_3_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_3.png"){ tmpl_std_rev(0, 75) }
-alternative_sprites(tobu8000_3_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_3.png"){ tmpl_std(0, 75) }
+    alternative_sprites(tobu8000_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_3.png"){ tmpl_std(0, 0) }
+    alternative_sprites(tobu8000_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_3.png"){ tmpl_std_rev(0, 25) }
+    alternative_sprites(tobu8000_3_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_3.png"){ tmpl_std(0, 25) }
+    alternative_sprites(tobu8000_3_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_3.png"){ tmpl_std(0, 50) }
+    alternative_sprites(tobu8000_3_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_3.png"){ tmpl_std_rev(0, 75) }
+    alternative_sprites(tobu8000_3_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_3.png"){ tmpl_std(0, 75) }
 
 //livery 4
-spriteset (tobu8000_4_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_4_end,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_4_end_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_4_front_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_4_end_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_4_end_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_4_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_4_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_4_mot_2,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_4_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_4_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_4_end,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_4_end_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_4_front_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_4_end_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_4_end_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_4_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_4_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_4_mot_2,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_4_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
 
-alternative_sprites(tobu8000_4_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_4.png"){ tmpl_std(0, 0) }
-alternative_sprites(tobu8000_4_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_4.png"){ tmpl_std_rev(0, 25) }
-alternative_sprites(tobu8000_4_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_4.png"){ tmpl_std(0, 25) }
-alternative_sprites(tobu8000_4_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_4.png"){ tmpl_std(0, 50) }
-alternative_sprites(tobu8000_4_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_4.png"){ tmpl_std_rev(0, 75) }
-alternative_sprites(tobu8000_4_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_4.png"){ tmpl_std(0, 75) }
-alternative_sprites(tobu8000_4_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_4.png"){ tmpl_std(0, 100) }
-alternative_sprites(tobu8000_4_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_4.png"){ tmpl_std_rev(0, 100) }
-alternative_sprites(tobu8000_4_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_4.png"){ tmpl_symm_std(0, 125) }
-alternative_sprites(tobu8000_4_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_4.png"){ tmpl_symm_std(0, 150) }
+    alternative_sprites(tobu8000_4_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_4.png"){ tmpl_std(0, 0) }
+    alternative_sprites(tobu8000_4_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_4.png"){ tmpl_std_rev(0, 25) }
+    alternative_sprites(tobu8000_4_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_4.png"){ tmpl_std(0, 25) }
+    alternative_sprites(tobu8000_4_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_4.png"){ tmpl_std(0, 50) }
+    alternative_sprites(tobu8000_4_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_4.png"){ tmpl_std_rev(0, 75) }
+    alternative_sprites(tobu8000_4_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_4.png"){ tmpl_std(0, 75) }
+    alternative_sprites(tobu8000_4_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_4.png"){ tmpl_std(0, 100) }
+    alternative_sprites(tobu8000_4_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_4.png"){ tmpl_std_rev(0, 100) }
+    alternative_sprites(tobu8000_4_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_4.png"){ tmpl_symm_std(0, 125) }
+    alternative_sprites(tobu8000_4_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_4.png"){ tmpl_symm_std(0, 150) }
 
 //livery 5
-spriteset (tobu8000_5_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_5_end,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_5_end_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_5_front_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_5_end_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_5_end_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_5_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_5_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_5_mot_2,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_5_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_5_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_5_end,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_5_end_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_5_front_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_5_end_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_5_end_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_5_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_5_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_5_mot_2,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_5_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
 
-alternative_sprites(tobu8000_5_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_5.png"){ tmpl_std(0, 0) }
-alternative_sprites(tobu8000_5_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_5.png"){ tmpl_std_rev(0, 25) }
-alternative_sprites(tobu8000_5_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_5.png"){ tmpl_std(0, 25) }
-alternative_sprites(tobu8000_5_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_5.png"){ tmpl_std(0, 50) }
-alternative_sprites(tobu8000_5_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_5.png"){ tmpl_std_rev(0, 75) }
-alternative_sprites(tobu8000_5_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_5.png"){ tmpl_std(0, 75) }
-alternative_sprites(tobu8000_5_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_5.png"){ tmpl_std(0, 100) }
-alternative_sprites(tobu8000_5_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_5.png"){ tmpl_std_rev(0, 100) }
-alternative_sprites(tobu8000_5_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_5.png"){ tmpl_symm_std(0, 125) }
-alternative_sprites(tobu8000_5_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_5.png"){ tmpl_symm_std(0, 150) }
+    alternative_sprites(tobu8000_5_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_5.png"){ tmpl_std(0, 0) }
+    alternative_sprites(tobu8000_5_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_5.png"){ tmpl_std_rev(0, 25) }
+    alternative_sprites(tobu8000_5_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_5.png"){ tmpl_std(0, 25) }
+    alternative_sprites(tobu8000_5_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_5.png"){ tmpl_std(0, 50) }
+    alternative_sprites(tobu8000_5_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_5.png"){ tmpl_std_rev(0, 75) }
+    alternative_sprites(tobu8000_5_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_5.png"){ tmpl_std(0, 75) }
+    alternative_sprites(tobu8000_5_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_5.png"){ tmpl_std(0, 100) }
+    alternative_sprites(tobu8000_5_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_5.png"){ tmpl_std_rev(0, 100) }
+    alternative_sprites(tobu8000_5_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_5.png"){ tmpl_symm_std(0, 125) }
+    alternative_sprites(tobu8000_5_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_5.png"){ tmpl_symm_std(0, 150) }
 
 //livery 6
-//Kurisu easter egg in gfx :D
-spriteset (tobu8000_6_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_6_end,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_6_end_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_6_front_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_6_end_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_6_end_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    //Kurisu easter egg in gfx :D
+    spriteset (tobu8000_6_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_6_end,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_6_end_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_6_front_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_6_end_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_6_end_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
 
-alternative_sprites(tobu8000_6_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_6.png"){ tmpl_std(0, 0) }
-alternative_sprites(tobu8000_6_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_6.png"){ tmpl_std_rev(0, 25) }
-alternative_sprites(tobu8000_6_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_6.png"){ tmpl_std(0, 25) }
-alternative_sprites(tobu8000_6_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_6.png"){ tmpl_std(0, 50) }
-alternative_sprites(tobu8000_6_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_6.png"){ tmpl_std_rev(0, 75) }
-alternative_sprites(tobu8000_6_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_6.png"){ tmpl_std(0, 75) }
+    alternative_sprites(tobu8000_6_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_6.png"){ tmpl_std(0, 0) }
+    alternative_sprites(tobu8000_6_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_6.png"){ tmpl_std_rev(0, 25) }
+    alternative_sprites(tobu8000_6_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_6.png"){ tmpl_std(0, 25) }
+    alternative_sprites(tobu8000_6_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_6.png"){ tmpl_std(0, 50) }
+    alternative_sprites(tobu8000_6_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_6.png"){ tmpl_std_rev(0, 75) }
+    alternative_sprites(tobu8000_6_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_6.png"){ tmpl_std(0, 75) }
 
 //livery 7
-spriteset (tobu8000_7_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_7_end,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_7_end_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_7_front_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_7_end_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_7_end_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_7_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_7_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_7_mot_2,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_7_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_7_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_7_end,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_7_end_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_7_front_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_7_end_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_7_end_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_7_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_7_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_7_mot_2,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_7_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
 
-alternative_sprites(tobu8000_7_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_7.png"){ tmpl_std(0, 0) }
-alternative_sprites(tobu8000_7_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_7.png"){ tmpl_std_rev(0, 25) }
-alternative_sprites(tobu8000_7_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_7.png"){ tmpl_std(0, 25) }
-alternative_sprites(tobu8000_7_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_7.png"){ tmpl_std(0, 50) }
-alternative_sprites(tobu8000_7_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_7.png"){ tmpl_std_rev(0, 75) }
-alternative_sprites(tobu8000_7_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_7.png"){ tmpl_std(0, 75) }
-alternative_sprites(tobu8000_7_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_7.png"){ tmpl_std(0, 100) }
-alternative_sprites(tobu8000_7_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_7.png"){ tmpl_std_rev(0, 100) }
-alternative_sprites(tobu8000_7_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_7.png"){ tmpl_symm_std(0, 125) }
-alternative_sprites(tobu8000_7_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_7.png"){ tmpl_symm_std(0, 150) }
+    alternative_sprites(tobu8000_7_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_7.png"){ tmpl_std(0, 0) }
+    alternative_sprites(tobu8000_7_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_7.png"){ tmpl_std_rev(0, 25) }
+    alternative_sprites(tobu8000_7_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_7.png"){ tmpl_std(0, 25) }
+    alternative_sprites(tobu8000_7_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_7.png"){ tmpl_std(0, 50) }
+    alternative_sprites(tobu8000_7_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_7.png"){ tmpl_std_rev(0, 75) }
+    alternative_sprites(tobu8000_7_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_7.png"){ tmpl_std(0, 75) }
+    alternative_sprites(tobu8000_7_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_7.png"){ tmpl_std(0, 100) }
+    alternative_sprites(tobu8000_7_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_7.png"){ tmpl_std_rev(0, 100) }
+    alternative_sprites(tobu8000_7_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_7.png"){ tmpl_symm_std(0, 125) }
+    alternative_sprites(tobu8000_7_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_7.png"){ tmpl_symm_std(0, 150) }
 
 //livery 8
-spriteset (tobu8000_8_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_8_end,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_8_end_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_8_front_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_8_end_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_8_end_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_8_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_8_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_8_mot_2,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_8_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_8_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_8_end,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_8_end_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_8_front_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_8_end_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_8_end_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_8_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_8_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_8_mot_2,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_8_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
 
-alternative_sprites(tobu8000_8_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_8.png"){ tmpl_std(0, 0) }
-alternative_sprites(tobu8000_8_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_8.png"){ tmpl_std_rev(0, 25) }
-alternative_sprites(tobu8000_8_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_8.png"){ tmpl_std(0, 25) }
-alternative_sprites(tobu8000_8_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_8.png"){ tmpl_std(0, 50) }
-alternative_sprites(tobu8000_8_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_8.png"){ tmpl_std_rev(0, 75) }
-alternative_sprites(tobu8000_8_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_8.png"){ tmpl_std(0, 75) }
-alternative_sprites(tobu8000_8_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_8.png"){ tmpl_std(0, 100) }
-alternative_sprites(tobu8000_8_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_8.png"){ tmpl_std_rev(0, 100) }
-alternative_sprites(tobu8000_8_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_8.png"){ tmpl_symm_std(0, 125) }
-alternative_sprites(tobu8000_8_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_8.png"){ tmpl_symm_std(0, 150) }
+    alternative_sprites(tobu8000_8_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_8.png"){ tmpl_std(0, 0) }
+    alternative_sprites(tobu8000_8_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_8.png"){ tmpl_std_rev(0, 25) }
+    alternative_sprites(tobu8000_8_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_8.png"){ tmpl_std(0, 25) }
+    alternative_sprites(tobu8000_8_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_8.png"){ tmpl_std(0, 50) }
+    alternative_sprites(tobu8000_8_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_8.png"){ tmpl_std_rev(0, 75) }
+    alternative_sprites(tobu8000_8_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_8.png"){ tmpl_std(0, 75) }
+    alternative_sprites(tobu8000_8_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_8.png"){ tmpl_std(0, 100) }
+    alternative_sprites(tobu8000_8_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_8.png"){ tmpl_std_rev(0, 100) }
+    alternative_sprites(tobu8000_8_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_8.png"){ tmpl_symm_std(0, 125) }
+    alternative_sprites(tobu8000_8_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_8.png"){ tmpl_symm_std(0, 150) }
 
 //livery 9
-spriteset (tobu8000_9_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_9_end,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_9_end_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_9_front_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_9_end_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_9_end_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_9_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_9_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_9_mot_2,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_9_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_9_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_9_end,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_9_end_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_9_front_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_9_end_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_9_end_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_9_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_9_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_9_mot_2,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_9_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
 
-alternative_sprites(tobu8000_9_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_9.png"){ tmpl_std(0, 0) }
-alternative_sprites(tobu8000_9_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_9.png"){ tmpl_std_rev(0, 25) }
-alternative_sprites(tobu8000_9_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_9.png"){ tmpl_std(0, 25) }
-alternative_sprites(tobu8000_9_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_9.png"){ tmpl_std(0, 50) }
-alternative_sprites(tobu8000_9_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_9.png"){ tmpl_std_rev(0, 75) }
-alternative_sprites(tobu8000_9_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_9.png"){ tmpl_std(0, 75) }
-alternative_sprites(tobu8000_9_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_9.png"){ tmpl_std(0, 100) }
-alternative_sprites(tobu8000_9_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_9.png"){ tmpl_std_rev(0, 100) }
-alternative_sprites(tobu8000_9_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_9.png"){ tmpl_symm_std(0, 125) }
-alternative_sprites(tobu8000_9_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_9.png"){ tmpl_symm_std(0, 150) }
+    alternative_sprites(tobu8000_9_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_9.png"){ tmpl_std(0, 0) }
+    alternative_sprites(tobu8000_9_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_9.png"){ tmpl_std_rev(0, 25) }
+    alternative_sprites(tobu8000_9_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_9.png"){ tmpl_std(0, 25) }
+    alternative_sprites(tobu8000_9_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_9.png"){ tmpl_std(0, 50) }
+    alternative_sprites(tobu8000_9_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_9.png"){ tmpl_std_rev(0, 75) }
+    alternative_sprites(tobu8000_9_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_9.png"){ tmpl_std(0, 75) }
+    alternative_sprites(tobu8000_9_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_9.png"){ tmpl_std(0, 100) }
+    alternative_sprites(tobu8000_9_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_9.png"){ tmpl_std_rev(0, 100) }
+    alternative_sprites(tobu8000_9_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_9.png"){ tmpl_symm_std(0, 125) }
+    alternative_sprites(tobu8000_9_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_9.png"){ tmpl_symm_std(0, 150) }
 
 //livery 10
-spriteset (tobu8000_10_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_10_end,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_10_end_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_10_front_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_10_end_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_10_end_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_10_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_10_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_10_mot_2,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tobu8000_10_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_10_front,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_10_end,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_10_end_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_10_front_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_10_end_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_10_end_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_10_mot,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_10_mot_rev,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_10_mot_2,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
+    spriteset (tobu8000_10_wag,       "gfx/gfx_placeholder.png") { tmpl_std(0, 0) }
 
-alternative_sprites(tobu8000_10_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_10.png"){ tmpl_std(0, 0) }
-alternative_sprites(tobu8000_10_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_10.png"){ tmpl_std_rev(0, 25) }
-alternative_sprites(tobu8000_10_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_10.png"){ tmpl_std(0, 25) }
-alternative_sprites(tobu8000_10_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_10.png"){ tmpl_std(0, 50) }
-alternative_sprites(tobu8000_10_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_10.png"){ tmpl_std_rev(0, 75) }
-alternative_sprites(tobu8000_10_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_10.png"){ tmpl_std(0, 75) }
-alternative_sprites(tobu8000_10_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_10.png"){ tmpl_std(0, 100) }
-alternative_sprites(tobu8000_10_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_10.png"){ tmpl_std_rev(0, 100) }
-alternative_sprites(tobu8000_10_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_10.png"){ tmpl_symm_std(0, 125) }
-alternative_sprites(tobu8000_10_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_10.png"){ tmpl_symm_std(0, 150) }
+    alternative_sprites(tobu8000_10_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_10.png"){ tmpl_std(0, 0) }
+    alternative_sprites(tobu8000_10_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_10.png"){ tmpl_std_rev(0, 25) }
+    alternative_sprites(tobu8000_10_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_10.png"){ tmpl_std(0, 25) }
+    alternative_sprites(tobu8000_10_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_10.png"){ tmpl_std(0, 50) }
+    alternative_sprites(tobu8000_10_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_10.png"){ tmpl_std_rev(0, 75) }
+    alternative_sprites(tobu8000_10_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_10.png"){ tmpl_std(0, 75) }
+    alternative_sprites(tobu8000_10_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_10.png"){ tmpl_std(0, 100) }
+    alternative_sprites(tobu8000_10_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_10.png"){ tmpl_std_rev(0, 100) }
+    alternative_sprites(tobu8000_10_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_10.png"){ tmpl_symm_std(0, 125) }
+    alternative_sprites(tobu8000_10_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu8000/tobu8000_10.png"){ tmpl_symm_std(0, 150) }
 
 
 
@@ -32599,7 +32669,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_1_panto_placer_1,position_in_vehid_chain %
     3: tobu8000_1_mot;
     tobu8000_1_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu8000_1_panto_placer_1_rev,1-position_in_vehid_chain_from_end %6){
+switch(FEAT_TRAINS, SELF, sw_tobu8000_1_panto_placer_1_rev,position_in_vehid_chain_from_end %6 -1){
     0: tobu8000_1_mot_2;
     3: tobu8000_1_mot_rev;
     tobu8000_1_wag;
@@ -32636,8 +32706,8 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_1_fake_placer,position_in_vehid_chain +1){
 sw_tobu8000_1_panto_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu8000_1_fake_placer_rev,position_in_vehid_chain_from_end ){
-    7: sw_tobu8000_1_end_f_gfx;
-    8: sw_tobu8000_1_front_f_gfx;
+    7: sw_tobu8000_1_front_f_gfx;
+    8: sw_tobu8000_1_end_f_gfx;
 sw_tobu8000_1_panto_placer_main;
 }
 switch(FEAT_TRAINS, PARENT, sw_tobu8000_1_fake_placer_gfx,vehicle_is_reversed){
@@ -32711,7 +32781,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_1_ac_panto_placer_1,position_in_vehid_chai
     3: tobu8000_1_ac_mot;
     tobu8000_1_ac_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu8000_1_ac_panto_placer_1_rev,1-position_in_vehid_chain_from_end %6){
+switch(FEAT_TRAINS, SELF, sw_tobu8000_1_ac_panto_placer_1_rev,position_in_vehid_chain_from_end %6 -1){
     0: tobu8000_1_ac_mot_2;
     3: tobu8000_1_ac_mot_rev;
     tobu8000_1_ac_wag;
@@ -32748,8 +32818,8 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_1_ac_fake_placer,position_in_vehid_chain +
 sw_tobu8000_1_ac_panto_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu8000_1_ac_fake_placer_rev,position_in_vehid_chain_from_end ){
-    7: sw_tobu8000_1_ac_end_f_gfx;
-    8: sw_tobu8000_1_ac_front_f_gfx;
+    7: sw_tobu8000_1_ac_front_f_gfx;
+    8: sw_tobu8000_1_ac_end_f_gfx;
 sw_tobu8000_1_ac_panto_placer_main;
 }
 switch(FEAT_TRAINS, PARENT, sw_tobu8000_1_ac_fake_placer_gfx,vehicle_is_reversed){
@@ -32829,7 +32899,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_2_panto_placer_1,position_in_vehid_chain %
     3: tobu8000_2_mot;
     tobu8000_2_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu8000_2_panto_placer_1_rev,1-position_in_vehid_chain_from_end %6){
+switch(FEAT_TRAINS, SELF, sw_tobu8000_2_panto_placer_1_rev,position_in_vehid_chain_from_end %6 -1){
     0: tobu8000_2_mot_2;
     3: tobu8000_2_mot_rev;
     tobu8000_2_wag;
@@ -32866,8 +32936,8 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_2_fake_placer,position_in_vehid_chain +1){
 sw_tobu8000_2_panto_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu8000_2_fake_placer_rev,position_in_vehid_chain_from_end ){
-    7: sw_tobu8000_2_end_f_gfx;
-    8: sw_tobu8000_2_front_f_gfx;
+    7: sw_tobu8000_2_front_f_gfx;
+    8: sw_tobu8000_2_end_f_gfx;
 sw_tobu8000_2_panto_placer_main;
 }
 switch(FEAT_TRAINS, PARENT, sw_tobu8000_2_fake_placer_gfx,vehicle_is_reversed){
@@ -32941,7 +33011,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_2_ac_panto_placer_1,position_in_vehid_chai
     3: tobu8000_2_ac_mot;
     tobu8000_2_ac_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu8000_2_ac_panto_placer_1_rev,1-position_in_vehid_chain_from_end %6){
+switch(FEAT_TRAINS, SELF, sw_tobu8000_2_ac_panto_placer_1_rev,position_in_vehid_chain_from_end %6 -1){
     0: tobu8000_2_ac_mot_2;
     3: tobu8000_2_ac_mot_rev;
     tobu8000_2_ac_wag;
@@ -32978,8 +33048,8 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_2_ac_fake_placer,position_in_vehid_chain +
 sw_tobu8000_2_ac_panto_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu8000_2_ac_fake_placer_rev,position_in_vehid_chain_from_end ){
-    7: sw_tobu8000_2_ac_end_f_gfx;
-    8: sw_tobu8000_2_ac_front_f_gfx;
+    7: sw_tobu8000_2_ac_front_f_gfx;
+    8: sw_tobu8000_2_ac_end_f_gfx;
 sw_tobu8000_2_ac_panto_placer_main;
 }
 switch(FEAT_TRAINS, PARENT, sw_tobu8000_2_ac_fake_placer_gfx,vehicle_is_reversed){
@@ -33058,8 +33128,8 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_3_fake_placer,position_in_vehid_chain +1){
 sw_tobu8000_1_ac_panto_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu8000_3_fake_placer_rev,position_in_vehid_chain_from_end ){
-    7: sw_tobu8000_3_end_f_gfx;
-    8: sw_tobu8000_3_front_f_gfx;
+    7: sw_tobu8000_3_front_f_gfx;
+    8: sw_tobu8000_3_end_f_gfx;
 sw_tobu8000_1_ac_panto_placer_main;
 }
 switch(FEAT_TRAINS, PARENT, sw_tobu8000_3_fake_placer_gfx,vehicle_is_reversed){
@@ -33133,7 +33203,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_4_panto_placer_1,position_in_vehid_chain %
     3: tobu8000_4_mot;
     tobu8000_4_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu8000_4_panto_placer_1_rev,1-position_in_vehid_chain_from_end %6){
+switch(FEAT_TRAINS, SELF, sw_tobu8000_4_panto_placer_1_rev,position_in_vehid_chain_from_end %6 -1){
     0: tobu8000_4_mot_2;
     3: tobu8000_4_mot_rev;
     tobu8000_4_wag;
@@ -33170,8 +33240,8 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_4_fake_placer,position_in_vehid_chain +1){
 sw_tobu8000_4_panto_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu8000_4_fake_placer_rev,position_in_vehid_chain_from_end ){
-    7: sw_tobu8000_4_end_f_gfx;
-    8: sw_tobu8000_4_front_f_gfx;
+    7: sw_tobu8000_4_front_f_gfx;
+    8: sw_tobu8000_4_end_f_gfx;
 sw_tobu8000_4_panto_placer_main;
 }
 switch(FEAT_TRAINS, PARENT, sw_tobu8000_4_fake_placer_gfx,vehicle_is_reversed){
@@ -33245,7 +33315,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_5_panto_placer_1,position_in_vehid_chain %
     3: tobu8000_5_mot;
     tobu8000_5_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu8000_5_panto_placer_1_rev,1-position_in_vehid_chain_from_end %6){
+switch(FEAT_TRAINS, SELF, sw_tobu8000_5_panto_placer_1_rev,position_in_vehid_chain_from_end %6 -1){
     0: tobu8000_5_mot_2;
     3: tobu8000_5_mot_rev;
     tobu8000_5_wag;
@@ -33282,8 +33352,8 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_5_fake_placer,position_in_vehid_chain +1){
 sw_tobu8000_5_panto_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu8000_5_fake_placer_rev,position_in_vehid_chain_from_end ){
-    7: sw_tobu8000_5_end_f_gfx;
-    8: sw_tobu8000_5_front_f_gfx;
+    7: sw_tobu8000_5_front_f_gfx;
+    8: sw_tobu8000_5_end_f_gfx;
 sw_tobu8000_5_panto_placer_main;
 }
 switch(FEAT_TRAINS, PARENT, sw_tobu8000_5_fake_placer_gfx,vehicle_is_reversed){
@@ -33357,8 +33427,8 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_6_fake_placer,position_in_vehid_chain +1){
 sw_tobu8000_5_panto_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu8000_6_fake_placer_rev,position_in_vehid_chain_from_end ){
-    7: sw_tobu8000_6_end_f_gfx;
-    8: sw_tobu8000_6_front_f_gfx;
+    7: sw_tobu8000_6_front_f_gfx;
+    8: sw_tobu8000_6_end_f_gfx;
 sw_tobu8000_5_panto_placer_main;
 }
 switch(FEAT_TRAINS, PARENT, sw_tobu8000_6_fake_placer_gfx,vehicle_is_reversed){
@@ -33432,7 +33502,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_7_panto_placer_1,position_in_vehid_chain %
     3: tobu8000_7_mot;
     tobu8000_7_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu8000_7_panto_placer_1_rev,1-position_in_vehid_chain_from_end %6){
+switch(FEAT_TRAINS, SELF, sw_tobu8000_7_panto_placer_1_rev,position_in_vehid_chain_from_end %6 -1){
     0: tobu8000_7_mot_2;
     3: tobu8000_7_mot_rev;
     tobu8000_7_wag;
@@ -33469,8 +33539,8 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_7_fake_placer,position_in_vehid_chain +1){
 sw_tobu8000_7_panto_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu8000_7_fake_placer_rev,position_in_vehid_chain_from_end ){
-    7: sw_tobu8000_7_end_f_gfx;
-    8: sw_tobu8000_7_front_f_gfx;
+    7: sw_tobu8000_7_front_f_gfx;
+    8: sw_tobu8000_7_end_f_gfx;
 sw_tobu8000_7_panto_placer_main;
 }
 switch(FEAT_TRAINS, PARENT, sw_tobu8000_7_fake_placer_gfx,vehicle_is_reversed){
@@ -33544,7 +33614,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_8_panto_placer_1,position_in_vehid_chain %
     3: tobu8000_8_mot;
     tobu8000_8_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu8000_8_panto_placer_1_rev,1-position_in_vehid_chain_from_end %6){
+switch(FEAT_TRAINS, SELF, sw_tobu8000_8_panto_placer_1_rev,position_in_vehid_chain_from_end %6 -1){
     0: tobu8000_8_mot_2;
     3: tobu8000_8_mot_rev;
     tobu8000_8_wag;
@@ -33581,8 +33651,8 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_8_fake_placer,position_in_vehid_chain +1){
 sw_tobu8000_8_panto_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu8000_8_fake_placer_rev,position_in_vehid_chain_from_end ){
-    7: sw_tobu8000_8_end_f_gfx;
-    8: sw_tobu8000_8_front_f_gfx;
+    7: sw_tobu8000_8_front_f_gfx;
+    8: sw_tobu8000_8_end_f_gfx;
 sw_tobu8000_8_panto_placer_main;
 }
 switch(FEAT_TRAINS, PARENT, sw_tobu8000_8_fake_placer_gfx,vehicle_is_reversed){
@@ -33656,7 +33726,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_9_panto_placer_1,position_in_vehid_chain %
     3: tobu8000_9_mot;
     tobu8000_9_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu8000_9_panto_placer_1_rev,1-position_in_vehid_chain_from_end %6){
+switch(FEAT_TRAINS, SELF, sw_tobu8000_9_panto_placer_1_rev,position_in_vehid_chain_from_end %6 -1){
     0: tobu8000_9_mot_2;
     3: tobu8000_9_mot_rev;
     tobu8000_9_wag;
@@ -33693,8 +33763,8 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_9_fake_placer,position_in_vehid_chain +1){
 sw_tobu8000_9_panto_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu8000_9_fake_placer_rev,position_in_vehid_chain_from_end ){
-    7: sw_tobu8000_9_end_f_gfx;
-    8: sw_tobu8000_9_front_f_gfx;
+    7: sw_tobu8000_9_front_f_gfx;
+    8: sw_tobu8000_9_end_f_gfx;
 sw_tobu8000_9_panto_placer_main;
 }
 switch(FEAT_TRAINS, PARENT, sw_tobu8000_9_fake_placer_gfx,vehicle_is_reversed){
@@ -33768,7 +33838,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_10_panto_placer_1,position_in_vehid_chain 
     3: tobu8000_10_mot;
     tobu8000_10_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu8000_10_panto_placer_1_rev,1-position_in_vehid_chain_from_end %6){
+switch(FEAT_TRAINS, SELF, sw_tobu8000_10_panto_placer_1_rev,position_in_vehid_chain_from_end %6 -1){
     0: tobu8000_10_mot_2;
     3: tobu8000_10_mot_rev;
     tobu8000_10_wag;
@@ -33805,8 +33875,8 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_10_fake_placer,position_in_vehid_chain +1)
 sw_tobu8000_10_panto_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu8000_10_fake_placer_rev,position_in_vehid_chain_from_end ){
-    7: sw_tobu8000_10_end_f_gfx;
-    8: sw_tobu8000_10_front_f_gfx;
+    7: sw_tobu8000_10_front_f_gfx;
+    8: sw_tobu8000_10_end_f_gfx;
 sw_tobu8000_10_panto_placer_main;
 }
 switch(FEAT_TRAINS, PARENT, sw_tobu8000_10_fake_placer_gfx,vehicle_is_reversed){
@@ -33911,6 +33981,20 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_lv_desc, current_year){
 }
 
 //post fixers
+//power fix
+    switch(FEAT_TRAINS, SELF, sw_tobu8000_power,position_in_vehid_chain%8){
+        0..1:return 130;
+        4..5:return 130;
+        return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tobu8000_head_power,num_vehs_in_consist){
+        39: return 130;
+        return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tobu8000_power_main,vehicle_type_id){
+        mu_car_narrow:sw_tobu8000_power;
+        sw_tobu8000_head_power;
+    }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tobu8000_capacity,position_in_vehid_chain_from_end){
     0: 150*param_capacity_mod/3;
@@ -33953,12 +34037,12 @@ item(FEAT_TRAINS, tobu8000,2069) {
         climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_tobu8000_NAME);
         introduction_date: date(1963, 1, 1);
+        vehicle_life: 35;
         model_life: VEHICLE_NEVER_EXPIRES;
-        vehicle_life: 32;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 17;
+        running_cost_factor: 47;
         speed: 110 km/h;
         track_type: TR_1067_DC;
         power: 520 kW;
@@ -33989,14 +34073,14 @@ item(FEAT_TRAINS, tobu8000,2069) {
                             ),
                             
                         );
-                         
+        power: sw_tobu8000_power_main()*4;               
         cargo_capacity: sw_tobu8000_capacity_main()*param_capacity_mod/3;  
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tobu8000_capacity_main()*param_capacity_mod/3;
         default:                      sw_tobu8000_lv;
-        power: 520*3*1342/8000;
+        power: sw_tobu8000_power_main()*4*1342/1000;
         weight: 35;
       }
 }
@@ -34231,7 +34315,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu3000_capacity,position_in_vehid_chain_from_end)
     0: 140*param_capacity_mod/3;
     default: 150*param_capacity_mod/3;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu3000_capacity_1,position_in_vehid_chain){
+switch(FEAT_TRAINS, SELF, sw_tobu3000_capacity_1,position_in_vehid_chain_from_end){
     0: 140*param_capacity_mod/3;
     default: sw_tobu3000_capacity;
 }
@@ -34245,10 +34329,13 @@ switch(FEAT_TRAINS, SELF, sw_tobu3000_power_0,build_year){
     0..1970: return 388*1342/1000;
     return 440*1342/1000;
 }
-//power fixer
+    switch(FEAT_TRAINS, SELF, sw_tobu3000_head_power,num_vehs_in_consist){
+        39: sw_tobu3000_power_0;
+        return 0;
+    }
 switch(FEAT_TRAINS, SELF, sw_tobu3000_power, position_in_vehid_chain %2) {
-  1:sw_tobu3000_power_0;
-  return 0;
+  1: return 0;
+  sw_tobu3000_power_0;
 }
 
 
@@ -34280,12 +34367,12 @@ item(FEAT_TRAINS, tobu3000,2070) {
         climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_tobu3000_NAME);
         introduction_date: date(1964, 1, 1);
-        model_life: VEHICLE_NEVER_EXPIRES;
-        vehicle_life: 32;
+        vehicle_life: 34;
+        model_life: 31;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 18;
+        running_cost_factor: 48;
         speed: 110 km/h;
         track_type: TR_1067_DC;
         power: 388 kW;
@@ -34316,14 +34403,14 @@ item(FEAT_TRAINS, tobu3000,2070) {
                             ),
                             
                         );
-        power: sw_tobu3000_power_0;
+        power: sw_tobu3000_head_power;
         cargo_capacity: sw_tobu3000_capacity_main()*param_capacity_mod/3;  
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_3D;
         cargo_capacity: sw_tobu3000_capacity_main()*param_capacity_mod/3;
         default:                      sw_tobu3000_lv;
-        power: sw_tobu3000_power()/2;
+        power: sw_tobu3000_power;
         weight: 33;
       }
 }
@@ -34697,11 +34784,11 @@ item(FEAT_TRAINS, tobu5000,2071) {
         name: string(STR_tobu5000_NAME);
         introduction_date: date(1979, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
-        vehicle_life: 32;
+        vehicle_life: 35;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 16;
+        running_cost_factor: 46;
         speed: 110 km/h;
         track_type: TR_1067_DC;
         power: 520 kW;
@@ -34966,11 +35053,11 @@ switch(FEAT_TRAINS, SELF, sw_tobu9000_capacity_main,vehicle_type_id){
 }
 //capacity 2
 switch(FEAT_TRAINS, SELF, sw_tobu9050_capacity,position_in_vehid_chain_from_end){
-    0: 140*param_capacity_mod/3;
+    0: 141*param_capacity_mod/3;
     default: 152*param_capacity_mod/3;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu9050_capacity_1,position_in_vehid_chain){
-    0: 140*param_capacity_mod/3;
+    0: 141*param_capacity_mod/3;
     default: sw_tobu9050_capacity;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu9050_capacity_main,vehicle_type_id){
@@ -35018,11 +35105,11 @@ item(FEAT_TRAINS, tobu9000,2072) {
         name: string(STR_tobu9000_NAME);
         introduction_date: date(1981, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
-        vehicle_life: 32;
+        vehicle_life: 35;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 20;
+        running_cost_factor: 50;
         speed: 110 km/h;
         track_type: TR_1067_DC;
         power: 600 kW;
@@ -35416,20 +35503,14 @@ switch(FEAT_TRAINS, SELF, sw_tobu10000_lv_1_desc,cargo_subtype){
 switch(FEAT_TRAINS, SELF, sw_tobu10000_lv_2_desc,cargo_subtype){
     0: string(LV_TIME_RANDOM);
     1: string(LV_tobu10000_1);
-    2: string(STR_CONCAT_2,
-        string(LV_tobu10030_1),
-        string(STR_CAP));
+    2: string(STR_CONCAT_2);
 }
 
 switch(FEAT_TRAINS, SELF, sw_tobu10000_lv_3_desc,cargo_subtype){
     0: string(LV_TIME_RANDOM);
     1: string(LV_tobu10000_1);
-    2: string(STR_CONCAT_2,
-        string(LV_tobu10030_1),
-        string(STR_CAP));
-    3: string(STR_CONCAT_2,
-        string(LV_tobu10030_2),
-        string(STR_CAP));
+    2: string(LV_tobu10030_1);
+    3: string(LV_tobu10030_2);
 }
 
 switch(FEAT_TRAINS, SELF, sw_tobu10000_lv_desc,current_year){
@@ -35441,11 +35522,11 @@ switch(FEAT_TRAINS, SELF, sw_tobu10000_lv_desc,current_year){
 //post fixers
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tobu10000_capacity,position_in_vehid_chain_from_end){
-    0: 136*param_capacity_mod/3;
-    default: 144*param_capacity_mod/3;
+    0: 150*param_capacity_mod/3;
+    default: 170*param_capacity_mod/3;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu10000_capacity_1,position_in_vehid_chain){
-    0: 136*param_capacity_mod/3;
+    0: 150*param_capacity_mod/3;
     default: sw_tobu10000_capacity;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu10000_capacity_main_1,vehicle_type_id){
@@ -35453,11 +35534,11 @@ switch(FEAT_TRAINS, SELF, sw_tobu10000_capacity_main_1,vehicle_type_id){
     sw_tobu10000_capacity_1;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu10030_capacity,position_in_vehid_chain_from_end){
-    0: 150*param_capacity_mod/3;
-    default: 170*param_capacity_mod/3;
+    0: 142*param_capacity_mod/3;
+    default: 152*param_capacity_mod/3;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu10030_capacity_1,position_in_vehid_chain){
-    0: 150*param_capacity_mod/3;
+    0: 142*param_capacity_mod/3;
     default: sw_tobu10030_capacity;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu10030_capacity_main_2,vehicle_type_id){
@@ -35476,13 +35557,18 @@ switch(FEAT_TRAINS, SELF, sw_tobu10000_capacity_main,cargo_subtype){
 }
 
 //power fix
+//1988
+switch(FEAT_TRAINS, SELF, sw_tobu10000_power_0,build_year){
+    0..1987 :return 140;
+    return 165;
+}
 switch(FEAT_TRAINS, SELF, sw_tobu10000_power,position_in_vehid_chain_from_end%5){
-    1..2:return 140;
-    4:return 140;
+    1..2:sw_tobu10000_power_0;
+    4:sw_tobu10000_power_0;
     return 0;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu10000_head_power,num_vehs_in_consist){
-    2: return 140;
+    2: sw_tobu10000_power_0;
     return 0;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu10000_power_main,vehicle_type_id){
@@ -35519,11 +35605,11 @@ item(FEAT_TRAINS, tobu10000,2073) {
         name: string(STR_tobu10000_NAME);
         introduction_date: date(1983, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
-        vehicle_life: 32;
+        vehicle_life: 35;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 19;
+        running_cost_factor: 49;
         speed: 110 km/h;
         track_type: TR_1067_DC;
         power: 560 kW;
@@ -35567,7 +35653,6 @@ item(FEAT_TRAINS, tobu10000,2073) {
       }
 }
 # 1 "src/import/jp_private.pnml" 4
-//!#include "src/private/tobu/tobu10030.pnml"  done as livery
 # 1 "src/private/tobu/tobu20000.pnml"  1
 spriteset (tobu20000_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
 alternative_sprites(tobu20000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu20000/tobu20000_purchase.png"){ tmpl_purchase(0, 0) }
@@ -35678,13 +35763,18 @@ switch(FEAT_TRAINS, SELF, sw_tobu20000_capacity_main,vehicle_type_id){
     sw_tobu20000_capacity_1;
 }
 //power fix
-switch(FEAT_TRAINS, SELF, sw_tobu20000_power,position_in_vehid_chain_from_end%5){
-    1..2:return 140;
-    4:return 140;
+//1992
+switch(FEAT_TRAINS, SELF, sw_tobu20000_power_0,build_year){
+    0..1991 :return 140;
+    return 150;
+}
+
+switch(FEAT_TRAINS, SELF, sw_tobu20000_power,position_in_vehid_chain_from_end%8){
+    1..6:sw_tobu20000_power_0;
     return 0;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu20000_head_power,num_vehs_in_consist){
-    2: return 140;
+    2: sw_tobu20000_power_0;
     return 0;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu20000_power_main,vehicle_type_id){
@@ -35721,11 +35811,11 @@ item(FEAT_TRAINS, tobu20000,2075) {
         name: string(STR_tobu20000_NAME);
         introduction_date: date(1988, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
-        vehicle_life: 32;
+        vehicle_life: 35;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 17;
+        running_cost_factor: 47;
         speed: 110 km/h;
         track_type: TR_1067_DC;
         power: 1 kW;
@@ -35858,19 +35948,6 @@ switch(FEAT_TRAINS, SELF, sw_tobu20400_lv,vehicle_type_id){
 }
 
 //post fixers
-//capacity-changer
-switch(FEAT_TRAINS, SELF, sw_tobu20400_capacity,position_in_vehid_chain_from_end){
-    0: 120*param_capacity_mod/3;
-    default: 130*param_capacity_mod/3;
-}
-switch(FEAT_TRAINS, SELF, sw_tobu20400_capacity_1,position_in_vehid_chain){
-    0: 120*param_capacity_mod/3;
-    default: sw_tobu20400_capacity;
-}
-switch(FEAT_TRAINS, SELF, sw_tobu20400_capacity_main,vehicle_type_id){
-    mu_car_narrow:sw_tobu20400_capacity;
-    sw_tobu20400_capacity_1;
-}
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tobu20400_attach_vehid, vehicle_type_id) {
   mu_car: return string(STR_ATTACH_1067_ERROR);
@@ -35901,11 +35978,11 @@ item(FEAT_TRAINS, tobu20400,2076) {
         name: string(STR_tobu20400_NAME);
         introduction_date: date(2017, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
-        vehicle_life: 32;
+        vehicle_life: 35;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 17;
+        running_cost_factor: 47;
         speed: 110 km/h;
         track_type: TR_1067_DC;
         power: 1 kW;
@@ -35938,11 +36015,11 @@ item(FEAT_TRAINS, tobu20400,2076) {
                             
                         );
                          
-        cargo_capacity: sw_tobu20400_capacity_main()*param_capacity_mod/3;  
+        cargo_capacity: sw_tobu20000_capacity_main()*param_capacity_mod/3;  
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_3D;
-        cargo_capacity: sw_tobu20400_capacity_main()*param_capacity_mod/3;
+        cargo_capacity: sw_tobu20000_capacity_main()*param_capacity_mod/3;
         default:                      sw_tobu20400_lv;
         power:  sw_tobu20000_power_main()*4*1342/1000;
         weight: 33;
@@ -35980,8 +36057,8 @@ switch(FEAT_TRAINS, SELF, sw_tobu30000_panto_placer_1,position_in_vehid_chain %6
     3: tobu30000_mot;
     tobu30000_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu30000_panto_placer_1_rev,1-position_in_vehid_chain_from_end %6){
-    0: tobu30000_mot;
+switch(FEAT_TRAINS, SELF, sw_tobu30000_panto_placer_1_rev,position_in_vehid_chain_from_end %6 -1){
+    0: tobu30000_mot_2;
     3: tobu30000_mot_rev;
     tobu30000_wag;
 }
@@ -36007,7 +36084,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu30000_panto_placer_3,position_in_vehid_chain %3
     1: tobu30000_mot_2;
     tobu30000_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu30000_panto_placer_3_rev,1-position_in_vehid_chain_from_end %3){
+switch(FEAT_TRAINS, SELF, sw_tobu30000_panto_placer_3_rev,position_in_vehid_chain_from_end %3 -1){
     1: tobu30000_mot_2;
     tobu30000_wag;
 }
@@ -36115,11 +36192,11 @@ item(FEAT_TRAINS, tobu30000,2077) {
         name: string(STR_tobu30000_NAME);
         introduction_date: date(1996, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
-        vehicle_life: 32;
+        vehicle_life: 35;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 21;
+        running_cost_factor: 51;
         speed: 120 km/h;
         track_type: TR_1067_DC;
         power: 1 kW;
@@ -36141,7 +36218,7 @@ item(FEAT_TRAINS, tobu30000,2077) {
                             string(STR_10_CARS),
                             string(STR_CARS),
                             string(STR_COUPLER,
-                            string(STR_KNUCKLE)),
+                            string(STR_SHIBATA)),
                             string(STR_USAGE,
                             string(STR_COMMUTER),
                             string(STR_DC),
@@ -36335,7 +36412,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu50000_panto_placer_2,position_in_vehid_chain %5
     2: tobu50000_mot;
     tobu50000_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu50000_panto_placer_2_rev,1-position_in_vehid_chain_from_end %5){
+switch(FEAT_TRAINS, SELF, sw_tobu50000_panto_placer_2_rev,position_in_vehid_chain_from_end %5 -1){
     0: tobu50000_mot_rev;
     2: tobu50000_mot_rev;
     tobu50000_wag;
@@ -36420,7 +36497,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu50050_panto_placer_2,position_in_vehid_chain %5
     2: tobu50050_mot;
     tobu50050_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu50050_panto_placer_2_rev,1-position_in_vehid_chain_from_end %5){
+switch(FEAT_TRAINS, SELF, sw_tobu50050_panto_placer_2_rev,position_in_vehid_chain_from_end %5 -1){
     0: tobu50050_mot_rev;
     2: tobu50050_mot_rev;
     tobu50050_wag;
@@ -36507,7 +36584,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu50050_1_panto_placer_2,position_in_vehid_chain 
     2: tobu50050_1_mot;
     tobu50050_1_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu50050_1_panto_placer_2_rev,1-position_in_vehid_chain_from_end %5){
+switch(FEAT_TRAINS, SELF, sw_tobu50050_1_panto_placer_2_rev,position_in_vehid_chain_from_end %5 -1){
     0: tobu50050_1_mot_rev;
     2: tobu50050_1_mot_rev;
     tobu50050_1_wag;
@@ -36594,7 +36671,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu50050_2_panto_placer_2,position_in_vehid_chain 
     2: tobu50050_2_mot;
     tobu50050_2_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu50050_2_panto_placer_2_rev,1-position_in_vehid_chain_from_end %5){
+switch(FEAT_TRAINS, SELF, sw_tobu50050_2_panto_placer_2_rev,position_in_vehid_chain_from_end %5 -1){
     0: tobu50050_2_mot_rev;
     2: tobu50050_2_mot_rev;
     tobu50050_2_wag;
@@ -36681,7 +36758,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu50050_3_panto_placer_2,position_in_vehid_chain 
     2: tobu50050_3_mot;
     tobu50050_3_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu50050_3_panto_placer_2_rev,1-position_in_vehid_chain_from_end %5){
+switch(FEAT_TRAINS, SELF, sw_tobu50050_3_panto_placer_2_rev,position_in_vehid_chain_from_end %5 -1){
     0: tobu50050_3_mot_rev;
     2: tobu50050_3_mot_rev;
     tobu50050_3_wag;
@@ -36768,7 +36845,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu50050_4_panto_placer_2,position_in_vehid_chain 
     2: tobu50050_4_mot;
     tobu50050_4_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu50050_4_panto_placer_2_rev,1-position_in_vehid_chain_from_end %5){
+switch(FEAT_TRAINS, SELF, sw_tobu50050_4_panto_placer_2_rev,position_in_vehid_chain_from_end %5 -1){
     0: tobu50050_4_mot_rev;
     2: tobu50050_4_mot_rev;
     tobu50050_4_wag;
@@ -36855,7 +36932,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu50050_5_panto_placer_2,position_in_vehid_chain 
     2: tobu50050_5_mot;
     tobu50050_5_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu50050_5_panto_placer_2_rev,1-position_in_vehid_chain_from_end %5){
+switch(FEAT_TRAINS, SELF, sw_tobu50050_5_panto_placer_2_rev,position_in_vehid_chain_from_end %5 -1){
     0: tobu50050_5_mot_rev;
     2: tobu50050_5_mot_rev;
     tobu50050_5_wag;
@@ -36943,7 +37020,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu50090_panto_placer_2,position_in_vehid_chain %5
     2: tobu50090_mot;
     tobu50090_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu50090_panto_placer_2_rev,1-position_in_vehid_chain_from_end %5){
+switch(FEAT_TRAINS, SELF, sw_tobu50090_panto_placer_2_rev,position_in_vehid_chain_from_end %5 -1){
     0: tobu50090_mot_rev;
     2: tobu50090_mot_rev;
     tobu50090_wag;
@@ -37030,7 +37107,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu50090_1_panto_placer_2,position_in_vehid_chain 
     2: tobu50090_1_mot;
     tobu50090_1_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu50090_1_panto_placer_2_rev,1-position_in_vehid_chain_from_end %5){
+switch(FEAT_TRAINS, SELF, sw_tobu50090_1_panto_placer_2_rev,position_in_vehid_chain_from_end %5 -1){
     0: tobu50090_1_mot_rev;
     2: tobu50090_1_mot_rev;
     tobu50090_1_wag;
@@ -37226,6 +37303,7 @@ switch(FEAT_TRAINS, PARENT, sw_tobu50000_capacity_0,build_year){
 
 switch(FEAT_TRAINS, SELF, sw_tobu50000_capacity_main,cargo_subtype){
     0:sw_tobu50000_capacity_0;
+    1: sw_tobu50000_capacity_main_0;
     8..9:sw_tobu50090_capacity_main;
     sw_tobu50050_capacity_main;
 }
@@ -37279,11 +37357,11 @@ item(FEAT_TRAINS, tobu50000,2078) {
         name: string(STR_tobu50000_NAME);
         introduction_date: date(2004, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
-        vehicle_life: 32;
+        vehicle_life: 35;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 20;
+        running_cost_factor: 51;
         speed: 120 km/h;
         track_type: TR_1067_DC;
         power: 1 kW;
@@ -37373,7 +37451,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu60000_panto_placer_2,position_in_vehid_chain %5
     2: tobu60000_mot;
     tobu60000_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu60000_panto_placer_2_rev,1-position_in_vehid_chain_from_end %5){
+switch(FEAT_TRAINS, SELF, sw_tobu60000_panto_placer_2_rev,position_in_vehid_chain_from_end %5 -1){
     0: tobu60000_mot_rev;
     2: tobu60000_mot_rev;
     tobu60000_wag;
@@ -37497,11 +37575,11 @@ item(FEAT_TRAINS, tobu60000,2079) {
         name: string(STR_tobu60000_NAME);
         introduction_date: date(2013, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
-        vehicle_life: 32;
+        vehicle_life: 35;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 20;
+        running_cost_factor: 50;
         speed: 120 km/h;
         track_type: TR_1067_DC;
         power: 1 kW;
@@ -37811,11 +37889,11 @@ item(FEAT_TRAINS, tobu70000,2080) {
         name: string(STR_tobu70000_NAME);
         introduction_date: date(2017, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
-        vehicle_life: 32;
+        vehicle_life: 35;
         reliability_decay: 20;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
+        cost_factor: 21;
+        running_cost_factor: 51;
         speed: 120 km/h;
         track_type: TR_1067_DC;
         power: 1 kW;
@@ -37869,7 +37947,7 @@ item(FEAT_TRAINS, tobu70000,2080) {
 
 //*2280 - 2289 Reserved
 
-//*Semi for Tokyu
+//*Semi for Tokyo
 //*2290 TWR (semi start)
 # 1 "src/private/TWR/70_000series.pnml" 1
 spriteset (twr_70_000series_purchase,   "gfx/purchase.png") { tmpl_purchase(0, 0) }
@@ -38540,7 +38618,7 @@ item(FEAT_TRAINS, tsukuba_3000series,2297) {
 
 //*2320 - 2339 Chichibu
 
-//*2340-2349 Shizutetsu (1067 and semi end)
+//*2340-2349 Shizutetsu (Semi end)
 
 //*2350-2399 Keio (1372)
 
