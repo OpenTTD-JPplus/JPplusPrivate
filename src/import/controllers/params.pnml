@@ -8,7 +8,7 @@ grf {
     name: string(STR_NAME);
     desc: string(STR_DESC);
 	url: string(STR_GRF_URL);
-    version: 13;
+    version: 210;
     min_compatible_version: 6;
 
 param 0 { 
@@ -78,8 +78,19 @@ param 3 {
 
 			 }
 		}
-	//*disablers
 param 4 {
+			 param_boost_rapid {
+						type: int;
+						name: string(STR_PARAM_BOOST_RAPID);
+						desc: string(STR_PARAM_BOOST_RAPID_DESC);
+						min_value: 0;
+						max_value: 4;
+						def_value: 0;
+
+			 }
+		}
+	//*disablers
+param 6 {
 			param_disable_tokyo {
 						type: bool;
 						name: string(STR_PARAM_DISABLE_TOKYO);
@@ -89,7 +100,7 @@ param 4 {
 
 			}
 		}
-param 5 {
+param 7 {
 			param_disable_yokohama {
 						type: bool;
 						name: string(STR_PARAM_DISABLE_YOKOHAMA);
@@ -99,7 +110,7 @@ param 5 {
 
 			}
 		}
-param 6 {
+param 8 {
 			param_disable_osaka {
 						type: bool;
 						name: string(STR_PARAM_DISABLE_OSAKA);
@@ -109,7 +120,7 @@ param 6 {
 
 			}
 		}
-param 7 {
+param 9 {
 	param_disable_kyoto {
 				type: bool;
 				name: string(STR_PARAM_DISABLE_KYOTO);
@@ -118,8 +129,8 @@ param 7 {
 				def_value: 0;
 
 	}
-}
-param 8 {
+		}
+param 10 {
 	param_disable_nagoya {
 				type: bool;
 				name: string(STR_PARAM_DISABLE_NAGOYA);
@@ -127,9 +138,9 @@ param 8 {
 				bit:  0;
 				def_value: 0;
 
-	}
-}
-param 9 {
+				}
+		}
+param 11 {
 	param_disable_sendai {
 				type: bool;
 				name: string(STR_PARAM_DISABLE_SENDAI);
@@ -137,9 +148,9 @@ param 9 {
 				bit:  0;
 				def_value: 0;
 
-	}
-}
-param 10 {
+				}
+		}
+param 12 {
 	param_disable_kobe {
 				type: bool;
 				name: string(STR_PARAM_DISABLE_KOBE);
@@ -147,9 +158,9 @@ param 10 {
 				bit:  0;
 				def_value: 0;
 
+				}
 	}
-}
-param 11 {
+param 13 {
 	param_disable_fukuoka {
 				type: bool;
 				name: string(STR_PARAM_DISABLE_FUKUOKA);
@@ -157,9 +168,9 @@ param 11 {
 				bit:  0;
 				def_value: 0;
 
+				}
 	}
-}
-param 12 {
+param 14 {
 	param_disable_semiPrivate {
 				type: bool;
 				name: string(STR_PARAM_DISABLE_SEMI_MAJOR);
@@ -167,9 +178,9 @@ param 12 {
 				bit:  0;
 				def_value: 0;
 
+				}
 	}
-}
-param 13 {
+param 15 {
 	param_disable_tokyu {
 				type: bool;
 				name: string(STR_PARAM_DISABLE_TOKYU);
@@ -177,83 +188,98 @@ param 13 {
 				bit:  0;
 				def_value: 0;
 
+				}
 	}
-}
-param 14 {
+param 16 {
 	param_disable_tobu {
 				type: bool;
 				name: string(STR_PARAM_DISABLE_TOBU);
 				desc: string(STR_PARAM_DISABLE_TOBU);
 				bit:  0;
 				def_value: 0;
+				}
+		}
 
+}
+
+//*param based variables
+	if (param_capacities == 0 || param_capacities == 1) {
+		param_loading_1D = 10; // 1 door //
+		param_loading_2D = 20; // 2 doors //
+		param_loading_3D = 30; // 3 doors //
+		param_loading_4D = 40; // 4 doors //
+		param_loading_5D = 60; // 5 doors //
+		param_loading_6D = 70; // 6 doors //
 	}
-}
-}
 
-	//*param based variables
-if (param_capacities == 0 || param_capacities == 1) {
-	param_loading_1D = 10; // 1 door //
-	param_loading_2D = 20; // 2 doors //
-	param_loading_3D = 30; // 3 doors //
-	param_loading_4D = 40; // 4 doors //
-	param_loading_5D = 60; // 5 doors //
-	param_loading_6D = 70; // 6 doors //
-}
+	if (param_capacities == 2) {
+		param_loading_1D = 20; // 1 door //
+		param_loading_2D = 30; // 2 doors //
+		param_loading_3D = 40; // 3 doors //
+		param_loading_4D = 50; // 4 doors //
+		param_loading_5D = 80; // 5 doors //
+		param_loading_6D = 90; // 6 doors //
+	}
+	if (param_capacities == 3) {
+		param_loading_1D = 30; // 1 door //
+		param_loading_2D = 40; // 2 doors //
+		param_loading_3D = 50; // 3 doors //
+		param_loading_4D = 70; // 4 doors //
+		param_loading_5D = 100; // 5 doors //
+		param_loading_6D = 120; // 6 doors //
+	}
+	if (param_capacities == 4) {
+		param_loading_1D = 40; // 1 door //
+		param_loading_2D = 50; // 2 doors //
+		param_loading_3D = 60; // 3 doors //
+		param_loading_4D = 80; // 4 doors //
+		param_loading_5D = 120; // 5 doors //
+		param_loading_6D = 140; // 6  doors //
+	}
 
-if (param_capacities == 2) {
-	param_loading_1D = 20; // 1 door //
-	param_loading_2D = 30; // 2 doors //
-	param_loading_3D = 40; // 3 doors //
-	param_loading_4D = 50; // 4 doors //
-	param_loading_5D = 80; // 5 doors //
-	param_loading_6D = 90; // 6 doors //
-}
-if (param_capacities == 3) {
-	param_loading_1D = 30; // 1 door //
-	param_loading_2D = 40; // 2 doors //
-	param_loading_3D = 50; // 3 doors //
-	param_loading_4D = 70; // 4 doors //
-	param_loading_5D = 100; // 5 doors //
-	param_loading_6D = 120; // 6 doors //
-}
-if (param_capacities == 4) {
-	param_loading_1D = 40; // 1 door //
-	param_loading_2D = 50; // 2 doors //
-	param_loading_3D = 60; // 3 doors //
-	param_loading_4D = 80; // 4 doors //
-	param_loading_5D = 120; // 5 doors //
-	param_loading_6D = 140; // 6  doors //
-}
+	if (param_boost_rapid == 0) {
+		boost_rapid_mod = 2;
+	}
+	if (param_boost_rapid == 1) {
+		boost_rapid_mod = 3;
+	}	
+	if (param_boost_rapid == 2) {
+		boost_rapid_mod = 4;
+	}
+	if (param_boost_rapid == 3) {
+		boost_rapid_mod = 5;
+	}
+	if (param_boost_rapid == 4) {
+		boost_rapid_mod = 6;
+	}
 
+	if (param_capacities == 0) {
+		param_capacity_mod = 2;
+	}
+	if (param_capacities == 1) {
+		param_capacity_mod = 3;
+	}
+	if (param_capacities == 2) {
+		param_capacity_mod = 4;
+	}
+	if (param_capacities == 3) {
+		param_capacity_mod = 5;
+	}
+	if (param_capacities == 4) {
+		param_capacity_mod = param_custom_capacity;
+	}
 
-if (param_capacities == 0) {
-	param_capacity_mod = 2;
-}
-if (param_capacities == 1) {
-	param_capacity_mod = 3;
-}
-if (param_capacities == 2) {
-	param_capacity_mod = 4;
-}
-if (param_capacities == 3) {
-	param_capacity_mod = 5;
-}
-if (param_capacities == 4) {
-	param_capacity_mod = param_custom_capacity;
-}
+	if (param_buy == 0) { PURCHASE_COST_MOD = -2; }
+	if (param_buy == 1) { PURCHASE_COST_MOD = -1; }
+	if (param_buy == 2) { PURCHASE_COST_MOD = 0; }
+	if (param_buy == 3) { PURCHASE_COST_MOD = 1; }
+	if (param_buy == 4) { PURCHASE_COST_MOD = 2; }
 
-if (param_buy == 0) { PURCHASE_COST_MOD = -2; }
-if (param_buy == 1) { PURCHASE_COST_MOD = -1; }
-if (param_buy == 2) { PURCHASE_COST_MOD = 0; }
-if (param_buy == 3) { PURCHASE_COST_MOD = 1; }
-if (param_buy == 4) { PURCHASE_COST_MOD = 2; }
-
-	//*cargo aging
-//TODO by a param
-local_cargo_age = 185;
-rapid_cargo_age = 231;
-express_cargo_age = 278;
+//*cargo aging
+	//TODO by a param
+	local_cargo_age = 185;
+	rapid_cargo_age = 231;
+	express_cargo_age = 278;
 
 train_width_32_px = 1;
 traininfo_y_offset = 2;
@@ -267,15 +293,13 @@ if ((grf_current_status("mkw\E0") == 1)||(grf_future_status("mkw\E0") == 1)){
 }
 
 railtypetable {
-	RAIL,
-	ELRL,
-    TR_1067_DC: [NABE, ELNG, ELRL],
+    TR_1067_DC: [NABE, ELNG, ELRL], //JP+Tracks AC/DC
     TR_1067_AC: [NABE, ELNG, ELRL],
-	TR_1435_M: [SAB3, "3RDR",MTRO,ELRL],
 	TR_1435_DC: [ELRL],
 	TR_1435_AC: [ELRL],
-	TR_1372: [ELRL, NABE],
-	TR_1435_LNR: [ELRL],
+	TR_1435_M: [SAB3, "3RDR", MTRO, ELRL],
+	TR_1435_LNR: [ELRL], //wait for JP+Tracks
+	TR_1372: [ELRL], //wait for JP+Tracks
 }
 	
 

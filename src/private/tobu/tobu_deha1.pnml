@@ -46,7 +46,11 @@ switch(FEAT_TRAINS, SELF, sw_tobu_deha1_livery_0,vehicle_type_id){
     mu_car_narrow:sw_tobu_deha1_end_fix;
     sw_tobu_deha1_front_gfx;
 }
-
+//power fix
+    switch(FEAT_TRAINS, SELF, sw_tobu_deha1_power,position_in_vehid_chain%2){
+        1:return 0;
+        return 240;
+    }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tobu_deha1_attach_vehid, vehicle_type_id) {
   mu_car_narrow:  return CB_RESULT_ATTACH_ALLOW;
@@ -74,8 +78,8 @@ item(FEAT_TRAINS, tobu_deha1,2065) {
         climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_tobu_deha1_NAME);
         introduction_date: date(1924, 1, 1);
-        model_life: 20;
-        vehicle_life: 46;
+        model_life: 47;
+        vehicle_life: 57;
         reliability_decay: 20;
 
         cost_factor: 12;
@@ -116,7 +120,7 @@ item(FEAT_TRAINS, tobu_deha1,2065) {
         loading_speed: param_loading_2D;
         cargo_capacity: 92*param_capacity_mod/3;
         default:                      sw_tobu_deha1_livery_0;
-        power: 240*1342/2000;
+        power: sw_tobu_deha1_power()*1342/1000;
         weight: 33;
         length: 7; 
       }
