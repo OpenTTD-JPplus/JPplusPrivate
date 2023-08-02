@@ -10,7 +10,7 @@ grf {
     name: string(STR_NAME);
     desc: string(STR_DESC);
 	url: string(STR_GRF_URL);
-    version: 210;
+    version: 220;
     min_compatible_version: 6;
 
 param 0 { 
@@ -201,7 +201,15 @@ param 16 {
 				def_value: 0;
 				}
 		}
-
+// param 17 {
+// 	param_disable_seibu {
+// 				type: bool;
+// 				name: string(STR_PARAM_DISABLE_SEIBU);
+// 				desc: string(STR_PARAM_DISABLE_SEIBU);
+// 				bit:  0;
+// 				def_value: 0;
+// 				}
+// 		}
 }
 
 //*param based variables
@@ -27732,8 +27740,8 @@ alternative_sprites(tobu1720_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
 
 //capacity-changer
     switch(FEAT_TRAINS, SELF, sw_tobu1720_capacity,position_in_vehid_chain_from_end%6){
-        0: 58*param_capacity_mod/3;
-        default: 50*param_capacity_mod/3;
+        0: 58;
+        default: 50;
     }
 
   //attachable vehicles
@@ -27799,13 +27807,13 @@ item(FEAT_TRAINS, tobu1720,2052) {
                             ),
                             
                         );
-        cargo_capacity: sw_tobu1720_capacity;
+        cargo_capacity: sw_tobu1720_capacity()*param_capacity_mod/3;
         power: 75*4*1342/1000;  
     }
     livery_override(mu_car_narrow){
         cargo_age_period:express_cargo_age; 
         loading_speed: param_loading_1D;
-        cargo_capacity: sw_tobu1720_capacity;
+        cargo_capacity: sw_tobu1720_capacity()*param_capacity_mod/3;
         default:                      sw_tobu1720_lv;
         power: 75*4*1342/1000;
         weight: 36;
@@ -27872,21 +27880,21 @@ alternative_sprites(tobu6000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
     }
 //capacity-changer
     switch(FEAT_TRAINS, SELF, sw_tobu6000_capacity_1_0,position_in_vehid_chain %2){
-        0: 145*param_capacity_mod/3;
-        default: 150*param_capacity_mod/3;
+        0: 145;
+        default: 150;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu6000_capacity_1,vehicle_type_id){
         mu_car_narrow:sw_tobu6000_capacity_1_0;
-        150*param_capacity_mod/3;
+        150;
     }
     //limited service
     switch(FEAT_TRAINS, SELF, sw_tobu6000_capacity_2_0,position_in_vehid_chain %2){
-        0: 81*param_capacity_mod/3;
-        default: 84*param_capacity_mod/3;
+        0: 81;
+        default: 84;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu6000_capacity_2,vehicle_type_id){
         mu_car_narrow:sw_tobu6000_capacity_2_0;
-        84*param_capacity_mod/3;
+        84;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu6000_capacity,cargo_subtype){
         0:sw_tobu6000_capacity_2;
@@ -27976,12 +27984,12 @@ item(FEAT_TRAINS, tobu6000,2053) {
                             ),
                             
                         );
-        cargo_capacity: sw_tobu6000_capacity;  
+        cargo_capacity: sw_tobu6000_capacity()*param_capacity_mod/3;  
     }
     livery_override(mu_car_narrow){
         cargo_age_period:sw_tobu6000_cargo_age_main; 
         loading_speed: param_loading_2D;
-        cargo_capacity: sw_tobu6000_capacity;
+        cargo_capacity: sw_tobu6000_capacity()*param_capacity_mod/3;
         default:                      sw_tobu6000_lv;
         power: tobu6000_power;
         weight: 35;
@@ -28378,14 +28386,14 @@ alternative_sprites(tobu1800_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
     }
 //capacity-changer
     switch(FEAT_TRAINS, SELF, sw_tobu1800_capacity_1,position_in_vehid_chain_from_end%6){
-        0: 64*param_capacity_mod/3;
-        1: 72*param_capacity_mod/3;
-        4: 72*param_capacity_mod/3;
-        default: 68*param_capacity_mod/3;
+        0: 64;
+        1: 72;
+        4: 72;
+        default: 68;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu1800_capacity_2,position_in_vehid_chain_from_end%6){
-        0: 130*param_capacity_mod/3;
-        default: 140*param_capacity_mod/3;
+        0: 130;
+        default: 140;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu1800_capacity,cargo_subtype){
             3:sw_tobu1800_capacity_2;
@@ -28476,13 +28484,13 @@ item(FEAT_TRAINS, tobu1800,2055) {
                             ),
                             
                         );
-        cargo_capacity: sw_tobu1800_capacity;
+        cargo_capacity: sw_tobu1800_capacity()*param_capacity_mod/3;
         power: sw_tobu1800_power_main()*4*1342/1000;  
     }
     livery_override(mu_car_narrow){
         cargo_age_period:sw_tobu1800_cargo_age_main; 
         loading_speed: param_loading_1D;
-        cargo_capacity: sw_tobu1800_capacity;
+        cargo_capacity: sw_tobu1800_capacity()*param_capacity_mod/3;
         default:                      sw_tobu1800_lv;
         power: sw_tobu1800_power_main()*4*1342/1000;
         weight: 36;
@@ -28688,12 +28696,12 @@ alternative_sprites(tobu6050_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
     }
 //capacity-changer
     switch(FEAT_TRAINS, SELF, sw_tobu6050_capacity_1,position_in_vehid_chain %2){
-        0: 145*param_capacity_mod/3;
-        default: 150*param_capacity_mod/3;
+        0: 145;
+        default: 150;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu6050_capacity,vehicle_type_id){
         mu_car_narrow:sw_tobu6050_capacity_1;
-        150*param_capacity_mod/3;
+        150;
     }
 //attachable vehicles
     switch(FEAT_TRAINS, SELF, tobu6050_attach_vehid, vehicle_type_id) {
@@ -28760,12 +28768,12 @@ item(FEAT_TRAINS, tobu6050,2054) {
                             ),
                             
                         );
-        cargo_capacity: sw_tobu6050_capacity;  
+        cargo_capacity: sw_tobu6050_capacity()*param_capacity_mod/3;  
     }
     livery_override(mu_car_narrow){
         cargo_age_period:rapid_cargo_age; 
         loading_speed: param_loading_2D;
-        cargo_capacity: sw_tobu6050_capacity;
+        cargo_capacity: sw_tobu6050_capacity()*param_capacity_mod/3;
         default:                      sw_tobu6050_lv;
         power: tobu6050_power;
         weight: 37;
@@ -29600,16 +29608,16 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
 //*post fixers
   //capacity-changer
     switch(FEAT_TRAINS, SELF, sw_tobu100_capacity,position_in_vehid_chain_from_end%6){
-        0: 44*boost_rapid_mod/2*param_capacity_mod/3;
-        1: 64*boost_rapid_mod/2*param_capacity_mod/3;
-        2: 36*boost_rapid_mod/2*param_capacity_mod/3;
-        3: 56*boost_rapid_mod/2*param_capacity_mod/3;
-        4: 64*boost_rapid_mod/2*param_capacity_mod/3;
-        5: 24*boost_rapid_mod/2*param_capacity_mod/3;
-        default: 64*boost_rapid_mod/2*param_capacity_mod/3;
+        0: 44;
+        1: 64;
+        2: 36;
+        3: 56;
+        4: 64;
+        5: 24;
+        default: 64;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu100_capacity_1,position_in_vehid_chain){
-        0: 24*boost_rapid_mod/2*param_capacity_mod/3;
+        0: 24;
         default: sw_tobu100_capacity;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu100_capacity_main,vehicle_type_id){
@@ -29687,12 +29695,12 @@ item(FEAT_TRAINS, tobu100,2058) {
                             
                         );
         cargo_age_period:express_cargo_age;                 
-        cargo_capacity: sw_tobu100_capacity_main()*param_capacity_mod/3;  
+        cargo_capacity: sw_tobu100_capacity_main()*boost_rapid_mod/2*param_capacity_mod/3;  
     }
     livery_override(mu_car_narrow){
         cargo_age_period:express_cargo_age;
         loading_speed: param_loading_1D;
-        cargo_capacity: sw_tobu100_capacity_main()*param_capacity_mod/3;
+        cargo_capacity: sw_tobu100_capacity_main()*boost_rapid_mod/2*param_capacity_mod/3;
         default:                      sw_tobu100_lv;
         power:  sw_tobu100_power;
         weight: 36;
@@ -30058,11 +30066,11 @@ alternative_sprites(tobu200_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
 //*post fixers
   //capacity-changer
     switch(FEAT_TRAINS, SELF, sw_tobu200_capacity_main,position_in_vehid_chain_from_end%6){
-        0: 60*param_capacity_mod/3;
-        2: 58*param_capacity_mod/3;
-        3: 76*param_capacity_mod/3;
-        5: 60*param_capacity_mod/3;
-        default: 72*param_capacity_mod/3;
+        0: 60;
+        2: 58;
+        3: 76;
+        5: 60;
+        default: 72;
     }
   //power fixer
     //250
@@ -30266,10 +30274,10 @@ alternative_sprites(tobu300_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
 
 //capacity-changer
     switch(FEAT_TRAINS, SELF, sw_tobu300_capacity,position_in_vehid_chain_from_end%6){
-        0: 64*param_capacity_mod/3;
-        1: 72*param_capacity_mod/3;
-        4: 72*param_capacity_mod/3;
-        default: 68*param_capacity_mod/3;
+        0: 64;
+        1: 72;
+        4: 72;
+        default: 68;
     }
     //power fix
     switch(FEAT_TRAINS, SELF, sw_tobu300_power,position_in_vehid_chain_from_end%5){
@@ -30350,13 +30358,13 @@ item(FEAT_TRAINS, tobu300,2060) {
                             ),
                             
                         );
-        cargo_capacity: sw_tobu300_capacity;
+        cargo_capacity: sw_tobu300_capacity()*param_capacity_mod/3;
         power: sw_tobu300_power_main()*4*1342/1000;  
     }
     livery_override(mu_car_narrow){
         cargo_age_period:express_cargo_age; 
         loading_speed: param_loading_1D;
-        cargo_capacity: sw_tobu300_capacity;
+        cargo_capacity: sw_tobu300_capacity()*param_capacity_mod/3;
         default:                      sw_tobu300_lv;
         power: sw_tobu300_power_main()*4*1342/1000;
         weight: 38;
@@ -30448,17 +30456,17 @@ alternative_sprites(tobu500_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
 
 //capacity-changer
     switch(FEAT_TRAINS, SELF, sw_tobu500_capacity_1_0,position_in_vehid_chain){
-        1: 112*param_capacity_mod/3;
-        2: 112*param_capacity_mod/3;
-        default: 136*param_capacity_mod/3;
+        1: 112;
+        2: 112;
+        default: 136;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu500_capacity_1,position_in_vehid_chain_from_end){
-        0: 112*param_capacity_mod/3;
+        0: 112;
         default: sw_tobu500_capacity_1_0;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu500_capacity_2,position_in_vehid_chain_from_end){
-        0: 112*param_capacity_mod/3;
-        default: 136*param_capacity_mod/3;
+        0: 112;
+        default: 136;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu500_capacity,num_vehs_in_vehid_chain>4){
         1: sw_tobu500_capacity_1;
@@ -30546,7 +30554,7 @@ item(FEAT_TRAINS, tobu500,2061) {
     livery_override(mu_car_narrow){
         cargo_age_period:express_cargo_age; 
         loading_speed: param_loading_1D;
-        cargo_capacity: sw_tobu500_capacity;
+        cargo_capacity: sw_tobu500_capacity()*param_capacity_mod/3;
         default:                      sw_tobu500_lv;
         power: sw_tobu500_power_main()*1342/1000;
         weight: 38;
@@ -30662,11 +30670,11 @@ alternative_sprites(tobu100n_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
 
 //capacity-changer
     switch(FEAT_TRAINS, SELF, sw_tobu100n_capacity,position_in_vehid_chain_from_end%6){
-        0: 20*boost_rapid_mod/2*param_capacity_mod/3;
-        1: 35*boost_rapid_mod/2*param_capacity_mod/3;
-        4: 22*boost_rapid_mod/2*param_capacity_mod/3;
-        5: 23*boost_rapid_mod/2*param_capacity_mod/3;
-        default: 56*boost_rapid_mod/2*param_capacity_mod/3;
+        0: 20;
+        1: 35;
+        4: 22;
+        5: 23;
+        default: 56;
     }
     //power fix
     switch(FEAT_TRAINS, SELF, sw_tobu100n_power,position_in_vehid_chain_from_end%5){
@@ -30751,7 +30759,7 @@ item(FEAT_TRAINS, tobu100n,2062) {
     livery_override(mu_car_narrow){
         cargo_age_period:express_cargo_age; 
         loading_speed: param_loading_1D;
-        cargo_capacity: sw_tobu100n_capacity;
+        cargo_capacity: sw_tobu100n_capacity()*boost_rapid_mod/2*param_capacity_mod/3;
         default:                      sw_tobu100n_lv;
         power: sw_tobu100n_power_main()*4*1342/1000;
         weight: 38;
@@ -32266,11 +32274,11 @@ switch(FEAT_TRAINS, SELF, sw_tobu2000_lv_desc, current_year){
 //post fixers
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tobu2000_capacity,position_in_vehid_chain_from_end){
-    0: 140*param_capacity_mod/3;
-    default: 156*param_capacity_mod/3;
+    0: 140;
+    default: 156;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu2000_capacity_1,position_in_vehid_chain){
-    0: 140*param_capacity_mod/3;
+    0: 140;
     default: sw_tobu2000_capacity;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu2000_capacity_main,vehicle_type_id){
@@ -33997,11 +34005,11 @@ switch(FEAT_TRAINS, SELF, sw_tobu8000_lv_desc, current_year){
     }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tobu8000_capacity,position_in_vehid_chain_from_end){
-    0: 150*param_capacity_mod/3;
-    default: 170*param_capacity_mod/3;
+    0: 150;
+    default: 170;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu8000_capacity_1,position_in_vehid_chain){
-    0: 150*param_capacity_mod/3;
+    0: 150;
     default: sw_tobu8000_capacity;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu8000_capacity_main,vehicle_type_id){
@@ -34312,11 +34320,11 @@ switch(FEAT_TRAINS, SELF, sw_tobu3000_lv_desc, current_year){
 //post fixers
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tobu3000_capacity,position_in_vehid_chain_from_end){
-    0: 140*param_capacity_mod/3;
-    default: 150*param_capacity_mod/3;
+    0: 140;
+    default: 150;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu3000_capacity_1,position_in_vehid_chain_from_end){
-    0: 140*param_capacity_mod/3;
+    0: 140;
     default: sw_tobu3000_capacity;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu3000_capacity_main,vehicle_type_id){
@@ -34737,11 +34745,11 @@ switch(FEAT_TRAINS, SELF, sw_tobu5000_lv_desc, current_year){
 //post fixers
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tobu5000_capacity,position_in_vehid_chain_from_end){
-    0: 150*param_capacity_mod/3;
-    default: 170*param_capacity_mod/3;
+    0: 150;
+    default: 170;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu5000_capacity_1,position_in_vehid_chain){
-    0: 150*param_capacity_mod/3;
+    0: 150;
     default: sw_tobu5000_capacity;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu5000_capacity_main,vehicle_type_id){
@@ -35040,11 +35048,11 @@ switch(FEAT_TRAINS, SELF, sw_tobu9000_lv_desc, current_year){
 //post fixers
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tobu9000_capacity,position_in_vehid_chain_from_end){
-    0: 136*param_capacity_mod/3;
-    default: 144*param_capacity_mod/3;
+    0: 136;
+    default: 144;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu9000_capacity_1,position_in_vehid_chain){
-    0: 136*param_capacity_mod/3;
+    0: 136;
     default: sw_tobu9000_capacity;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu9000_capacity_main,vehicle_type_id){
@@ -35053,11 +35061,11 @@ switch(FEAT_TRAINS, SELF, sw_tobu9000_capacity_main,vehicle_type_id){
 }
 //capacity 2
 switch(FEAT_TRAINS, SELF, sw_tobu9050_capacity,position_in_vehid_chain_from_end){
-    0: 141*param_capacity_mod/3;
-    default: 152*param_capacity_mod/3;
+    0: 141;
+    default: 152;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu9050_capacity_1,position_in_vehid_chain){
-    0: 141*param_capacity_mod/3;
+    0: 141;
     default: sw_tobu9050_capacity;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu9050_capacity_main,vehicle_type_id){
@@ -35522,11 +35530,11 @@ switch(FEAT_TRAINS, SELF, sw_tobu10000_lv_desc,current_year){
 //post fixers
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tobu10000_capacity,position_in_vehid_chain_from_end){
-    0: 150*param_capacity_mod/3;
-    default: 170*param_capacity_mod/3;
+    0: 150;
+    default: 170;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu10000_capacity_1,position_in_vehid_chain){
-    0: 150*param_capacity_mod/3;
+    0: 150;
     default: sw_tobu10000_capacity;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu10000_capacity_main_1,vehicle_type_id){
@@ -35534,11 +35542,11 @@ switch(FEAT_TRAINS, SELF, sw_tobu10000_capacity_main_1,vehicle_type_id){
     sw_tobu10000_capacity_1;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu10030_capacity,position_in_vehid_chain_from_end){
-    0: 142*param_capacity_mod/3;
-    default: 152*param_capacity_mod/3;
+    0: 142;
+    default: 152;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu10030_capacity_1,position_in_vehid_chain){
-    0: 142*param_capacity_mod/3;
+    0: 142;
     default: sw_tobu10030_capacity;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu10030_capacity_main_2,vehicle_type_id){
@@ -35751,11 +35759,11 @@ switch(FEAT_TRAINS, SELF, sw_tobu20000_lv,vehicle_type_id){
 //post fixers
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tobu20000_capacity,position_in_vehid_chain_from_end){
-    0: 120*param_capacity_mod/3;
-    default: 130*param_capacity_mod/3;
+    0: 120;
+    default: 130;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu20000_capacity_1,position_in_vehid_chain){
-    0: 120*param_capacity_mod/3;
+    0: 120;
     default: sw_tobu20000_capacity;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu20000_capacity_main,vehicle_type_id){
@@ -36137,11 +36145,11 @@ switch(FEAT_TRAINS, SELF, sw_tobu30000_lv,vehicle_type_id){
 //post fixers
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tobu30000_capacity,position_in_vehid_chain_from_end){
-    0: 139*param_capacity_mod/3;
-    default: 153*param_capacity_mod/3;
+    0: 139;
+    default: 153;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu30000_capacity_1,position_in_vehid_chain){
-    0: 139*param_capacity_mod/3;
+    0: 139;
     default: sw_tobu30000_capacity;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu30000_capacity_main,vehicle_type_id){
@@ -37258,11 +37266,11 @@ switch(FEAT_TRAINS, SELF, sw_tobu50000_lv_desc,current_year){
 //capacity-changer
 //50000
 switch(FEAT_TRAINS, SELF, sw_tobu50000_capacity,position_in_vehid_chain_from_end){
-    0: 139*param_capacity_mod/3;
-    default: 153*param_capacity_mod/3;
+    0: 139;
+    default: 153;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu50000_capacity_1,position_in_vehid_chain){
-    0: 139*param_capacity_mod/3;
+    0: 139;
     default: sw_tobu50000_capacity;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu50000_capacity_main_0,vehicle_type_id){
@@ -37271,11 +37279,11 @@ switch(FEAT_TRAINS, SELF, sw_tobu50000_capacity_main_0,vehicle_type_id){
 }
 //50050 (50070 capacity for gameplay)
 switch(FEAT_TRAINS, SELF, sw_tobu50050_capacity,position_in_vehid_chain_from_end){
-    0: 140*param_capacity_mod/3;
-    default: 153*param_capacity_mod/3;
+    0: 140;
+    default: 153;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu50050_capacity_1,position_in_vehid_chain){
-    0: 140*param_capacity_mod/3;
+    0: 140;
     default: sw_tobu50050_capacity;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu50050_capacity_main,vehicle_type_id){
@@ -37284,11 +37292,11 @@ switch(FEAT_TRAINS, SELF, sw_tobu50050_capacity_main,vehicle_type_id){
 }
 //50090
 switch(FEAT_TRAINS, SELF, sw_tobu50090_capacity,position_in_vehid_chain_from_end){
-    0: 124*param_capacity_mod/3;
-    default: 135*param_capacity_mod/3;
+    0: 124;
+    default: 135;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu50090_capacity_1,position_in_vehid_chain){
-    0: 124*param_capacity_mod/3;
+    0: 124;
     default: sw_tobu50090_capacity;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu50090_capacity_main,vehicle_type_id){
@@ -37520,11 +37528,11 @@ switch(FEAT_TRAINS, SELF, sw_tobu60000_lv,vehicle_type_id){
 //post fixers
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tobu60000_capacity,position_in_vehid_chain_from_end){
-    0: 133*param_capacity_mod/3;
-    default: 146*param_capacity_mod/3;
+    0: 133;
+    default: 146;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu60000_capacity_1,position_in_vehid_chain){
-    0: 133*param_capacity_mod/3;
+    0: 133;
     default: sw_tobu60000_capacity;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu60000_capacity_main,vehicle_type_id){
@@ -37843,11 +37851,11 @@ switch(FEAT_TRAINS, SELF, sw_tobu70000_lv_desc, current_year){
 //post fixers
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tobu70000_capacity,position_in_vehid_chain_from_end){
-    0: 140*param_capacity_mod/3;
-    default: 151*param_capacity_mod/3;
+    0: 140;
+    default: 151;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu70000_capacity_1,position_in_vehid_chain){
-    0: 140*param_capacity_mod/3;
+    0: 140;
     default: sw_tobu70000_capacity;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu70000_capacity_main,vehicle_type_id){

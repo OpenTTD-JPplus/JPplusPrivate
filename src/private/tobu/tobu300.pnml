@@ -101,10 +101,10 @@ alternative_sprites(tobu300_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
 
 //capacity-changer
     switch(FEAT_TRAINS, SELF, sw_tobu300_capacity,position_in_vehid_chain_from_end%6){
-        0: 64*param_capacity_mod/3;
-        1: 72*param_capacity_mod/3;
-        4: 72*param_capacity_mod/3;
-        default: 68*param_capacity_mod/3;
+        0: 64;
+        1: 72;
+        4: 72;
+        default: 68;
     }
     //power fix
     switch(FEAT_TRAINS, SELF, sw_tobu300_power,position_in_vehid_chain_from_end%5){
@@ -185,13 +185,13 @@ item(FEAT_TRAINS, tobu300,2060) {
                             ),
                             
                         );
-        cargo_capacity: sw_tobu300_capacity;
+        cargo_capacity: sw_tobu300_capacity()*param_capacity_mod/3;
         power: sw_tobu300_power_main()*4*1342/1000;  
     }
     livery_override(mu_car_narrow){
         cargo_age_period:express_cargo_age; 
         loading_speed: param_loading_1D;
-        cargo_capacity: sw_tobu300_capacity;
+        cargo_capacity: sw_tobu300_capacity()*param_capacity_mod/3;
         default:                      sw_tobu300_lv;
         power: sw_tobu300_power_main()*4*1342/1000;
         weight: 38;
