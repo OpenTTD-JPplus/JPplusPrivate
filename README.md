@@ -13,7 +13,7 @@ A sister set to 🚋[JP+ Multiple units](https://github.com/Tintinfan/JPplusSet)
 ## Credits
 **Coding:** Yozora <br>
 **Graphics:** Yozora, Saya, Toni Babelony, Takamaro, Azusa <br>
-**Thanks to:** JP+ Team <br>
+**Thanks to:** Tintinfan, KeepinItRail<br>
 
 ##
 **Support my work**<br>
