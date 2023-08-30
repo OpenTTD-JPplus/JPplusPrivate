@@ -171,7 +171,7 @@ alternative_sprites(seibu451_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
       sw_seibu451_livery_2;
     }
   //lv
-    switch(FEAT_TRAINS, PARENT, sw_seibu451_lv, cargo_subtype){
+    switch(FEAT_TRAINS, SELF, sw_seibu451_lv, cargo_subtype){
       0:sw_seibu451_livery_0;
       1:sw_seibu451_livery_1;
       2:sw_seibu451_livery_2;
@@ -206,9 +206,10 @@ alternative_sprites(seibu451_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
     }
   //attachable vehicles
   switch(FEAT_TRAINS, SELF, seibu451_attach_vehid, vehicle_type_id) {
-    mu_car_narrow:  return CB_RESULT_ATTACH_ALLOW;
-    return string(STR_ATTACH_ERROR);
-  }
+			mu_car: return string(STR_ATTACH_1067_ERROR);
+			mu_car_metro: return string(STR_ATTACH_1067_ERROR);
+			return CB_RESULT_ATTACH_ALLOW;
+		}
 
 item(FEAT_TRAINS, seibu451,2110) {
     property {
@@ -230,17 +231,17 @@ item(FEAT_TRAINS, seibu451,2110) {
         
         climates_available: param_disable_seibu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_seibu451_NAME);
-        introduction_date: date(1954, 1, 1);
+        introduction_date: date(1959, 1, 1);
         model_life: 36;
         vehicle_life: 31;
         reliability_decay: 20;
 
-        cost_factor: 15;
-        running_cost_factor: 45;
+        cost_factor: 18;
+        running_cost_factor: 47;
         speed: 100 km/h;
         track_type: TR_1067_DC;
         power: 400 kW;
-        weight: 39 ton;
+        weight: 40 ton;
         loading_speed: param_loading_2D;
     }
 	graphics {
@@ -272,6 +273,6 @@ item(FEAT_TRAINS, seibu451,2110) {
         cargo_capacity: sw_seibu451_capacity()*param_capacity_mod/3;
         default:                      sw_seibu451_lv;
         power: sw_seibu451_power;
-        weight: 35;
+        weight: 30;
       }
 }

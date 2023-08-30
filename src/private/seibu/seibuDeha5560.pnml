@@ -183,9 +183,10 @@ alternative_sprites(seibuDeha5560_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, 
     }
   //attachable vehicles
   switch(FEAT_TRAINS, SELF, seibuDeha5560_attach_vehid, vehicle_type_id) {
-    mu_car_narrow:  return CB_RESULT_ATTACH_ALLOW;
-    return string(STR_ATTACH_ERROR);
-  }
+        mu_car: return string(STR_ATTACH_1067_ERROR);
+        mu_car_metro: return string(STR_ATTACH_1067_ERROR);
+        return CB_RESULT_ATTACH_ALLOW;
+    }
 
 item(FEAT_TRAINS, seibuDeha5560,2106) {
     property {
@@ -217,7 +218,7 @@ item(FEAT_TRAINS, seibuDeha5560,2106) {
         speed: 85 km/h;
         track_type: TR_1067_DC;
         power: 340 kW;
-        weight: 27 ton;
+        weight: 32 ton;
         loading_speed: param_loading_2D;
     }
 	graphics {
@@ -249,6 +250,6 @@ item(FEAT_TRAINS, seibuDeha5560,2106) {
         cargo_capacity: 110*param_capacity_mod/3;
         default:                      sw_seibuDeha5560_lv;
         power: sw_seibuDeha5560_power;
-        weight: 27;
+        weight: 32;
       }
 }

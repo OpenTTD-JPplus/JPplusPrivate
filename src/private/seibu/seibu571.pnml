@@ -95,9 +95,10 @@ alternative_sprites(seibu571_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
     }
   //attachable vehicles
   switch(FEAT_TRAINS, SELF, seibu571_attach_vehid, vehicle_type_id) {
-    mu_car_narrow:  return CB_RESULT_ATTACH_ALLOW;
-    return string(STR_ATTACH_ERROR);
-  }
+			mu_car: return string(STR_ATTACH_1067_ERROR);
+			mu_car_metro: return string(STR_ATTACH_1067_ERROR);
+			return CB_RESULT_ATTACH_ALLOW;
+		}
 
 item(FEAT_TRAINS, seibu571,2112) {
     property {
@@ -124,12 +125,12 @@ item(FEAT_TRAINS, seibu571,2112) {
         vehicle_life: 31;
         reliability_decay: 20;
 
-        cost_factor: 15;
-        running_cost_factor: 45;
+        cost_factor: 19;
+        running_cost_factor: 48;
         speed: 110 km/h;
         track_type: TR_1067_DC;
         power: 400 kW;
-        weight: 39 ton;
+        weight: 40 ton;
         loading_speed: param_loading_2D;
         variant_group:2111;
     }
@@ -162,6 +163,6 @@ item(FEAT_TRAINS, seibu571,2112) {
         cargo_capacity: sw_seibu571_capacity()*param_capacity_mod/3;
         default:                      sw_seibu571_lv;
         power: sw_seibu571_power;
-        weight: 35;
+        weight: 30;
       }
 }
