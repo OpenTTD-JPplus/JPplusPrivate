@@ -103,7 +103,7 @@ alternative_sprites(seibu411_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
       sw_seibu411_livery_2;
     }
   //lv
-    switch(FEAT_TRAINS, PARENT, sw_seibu411_lv, cargo_subtype){
+    switch(FEAT_TRAINS, SELF, sw_seibu411_lv, cargo_subtype){
       0:sw_seibu411_livery_0;
       1:sw_seibu411_livery_1;
       2:sw_seibu411_livery_2;
@@ -143,9 +143,10 @@ alternative_sprites(seibu411_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
     }
   //attachable vehicles
   switch(FEAT_TRAINS, SELF, seibu411_attach_vehid, vehicle_type_id) {
-    mu_car_narrow:  return CB_RESULT_ATTACH_ALLOW;
-    return string(STR_ATTACH_ERROR);
-  }
+			mu_car: return string(STR_ATTACH_1067_ERROR);
+			mu_car_metro: return string(STR_ATTACH_1067_ERROR);
+			return CB_RESULT_ATTACH_ALLOW;
+		}
 
 item(FEAT_TRAINS, seibu411,2113) {
     property {
@@ -172,8 +173,8 @@ item(FEAT_TRAINS, seibu411,2113) {
         vehicle_life: 27;
         reliability_decay: 20;
 
-        cost_factor: 15;
-        running_cost_factor: 45;
+        cost_factor: 17;
+        running_cost_factor: 47;
         speed: 100 km/h;
         track_type: TR_1067_DC;
         power: 480 kW;

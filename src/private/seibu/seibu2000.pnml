@@ -93,11 +93,11 @@ alternative_sprites(seibu2000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,     
 				seibu2000_1_mot_2;
 			}
 		//front
-			switch(FEAT_TRAINS, PARENT, seibu2000_1_front_mot_gfx,current_year>2007||build_year>1988){
+			switch(FEAT_TRAINS, PARENT, seibu2000_1_front_mot_gfx,current_year>2007||build_year>1987){
 					1: seibu2000n_1_front_mot;
 					seibu2000_1_front_mot;
 			}
-			switch(FEAT_TRAINS, PARENT, seibu2000_1_front_gfx,current_year>2007||build_year>1988){
+			switch(FEAT_TRAINS, PARENT, seibu2000_1_front_gfx,current_year>2007||build_year>1987){
 					1: seibu2000n_1_front;
 					seibu2000_1_front;
 			}
@@ -111,19 +111,19 @@ alternative_sprites(seibu2000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,     
 					seibu2000_1_front_gfx;
 			}
 		//end
-			switch(FEAT_TRAINS, PARENT, seibu2000_1_end_mot_gfx,current_year>2007||build_year>1988){
+			switch(FEAT_TRAINS, PARENT, seibu2000_1_end_mot_gfx,current_year>2007||build_year>1987){
 					1: seibu2000n_1_end_mot;
 					seibu2000_1_end_mot;
 			}
-			switch(FEAT_TRAINS, PARENT, seibu2000_1_end_mot_rev_gfx,current_year>2007||build_year>1988){
+			switch(FEAT_TRAINS, PARENT, seibu2000_1_end_mot_rev_gfx,current_year>2007||build_year>1987){
 					1: seibu2000n_1_end_mot_rev;
 					seibu2000_1_end_mot_rev;
 			}
-			switch(FEAT_TRAINS, PARENT, seibu2000_1_end_gfx,current_year>2007||build_year>1988){
+			switch(FEAT_TRAINS, PARENT, seibu2000_1_end_gfx,current_year>2007||build_year>1987){
 					1: seibu2000n_1_end;
 					seibu2000_1_end;
 			}
-			switch(FEAT_TRAINS, PARENT, seibu2000_1_end_rev_gfx,current_year>2007||build_year>1988){
+			switch(FEAT_TRAINS, PARENT, seibu2000_1_end_rev_gfx,current_year>2007||build_year>1987){
 					1: seibu2000n_1_end_rev;
 					seibu2000_1_end_rev;
 			}
@@ -336,7 +336,7 @@ alternative_sprites(seibu2000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,     
       sw_seibu2000_livery_0_1;
 		}
 	//lv
-    switch(FEAT_TRAINS, PARENT, sw_seibu2000_lv, cargo_subtype){
+    switch(FEAT_TRAINS, SELF, sw_seibu2000_lv, cargo_subtype){
       0:sw_seibu2000_livery_0;
       1:sw_seibu2000_livery_1;
       2:sw_seibu2000_livery_2;
@@ -372,12 +372,21 @@ alternative_sprites(seibu2000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,     
 			sw_seibu2000_capacity_head;
 		}
 	//power
-		switch(FEAT_TRAINS, SELF, sw_seibu2000_power,position_in_vehid_chain_from_end%9){
+		switch(FEAT_TRAINS, SELF, sw_seibu2000_power_1,position_in_vehid_chain_from_end%8){
+    	1..5:return 130;
+    	return 0;
+		}
+		switch(FEAT_TRAINS, SELF, sw_seibu2000_power_2,position_in_vehid_chain_from_end%9){
     	1..7:return 130;
     	return 0;
 		}
+		switch(FEAT_TRAINS, SELF, sw_seibu2000_power,build_year>1987){
+    	1..5:sw_seibu2000_power_2;
+    	sw_seibu2000_power_1;
+		}
 		switch(FEAT_TRAINS, SELF, sw_seibu2000_head_power,num_vehs_in_consist){
-			39: return 130;
+			2: return 130;
+			4: return 130;
 			return 0;
 		}
 		switch(FEAT_TRAINS, SELF, sw_seibu2000_power_main,vehicle_type_id){
@@ -416,8 +425,8 @@ item(FEAT_TRAINS, seibu2000,2116) {
 		vehicle_life: 35;
 		reliability_decay: 20;
 
-		cost_factor: 29;
-		running_cost_factor: 49;
+		cost_factor: 20;
+		running_cost_factor: 48;
 		speed: 110 km/h;
 		track_type: TR_1067_DC;
 		power: 400 kW;
