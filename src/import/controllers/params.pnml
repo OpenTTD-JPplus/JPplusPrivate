@@ -8,7 +8,7 @@ grf {
     name: string(STR_NAME);
     desc: string(STR_DESC);
 		url:  string(STR_GRF_URL);
-    version: 230;
+    version: 232;
     min_compatible_version: 6;
 
 param 0 { 
@@ -279,11 +279,19 @@ param 17 {
 		param_capacity_mod = param_custom_capacity;
 	}
 
-	if (param_buy == 0) { PURCHASE_COST_MOD = -2; }
-	if (param_buy == 1) { PURCHASE_COST_MOD = -1; }
-	if (param_buy == 2) { PURCHASE_COST_MOD = 0; }
-	if (param_buy == 3) { PURCHASE_COST_MOD = 1; }
-	if (param_buy == 4) { PURCHASE_COST_MOD = 2; }
+	if (param_buy == 0) { PURCHASE_COST_MOD = -1; }
+	if (param_buy == 1) { PURCHASE_COST_MOD = 0; }
+	if (param_buy == 2) { PURCHASE_COST_MOD = 1; }
+	if (param_buy == 3) { PURCHASE_COST_MOD = 2; }
+	if (param_buy == 4) { PURCHASE_COST_MOD = 3; }
+
+	basecost {
+		PR_BUILD_VEHICLE_TRAIN : 	param_buy -2;
+		PR_BUILD_VEHICLE_WAGON: 	param_buy +3;
+		//PR_RUNNING_TRAIN_STEAM: 	param_run +1;
+		PR_RUNNING_TRAIN_DIESEL:	param_run +1;
+		PR_RUNNING_TRAIN_ELECTRIC:	param_run +1;
+	}
 
 //*cargo aging
 	//TODO by a param
@@ -305,6 +313,7 @@ if ((grf_current_status("mkw\E0") == 1)||(grf_future_status("mkw\E0") == 1)){
 railtypetable {
   TR_1067_DC: [NABE, ELNG, ELRL], //JP+Tracks AC/DC
   TR_1067_AC: [NABE, ELNG, ELRL],
+  TR_1067_ACDC: [NABE, ELNG, ELRL],//later
 	TR_1435_DC: [ELRL],
 	TR_1435_AC: [ELRL],
 	TR_1435_M: [SAB3, "3RDR", MTRO, ELRL],
