@@ -10,7 +10,7 @@ grf {
     name: string(STR_NAME);
     desc: string(STR_DESC);
 		url:  string(STR_GRF_URL);
-    version: 230;
+    version: 232;
     min_compatible_version: 6;
 
 param 0 { 
@@ -281,11 +281,19 @@ param 17 {
 		param_capacity_mod = param_custom_capacity;
 	}
 
-	if (param_buy == 0) { PURCHASE_COST_MOD = -2; }
-	if (param_buy == 1) { PURCHASE_COST_MOD = -1; }
-	if (param_buy == 2) { PURCHASE_COST_MOD = 0; }
-	if (param_buy == 3) { PURCHASE_COST_MOD = 1; }
-	if (param_buy == 4) { PURCHASE_COST_MOD = 2; }
+	if (param_buy == 0) { PURCHASE_COST_MOD = -1; }
+	if (param_buy == 1) { PURCHASE_COST_MOD = 0; }
+	if (param_buy == 2) { PURCHASE_COST_MOD = 1; }
+	if (param_buy == 3) { PURCHASE_COST_MOD = 2; }
+	if (param_buy == 4) { PURCHASE_COST_MOD = 3; }
+
+	basecost {
+		PR_BUILD_VEHICLE_TRAIN : 	param_buy -2;
+		PR_BUILD_VEHICLE_WAGON: 	param_buy +3;
+		//PR_RUNNING_TRAIN_STEAM: 	param_run +1;
+		PR_RUNNING_TRAIN_DIESEL:	param_run +1;
+		PR_RUNNING_TRAIN_ELECTRIC:	param_run +1;
+	}
 
 //*cargo aging
 	//TODO by a param
@@ -307,6 +315,7 @@ if ((grf_current_status("mkw\E0") == 1)||(grf_future_status("mkw\E0") == 1)){
 railtypetable {
   TR_1067_DC: [NABE, ELNG, ELRL], //JP+Tracks AC/DC
   TR_1067_AC: [NABE, ELNG, ELRL],
+  TR_1067_ACDC: [NABE, ELNG, ELRL],//later
 	TR_1435_DC: [ELRL],
 	TR_1435_AC: [ELRL],
 	TR_1435_M: [SAB3, "3RDR", MTRO, ELRL],
@@ -391,8 +400,8 @@ item(FEAT_TRAINS, mu_car_metro, 100) {
                 model_life: VEHICLE_NEVER_EXPIRES;
                 vehicle_life: 60;
                 loading_speed: param_loading_3D;
-                cost_factor: 255;
-                running_cost_factor: 18;
+                cost_factor: 30;
+                running_cost_factor: 7;
                 speed: 0 km/h;
                 power: 0 hp;
                 cargo_capacity: 1;
@@ -429,8 +438,8 @@ item(FEAT_TRAINS, mu_car, 101) {
                 model_life: VEHICLE_NEVER_EXPIRES;
                 vehicle_life: 60;
                 loading_speed: param_loading_3D;
-                cost_factor: 255;
-                running_cost_factor: 18;
+                cost_factor: 30;
+                running_cost_factor: 7;
                 speed: 0 km/h;
                 power: 0 hp;
                 cargo_capacity: 1;
@@ -467,8 +476,8 @@ item(FEAT_TRAINS, mu_car_narrow, 102) {
                 model_life: VEHICLE_NEVER_EXPIRES;
                 vehicle_life: 60;
                 loading_speed: param_loading_3D;
-                cost_factor: 255;
-                running_cost_factor: 18;
+                cost_factor: 30;
+                running_cost_factor: 7;
                 speed: 0 km/h;
                 power: 0 hp;
                 cargo_capacity: 1;
@@ -41887,10 +41896,10 @@ alternative_sprites(seibu301_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      
 				1:seibu101_1_end_ac_rev;
 				seibu101_1_end_rev;
 			}
-			switch(FEAT_TRAINS, PARENT, seibu101_1_end_mot_rev_gfx, current_year>1972){
-				1:seibu101_1_end_mot_ac_rev;
-				seibu101_1_end_mot_rev;
-			}
+			// switch(FEAT_TRAINS, PARENT, seibu101_1_end_mot_rev_gfx, current_year>1972){
+			// 	1:seibu101_1_end_mot_ac_rev;
+			// 	seibu101_1_end_mot_rev;
+			// }
 		//
 		switch(FEAT_TRAINS, PARENT, seibu101_1_mot_gfx, current_year>1972){
 			1:seibu101_1_mot_ac;
@@ -42944,7 +42953,7 @@ item(FEAT_TRAINS, seibu301,2115) {
 		vehicle_life: 35;
 		reliability_decay: 20;
 
-		cost_factor: 26;
+		cost_factor: 23;
 		running_cost_factor: 46;
 		speed: 110 km/h;
 		track_type: TR_1067_DC;
@@ -47391,7 +47400,7 @@ item(FEAT_TRAINS, tsukuba_1000series,2295) {
         cost_factor: 21;
         running_cost_factor: 51;
         speed: 130 km/h;
-        track_type: TR_1067_DC;
+        track_type: TR_1067_ACDC;
         power: 760 kW;
         weight: 32 ton;
         loading_speed: param_loading_4D;
@@ -47411,7 +47420,7 @@ item(FEAT_TRAINS, tsukuba_1000series,2295) {
                             string(STR_KNUCKLE)),
                             string(STR_USAGE,
                             string(STR_EXPRESS),
-                            string(STR_DC),
+                            string(STR_ACDC),
                             ),
                             string(STR_OPERATOR_PRIVATE,
                             string(STR_TSUKUBA),
@@ -47557,7 +47566,7 @@ item(FEAT_TRAINS, tsukuba_2000series,2296) {
         cost_factor: 22;
         running_cost_factor: 52;
         speed: 130 km/h;
-        track_type: TR_1067_DC;
+        track_type: TR_1067_ACDC;
         power: 760 kW;
         weight: 36 ton;
         loading_speed: param_loading_4D;
@@ -47577,7 +47586,7 @@ item(FEAT_TRAINS, tsukuba_2000series,2296) {
                             string(STR_KNUCKLE)),
                             string(STR_USAGE,
                             string(STR_EXPRESS),
-                            string(STR_DC),
+                            string(STR_ACDC),
                             ),
                             string(STR_OPERATOR_PRIVATE,
                             string(STR_TSUKUBA),
@@ -47723,7 +47732,7 @@ item(FEAT_TRAINS, tsukuba_3000series,2297) {
         cost_factor: 22;
         running_cost_factor: 52;
         speed: 130 km/h;
-        track_type: TR_1067_DC;
+        track_type: TR_1067_ACDC;
         power: 760 kW;
         weight: 37 ton;
         loading_speed: param_loading_4D;
@@ -47743,7 +47752,7 @@ item(FEAT_TRAINS, tsukuba_3000series,2297) {
                             string(STR_KNUCKLE)),
                             string(STR_USAGE,
                             string(STR_EXPRESS),
-                            string(STR_DC),
+                            string(STR_ACDC),
                             ),
                             string(STR_OPERATOR_PRIVATE,
                             string(STR_TSUKUBA),
