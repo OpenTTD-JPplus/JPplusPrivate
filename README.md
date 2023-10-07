@@ -19,4 +19,4 @@ A sister set to 🚋[JP+ Multiple units](https://github.com/Tintinfan/JPplusSet)
 **Support my work**<br>
 
 [<img src="https://github.com/Yozora3/technical_stuff/blob/main/logos/White.png?raw=true" width="180"/>](https://boosty.to/yozora3/single-payment/donation/292615/target?share=target_link)<br>
-[<img src="https://github.com/Yozora3/technical_stuff/blob/main/logos/yozora3-donate.png?raw=true" width="180"/>](https://boosty.to/yozora3/single-payment/donation/292615/target?share=target_link)
+[<img src="https://github.com/Yozora3/technical_stuff/blob/main/logos/yozora3-donate_qr.png?raw=true" width="180"/>](https://boosty.to/yozora3/single-payment/donation/292615/target?share=target_link)
