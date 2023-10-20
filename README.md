@@ -17,7 +17,6 @@ A sister set to 🚋[JP+ Multiple units](https://github.com/Tintinfan/JPplusSet)
 
 ##
 **Support my work**<br>
-[<img src="https://github.com/Yozora3/technical_stuff/blob/main/logos/White.png?raw=true" width="120"/>](https://boosty.to/yozora3/donate)
 
-
-
+[<img src="https://github.com/Yozora3/technical_stuff/blob/main/logos/White.png?raw=true" width="180"/>](https://boosty.to/yozora3/donate)<br>
+[<img src="https://github.com/Yozora3/technical_stuff/blob/main/logos/yozora3-donate.png?raw=true" width="180"/>](https://boosty.to/yozora3/donate)
