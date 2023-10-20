@@ -3,283 +3,184 @@ alternative_sprites(tk_as_toei5000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,
 
 spriteset (tk_as_toei5000_front,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png") { tmpl_std(0, 0) }
 spriteset (tk_as_toei5000_end,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png") { tmpl_std_rev(0, 25) }
+spriteset (tk_as_toei5000_end_rev,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png") { tmpl_std(0, 25) }
 spriteset (tk_as_toei5000_mot,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png") { tmpl_std(0, 75) }
 spriteset (tk_as_toei5000_mot_rev,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png") { tmpl_std_rev(0, 75) }
 spriteset (tk_as_toei5000_wag,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png") { tmpl_std(0, 50) }
 spriteset (tk_as_toei5000_front_mot,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png") { tmpl_std(0,100) }
 spriteset (tk_as_toei5000_end_mot,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png") { tmpl_std_rev(0, 125) }
+spriteset (tk_as_toei5000_end_mot_rev,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png") { tmpl_std(0, 125) }
 
-spriteset (tk_as_toei5000_old_front,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_old.png") { tmpl_std(0, 0)}
-spriteset (tk_as_toei5000_old_end,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_old.png") { tmpl_std_rev(0, 25) }
-spriteset (tk_as_toei5000_old_mot,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_old.png") { tmpl_std(0, 75) }
-spriteset (tk_as_toei5000_old_mot_rev,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_old.png") { tmpl_std_rev(0, 75) }
-spriteset (tk_as_toei5000_old_wag,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_old.png") { tmpl_std(0, 50) }
-spriteset (tk_as_toei5000_old_front_mot,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_old.png") { tmpl_std(0, 100) }
-spriteset (tk_as_toei5000_old_end_mot,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_old.png") { tmpl_std_rev(0, 125) }
+spriteset (tk_as_toei5000_1_front,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_1.png") { tmpl_std(0, 0)}
+spriteset (tk_as_toei5000_1_end,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_1.png") { tmpl_std_rev(0, 25) }
+spriteset (tk_as_toei5000_1_end_rev,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_1.png") { tmpl_std(0, 25) }
+spriteset (tk_as_toei5000_1_mot,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_1.png") { tmpl_std(0, 75) }
+spriteset (tk_as_toei5000_1_mot_rev,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_1.png") { tmpl_std_rev(0, 75) }
+spriteset (tk_as_toei5000_1_wag,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_1.png") { tmpl_std(0, 50) }
+spriteset (tk_as_toei5000_1_front_mot,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_1.png") { tmpl_std(0, 100) }
+spriteset (tk_as_toei5000_1_end_mot,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_1.png") { tmpl_std_rev(0, 125) }
+spriteset (tk_as_toei5000_1_end_mot_rev,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_1.png") { tmpl_std(0, 125) }
 
 //*livery 1
-//panto-placers
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_mot_gfx,position_in_consist %6){
-    2: tk_as_toei5000_mot;
-    4: tk_as_toei5000_mot;
-    6: tk_as_toei5000_mot;
-    default: tk_as_toei5000_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_mot_rev_gfx,position_in_consist_from_end %6){
-    2: tk_as_toei5000_mot_rev;
-    4: tk_as_toei5000_mot_rev;
-    6: tk_as_toei5000_mot_rev;
-    default: tk_as_toei5000_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_mot_main_gfx,vehicle_is_reversed){
-    1: sw_tk_as_toei5000_mot_rev_gfx;
-    sw_tk_as_toei5000_mot_gfx;
-}
-//special gfx
-switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_mot_front_main_gfx,vehicle_is_reversed){
-    1: tk_as_toei5000_front;
-    tk_as_toei5000_front_mot;
-}
-switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_mot_end_main_gfx,vehicle_is_reversed){
-    1: tk_as_toei5000_end_mot;
-    tk_as_toei5000_end;
-}
-//front-end-fixer
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_end_gfx,position_in_consist_from_end){
-    0: sw_tk_as_toei5000_mot_end_main_gfx;
-    default: sw_tk_as_toei5000_mot_main_gfx;
-}
-
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_def_gfx,position_in_consist){
-    0: sw_tk_as_toei5000_mot_front_main_gfx;
-    default: sw_tk_as_toei5000_end_gfx;
-}
-
-//length special gfx
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_4_main_gfx,position_in_consist %4){
-    0: tk_as_toei5000_front_mot;
-    1: tk_as_toei5000_wag;
-    2: tk_as_toei5000_wag;
-    3: tk_as_toei5000_end_mot;
-}
-
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_6_1_main_f_gfx,position_in_consist %6){
-    0: tk_as_toei5000_front_mot; 
-    3: tk_as_toei5000_end_mot;
-    5: tk_as_toei5000_end_mot;
-    tk_as_toei5000_wag;
-}
-
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_6_1_main_rev_gfx,position_in_consist_from_end %6){
-    0: tk_as_toei5000_end_mot; 
-    3: tk_as_toei5000_front_mot;
-    5: tk_as_toei5000_front_mot;
-    tk_as_toei5000_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_6_1_main_gfx,vehicle_is_reversed){
-    1: sw_tk_as_toei5000_6_1_main_rev_gfx;
-    sw_tk_as_toei5000_6_1_main_f_gfx;
-}
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_6_2_main_f_gfx,position_in_consist %6){
-    0: tk_as_toei5000_front_mot; 
-    3: tk_as_toei5000_end_mot;
-    5: tk_as_toei5000_end_mot;
-    tk_as_toei5000_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_6_2_main_rev_gfx,position_in_consist_from_end %6){
-    0: tk_as_toei5000_end_mot; 
-    3: tk_as_toei5000_front_mot;
-    5: tk_as_toei5000_front_mot;
-    tk_as_toei5000_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_6_2_main_gfx,vehicle_is_reversed){
-    1: sw_tk_as_toei5000_6_2_main_rev_gfx;
-    sw_tk_as_toei5000_6_2_main_f_gfx;
-}
-random_switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_6_main_gfx){
-    1: sw_tk_as_toei5000_6_1_main_gfx;
-    1: sw_tk_as_toei5000_6_2_main_gfx;
-}
-
-//main gfx
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_livery_1,num_vehs_in_consist){
-    4: sw_tk_as_toei5000_4_main_gfx;
-    6: sw_tk_as_toei5000_6_main_gfx;
-    8: sw_tk_as_toei5000_4_main_gfx;
-    12: sw_tk_as_toei5000_6_main_gfx;
-    16: sw_tk_as_toei5000_4_main_gfx;
-    default: sw_tk_as_toei5000_def_gfx;
-}
+	//special gfx
+		//head gfx
+		switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_front_gfx,vehicle_is_reversed){
+			1: tk_as_toei5000_front;
+			tk_as_toei5000_front_mot;
+		}
+		switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_end_gfx,vehicle_is_reversed){
+			1: tk_as_toei5000_end_mot;
+			tk_as_toei5000_end;
+		}
+	//panto-placers
+		switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_panto_placer_1,position_in_vehid_chain %2){
+			1: tk_as_toei5000_mot;
+			tk_as_toei5000_wag;
+		}
+		switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_panto_placer_1_rev,1- position_in_vehid_chain_from_end %2){
+			1: tk_as_toei5000_mot_rev;
+			tk_as_toei5000_wag;
+		}
+		switch(FEAT_TRAINS, PARENT, sw_toei5000_panto_placer_main,vehicle_is_reversed){
+			1: sw_tk_as_toei5000_panto_placer_1_rev;
+			sw_tk_as_toei5000_panto_placer_1;
+		}
+	//fake head-end placer
+		switch(FEAT_TRAINS, SELF, sw_toei5000_fake_placer,position_in_vehid_chain +1){
+			3: tk_as_toei5000_end;
+			4: tk_as_toei5000_end_mot_rev;
+			sw_toei5000_panto_placer_main;
+		}
+		switch(FEAT_TRAINS, SELF, sw_toei5000_fake_placer_rev,position_in_vehid_chain_from_end ){
+			3: tk_as_toei5000_end_rev;
+			4: tk_as_toei5000_end_mot;
+			sw_toei5000_panto_placer_main;
+		}
+		switch(FEAT_TRAINS, PARENT, sw_toei5000_fake_placer_gfx,vehicle_is_reversed){
+			1: sw_toei5000_fake_placer_rev;
+			sw_toei5000_fake_placer;
+		}
+		switch(FEAT_TRAINS, SELF, sw_toei5000_fake_placer_main,num_vehs_in_vehid_chain>5 - 1){
+			1: sw_toei5000_fake_placer_gfx;
+			sw_toei5000_panto_placer_main;
+		}
+	//front-end-fixer
+		switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_gfx_main,position_in_vehid_chain_from_end){
+			0: sw_tk_as_toei5000_end_gfx;
+			default: sw_toei5000_fake_placer_main;
+		}
+		switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_livery_1,vehicle_type_id){
+			tk_as_toei5000: sw_tk_as_toei5000_front_gfx;
+			default: sw_tk_as_toei5000_gfx_main;
+		}
 
 
 //*livery 2
-//panto-placers
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_old_mot_gfx,position_in_consist %6){
-    2: tk_as_toei5000_old_mot;
-    4: tk_as_toei5000_old_mot;
-    6: tk_as_toei5000_old_mot;
-    default: tk_as_toei5000_old_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_old_mot_rev_gfx,position_in_consist_from_end %6){
-    2: tk_as_toei5000_old_mot_rev;
-    4: tk_as_toei5000_old_mot_rev;
-    6: tk_as_toei5000_old_mot_rev;
-    default: tk_as_toei5000_old_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_old_mot_main_gfx,vehicle_is_reversed){
-    1: sw_tk_as_toei5000_old_mot_rev_gfx;
-    sw_tk_as_toei5000_old_mot_gfx;
-}
-//special gfx
-switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_old_mot_front_main_gfx,vehicle_is_reversed){
-    1: tk_as_toei5000_old_front;
-    tk_as_toei5000_old_front_mot;
-}
-switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_old_mot_end_main_gfx,vehicle_is_reversed){
-    1: tk_as_toei5000_old_end_mot;
-    tk_as_toei5000_old_end;
-}
-//front-end-fixer
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_old_end_gfx,position_in_consist_from_end){
-    0: sw_tk_as_toei5000_old_mot_end_main_gfx;
-    default: sw_tk_as_toei5000_old_mot_main_gfx;
-}
-
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_old_def_gfx,position_in_consist){
-    0: sw_tk_as_toei5000_old_mot_front_main_gfx;
-    default: sw_tk_as_toei5000_old_end_gfx;
-}
-
-//length special gfx
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_old_4_1_main_gfx,position_in_consist %4){
-    0: tk_as_toei5000_old_front_mot;
-    1: tk_as_toei5000_old_wag;
-    2: tk_as_toei5000_old_wag;
-    3: tk_as_toei5000_old_end_mot;
-}
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_old_4_2_main_gfx_1,position_in_consist %4){
-    0: tk_as_toei5000_old_front_mot;
-    1: tk_as_toei5000_old_end;
-    2: tk_as_toei5000_old_front_mot;
-    3: tk_as_toei5000_old_end;
-}
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_old_4_2_main_gfx_2,position_in_consist %4){
-    0: tk_as_toei5000_old_front;
-    1: tk_as_toei5000_old_end_mot;
-    2: tk_as_toei5000_old_front;
-    3: tk_as_toei5000_old_end_mot;
-}
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_old_4_2_main_gfx,vehicle_is_reversed){
-    1:sw_tk_as_toei5000_old_4_2_main_gfx_2;
-    sw_tk_as_toei5000_old_4_2_main_gfx_1;
-}
-random_switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_old_4_main_gfx){
-    2: sw_tk_as_toei5000_old_4_1_main_gfx;
-    1: sw_tk_as_toei5000_old_4_2_main_gfx;
-}
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_old_6_1_main_f_gfx,position_in_consist %6){
-    0: tk_as_toei5000_old_front_mot; 
-    3: tk_as_toei5000_old_end_mot;
-    5: tk_as_toei5000_old_end_mot;
-    tk_as_toei5000_old_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_old_6_1_main_rev_gfx,position_in_consist_from_end %6){
-    0: tk_as_toei5000_old_end_mot; 
-    3: tk_as_toei5000_old_front_mot;
-    5: tk_as_toei5000_old_front_mot;
-    tk_as_toei5000_old_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_old_6_1_main_gfx,vehicle_is_reversed){
-    1: sw_tk_as_toei5000_old_6_1_main_rev_gfx;
-    sw_tk_as_toei5000_old_6_1_main_f_gfx;
-}
-
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_old_6_2_main_f_gfx,position_in_consist %6){
-    0: tk_as_toei5000_old_front_mot; 
-    1: tk_as_toei5000_old_end_mot;
-    2: tk_as_toei5000_old_front_mot; 
-    5: tk_as_toei5000_old_end_mot;
-    tk_as_toei5000_old_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_old_6_2_main_rev_gfx,position_in_consist_from_end %6){
-    0: tk_as_toei5000_old_end_mot; 
-    3: tk_as_toei5000_old_front_mot;
-    5: tk_as_toei5000_old_front_mot;
-    tk_as_toei5000_old_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_old_6_2_main_gfx,vehicle_is_reversed){
-    1: sw_tk_as_toei5000_old_6_2_main_rev_gfx;
-    sw_tk_as_toei5000_old_6_2_main_f_gfx;
-}
+	//special gfx
+		//head gfx
+		switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_1_front_gfx,vehicle_is_reversed){
+			1: tk_as_toei5000_1_front;
+			tk_as_toei5000_1_front_mot;
+		}
+		switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_1_end_gfx,vehicle_is_reversed){
+			1: tk_as_toei5000_1_end_mot;
+			tk_as_toei5000_1_end;
+		}
+	//panto-placers
+		switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_1_panto_placer_1,position_in_vehid_chain %2){
+			1: tk_as_toei5000_1_mot;
+			tk_as_toei5000_1_wag;
+		}
+		switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_1_panto_placer_1_rev,1- position_in_vehid_chain_from_end %2){
+			1: tk_as_toei5000_1_mot_rev;
+			tk_as_toei5000_1_wag;
+		}
+		switch(FEAT_TRAINS, PARENT, sw_toei5000_1_panto_placer_main,vehicle_is_reversed){
+			1: sw_tk_as_toei5000_1_panto_placer_1_rev;
+			sw_tk_as_toei5000_1_panto_placer_1;
+		}
+	//fake head-end placer
+		switch(FEAT_TRAINS, SELF, sw_toei5000_1_fake_placer,position_in_vehid_chain +1){
+			3: tk_as_toei5000_1_end;
+			4: tk_as_toei5000_1_end_mot_rev;
+			sw_toei5000_1_panto_placer_main;
+		}
+		switch(FEAT_TRAINS, SELF, sw_toei5000_1_fake_placer_rev,position_in_vehid_chain_from_end ){
+			3: tk_as_toei5000_1_end_rev;
+			4: tk_as_toei5000_1_end_mot;
+			sw_toei5000_1_panto_placer_main;
+		}
+		switch(FEAT_TRAINS, PARENT, sw_toei5000_1_fake_placer_gfx,vehicle_is_reversed){
+			1: sw_toei5000_1_fake_placer_rev;
+			sw_toei5000_1_fake_placer;
+		}
+		switch(FEAT_TRAINS, SELF, sw_toei5000_1_fake_placer_main,num_vehs_in_vehid_chain>5 - 1){
+			1: sw_toei5000_1_fake_placer_gfx;
+			sw_toei5000_1_panto_placer_main;
+		}
+	//front-end-fixer
+		switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_1_gfx_main,position_in_vehid_chain_from_end){
+			0: sw_tk_as_toei5000_1_end_gfx;
+			default: sw_toei5000_1_fake_placer_main;
+		}
+		switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_livery_2,vehicle_type_id){
+			tk_as_toei5000: sw_tk_as_toei5000_1_front_gfx;
+			default: sw_tk_as_toei5000_1_gfx_main;
+		}
 
 
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_old_6_3_main_f_gfx,position_in_consist %6){
-    0: tk_as_toei5000_old_front_mot; 
-    3: tk_as_toei5000_old_end_mot;
-    5: tk_as_toei5000_old_end_mot;
-    tk_as_toei5000_old_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_old_6_3_main_rev_gfx,position_in_consist_from_end %6){
-    0: tk_as_toei5000_old_end_mot; 
-    3: tk_as_toei5000_old_front_mot;
-    5: tk_as_toei5000_old_front_mot;
-    tk_as_toei5000_old_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_old_6_3_main_gfx,vehicle_is_reversed){
-    1: sw_tk_as_toei5000_old_6_3_main_rev_gfx;
-    sw_tk_as_toei5000_old_6_3_main_f_gfx;
-}
-
-random_switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_old_6_main_gfx){
-    1: sw_tk_as_toei5000_old_6_1_main_gfx;
-    1: sw_tk_as_toei5000_old_6_2_main_gfx;
-    1: sw_tk_as_toei5000_old_6_3_main_gfx;
-}
-
-//main gfx
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_livery_2,num_vehs_in_consist){
-    4: sw_tk_as_toei5000_old_4_main_gfx;
-    6: sw_tk_as_toei5000_old_6_main_gfx;
-    8: sw_tk_as_toei5000_old_4_main_gfx;
-    12: sw_tk_as_toei5000_old_6_main_gfx;
-    16: sw_tk_as_toei5000_old_4_main_gfx;
-    default: sw_tk_as_toei5000_old_def_gfx;
-}
-//livery randomizer
-switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_livery_0, build_year<1982){
-    1: sw_tk_as_toei5000_livery_2;
-    sw_tk_as_toei5000_livery_1;
-}
-//livery selector
-switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_lv, cargo_subtype){
-    0: sw_tk_as_toei5000_livery_0;
-    1: sw_tk_as_toei5000_livery_1;
-    2: sw_tk_as_toei5000_livery_2;
-}
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_lv_desc, cargo_subtype){
-    0: string(LV_RANDOM);
-    1: string(LV_NEW);
-    2: string(LV_OLD);
-}
-
-
+//livery controller
+	//livery randomizer
+	switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_livery_0, current_year<1982){
+			1: sw_tk_as_toei5000_livery_1;
+			sw_tk_as_toei5000_livery_2;
+	}
+	//livery selector
+	switch(FEAT_TRAINS, PARENT, sw_tk_as_toei5000_lv, cargo_subtype){
+			0: sw_tk_as_toei5000_livery_0;
+			1: sw_tk_as_toei5000_livery_1;
+			2: sw_tk_as_toei5000_livery_2;
+	}
+	switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_lv_desc_1, cargo_subtype){
+			0: string(LV_RANDOM);
+			1: string(LV_OLD);
+	}
+	switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_lv_desc_2, cargo_subtype){
+			0: string(LV_RANDOM);
+			1: string(LV_OLD);
+			2: string(LV_NEW);
+	}
+	switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_lv_desc, current_year<1982){
+			1: sw_tk_as_toei5000_lv_desc_1;
+			sw_tk_as_toei5000_lv_desc_2;
+	}
+//post fixers
 //capacity-changer
-switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_main_capacity,position_in_consist_from_end){
-    0: 140*param_capacity_mod/3;
-    default: 150*param_capacity_mod/3;
+switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_capacity,position_in_vehid_chain_from_end){
+    0: 140;
+    default: 150;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_capacity_1,position_in_vehid_chain){
+    0: 140;
+    default: sw_tk_as_toei5000_capacity;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_capacity_main,vehicle_type_id){
+    mu_car: sw_tk_as_toei5000_capacity;
+    sw_tk_as_toei5000_capacity_1;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_as_toei5000_attach_vehid, vehicle_type_id) {
-  mu_car: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
+  mu_car_narrow: return string(STR_ATTACH_1435_ERROR);
+  mu_car_metro: return string(STR_ATTACH_1435_ERROR);
+  return CB_RESULT_ATTACH_ALLOW;
 }
 
 item(FEAT_TRAINS, tk_as_toei5000,1120) {
     property {
         name: string(STR_tk_as_toei5000_NAME);
-        introduction_date: date(1968, 1, 1);
-        model_life: VEHICLE_NEVER_EXPIRES;
-        vehicle_life: 40;
+        introduction_date: date(1960, 1, 1);
+        model_life: 30;
+        vehicle_life: 35;
         reliability_decay: 23;
 
         cargo_capacity: 140;
@@ -328,13 +229,13 @@ item(FEAT_TRAINS, tk_as_toei5000,1120) {
                             ),
                         );
         cargo_subtype_text: sw_tk_as_toei5000_lv_desc;
-        start_stop: sw_stop_start_4; 
-        cargo_capacity: 140*param_capacity_mod/3;
+        start_stop: sw_stop_start_2; 
+        cargo_capacity: sw_tk_as_toei5000_capacity_main()*param_capacity_mod/3;
           
     }
     livery_override(mu_car){
         loading_speed: param_loading_3D;
-        cargo_capacity: sw_tk_as_toei5000_main_capacity;
+        cargo_capacity: sw_tk_as_toei5000_capacity_main()*param_capacity_mod/3;
         default:                      sw_tk_as_toei5000_lv;
         power: 456;
         weight: 33;
