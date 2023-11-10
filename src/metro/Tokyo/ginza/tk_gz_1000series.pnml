@@ -1,34 +1,66 @@
-spriteset (tk_gz_1000s_purchase,   "gfx/misc/purchase.png") { tmpl_purchase(0, 0) }
-spriteset (tk_gz_1000s_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tk_gz_1000s_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
-spriteset (tk_gz_1000s_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
-alternative_sprites(tk_gz_1000s_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series_purchase.png"){ tmpl_purchase(0, 0) }
-alternative_sprites(tk_gz_1000s_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series.png"){ tmpl_std(0, 0) }
-alternative_sprites(tk_gz_1000s_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series.png"){ tmpl_std(0, 25) }
-alternative_sprites(tk_gz_1000s_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series.png"){ tmpl_std_rev(0, 50) }
+spriteset (tk_gz_1000series_purchase,   "gfx/misc/purchase.png") { tmpl_purchase(0, 0) }
+spriteset (tk_gz_1000series_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_gz_1000series_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
+spriteset (tk_gz_1000series_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_gz_1000series_front_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_gz_1000series_end_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
 
-//setup
-//basic gfx
-// livery 1
-switch(FEAT_TRAINS, SELF, sw_tk_gz_1000s_end_gfx,position_in_consist_from_end){
-    0: tk_gz_1000s_end;
-    tk_gz_1000s_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_tk_gz_1000s_livery_1,position_in_consist){
-    0: tk_gz_1000s_front;
-    sw_tk_gz_1000s_end_gfx;
-}
-//livery-randomizer
-//capacity changer
-switch(FEAT_TRAINS, SELF, sw_tk_gz_1000s_main_capacity,position_in_consist_from_end){
-    0: 93*param_capacity_mod/3;
-    default: 106*param_capacity_mod/3;
-}
+alternative_sprites(tk_gz_1000series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series_purchase.png"){ tmpl_purchase(0, 0) }
+alternative_sprites(tk_gz_1000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series.png"){ tmpl_std(0, 0) }
+alternative_sprites(tk_gz_1000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(tk_gz_1000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series.png"){ tmpl_symm(0, 50) }
+alternative_sprites(tk_gz_1000series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series.png"){ tmpl_std(0, 75) }
+alternative_sprites(tk_gz_1000series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series.png"){ tmpl_std_rev(0, 75) }
+
+//*livery 1
+  //fake head-end placer
+    switch(FEAT_TRAINS, SELF, sw_tk_gz_1000series_fake_placer,position_in_vehid_chain +1){
+      5: tk_gz_1000series_end_f;
+      6: tk_gz_1000series_front_f;
+      tk_gz_1000series_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_gz_1000series_fake_placer_rev,position_in_vehid_chain_from_end ){
+      5: tk_gz_1000series_front_f;
+      6: tk_gz_1000series_end_f;
+      tk_gz_1000series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_tk_gz_1000series_fake_placer_gfx,vehicle_is_reversed){
+      1: sw_tk_gz_1000series_fake_placer_rev;
+      sw_tk_gz_1000series_fake_placer;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_gz_1000series_fake_placer_main,num_vehs_in_vehid_chain>10 - 1){
+      1: sw_tk_gz_1000series_fake_placer_gfx;
+      tk_gz_1000series_wag;
+    }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_tk_gz_1000series_gfx_main,position_in_vehid_chain_from_end){
+      0: tk_gz_1000series_end;
+      default: sw_tk_gz_1000series_fake_placer_main;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_gz_1000series_lv,vehicle_type_id){
+      tk_gz_1000s: tk_gz_1000series_front;
+      default: sw_tk_gz_1000series_gfx_main;
+    }
+//post fixers
+  //capacity-changer
+  switch(FEAT_TRAINS, SELF, sw_tk_gz_1000series_capacity,position_in_vehid_chain_from_end){
+    0: 93;
+    default: 106;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_gz_1000series_capacity_1,position_in_vehid_chain){
+    0: 93;
+    default: sw_tk_gz_1000series_capacity;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_gz_1000series_capacity_main,vehicle_type_id){
+    mu_car_metro: sw_tk_gz_1000series_capacity;
+    sw_tk_gz_1000series_capacity_1;
+  }
 //attachable vehicles
-switch(FEAT_TRAINS, SELF, sw_tk_gz_1000s_attach_vehid, vehicle_type_id) {
-  mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
-}
+  switch(FEAT_TRAINS, SELF, sw_tk_gz_1000s_attach_vehid, vehicle_type_id) {
+    mu_car: return string(STR_ATTACH_1435_M_ERROR);
+    mu_car_narrow: return string(STR_ATTACH_1435_M_ERROR);
+    return CB_RESULT_ATTACH_ALLOW;
+  }
 
 item(FEAT_TRAINS, tk_gz_1000s, 1006) {
     property {
@@ -45,7 +77,7 @@ item(FEAT_TRAINS, tk_gz_1000s, 1006) {
 
         speed: 90 km/h;
         track_type: TR_1435_M;
-        power: 200 kW;
+        power: 480 kW;
         weight: 30 ton;
 
         climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
@@ -67,8 +99,8 @@ item(FEAT_TRAINS, tk_gz_1000s, 1006) {
         bitmask_vehicle_info: 0;
     }
 	graphics {
-        default: sw_tk_gz_1000s_livery_1;
-        purchase: tk_gz_1000s_purchase;
+        default: sw_tk_gz_1000series_lv;
+        purchase: tk_gz_1000series_purchase;
         can_attach_wagon: sw_tk_gz_1000s_attach_vehid;
     additional_text:    string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
@@ -84,13 +116,13 @@ item(FEAT_TRAINS, tk_gz_1000s, 1006) {
                         );
         length: 8;
         start_stop: sw_stop_start_3;
-        cargo_capacity: 93*param_capacity_mod/3;
+        cargo_capacity: sw_tk_gz_1000series_capacity_main()*param_capacity_mod/3;
     }
     livery_override(mu_car_metro){
-        default:                      sw_tk_gz_1000s_livery_1;
-        cargo_capacity:               sw_tk_gz_1000s_main_capacity;
+        default:                      sw_tk_gz_1000series_lv;
+        cargo_capacity: sw_tk_gz_1000series_capacity_main()*param_capacity_mod/3;
         loading_speed:                param_loading_3D;
-        power: 268;
+        power: 480*1342/1000;
         weight: 27;
         length: 8;
       }

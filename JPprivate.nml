@@ -364,7 +364,7 @@ template tmpl_std_rev(x,y){
 [x +65,  y,	22,	20,		-5, 	-12] //dia2
 }
 //*for "long nose" trains
-template tmpl_std_long(x,y) {
+template tmpl_long(x,y) {
 [x, 	 y,	8, 	24,		-3, 	-16] //short
 [x +9, 	 y,	23,	20,		-13,	-13] //dia1
 [x +32,  y,	32,	17,		-14,	-13] //long
@@ -375,7 +375,7 @@ template tmpl_std_long(x,y) {
 [x+152,  y,	23,	20,		-6, 	-12] //dia2
 }
 
-template tmpl_std_rev_long(x,y) {
+template tmpl_long_rev(x,y) {
 [x +88,  y,	8, 	24,		-3, 	-16] //short
 [x +97,  y,	22,	20,		-13,	-13] //dia1
 [x +120, y,	32,	17,		-14,	-13] //long
@@ -384,6 +384,28 @@ template tmpl_std_rev_long(x,y) {
 [x +9, 	 y,	23,	20,		-13,	-13] //dia1
 [x +32,  y,	32,	17,		-14,	-13] //long
 [x +65,  y,	22,	20,		-5, 	-12] //dia2
+}
+//*for high skirt trains
+template tmpl_high_skirt(x,y) {
+[x, 	 y,	8, 	24,		-3, 	-16] //short
+[x +9, 	 y,	22,	20,		-13,	-13] //dia1
+[x +32,  y,	32,	17,		-14,	-13] //long
+[x +65,  y,	22,	21,		-5, 	-12] //dia2
+[x +88,  y,	8, 	24,		-3, 	-16] //short
+[x +97,  y,	22,	21,		-13,	-13] //dia1
+[x +120, y,	32,	17,		-14,	-13] //long
+[x+153,  y,	22,	20,		-5, 	-12] //dia2
+}
+
+template tmpl_high_skirt_rev(x,y){
+[x +88,  y,	8, 	24,		-3, 	-16] //short
+[x +97,  y,	22,	21,		-13,	-13] //dia1
+[x +120, y,	32,	17,		-14,	-13] //long
+[x+153,  y,	22,	20,		-5, 	-12] //dia2
+[x, 	 y,	8, 	24,		-3, 	-16] //short
+[x +9, 	 y,	22,	20,		-13,	-13] //dia1
+[x +32,  y,	32,	17,		-14,	-13] //long
+[x +65,  y,	22,	21,		-5, 	-12] //dia2
 }
 
 template tmpl_symm(x,y) {
@@ -1156,37 +1178,82 @@ item(FEAT_TRAINS, tk_gz_t1900, 1004) {
 }
 # 1 "src/import/jp_metro.pnml" 4
 # 1 "src/metro/Tokyo/ginza/tk_gz_01series.pnml" 1
-spriteset (tk_gz_01s_purchase,   "gfx/misc/purchase.png") { tmpl_purchase(0, 0) }
-spriteset (tk_gz_01s_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tk_gz_01s_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
-spriteset (tk_gz_01s_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 50) }
-alternative_sprites(tk_gz_01s_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/01series/01series_purchase.png"){ tmpl_purchase(0, 0) }
-alternative_sprites(tk_gz_01s_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/01series/01series.png"){ tmpl_std(0, 0) }
-alternative_sprites(tk_gz_01s_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/01series/01series.png"){ tmpl_std(0, 25) }
-alternative_sprites(tk_gz_01s_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/01series/01series.png"){ tmpl_std_rev(0, 50) }
+spriteset (tk_gz_01series_purchase,   "gfx/misc/purchase.png") { tmpl_purchase(0, 0) }
+spriteset (tk_gz_01series_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_gz_01series_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_gz_01series_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 50) }
+spriteset (tk_gz_01series_front_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 50) }
+spriteset (tk_gz_01series_end_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 50) }
 
-//setup
-//basic gfx
-// livery 1
-switch(FEAT_TRAINS, SELF, sw_tk_gz_01s_end_gfx,position_in_consist_from_end){
-    0: tk_gz_01s_end;
-    tk_gz_01s_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_tk_gz_01s_livery_1,position_in_consist){
-    0: tk_gz_01s_front;
-    sw_tk_gz_01s_end_gfx;
-}
-//livery-randomizer
-//capacity-changer
-switch(FEAT_TRAINS, SELF, sw_tk_gz_01s_main_capacity,position_in_consist_from_end){
-    0: 100*param_capacity_mod/3;
-    default: 102*param_capacity_mod/3;
-}
-//attachable vehicles
-switch(FEAT_TRAINS, SELF, sw_tk_gz_01s_attach_vehid, vehicle_type_id) {
-  mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
-}
+alternative_sprites(tk_gz_01series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/01series/01series_purchase.png"){ tmpl_purchase(0, 0) }
+alternative_sprites(tk_gz_01series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/01series/01series.png"){ tmpl_std(0, 0) }
+alternative_sprites(tk_gz_01series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/01series/01series.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(tk_gz_01series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/01series/01series.png"){ tmpl_symm(0, 50) }
+alternative_sprites(tk_gz_01series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/01series/01series.png"){ tmpl_std(0, 75) }
+alternative_sprites(tk_gz_01series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/01series/01series.png"){ tmpl_std_rev(0, 75) }
+//*livery 1
+  //fake head-end placer
+    switch(FEAT_TRAINS, SELF, sw_tk_gz_01series_fake_placer,position_in_vehid_chain +1){
+      5: tk_gz_01series_end_f;
+      6: tk_gz_01series_front_f;
+      tk_gz_01series_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_gz_01series_fake_placer_rev,position_in_vehid_chain_from_end ){
+      5: tk_gz_01series_front_f;
+      6: tk_gz_01series_end_f;
+      tk_gz_01series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_tk_gz_01series_fake_placer_gfx,vehicle_is_reversed){
+      1: sw_tk_gz_01series_fake_placer_rev;
+      sw_tk_gz_01series_fake_placer;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_gz_01series_fake_placer_main,num_vehs_in_vehid_chain>10 - 1){
+      1: sw_tk_gz_01series_fake_placer_gfx;
+      tk_gz_01series_wag;
+    }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_tk_gz_01series_gfx_main,position_in_vehid_chain_from_end){
+      0: tk_gz_01series_end;
+      default: sw_tk_gz_01series_fake_placer_main;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_gz_01series_lv,vehicle_type_id){
+      tk_gz_01s: tk_gz_01series_front;
+      default: sw_tk_gz_01series_gfx_main;
+    }
+//post fixers
+  //capacity-changer
+  switch(FEAT_TRAINS, SELF, sw_tk_gz_01series_capacity,position_in_vehid_chain_from_end){
+    0: 100;
+    default: 102;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_gz_01series_capacity_1,position_in_vehid_chain){
+    0: 100;
+    default: sw_tk_gz_01series_capacity;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_gz_01series_capacity_main,vehicle_type_id){
+    mu_car_metro: sw_tk_gz_01series_capacity;
+    sw_tk_gz_01series_capacity_1;
+  }
+  //power fix
+    switch(FEAT_TRAINS, SELF, sw_tk_gz_01series_power,position_in_vehid_chain_from_end%5){
+      1..2:return 120;
+      4:return 120;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_gz_01series_head_power,num_vehs_in_consist){
+      39: return 120;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_gz_01series_power_main,vehicle_type_id){
+      mu_car_metro:sw_tk_gz_01series_power;
+      sw_tk_gz_01series_head_power;
+    }
+  //attachable vehicles
+    switch(FEAT_TRAINS, SELF, sw_tk_gz_01s_attach_vehid, vehicle_type_id) {
+      mu_car: return string(STR_ATTACH_1435_M_ERROR);
+      mu_car_narrow: return string(STR_ATTACH_1435_M_ERROR);
+      return CB_RESULT_ATTACH_ALLOW;
+    }
 
 item(FEAT_TRAINS, tk_gz_01s, 1005) {
     property {
@@ -1226,8 +1293,9 @@ item(FEAT_TRAINS, tk_gz_01s, 1005) {
         //length: 8;
     }
 	graphics {
-        default: sw_tk_gz_01s_livery_1;
-        purchase: tk_gz_01s_purchase;
+        power: sw_tk_gz_01series_power_main()*4*1342/1000;
+        default: sw_tk_gz_01series_lv;
+        purchase: tk_gz_01series_purchase;
         can_attach_wagon: sw_tk_gz_01s_attach_vehid;
         additional_text:    string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
@@ -1243,50 +1311,82 @@ item(FEAT_TRAINS, tk_gz_01s, 1005) {
                         );
         length: 8;
         start_stop: sw_stop_start_3;
-        cargo_capacity: 100*param_capacity_mod/3;
+        cargo_capacity: sw_tk_gz_01series_capacity_main()*param_capacity_mod/3;
     }
     livery_override(mu_car_metro){
-        default:                      sw_tk_gz_01s_livery_1;
-        cargo_capacity:               sw_tk_gz_01s_main_capacity;
+        default:                      sw_tk_gz_01series_lv;
+        cargo_capacity: sw_tk_gz_01series_capacity_main()*param_capacity_mod/3;
         loading_speed:                param_loading_3D;
-        power: 322;
+        power: sw_tk_gz_01series_power_main()*4*1342/1000;
         weight: 24;
         length: 8;
       }
 }
 # 1 "src/import/jp_metro.pnml" 4
 # 1 "src/metro/Tokyo/ginza/tk_gz_1000series.pnml" 1
-spriteset (tk_gz_1000s_purchase,   "gfx/misc/purchase.png") { tmpl_purchase(0, 0) }
-spriteset (tk_gz_1000s_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tk_gz_1000s_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
-spriteset (tk_gz_1000s_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
-alternative_sprites(tk_gz_1000s_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series_purchase.png"){ tmpl_purchase(0, 0) }
-alternative_sprites(tk_gz_1000s_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series.png"){ tmpl_std(0, 0) }
-alternative_sprites(tk_gz_1000s_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series.png"){ tmpl_std(0, 25) }
-alternative_sprites(tk_gz_1000s_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series.png"){ tmpl_std_rev(0, 50) }
+spriteset (tk_gz_1000series_purchase,   "gfx/misc/purchase.png") { tmpl_purchase(0, 0) }
+spriteset (tk_gz_1000series_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_gz_1000series_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
+spriteset (tk_gz_1000series_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (tk_gz_1000series_front_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_gz_1000series_end_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
 
-//setup
-//basic gfx
-// livery 1
-switch(FEAT_TRAINS, SELF, sw_tk_gz_1000s_end_gfx,position_in_consist_from_end){
-    0: tk_gz_1000s_end;
-    tk_gz_1000s_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_tk_gz_1000s_livery_1,position_in_consist){
-    0: tk_gz_1000s_front;
-    sw_tk_gz_1000s_end_gfx;
-}
-//livery-randomizer
-//capacity changer
-switch(FEAT_TRAINS, SELF, sw_tk_gz_1000s_main_capacity,position_in_consist_from_end){
-    0: 93*param_capacity_mod/3;
-    default: 106*param_capacity_mod/3;
-}
+alternative_sprites(tk_gz_1000series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series_purchase.png"){ tmpl_purchase(0, 0) }
+alternative_sprites(tk_gz_1000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series.png"){ tmpl_std(0, 0) }
+alternative_sprites(tk_gz_1000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(tk_gz_1000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series.png"){ tmpl_symm(0, 50) }
+alternative_sprites(tk_gz_1000series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series.png"){ tmpl_std(0, 75) }
+alternative_sprites(tk_gz_1000series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series.png"){ tmpl_std_rev(0, 75) }
+
+//*livery 1
+  //fake head-end placer
+    switch(FEAT_TRAINS, SELF, sw_tk_gz_1000series_fake_placer,position_in_vehid_chain +1){
+      5: tk_gz_1000series_end_f;
+      6: tk_gz_1000series_front_f;
+      tk_gz_1000series_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_gz_1000series_fake_placer_rev,position_in_vehid_chain_from_end ){
+      5: tk_gz_1000series_front_f;
+      6: tk_gz_1000series_end_f;
+      tk_gz_1000series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_tk_gz_1000series_fake_placer_gfx,vehicle_is_reversed){
+      1: sw_tk_gz_1000series_fake_placer_rev;
+      sw_tk_gz_1000series_fake_placer;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_gz_1000series_fake_placer_main,num_vehs_in_vehid_chain>10 - 1){
+      1: sw_tk_gz_1000series_fake_placer_gfx;
+      tk_gz_1000series_wag;
+    }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_tk_gz_1000series_gfx_main,position_in_vehid_chain_from_end){
+      0: tk_gz_1000series_end;
+      default: sw_tk_gz_1000series_fake_placer_main;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_gz_1000series_lv,vehicle_type_id){
+      tk_gz_1000s: tk_gz_1000series_front;
+      default: sw_tk_gz_1000series_gfx_main;
+    }
+//post fixers
+  //capacity-changer
+  switch(FEAT_TRAINS, SELF, sw_tk_gz_1000series_capacity,position_in_vehid_chain_from_end){
+    0: 93;
+    default: 106;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_gz_1000series_capacity_1,position_in_vehid_chain){
+    0: 93;
+    default: sw_tk_gz_1000series_capacity;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_gz_1000series_capacity_main,vehicle_type_id){
+    mu_car_metro: sw_tk_gz_1000series_capacity;
+    sw_tk_gz_1000series_capacity_1;
+  }
 //attachable vehicles
-switch(FEAT_TRAINS, SELF, sw_tk_gz_1000s_attach_vehid, vehicle_type_id) {
-  mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
-}
+  switch(FEAT_TRAINS, SELF, sw_tk_gz_1000s_attach_vehid, vehicle_type_id) {
+    mu_car: return string(STR_ATTACH_1435_M_ERROR);
+    mu_car_narrow: return string(STR_ATTACH_1435_M_ERROR);
+    return CB_RESULT_ATTACH_ALLOW;
+  }
 
 item(FEAT_TRAINS, tk_gz_1000s, 1006) {
     property {
@@ -1303,7 +1403,7 @@ item(FEAT_TRAINS, tk_gz_1000s, 1006) {
 
         speed: 90 km/h;
         track_type: TR_1435_M;
-        power: 200 kW;
+        power: 480 kW;
         weight: 30 ton;
 
         climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
@@ -1325,8 +1425,8 @@ item(FEAT_TRAINS, tk_gz_1000s, 1006) {
         bitmask_vehicle_info: 0;
     }
 	graphics {
-        default: sw_tk_gz_1000s_livery_1;
-        purchase: tk_gz_1000s_purchase;
+        default: sw_tk_gz_1000series_lv;
+        purchase: tk_gz_1000series_purchase;
         can_attach_wagon: sw_tk_gz_1000s_attach_vehid;
     additional_text:    string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
@@ -1342,13 +1442,13 @@ item(FEAT_TRAINS, tk_gz_1000s, 1006) {
                         );
         length: 8;
         start_stop: sw_stop_start_3;
-        cargo_capacity: 93*param_capacity_mod/3;
+        cargo_capacity: sw_tk_gz_1000series_capacity_main()*param_capacity_mod/3;
     }
     livery_override(mu_car_metro){
-        default:                      sw_tk_gz_1000s_livery_1;
-        cargo_capacity:               sw_tk_gz_1000s_main_capacity;
+        default:                      sw_tk_gz_1000series_lv;
+        cargo_capacity: sw_tk_gz_1000series_capacity_main()*param_capacity_mod/3;
         loading_speed:                param_loading_3D;
-        power: 268;
+        power: 480*1342/1000;
         weight: 27;
         length: 8;
       }
@@ -3769,61 +3869,127 @@ item(FEAT_TRAINS, tk_ch_6000series,1061) {
 # 1 "src/metro/Tokyo/chiyoda/06series.pnml" 1
 spriteset (tk_ch_06series_purchase,   "gfx/misc/purchase.png") { tmpl_purchase(0, 0) }
 spriteset (tk_ch_06series_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tk_ch_06series_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
-spriteset (tk_ch_06series_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
-spriteset (tk_ch_06series_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
-spriteset (tk_ch_06series_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
+spriteset (tk_ch_06series_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_ch_06series_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_ch_06series_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_ch_06series_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_ch_06series_front_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_ch_06series_end_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+
 alternative_sprites(tk_ch_06series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/06series/06series_purchase.png"){ tmpl_purchase(0, 0) }
-alternative_sprites(tk_ch_06series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/06series/06series.png"){ tmpl_std(0, 0) }
+alternative_sprites(tk_ch_06series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/06series/06series.png"){ tmpl_high_skirt(0, 0) }
+alternative_sprites(tk_ch_06series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/06series/06series.png"){ tmpl_high_skirt_rev(0, 25) }
 alternative_sprites(tk_ch_06series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/06series/06series.png"){ tmpl_std(0, 50) }
 alternative_sprites(tk_ch_06series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/06series/06series.png"){ tmpl_std_rev(0, 50) }
-alternative_sprites(tk_ch_06series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/06series/06series.png"){ tmpl_std(0, 75) }
-alternative_sprites(tk_ch_06series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/06series/06series.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(tk_ch_06series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/06series/06series.png"){ tmpl_symm(0, 75) }
+alternative_sprites(tk_ch_06series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/06series/06series.png"){ tmpl_high_skirt(0, 100) }
+alternative_sprites(tk_ch_06series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/06series/06series.png"){ tmpl_high_skirt_rev(0, 100) }
 
 //*livery 1
-//panto-placers
-switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_mot_def_gfx,position_in_consist %10){
-    1: tk_ch_06series_mot_rev;
-    3: tk_ch_06series_mot_rev;
-    6: tk_ch_06series_mot;
-    8: tk_ch_06series_mot;
-    default: tk_ch_06series_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_mot_def_rev_gfx,position_in_consist_from_end %10){
-    1: tk_ch_06series_mot;
-    3: tk_ch_06series_mot;
-    6: tk_ch_06series_mot_rev;
-    8: tk_ch_06series_mot_rev;
-    default: tk_ch_06series_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_tk_ch_06series_mot_def_main_gfx,vehicle_is_reversed){
-    1: sw_tk_ch_06series_mot_def_rev_gfx;
-    sw_tk_ch_06series_mot_def_gfx;
-}
-//front-end-fixer
-switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_end_gfx,position_in_consist_from_end){
-    0: tk_ch_06series_end;
-    default: sw_tk_ch_06series_mot_def_main_gfx;
-}
-switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_front_gfx,position_in_consist){
-    0: tk_ch_06series_front;
-    default: sw_tk_ch_06series_end_gfx;
-}
-//capacity-changer
-switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_main_capacity,position_in_consist_from_end){
-    0: 138*param_capacity_mod/3;
-    default: 152*param_capacity_mod/3;
-}
+  //panto-placers
+    //var 1
+    switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_panto_placer_1,position_in_vehid_chain %5){
+        0: tk_ch_06series_mot;
+        2: tk_ch_06series_mot;
+        tk_ch_06series_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_panto_placer_1_rev,position_in_vehid_chain_from_end %5 -1){
+        0: tk_ch_06series_mot_rev;
+        2: tk_ch_06series_mot_rev;
+        tk_ch_06series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_tk_ch_06series_panto_placer_main_1,vehicle_is_reversed){
+        1: sw_tk_ch_06series_panto_placer_1_rev;
+        sw_tk_ch_06series_panto_placer_1;
+    }
+    //var 2
+    switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_panto_placer_2,position_in_vehid_chain %3){
+        0: tk_ch_06series_mot;
+        3: tk_ch_06series_mot;
+        tk_ch_06series_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_panto_placer_2_rev,position_in_vehid_chain_from_end %3 -1){
+        0: tk_ch_06series_mot_rev;
+        3: tk_ch_06series_mot_rev;
+        tk_ch_06series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_tk_ch_06series_panto_placer_main_2,vehicle_is_reversed){
+        1: sw_tk_ch_06series_panto_placer_2_rev;
+        sw_tk_ch_06series_panto_placer_2;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_panto_placer_main,num_vehs_in_vehid_chain+1){
+        6..7: sw_tk_ch_06series_panto_placer_main_2;
+        sw_tk_ch_06series_panto_placer_main_1;
+    }
+  //fake head-end placer
+    switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_fake_placer,position_in_vehid_chain +1){
+        8: tk_ch_06series_end_f;
+        9: tk_ch_06series_front_f;
+        sw_tk_ch_06series_panto_placer_main;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_fake_placer_rev,position_in_vehid_chain_from_end ){
+        8: tk_ch_06series_front_f;
+        9: tk_ch_06series_end_f;
+        sw_tk_ch_06series_panto_placer_main;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_tk_ch_06series_fake_placer_gfx,vehicle_is_reversed){
+        1: sw_tk_ch_06series_fake_placer_rev;
+        sw_tk_ch_06series_fake_placer;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_fake_placer_main,num_vehs_in_vehid_chain>11 - 1){
+        1: sw_tk_ch_06series_fake_placer_gfx;
+        sw_tk_ch_06series_panto_placer_main;
+    }
+  //front-end-fixer
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_gfx_main,position_in_vehid_chain_from_end){
+      0: tk_ch_06series_end;
+      default: sw_tk_ch_06series_fake_placer_main;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_lv,vehicle_type_id){
+      tk_ch_06series: tk_ch_06series_front;
+      default: sw_tk_ch_06series_gfx_main;
+  }
+//post fixers
+  //capacity-changer
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_capacity,position_in_vehid_chain_from_end){
+    0: 138;
+    default: 152;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_capacity_1,position_in_vehid_chain){
+    0: 138;
+    default: sw_tk_ch_06series_capacity;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_capacity_main,vehicle_type_id){
+    mu_car_narrow: sw_tk_ch_06series_capacity;
+    sw_tk_ch_06series_capacity_1;
+  }
+  //power fix
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_power,position_in_vehid_chain_from_end%9){
+    1:return 205;
+    3:return 205;
+    6:return 205;
+    7:return 205;
+    return 0;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_head_power,num_vehs_in_consist){
+    39: return 205;
+    return 0;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_power_main,vehicle_type_id){
+      mu_car_narrow:sw_tk_ch_06series_power;
+      sw_tk_ch_06series_head_power;
+  }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_ch_06series_attach_vehid, vehicle_type_id) {
-  mu_car_narrow: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
+  mu_car: return string(STR_ATTACH_1067_ERROR);
+  mu_car_metro: return string(STR_ATTACH_1067_ERROR);
+  return CB_RESULT_ATTACH_ALLOW;
 }
 
 item(FEAT_TRAINS, tk_ch_06series,1062) {
     property {
         name: string(STR_tk_ch_06series_NAME);
-        introduction_date: date(1993, 1, 1);
+        introduction_date: date(1992, 1, 1);
         model_life: 22;
         vehicle_life: 30;
         reliability_decay: 20;
@@ -3858,7 +4024,8 @@ item(FEAT_TRAINS, tk_ch_06series,1062) {
         length: 8;
     }
 	graphics {
-        default: sw_tk_ch_06series_front_gfx;
+        power: sw_tk_ch_06series_power_main()*4*1342/1000;
+        default: sw_tk_ch_06series_lv;
         purchase: tk_ch_06series_purchase;
         can_attach_wagon: tk_ch_06series_attach_vehid;
         additional_text:    string(STR_CONCAT_6,
@@ -3874,13 +4041,13 @@ item(FEAT_TRAINS, tk_ch_06series,1062) {
                             ),
                         );
         start_stop: sw_stop_start_4;
-        cargo_capacity: 138*param_capacity_mod/3;
+        cargo_capacity: sw_tk_ch_06series_capacity_main()*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
-        cargo_capacity: sw_tk_ch_06series_main_capacity;
-        default:                      sw_tk_ch_06series_front_gfx;
-        power: 1100*3/9;
+        cargo_capacity: sw_tk_ch_06series_capacity_main()*param_capacity_mod/3;
+        default:                      sw_tk_ch_06series_lv;
+        power: sw_tk_ch_06series_power_main()*4*1342/1000;
         weight: 27;
         length: 8;
       }
@@ -4008,80 +4175,122 @@ item(FEAT_TRAINS, tk_ch_16000series,1063) {
 # 1 "src/metro/Tokyo/chiyoda/05series.pnml" 1
 spriteset (tk_ch_05series_purchase,   "gfx/misc/purchase.png") { tmpl_purchase(0, 0) }
 spriteset (tk_ch_05series_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tk_ch_05series_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
-spriteset (tk_ch_05series_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
-spriteset (tk_ch_05series_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
+spriteset (tk_ch_05series_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 0) }
+spriteset (tk_ch_05series_mot_2,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_ch_05series_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_ch_05series_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_ch_05series_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (tk_ch_05series_front_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 0) }
+spriteset (tk_ch_05series_end_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 0) }
 
 alternative_sprites(tk_ch_05series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/05series/05series_purchase.png"){ tmpl_purchase(0, 0) }
 alternative_sprites(tk_ch_05series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/05series/05series.png"){ tmpl_std(0, 0) }
-alternative_sprites(tk_ch_05series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/05series/05series.png"){ tmpl_std(0, 50) }
-alternative_sprites(tk_ch_05series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/05series/05series.png"){ tmpl_std(0, 75) }
 alternative_sprites(tk_ch_05series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/05series/05series.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(tk_ch_05series_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/05series/05series.png"){ tmpl_symm(0, 50) }
+alternative_sprites(tk_ch_05series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/05series/05series.png"){ tmpl_std(0, 75) }
+alternative_sprites(tk_ch_05series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/05series/05series.png"){ tmpl_std_rev(0, 75) }
+alternative_sprites(tk_ch_05series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/05series/05series.png"){ tmpl_symm(0, 100) }
+alternative_sprites(tk_ch_05series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/05series/05series.png"){ tmpl_std(0, 25) }
+alternative_sprites(tk_ch_05series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/05series/05series.png"){ tmpl_std_rev(0, 25) }
 
 //*livery 1
 //panto-placers
-switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_mot_def_gfx,position_in_consist %10){
-    1: tk_ch_05series_mot;
+  //var 1
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_panto_placer_1,position_in_vehid_chain %6){
+    0: tk_ch_05series_mot_2;
     3: tk_ch_05series_mot;
-    6: tk_ch_05series_mot;
-    7: tk_ch_05series_mot;
-    default: tk_ch_05series_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_mot_def_rev_gfx,position_in_consist_from_end %10){
-    1: tk_ch_05series_mot;
-    3: tk_ch_05series_mot;
-    6: tk_ch_05series_mot;
-    7: tk_ch_05series_mot;
-    default: tk_ch_05series_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_tk_ch_05series_mot_def_main_gfx,vehicle_is_reversed){
-    1: sw_tk_ch_05series_mot_def_rev_gfx;
-    sw_tk_ch_05series_mot_def_gfx;
-}
-//3 car
-switch(FEAT_TRAINS, SELF, tk_ch_05series_main,position_in_consist %3){
-    0: tk_ch_05series_front;
-    1: tk_ch_05series_mot;
-    2: tk_ch_05series_end;
     tk_ch_05series_wag;
-}
-switch(FEAT_TRAINS, SELF, tk_ch_05series_main_rev,position_in_consist %3){
-    0: tk_ch_05series_front;
-    1: tk_ch_05series_mot;
-    2: tk_ch_05series_end;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_panto_placer_1_rev,position_in_vehid_chain_from_end %6 -1){
+    0: tk_ch_05series_mot_2;
+    3: tk_ch_05series_mot_rev;
     tk_ch_05series_wag;
-}
-switch(FEAT_TRAINS, PARENT, tk_ch_05series_3_gfx, vehicle_is_reversed){
-0: tk_ch_05series_main;
-tk_ch_05series_main_rev;
-}
-switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_end_gfx,position_in_consist_from_end){
+  }
+  switch(FEAT_TRAINS, PARENT, sw_tk_ch_05series_panto_placer_main_1,vehicle_is_reversed){
+    1: sw_tk_ch_05series_panto_placer_1_rev;
+    sw_tk_ch_05series_panto_placer_1;
+  }
+  //var 2
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_panto_placer_2,position_in_vehid_chain %3){
+    1: tk_ch_05series_mot_2;
+    tk_ch_05series_wag;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_panto_placer_2_rev,position_in_vehid_chain_from_end %3){
+    2: tk_ch_05series_mot_2;
+    tk_ch_05series_wag;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_tk_ch_05series_panto_placer_main_2,vehicle_is_reversed){
+    1: sw_tk_ch_05series_panto_placer_2_rev;
+    sw_tk_ch_05series_panto_placer_2;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_panto_placer_main,num_vehs_in_vehid_chain+1){
+    5: sw_tk_ch_05series_panto_placer_main_2;
+    7..8: sw_tk_ch_05series_panto_placer_main_2;
+    sw_tk_ch_05series_panto_placer_main_1;
+  }
+//fake head-end placer
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_fake_placer,position_in_vehid_chain +1){
+    8: tk_ch_05series_end_f;
+    9: tk_ch_05series_front_f;
+    sw_tk_ch_05series_panto_placer_main;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_fake_placer_rev,position_in_vehid_chain_from_end ){
+    8: tk_ch_05series_front_f;
+    9: tk_ch_05series_end_f;
+    sw_tk_ch_05series_panto_placer_main;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_tk_ch_05series_fake_placer_gfx,vehicle_is_reversed){
+    1: sw_tk_ch_05series_fake_placer_rev;
+    sw_tk_ch_05series_fake_placer;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_fake_placer_main,num_vehs_in_vehid_chain>11 - 1){
+    1: sw_tk_ch_05series_fake_placer_gfx;
+    sw_tk_ch_05series_panto_placer_main;
+  }
+//front-end-fixer
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_gfx_main,position_in_vehid_chain_from_end){
     0: tk_ch_05series_end;
-    default: sw_tk_ch_05series_mot_def_main_gfx;
-}
-switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_front_gfx,position_in_consist){
-    0: tk_ch_05series_front;
-    default: sw_tk_ch_05series_end_gfx;
-}
-//main gfx 
-switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_livery_1,num_vehs_in_consist){
-3: tk_ch_05series_3_gfx;
-default: sw_tk_ch_05series_front_gfx;
-}
-//livery selector 
-//capacity-changer
-switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_main_capacity,position_in_consist_from_end){
-    0: 138*param_capacity_mod/3;
-    default: 148*param_capacity_mod/3;
-}
+    default: sw_tk_ch_05series_fake_placer_main;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_livery_1,vehicle_type_id){
+    tk_ch_05series: tk_ch_05series_front;
+    default: sw_tk_ch_05series_gfx_main;
+  }
+//post fixers
+  //capacity-changer
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_capacity,position_in_vehid_chain_from_end){
+    0: 143;
+    default: 154;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_capacity_1,position_in_vehid_chain){
+    0: 143;
+    default: sw_tk_ch_05series_capacity;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_capacity_main,vehicle_type_id){
+    mu_car_narrow: sw_tk_ch_05series_capacity;
+    sw_tk_ch_05series_capacity_1;
+  }
+  //power fix
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_power,position_in_vehid_chain_from_end%5){
+    0..1:return 185;
+    4:return 185;
+    6..7:return 185;
+    return 0;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_head_power,num_vehs_in_consist){
+    39: return 185;
+    return 0;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_power_main,vehicle_type_id){
+      mu_car_narrow:sw_tk_ch_05series_power;
+      sw_tk_ch_05series_head_power;
+  }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_ch_05series_attach_vehid, vehicle_type_id) {
-  mu_car_narrow: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
+  mu_car: return string(STR_ATTACH_1067_ERROR);
+  mu_car_metro: return string(STR_ATTACH_1067_ERROR);
+  return CB_RESULT_ATTACH_ALLOW;
 }
-
-
-
 
 item(FEAT_TRAINS, tk_ch_05series,1070) {
     property {
@@ -4121,6 +4330,7 @@ item(FEAT_TRAINS, tk_ch_05series,1070) {
         length: 8;
     }
 	graphics {
+        power: sw_tk_ch_05series_power_main()*4*1342/1000;
         default: sw_tk_ch_05series_livery_1;
         purchase: tk_ch_05series_purchase;
         can_attach_wagon: tk_ch_05series_attach_vehid;
@@ -4137,13 +4347,13 @@ item(FEAT_TRAINS, tk_ch_05series,1070) {
                             ),
                         );
         start_stop: sw_stop_start_3;
-        cargo_capacity: 138*param_capacity_mod/3;
+        cargo_capacity: sw_tk_ch_05series_capacity_main()*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
-        cargo_capacity: sw_tk_ch_05series_main_capacity;
+        cargo_capacity: sw_tk_ch_05series_capacity_main()*param_capacity_mod/3;
         default:                      sw_tk_ch_05series_livery_1;
-        power: 922/2;
+        power: sw_tk_ch_05series_power_main()*4*1342/1000;
         weight: 31;
         length: 8;
       }
@@ -6090,8 +6300,9 @@ spriteset (tk_as_toei5300_wag,       "gfx/metro/Tokyo/asakusa/toei5300/toei5300.
     }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_as_toei5300_attach_vehid, vehicle_type_id) {
-  mu_car: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
+  mu_car_narrow: return string(STR_ATTACH_1435_ERROR);
+  mu_car_metro: return string(STR_ATTACH_1435_ERROR);
+  return CB_RESULT_ATTACH_ALLOW;
 }
 
 item(FEAT_TRAINS, tk_as_toei5300,1122) {
@@ -6264,8 +6475,9 @@ alternative_sprites(tk_as_toei5500_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,   
     }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, tk_as_toei5500_attach_vehid, vehicle_type_id) {
-  mu_car: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
+  mu_car_narrow: return string(STR_ATTACH_1435_ERROR);
+  mu_car_metro: return string(STR_ATTACH_1435_ERROR);
+  return CB_RESULT_ATTACH_ALLOW;
 }
 
 item(FEAT_TRAINS, tk_as_toei5500,1123) {
@@ -28543,10 +28755,10 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
     spriteset (tobu100_1_mot_1,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
     spriteset (tobu100_1_mot_1_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 
-    alternative_sprites(tobu100_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_1.png"){ tmpl_std_long(0, 0) }
-    alternative_sprites(tobu100_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_1.png"){ tmpl_std_rev_long(0, 25) }
-    alternative_sprites(tobu100_1_front_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_1.png"){ tmpl_std_long(0, 50) }
-    alternative_sprites(tobu100_1_end_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_1.png"){ tmpl_std_rev_long(0, 75) }
+    alternative_sprites(tobu100_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_1.png"){ tmpl_long(0, 0) }
+    alternative_sprites(tobu100_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_1.png"){ tmpl_long_rev(0, 25) }
+    alternative_sprites(tobu100_1_front_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_1.png"){ tmpl_long(0, 50) }
+    alternative_sprites(tobu100_1_end_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_1.png"){ tmpl_long_rev(0, 75) }
     alternative_sprites(tobu100_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_1.png"){ tmpl_std(0, 100) }
     alternative_sprites(tobu100_1_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_1.png"){ tmpl_std_rev(0, 100) }
     alternative_sprites(tobu100_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_1.png"){ tmpl_std(0, 125) }
@@ -28565,10 +28777,10 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
     spriteset (tobu100_2_mot_1,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
     spriteset (tobu100_2_mot_1_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 
-    alternative_sprites(tobu100_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_2.png"){ tmpl_std_long(0, 0) }
-    alternative_sprites(tobu100_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_2.png"){ tmpl_std_rev_long(0, 25) }
-    alternative_sprites(tobu100_2_front_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_2.png"){ tmpl_std_long(0, 50) }
-    alternative_sprites(tobu100_2_end_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_2.png"){ tmpl_std_rev_long(0, 75) }
+    alternative_sprites(tobu100_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_2.png"){ tmpl_long(0, 0) }
+    alternative_sprites(tobu100_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_2.png"){ tmpl_long_rev(0, 25) }
+    alternative_sprites(tobu100_2_front_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_2.png"){ tmpl_long(0, 50) }
+    alternative_sprites(tobu100_2_end_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_2.png"){ tmpl_long_rev(0, 75) }
     alternative_sprites(tobu100_2_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_2.png"){ tmpl_std(0, 100) }
     alternative_sprites(tobu100_2_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_2.png"){ tmpl_std_rev(0, 100) }
     alternative_sprites(tobu100_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_2.png"){ tmpl_std(0, 125) }
@@ -28587,10 +28799,10 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
     spriteset (tobu100_3_mot_1,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
     spriteset (tobu100_3_mot_1_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 
-    alternative_sprites(tobu100_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_3.png"){ tmpl_std_long(0, 0) }
-    alternative_sprites(tobu100_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_3.png"){ tmpl_std_rev_long(0, 25) }
-    alternative_sprites(tobu100_3_front_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_3.png"){ tmpl_std_long(0, 50) }
-    alternative_sprites(tobu100_3_end_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_3.png"){ tmpl_std_rev_long(0, 75) }
+    alternative_sprites(tobu100_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_3.png"){ tmpl_long(0, 0) }
+    alternative_sprites(tobu100_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_3.png"){ tmpl_long_rev(0, 25) }
+    alternative_sprites(tobu100_3_front_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_3.png"){ tmpl_long(0, 50) }
+    alternative_sprites(tobu100_3_end_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_3.png"){ tmpl_long_rev(0, 75) }
     alternative_sprites(tobu100_3_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_3.png"){ tmpl_std(0, 100) }
     alternative_sprites(tobu100_3_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_3.png"){ tmpl_std_rev(0, 100) }
     alternative_sprites(tobu100_3_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_3.png"){ tmpl_std(0, 125) }
@@ -28609,10 +28821,10 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
     spriteset (tobu100_4_mot_1,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
     spriteset (tobu100_4_mot_1_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 
-    alternative_sprites(tobu100_4_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_4.png"){ tmpl_std_long(0, 0) }
-    alternative_sprites(tobu100_4_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_4.png"){ tmpl_std_rev_long(0, 25) }
-    alternative_sprites(tobu100_4_front_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_4.png"){ tmpl_std_long(0, 50) }
-    alternative_sprites(tobu100_4_end_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_4.png"){ tmpl_std_rev_long(0, 75) }
+    alternative_sprites(tobu100_4_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_4.png"){ tmpl_long(0, 0) }
+    alternative_sprites(tobu100_4_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_4.png"){ tmpl_long_rev(0, 25) }
+    alternative_sprites(tobu100_4_front_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_4.png"){ tmpl_long(0, 50) }
+    alternative_sprites(tobu100_4_end_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_4.png"){ tmpl_long_rev(0, 75) }
     alternative_sprites(tobu100_4_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_4.png"){ tmpl_std(0, 100) }
     alternative_sprites(tobu100_4_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_4.png"){ tmpl_std_rev(0, 100) }
     alternative_sprites(tobu100_4_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_4.png"){ tmpl_std(0, 125) }
@@ -28629,8 +28841,8 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
     spriteset (tobu100_5_mot_1,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
     spriteset (tobu100_5_mot_1_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 
-    alternative_sprites(tobu100_5_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_5.png"){ tmpl_std_long(0, 0) }
-    alternative_sprites(tobu100_5_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_5.png"){ tmpl_std_rev_long(0, 25) }
+    alternative_sprites(tobu100_5_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_5.png"){ tmpl_long(0, 0) }
+    alternative_sprites(tobu100_5_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_5.png"){ tmpl_long_rev(0, 25) }
     alternative_sprites(tobu100_5_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_5.png"){ tmpl_std(0, 50) }
     alternative_sprites(tobu100_5_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_5.png"){ tmpl_std_rev(0, 50) }
     alternative_sprites(tobu100_5_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_5.png"){ tmpl_std(0, 75) }
@@ -28647,8 +28859,8 @@ alternative_sprites(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
     spriteset (tobu100_6_mot_1,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
     spriteset (tobu100_6_mot_1_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 
-    alternative_sprites(tobu100_6_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_6.png"){ tmpl_std_long(0, 0) }
-    alternative_sprites(tobu100_6_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_6.png"){ tmpl_std_rev_long(0, 25) }
+    alternative_sprites(tobu100_6_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_6.png"){ tmpl_long(0, 0) }
+    alternative_sprites(tobu100_6_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_6.png"){ tmpl_long_rev(0, 25) }
     alternative_sprites(tobu100_6_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_6.png"){ tmpl_std(0, 50) }
     alternative_sprites(tobu100_6_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_6.png"){ tmpl_std_rev(0, 50) }
     alternative_sprites(tobu100_6_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu100/tobu100_6.png"){ tmpl_std(0, 75) }
@@ -29469,16 +29681,16 @@ alternative_sprites(tobu200_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
     spriteset (tobu200_1_front_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
     spriteset (tobu200_1_end_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 
-    alternative_sprites(tobu200_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_1.png"){ tmpl_std_long(0, 0) }
-    alternative_sprites(tobu200_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_1.png"){ tmpl_std_rev_long(0, 25) }
+    alternative_sprites(tobu200_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_1.png"){ tmpl_long(0, 0) }
+    alternative_sprites(tobu200_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_1.png"){ tmpl_long_rev(0, 25) }
     alternative_sprites(tobu200_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_1.png"){ tmpl_std(0, 50) }
     alternative_sprites(tobu200_1_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_1.png"){ tmpl_std_rev(0, 50) }
     alternative_sprites(tobu200_1_mot_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_1.png"){ tmpl_std(0, 75) }
     alternative_sprites(tobu200_1_mot_1_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_1.png"){ tmpl_std_rev(0, 75) }
     alternative_sprites(tobu200_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_1.png"){ tmpl_std(0, 100) }
     alternative_sprites(tobu200_1_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_1.png"){ tmpl_std_rev(0, 100) }
-    alternative_sprites(tobu200_1_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_1.png"){ tmpl_std_long(0, 125) }
-    alternative_sprites(tobu200_1_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_1.png"){ tmpl_std_rev_long(0, 125) }
+    alternative_sprites(tobu200_1_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_1.png"){ tmpl_long(0, 125) }
+    alternative_sprites(tobu200_1_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_1.png"){ tmpl_long_rev(0, 125) }
 //
 //livery 2
     spriteset (tobu200_2_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
@@ -29492,16 +29704,16 @@ alternative_sprites(tobu200_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
     spriteset (tobu200_2_front_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
     spriteset (tobu200_2_end_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 
-    alternative_sprites(tobu200_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_2.png"){ tmpl_std_long(0, 0) }
-    alternative_sprites(tobu200_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_2.png"){ tmpl_std_rev_long(0, 25) }
+    alternative_sprites(tobu200_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_2.png"){ tmpl_long(0, 0) }
+    alternative_sprites(tobu200_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_2.png"){ tmpl_long_rev(0, 25) }
     alternative_sprites(tobu200_2_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_2.png"){ tmpl_std(0, 50) }
     alternative_sprites(tobu200_2_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_2.png"){ tmpl_std_rev(0, 50) }
     alternative_sprites(tobu200_2_mot_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_2.png"){ tmpl_std(0, 75) }
     alternative_sprites(tobu200_2_mot_1_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_2.png"){ tmpl_std_rev(0, 75) }
     alternative_sprites(tobu200_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_2.png"){ tmpl_std(0, 100) }
     alternative_sprites(tobu200_2_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_2.png"){ tmpl_std_rev(0, 100) }
-    alternative_sprites(tobu200_2_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_2.png"){ tmpl_std_long(0, 125) }
-    alternative_sprites(tobu200_2_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_2.png"){ tmpl_std_rev_long(0, 125) }
+    alternative_sprites(tobu200_2_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_2.png"){ tmpl_long(0, 125) }
+    alternative_sprites(tobu200_2_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_2.png"){ tmpl_long_rev(0, 125) }
 //
 //livery 3
     spriteset (tobu200_3_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
@@ -29515,16 +29727,16 @@ alternative_sprites(tobu200_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "
     spriteset (tobu200_3_front_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
     spriteset (tobu200_3_end_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 
-    alternative_sprites(tobu200_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_3.png"){ tmpl_std_long(0, 0) }
-    alternative_sprites(tobu200_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_3.png"){ tmpl_std_rev_long(0, 25) }
+    alternative_sprites(tobu200_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_3.png"){ tmpl_long(0, 0) }
+    alternative_sprites(tobu200_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_3.png"){ tmpl_long_rev(0, 25) }
     alternative_sprites(tobu200_3_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_3.png"){ tmpl_std(0, 50) }
     alternative_sprites(tobu200_3_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_3.png"){ tmpl_std_rev(0, 50) }
     alternative_sprites(tobu200_3_mot_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_3.png"){ tmpl_std(0, 75) }
     alternative_sprites(tobu200_3_mot_1_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_3.png"){ tmpl_std_rev(0, 75) }
     alternative_sprites(tobu200_3_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_3.png"){ tmpl_std(0, 100) }
     alternative_sprites(tobu200_3_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_3.png"){ tmpl_std_rev(0, 100) }
-    alternative_sprites(tobu200_3_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_3.png"){ tmpl_std_long(0, 125) }
-    alternative_sprites(tobu200_3_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_3.png"){ tmpl_std_rev_long(0, 125) }
+    alternative_sprites(tobu200_3_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_3.png"){ tmpl_long(0, 125) }
+    alternative_sprites(tobu200_3_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/tobu/tobu200/tobu200_3.png"){ tmpl_long_rev(0, 125) }
 //
 //*livery 1
   //panto placer
@@ -47054,11 +47266,11 @@ switch(FEAT_TRAINS, PARENT, sw_tsukuba_1000series_panto_placer_main_1,vehicle_is
 }
 //2
 switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_1_panto_placer,1+position_in_vehid_chain %3){
-    2: tsukuba_1000series_mot;
+    1: tsukuba_1000series_mot;
     tsukuba_1000series_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_1_panto_placer_rev,position_in_vehid_chain %3){
-    2: tsukuba_1000series_mot_rev;
+switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_1_panto_placer_rev,position_in_vehid_chain_from_end %3){
+    1: tsukuba_1000series_mot_rev;
     tsukuba_1000series_wag;
 }
 switch(FEAT_TRAINS, PARENT, sw_tsukuba_1000series_panto_placer_main_2,vehicle_is_reversed){
