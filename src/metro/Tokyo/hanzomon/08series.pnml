@@ -75,28 +75,28 @@ alternative_sprites(tk_hz_08series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,   
         sw_tk_hz_08series_panto_placer_main;
     }
   //front-end-fixer
-  switch(FEAT_TRAINS, SELF, sw_tk_hz_08series_gfx_main,position_in_vehid_chain_from_end){
-      0: tk_hz_08series_end;
-      default: sw_tk_hz_08series_fake_placer_main;
-  }
-  switch(FEAT_TRAINS, SELF, sw_tk_hz_08series_lv,vehicle_type_id){
-      tk_hz_08series: tk_hz_08series_front;
-      default: sw_tk_hz_08series_gfx_main;
-  }
+    switch(FEAT_TRAINS, SELF, sw_tk_hz_08series_gfx_main,position_in_vehid_chain_from_end){
+        0: tk_hz_08series_end;
+        default: sw_tk_hz_08series_fake_placer_main;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_hz_08series_lv,vehicle_type_id){
+        tk_hz_08series: tk_hz_08series_front;
+        default: sw_tk_hz_08series_gfx_main;
+    }
 //post fixers
   //capacity-changer
-  switch(FEAT_TRAINS, SELF, sw_tk_hz_08series_capacity,position_in_vehid_chain_from_end){
-    0: 141;
-    default: 152;
-  }
-  switch(FEAT_TRAINS, SELF, sw_tk_hz_08series_capacity_1,position_in_vehid_chain){
-    0: 141;
-    default: sw_tk_hz_08series_capacity;
-  }
-  switch(FEAT_TRAINS, SELF, sw_tk_hz_08series_capacity_main,vehicle_type_id){
-    mu_car_narrow: sw_tk_hz_08series_capacity;
-    sw_tk_hz_08series_capacity_1;
-  }
+    switch(FEAT_TRAINS, SELF, sw_tk_hz_08series_capacity,position_in_vehid_chain_from_end){
+      0: 141;
+      default: 152;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_hz_08series_capacity_1,position_in_vehid_chain){
+      0: 141;
+      default: sw_tk_hz_08series_capacity;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_hz_08series_capacity_main,vehicle_type_id){
+      mu_car_narrow: sw_tk_hz_08series_capacity;
+      sw_tk_hz_08series_capacity_1;
+    }
   //power fix
     switch(FEAT_TRAINS, SELF, sw_tk_hz_08series_power,position_in_vehid_chain_from_end%11){
       1..2:return 165;
@@ -112,13 +112,13 @@ alternative_sprites(tk_hz_08series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,   
         mu_car_narrow:sw_tk_hz_08series_power;
         sw_tk_hz_08series_head_power;
     }
-//attachable vehicles
-switch(FEAT_TRAINS, SELF, tk_hz_08series_attach_vehid, vehicle_type_id) {
-  mu_car: return string(STR_ATTACH_1067_ERROR);
-  mu_car_metro: return string(STR_ATTACH_1067_ERROR);
-  return CB_RESULT_ATTACH_ALLOW;
-}
-
+  //attachable vehicles
+    switch(FEAT_TRAINS, SELF, tk_hz_08series_attach_vehid, vehicle_type_id) {
+      mu_car: return string(STR_ATTACH_1067_ERROR);
+      mu_car_metro: return string(STR_ATTACH_1067_ERROR);
+      return CB_RESULT_ATTACH_ALLOW;
+    }
+//
 item(FEAT_TRAINS, tk_hz_08series,1101) {
     property {
         name: string(STR_tk_hz_08series_NAME);
