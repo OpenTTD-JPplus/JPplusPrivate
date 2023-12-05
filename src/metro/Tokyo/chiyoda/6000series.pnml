@@ -150,29 +150,10 @@ alternative_sprites(tk_ch_6000series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, 
       9: sw_tk_ch_6000series_panto_placer_main_2;
       sw_tk_ch_6000series_panto_placer_main_1;
     }
-  //fake head-end placer
-    switch(FEAT_TRAINS, SELF, sw_tk_ch_6000series_fake_placer,position_in_vehid_chain +1){
-      5: sw_tk_ch_6000series_end_f;
-      6: sw_tk_ch_6000series_front_f;
-      sw_tk_ch_6000series_panto_placer_main;
-    }
-    switch(FEAT_TRAINS, SELF, sw_tk_ch_6000series_fake_placer_rev,position_in_vehid_chain_from_end ){
-      5: sw_tk_ch_6000series_front_f;
-      6: sw_tk_ch_6000series_end_f;
-      sw_tk_ch_6000series_panto_placer_main;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_tk_ch_6000series_fake_placer_gfx,vehicle_is_reversed){
-      1: sw_tk_ch_6000series_fake_placer_rev;
-      sw_tk_ch_6000series_fake_placer;
-    }
-    switch(FEAT_TRAINS, SELF, sw_tk_ch_6000series_fake_placer_main,num_vehs_in_vehid_chain>10 - 1){
-      1: sw_tk_ch_6000series_fake_placer_gfx;
-      sw_tk_ch_6000series_panto_placer_main;
-    }
   //front-end-fixer
     switch(FEAT_TRAINS, SELF, sw_tk_ch_6000series_gfx_main,position_in_vehid_chain_from_end){
       0: sw_tk_ch_6000series_end_gfx;
-      default: sw_tk_ch_6000series_fake_placer_main;
+      default: sw_tk_ch_6000series_panto_placer_main;
     }
     switch(FEAT_TRAINS, SELF, sw_tk_ch_6000series_lv,vehicle_type_id){
       tk_ch_6000series: sw_tk_ch_6000series_front_gfx;
