@@ -1182,39 +1182,16 @@ spriteset (tk_gz_01series_purchase,   "gfx/misc/purchase.png") { tmpl_purchase(0
 spriteset (tk_gz_01series_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (tk_gz_01series_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (tk_gz_01series_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 50) }
-spriteset (tk_gz_01series_front_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 50) }
-spriteset (tk_gz_01series_end_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 50) }
 
 alternative_sprites(tk_gz_01series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/01series/01series_purchase.png"){ tmpl_purchase(0, 0) }
 alternative_sprites(tk_gz_01series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/01series/01series.png"){ tmpl_std(0, 0) }
 alternative_sprites(tk_gz_01series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/01series/01series.png"){ tmpl_std_rev(0, 25) }
 alternative_sprites(tk_gz_01series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/01series/01series.png"){ tmpl_symm(0, 50) }
-alternative_sprites(tk_gz_01series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/01series/01series.png"){ tmpl_std(0, 75) }
-alternative_sprites(tk_gz_01series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/01series/01series.png"){ tmpl_std_rev(0, 75) }
 //*livery 1
-  //fake head-end placer
-    switch(FEAT_TRAINS, SELF, sw_tk_gz_01series_fake_placer,position_in_vehid_chain +1){
-      5: tk_gz_01series_end_f;
-      6: tk_gz_01series_front_f;
-      tk_gz_01series_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_tk_gz_01series_fake_placer_rev,position_in_vehid_chain_from_end ){
-      5: tk_gz_01series_front_f;
-      6: tk_gz_01series_end_f;
-      tk_gz_01series_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_tk_gz_01series_fake_placer_gfx,vehicle_is_reversed){
-      1: sw_tk_gz_01series_fake_placer_rev;
-      sw_tk_gz_01series_fake_placer;
-    }
-    switch(FEAT_TRAINS, SELF, sw_tk_gz_01series_fake_placer_main,num_vehs_in_vehid_chain>10 - 1){
-      1: sw_tk_gz_01series_fake_placer_gfx;
-      tk_gz_01series_wag;
-    }
   //front-end-fixer
     switch(FEAT_TRAINS, SELF, sw_tk_gz_01series_gfx_main,position_in_vehid_chain_from_end){
       0: tk_gz_01series_end;
-      default: sw_tk_gz_01series_fake_placer_main;
+      default: tk_gz_01series_wag;
     }
     switch(FEAT_TRAINS, SELF, sw_tk_gz_01series_lv,vehicle_type_id){
       tk_gz_01s: tk_gz_01series_front;
@@ -1328,40 +1305,17 @@ spriteset (tk_gz_1000series_purchase,   "gfx/misc/purchase.png") { tmpl_purchase
 spriteset (tk_gz_1000series_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (tk_gz_1000series_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
 spriteset (tk_gz_1000series_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
-spriteset (tk_gz_1000series_front_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tk_gz_1000series_end_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
 
 alternative_sprites(tk_gz_1000series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series_purchase.png"){ tmpl_purchase(0, 0) }
 alternative_sprites(tk_gz_1000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series.png"){ tmpl_std(0, 0) }
 alternative_sprites(tk_gz_1000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series.png"){ tmpl_std_rev(0, 25) }
 alternative_sprites(tk_gz_1000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series.png"){ tmpl_symm(0, 50) }
-alternative_sprites(tk_gz_1000series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series.png"){ tmpl_std(0, 75) }
-alternative_sprites(tk_gz_1000series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/1000series/1000series.png"){ tmpl_std_rev(0, 75) }
 
 //*livery 1
-  //fake head-end placer
-    switch(FEAT_TRAINS, SELF, sw_tk_gz_1000series_fake_placer,position_in_vehid_chain +1){
-      5: tk_gz_1000series_end_f;
-      6: tk_gz_1000series_front_f;
-      tk_gz_1000series_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_tk_gz_1000series_fake_placer_rev,position_in_vehid_chain_from_end ){
-      5: tk_gz_1000series_front_f;
-      6: tk_gz_1000series_end_f;
-      tk_gz_1000series_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_tk_gz_1000series_fake_placer_gfx,vehicle_is_reversed){
-      1: sw_tk_gz_1000series_fake_placer_rev;
-      sw_tk_gz_1000series_fake_placer;
-    }
-    switch(FEAT_TRAINS, SELF, sw_tk_gz_1000series_fake_placer_main,num_vehs_in_vehid_chain>10 - 1){
-      1: sw_tk_gz_1000series_fake_placer_gfx;
-      tk_gz_1000series_wag;
-    }
   //front-end-fixer
     switch(FEAT_TRAINS, SELF, sw_tk_gz_1000series_gfx_main,position_in_vehid_chain_from_end){
       0: tk_gz_1000series_end;
-      default: sw_tk_gz_1000series_fake_placer_main;
+      default: tk_gz_1000series_wag;
     }
     switch(FEAT_TRAINS, SELF, sw_tk_gz_1000series_lv,vehicle_type_id){
       tk_gz_1000s: tk_gz_1000series_front;
@@ -2071,8 +2025,6 @@ alternative_sprites(tk_hb_eidan03_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, 
 
 spriteset (tk_hb_eidan03_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (tk_hb_eidan03_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
-spriteset (tk_hb_eidan03_front_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tk_hb_eidan03_end_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
 spriteset (tk_hb_eidan03_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (tk_hb_eidan03_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
 
@@ -2080,13 +2032,9 @@ alternative_sprites(tk_hb_eidan03_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,    
 alternative_sprites(tk_hb_eidan03_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hibiya/eidan03/eidan03.png"){ tmpl_std_rev(0, 25) }
 alternative_sprites(tk_hb_eidan03_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hibiya/eidan03/eidan03.png"){ tmpl_symm(0, 50) }
 alternative_sprites(tk_hb_eidan03_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hibiya/eidan03/eidan03.png"){ tmpl_symm(0, 75) }
-alternative_sprites(tk_hb_eidan03_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hibiya/eidan03/eidan03.png"){ tmpl_std(0, 100) }
-alternative_sprites(tk_hb_eidan03_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hibiya/eidan03/eidan03.png"){ tmpl_std_rev(0, 100) }
 
 spriteset (tk_hb_eidan03_5d_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (tk_hb_eidan03_5d_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
-spriteset (tk_hb_eidan03_5d_front_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tk_hb_eidan03_5d_end_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
 spriteset (tk_hb_eidan03_5d_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (tk_hb_eidan03_5d_wag_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (tk_hb_eidan03_5d_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
@@ -2098,8 +2046,6 @@ alternative_sprites(tk_hb_eidan03_5d_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,   
 alternative_sprites(tk_hb_eidan03_5d_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hibiya/eidan03/eidan03_5d.png"){ tmpl_std_rev(0, 50) }
 alternative_sprites(tk_hb_eidan03_5d_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hibiya/eidan03/eidan03_5d.png"){ tmpl_std(0, 75) }
 alternative_sprites(tk_hb_eidan03_5d_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hibiya/eidan03/eidan03_5d.png"){ tmpl_std_rev(0, 75) }
-alternative_sprites(tk_hb_eidan03_5d_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hibiya/eidan03/eidan03_5d.png"){ tmpl_std(0, 100) }
-alternative_sprites(tk_hb_eidan03_5d_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hibiya/eidan03/eidan03_5d.png"){ tmpl_std_rev(0, 100) }
 
 //*livery 1
   //panto-placers
@@ -2353,8 +2299,6 @@ spriteset (tk_hb_13000series_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_s
 spriteset (tk_hb_13000series_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (tk_hb_13000series_mot_2,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (tk_hb_13000series_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
-spriteset (tk_hb_13000series_front_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
-spriteset (tk_hb_13000series_end_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
 
 alternative_sprites(tk_hb_13000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hibiya/13000series/13000series.png"){ tmpl_high_skirt(0, 0) }
 alternative_sprites(tk_hb_13000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hibiya/13000series/13000series.png"){ tmpl_high_skirt_rev(0, 25) }
@@ -2362,8 +2306,6 @@ alternative_sprites(tk_hb_13000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  
 alternative_sprites(tk_hb_13000series_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hibiya/13000series/13000series.png"){ tmpl_symm(0, 75) }
 alternative_sprites(tk_hb_13000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hibiya/13000series/13000series.png"){ tmpl_std(0, 100) }
 alternative_sprites(tk_hb_13000series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hibiya/13000series/13000series.png"){ tmpl_std_rev(0, 100) }
-alternative_sprites(tk_hb_13000series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hibiya/13000series/13000series.png"){ tmpl_high_skirt(0, 125) }
-alternative_sprites(tk_hb_13000series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hibiya/13000series/13000series.png"){ tmpl_high_skirt_rev(0, 125) }
 
 //*livery 1
   //panto-placers
@@ -3621,10 +3563,29 @@ alternative_sprites(tk_ch_5000series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, 
       7: sw_tk_ch_5000series_panto_placer_main_2;
       sw_tk_ch_5000series_panto_placer_main_1;
     }
+  //fake head-end placer
+    switch(FEAT_TRAINS, SELF, sw_tk_ch_5000series_fake_placer,position_in_vehid_chain +1){
+      4: tk_ch_5000series_end_f;
+      5: tk_ch_5000series_front_f;
+      sw_tk_ch_5000series_panto_placer_main;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_ch_5000series_fake_placer_rev,position_in_vehid_chain_from_end ){
+      4: tk_ch_5000series_front_f;
+      5: tk_ch_5000series_end_f;
+      sw_tk_ch_5000series_panto_placer_main;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_tk_ch_5000series_fake_placer_gfx,vehicle_is_reversed){
+      1: sw_tk_ch_5000series_fake_placer_rev;
+      sw_tk_ch_5000series_fake_placer;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_ch_5000series_fake_placer_main,num_vehs_in_vehid_chain>8 - 1){
+      1: sw_tk_ch_5000series_fake_placer_gfx;
+      sw_tk_ch_5000series_panto_placer_main;
+    }
   //front-end-fixer
     switch(FEAT_TRAINS, SELF, sw_tk_ch_5000series_gfx_main,position_in_vehid_chain_from_end){
       0: sw_tk_ch_5000series_end_gfx;
-      default: sw_tk_ch_5000series_panto_placer_main;
+      default: sw_tk_ch_5000series_fake_placer_main;
     }
     switch(FEAT_TRAINS, SELF, sw_tk_ch_5000series_lv,vehicle_type_id){
       tk_ch_5000series: sw_tk_ch_5000series_front_gfx;
@@ -3744,10 +3705,6 @@ spriteset (tk_ch_6000series_old_front_mot,       "gfx/misc/gfx_placeholder.png")
 spriteset (tk_ch_6000series_old_end_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
 spriteset (tk_ch_6000series_old_mot,      "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (tk_ch_6000series_old_mot_rev,      "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
-spriteset (tk_ch_6000series_old_front_f ,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tk_ch_6000series_old_end_f ,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
-spriteset (tk_ch_6000series_old_front_mot_f ,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tk_ch_6000series_old_end_mot_f ,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
 
 alternative_sprites(tk_ch_6000series_old_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series_old.png"){ tmpl_std(0, 0) }
 alternative_sprites(tk_ch_6000series_old_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series_old.png"){ tmpl_std_rev(0, 25) }
@@ -3757,10 +3714,6 @@ alternative_sprites(tk_ch_6000series_old_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH
 alternative_sprites(tk_ch_6000series_old_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series_old.png"){ tmpl_std_rev(0, 125) }
 alternative_sprites(tk_ch_6000series_old_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series_old.png"){ tmpl_std_rev(0, 150) }
 alternative_sprites(tk_ch_6000series_old_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series_old.png"){ tmpl_std(0, 150) }
-alternative_sprites(tk_ch_6000series_old_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series_old.png"){ tmpl_std(0, 175) }
-alternative_sprites(tk_ch_6000series_old_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series_old.png"){ tmpl_std_rev(0, 175) }
-alternative_sprites(tk_ch_6000series_old_front_mot_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series_old.png"){ tmpl_std(0, 200) }
-alternative_sprites(tk_ch_6000series_old_end_mot_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series_old.png"){ tmpl_std_rev(0, 200) }
 
 //ac
 spriteset (tk_ch_6000series_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
@@ -3771,8 +3724,6 @@ spriteset (tk_ch_6000series_front_mot,       "gfx/misc/gfx_placeholder.png") { t
 spriteset (tk_ch_6000series_end_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
 spriteset (tk_ch_6000series_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (tk_ch_6000series_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
-spriteset (tk_ch_6000series_front_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tk_ch_6000series_end_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
 
 alternative_sprites(tk_ch_6000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series.png"){ tmpl_std(0, 0) }
 alternative_sprites(tk_ch_6000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series.png"){ tmpl_std_rev(0, 25) }
@@ -3782,8 +3733,6 @@ alternative_sprites(tk_ch_6000series_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32B
 alternative_sprites(tk_ch_6000series_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series.png"){ tmpl_std_rev(0, 125) }
 alternative_sprites(tk_ch_6000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series.png"){ tmpl_std_rev(0, 150) }
 alternative_sprites(tk_ch_6000series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series.png"){ tmpl_std(0, 150) }
-alternative_sprites(tk_ch_6000series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series.png"){ tmpl_std(0, 175) }
-alternative_sprites(tk_ch_6000series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series.png"){ tmpl_std_rev(0, 175) }
 
 //*livery 1
   //special gfx
@@ -3819,14 +3768,6 @@ alternative_sprites(tk_ch_6000series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, 
       switch(FEAT_TRAINS, SELF, sw_tk_ch_6000series_mot_rev,current_year>1980){
         1: tk_ch_6000series_mot_rev;
         tk_ch_6000series_old_mot_rev;
-      }
-      switch(FEAT_TRAINS, SELF, sw_tk_ch_6000series_front_f,current_year>1980){
-        1: tk_ch_6000series_front_f;
-        tk_ch_6000series_old_front_f;
-      }
-      switch(FEAT_TRAINS, SELF, sw_tk_ch_6000series_end_f,current_year>1980){
-        1: tk_ch_6000series_end_f;
-        tk_ch_6000series_old_end_f;
       }
     //head
     switch(FEAT_TRAINS, PARENT, sw_tk_ch_6000series_front_gfx,vehicle_is_reversed==1&&num_vehs_in_consist!=6){
@@ -3999,16 +3940,12 @@ spriteset (tk_ch_06series_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std(
 spriteset (tk_ch_06series_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (tk_ch_06series_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (tk_ch_06series_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tk_ch_06series_front_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tk_ch_06series_end_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 
 alternative_sprites(tk_ch_06series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/06series/06series.png"){ tmpl_high_skirt(0, 0) }
 alternative_sprites(tk_ch_06series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/06series/06series.png"){ tmpl_high_skirt_rev(0, 25) }
 alternative_sprites(tk_ch_06series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/06series/06series.png"){ tmpl_std(0, 50) }
 alternative_sprites(tk_ch_06series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/06series/06series.png"){ tmpl_std_rev(0, 50) }
 alternative_sprites(tk_ch_06series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/06series/06series.png"){ tmpl_symm(0, 75) }
-alternative_sprites(tk_ch_06series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/06series/06series.png"){ tmpl_high_skirt(0, 100) }
-alternative_sprites(tk_ch_06series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/06series/06series.png"){ tmpl_high_skirt_rev(0, 100) }
 
 //*livery 1
   //panto-placers
@@ -4171,16 +4108,12 @@ item(FEAT_TRAINS, tk_ch_06series,1062) {
   spriteset (tk_ch_16000series_2_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
   spriteset (tk_ch_16000series_2_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
   spriteset (tk_ch_16000series_2_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
-  spriteset (tk_ch_16000series_2_front_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
-  spriteset (tk_ch_16000series_2_end_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
   
   alternative_sprites(tk_ch_16000series_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/16000series/16000series.png"){ tmpl_high_skirt(0, 0) }
   alternative_sprites(tk_ch_16000series_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/16000series/16000series.png"){ tmpl_high_skirt_rev(0, 25) }
   alternative_sprites(tk_ch_16000series_2_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/16000series/16000series.png"){ tmpl_std(0, 50) }
   alternative_sprites(tk_ch_16000series_2_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/16000series/16000series.png"){ tmpl_std_rev(0, 50) }
   alternative_sprites(tk_ch_16000series_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/16000series/16000series.png"){ tmpl_symm(0, 75) }
-  alternative_sprites(tk_ch_16000series_2_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/16000series/16000series.png"){ tmpl_high_skirt(0, 100) }
-  alternative_sprites(tk_ch_16000series_2_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/16000series/16000series.png"){ tmpl_high_skirt_rev(0, 100) }
 
 //TODO livery 1
 //*livery 2
@@ -4342,8 +4275,6 @@ spriteset (tk_ch_05series_mot_2,       "gfx/misc/gfx_placeholder.png") { tmpl_st
 spriteset (tk_ch_05series_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (tk_ch_05series_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (tk_ch_05series_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tk_ch_05series_front_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 0) }
-spriteset (tk_ch_05series_end_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 0) }
 
 alternative_sprites(tk_ch_05series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/05series/05series_purchase.png"){ tmpl_purchase(0, 0) }
 alternative_sprites(tk_ch_05series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/05series/05series.png"){ tmpl_std(0, 0) }
@@ -4352,8 +4283,6 @@ alternative_sprites(tk_ch_05series_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,   
 alternative_sprites(tk_ch_05series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/05series/05series.png"){ tmpl_std(0, 75) }
 alternative_sprites(tk_ch_05series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/05series/05series.png"){ tmpl_std_rev(0, 75) }
 alternative_sprites(tk_ch_05series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/05series/05series.png"){ tmpl_symm(0, 100) }
-alternative_sprites(tk_ch_05series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/05series/05series.png"){ tmpl_std(0, 25) }
-alternative_sprites(tk_ch_05series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/05series/05series.png"){ tmpl_std_rev(0, 25) }
 
 //*livery 1
 //panto-placers
@@ -5190,15 +5119,11 @@ spriteset (tk_hz_8000series_front,       "gfx/misc/gfx_placeholder.png") { tmpl_
 spriteset (tk_hz_8000series_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
 spriteset (tk_hz_8000series_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (tk_hz_8000series_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
-spriteset (tk_hz_8000series_front_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tk_hz_8000series_end_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
 
 alternative_sprites(tk_hz_8000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hanzomon/8000series/8000series.png"){ tmpl_std(0, 0) }
 alternative_sprites(tk_hz_8000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hanzomon/8000series/8000series.png"){ tmpl_std_rev(0, 25) }
 alternative_sprites(tk_hz_8000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hanzomon/8000series/8000series.png"){ tmpl_symm(0, 50) }
 alternative_sprites(tk_hz_8000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hanzomon/8000series/8000series.png"){ tmpl_symm(0, 75) }
-alternative_sprites(tk_hz_8000series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hanzomon/8000series/8000series.png"){ tmpl_std(0, 100) }
-alternative_sprites(tk_hz_8000series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hanzomon/8000series/8000series.png"){ tmpl_std_rev(0, 100) }
 
 //*livery 1
   //panto-placers
@@ -5377,8 +5302,6 @@ spriteset (tk_hz_08series_mot_2,       "gfx/misc/gfx_placeholder.png") { tmpl_st
 spriteset (tk_hz_08series_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (tk_hz_08series_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (tk_hz_08series_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
-spriteset (tk_hz_08series_front_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tk_hz_08series_end_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
 
 alternative_sprites(tk_hz_08series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hanzomon/08series/08series.png"){ tmpl_high_skirt(0, 0) }
 alternative_sprites(tk_hz_08series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hanzomon/08series/08series.png"){ tmpl_high_skirt_rev(0, 25) }
@@ -5386,8 +5309,6 @@ alternative_sprites(tk_hz_08series_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,   
 alternative_sprites(tk_hz_08series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hanzomon/08series/08series.png"){ tmpl_symm(0, 75) }
 alternative_sprites(tk_hz_08series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hanzomon/08series/08series.png"){ tmpl_std(0, 100) }
 alternative_sprites(tk_hz_08series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hanzomon/08series/08series.png"){ tmpl_std_rev(0, 100) }
-alternative_sprites(tk_hz_08series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hanzomon/08series/08series.png"){ tmpl_high_skirt(0, 125) }
-alternative_sprites(tk_hz_08series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hanzomon/08series/08series.png"){ tmpl_high_skirt_rev(0, 125) }
 
 //*livery 1
   //panto-placers
@@ -5546,16 +5467,12 @@ spriteset (tk_hz_18000series_end,       "gfx/misc/gfx_placeholder.png") { tmpl_s
 spriteset (tk_hz_18000series_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (tk_hz_18000series_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (tk_hz_18000series_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
-spriteset (tk_hz_18000series_front_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (tk_hz_18000series_end_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
 
 alternative_sprites(tk_hz_18000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hanzomon/18000series/18000series.png"){ tmpl_high_skirt(0, 0) }
 alternative_sprites(tk_hz_18000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hanzomon/18000series/18000series.png"){ tmpl_high_skirt_rev(0, 25) }
 alternative_sprites(tk_hz_18000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hanzomon/18000series/18000series.png"){ tmpl_std(0, 50) }
 alternative_sprites(tk_hz_18000series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hanzomon/18000series/18000series.png"){ tmpl_std_rev(0, 50) }
 alternative_sprites(tk_hz_18000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hanzomon/18000series/18000series.png"){ tmpl_symm(0, 75) }
-alternative_sprites(tk_hz_18000series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hanzomon/18000series/18000series.png"){ tmpl_high_skirt(0, 100) }
-alternative_sprites(tk_hz_18000series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hanzomon/18000series/18000series.png"){ tmpl_high_skirt_rev(0, 100) }
 
 //*livery 1
   //panto-placers
@@ -6041,23 +5958,19 @@ alternative_sprites(tk_as_toei5000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,
 
 spriteset (tk_as_toei5000_front,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png") { tmpl_std(0, 0) }
 spriteset (tk_as_toei5000_end,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png") { tmpl_std_rev(0, 25) }
-spriteset (tk_as_toei5000_end_rev,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png") { tmpl_std(0, 25) }
 spriteset (tk_as_toei5000_mot,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png") { tmpl_std(0, 75) }
 spriteset (tk_as_toei5000_mot_rev,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png") { tmpl_std_rev(0, 75) }
 spriteset (tk_as_toei5000_wag,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png") { tmpl_std(0, 50) }
 spriteset (tk_as_toei5000_front_mot,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png") { tmpl_std(0,100) }
 spriteset (tk_as_toei5000_end_mot,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png") { tmpl_std_rev(0, 125) }
-spriteset (tk_as_toei5000_end_mot_rev,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png") { tmpl_std(0, 125) }
 
 spriteset (tk_as_toei5000_1_front,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_1.png") { tmpl_std(0, 0)}
 spriteset (tk_as_toei5000_1_end,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_1.png") { tmpl_std_rev(0, 25) }
-spriteset (tk_as_toei5000_1_end_rev,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_1.png") { tmpl_std(0, 25) }
 spriteset (tk_as_toei5000_1_mot,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_1.png") { tmpl_std(0, 75) }
 spriteset (tk_as_toei5000_1_mot_rev,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_1.png") { tmpl_std_rev(0, 75) }
 spriteset (tk_as_toei5000_1_wag,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_1.png") { tmpl_std(0, 50) }
 spriteset (tk_as_toei5000_1_front_mot,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_1.png") { tmpl_std(0, 100) }
 spriteset (tk_as_toei5000_1_end_mot,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_1.png") { tmpl_std_rev(0, 125) }
-spriteset (tk_as_toei5000_1_end_mot_rev,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000_1.png") { tmpl_std(0, 125) }
 
 //*livery 1
 	//special gfx
@@ -6249,43 +6162,35 @@ alternative_sprites(tk_as_toei5200_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,
 
 spriteset (tk_as_toei5200_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (tk_as_toei5200_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 0) }
-spriteset (tk_as_toei5200_end_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 0) }
 spriteset (tk_as_toei5200_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (tk_as_toei5200_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 0) }
 spriteset (tk_as_toei5200_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (tk_as_toei5200_front_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (tk_as_toei5200_end_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 0) }
-spriteset (tk_as_toei5200_end_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 0) }
 
 spriteset (tk_as_toei5200_old_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0)}
 spriteset (tk_as_toei5200_old_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 0) }
-spriteset (tk_as_toei5200_old_end_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 0) }
 spriteset (tk_as_toei5200_old_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (tk_as_toei5200_old_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 0) }
 spriteset (tk_as_toei5200_old_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (tk_as_toei5200_old_front_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
 spriteset (tk_as_toei5200_old_end_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 0) }
-spriteset (tk_as_toei5200_old_end_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 0) }
 
 alternative_sprites(tk_as_toei5200_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5200/toei5200.png"){ tmpl_std(0, 0) }
 alternative_sprites(tk_as_toei5200_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5200/toei5200.png"){ tmpl_std_rev(0, 25) }
-alternative_sprites(tk_as_toei5200_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5200/toei5200.png"){ tmpl_std(0, 25) }
 alternative_sprites(tk_as_toei5200_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5200/toei5200.png"){ tmpl_std(0, 50) }
 alternative_sprites(tk_as_toei5200_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5200/toei5200.png"){ tmpl_std_rev(0, 50) }
 alternative_sprites(tk_as_toei5200_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5200/toei5200.png"){ tmpl_std(0, 75) }
 alternative_sprites(tk_as_toei5200_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5200/toei5200.png"){ tmpl_std(0, 100) }
 alternative_sprites(tk_as_toei5200_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5200/toei5200.png"){ tmpl_std_rev(0, 125) }
-alternative_sprites(tk_as_toei5200_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5200/toei5200.png"){ tmpl_std(0, 125) }
 
 alternative_sprites(tk_as_toei5200_old_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5200/toei5200_old.png"){ tmpl_std(0, 0) }
 alternative_sprites(tk_as_toei5200_old_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5200/toei5200_old.png"){ tmpl_std_rev(0, 25) }
-alternative_sprites(tk_as_toei5200_old_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5200/toei5200_old.png"){ tmpl_std(0, 25) }
 alternative_sprites(tk_as_toei5200_old_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5200/toei5200_old.png"){ tmpl_std_rev(0, 75) }
 alternative_sprites(tk_as_toei5200_old_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5200/toei5200_old.png"){ tmpl_std(0, 75) }
 alternative_sprites(tk_as_toei5200_old_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5200/toei5200_old.png"){ tmpl_std(0, 50) }
 alternative_sprites(tk_as_toei5200_old_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5200/toei5200_old.png"){ tmpl_std(0, 100) }
 alternative_sprites(tk_as_toei5200_old_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5200/toei5200_old.png"){ tmpl_std_rev(0, 125) }
-alternative_sprites(tk_as_toei5200_old_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5200/toei5200_old.png"){ tmpl_std(0, 125) }
 
 //*livery 1
 //special gfx
@@ -6305,17 +6210,9 @@ alternative_sprites(tk_as_toei5200_old_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH
     1:tk_as_toei5200_old_end;
     tk_as_toei5200_end;
   }
-  switch(FEAT_TRAINS, SELF, tk_as_toei5200_end_rev_gfx, current_year<1988){
-    1:tk_as_toei5200_old_end_rev;
-    tk_as_toei5200_end_rev;
-  }
   switch(FEAT_TRAINS, SELF, tk_as_toei5200_end_mot_gfx, current_year<1988){
     1:tk_as_toei5200_old_end_mot;
     tk_as_toei5200_end_mot;
-  }
-  switch(FEAT_TRAINS, SELF, tk_as_toei5200_end_mot_rev_gfx, current_year<1988){
-    1:tk_as_toei5200_old_end_mot_rev;
-    tk_as_toei5200_end_mot_rev;
   }
   switch(FEAT_TRAINS, PARENT, tk_as_toei5200_end_gfx, vehicle_is_reversed){
     1:tk_as_toei5200_end_mot_gfx;
@@ -6435,11 +6332,12 @@ alternative_sprites(tk_as_toei5300_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,
 
 spriteset (tk_as_toei5300_front,       "gfx/metro/Tokyo/asakusa/toei5300/toei5300.png") { tmpl_std(0, 0) }
 spriteset (tk_as_toei5300_end,       "gfx/metro/Tokyo/asakusa/toei5300/toei5300.png") { tmpl_std_rev(0, 25) }
-spriteset (tk_as_toei5300_end_rev,       "gfx/metro/Tokyo/asakusa/toei5300/toei5300.png") { tmpl_std(0, 25) }
 spriteset (tk_as_toei5300_mot,       "gfx/metro/Tokyo/asakusa/toei5300/toei5300.png") { tmpl_std(0, 50) }
 spriteset (tk_as_toei5300_wag,       "gfx/metro/Tokyo/asakusa/toei5300/toei5300.png") { tmpl_std(0, 75) }
 
 //*livery 1
+  //special gfx
+  //TODO skirt variant
   //panto-placers
     //var 1
     switch(FEAT_TRAINS, SELF, sw_tk_as_toei5300_panto_placer_1,position_in_vehid_chain %8){
@@ -6586,16 +6484,12 @@ spriteset (tk_as_toei5500_front,       "gfx/misc/gfx_placeholder.png") { tmpl_st
 spriteset (tk_as_toei5500_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (tk_as_toei5500_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
 spriteset (tk_as_toei5500_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
-spriteset (tk_as_toei5500_front_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
-spriteset (tk_as_toei5500_end_f,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
 
 alternative_sprites(tk_as_toei5500_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5500/toei5500_purchase.png"){ tmpl_purchase(0, 0) }
 alternative_sprites(tk_as_toei5500_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5500/toei5500.png"){ tmpl_std(0, 0) }
 alternative_sprites(tk_as_toei5500_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5500/toei5500.png"){ tmpl_std_rev(0, 25) }
 alternative_sprites(tk_as_toei5500_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5500/toei5500.png"){ tmpl_symm(0, 50) }
 alternative_sprites(tk_as_toei5500_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5500/toei5500.png"){ tmpl_symm(0, 75) }
-alternative_sprites(tk_as_toei5500_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5500/toei5500.png"){ tmpl_std(0, 100) }
-alternative_sprites(tk_as_toei5500_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5500/toei5500.png"){ tmpl_std_rev(0, 100) }
 
 //*livery 1
   //panto-placers
@@ -7169,7 +7063,439 @@ item(FEAT_TRAINS, tk_mt_toei6500,1132) {
 # 1 "src/import/jp_metro.pnml" 4
 
 //shinjuku 1140-1149
-// #include "src/metro/Tokyo/shinjuku/toei10_000.pnml"
+# 1 "src/metro/Tokyo/shinjuku/toei10_000.pnml" 1
+spriteset (tk_sj_toei10_000_purchase,   "gfx/misc/purchase.png") { tmpl_purchase(0, 0) }
+alternative_sprites(tk_sj_toei10_000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_purchase.png"){ tmpl_purchase(0, 0) }
+
+//prototype batch 
+  spriteset (tk_sj_toei10_000_1_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  spriteset (tk_sj_toei10_000_1_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
+  spriteset (tk_sj_toei10_000_1_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+  spriteset (tk_sj_toei10_000_1_mot_2,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+  spriteset (tk_sj_toei10_000_1_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+  spriteset (tk_sj_toei10_000_1_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+
+  alternative_sprites(tk_sj_toei10_000_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_1.png"){ tmpl_std(0, 0) }
+  alternative_sprites(tk_sj_toei10_000_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_1.png"){ tmpl_std_rev(0, 25) }
+  alternative_sprites(tk_sj_toei10_000_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_1.png"){ tmpl_symm(0, 50) }
+  alternative_sprites(tk_sj_toei10_000_1_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_1.png"){ tmpl_symm(0, 75) }
+  alternative_sprites(tk_sj_toei10_000_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_1.png"){ tmpl_std_rev(0, 100) }
+  alternative_sprites(tk_sj_toei10_000_1_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_1.png"){ tmpl_std(0, 100) }
+  //ac
+  spriteset (tk_sj_toei10_000_1n_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  spriteset (tk_sj_toei10_000_1n_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
+  spriteset (tk_sj_toei10_000_1n_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+  spriteset (tk_sj_toei10_000_1n_mot_2,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+  spriteset (tk_sj_toei10_000_1n_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+  spriteset (tk_sj_toei10_000_1n_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+
+  alternative_sprites(tk_sj_toei10_000_1n_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_1n.png"){ tmpl_std(0, 0) }
+  alternative_sprites(tk_sj_toei10_000_1n_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_1n.png"){ tmpl_std_rev(0, 25) }
+  alternative_sprites(tk_sj_toei10_000_1n_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_1n.png"){ tmpl_symm(0, 50) }
+  alternative_sprites(tk_sj_toei10_000_1n_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_1n.png"){ tmpl_symm(0, 75) }
+  alternative_sprites(tk_sj_toei10_000_1n_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_1n.png"){ tmpl_std_rev(0, 100) }
+  alternative_sprites(tk_sj_toei10_000_1n_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_1n.png"){ tmpl_std(0, 100) }
+//1-6 batch
+  spriteset (tk_sj_toei10_000_2_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  spriteset (tk_sj_toei10_000_2_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
+  spriteset (tk_sj_toei10_000_2_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+  spriteset (tk_sj_toei10_000_2_mot_2,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+  spriteset (tk_sj_toei10_000_2_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+  spriteset (tk_sj_toei10_000_2_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+
+  alternative_sprites(tk_sj_toei10_000_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_2.png"){ tmpl_std(0, 0) }
+  alternative_sprites(tk_sj_toei10_000_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_2.png"){ tmpl_std_rev(0, 25) }
+  alternative_sprites(tk_sj_toei10_000_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_2.png"){ tmpl_symm(0, 50) }
+  alternative_sprites(tk_sj_toei10_000_2_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_2.png"){ tmpl_symm(0, 75) }
+  alternative_sprites(tk_sj_toei10_000_2_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_2.png"){ tmpl_std_rev(0, 100) }
+  alternative_sprites(tk_sj_toei10_000_2_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_2.png"){ tmpl_std(0, 100) }
+  //ac
+  spriteset (tk_sj_toei10_000_2n_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  spriteset (tk_sj_toei10_000_2n_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
+  spriteset (tk_sj_toei10_000_2n_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+  spriteset (tk_sj_toei10_000_2n_mot_2,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+  spriteset (tk_sj_toei10_000_2n_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+  spriteset (tk_sj_toei10_000_2n_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+
+  alternative_sprites(tk_sj_toei10_000_2n_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_2n.png"){ tmpl_std(0, 0) }
+  alternative_sprites(tk_sj_toei10_000_2n_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_2n.png"){ tmpl_std_rev(0, 25) }
+  alternative_sprites(tk_sj_toei10_000_2n_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_2n.png"){ tmpl_symm(0, 50) }
+  alternative_sprites(tk_sj_toei10_000_2n_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_2n.png"){ tmpl_symm(0, 75) }
+  alternative_sprites(tk_sj_toei10_000_2n_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_2n.png"){ tmpl_std_rev(0, 100) }
+  alternative_sprites(tk_sj_toei10_000_2n_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_2n.png"){ tmpl_std(0, 100) }
+
+//7 batch
+  spriteset (tk_sj_toei10_000_3_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  spriteset (tk_sj_toei10_000_3_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
+  spriteset (tk_sj_toei10_000_3_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+  spriteset (tk_sj_toei10_000_3_mot_2,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+  spriteset (tk_sj_toei10_000_3_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+  spriteset (tk_sj_toei10_000_3_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+
+  alternative_sprites(tk_sj_toei10_000_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_3.png"){ tmpl_std(0, 0) }
+  alternative_sprites(tk_sj_toei10_000_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_3.png"){ tmpl_std_rev(0, 25) }
+  alternative_sprites(tk_sj_toei10_000_3_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_3.png"){ tmpl_symm(0, 50) }
+  alternative_sprites(tk_sj_toei10_000_3_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_3.png"){ tmpl_symm(0, 75) }
+  alternative_sprites(tk_sj_toei10_000_3_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_3.png"){ tmpl_std_rev(0, 100) }
+  alternative_sprites(tk_sj_toei10_000_3_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_3.png"){ tmpl_std(0, 100) }  
+//8 batch
+  spriteset (tk_sj_toei10_000_4_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  spriteset (tk_sj_toei10_000_4_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std_rev(0, 50) }
+  spriteset (tk_sj_toei10_000_4_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+  spriteset (tk_sj_toei10_000_4_mot_2,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+  spriteset (tk_sj_toei10_000_4_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+  spriteset (tk_sj_toei10_000_4_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+
+  alternative_sprites(tk_sj_toei10_000_4_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_4.png"){ tmpl_high_skirt(0, 0) }
+  alternative_sprites(tk_sj_toei10_000_4_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_4.png"){ tmpl_high_skirt_rev(0, 25) }
+  alternative_sprites(tk_sj_toei10_000_4_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_4.png"){ tmpl_symm(0, 50) }
+  alternative_sprites(tk_sj_toei10_000_4_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_4.png"){ tmpl_symm(0, 75) }
+  alternative_sprites(tk_sj_toei10_000_4_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_4.png"){ tmpl_std_rev(0, 100) }
+  alternative_sprites(tk_sj_toei10_000_4_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_000/toei10_000_4.png"){ tmpl_std(0, 100) }
+//
+//* prototype batch
+  //special gfx
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_1_front,current_year>1987){
+      1: tk_sj_toei10_000_1n_front;
+      tk_sj_toei10_000_1_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_1_end,current_year>1987){
+      1: tk_sj_toei10_000_1n_end;
+      tk_sj_toei10_000_1_end;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_1_mot_2,current_year>1987){
+      1: tk_sj_toei10_000_1n_mot_2;
+      tk_sj_toei10_000_1_mot_2;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_1_wag,current_year>1987){
+      1: tk_sj_toei10_000_1n_wag;
+      tk_sj_toei10_000_1_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_1_mot,current_year>1987){
+      1: tk_sj_toei10_000_1n_mot;
+      tk_sj_toei10_000_1_mot;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_1_mot_rev,current_year>1987){
+      1: tk_sj_toei10_000_1n_mot_rev;
+      tk_sj_toei10_000_1_mot_rev;
+    }
+  //panto-placers
+    //var 1
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_1_panto_placer_1,position_in_vehid_chain %4){
+        0: sw_tk_sj_toei10_000_1_mot_2;
+        2: sw_tk_sj_toei10_000_1_mot;
+        sw_tk_sj_toei10_000_1_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_1_panto_placer_1_rev,position_in_vehid_chain_from_end %4 -1){
+        0: sw_tk_sj_toei10_000_1_mot_2;
+        2: sw_tk_sj_toei10_000_1_mot_rev;
+        sw_tk_sj_toei10_000_1_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tk_sj_toei10_000_1_panto_placer_main_1,vehicle_is_reversed){
+        1: sw_tk_sj_toei10_000_1_panto_placer_1_rev;
+        sw_tk_sj_toei10_000_1_panto_placer_1;
+      }
+    //var 2
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_1_panto_placer_2,position_in_vehid_chain %3){
+        0: sw_tk_sj_toei10_000_1_mot_2;
+        sw_tk_sj_toei10_000_1_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_1_panto_placer_2_rev,position_in_vehid_chain_from_end %3 -1){
+        0: sw_tk_sj_toei10_000_1_mot_2;
+        sw_tk_sj_toei10_000_1_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tk_sj_toei10_000_1_panto_placer_main_2,vehicle_is_reversed){
+        1: sw_tk_sj_toei10_000_1_panto_placer_2_rev;
+        sw_tk_sj_toei10_000_1_panto_placer_2;
+      }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_1_panto_placer_main,num_vehs_in_vehid_chain+1){
+      6: sw_tk_sj_toei10_000_1_panto_placer_main_2;
+      10: sw_tk_sj_toei10_000_1_panto_placer_main_2;
+      sw_tk_sj_toei10_000_1_panto_placer_main_1;
+    }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_1_gfx_main,position_in_vehid_chain_from_end){
+      0: sw_tk_sj_toei10_000_1_end;
+      default: sw_tk_sj_toei10_000_1_panto_placer_main;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_livery_1,vehicle_type_id){
+      tk_sj_toei10_000: sw_tk_sj_toei10_000_1_front;
+      default: sw_tk_sj_toei10_000_1_gfx_main;
+    }
+//* 1-3 batch
+  //special gfx
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_2_front,current_year>1987){
+      1: tk_sj_toei10_000_2n_front;
+      tk_sj_toei10_000_2_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_2_end,current_year>1987){
+      1: tk_sj_toei10_000_2n_end;
+      tk_sj_toei10_000_2_end;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_2_mot_2,current_year>1987){
+      1: tk_sj_toei10_000_2n_mot_2;
+      tk_sj_toei10_000_2_mot_2;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_2_wag,current_year>1987){
+      1: tk_sj_toei10_000_2n_wag;
+      tk_sj_toei10_000_2_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_2_mot,current_year>1987){
+      1: tk_sj_toei10_000_2n_mot;
+      tk_sj_toei10_000_2_mot;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_2_mot_rev,current_year>1987){
+      1: tk_sj_toei10_000_2n_mot_rev;
+      tk_sj_toei10_000_2_mot_rev;
+    }
+  //panto-placers
+    //var 1
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_2_panto_placer_1,position_in_vehid_chain %4){
+        0: sw_tk_sj_toei10_000_2_mot_2;
+        2: sw_tk_sj_toei10_000_2_mot;
+        sw_tk_sj_toei10_000_2_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_2_panto_placer_1_rev,position_in_vehid_chain_from_end %4 -1){
+        0: sw_tk_sj_toei10_000_2_mot_2;
+        2: sw_tk_sj_toei10_000_2_mot_rev;
+        sw_tk_sj_toei10_000_2_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tk_sj_toei10_000_2_panto_placer_main_1,vehicle_is_reversed){
+        1: sw_tk_sj_toei10_000_2_panto_placer_1_rev;
+        sw_tk_sj_toei10_000_2_panto_placer_1;
+      }
+    //var 2
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_2_panto_placer_2,position_in_vehid_chain %3){
+        0: sw_tk_sj_toei10_000_2_mot_2;
+        sw_tk_sj_toei10_000_2_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_2_panto_placer_2_rev,position_in_vehid_chain_from_end %3 -1){
+        0: sw_tk_sj_toei10_000_2_mot_2;
+        sw_tk_sj_toei10_000_2_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tk_sj_toei10_000_2_panto_placer_main_2,vehicle_is_reversed){
+        1: sw_tk_sj_toei10_000_2_panto_placer_2_rev;
+        sw_tk_sj_toei10_000_2_panto_placer_2;
+      }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_2_panto_placer_main,num_vehs_in_vehid_chain+1){
+      6: sw_tk_sj_toei10_000_2_panto_placer_main_2;
+      10: sw_tk_sj_toei10_000_2_panto_placer_main_2;
+      sw_tk_sj_toei10_000_2_panto_placer_main_1;
+    }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_2_gfx_main,position_in_vehid_chain_from_end){
+      0: sw_tk_sj_toei10_000_2_end;
+      default: sw_tk_sj_toei10_000_2_panto_placer_main;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_livery_2,vehicle_type_id){
+      tk_sj_toei10_000: sw_tk_sj_toei10_000_2_front;
+      default: sw_tk_sj_toei10_000_2_gfx_main;
+    }
+//* 4-6 batch
+  //panto-placers
+    //var 1
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_3_panto_placer_1,position_in_vehid_chain %4){
+        0: tk_sj_toei10_000_3_mot_2;
+        2: tk_sj_toei10_000_3_mot;
+        tk_sj_toei10_000_3_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_3_panto_placer_1_rev,position_in_vehid_chain_from_end %4 -1){
+        0: tk_sj_toei10_000_3_mot_2;
+        2: tk_sj_toei10_000_3_mot_rev;
+        tk_sj_toei10_000_3_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tk_sj_toei10_000_3_panto_placer_main_1,vehicle_is_reversed){
+        1: sw_tk_sj_toei10_000_3_panto_placer_1_rev;
+        sw_tk_sj_toei10_000_3_panto_placer_1;
+      }
+    //var 2
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_3_panto_placer_2,position_in_vehid_chain %3){
+        0: tk_sj_toei10_000_3_mot_2;
+        tk_sj_toei10_000_3_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_3_panto_placer_2_rev,position_in_vehid_chain_from_end %3 -1){
+        0: tk_sj_toei10_000_3_mot_2;
+        tk_sj_toei10_000_3_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tk_sj_toei10_000_3_panto_placer_main_2,vehicle_is_reversed){
+        1: sw_tk_sj_toei10_000_3_panto_placer_2_rev;
+        sw_tk_sj_toei10_000_3_panto_placer_2;
+      }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_3_panto_placer_main,num_vehs_in_vehid_chain+1){
+      6: sw_tk_sj_toei10_000_3_panto_placer_main_2;
+      10: sw_tk_sj_toei10_000_3_panto_placer_main_2;
+      sw_tk_sj_toei10_000_3_panto_placer_main_1;
+    }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_3_gfx_main,position_in_vehid_chain_from_end){
+      0: tk_sj_toei10_000_3_end;
+      default: sw_tk_sj_toei10_000_3_panto_placer_main;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_livery_3,vehicle_type_id){
+      tk_sj_toei10_000: tk_sj_toei10_000_3_front;
+      default: sw_tk_sj_toei10_000_3_gfx_main;
+    }
+//* 8 batch
+  //panto-placers
+    //var 1
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_4_panto_placer_1,position_in_vehid_chain %4){
+        0: tk_sj_toei10_000_4_mot_2;
+        2: tk_sj_toei10_000_4_mot;
+        tk_sj_toei10_000_4_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_4_panto_placer_1_rev,position_in_vehid_chain_from_end %4 -1){
+        0: tk_sj_toei10_000_4_mot_2;
+        2: tk_sj_toei10_000_4_mot_rev;
+        tk_sj_toei10_000_4_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tk_sj_toei10_000_4_panto_placer_main_1,vehicle_is_reversed){
+        1: sw_tk_sj_toei10_000_4_panto_placer_1_rev;
+        sw_tk_sj_toei10_000_4_panto_placer_1;
+      }
+    //var 2
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_4_panto_placer_2,position_in_vehid_chain %3){
+        0: tk_sj_toei10_000_4_mot_2;
+        tk_sj_toei10_000_4_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_4_panto_placer_2_rev,position_in_vehid_chain_from_end %3 -1){
+        0: tk_sj_toei10_000_4_mot_2;
+        tk_sj_toei10_000_4_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tk_sj_toei10_000_4_panto_placer_main_2,vehicle_is_reversed){
+        1: sw_tk_sj_toei10_000_4_panto_placer_2_rev;
+        sw_tk_sj_toei10_000_4_panto_placer_2;
+      }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_4_panto_placer_main,num_vehs_in_vehid_chain+1){
+      6: sw_tk_sj_toei10_000_4_panto_placer_main_2;
+      10: sw_tk_sj_toei10_000_4_panto_placer_main_2;
+      sw_tk_sj_toei10_000_4_panto_placer_main_1;
+    }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_4_gfx_main,position_in_vehid_chain_from_end){
+      0: tk_sj_toei10_000_4_end;
+      default: sw_tk_sj_toei10_000_4_panto_placer_main;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_livery_4,vehicle_type_id){
+      tk_sj_toei10_000: tk_sj_toei10_000_4_front;
+      default: sw_tk_sj_toei10_000_4_gfx_main;
+    }
+
+// year dependent livery
+switch(FEAT_TRAINS, PARENT, sw_tk_sj_toei10_000_livery_0, build_year){
+  0..1985: sw_tk_sj_toei10_000_livery_1;
+  1986..1991: sw_tk_sj_toei10_000_livery_2;
+  1992..1996: sw_tk_sj_toei10_000_livery_3;
+  sw_tk_sj_toei10_000_livery_4;
+}
+
+//livery selector
+switch(FEAT_TRAINS, PARENT, sw_tk_sj_toei10_000_lv, cargo_subtype){
+    0: sw_tk_sj_toei10_000_livery_0;
+    1: sw_tk_sj_toei10_000_livery_1;
+    2: sw_tk_sj_toei10_000_livery_2;
+    3: sw_tk_sj_toei10_000_livery_3;
+    4: sw_tk_sj_toei10_000_livery_4;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_lv_desc, cargo_subtype){
+    0: string(LV_RANDOM);
+    1: string(LV_tk_sj_toei10_000_1);
+    2: string(LV_tk_sj_toei10_000_2);
+    3: string(LV_tk_sj_toei10_000_3);
+    4: string(LV_tk_sj_toei10_000_4);
+}
+//*post fixers
+  //capacity-changer
+  switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_capacity,position_in_vehid_chain_from_end){
+    0: 138;
+    149;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_capacity_1,position_in_vehid_chain){
+    0: 138;
+    sw_tk_sj_toei10_000_capacity;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_capacity_main,vehicle_type_id){
+    mu_car: sw_tk_sj_toei10_000_capacity;
+    sw_tk_sj_toei10_000_capacity_1;
+  }
+  //power fix
+  switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_power_main,position_in_vehid_chain_from_end%9){
+    1..6:return 165;
+    return 0;
+  }
+  //attachable vehicles
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_attach_vehid, vehicle_type_id) {
+    mu_car_narrow: return string(STR_ATTACH_1372_ERROR);
+    mu_car_metro: return string(STR_ATTACH_1372_ERROR);
+    return CB_RESULT_ATTACH_ALLOW;
+  }
+
+item(FEAT_TRAINS, tk_sj_toei10_000,1140) {
+    property {
+        name: string(STR_tk_sj_toei10_000_NAME);
+        introduction_date: date(1971, 1, 1);
+        cargo_capacity: 138;
+        speed: 120 km/h;
+        power:495 kW;
+        weight: 25 ton;
+        
+        loading_speed: param_loading_4D;
+        track_type: TR_1372;
+        
+        model_life: 47;
+        vehicle_life: 30;
+        reliability_decay: 23;
+        
+        cost_factor: 20;
+        running_cost_factor: 50;
+
+        climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_MU);
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: bitmask();
+        refit_cost: 0;
+        dual_headed: 0;
+        ai_engine_rank: 0;
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+        tractive_effort_coefficient: 0.3;
+        air_drag_coefficient: 0.07;
+        bitmask_vehicle_info: 0;
+        
+    }
+	graphics {
+        power: sw_tk_sj_toei10_000_power_main()*4*1342/1000;
+        default: sw_tk_sj_toei10_000_lv;
+        purchase: tk_sj_toei10_000_purchase;
+        can_attach_wagon: tk_sj_toei10_000_attach_vehid;
+        additional_text:    string(STR_CONCAT_6,
+                            string(STR_SCOTCHGAUGE),
+                            string(STR_FORMATION),
+                            string(STR_8_CARS),
+                            string(STR_CARS),
+                            string(STR_OPERATOR, 
+                            string(STR_TOEI),
+                            ),
+                            string(STR_LINES_USED,
+                            string(STR_TOKYO_SHINJUKU)
+                            ),
+                        );
+        cargo_subtype_text: sw_tk_sj_toei10_000_lv_desc;
+        start_stop: sw_stop_start_4;
+        cargo_capacity: sw_tk_sj_toei10_000_capacity_main()*param_capacity_mod/3;
+    }
+      livery_override(mu_car){
+        loading_speed: param_loading_4D;
+        cargo_capacity: sw_tk_sj_toei10_000_capacity_main()*param_capacity_mod/3;
+        default:                      sw_tk_sj_toei10_000_lv;
+        power: sw_tk_sj_toei10_000_power_main()*4*1342/1000;
+        weight: 24;
+        length: 8;
+      }
+}
+# 1 "src/import/jp_metro.pnml" 4
 # 1 "src/metro/Tokyo/shinjuku/toei10_300.pnml" 1
 spriteset (tk_sj_toei10_300_purchase,   "gfx/misc/purchase.png") { tmpl_purchase(0, 0) }
 alternative_sprites(tk_sj_toei10_300_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/shinjuku/toei10_300/toei10_300_purchase.png"){ tmpl_purchase(0, 0) }
