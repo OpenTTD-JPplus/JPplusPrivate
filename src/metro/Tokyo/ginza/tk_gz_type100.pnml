@@ -7,13 +7,6 @@ spriteset (tk_gz_type100_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0
 alternative_sprites(tk_gz_type100_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/type100/type100.png"){ tmpl_std(0, 0) }
 alternative_sprites(tk_gz_type100_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/type100/type100.png"){ tmpl_std(0, 25) }
 alternative_sprites(tk_gz_type100_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/type100/type100.png"){ tmpl_std(0, 50) }
-
-spriteset (type100_1_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (type100_1_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
-spriteset (type100_1_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
-alternative_sprites(type100_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/type100/type100.png"){ tmpl_std(0, 75) }
-alternative_sprites(type100_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/type100/type100.png"){ tmpl_std(0, 100) }
-alternative_sprites(type100_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/type100/type100.png"){ tmpl_std(0, 125) }
 //setup
 //basic gfx
 // livery 1
@@ -28,9 +21,10 @@ switch(FEAT_TRAINS, SELF, sw_tk_gz_t100_livery_1,position_in_consist){
 
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, sw_tk_gz_t100_attach_vehid, vehicle_type_id) {
-  mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
-}
+  mu_car: return string(STR_ATTACH_1435_M_ERROR);
+    mu_car_narrow: return string(STR_ATTACH_1435_M_ERROR);
+    return CB_RESULT_ATTACH_ALLOW;
+  }
 
 item(FEAT_TRAINS, tk_gz_t100, 1002) {
     property {
