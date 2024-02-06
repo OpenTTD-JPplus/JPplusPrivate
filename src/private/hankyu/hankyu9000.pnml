@@ -84,14 +84,8 @@
     7:return 200;
     return 0;
   }
-  //attachable vehicles
-    switch(FEAT_TRAINS, SELF, hankyu9000_attach_vehid, vehicle_type_id) {
-      mu_car_narrow: return string(STR_ATTACH_1435_ERROR);
-      mu_car_metro: return string(STR_ATTACH_1435_ERROR);
-      return CB_RESULT_ATTACH_ALLOW;
-    }
 //
-item(FEAT_TRAINS, hankyu9000,2718) {
+item(FEAT_TRAINS, hankyu9000) {
     property {
         name: string(STR_hankyu9000_NAME);
         introduction_date: date(2006, 1, 1);
@@ -135,7 +129,7 @@ item(FEAT_TRAINS, hankyu9000,2718) {
 		power: sw_hankyu9000_power_main()*4*1342/1000;
 		loading_speed: param_loading_3D;
 		cargo_capacity: sw_hankyu9000_capacity_main()*param_capacity_mod/3;  
-		can_attach_wagon: hankyu9000_attach_vehid;
+		can_attach_wagon: sw_1435_attach_vehid;
 		//cargo_subtype_text:sw_hankyu9000_lv_desc;
 		additional_text:  string(STR_CONCAT_8,
 											string(STR_STANDARDGAUGE),

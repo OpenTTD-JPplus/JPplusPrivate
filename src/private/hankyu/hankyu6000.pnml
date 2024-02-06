@@ -65,7 +65,7 @@
       sw_hankyu6000_1_panto_placer_1_rev;
     }
     switch(FEAT_TRAINS, SELF, sw_hankyu6000_1_panto_placer_main,num_vehs_in_vehid_chain+1){
-      0..4: hankyu6000_1_wag;
+      0..3: hankyu6000_1_wag;
       sw_hankyu6000_1_panto_placer_main_1;
     }
   //front-end-fixer
@@ -112,7 +112,7 @@
       sw_hankyu6000_2_panto_placer_1_rev;
     }
     switch(FEAT_TRAINS, SELF, sw_hankyu6000_2_panto_placer_main,num_vehs_in_vehid_chain+1){
-      0..4: hankyu6000_2_wag;
+      0..3: hankyu6000_2_wag;
       sw_hankyu6000_2_panto_placer_main_1;
     }
   //front-end-fixer
@@ -166,21 +166,15 @@
     hankyu6000: return 140;
     sw_hankyu6000_power_main_1;
   }
-  //attachable vehicles
-    switch(FEAT_TRAINS, SELF, hankyu6000_attach_vehid, vehicle_type_id) {
-      mu_car_narrow: return string(STR_ATTACH_1435_ERROR);
-      mu_car_metro: return string(STR_ATTACH_1435_ERROR);
-      return CB_RESULT_ATTACH_ALLOW;
-    }
 //
-item(FEAT_TRAINS, hankyu6000,2715) {
+item(FEAT_TRAINS, hankyu6000) {
     property {
         name: string(STR_hankyu6000_NAME);
         introduction_date: date(1976, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 40;
         reliability_decay: 20;
-        variant_group: 2714;
+        variant_group: 2715;
         
         cost_factor: 21;
         running_cost_factor: 51;
@@ -213,7 +207,7 @@ item(FEAT_TRAINS, hankyu6000,2715) {
 		power: sw_hankyu6000_power_main()*4*1342/1000;
 		loading_speed: param_loading_3D;
 		cargo_capacity: sw_hankyu6000_capacity_main()*param_capacity_mod/3;  
-		can_attach_wagon: hankyu6000_attach_vehid;
+		can_attach_wagon: sw_1435_attach_vehid;
 		cargo_subtype_text:sw_hankyu6000_lv_desc;
 		additional_text:  string(STR_CONCAT_8,
 											string(STR_STANDARDGAUGE),
