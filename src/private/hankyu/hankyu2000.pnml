@@ -172,21 +172,34 @@
       0: hankyu2000_2_mot_rev;
       hankyu2000_2_wag;
     }
-    switch(FEAT_TRAINS, PARENT, sw_hankyu2000_2_panto_placer_main,vehicle_is_reversed){
+    switch(FEAT_TRAINS, PARENT, sw_hankyu2000_2_panto_placer_main_1,vehicle_is_reversed){
       1: sw_hankyu2000_2_panto_placer_1_rev;
       sw_hankyu2000_2_panto_placer_1;
+    }
+    //var 2
+    switch(FEAT_TRAINS, SELF, sw_hankyu2000_2_panto_placer_2,position_in_vehid_chain %2){
+      0: hankyu2000_2_mot;
+      hankyu2000_2_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_hankyu2000_2_panto_placer_2_rev,position_in_vehid_chain_from_end %2-1){
+      0: hankyu2000_2_mot_rev;
+      hankyu2000_2_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_hankyu2000_2_panto_placer_main_2,vehicle_is_reversed){
+      1: sw_hankyu2000_2_panto_placer_2_rev;
+      sw_hankyu2000_2_panto_placer_2;
     }
   //fake-head-placer
     //var 1
       switch(FEAT_TRAINS, SELF, sw_hankyu2000_2_fake_head_placer_1,position_in_vehid_chain){
         2: hankyu2000_2_end_mot;
         3: hankyu2000_2_end_rev;
-        sw_hankyu2000_2_panto_placer_main;
+        sw_hankyu2000_2_panto_placer_main_2;
       }
       switch(FEAT_TRAINS, SELF, sw_hankyu2000_2_fake_head_placer_1_rev,position_in_vehid_chain_from_end-1){
         2: hankyu2000_2_end_mot_rev;
         3: hankyu2000_2_end;
-        sw_hankyu2000_2_panto_placer_main;
+        sw_hankyu2000_2_panto_placer_main_2;
       }
       switch(FEAT_TRAINS, PARENT, sw_hankyu2000_2_fake_head_placer_main_1,vehicle_is_reversed){
         1: sw_hankyu2000_2_fake_head_placer_1_rev;
@@ -198,14 +211,14 @@
         3: hankyu2000_2_end_rev;
         4: hankyu2000_2_end_mot;
         5: hankyu2000_2_end_rev;
-        sw_hankyu2000_2_panto_placer_main;
+        sw_hankyu2000_2_panto_placer_main_2;
       }
       switch(FEAT_TRAINS, SELF, sw_hankyu2000_2_fake_head_placer_2_rev,position_in_vehid_chain_from_end-1){
         2: hankyu2000_2_end_mot_rev;
         3: hankyu2000_2_end;
         4: hankyu2000_2_end_mot_rev;
         5: hankyu2000_2_end;
-        sw_hankyu2000_2_panto_placer_main;
+        sw_hankyu2000_2_panto_placer_main_2;
       }
       switch(FEAT_TRAINS, PARENT, sw_hankyu2000_2_fake_head_placer_main_2,vehicle_is_reversed){
         1: sw_hankyu2000_2_fake_head_placer_2_rev;
@@ -216,13 +229,13 @@
         0: hankyu2000_2_end_mot;
         4: hankyu2000_2_end_mot;
         5: hankyu2000_2_end_rev;
-        sw_hankyu2000_2_panto_placer_main;
+        sw_hankyu2000_2_panto_placer_main_2;
       }
       switch(FEAT_TRAINS, SELF, sw_hankyu2000_2_fake_head_placer_3_rev,position_in_vehid_chain_from_end-1){
         0: hankyu2000_2_end_mot_rev;
         4: hankyu2000_2_end_mot_rev;
         5: hankyu2000_2_end;
-        sw_hankyu2000_2_panto_placer_main;
+        sw_hankyu2000_2_panto_placer_main_2;
       }
       switch(FEAT_TRAINS, PARENT, sw_hankyu2000_2_fake_head_placer_main_3,vehicle_is_reversed){
         1: sw_hankyu2000_2_fake_head_placer_3_rev;
@@ -234,10 +247,18 @@
         1:sw_hankyu2000_2_fake_head_placer_main_2;
         1:sw_hankyu2000_2_fake_head_placer_main_3;
       }
-      switch(FEAT_TRAINS, SELF, sw_hankyu2000_2_fake_head_placer_main,num_vehs_in_vehid_chain+1){
-        0..5: sw_hankyu2000_2_panto_placer_main;
+      switch(FEAT_TRAINS, SELF, sw_hankyu2000_2_fake_head_placer_main_0_1,num_vehs_in_vehid_chain+1){
+        0..5: sw_hankyu2000_2_panto_placer_main_1;
         8: sw_hankyu2000_2_fake_head_placer_main_0;
         sw_hankyu2000_2_fake_head_placer_main_1;
+      }
+      random_switch(FEAT_TRAINS, PARENT, sw_hankyu2000_2_fake_head_placer_main_0_2) {
+        2: sw_hankyu2000_2_fake_head_placer_main_0_1;
+        1: sw_hankyu2000_2_panto_placer_main_2;
+      }
+      switch(FEAT_TRAINS, SELF, sw_hankyu2000_2_fake_head_placer_main, current_year>1984){
+        1: sw_hankyu2000_2_fake_head_placer_main_0_2;
+        sw_hankyu2000_2_fake_head_placer_main_0_1;
       }
   //front-end-fixer
     switch(FEAT_TRAINS, SELF, sw_hankyu2000_2_gfx_main,position_in_vehid_chain_from_end){
