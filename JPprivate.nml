@@ -31727,7 +31727,7 @@ item(FEAT_TRAINS, tobu_deha1,2065) {
         track_type: TR_1067_DC;
         power: 240 kW;
         weight: 33 ton;
-        loading_speed: param_loading_2D;
+        loading_speed: param_loading_3D;
     }
 	graphics {
         default: sw_tobu_deha1_livery_0;
@@ -31736,7 +31736,7 @@ item(FEAT_TRAINS, tobu_deha1,2065) {
         additional_text:    string(STR_CONCAT_8,
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
-                            string(STR_2_DOOR),),
+                            string(STR_3_DOOR),),
                             string(STR_FORMATION),
                             string(STR_1_CARS),
                             string(STR_CARS),
@@ -31756,7 +31756,7 @@ item(FEAT_TRAINS, tobu_deha1,2065) {
         length: 7; 
     }
     livery_override(mu_car_narrow){
-        loading_speed: param_loading_2D;
+        loading_speed: param_loading_3D;
         cargo_capacity: 92*param_capacity_mod/3;
         default:                      sw_tobu_deha1_livery_0;
         power: sw_tobu_deha1_power()*1342/1000;
@@ -48368,20 +48368,20 @@ item(FEAT_TRAINS, tsukuba_3000series,2297) {
 //*2700 - 2749 Hankyu
 item(FEAT_TRAINS, hankyu1, 2700) {}
 
-item(FEAT_TRAINS, hankyu2000, 2709) {}
-item(FEAT_TRAINS, hankyu2300, 2710) {}
-item(FEAT_TRAINS, hankyu2800, 2711) {}
-item(FEAT_TRAINS, hankyu3000, 2712) {}
-item(FEAT_TRAINS, hankyu5000, 2713) {}
-
-item(FEAT_TRAINS, hankyu6000, 2715) {}
-item(FEAT_TRAINS, hankyu6300, 2716) {}
-item(FEAT_TRAINS, hankyu7000, 2717) {}
+item(FEAT_TRAINS, hankyu2000, 2708) {}
+item(FEAT_TRAINS, hankyu2300, 2709) {}
+item(FEAT_TRAINS, hankyu2800, 2710) {}
+item(FEAT_TRAINS, hankyu3000, 2711) {}
+item(FEAT_TRAINS, hankyu5000, 2712) {}
+item(FEAT_TRAINS, hankyu5300, 2713) {}
+item(FEAT_TRAINS, hankyu6000, 2714) {}
+item(FEAT_TRAINS, hankyu6300, 2715) {}
+item(FEAT_TRAINS, hankyu7000, 2716) {}
 //TODO hankyu 7000 Kyoto
-item(FEAT_TRAINS, hankyu8000, 2719) {}
-item(FEAT_TRAINS, hankyu9000, 2720) {}
-item(FEAT_TRAINS, hankyu1000n, 2721) {}
-item(FEAT_TRAINS, hankyu2000n, 2722) {}
+item(FEAT_TRAINS, hankyu8000, 2718) {}
+item(FEAT_TRAINS, hankyu9000, 2719) {}
+item(FEAT_TRAINS, hankyu1000n, 2720) {}
+item(FEAT_TRAINS, hankyu2000n, 2721) {}
 // pnml import
 # 1 "src/private/hankyu/hankyu1.pnml"   1
 spriteset (hankyu1_purchase,   "gfx/misc/purchase.png") { tmpl_purchase(0, 0) }
@@ -49108,7 +49108,7 @@ item(FEAT_TRAINS, hankyu2300) {
         model_life: 2015-1960;
         vehicle_life: 40;
         reliability_decay: 20;
-        variant_group: 2709;
+        variant_group: 2708;
         
         cost_factor: 21;
         running_cost_factor: 51;
@@ -50332,8 +50332,8 @@ item(FEAT_TRAINS, hankyu3000) {
 item(FEAT_TRAINS, hankyu5000) {
     property {
         name: string(STR_hankyu5000_NAME);
-        introduction_date: date(1964, 1, 1);
-        model_life: 2020-1964;
+        introduction_date: date(1968, 1, 1);
+        model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 40;
         reliability_decay: 20;
               
@@ -50395,7 +50395,408 @@ item(FEAT_TRAINS, hankyu5000) {
 		}
 }
 # 1 "src/_private.pnml" 5
+# 1 "src/private/hankyu/hankyu5300.pnml"   1
+//purchase sprite
+  spriteset (hankyu5300_purchase,   "gfx/misc/purchase.png") { tmpl_purchase(0, 0) }
+  alternative_sprites(hankyu5300_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/hankyu/hankyu5000/hankyu5300_purchase.png"){ tmpl_purchase(0, 0) }
+//livery 1
+  spriteset (hankyu5300_1_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  spriteset (hankyu5300_1_front_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  spriteset (hankyu5300_1_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  spriteset (hankyu5300_1_end_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  spriteset (hankyu5300_1_end_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  spriteset (hankyu5300_1_end_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  spriteset (hankyu5300_1_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  spriteset (hankyu5300_1_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  spriteset (hankyu5300_1_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  
+  alternative_sprites(hankyu5300_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/hankyu/hankyu5000/hankyu5300_1.png"){ tmpl_std(0, 0) }
+  alternative_sprites(hankyu5300_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/hankyu/hankyu5000/hankyu5300_1.png"){ tmpl_std_rev(0, 25) }
+  alternative_sprites(hankyu5300_1_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/hankyu/hankyu5000/hankyu5300_1.png"){ tmpl_std(0, 25) }
+  alternative_sprites(hankyu5300_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/hankyu/hankyu5000/hankyu5300_1.png"){ tmpl_std(0, 50) }
+  alternative_sprites(hankyu5300_1_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/hankyu/hankyu5000/hankyu5300_1.png"){ tmpl_std_rev(0, 75) }
+  alternative_sprites(hankyu5300_1_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/hankyu/hankyu5000/hankyu5300_1.png"){ tmpl_std(0, 75) }
+  alternative_sprites(hankyu5300_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/hankyu/hankyu5000/hankyu5300_1.png"){ tmpl_symm(0, 100) }
+  alternative_sprites(hankyu5300_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/hankyu/hankyu5000/hankyu5300_1.png"){ tmpl_symm(0, 125) }
+//livery 2
+  spriteset (hankyu5300_2_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  spriteset (hankyu5300_2_front_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  spriteset (hankyu5300_2_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  spriteset (hankyu5300_2_end_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  spriteset (hankyu5300_2_end_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  spriteset (hankyu5300_2_end_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  spriteset (hankyu5300_2_mot,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  spriteset (hankyu5300_2_mot_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  spriteset (hankyu5300_2_wag,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+  
+  alternative_sprites(hankyu5300_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/hankyu/hankyu5000/hankyu5300_2.png"){ tmpl_std(0, 0) }
+  alternative_sprites(hankyu5300_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/hankyu/hankyu5000/hankyu5300_2.png"){ tmpl_std_rev(0, 25) }
+  alternative_sprites(hankyu5300_2_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/hankyu/hankyu5000/hankyu5300_2.png"){ tmpl_std(0, 25) }
+  alternative_sprites(hankyu5300_2_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/hankyu/hankyu5000/hankyu5300_2.png"){ tmpl_std(0, 50) }
+  alternative_sprites(hankyu5300_2_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/hankyu/hankyu5000/hankyu5300_2.png"){ tmpl_std_rev(0, 75) }
+  alternative_sprites(hankyu5300_2_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/hankyu/hankyu5000/hankyu5300_2.png"){ tmpl_std(0, 75) }
+  alternative_sprites(hankyu5300_2_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/hankyu/hankyu5000/hankyu5300_2.png"){ tmpl_symm(0, 100) }
+  alternative_sprites(hankyu5300_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/hankyu/hankyu5000/hankyu5300_2.png"){ tmpl_symm(0, 125) }
+//
+//*livery 1
+  //special gfx
+    //head 
+      switch(FEAT_TRAINS, PARENT, sw_hankyu5300_1_front,vehicle_is_reversed){
+        1: hankyu5300_1_front;
+        hankyu5300_1_front_mot;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_hankyu5300_1_end,vehicle_is_reversed){
+        1: hankyu5300_1_end_mot;
+        hankyu5300_1_end;
+      }
+  //panto-placers
+    //var 1 (4+x 1)
+    switch(FEAT_TRAINS, SELF, sw_hankyu5300_1_panto_placer_1,position_in_vehid_chain %4){
+      1: hankyu5300_1_mot;
+      hankyu5300_1_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_hankyu5300_1_panto_placer_1_rev,position_in_vehid_chain_from_end %4 - 1){
+      1: hankyu5300_1_mot;
+      hankyu5300_1_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_hankyu5300_1_panto_placer_main_1,vehicle_is_reversed){
+      1: sw_hankyu5300_1_panto_placer_1_rev;
+      sw_hankyu5300_1_panto_placer_1;
+    }
+    //var 2 (4+x 2)
+    switch(FEAT_TRAINS, SELF, sw_hankyu5300_1_panto_placer_2,position_in_vehid_chain %4){
+      2: hankyu5300_1_mot;
+      hankyu5300_1_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_hankyu5300_1_panto_placer_2_rev,position_in_vehid_chain_from_end %4 -1){
+      2: hankyu5300_1_mot;
+      hankyu5300_1_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_hankyu5300_1_panto_placer_main_2,vehicle_is_reversed){
+      1: sw_hankyu5300_1_panto_placer_2_rev;
+      sw_hankyu5300_1_panto_placer_2;
+    }
+    //var 3 (7)
+    switch(FEAT_TRAINS, SELF, sw_hankyu5300_1_panto_placer_3,position_in_vehid_chain %5){
+      0: hankyu5300_1_mot;
+      hankyu5300_1_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_hankyu5300_1_panto_placer_3_rev,position_in_vehid_chain_from_end %5){
+      1: hankyu5300_1_mot;
+      hankyu5300_1_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_hankyu5300_1_panto_placer_main_3,vehicle_is_reversed){
+      1: sw_hankyu5300_1_panto_placer_3;
+      sw_hankyu5300_1_panto_placer_3_rev;
+    }
+  //fake-head-placer
+    //var 1 (8)
+      switch(FEAT_TRAINS, SELF, sw_hankyu5300_1_fake_head_placer_1,position_in_vehid_chain){
+        0: hankyu5300_1_end;
+        1: hankyu5300_1_end_mot_rev;
+        sw_hankyu5300_1_panto_placer_main_1;
+      }
+      switch(FEAT_TRAINS, SELF, sw_hankyu5300_1_fake_head_placer_1_rev,position_in_vehid_chain_from_end-1){
+        0: hankyu5300_1_end_rev;
+        1: hankyu5300_1_end_mot;
+        sw_hankyu5300_1_panto_placer_main_1;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_hankyu5300_1_fake_head_placer_main_1,vehicle_is_reversed){
+        1: sw_hankyu5300_1_fake_head_placer_1_rev;
+        sw_hankyu5300_1_fake_head_placer_1;
+      }
+    //var 2 (8)
+      switch(FEAT_TRAINS, SELF, sw_hankyu5300_1_fake_head_placer_2,position_in_vehid_chain){
+        1: hankyu5300_1_end;
+        2: hankyu5300_1_end_mot_rev;
+        sw_hankyu5300_1_panto_placer_main_1;
+      }
+      switch(FEAT_TRAINS, SELF, sw_hankyu5300_1_fake_head_placer_2_rev,position_in_vehid_chain_from_end-1){
+        1: hankyu5300_1_end_rev;
+        2: hankyu5300_1_end_mot;
+        sw_hankyu5300_1_panto_placer_main_1;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_hankyu5300_1_fake_head_placer_main_2,vehicle_is_reversed){
+        1: sw_hankyu5300_1_fake_head_placer_2_rev;
+        sw_hankyu5300_1_fake_head_placer_2;
+      }
+    //var 3 (8)
+      switch(FEAT_TRAINS, SELF, sw_hankyu5300_1_fake_head_placer_3,position_in_vehid_chain){
+        2: hankyu5300_1_end;
+        3: hankyu5300_1_end_mot_rev;
+        hankyu5300_1_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_hankyu5300_1_fake_head_placer_3_rev,position_in_vehid_chain_from_end-1){
+        2: hankyu5300_1_end_rev;
+        3: hankyu5300_1_end_mot;
+        hankyu5300_1_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_hankyu5300_1_fake_head_placer_main_3,vehicle_is_reversed){
+        1: sw_hankyu5300_1_fake_head_placer_3_rev;
+        sw_hankyu5300_1_fake_head_placer_3;
+      }
+    //main
+      random_switch(FEAT_TRAINS, PARENT, sw_hankyu5300_1_fake_head_placer_main_0){
+        2: sw_hankyu5300_1_fake_head_placer_main_2;
+        1: sw_hankyu5300_1_fake_head_placer_main_1;
+        1: sw_hankyu5300_1_fake_head_placer_main_3;
+      }
+      random_switch(FEAT_TRAINS, PARENT, sw_hankyu5300_1_fake_head_placer_main_0_1){
+        1: sw_hankyu5300_1_fake_head_placer_main_2;
+        1: sw_hankyu5300_1_fake_head_placer_main_1;
+        1: sw_hankyu5300_1_fake_head_placer_main_3;
+        1: sw_hankyu5300_1_panto_placer_main_3;
+      }
+      switch(FEAT_TRAINS, SELF, sw_hankyu5300_1_fake_head_placer_main,num_vehs_in_vehid_chain+1){
+        0..5: sw_hankyu5300_1_panto_placer_main_1;
+        6..7: sw_hankyu5300_1_fake_head_placer_main_0_1;
+        8: sw_hankyu5300_1_fake_head_placer_main_0;
+        sw_hankyu5300_1_fake_head_placer_main_2;
+      }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_hankyu5300_1_gfx_main,position_in_vehid_chain_from_end){
+      0: sw_hankyu5300_1_end;
+      default: sw_hankyu5300_1_fake_head_placer_main;
+    }
+    switch(FEAT_TRAINS, SELF, sw_hankyu5300_livery_1,vehicle_type_id){
+      hankyu5300: sw_hankyu5300_1_front;
+      default: sw_hankyu5300_1_gfx_main;
+    }
 
+//*livery 2
+  //special gfx
+    //head 
+      switch(FEAT_TRAINS, PARENT, sw_hankyu5300_2_front,vehicle_is_reversed){
+        1: hankyu5300_2_front;
+        hankyu5300_2_front_mot;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_hankyu5300_2_end,vehicle_is_reversed){
+        1: hankyu5300_2_end_mot;
+        hankyu5300_2_end;
+      }
+  //panto-placers
+    //var 1 (4+x 1)
+    switch(FEAT_TRAINS, SELF, sw_hankyu5300_2_panto_placer_1,position_in_vehid_chain %4){
+      1: hankyu5300_2_mot;
+      hankyu5300_2_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_hankyu5300_2_panto_placer_1_rev,position_in_vehid_chain_from_end %4 - 1){
+      1: hankyu5300_2_mot;
+      hankyu5300_2_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_hankyu5300_2_panto_placer_main_1,vehicle_is_reversed){
+      1: sw_hankyu5300_2_panto_placer_1_rev;
+      sw_hankyu5300_2_panto_placer_1;
+    }
+    //var 2 (4+x 2)
+    switch(FEAT_TRAINS, SELF, sw_hankyu5300_2_panto_placer_2,position_in_vehid_chain %4){
+      2: hankyu5300_2_mot;
+      hankyu5300_2_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_hankyu5300_2_panto_placer_2_rev,position_in_vehid_chain_from_end %4 -1){
+      2: hankyu5300_2_mot;
+      hankyu5300_2_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_hankyu5300_2_panto_placer_main_2,vehicle_is_reversed){
+      1: sw_hankyu5300_2_panto_placer_2_rev;
+      sw_hankyu5300_2_panto_placer_2;
+    }
+    //var 3 (7)
+    switch(FEAT_TRAINS, SELF, sw_hankyu5300_2_panto_placer_3,position_in_vehid_chain %5){
+      0: hankyu5300_2_mot;
+      hankyu5300_2_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_hankyu5300_2_panto_placer_3_rev,position_in_vehid_chain_from_end %5){
+      1: hankyu5300_2_mot;
+      hankyu5300_2_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_hankyu5300_2_panto_placer_main_3,vehicle_is_reversed){
+      1: sw_hankyu5300_2_panto_placer_3;
+      sw_hankyu5300_2_panto_placer_3_rev;
+    }
+  //fake-head-placer
+    //var 1 (8)
+      switch(FEAT_TRAINS, SELF, sw_hankyu5300_2_fake_head_placer_1,position_in_vehid_chain){
+        0: hankyu5300_2_end;
+        1: hankyu5300_2_end_mot_rev;
+        sw_hankyu5300_2_panto_placer_main_1;
+      }
+      switch(FEAT_TRAINS, SELF, sw_hankyu5300_2_fake_head_placer_1_rev,position_in_vehid_chain_from_end-1){
+        0: hankyu5300_2_end_rev;
+        1: hankyu5300_2_end_mot;
+        sw_hankyu5300_2_panto_placer_main_1;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_hankyu5300_2_fake_head_placer_main_1,vehicle_is_reversed){
+        1: sw_hankyu5300_2_fake_head_placer_1_rev;
+        sw_hankyu5300_2_fake_head_placer_1;
+      }
+    //var 2 (8)
+      switch(FEAT_TRAINS, SELF, sw_hankyu5300_2_fake_head_placer_2,position_in_vehid_chain){
+        1: hankyu5300_2_end;
+        2: hankyu5300_2_end_mot_rev;
+        sw_hankyu5300_2_panto_placer_main_1;
+      }
+      switch(FEAT_TRAINS, SELF, sw_hankyu5300_2_fake_head_placer_2_rev,position_in_vehid_chain_from_end-1){
+        1: hankyu5300_2_end_rev;
+        2: hankyu5300_2_end_mot;
+        sw_hankyu5300_2_panto_placer_main_1;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_hankyu5300_2_fake_head_placer_main_2,vehicle_is_reversed){
+        1: sw_hankyu5300_2_fake_head_placer_2_rev;
+        sw_hankyu5300_2_fake_head_placer_2;
+      }
+    //var 3 (8)
+      switch(FEAT_TRAINS, SELF, sw_hankyu5300_2_fake_head_placer_3,position_in_vehid_chain){
+        2: hankyu5300_2_end;
+        3: hankyu5300_2_end_mot_rev;
+        hankyu5300_2_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_hankyu5300_2_fake_head_placer_3_rev,position_in_vehid_chain_from_end-1){
+        2: hankyu5300_2_end_rev;
+        3: hankyu5300_2_end_mot;
+        hankyu5300_2_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_hankyu5300_2_fake_head_placer_main_3,vehicle_is_reversed){
+        1: sw_hankyu5300_2_fake_head_placer_3_rev;
+        sw_hankyu5300_2_fake_head_placer_3;
+      }
+    //main
+      random_switch(FEAT_TRAINS, PARENT, sw_hankyu5300_2_fake_head_placer_main_0){
+        2: sw_hankyu5300_2_fake_head_placer_main_2;
+        1: sw_hankyu5300_2_fake_head_placer_main_1;
+        1: sw_hankyu5300_2_fake_head_placer_main_3;
+      }
+      random_switch(FEAT_TRAINS, PARENT, sw_hankyu5300_2_fake_head_placer_main_0_1){
+        1: sw_hankyu5300_2_fake_head_placer_main_2;
+        1: sw_hankyu5300_2_fake_head_placer_main_1;
+        1: sw_hankyu5300_2_fake_head_placer_main_3;
+        1: sw_hankyu5300_2_panto_placer_main_3;
+      }
+      switch(FEAT_TRAINS, SELF, sw_hankyu5300_2_fake_head_placer_main,num_vehs_in_vehid_chain+1){
+        0..5: sw_hankyu5300_2_panto_placer_main_1;
+        6..7: sw_hankyu5300_2_fake_head_placer_main_0_1;
+        8: sw_hankyu5300_2_fake_head_placer_main_0;
+        sw_hankyu5300_2_fake_head_placer_main_2;
+      }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_hankyu5300_2_gfx_main,position_in_vehid_chain_from_end){
+      0: sw_hankyu5300_2_end;
+      default: sw_hankyu5300_2_fake_head_placer_main;
+    }
+    switch(FEAT_TRAINS, SELF, sw_hankyu5300_livery_2,vehicle_type_id){
+      hankyu5300: sw_hankyu5300_2_front;
+      default: sw_hankyu5300_2_gfx_main;
+    }
+
+//
+//liveries
+  // livery 0
+  switch(FEAT_TRAINS, PARENT, sw_hankyu5300_livery_0, current_year){
+    0..1988: sw_hankyu5300_livery_1;
+    sw_hankyu5300_livery_2;
+  }
+  //lv selector
+  switch(FEAT_TRAINS, PARENT, sw_hankyu5300_lv, cargo_subtype){
+    0: sw_hankyu5300_livery_0;
+    1: sw_hankyu5300_livery_1;
+    2: sw_hankyu5300_livery_2;
+  }
+  switch(FEAT_TRAINS, SELF, sw_hankyu5300_lv_desc, cargo_subtype){
+    0: string(LV_RANDOM);
+    1: string(LV_DEFAULT);
+    2: string(LV_RENEW);
+  }
+//*post fixers
+  //capacity-changer
+  switch(FEAT_TRAINS, SELF, sw_hankyu5300_capacity,position_in_vehid_chain_from_end){
+    0: 140;
+    default: 150;
+  }
+  switch(FEAT_TRAINS, SELF, sw_hankyu5300_capacity_1,position_in_vehid_chain){
+    0: 140;
+    default: sw_hankyu5300_capacity;
+  }
+  switch(FEAT_TRAINS, SELF, sw_hankyu5300_capacity_main,vehicle_type_id){
+    mu_car: sw_hankyu5300_capacity;
+    sw_hankyu5300_capacity_1;
+  }
+  //power fix
+  switch(FEAT_TRAINS, SELF, sw_hankyu5300_power_main_1,position_in_vehid_chain_from_end%2){
+    1:return 140;
+    return 0;
+  }
+  switch(FEAT_TRAINS, SELF, sw_hankyu5300_power_main,vehicle_type_id){
+    hankyu5300: return 140;
+    sw_hankyu5300_power_main_1;
+  }
+//
+item(FEAT_TRAINS, hankyu5300) {
+    property {
+        name: string(STR_hankyu5300_NAME);
+        introduction_date: date(1972, 1, 1);
+        model_life: VEHICLE_NEVER_EXPIRES;
+        vehicle_life: 40;
+        reliability_decay: 20;
+        variant_group: 2712;
+              
+        cost_factor: 21;
+        running_cost_factor: 51;
+
+        speed: 110 km/h;
+        track_type: TR_1435_DC;
+        weight: 30 ton;
+        climates_available: param_disable_hankyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+        //bulk
+          cargo_capacity: 1;
+          power: 1 kW;
+          ai_special_flag: AI_FLAG_PASSENGER;
+          sprite_id: SPRITE_ID_NEW_TRAIN;
+          misc_flags: bitmask(TRAIN_FLAG_MU);
+          refittable_cargo_classes: bitmask(CC_PASSENGERS);
+
+          running_cost_base: RUNNING_COST_ELECTRIC;
+          engine_class: ENGINE_CLASS_ELECTRIC;
+          visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+          
+          tractive_effort_coefficient: 0.3;
+          air_drag_coefficient: 0.07;
+          bitmask_vehicle_info: 0;
+          length: 8;
+    }
+	graphics {
+    purchase: hankyu5300_purchase;
+		default: sw_hankyu5300_lv;
+		start_stop: sw_stop_start_2;
+		power: sw_hankyu5300_power_main()*4*1342/1000;
+		loading_speed: param_loading_3D;
+		cargo_capacity: sw_hankyu5300_capacity_main()*param_capacity_mod/3;  
+		can_attach_wagon: sw_1435_attach_vehid;
+		cargo_subtype_text:sw_hankyu5300_lv_desc;
+		additional_text:  string(STR_CONCAT_8,
+											string(STR_STANDARDGAUGE),
+											string(STR_LOAD_SPEED,
+											string(STR_3_DOOR),),
+											string(STR_FORMATION),
+											string(STR_hankyu5300_DESC),
+											string(STR_CARS),
+											string(STR_COUPLER,
+											string(STR_KNUCKLE)),
+											string(STR_USAGE,
+											string(STR_COMMUTER),
+											string(STR_DC),
+											),
+											string(STR_OPERATOR,
+											string(STR_HANKYU)));       
+    }
+    livery_override(mu_car){
+			loading_speed: param_loading_3D;
+			cargo_capacity: sw_hankyu5300_capacity_main()*param_capacity_mod/3;
+			default: sw_hankyu5300_lv;
+			power: sw_hankyu5300_power_main()*4*1342/1000;
+			weight: 31;
+		}
+}
+# 1 "src/_private.pnml" 5
 # 1 "src/private/hankyu/hankyu6000.pnml"   1
 //purchase sprite
   spriteset (hankyu6000_purchase,   "gfx/misc/purchase.png") { tmpl_purchase(0, 0) }
@@ -50573,7 +50974,6 @@ item(FEAT_TRAINS, hankyu6000) {
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 40;
         reliability_decay: 20;
-        variant_group: 2715;
         
         cost_factor: 21;
         running_cost_factor: 51;
