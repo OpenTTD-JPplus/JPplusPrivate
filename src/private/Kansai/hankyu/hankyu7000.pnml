@@ -1,0 +1,95 @@
+//purchase sprite
+  spriteset (hankyu7000_purchase,   "gfx/misc/purchase.png") { tmpl_purchase(0, 0) }
+  alternative_sprites(hankyu7000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kansai/hankyu/hankyu7000/hankyu7000_purchase.png"){ tmpl_purchase(0, 0) }
+//same as 6000n
+//*post fixers
+  //capacity-changer
+  switch(FEAT_TRAINS, SELF, sw_hankyu7000_capacity,position_in_vehid_chain_from_end){
+    0: 140;
+    default: 150;
+  }
+  switch(FEAT_TRAINS, SELF, sw_hankyu7000_capacity_1,position_in_vehid_chain){
+    0: 140;
+    default: sw_hankyu7000_capacity;
+  }
+  switch(FEAT_TRAINS, SELF, sw_hankyu7000_capacity_main,vehicle_type_id){
+    mu_car: sw_hankyu7000_capacity;
+    sw_hankyu7000_capacity_1;
+  }
+  //power fix
+  switch(FEAT_TRAINS, SELF, sw_hankyu7000_power_main_1,position_in_vehid_chain_from_end%8){
+    1..2:return 150;
+    5:return 150;
+    return 0;
+  }
+  switch(FEAT_TRAINS, SELF, sw_hankyu7000_power_main,vehicle_type_id){
+    hankyu7000: return 150;
+    sw_hankyu7000_power_main_1;
+  }
+//
+item(FEAT_TRAINS, hankyu7000) {
+    property {
+        name: string(STR_hankyu7000_NAME);
+        introduction_date: date(1980, 1, 1);
+        model_life: VEHICLE_NEVER_EXPIRES;
+        vehicle_life: 40;
+        reliability_decay: 20;
+        
+        cost_factor: 21;
+        running_cost_factor: 51;
+
+        speed: 130 km/h;
+        track_type: TR_1435_DC;
+        weight: 30 ton;
+        climates_available: param_disable_hankyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+        //bulk
+          cargo_capacity: 1;
+          power: 1 kW;
+          ai_special_flag: AI_FLAG_PASSENGER;
+          sprite_id: SPRITE_ID_NEW_TRAIN;
+          misc_flags: bitmask(TRAIN_FLAG_MU);
+          refittable_cargo_classes: bitmask(CC_PASSENGERS);
+
+          running_cost_base: RUNNING_COST_ELECTRIC;
+          engine_class: ENGINE_CLASS_ELECTRIC;
+          visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+          
+          tractive_effort_coefficient: 0.3;
+          air_drag_coefficient: 0.07;
+          bitmask_vehicle_info: 0;
+          length: 8;
+    }
+	graphics {
+    purchase: hankyu7000_purchase;
+		//temp until more liveries are done
+    default: sw_hankyu6000_livery_2;
+		start_stop: sw_stop_start_2;
+		power: sw_hankyu7000_power_main()*4*1342/1000;
+		loading_speed: param_loading_3D;
+		cargo_capacity: sw_hankyu7000_capacity_main()*param_capacity_mod/3;  
+		can_attach_wagon: sw_1435_attach_vehid;
+		//cargo_subtype_text:sw_hankyu7000_lv_desc;
+		additional_text:  string(STR_CONCAT_8,
+											string(STR_STANDARDGAUGE),
+											string(STR_LOAD_SPEED,
+											string(STR_3_DOOR),),
+											string(STR_FORMATION),
+											string(STR_hankyu7000_DESC),
+											string(STR_CARS),
+											string(STR_COUPLER,
+											string(STR_SHIBATA)),
+											string(STR_USAGE,
+											string(STR_COMMUTER),
+											string(STR_DC),
+											),
+											string(STR_OPERATOR,
+											string(STR_HANKYU)));       
+    }
+    livery_override(mu_car){
+			loading_speed: param_loading_3D;
+			cargo_capacity: sw_hankyu7000_capacity_main()*param_capacity_mod/3;
+			default: sw_hankyu6000_livery_2;
+			power: sw_hankyu7000_power_main()*4*1342/1000;
+			weight: 31;
+		}
+}

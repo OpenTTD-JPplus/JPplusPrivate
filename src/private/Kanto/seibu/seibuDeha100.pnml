@@ -1,0 +1,115 @@
+spriteset (seibuDeha100_purchase,   "gfx/misc/purchase.png") { tmpl_purchase(0, 0) }
+alternative_sprites(seibuDeha100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/seibu/seibuDeha100/seibuDeha100_purchase.png"){ tmpl_purchase(0, 0) }
+
+spriteset (seibuDeha100_front_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (seibuDeha100_front,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 0) }
+spriteset (seibuDeha100_end,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+spriteset (seibuDeha100_end_rev,       "gfx/misc/gfx_placeholder.png") { tmpl_std(0, 25) }
+
+alternative_sprites(seibuDeha100_front_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/seibu/seibuDeha100/seibuDeha100.png"){ tmpl_std(0, 0) }
+alternative_sprites(seibuDeha100_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/seibu/seibuDeha100/seibuDeha100.png"){ tmpl_std_rev(0, 25) }
+alternative_sprites(seibuDeha100_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/seibu/seibuDeha100/seibuDeha100.png"){ tmpl_std(0, 50) }
+alternative_sprites(seibuDeha100_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/seibu/seibuDeha100/seibuDeha100.png"){ tmpl_std_rev(0, 50) }
+
+//front-end-fixer
+switch(FEAT_TRAINS, PARENT, sw_seibuDeha100_front_gfx, vehicle_is_reversed==1&&num_vehs_in_consist==1){
+    1:seibuDeha100_front_rev;
+    seibuDeha100_front;
+}
+//panto placer
+switch(FEAT_TRAINS, SELF, sw_seibuDeha100_panto_placer,position_in_vehid_chain %2){
+    0: seibuDeha100_end;
+    seibuDeha100_end_rev;
+}
+switch(FEAT_TRAINS, SELF, sw_seibuDeha100_panto_placer_rev,position_in_vehid_chain_from_end %2 -1){
+    0: seibuDeha100_end_rev;
+    seibuDeha100_end;
+}
+switch(FEAT_TRAINS, PARENT, sw_seibuDeha100_panto_placer_main,vehicle_is_reversed){
+    1: sw_seibuDeha100_panto_placer_rev;
+    sw_seibuDeha100_panto_placer;
+}
+//end car fixer
+switch(FEAT_TRAINS, SELF, sw_seibuDeha100_end_fix, position_in_consist_from_end){
+    0:seibuDeha100_end;
+    sw_seibuDeha100_panto_placer_main;
+}
+
+switch(FEAT_TRAINS, SELF, sw_seibuDeha100_livery_0,vehicle_type_id){
+    mu_car_narrow:sw_seibuDeha100_end_fix;
+    sw_seibuDeha100_front_gfx;
+}
+
+    //attachable vehicles
+    switch(FEAT_TRAINS, SELF, seibuDeha100_attach_vehid, vehicle_type_id) {
+        mu_car: return string(STR_ATTACH_1067_ERROR);
+        mu_car_metro: return string(STR_ATTACH_1067_ERROR);
+        return CB_RESULT_ATTACH_ALLOW;
+    }
+
+item(FEAT_TRAINS, seibuDeha100,2105) {
+    property {
+        cargo_capacity: 130;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_MU);
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: bitmask();
+        refit_cost: 0;
+        dual_headed: 0;
+        ai_engine_rank: 0;
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+        tractive_effort_coefficient: 0.3;
+        air_drag_coefficient: 0.07;
+        bitmask_vehicle_info: 0;
+        
+        climates_available: param_disable_seibu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+        name: string(STR_seibuDeha100_NAME);
+        introduction_date: date(1922, 1, 1);
+        model_life: 24;
+        vehicle_life: 29;
+        reliability_decay: 20;
+
+        cost_factor: 12;
+        running_cost_factor: 42;
+        speed: 75 km/h;
+        track_type: TR_1067_DC;
+        power: 192 kW;
+        weight: 27 ton;
+        loading_speed: param_loading_2D;
+    }
+	graphics {
+        default: sw_seibuDeha100_livery_0;
+        purchase: seibuDeha100_purchase;
+        can_attach_wagon: seibuDeha100_attach_vehid;
+        additional_text:    string(STR_CONCAT_8,
+                            string(STR_NARROWGAUGE),
+                            string(STR_LOAD_SPEED,
+                            string(STR_2_DOOR),),
+                            string(STR_FORMATION),
+                            string(STR_seibuDeha100_DESC),
+                            string(STR_CARS),
+                            string(STR_COUPLER,
+                            string(STR_KNUCKLE)),
+                            string(STR_USAGE,
+                            string(STR_COMMUTER),
+                            string(STR_DC),
+                            ),
+                            string(STR_OPERATOR,
+                            string(STR_SEIBU),
+                            ),
+                            
+                        );
+                         
+        cargo_capacity: 107*param_capacity_mod/3;  
+    }
+    livery_override(mu_car_narrow){
+        loading_speed: param_loading_2D;
+        cargo_capacity: 107*param_capacity_mod/3;
+        default:                      sw_seibuDeha100_livery_0;
+        power: 192*1342/1000;
+        weight: 27;
+      }
+}
