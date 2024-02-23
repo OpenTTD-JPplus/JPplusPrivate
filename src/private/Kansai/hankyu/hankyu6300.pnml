@@ -71,8 +71,8 @@
   }
   //power fix
   switch(FEAT_TRAINS, SELF, sw_hankyu6300_power_main_1,position_in_vehid_chain_from_end%8){
-    1..2:return 140;
-    5:return 140;
+    1:return 140;
+    3..4:return 140;
     return 0;
   }
   switch(FEAT_TRAINS, SELF, sw_hankyu6300_power_main,vehicle_type_id){
@@ -93,7 +93,7 @@ item(FEAT_TRAINS, hankyu6300) {
 
         speed: 120 km/h;
         track_type: TR_1435_DC;
-        weight: 30 ton;
+        weight: 33 ton;
         climates_available: param_disable_hankyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         //bulk
           cargo_capacity: 1;
@@ -142,6 +142,6 @@ item(FEAT_TRAINS, hankyu6300) {
 			cargo_capacity: sw_hankyu6300_capacity_main()*param_capacity_mod/3;
 			default: sw_hankyu6300_lv;
 			power: sw_hankyu6300_power_main()*4*1342/1000;
-			weight: 31;
+			weight: 33;
 		}
 }
