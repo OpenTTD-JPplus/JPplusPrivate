@@ -1,0 +1,295 @@
+spriteset (keikyu2000_purchase,   "gfx/private/Kanto/keikyu/keikyu2000/keikyu2000_purchase.png") { tmpl_purchase(0, 0) }
+
+spriteset (keikyu2000_1_front,       "gfx/private/Kanto/keikyu/keikyu2000/keikyu2000_1.png") { tmpl_std(0, 0) }
+spriteset (keikyu2000_1_end,       "gfx/private/Kanto/keikyu/keikyu2000/keikyu2000_1.png") { tmpl_std_rev(0, 25) }
+spriteset (keikyu2000_1_end_rev,       "gfx/private/Kanto/keikyu/keikyu2000/keikyu2000_1.png") { tmpl_std(0, 25) }
+spriteset (keikyu2000_1_mot,       "gfx/private/Kanto/keikyu/keikyu2000/keikyu2000_1.png") { tmpl_symm(0, 50) }
+spriteset (keikyu2000_1_wag,       "gfx/private/Kanto/keikyu/keikyu2000/keikyu2000_1.png") { tmpl_symm(0, 75) }
+
+spriteset (keikyu2000_2_front,       "gfx/private/Kanto/keikyu/keikyu2000/keikyu2000_2.png") { tmpl_std(0, 0) }
+spriteset (keikyu2000_2_end,       "gfx/private/Kanto/keikyu/keikyu2000/keikyu2000_2.png") { tmpl_std_rev(0, 25) }
+spriteset (keikyu2000_2_end_rev,       "gfx/private/Kanto/keikyu/keikyu2000/keikyu2000_2.png") { tmpl_std(0, 25) }
+spriteset (keikyu2000_2_mot,       "gfx/private/Kanto/keikyu/keikyu2000/keikyu2000_2.png") { tmpl_symm(0, 50) }
+spriteset (keikyu2000_2_wag,       "gfx/private/Kanto/keikyu/keikyu2000/keikyu2000_2.png") { tmpl_symm(0, 75) }
+
+//*livery 1
+  //panto-placers
+    //var 1
+      switch(FEAT_TRAINS, SELF, sw_keikyu2000_1_panto_placer_1,position_in_vehid_chain %5){
+        0: keikyu2000_1_mot;
+        default: keikyu2000_1_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_keikyu2000_1_panto_placer_1_rev,position_in_vehid_chain_from_end %5-1){
+        0: keikyu2000_1_mot;
+        default: keikyu2000_1_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_keikyu2000_1_panto_placer_main_1,vehicle_is_reversed){
+        1: sw_keikyu2000_1_panto_placer_1_rev;
+        sw_keikyu2000_1_panto_placer_1;
+      }
+    //var 2
+      switch(FEAT_TRAINS, SELF, sw_keikyu2000_1_panto_placer_2,position_in_vehid_chain %3){
+        0: keikyu2000_1_mot;
+        default: keikyu2000_1_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_keikyu2000_1_panto_placer_2_rev,position_in_vehid_chain_from_end %3-1){
+        0: keikyu2000_1_mot;
+        default: keikyu2000_1_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_keikyu2000_1_panto_placer_main_2,vehicle_is_reversed){
+        1: sw_keikyu2000_1_panto_placer_2_rev;
+        sw_keikyu2000_1_panto_placer_2;
+      }
+    //var 3
+      switch(FEAT_TRAINS, SELF, sw_keikyu2000_1_panto_placer_3,position_in_vehid_chain %3){
+        1: keikyu2000_1_mot;
+        default: keikyu2000_1_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_keikyu2000_1_panto_placer_3_rev,position_in_vehid_chain_from_end %3-1){
+        1: keikyu2000_1_mot;
+        default: keikyu2000_1_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_keikyu2000_1_panto_placer_main_3,vehicle_is_reversed){
+        1: sw_keikyu2000_1_panto_placer_3_rev;
+        sw_keikyu2000_1_panto_placer_3;
+      }
+    //var 4
+      switch(FEAT_TRAINS, SELF, sw_keikyu2000_1_panto_placer_4,position_in_vehid_chain %4){
+        1: keikyu2000_1_mot;
+        default: keikyu2000_1_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_keikyu2000_1_panto_placer_4_rev,position_in_vehid_chain_from_end %4-1){
+        1: keikyu2000_1_mot;
+        default: keikyu2000_1_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_keikyu2000_1_panto_placer_main_4,vehicle_is_reversed){
+        1: sw_keikyu2000_1_panto_placer_4_rev;
+        sw_keikyu2000_1_panto_placer_4;
+      }
+    //panto controller
+      switch(FEAT_TRAINS, SELF, sw_keikyu2000_1_panto_placer_main,num_vehs_in_vehid_chain+1){
+        5: sw_keikyu2000_1_panto_placer_main_3;
+        8..9: sw_keikyu2000_1_panto_placer_main_1;
+        sw_keikyu2000_1_panto_placer_main_2;
+      }
+  //fake-head-placer
+    //var 1 (8+)
+      switch(FEAT_TRAINS, SELF, sw_keikyu2000_1_panto_placer_main_4_0,num_vehs_in_vehid_chain+1){
+      8: sw_keikyu2000_1_panto_placer_main_4;
+      sw_keikyu2000_1_panto_placer_main;
+      }
+      
+      switch(FEAT_TRAINS, SELF, sw_keikyu2000_1_fake_head_placer_1,position_in_vehid_chain){
+        2: keikyu2000_1_end;
+        3: keikyu2000_1_end_rev;
+        sw_keikyu2000_1_panto_placer_main_4_0;
+      }
+      switch(FEAT_TRAINS, SELF, sw_keikyu2000_1_fake_head_placer_1_rev,position_in_vehid_chain_from_end-1){
+        2: keikyu2000_1_end_rev;
+        3: keikyu2000_1_end;
+        sw_keikyu2000_1_panto_placer_main_4_0;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_keikyu2000_1_fake_head_placer_main,vehicle_is_reversed){
+        1: sw_keikyu2000_1_fake_head_placer_1_rev;
+        sw_keikyu2000_1_fake_head_placer_1;
+      }
+      switch(FEAT_TRAINS, SELF, sw_keikyu2000_1_fake_head_placer_main_0_1,num_vehs_in_vehid_chain+1>7){
+        1: sw_keikyu2000_1_fake_head_placer_main;
+        sw_keikyu2000_1_panto_placer_main;
+      }
+      random_switch(FEAT_TRAINS, PARENT, sw_keikyu2000_1_fake_head_placer_main_0){
+        3:sw_keikyu2000_1_panto_placer_main;
+        1:sw_keikyu2000_1_fake_head_placer_main_0_1;
+      }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_keikyu2000_1_gfx_main,position_in_vehid_chain_from_end){
+        0: keikyu2000_1_end;
+        sw_keikyu2000_1_fake_head_placer_main_0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_keikyu2000_livery_1,vehicle_type_id){
+        mu_car: sw_keikyu2000_1_gfx_main;
+        keikyu2000_1_front;
+    }
+//*livery 2
+  //panto-placers
+    //var 1
+      switch(FEAT_TRAINS, SELF, sw_keikyu2000_2_panto_placer_1,position_in_vehid_chain %5){
+        0: keikyu2000_2_mot;
+        default: keikyu2000_2_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_keikyu2000_2_panto_placer_1_rev,position_in_vehid_chain_from_end %5-1){
+        0: keikyu2000_2_mot;
+        default: keikyu2000_2_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_keikyu2000_2_panto_placer_main_1,vehicle_is_reversed){
+        1: sw_keikyu2000_2_panto_placer_1_rev;
+        sw_keikyu2000_2_panto_placer_1;
+      }
+    //var 2
+      switch(FEAT_TRAINS, SELF, sw_keikyu2000_2_panto_placer_2,position_in_vehid_chain %3){
+        0: keikyu2000_2_mot;
+        default: keikyu2000_2_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_keikyu2000_2_panto_placer_2_rev,position_in_vehid_chain_from_end %3-1){
+        0: keikyu2000_2_mot;
+        default: keikyu2000_2_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_keikyu2000_2_panto_placer_main_2,vehicle_is_reversed){
+        1: sw_keikyu2000_2_panto_placer_2_rev;
+        sw_keikyu2000_2_panto_placer_2;
+      }
+    //var 3
+      switch(FEAT_TRAINS, SELF, sw_keikyu2000_2_panto_placer_3,position_in_vehid_chain %3){
+        1: keikyu2000_2_mot;
+        default: keikyu2000_2_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_keikyu2000_2_panto_placer_3_rev,position_in_vehid_chain_from_end %3-1){
+        1: keikyu2000_2_mot;
+        default: keikyu2000_2_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_keikyu2000_2_panto_placer_main_3,vehicle_is_reversed){
+        1: sw_keikyu2000_2_panto_placer_3_rev;
+        sw_keikyu2000_2_panto_placer_3;
+      }
+    //panto controller
+      switch(FEAT_TRAINS, SELF, sw_keikyu2000_2_panto_placer_main,num_vehs_in_vehid_chain+1){
+        5: sw_keikyu2000_2_panto_placer_main_3;
+        8..9: sw_keikyu2000_2_panto_placer_main_1;
+        sw_keikyu2000_2_panto_placer_main_2;
+      }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_keikyu2000_2_gfx_main,position_in_vehid_chain_from_end){
+        0: keikyu2000_2_end;
+        sw_keikyu2000_2_panto_placer_main;
+    }
+    switch(FEAT_TRAINS, SELF, sw_keikyu2000_livery_2,vehicle_type_id){
+        mu_car: sw_keikyu2000_2_gfx_main;
+        keikyu2000_2_front;
+    }
+//liveries
+  switch(FEAT_TRAINS, PARENT, sw_keikyu2000_livery_0,current_year){
+    0..1999:sw_keikyu2000_livery_1;
+    sw_keikyu2000_livery_2;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keikyu2000_lv,cargo_subtype){
+    0:sw_keikyu2000_livery_0;
+    1..2:sw_keikyu2000_livery_1;
+    3:sw_keikyu2000_livery_2;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keikyu2000_lv_desc,cargo_subtype){
+    0:string(LV_RANDOM);
+    1..2:string(LV_DEFAULT);
+    3:string(LV_KEIKYU2000_3);
+  }
+
+//post fixers
+  //capacity-changer
+    switch(FEAT_TRAINS, SELF, sw_keikyu2000_capacity,position_in_vehid_chain_from_end){
+      0: 111;
+      default: 120;
+    }
+    switch(FEAT_TRAINS, SELF, sw_keikyu2000_capacity_1,position_in_vehid_chain){
+      0: 111;
+      default: sw_keikyu2000_capacity;
+    }
+    switch(FEAT_TRAINS, SELF, sw_keikyu2000_capacity_main,vehicle_type_id){
+      mu_car: sw_keikyu2000_capacity;
+      sw_keikyu2000_capacity_1;
+    }
+  //load speed
+    switch(FEAT_TRAINS, SELF, sw_keikyu2000_load_0,build_year){
+    0..1999:param_loading_2D;
+    param_loading_3D;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keikyu2000_load,cargo_subtype){
+    0:sw_keikyu2000_load_0;
+    1..2:param_loading_2D;
+    param_loading_3D;
+  }
+  //power fix
+    switch(FEAT_TRAINS, SELF, sw_keikyu2000_power_main,position_in_vehid_chain_from_end%8){
+      0..2:return 120;
+      5..7:return 120;
+      return 0;
+    }
+    //sound fix
+    switch(FEAT_TRAINS, SELF, sw_KQ2000_sound,build_year){
+      0..1999:sw_KQ20002_start_sound;
+      sw_KQ20003_start_sound;
+    }
+//
+
+item(FEAT_TRAINS, keikyu2000) {
+    property {
+        name: string(STR_keikyu2000_NAME);
+        introduction_date: date(1982, 1, 1);
+        model_life: VEHICLE_NEVER_EXPIRES;
+        vehicle_life: 40;
+        reliability_decay: 23;
+
+        cargo_capacity: 1;
+        loading_speed: param_loading_2D;
+        cost_factor: 20;
+        running_cost_factor: 50;
+
+        speed: 130 km/h;
+        track_type: TR_1435_DC;
+        power: 620 kW;
+        weight: 29 ton;
+
+        climates_available: param_disable_keikyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_MU);
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: bitmask();
+        refit_cost: 0;
+        dual_headed: 0;
+        ai_engine_rank: 0;
+
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+        
+        tractive_effort_coefficient: 0.3;
+        air_drag_coefficient: 0.07;
+        bitmask_vehicle_info: 0;
+    }
+	graphics {
+        power: sw_keikyu2000_power_main()*4*1342/1000;
+        cargo_subtype_text:sw_keikyu2000_lv_desc;
+        default: sw_keikyu2000_lv;
+        purchase: keikyu2000_purchase;
+        can_attach_wagon: sw_1435_attach_vehid;
+        additional_text:    string(STR_CONCAT_8,
+                            string(STR_STANDARDGAUGE),
+                            string(STR_LOAD_SPEED,
+                            string(STR_2_DOOR_REFIT),),
+                            string(STR_FORMATION),
+                            string(STR_8_CARS),
+                            string(STR_CARS),
+                            string(STR_COUPLER,
+                            string(STR_SHIBATA)),
+                            string(STR_USAGE,
+                            string(STR_EXPRESS),
+                            string(STR_DC),
+                            ),
+                            string(STR_OPERATOR,
+                            string(STR_KEIKYU),
+                            ),
+                            
+                        );
+        start_stop: sw_stop_start_3; 
+        cargo_capacity: sw_keikyu2000_capacity_main()*param_capacity_mod/3;
+        loading_speed: sw_keikyu2000_load;
+        sound_effect: sw_KQ2000_sound;
+    }
+    livery_override(mu_car){
+        loading_speed: sw_keikyu2000_load;
+        cargo_capacity: sw_keikyu2000_capacity_main()*param_capacity_mod/3;
+        default:                      sw_keikyu2000_lv;
+        power: sw_keikyu2000_power_main()*4*1342/1000;
+        weight: 28;
+        length: 8;
+      }
+}

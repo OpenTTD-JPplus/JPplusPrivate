@@ -1,0 +1,73 @@
+spriteset (keikyu1_purchase,   "gfx/private/Kanto/keikyu/keikyu1/keikyu1_purchase.png") { tmpl_purchase(0, 0) }
+
+spriteset (sw_keikyu1_lv,       "gfx/private/Kanto/keikyu/keikyu1/keikyu1.png") { tmpl_std_rev(0, 0) }
+
+item(FEAT_TRAINS, keikyu1) {
+    property {
+        cargo_capacity: 130;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_MU);
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: bitmask();
+        refit_cost: 0;
+        dual_headed: 0;
+        ai_engine_rank: 0;
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+        tractive_effort_coefficient: 0.3;
+        air_drag_coefficient: 0.07;
+        bitmask_vehicle_info: 0;
+        
+        climates_available: param_disable_keikyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+        name: string(STR_keikyu1_NAME);
+        introduction_date: date(1904, 1, 1);
+        model_life: 29;
+        vehicle_life: 46;
+        reliability_decay: 20;
+
+        cost_factor: 12;
+        running_cost_factor: 42;
+        speed: 60 km/h;
+        track_type: TR_1435_DC;
+        power: 148 kW;
+        weight: 25 ton;
+        loading_speed: param_loading_2D;
+    }
+	graphics {
+        default: sw_keikyu1_lv;
+        purchase: keikyu1_purchase;
+        can_attach_wagon: sw_1435_attach_vehid;
+        additional_text:    string(STR_CONCAT_8,
+                            string(STR_STANDARDGAUGE),
+                            string(STR_LOAD_SPEED,
+                            string(STR_2_DOOR),),
+                            string(STR_FORMATION),
+                            string(STR_1_CARS),
+                            string(STR_CARS),
+                            string(STR_COUPLER,
+                            string(STR_KNUCKLE)),
+                            string(STR_USAGE,
+                            string(STR_COMMUTER),
+                            string(STR_DC),
+                            ),
+                            string(STR_OPERATOR,
+                            string(STR_KEIKYU),
+                            ),
+                            
+                        );
+                         
+        cargo_capacity: 80*param_capacity_mod/3;  
+        length: 6; 
+        sound_effect:					sw_KQ1_start_sound;
+    }
+		livery_override(mu_car){
+        loading_speed: param_loading_2D;
+        cargo_capacity: 80*param_capacity_mod/3; 
+        default:                      sw_keikyu1_lv;
+        // power: sw_keikyu_de1_power_main()*4*1342/1000;
+        weight: 28;
+        length: 6;
+      }
+}
