@@ -1,0 +1,186 @@
+spriteset (hokuso7250_purchase,   "gfx/private/Kanto/hokuso/hokuso7250/hokuso7250_purchase.png") { tmpl_purchase(0, 0) }
+
+spriteset (hokuso7250_front,       "gfx/private/Kanto/hokuso/hokuso7250/hokuso7250.png") { tmpl_std(0, 0) }
+spriteset (hokuso7250_end,       "gfx/private/Kanto/hokuso/hokuso7250/hokuso7250.png") { tmpl_std_rev(0, 25) }
+spriteset (hokuso7250_end_rev,       "gfx/private/Kanto/hokuso/hokuso7250/hokuso7250.png") { tmpl_std(0, 25) }
+spriteset (hokuso7250_mot,       "gfx/private/Kanto/hokuso/hokuso7250/hokuso7250.png") { tmpl_std(0, 100) }
+spriteset (hokuso7250_mot_rev,       "gfx/private/Kanto/hokuso/hokuso7250/hokuso7250.png") { tmpl_std_rev(0, 100) }
+spriteset (hokuso7250_mot_2,       "gfx/private/Kanto/hokuso/hokuso7250/hokuso7250.png") { tmpl_symm(0, 125) }
+spriteset (hokuso7250_wag,       "gfx/private/Kanto/hokuso/hokuso7250/hokuso7250.png") { tmpl_symm(0, 150) }
+
+//*livery 1
+  //panto-placers
+    //var 1 7250
+      switch(FEAT_TRAINS, SELF, sw_hokuso7250_panto_placer_1,position_in_vehid_chain %5){
+        0: hokuso7250_mot_2;
+        default: hokuso7250_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_hokuso7250_panto_placer_1_rev,position_in_vehid_chain_from_end %5-1){
+        0: hokuso7250_mot_2;
+        default: hokuso7250_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_hokuso7250_panto_placer_main_1,vehicle_is_reversed){
+        1: sw_hokuso7250_panto_placer_1_rev;
+        sw_hokuso7250_panto_placer_1;
+      }
+    //var 2 7250
+      switch(FEAT_TRAINS, SELF, sw_hokuso7250_panto_placer_2,position_in_vehid_chain %3){
+        1: hokuso7250_mot_2;
+        default: hokuso7250_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_hokuso7250_panto_placer_2_rev,position_in_vehid_chain_from_end %3-1){
+        1: hokuso7250_mot_2;
+        default: hokuso7250_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_hokuso7250_panto_placer_main_2,vehicle_is_reversed){
+        1: sw_hokuso7250_panto_placer_2_rev;
+        sw_hokuso7250_panto_placer_2;
+      }
+      switch(FEAT_TRAINS, SELF, sw_hokuso7250_panto_placer_main,num_vehs_in_vehid_chain+1){
+        1..4:sw_hokuso7250_panto_placer_main_1;
+        5..7: sw_hokuso7250_panto_placer_main_2;
+        8..9:sw_hokuso7250_panto_placer_main_1;
+        sw_hokuso7250_panto_placer_main_2;
+      }
+    //var 3 7260
+      switch(FEAT_TRAINS, SELF, sw_hokuso7250_panto_placer_3,position_in_vehid_chain %4){
+        0: hokuso7250_mot_rev;
+        1: hokuso7250_mot;
+        default: hokuso7250_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_hokuso7250_panto_placer_3_rev,position_in_vehid_chain_from_end %4-1){
+        0: hokuso7250_mot;
+        1: hokuso7250_mot_rev;
+        default: hokuso7250_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_hokuso7250_panto_placer_main_3,vehicle_is_reversed){
+        1: sw_hokuso7250_panto_placer_3_rev;
+        sw_hokuso7250_panto_placer_3;
+      }
+      //fake-head-placer
+        switch(FEAT_TRAINS, SELF, sw_hokuso7250_fake_head_placer_1,position_in_vehid_chain){
+          2: hokuso7250_end;
+          3: hokuso7250_end_rev;
+          sw_hokuso7250_panto_placer_main_3;
+        }
+        switch(FEAT_TRAINS, SELF, sw_hokuso7250_fake_head_placer_1_rev,position_in_vehid_chain_from_end-1){
+          2: hokuso7250_end_rev;
+          3: hokuso7250_end;
+          sw_hokuso7250_panto_placer_main_3;
+        }
+        switch(FEAT_TRAINS, PARENT, sw_hokuso7250_fake_head_placer_gfx,vehicle_is_reversed){
+          1: sw_hokuso7250_fake_head_placer_1_rev;
+          sw_hokuso7250_fake_head_placer_1;
+        }
+        switch(FEAT_TRAINS, SELF, sw_hokuso7250_fake_head_placer_main_1,num_vehs_in_vehid_chain>7 - 1){
+          1: sw_hokuso7250_fake_head_placer_gfx;
+          sw_hokuso7250_panto_placer_main_3;
+        }
+      random_switch(FEAT_TRAINS, PARENT, sw_hokuso7250_fake_head_placer_main){
+        1:sw_hokuso7250_fake_head_placer_main_1;
+        1: sw_hokuso7250_panto_placer_main;
+      }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_hokuso7250_gfx_main,position_in_vehid_chain_from_end){
+        0: hokuso7250_end;
+        sw_hokuso7250_fake_head_placer_main;
+    }
+    switch(FEAT_TRAINS, SELF, sw_hokuso7250_lv,vehicle_type_id){
+        mu_car: sw_hokuso7250_gfx_main;
+        hokuso7250_front;
+    }
+//post fixers
+  //capacity-changer
+    switch(FEAT_TRAINS, SELF, sw_hokuso7250_capacity,position_in_vehid_chain_from_end){
+      0: 136;
+      default: 140;
+    }
+    switch(FEAT_TRAINS, SELF, sw_hokuso7250_capacity_1,position_in_vehid_chain){
+      0: 136;
+      default: sw_hokuso7250_capacity;
+    }
+    switch(FEAT_TRAINS, SELF, sw_hokuso7250_capacity_main,vehicle_type_id){
+      mu_car: sw_hokuso7250_capacity;
+      sw_hokuso7250_capacity_1;
+    }
+  
+  //power fix
+    switch(FEAT_TRAINS, SELF, sw_hokuso7250_power_main,position_in_vehid_chain_from_end%8){
+      0..5:return 75;
+      return 0;
+    }
+//
+
+item(FEAT_TRAINS, hokuso7250) {
+    property {
+        name: string(STR_hokuso7250_NAME);
+        introduction_date: date(1995, 1, 1);
+        model_life: 2006-1995-5;
+        vehicle_life: 10;
+        reliability_decay: 23;
+
+        cargo_capacity: 1;
+        loading_speed: param_loading_3D;
+        cost_factor: 20;
+        running_cost_factor: 50;
+
+        speed: 110 km/h;
+        track_type: TR_1435_DC;
+        power: 620 kW;
+        weight: 29 ton;
+
+        climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_MU);
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: bitmask();
+        refit_cost: 0;
+        dual_headed: 0;
+        ai_engine_rank: 0;
+
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+        
+        tractive_effort_coefficient: 0.3;
+        air_drag_coefficient: 0.07;
+        bitmask_vehicle_info: 0;
+    }
+	graphics {
+        power: sw_hokuso7250_power_main()*4*1342/1000;
+        // cargo_subtype_text:sw_hokuso7250_lv_desc;
+        default: sw_hokuso7250_lv;
+        purchase: hokuso7250_purchase;
+        can_attach_wagon: sw_1435_attach_vehid;
+        additional_text:    string(STR_CONCAT_8,
+                            string(STR_STANDARDGAUGE),
+                            string(STR_LOAD_SPEED,
+                            string(STR_3_DOOR),),
+                            string(STR_FORMATION),
+                            string(STR_hokuso7050_DESC),
+                            string(STR_CARS),
+                            string(STR_COUPLER,
+                            string(STR_SHIBATA)),
+                            string(STR_USAGE,
+                            string(STR_COMMUTER),
+                            string(STR_DC),
+                            ),
+                            string(STR_OPERATOR,
+                            string(STR_HOKUSO),
+                            ),
+                            
+                        );
+        start_stop: sw_stop_start_3; 
+        cargo_capacity: sw_hokuso7250_capacity_main()*param_capacity_mod/3;
+
+    }
+    livery_override(mu_car){
+        loading_speed: param_loading_3D;
+        cargo_capacity: sw_hokuso7250_capacity_main()*param_capacity_mod/3;
+        default:                      sw_hokuso7250_lv;
+        power: sw_hokuso7250_power_main()*4*1342/1000;
+        weight: 28;
+        length: 8;
+      }
+}
