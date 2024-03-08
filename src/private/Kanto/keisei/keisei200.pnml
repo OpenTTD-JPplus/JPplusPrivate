@@ -1,0 +1,257 @@
+spriteset (keisei200_purchase_1,   "gfx/private/Kanto/keisei/keisei200/keisei200_purchase.png") { tmpl_purchase(0, 0) }
+spriteset (keisei200_purchase_2,   "gfx/private/Kanto/keisei/keisei200/keisei200_purchase.png") { tmpl_purchase(0, 15) }
+spriteset (keisei200_purchase_3,   "gfx/private/Kanto/keisei/keisei200/keisei200_purchase.png") { tmpl_purchase(0, 30) }
+spriteset (keisei200_purchase_4,   "gfx/private/Kanto/keisei/keisei200/keisei200_purchase.png") { tmpl_purchase(0, 45) }
+
+spriteset (keisei200_1_front,       "gfx/private/Kanto/keisei/keisei200/keisei200_1.png") { tmpl_std_rev(0, 0) }
+spriteset (keisei200_1_front_rev,       "gfx/private/Kanto/keisei/keisei200/keisei200_1.png") { tmpl_std(0, 25) }
+spriteset (keisei200_1_end_rev,       "gfx/private/Kanto/keisei/keisei200/keisei200_1.png") { tmpl_std_rev(0, 50) }
+spriteset (keisei200_1_end,       "gfx/private/Kanto/keisei/keisei200/keisei200_1.png") { tmpl_std(0, 50) }
+
+spriteset (keisei200_2_front,       "gfx/private/Kanto/keisei/keisei200/keisei200_2.png") { tmpl_std_rev(0, 0) }
+spriteset (keisei200_2_front_rev,       "gfx/private/Kanto/keisei/keisei200/keisei200_2.png") { tmpl_std(0, 25) }
+spriteset (keisei200_2_end_rev,       "gfx/private/Kanto/keisei/keisei200/keisei200_2.png") { tmpl_std_rev(0, 50) }
+spriteset (keisei200_2_end,       "gfx/private/Kanto/keisei/keisei200/keisei200_2.png") { tmpl_std(0, 50) }
+
+spriteset (keisei200_3_front,       "gfx/private/Kanto/keisei/keisei200/keisei200_3.png") { tmpl_std_rev(0, 0) }
+spriteset (keisei200_3_front_rev,       "gfx/private/Kanto/keisei/keisei200/keisei200_3.png") { tmpl_std(0, 25) }
+spriteset (keisei200_3_end_rev,       "gfx/private/Kanto/keisei/keisei200/keisei200_3.png") { tmpl_std_rev(0, 50) }
+spriteset (keisei200_3_end,       "gfx/private/Kanto/keisei/keisei200/keisei200_3.png") { tmpl_std(0, 50) }
+
+spriteset (keisei200_4_front,       "gfx/private/Kanto/keisei/keisei200/keisei200_4.png") { tmpl_std_rev(0, 0) }
+spriteset (keisei200_4_front_rev,       "gfx/private/Kanto/keisei/keisei200/keisei200_4.png") { tmpl_std(0, 25) }
+spriteset (keisei200_4_end_rev,       "gfx/private/Kanto/keisei/keisei200/keisei200_4.png") { tmpl_std_rev(0, 50) }
+spriteset (keisei200_4_end,       "gfx/private/Kanto/keisei/keisei200/keisei200_4.png") { tmpl_std(0, 50) }
+
+//purchase
+  switch(FEAT_TRAINS, SELF, keisei200_purchase,current_year){
+    0..1940:keisei200_purchase_1;
+    1941..1945:keisei200_purchase_2;
+    1946..1949:keisei200_purchase_3;
+    keisei200_purchase_4;
+  }
+//
+//*livery 1
+  //special gfx
+    switch(FEAT_TRAINS, PARENT, sw_keisei200_1_front_gfx_1,vehicle_is_reversed){
+      1: keisei200_1_front_rev;
+      keisei200_1_front;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_keisei200_1_front_gfx,vehicle_is_reversed==1&&num_vehs_in_consist>1){
+      1: keisei200_1_front;
+      sw_keisei200_1_front_gfx_1;
+    }
+  //panto
+	  switch(FEAT_TRAINS, SELF, sw_keisei200_1_panto_placer_1,position_in_vehid_chain %2){
+      0: keisei200_1_end;
+      keisei200_1_end_rev;
+    }
+    switch(FEAT_TRAINS, SELF, sw_keisei200_1_panto_placer_1_rev,position_in_vehid_chain_from_end %2){
+      0: keisei200_1_end;
+      keisei200_1_end_rev;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_keisei200_1_panto_placer_main,vehicle_is_reversed){
+      1: sw_keisei200_1_panto_placer_1_rev;
+      sw_keisei200_1_panto_placer_1;
+    }
+	//main
+    switch(FEAT_TRAINS, SELF, sw_keisei200_1_gfx_main,position_in_vehid_chain_from_end){
+      0: keisei200_1_end;
+      sw_keisei200_1_panto_placer_main;
+    }
+    switch(FEAT_TRAINS, SELF, sw_keisei200_livery_1,vehicle_type_id){
+      mu_car: sw_keisei200_1_gfx_main;
+      sw_keisei200_1_front_gfx;
+    }
+//
+//*livery 2
+  //special gfx
+    switch(FEAT_TRAINS, PARENT, sw_keisei200_2_front_gfx_1,vehicle_is_reversed){
+      1: keisei200_2_front_rev;
+      keisei200_2_front;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_keisei200_2_front_gfx,vehicle_is_reversed==1&&num_vehs_in_consist>1){
+      1: keisei200_2_front;
+      sw_keisei200_2_front_gfx_1;
+    }
+  //panto
+	  switch(FEAT_TRAINS, SELF, sw_keisei200_2_panto_placer_1,position_in_vehid_chain %2){
+      0: keisei200_2_end;
+      keisei200_2_end_rev;
+    }
+    switch(FEAT_TRAINS, SELF, sw_keisei200_2_panto_placer_1_rev,position_in_vehid_chain_from_end %2){
+      0: keisei200_2_end;
+      keisei200_2_end_rev;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_keisei200_2_panto_placer_main,vehicle_is_reversed){
+      1: sw_keisei200_2_panto_placer_1_rev;
+      sw_keisei200_2_panto_placer_1;
+    }
+	//main
+    switch(FEAT_TRAINS, SELF, sw_keisei200_2_gfx_main,position_in_vehid_chain_from_end){
+      0: keisei200_2_end;
+      sw_keisei200_2_panto_placer_main;
+    }
+    switch(FEAT_TRAINS, SELF, sw_keisei200_livery_2,vehicle_type_id){
+      mu_car: sw_keisei200_2_gfx_main;
+      sw_keisei200_2_front_gfx;
+    }
+//
+//*livery 3
+  //special gfx
+    switch(FEAT_TRAINS, PARENT, sw_keisei200_3_front_gfx_1,vehicle_is_reversed){
+      1: keisei200_3_front_rev;
+      keisei200_3_front;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_keisei200_3_front_gfx,vehicle_is_reversed==1&&num_vehs_in_consist>1){
+      1: keisei200_3_front;
+      sw_keisei200_3_front_gfx_1;
+    }
+  //panto
+	  switch(FEAT_TRAINS, SELF, sw_keisei200_3_panto_placer_1,position_in_vehid_chain %2){
+      0: keisei200_3_end;
+      keisei200_3_end_rev;
+    }
+    switch(FEAT_TRAINS, SELF, sw_keisei200_3_panto_placer_1_rev,position_in_vehid_chain_from_end %2){
+      0: keisei200_3_end;
+      keisei200_3_end_rev;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_keisei200_3_panto_placer_main,vehicle_is_reversed){
+      1: sw_keisei200_3_panto_placer_1_rev;
+      sw_keisei200_3_panto_placer_1;
+    }
+	//main
+    switch(FEAT_TRAINS, SELF, sw_keisei200_3_gfx_main,position_in_vehid_chain_from_end){
+      0: keisei200_3_end;
+      sw_keisei200_3_panto_placer_main;
+    }
+    switch(FEAT_TRAINS, SELF, sw_keisei200_livery_3,vehicle_type_id){
+      mu_car: sw_keisei200_3_gfx_main;
+      sw_keisei200_3_front_gfx;
+    }
+//
+//*livery 4
+  //special gfx
+    switch(FEAT_TRAINS, PARENT, sw_keisei200_4_front_gfx_1,vehicle_is_reversed){
+      1: keisei200_4_front_rev;
+      keisei200_4_front;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_keisei200_4_front_gfx,vehicle_is_reversed==1&&num_vehs_in_consist>1){
+      1: keisei200_4_front;
+      sw_keisei200_4_front_gfx_1;
+    }
+  //panto
+	  switch(FEAT_TRAINS, SELF, sw_keisei200_4_panto_placer_1,position_in_vehid_chain %2){
+      0: keisei200_4_end;
+      keisei200_4_end_rev;
+    }
+    switch(FEAT_TRAINS, SELF, sw_keisei200_4_panto_placer_1_rev,position_in_vehid_chain_from_end %2){
+      0: keisei200_4_end;
+      keisei200_4_end_rev;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_keisei200_4_panto_placer_main,vehicle_is_reversed){
+      1: sw_keisei200_4_panto_placer_1_rev;
+      sw_keisei200_4_panto_placer_1;
+    }
+	//main
+    switch(FEAT_TRAINS, SELF, sw_keisei200_4_gfx_main,position_in_vehid_chain_from_end){
+      0: keisei200_4_end;
+      sw_keisei200_4_panto_placer_main;
+    }
+    switch(FEAT_TRAINS, SELF, sw_keisei200_livery_4,vehicle_type_id){
+      mu_car: sw_keisei200_4_gfx_main;
+      sw_keisei200_4_front_gfx;
+    }
+//
+//liveries
+  switch(FEAT_TRAINS, PARENT, sw_keisei200_livery_0,current_year){
+    0..1940:sw_keisei200_livery_1;
+    1941..1945:sw_keisei200_livery_2;
+    1946..1949:sw_keisei200_livery_3;
+    sw_keisei200_livery_4;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei200_lv,cargo_subtype){
+    0:sw_keisei200_livery_0;
+    1:sw_keisei200_livery_1;
+    2:sw_keisei200_livery_2;
+    3:sw_keisei200_livery_3;
+    4:sw_keisei200_livery_4;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei200_lv_desc,cargo_subtype){
+    0:string(LV_RANDOM);
+    1:string(LV_KEISEI_GREEN);
+    2:string(LV_KEISEI_WAR);
+    3:string(LV_KEISEI_BLUE);
+    4:string(LV_KEISEI_AODEN);
+  }
+
+//
+item(FEAT_TRAINS, keisei200) {
+    property {
+        cargo_capacity: 130;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_MU);
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: bitmask();
+        refit_cost: 0;
+        dual_headed: 0;
+        ai_engine_rank: 0;
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+        tractive_effort_coefficient: 0.3;
+        air_drag_coefficient: 0.07;
+        bitmask_vehicle_info: 0;
+        
+        climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
+        name: string(STR_keisei200_NAME);
+        introduction_date: date(1931, 1, 1);
+        model_life: 36;
+        vehicle_life: 20;
+        reliability_decay: 20;
+
+        cost_factor: 15;
+        running_cost_factor: 45;
+        speed: 100 km/h;
+        track_type: TR_1435_DC;
+        power: 224 kW;
+        weight: 33 ton;
+        loading_speed: param_loading_3D;
+    }
+	graphics {
+    default: sw_keisei200_lv;
+    purchase: keisei200_purchase;
+    can_attach_wagon: sw_1435_attach_vehid;
+    cargo_subtype_text:sw_keisei200_lv_desc;
+    additional_text:    string(STR_CONCAT_8,
+                        string(STR_STANDARDGAUGE),
+                        string(STR_LOAD_SPEED,
+                        string(STR_3_DOOR),),
+                        string(STR_FORMATION),
+                        string(STR_1_CARS),
+                        string(STR_CARS),
+                        // string(STR_COUPLER,
+                        // string(STR_KNUCKLE)),
+                        string(STR_USAGE,
+                        string(STR_COMMUTER),
+                        string(STR_DC),
+                        ),
+                        string(STR_OPERATOR,
+                        string(STR_KEISEI),
+                        ),
+                        
+                    );
+                         
+        cargo_capacity: 100*param_capacity_mod/3;  
+        // sound_effect:					sw_KS1_start_sound;
+    }
+		livery_override(mu_car){
+      cargo_subtype_text:sw_keisei200_lv_desc;
+      loading_speed: param_loading_3D;
+      cargo_capacity: 100*param_capacity_mod/3; 
+      default:                      sw_keisei200_lv;
+      power: 224*1342/1000;
+      weight: 33;
+      }
+}
