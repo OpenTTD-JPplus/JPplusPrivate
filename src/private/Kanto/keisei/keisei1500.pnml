@@ -131,6 +131,7 @@ spriteset (keisei1500_2_end_rev,       "gfx/private/Kanto/keisei/keisei1500/keis
   //power fix
     switch(FEAT_TRAINS, SELF, sw_keisei1500_power_main,position_in_consist_from_end%2){
       0:return 55;
+      return 0;
     }
 //
 item(FEAT_TRAINS, keisei1500) {
@@ -152,7 +153,7 @@ item(FEAT_TRAINS, keisei1500) {
         bitmask_vehicle_info: 0;
         
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
-        name: string(STR_keisei1500_NAME);
+        name: string(STR_NAME_DENSHA, string(STR_NAME_KEISEI), "1500", string(STR_NAME_TYPE));
         introduction_date: date(1951, 1, 1);
         model_life: 14;
         vehicle_life: 20;
@@ -176,10 +177,9 @@ item(FEAT_TRAINS, keisei1500) {
     additional_text:    string(STR_CONCAT_8,
                         string(STR_STANDARDGAUGE),
                         string(STR_LOAD_SPEED,
-                        string(STR_2_DOOR),),
+                        string(STR_DOORS, 2),),
                         string(STR_FORMATION),
-                        string(STR_2_CARS),
-                        string(STR_CARS),
+                        string(STR_NUM_CARS_1, 2),
                         // string(STR_COUPLER,
                         // string(STR_KNUCKLE)),
                         string(STR_USAGE,
