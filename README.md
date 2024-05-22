@@ -1,5 +1,5 @@
-# JP+Major Private Companies
-JP+Major Private Companies is a NewGRF for OpenTTD, bringing trains of the largest Japanese private companies to the game.<br>
+# JP+ Private Companies
+JP+ Private Companies is a NewGRF for OpenTTD, bringing trains of the largest Japanese private companies to the game.<br>
 A sister set to 🚋[JP+ Multiple units](https://github.com/Tintinfan/JPplusSet), 🚂[JP+ Engines & Wagons](https://github.com/EmperorJake/JPengines) and 🚅[JP+ Shinkansen](https://github.com/KeepinItRail/JPplusShinkansen)
 
 ## Provide a feedback:<br>
@@ -13,7 +13,7 @@ A sister set to 🚋[JP+ Multiple units](https://github.com/Tintinfan/JPplusSet)
 ## Credits
 **Coding:** Yozora <br>
 **Graphics:** Yozora, Saya, Toni Babelony, Takamaro, Azusa <br>
-**Thanks to:** Tintinfan, KeepinItRail<br>
+**Thanks to:** Tintinfan, KeepinItRail, Emperor Jake and WenSim<br>
 
 ##
 **Support my work**<br>
