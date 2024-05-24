@@ -1,5 +1,7 @@
-spriteset(os_yb_50series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/yotsubashi/50series/50series_purchase.png"){ tmpl_purchase(0, 0) }
-
+//purchase
+spriteset(os_yb_50series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/yotsubashi/50series/50series.png"){ tmpl_purchase_1c(0, 0) }
+spriteset(os_yb_50series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/yotsubashi/50series/50series.png"){ tmpl_purchase_2c(0, 50) }
+GRAPHIC_STACK_4(os_yb_50series_purchase, logo_osaka_metro, logo_line_os_yotsu, os_yb_50series_purchase_c1, os_yb_50series_purchase_c2)
 //
 spriteset(os_yb_50series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/yotsubashi/50series/50series.png"){ tmpl_std(0, 0) }
 spriteset(os_yb_50series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/yotsubashi/50series/50series.png"){ tmpl_std_rev(0, 25) }
@@ -111,7 +113,7 @@ item(FEAT_TRAINS, os_yb_50series,1261) {
         climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;

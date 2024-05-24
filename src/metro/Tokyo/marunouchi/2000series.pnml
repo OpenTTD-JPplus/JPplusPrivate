@@ -1,33 +1,37 @@
-spriteset(tk_mn_2000s_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/marunouchi/2000series/2000series_purchase.png"){ tmpl_purchase(0, 0) }
-spriteset(tk_mn_2000s_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/marunouchi/2000series/2000series.png"){ tmpl_std(0, 0) }
-spriteset(tk_mn_2000s_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/marunouchi/2000series/2000series.png"){ tmpl_std(0, 25) }
-spriteset(tk_mn_2000s_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/marunouchi/2000series/2000series.png"){ tmpl_std_rev(0, 50) }
+//purchase
+spriteset(tk_mn_2000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/marunouchi/2000series/2000series.png"){ tmpl_purchase_1c(0, 0) }
+spriteset(tk_mn_2000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/marunouchi/2000series/2000series.png"){ tmpl_purchase_2c(0, 50) }
+GRAPHIC_STACK_4(tk_mn_2000series_purchase, logo_tokyo_metro, logo_line_tk_maru, tk_mn_2000series_purchase_c1, tk_mn_2000series_purchase_c2)
+
+spriteset(tk_mn_2000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/marunouchi/2000series/2000series.png"){ tmpl_std(0, 0) }
+spriteset(tk_mn_2000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/marunouchi/2000series/2000series.png"){ tmpl_std(0, 25) }
+spriteset(tk_mn_2000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/marunouchi/2000series/2000series.png"){ tmpl_std_rev(0, 50) }
 
 //setup
 //basic gfx
 // livery 1
-switch(FEAT_TRAINS, SELF, sw_tk_mn_2000s_end_gfx,position_in_consist_from_end){
-    0: tk_mn_2000s_end;
-    tk_mn_2000s_wag;
+switch(FEAT_TRAINS, SELF, sw_tk_mn_2000series_end_gfx,position_in_consist_from_end){
+    0: tk_mn_2000series_end;
+    tk_mn_2000series_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tk_mn_2000s_livery_1,position_in_consist){
-    0: tk_mn_2000s_front;
-    sw_tk_mn_2000s_end_gfx;
+switch(FEAT_TRAINS, SELF, sw_tk_mn_2000series_livery_1,position_in_consist){
+    0: tk_mn_2000series_front;
+    sw_tk_mn_2000series_end_gfx;
 }
 //capacity changer
-switch(FEAT_TRAINS, SELF, sw_tk_mn_2000s_main_capacity,position_in_consist_from_end){
+switch(FEAT_TRAINS, SELF, sw_tk_mn_2000series_main_capacity,position_in_consist_from_end){
     0: 120*param_capacity_mod/3;
     default: 122*param_capacity_mod/3;
 }
 //attachable vehicles
-switch(FEAT_TRAINS, SELF, sw_tk_mn_2000s_attach_vehid, vehicle_type_id) {
+switch(FEAT_TRAINS, SELF, sw_tk_mn_2000series_attach_vehid, vehicle_type_id) {
   mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
   return string(STR_ATTACH_ERROR);
 }
 
-item(FEAT_TRAINS, tk_mn_2000s,1023) {
+item(FEAT_TRAINS, tk_mn_2000series,1023) {
     property {
-        name: string(STR_TRAIN_NAME, string(STR_NAME_EIDAN), "2000", string(STR_NAME_SERIES));
+        name: string(STR_TRAIN_NAME, string(STR_NAME_TOKYO_METRO), "2000", string(STR_NAME_SERIES));
         introduction_date: date(2018, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 30;
@@ -46,7 +50,7 @@ item(FEAT_TRAINS, tk_mn_2000s,1023) {
         climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -62,9 +66,9 @@ item(FEAT_TRAINS, tk_mn_2000s,1023) {
         bitmask_vehicle_info: 0;
     }
 	graphics {
-        default: sw_tk_mn_2000s_livery_1;
-        purchase: tk_mn_2000s_purchase;
-        can_attach_wagon: sw_tk_mn_2000s_attach_vehid;
+        default: sw_tk_mn_2000series_livery_1;
+        purchase: tk_mn_2000series_purchase;
+        can_attach_wagon: sw_tk_mn_2000series_attach_vehid;
         additional_text:    string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
                             string(STR_FORMATION),
@@ -81,8 +85,8 @@ item(FEAT_TRAINS, tk_mn_2000s,1023) {
         cargo_capacity: 123*param_capacity_mod/3;
     }
     livery_override(mu_car_metro){
-        default:                      sw_tk_mn_2000s_livery_1;
-        cargo_capacity:               sw_tk_mn_2000s_main_capacity;
+        default:                      sw_tk_mn_2000series_livery_1;
+        cargo_capacity:               sw_tk_mn_2000series_main_capacity;
         loading_speed:                param_loading_3D;
         power: 268;
         weight: 30;

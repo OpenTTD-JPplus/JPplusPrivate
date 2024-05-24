@@ -1,8 +1,19 @@
-spriteset(os_hk_60series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/hankyoto/60series/60series_purchase.png"){ tmpl_purchase(0, 0) }
+//purchase
+spriteset(os_hk_60series_purchase_c1_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/hankyoto/60series/60series_old.png"){ tmpl_purchase_1c(0, 0) }
+spriteset(os_hk_60series_purchase_c2_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/hankyoto/60series/60series_old.png"){ tmpl_purchase_2c(0, 50) }
+spriteset(os_hk_60series_purchase_c1_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/hankyoto/60series/60series.png"){ tmpl_purchase_1c(0, 0) }
+spriteset(os_hk_60series_purchase_c2_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/hankyoto/60series/60series.png"){ tmpl_purchase_2c(0, 50) }
+switch(FEAT_TRAINS, SELF, os_hk_60series_purchase_c1, current_year>1989){
+			1: os_hk_60series_purchase_c1_1;
+			os_hk_60series_purchase_c1_2;
+	}
+switch(FEAT_TRAINS, SELF, os_hk_60series_purchase_c2, current_year>1989){
+			1: os_hk_60series_purchase_c2_1;
+			os_hk_60series_purchase_c2_2;
+	}
+GRAPHIC_STACK_4(os_hk_60series_purchase, logo_osaka_metro, logo_line_os_sakai, os_hk_60series_purchase_c1, os_hk_60series_purchase_c2)
 
 //*livery 1
-
-
 spriteset(os_hk_60series_old_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/hankyoto/60series/60series_old.png"){ tmpl_std(0, 0) }
 spriteset(os_hk_60series_old_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/hankyoto/60series/60series_old.png"){ tmpl_std_rev(0, 25) }
 spriteset(os_hk_60series_old_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/hankyoto/60series/60series_old.png"){ tmpl_std(0, 50) }
@@ -12,8 +23,6 @@ spriteset(os_hk_60series_old_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,     
 spriteset(os_hk_60series_old_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/hankyoto/60series/60series_old.png"){ tmpl_std_rev(0, 125) }
 
 //*livery 2
-
-
 spriteset(os_hk_60series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/hankyoto/60series/60series.png"){ tmpl_std(0, 0) }
 spriteset(os_hk_60series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/hankyoto/60series/60series.png"){ tmpl_std_rev(0, 25) }
 spriteset(os_hk_60series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/hankyoto/60series/60series.png"){ tmpl_std(0, 50) }
@@ -129,7 +138,7 @@ item(FEAT_TRAINS, os_hk_60series,1290) {
         climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;

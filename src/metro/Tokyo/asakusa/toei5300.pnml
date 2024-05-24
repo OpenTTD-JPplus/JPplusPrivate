@@ -1,4 +1,7 @@
-spriteset(tk_as_toei5300_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5300/toei5300_purchase.png"){ tmpl_purchase(0, 0) }
+//purchase
+spriteset(tk_as_toei5300_purchase_c1,      "gfx/metro/Tokyo/asakusa/toei5300/toei5300.png"){ tmpl_purchase_1c(0, 0) }
+spriteset(tk_as_toei5300_purchase_c2,      "gfx/metro/Tokyo/asakusa/toei5300/toei5300.png"){ tmpl_purchase_2c(0, 75) }
+GRAPHIC_STACK_4(tk_as_toei5300_purchase, logo_toei, logo_line_tk_asakusa, tk_as_toei5300_purchase_c1, tk_as_toei5300_purchase_c2)
 
 spriteset (tk_as_toei5300_front,       "gfx/metro/Tokyo/asakusa/toei5300/toei5300.png") { tmpl_std(0, 0) }
 spriteset (tk_as_toei5300_end,       "gfx/metro/Tokyo/asakusa/toei5300/toei5300.png") { tmpl_std_rev(0, 25) }
@@ -103,7 +106,7 @@ item(FEAT_TRAINS, tk_as_toei5300,1122) {
         climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;

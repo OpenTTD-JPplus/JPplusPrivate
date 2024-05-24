@@ -1,5 +1,7 @@
-spriteset(tk_hb_eidan3000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hibiya/eidan3000/eidan3000_purchase.png"){ tmpl_purchase(0, 0) }
-
+//purchase
+spriteset(tk_hb_eidan3000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hibiya/eidan3000/eidan3000.png"){ tmpl_purchase_1c(0, 0) }
+spriteset(tk_hb_eidan3000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hibiya/eidan3000/eidan3000.png"){ tmpl_purchase_2c(0, 75) }
+GRAPHIC_STACK_4(tk_hb_eidan3000_purchase, logo_tokyo_metro, logo_line_tk_hibiya, tk_hb_eidan3000_purchase_c1, tk_hb_eidan3000_purchase_c2)
 
 spriteset(tk_hb_eidan3000_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hibiya/eidan3000/eidan3000.png"){ tmpl_std(0, 0) }
 spriteset(tk_hb_eidan3000_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/hibiya/eidan3000/eidan3000.png"){ tmpl_std_rev(0, 25) }
@@ -129,7 +131,7 @@ item(FEAT_TRAINS, tk_hb_eidan3000, 1030) {
         climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;

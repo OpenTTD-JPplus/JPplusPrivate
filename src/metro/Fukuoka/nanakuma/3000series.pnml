@@ -1,4 +1,17 @@
-spriteset(fk_nk_3000series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Fukuoka/nanakuma/3000series/3000series_purchase.png"){ tmpl_purchase(0, 0) }
+//livery 1
+spriteset(fk_nk_3000series_purchase_c1_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Fukuoka/nanakuma/3000series/3000series.png"){ tmpl_purchase_1c(0, 0) }
+spriteset(fk_nk_3000series_purchase_c2_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Fukuoka/nanakuma/3000series/3000series.png"){ tmpl_purchase_2c(0, 75) }
+spriteset(fk_nk_3000series_purchase_c1_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Fukuoka/nanakuma/3000series/3000series_1.png"){ tmpl_purchase_1c(0, 0) }
+spriteset(fk_nk_3000series_purchase_c2_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Fukuoka/nanakuma/3000series/3000series_1.png"){ tmpl_purchase_2c(0, 75) }
+switch(FEAT_TRAINS, SELF, fk_nk_3000series_purchase_c1, current_year){
+    0..2021: fk_nk_3000series_purchase_c1_1;
+    fk_nk_3000series_purchase_c1_2;
+}
+switch(FEAT_TRAINS, SELF, fk_nk_3000series_purchase_c2, current_year){
+    0..2021: fk_nk_3000series_purchase_c2_1;
+    fk_nk_3000series_purchase_c2_2;
+}
+GRAPHIC_STACK_4(fk_nk_3000series_purchase, logo_fukuoka_subway, logo_line_fk_nanakuma, fk_nk_3000series_purchase_c1, fk_nk_3000series_purchase_c2)
 //livery 1
 
 spriteset(fk_nk_3000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Fukuoka/nanakuma/3000series/3000series.png"){ tmpl_std(0, 0) }
@@ -161,7 +174,7 @@ item(FEAT_TRAINS, fk_nk_3000series,1455) {
         climates_available: param_disable_fukuoka == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;

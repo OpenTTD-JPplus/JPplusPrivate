@@ -1,4 +1,17 @@
-spriteset(tk_as_toei5000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/asakusa/toei5000/toei5000_purchase.png"){ tmpl_purchase(0, 0) }
+//purchase
+spriteset(tk_as_toei5000_purchase_c1_1,      "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png"){ tmpl_purchase_1c(0, 0) }
+spriteset(tk_as_toei5000_purchase_c2_1,      "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png"){ tmpl_purchase_2c(0, 75) }
+spriteset(tk_as_toei5000_purchase_c1_2,      "gfx/metro/Tokyo/asakusa/toei5000/toei5000_1.png"){ tmpl_purchase_1c(0, 0) }
+spriteset(tk_as_toei5000_purchase_c2_2,      "gfx/metro/Tokyo/asakusa/toei5000/toei5000_1.png"){ tmpl_purchase_2c(0, 75) }
+switch(FEAT_TRAINS, SELF, tk_as_toei5000_purchase_c1, current_year<1982){
+			1: tk_as_toei5000_purchase_c1_1;
+			tk_as_toei5000_purchase_c1_2;
+	}
+switch(FEAT_TRAINS, SELF, tk_as_toei5000_purchase_c2, current_year<1982){
+			1: tk_as_toei5000_purchase_c2_1;
+			tk_as_toei5000_purchase_c2_2;
+	}
+GRAPHIC_STACK_4(tk_as_toei5000_purchase, logo_toei, logo_line_tk_asakusa, tk_as_toei5000_purchase_c1, tk_as_toei5000_purchase_c2)
 
 spriteset (tk_as_toei5000_front,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png") { tmpl_std(0, 0) }
 spriteset (tk_as_toei5000_end,       "gfx/metro/Tokyo/asakusa/toei5000/toei5000.png") { tmpl_std_rev(0, 25) }
@@ -145,7 +158,7 @@ item(FEAT_TRAINS, tk_as_toei5000,1120) {
         climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;

@@ -1,0 +1,23 @@
+// since we are already using the gcc preprocessor, we can define many macros
+// to make the code more readable and maintainable// 1 logo + 2 cars
+#define GRAPHIC_STACK_3(name,s0,s1,s2) \
+switch(FEAT_TRAINS, SELF, name, [\
+    /*STORE_TEMP((param_hide_logo == 0 ? (CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT) : PALETTE_USE_DEFAULT), 0x100),*/ \
+    STORE_TEMP((CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT), 0x100),\
+    getbits(extra_callback_info1, 8, 8)\
+    ]) { /* The game allows stacking up to 8 graphics */ \
+    0: s0;\
+    1: s1;\
+    2: s2;\
+}
+#define GRAPHIC_STACK_4(name,s0,s1,s2,s3) \
+switch(FEAT_TRAINS, SELF, name, [\
+    /* STORE_TEMP((param_hide_logo == 0 ? (CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT) : PALETTE_USE_DEFAULT), 0x100), */ \
+    STORE_TEMP((CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT), 0x100),\
+    getbits(extra_callback_info1, 8, 8,)\
+    ]) { /* The game allows stacking up to 8 graphics */ \
+    0: s0;\
+    1: s1;\
+    2: s2;\
+    3: s3;\
+}

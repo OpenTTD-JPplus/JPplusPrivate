@@ -1,5 +1,25 @@
-spriteset(tk_mt_toei6000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/mita/toei6000/toei6000_purchase.png"){ tmpl_purchase(0, 0) }
-
+//purchase
+spriteset(tk_mt_toei6000_purchase_c1_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/mita/toei6000/toei6000_1.png"){ tmpl_purchase_1c(0, 0) }
+spriteset(tk_mt_toei6000_purchase_c2_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/mita/toei6000/toei6000_1.png"){ tmpl_purchase_2c(0, 75) }
+spriteset(tk_mt_toei6000_purchase_c1_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/mita/toei6000/toei6000_2.png"){ tmpl_purchase_1c(0, 0) }
+spriteset(tk_mt_toei6000_purchase_c2_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/mita/toei6000/toei6000_2.png"){ tmpl_purchase_2c(0, 75) }
+spriteset(tk_mt_toei6000_purchase_c1_3, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/mita/toei6000/toei6000_3.png"){ tmpl_purchase_1c(0, 0) }
+spriteset(tk_mt_toei6000_purchase_c2_3, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/mita/toei6000/toei6000_3.png"){ tmpl_purchase_2c(0, 75) }
+spriteset(tk_mt_toei6000_purchase_c1_4, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/mita/toei6000/toei6000_4.png"){ tmpl_purchase_1c(0, 0) }
+spriteset(tk_mt_toei6000_purchase_c2_4, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/mita/toei6000/toei6000_4.png"){ tmpl_purchase_2c(0, 75) }
+switch(FEAT_TRAINS, SELF, tk_mt_toei6000_purchase_c1, current_year){
+    0..1971: tk_mt_toei6000_purchase_c1_1;
+    1972..1983: tk_mt_toei6000_purchase_c1_2;
+    1984..1987: tk_mt_toei6000_purchase_c1_3;
+    tk_mt_toei6000_purchase_c1_4;
+	}
+switch(FEAT_TRAINS, SELF, tk_mt_toei6000_purchase_c2, current_year){
+    0..1971: tk_mt_toei6000_purchase_c2_1;
+    1972..1983: tk_mt_toei6000_purchase_c2_2;
+    1984..1987: tk_mt_toei6000_purchase_c2_3;
+    tk_mt_toei6000_purchase_c2_4;
+	}
+GRAPHIC_STACK_4(tk_mt_toei6000_purchase, logo_toei, logo_line_tk_mita, tk_mt_toei6000_purchase_c1, tk_mt_toei6000_purchase_c2)
 
 spriteset(tk_mt_toei6000_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/mita/toei6000/toei6000_1.png"){ tmpl_std(0, 0) }
 spriteset(tk_mt_toei6000_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/mita/toei6000/toei6000_1.png"){ tmpl_std_rev(0, 25) }
@@ -228,7 +248,7 @@ item(FEAT_TRAINS, tk_mt_toei6000,1130) {
         climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
