@@ -1,4 +1,18 @@
-spriteset(tk_yk_7000series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/yurakucho_fukutoshin/7000series/7000series_purchase.png"){ tmpl_purchase(0, 0) }
+//purchase
+spriteset(tk_yk_7000series_purchase_c1_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/yurakucho_fukutoshin/7000series/7000series_1.png"){ tmpl_purchase_1c(0, 0) }
+spriteset(tk_yk_7000series_purchase_c2_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/yurakucho_fukutoshin/7000series/7000series_1.png"){ tmpl_purchase_2c(0, 50) }
+spriteset(tk_yk_7000series_purchase_c1_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/yurakucho_fukutoshin/7000series/7000series_2.png"){ tmpl_purchase_1c(0, 0) }
+spriteset(tk_yk_7000series_purchase_c2_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/yurakucho_fukutoshin/7000series/7000series_2.png"){ tmpl_purchase_2c(0, 50) }
+switch(FEAT_TRAINS, SELF, tk_yk_7000series_purchase_c1,current_year){
+      0..2007: tk_yk_7000series_purchase_c1_1;
+      tk_yk_7000series_purchase_c1_2;
+	}
+switch(FEAT_TRAINS, SELF, tk_yk_7000series_purchase_c2,current_year){
+      0..2007: tk_yk_7000series_purchase_c2_1;
+      tk_yk_7000series_purchase_c2_2;
+	}
+GRAPHIC_STACK_4(tk_yk_7000series_purchase, logo_tokyo_metro, logo_line_tk_fuku, tk_yk_7000series_purchase_c1, tk_yk_7000series_purchase_c2)
+
 //yurakucho
 
 spriteset(tk_yk_7000series_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/yurakucho_fukutoshin/7000series/7000series_1.png"){ tmpl_std(0, 0) }
@@ -239,7 +253,7 @@ item(FEAT_TRAINS, tk_yk_7000series,1080) {
         climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;

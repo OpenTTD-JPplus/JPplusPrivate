@@ -1,5 +1,7 @@
-spriteset(os_iz_80series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/imazatosuji/80series/80series_purchase.png"){ tmpl_purchase(0, 0) }
-
+//purchase
+spriteset(os_iz_80series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/imazatosuji/80series/80series.png"){ tmpl_purchase_1c(0, 0) }
+spriteset(os_iz_80series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/imazatosuji/80series/80series.png"){ tmpl_purchase_2c(0, 75) }
+GRAPHIC_STACK_4(os_iz_80series_purchase, logo_osaka_metro, logo_line_os_imazatosuji, os_iz_80series_purchase_c1, os_iz_80series_purchase_c2)
 
 spriteset(os_iz_80series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/imazatosuji/80series/80series.png"){ tmpl_std(0, 0) }
 spriteset(os_iz_80series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/imazatosuji/80series/80series.png"){ tmpl_std_rev(0, 25) }
@@ -61,7 +63,7 @@ item(FEAT_TRAINS, os_iz_80series,1310) {
         climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -79,7 +81,6 @@ item(FEAT_TRAINS, os_iz_80series,1310) {
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 30;
         reliability_decay: 10;
-        variant_group: 1301;
 
         cost_factor: 19;
         running_cost_factor: 49;

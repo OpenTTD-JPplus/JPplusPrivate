@@ -1,4 +1,18 @@
-spriteset(tk_gz_type1900_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/type1900/type1900_purchase.png"){ tmpl_purchase(0, 0) }
+//purchase
+spriteset(tk_gz_type1900_purchase_c1_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/type1900/type1900.png"){ tmpl_purchase_1c(0, 0) }
+spriteset(tk_gz_type1900_purchase_c2_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/type1900/type1900.png"){ tmpl_purchase_2c(0, 25) }
+spriteset(tk_gz_type2000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/type1900/type1900.png"){ tmpl_purchase_1c(0, 75) }
+spriteset(tk_gz_type2000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/type1900/type1900.png"){ tmpl_purchase_2c(0, 100) }
+switch(FEAT_TRAINS, SELF, tk_gz_type1900_purchase_c1, current_year){
+    0..1958: tk_gz_type1900_purchase_c1_1;
+    tk_gz_type2000_purchase_c1;
+}
+switch(FEAT_TRAINS, SELF, tk_gz_type1900_purchase_c2, current_year){
+    0..1958: tk_gz_type1900_purchase_c2_1;
+    tk_gz_type2000_purchase_c2;
+}
+GRAPHIC_STACK_4(tk_gz_type1900_purchase, logo_tokyo_metro, logo_line_tk_ginza, tk_gz_type1900_purchase_c1, tk_gz_type1900_purchase_c2)
+
 spriteset(tk_gz_type1900_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/type1900/type1900.png"){ tmpl_std(0, 0) }
 spriteset(tk_gz_type1900_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/type1900/type1900.png"){ tmpl_std(0, 25) }
 spriteset(tk_gz_type1900_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/ginza/type1900/type1900.png"){ tmpl_std_rev(0, 50) }
@@ -68,7 +82,7 @@ item(FEAT_TRAINS, tk_gz_t1900, 1004) {
         climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;

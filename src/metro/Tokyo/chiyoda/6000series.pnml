@@ -1,6 +1,19 @@
-spriteset(tk_ch_6000series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series_purchase.png"){ tmpl_purchase(0, 0) }
-//old
+//purchase
+spriteset(tk_ch_6000series_purchase_c1_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series_old.png"){ tmpl_purchase_1c(0, 0) }
+spriteset(tk_ch_6000series_purchase_c2_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series_old.png"){ tmpl_purchase_2c(0, 50) }
+spriteset(tk_ch_6000series_purchase_c1_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series.png"){ tmpl_purchase_1c(0, 0) }
+spriteset(tk_ch_6000series_purchase_c2_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series.png"){ tmpl_purchase_2c(0, 50) }
+switch(FEAT_TRAINS, SELF, tk_ch_6000series_purchase_c1,current_year>1980){
+			1: tk_ch_6000series_purchase_c1_2;
+			tk_ch_6000series_purchase_c1_1;
+		}
+switch(FEAT_TRAINS, SELF, tk_ch_6000series_purchase_c2,current_year>1980){
+			1: tk_ch_6000series_purchase_c2_2;
+			tk_ch_6000series_purchase_c2_1;
+		}
+GRAPHIC_STACK_4(tk_ch_6000series_purchase, logo_tokyo_metro, logo_line_tk_chiyoda, tk_ch_6000series_purchase_c1, tk_ch_6000series_purchase_c2)
 
+//old
 spriteset(tk_ch_6000series_old_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series_old.png"){ tmpl_std(0, 0) }
 spriteset(tk_ch_6000series_old_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series_old.png"){ tmpl_std_rev(0, 25) }
 spriteset(tk_ch_6000series_old_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Tokyo/chiyoda/6000series/6000series_old.png"){ tmpl_symm(0, 50) }
@@ -170,7 +183,7 @@ item(FEAT_TRAINS, tk_ch_6000series,1061) {
         climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
