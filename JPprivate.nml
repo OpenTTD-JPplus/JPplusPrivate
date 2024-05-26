@@ -2176,6 +2176,8 @@ spriteset (sprite_logo_line_fk_nanakuma, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx
 spriteset (sprite_logo_tokyu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 0) }
 spriteset (sprite_logo_tobu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 15) }
 spriteset (sprite_logo_seibu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 30) }
+spriteset (sprite_logo_odakyu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 45) }
+spriteset (sprite_logo_sotetsu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 60) }
 
 switch(FEAT_TRAINS, SELF, logo_tokyo_metro, param_hide_logo) {0:sprite_logo_tokyo_metro;}
 switch(FEAT_TRAINS, SELF, logo_toei, param_hide_logo) {0:sprite_logo_toei;}
@@ -2242,6 +2244,10 @@ switch(FEAT_TRAINS, SELF, logo_line_fk_kukou, param_hide_logo) {0:sprite_logo_li
 switch(FEAT_TRAINS, SELF, logo_line_fk_nanakuma, param_hide_logo) {0:sprite_logo_line_fk_nanakuma;}
 
 switch(FEAT_TRAINS, SELF, logo_tokyu, param_hide_logo) {0:sprite_logo_tokyu;}
+switch(FEAT_TRAINS, SELF, logo_tobu, param_hide_logo) {0:sprite_logo_tobu;}
+switch(FEAT_TRAINS, SELF, logo_seibu, param_hide_logo) {0:sprite_logo_seibu;}
+switch(FEAT_TRAINS, SELF, logo_odakyu, param_hide_logo) {0:sprite_logo_odakyu;}
+switch(FEAT_TRAINS, SELF, logo_sotetsu, param_hide_logo) {0:sprite_logo_sotetsu;}
 # 11 "JPprivate.pnml" 2
 # 1 "src/controllers/parts.pnml" 1
 
@@ -2266,13 +2272,14 @@ switch(FEAT_TRAINS, SELF, logo_tokyu, param_hide_logo) {0:sprite_logo_tokyu;}
 
 
 
-  spriteset(roof_gray_med, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/parts/roof/roof_gray_med.png"){ tmpl_symm(0, 0) }
-  spriteset(roof_gray_med_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/parts/roof/roof_gray_med.png"){ tmpl_purchase_1c(0, 0) }
-  spriteset(roof_gray_med_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/parts/roof/roof_gray_med.png"){ tmpl_purchase_2c(0, 0) }
+    spriteset(roof_gray_med, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/parts/roof/roof_gray_med.png"){ tmpl_symm(0, 0) }
 
-  spriteset(roof_gray_med_h1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/parts/roof/roof_gray_med.png"){ tmpl_roof_h1(0, 0) }
-  spriteset(roof_gray_med_h1_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/parts/roof/roof_gray_med.png"){ tmpl_purchase_roof_h1(0, 0) }
-  spriteset(roof_gray_med_h1_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/parts/roof/roof_gray_med.png"){ tmpl_roof_h1_rev(0, 0) }
+    spriteset(roof_gray_med_h1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/parts/roof/roof_gray_med.png"){ tmpl_roof_h1(0, 0) }
+    spriteset(roof_gray_med_h1_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/parts/roof/roof_gray_med.png"){ tmpl_roof_h1_rev(0, 0) }
+
+    spriteset(roof_gray_med_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/parts/roof/roof_gray_med.png"){ tmpl_purchase_1c(0, 0) }
+    spriteset(roof_gray_med_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/parts/roof/roof_gray_med.png"){ tmpl_purchase_2c(0, 0) }
+    spriteset(roof_gray_med_h1_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/parts/roof/roof_gray_med.png"){ tmpl_purchase_roof_h1(0, 0) }
 # 12 "JPprivate.pnml" 2
 
 
@@ -2376,8 +2383,7 @@ item(FEAT_TRAINS, tk_gz_t1000, 1000) {
         can_attach_wagon: sw_tk_gz_t1000_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_RANGE, 1, 4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 1, 4)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -2469,8 +2475,7 @@ item(FEAT_TRAINS, tk_gz_t1100, 1001) {
         can_attach_wagon: sw_tk_gz_t1100_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_RANGE, 1, 4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 1, 4)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -2560,8 +2565,7 @@ item(FEAT_TRAINS, tk_gz_t100, 1002) {
         can_attach_wagon: sw_tk_gz_t100_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_RANGE, 1, 4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 1, 4)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -2710,8 +2714,7 @@ item(FEAT_TRAINS, tk_gz_t1300, 1003) {
         can_attach_wagon: sw_tk_gz_t1300_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_RANGE, 1, 4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 1, 4)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -2840,8 +2843,7 @@ item(FEAT_TRAINS, tk_gz_t1900, 1004) {
         can_attach_wagon: sw_tk_gz_t1900_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 3,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 3,6)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -2962,8 +2964,7 @@ item(FEAT_TRAINS, tk_gz_eidan01, 1005) {
         can_attach_wagon: sw_tk_gz_01s_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -3068,8 +3069,7 @@ item(FEAT_TRAINS, tk_gz_1000s, 1006) {
         can_attach_wagon: sw_tk_gz_1000s_attach_vehid;
     additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -3163,8 +3163,7 @@ item(FEAT_TRAINS, tk_mn_eidan2000,1020) {
         can_attach_wagon: sw_tk_mn_eidan2000_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 3),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 3)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -3262,8 +3261,7 @@ item(FEAT_TRAINS, eidan500,1021) {
         can_attach_wagon: sw_tk_mn_eidan500_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_RANGE, 2,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,6)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -3386,8 +3384,7 @@ item(FEAT_TRAINS, tk_mn_eidan02,1022) {
         can_attach_wagon: sw_tk_mn_eidan02_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 3,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 3,6)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -3485,8 +3482,7 @@ item(FEAT_TRAINS, tk_mn_2000series,1023) {
         can_attach_wagon: sw_tk_mn_2000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -3666,8 +3662,7 @@ item(FEAT_TRAINS, tk_hb_eidan3000, 1030) {
         can_attach_wagon: tk_hb_eidan3000_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_4, 2,4,6,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_4, 2,4,6,8)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -3924,8 +3919,7 @@ item(FEAT_TRAINS, tk_hb_eidan03,1031) {
         can_attach_wagon: tk_hb_eidan03_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -4075,8 +4069,7 @@ item(FEAT_TRAINS, tk_hb_13000series,1032) {
         start_stop: sw_stop_start_3;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 7),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 7)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -4365,8 +4358,7 @@ item(FEAT_TRAINS, tk_tz_5000series,1040) {
         can_attach_wagon: tk_tz_5000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_4, 3,7,8,10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_4, 3,7,8,10)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -4745,8 +4737,7 @@ item(FEAT_TRAINS, tk_tz_05series,1041) {
         can_attach_wagon: tk_tz_05series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -4883,8 +4874,7 @@ item(FEAT_TRAINS, tk_tz_07series,1042) {
         can_attach_wagon: tk_tz_07series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -5037,8 +5027,7 @@ item(FEAT_TRAINS, tk_tz_15000series,1043) {
         can_attach_wagon: tk_tz_15000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -5189,8 +5178,7 @@ item(FEAT_TRAINS, tk_tz_toyo1000,1050) {
         can_attach_wagon: tk_tz_toyo1000_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -5338,8 +5326,7 @@ item(FEAT_TRAINS, tk_tz_toyo2000,1051) {
         can_attach_wagon: tk_tz_toyo2000_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -5563,8 +5550,7 @@ item(FEAT_TRAINS, tk_ch_5000series,1060) {
         can_attach_wagon: tk_ch_5000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 3,10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 3,10)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -5794,8 +5780,7 @@ item(FEAT_TRAINS, tk_ch_6000series,1061) {
         can_attach_wagon: tk_ch_6000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 3,6,10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 3,6,10)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -5955,8 +5940,7 @@ item(FEAT_TRAINS, tk_ch_06series,1062) {
         can_attach_wagon: tk_ch_06series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -6122,8 +6106,7 @@ item(FEAT_TRAINS, tk_ch_16000series,1063) {
         can_attach_wagon: tk_ch_16000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -6281,8 +6264,7 @@ item(FEAT_TRAINS, tk_ch_05series,1070) {
         can_attach_wagon: tk_ch_05series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 3),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 3)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -6388,8 +6370,7 @@ item(FEAT_TRAINS, tk_yk_07series, 1081) {
         can_attach_wagon: tk_tz_07series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -6689,8 +6670,7 @@ item(FEAT_TRAINS, tk_yk_7000series,1080) {
         can_attach_wagon: tk_yk_7000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 8,10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 8,10)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -6843,8 +6823,7 @@ item(FEAT_TRAINS, tk_yk_10000series,1082) {
         can_attach_wagon: tk_yk_10000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 8,10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 8,10)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -6996,8 +6975,7 @@ item(FEAT_TRAINS, tk_yk_17000series,1083) {
         can_attach_wagon: tk_yk_17000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 8,10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 8,10)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -7176,8 +7154,7 @@ item(FEAT_TRAINS, tk_hz_8000series,1100) {
         can_attach_wagon: tk_hz_8000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -7336,8 +7313,7 @@ item(FEAT_TRAINS, tk_hz_08series,1101) {
         can_attach_wagon: tk_hz_08series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -7495,8 +7471,7 @@ item(FEAT_TRAINS, tk_hz_18000series,1102) {
         can_attach_wagon: tk_hz_18000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -7810,8 +7785,7 @@ item(FEAT_TRAINS, tk_nm_eidan9000,1110) {
         can_attach_wagon: tk_nm_eidan9000_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 4,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -7961,8 +7935,7 @@ item(FEAT_TRAINS, tk_nm_saitama2000,1115) {
         can_attach_wagon: tk_nm_saitama2000_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_TOKYOMETRO),
                             ),
@@ -8168,8 +8141,7 @@ item(FEAT_TRAINS, tk_as_toei5000,1120) {
         can_attach_wagon: tk_as_toei5000_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 4,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
                             string(STR_OPERATOR,
                             string(STR_TOEI),
                             ),
@@ -8335,8 +8307,7 @@ item(FEAT_TRAINS, tk_as_toei5200,1121) {
         can_attach_wagon: tk_as_toei5200_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 6,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
                             string(STR_OPERATOR,
                             string(STR_TOEI),
                             ),
@@ -8490,8 +8461,7 @@ item(FEAT_TRAINS, tk_as_toei5300,1122) {
         can_attach_wagon: tk_as_toei5300_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
                             string(STR_OPERATOR,
                             string(STR_TOEI),
                             ),
@@ -8640,8 +8610,7 @@ item(FEAT_TRAINS, tk_as_toei5500,1123) {
         can_attach_wagon: tk_as_toei5500_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
                             string(STR_OPERATOR,
                             string(STR_TOEI),
                             ),
@@ -8938,8 +8907,7 @@ item(FEAT_TRAINS, tk_mt_toei6000,1130) {
         can_attach_wagon: tk_mt_toei6000_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_TOEI),
                             ),
@@ -9132,8 +9100,7 @@ item(FEAT_TRAINS, tk_mt_toei6300,1131) {
         can_attach_wagon: tk_mt_toei6300_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_TOEI),
                             ),
@@ -9280,8 +9247,7 @@ item(FEAT_TRAINS, tk_mt_toei6500,1132) {
         can_attach_wagon: tk_mt_toei6500_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
                             string(STR_OPERATOR,
                             string(STR_TOEI),
                             ),
@@ -9700,8 +9666,7 @@ item(FEAT_TRAINS, tk_sj_toei10_000,1140) {
         can_attach_wagon: tk_sj_toei10_000_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_SCOTCHGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
                             string(STR_OPERATOR,
                             string(STR_TOEI),
                             ),
@@ -10085,8 +10050,7 @@ item(FEAT_TRAINS, tk_sj_toei10_300,1141) {
         can_attach_wagon: tk_sj_toei10_300_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_SCOTCHGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 8,10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 8,10)),
                             string(STR_OPERATOR,
                             string(STR_TOEI),
                             ),
@@ -10439,8 +10403,7 @@ item(FEAT_TRAINS, tk_od_toei12_000,1150) {
         can_attach_wagon: tk_od_toei12_000_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
                             string(STR_OPERATOR,
                             string(STR_TOEI),
                             ),
@@ -10617,8 +10580,7 @@ item(FEAT_TRAINS, yk_bl_1000series,1200) {
         can_attach_wagon: yk_bl_1000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_YOKOHAMA),
                             ),
@@ -10948,8 +10910,7 @@ item(FEAT_TRAINS, yk_bl_3000series,1201) {
         can_attach_wagon: yk_bl_3000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_YOKOHAMA),
                             ),
@@ -11068,8 +11029,7 @@ item(FEAT_TRAINS, yk_bl_4000series,1202) {
         can_attach_wagon: yk_bl_4000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_YOKOHAMA),
                             ),
@@ -11283,8 +11243,7 @@ item(FEAT_TRAINS, yk_gl_10000series,1210) {
         can_attach_wagon: yk_gl_10000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 4,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
                             string(STR_OPERATOR,
                             string(STR_YOKOHAMA),
                             ),
@@ -11383,8 +11342,7 @@ item(FEAT_TRAINS, os_nm_8000series,1220) {
         can_attach_wagon: os_nm_8000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
                             string(STR_OPERATOR,
                             string(STR_KITAKYU)),
 string(STR_LINES_USED,
@@ -11511,8 +11469,7 @@ item(FEAT_TRAINS, os_nm_9000series,1221) {
         can_attach_wagon: os_nm_9000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
                             string(STR_OPERATOR,
                             string(STR_KITAKYU)),
 string(STR_LINES_USED,
@@ -11647,8 +11604,7 @@ item(FEAT_TRAINS, os_nm_100series,1230) {
         can_attach_wagon: os_nm_100series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_RANGE, 1,4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 1,4)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -11740,8 +11696,7 @@ item(FEAT_TRAINS, os_nm_500series,1231) {
         can_attach_wagon: os_nm_500series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_RANGE, 2,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,6)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -11905,8 +11860,7 @@ item(FEAT_TRAINS, os_nm_1000series,1232) {
         can_attach_wagon: os_nm_1000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_RANGE, 2,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,6)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -12011,8 +11965,7 @@ item(FEAT_TRAINS, os_nm_50series,1234) {
         can_attach_wagon: os_nm_50series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 2,4,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,6)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -12143,8 +12096,7 @@ item(FEAT_TRAINS, os_nm_30series,1235) {
         can_attach_wagon: os_nm_30series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 4,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 4,8)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -12335,8 +12287,7 @@ item(FEAT_TRAINS, os_nm_10series,1236) {
         can_attach_wagon: os_nm_10series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 8,9,10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 8,9,10)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -12476,8 +12427,7 @@ item(FEAT_TRAINS, os_nm_21series,1237) {
         can_attach_wagon: os_nm_21series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -12609,8 +12559,7 @@ item(FEAT_TRAINS, os_nm_30000series,1238) {
         can_attach_wagon: os_nm_30000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -12771,8 +12720,7 @@ item(FEAT_TRAINS, os_tm_50series,1250) {
         can_attach_wagon: os_tm_50series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_RANGE, 2,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,6)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -12969,8 +12917,7 @@ item(FEAT_TRAINS, os_tm_30series,1251) {
         can_attach_wagon: os_tm_30series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -13122,8 +13069,7 @@ item(FEAT_TRAINS, os_tm_20series,1252) {
         can_attach_wagon: os_tm_20series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 4,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 4,8)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -13250,8 +13196,7 @@ item(FEAT_TRAINS, os_tm_22series,1253) {
         can_attach_wagon: os_tm_22series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -13348,8 +13293,7 @@ item(FEAT_TRAINS, os_tm_30000series,1254) {
         can_attach_wagon: os_tm_30000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -13509,8 +13453,7 @@ item(FEAT_TRAINS, os_yb_1100type,1260) {
         can_attach_wagon: os_yb_1100type_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_RANGE, 2,4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,4)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -13669,8 +13612,7 @@ item(FEAT_TRAINS, os_yb_50series,1261) {
         can_attach_wagon: os_yb_50series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_RANGE, 2,4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,4)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -13867,8 +13809,7 @@ item(FEAT_TRAINS, os_yb_30series,1262) {
         can_attach_wagon: os_yb_30series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 5),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 5)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -13996,8 +13937,7 @@ item(FEAT_TRAINS, os_yb_23series,1263) {
         can_attach_wagon: os_yb_23series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -14113,8 +14053,7 @@ item(FEAT_TRAINS, os_ch_6000type,1270) {
         can_attach_wagon: os_ch_6000type_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_RANGE, 1,4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 1,4)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -14273,8 +14212,7 @@ item(FEAT_TRAINS, os_ch_50series,1271) {
         can_attach_wagon: os_ch_50series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -14406,8 +14344,7 @@ item(FEAT_TRAINS, os_ch_30series,1272) {
         can_attach_wagon: os_ch_30series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 4,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -14504,8 +14441,7 @@ item(FEAT_TRAINS, os_ch_20series,1273) {
         can_attach_wagon: os_ch_20series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 4,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -14628,8 +14564,7 @@ item(FEAT_TRAINS, os_ch_24series,1274) {
         can_attach_wagon: os_ch_24series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -14723,8 +14658,7 @@ item(FEAT_TRAINS, os_ch_30000series,1275) {
         can_attach_wagon: os_ch_30000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -14815,8 +14749,7 @@ item(FEAT_TRAINS, os_ch_400series,1276) {
         can_attach_wagon: os_ch_400series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -14908,8 +14841,7 @@ item(FEAT_TRAINS, os_ch_kintetsu7000,1277) {
         can_attach_wagon: os_ch_kintetsu7000_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_KINTETSU)
                             ),
@@ -15074,8 +15006,7 @@ item(FEAT_TRAINS, os_sn_1100type,1280) {
         can_attach_wagon: os_sn_1100type_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_RANGE, 2,4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,4)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -15234,8 +15165,7 @@ item(FEAT_TRAINS, os_sn_50series,1281) {
         can_attach_wagon: os_sn_50series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -15367,8 +15297,7 @@ item(FEAT_TRAINS, os_sn_30series,1282) {
         can_attach_wagon: os_sn_30series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -15496,8 +15425,7 @@ item(FEAT_TRAINS, os_sn_25series,1283) {
         can_attach_wagon: os_sn_25series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -15694,8 +15622,7 @@ item(FEAT_TRAINS, os_hk_60series,1290) {
         can_attach_wagon: os_hk_60series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 5,6,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 5,6,8)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -15868,8 +15795,7 @@ item(FEAT_TRAINS, os_hk_66series,1291) {
         can_attach_wagon: os_hk_66series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -16124,8 +16050,7 @@ item(FEAT_TRAINS, os_ts_70series,1300) {
         can_attach_wagon: os_ts_70series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -16245,8 +16170,7 @@ item(FEAT_TRAINS, os_ts_80series,1301) {
         can_attach_wagon: os_ts_80series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -16367,8 +16291,7 @@ item(FEAT_TRAINS, os_iz_80series,1310) {
         can_attach_wagon: os_iz_80series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
                             string(STR_OPERATOR,
                             string(STR_OSAKAMETRO)),
 string(STR_LINES_USED,
@@ -16539,8 +16462,7 @@ item(FEAT_TRAINS, kt_ks_10series,1350) {
         can_attach_wagon: kt_ks_10series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 4,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
                             string(STR_OPERATOR,
                             string(STR_KYOTO),
                             ),
@@ -16710,8 +16632,7 @@ item(FEAT_TRAINS, kt_ks_20series,1351) {
         can_attach_wagon: kt_ks_20series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_KYOTO),
                             ),
@@ -16872,8 +16793,7 @@ item(FEAT_TRAINS, kt_tz_50series,1360) {
         can_attach_wagon: kt_tz_50series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_KYOTO),
                             ),
@@ -16990,8 +16910,7 @@ item(FEAT_TRAINS, ng_hg_type100,1370) {
         can_attach_wagon: ng_hg_type100_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 2,4,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,6)),
                             string(STR_OPERATOR,
                             string(STR_NAGOYA),
                             ),
@@ -17085,8 +17004,7 @@ item(FEAT_TRAINS, ng_hg_type300,1371) {
         can_attach_wagon: ng_hg_type300_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_NAGOYA),
                             ),
@@ -17200,8 +17118,7 @@ item(FEAT_TRAINS, ng_hg_5000series,1372) {
         can_attach_wagon: ng_hg_5000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_NAGOYA),
                             ),
@@ -17373,8 +17290,7 @@ item(FEAT_TRAINS, ng_hg_5050series,1373) {
         cargo_subtype_text:sw_ng_hg_5050series_lv_desc;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_NAGOYA),
                             ),
@@ -17488,8 +17404,7 @@ item(FEAT_TRAINS, ng_hg_n1000series,1374) {
         can_attach_wagon: ng_hg_n1000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_NAGOYA),
                             ),
@@ -17584,8 +17499,7 @@ item(FEAT_TRAINS, ng_mj_type1000,1380) {
         can_attach_wagon: ng_mj_type1000_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 2,4,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,6)),
                             string(STR_OPERATOR,
                             string(STR_NAGOYA),
                             ),
@@ -17758,8 +17672,7 @@ item(FEAT_TRAINS, ng_mj_2000series,1381) {
         cargo_subtype_text:sw_ng_mj_2000series_lv_desc;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_NAGOYA),
                             ),
@@ -17940,8 +17853,7 @@ item(FEAT_TRAINS, ng_tm_3000series,1390) {
         can_attach_wagon: ng_tm_3000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 3,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 3,6)),
                             string(STR_OPERATOR,
                             string(STR_NAGOYA),
                             ),
@@ -18091,8 +18003,7 @@ item(FEAT_TRAINS, ng_tm_3050series,1391) {
         can_attach_wagon: ng_tm_3050series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_NAGOYA),
                             ),
@@ -18312,8 +18223,7 @@ item(FEAT_TRAINS, ng_tm_N3000series,1392) {
         cargo_subtype_text:sw_ng_tm_N3000series_lv_desc;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_NAGOYA),
                             ),
@@ -18467,8 +18377,7 @@ item(FEAT_TRAINS, ng_sk_6000series,1400) {
         can_attach_wagon: ng_sk_6000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 4,5),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 4,5)),
                             string(STR_OPERATOR,
                             string(STR_NAGOYA),
                             ),
@@ -18771,8 +18680,7 @@ item(FEAT_TRAINS, ng_sk_7000series,1410) {
         can_attach_wagon: ng_sk_7000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
                             string(STR_OPERATOR,
                             string(STR_NAGOYA),
                             ),
@@ -18960,8 +18868,7 @@ item(FEAT_TRAINS, sn_nm_1000series,1430) {
         can_attach_wagon: sn_nm_1000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
                             string(STR_OPERATOR,
                             string(STR_SENDAI),
                             ),
@@ -19212,8 +19119,7 @@ item(FEAT_TRAINS, sn_tz_2000series,1435) {
         can_attach_wagon: sn_tz_2000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
                             string(STR_OPERATOR,
                             string(STR_SENDAI),
                             ),
@@ -19373,8 +19279,7 @@ item(FEAT_TRAINS, kb_sy_1000series,1440) {
         can_attach_wagon: kb_sy_1000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_KOBE),
                             ),
@@ -19529,8 +19434,7 @@ item(FEAT_TRAINS, kb_sy_2000series,1441) {
         can_attach_wagon: kb_sy_2000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 5,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 5,6)),
                             string(STR_OPERATOR,
                             string(STR_KOBE),
                             ),
@@ -19793,8 +19697,7 @@ item(FEAT_TRAINS, kb_sy_3000series,1442) {
         can_attach_wagon: kb_sy_3000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_KOBE),
                             ),
@@ -19950,8 +19853,7 @@ item(FEAT_TRAINS, kb_sy_7000series,1443) {
         can_attach_wagon: kb_sy_7000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 5,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 5,6)),
                             string(STR_OPERATOR,
                             string(STR_KOBE),
                             ),
@@ -20106,8 +20008,7 @@ item(FEAT_TRAINS, kb_sy_6000series,1444) {
         can_attach_wagon: kb_sy_6000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_KOBE),
                             ),
@@ -20247,8 +20148,7 @@ item(FEAT_TRAINS, kb_kg_5000series,1447) {
         can_attach_wagon: kb_kg_5000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
                             string(STR_OPERATOR,
                             string(STR_KOBE),
                             ),
@@ -20404,8 +20304,7 @@ item(FEAT_TRAINS, fk_kk_1000series,1450) {
         can_attach_wagon: fk_kk_1000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_FUKUOKA),
                             ),
@@ -20560,8 +20459,7 @@ item(FEAT_TRAINS, fk_kk_2000series,1451) {
         can_attach_wagon: fk_kk_2000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_NARROWGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
                             string(STR_OPERATOR,
                             string(STR_FUKUOKA),
                             ),
@@ -20793,8 +20691,7 @@ item(FEAT_TRAINS, fk_nk_3000series,1455) {
         can_attach_wagon: fk_nk_3000series_attach_vehid;
         additional_text: string(STR_CONCAT_6,
                             string(STR_STANDARDGAUGE),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
                             string(STR_OPERATOR,
                             string(STR_FUKUOKA),
                             ),
@@ -20914,8 +20811,7 @@ item(FEAT_TRAINS, tokyu_deha1,2000) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 2),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 1),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
 
 
                             string(STR_USAGE,
@@ -21033,8 +20929,7 @@ item(FEAT_TRAINS, tokyu_deha3450,2001) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 1),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
 
 
                             string(STR_USAGE,
@@ -21176,8 +21071,7 @@ item(FEAT_TRAINS, tokyu3300_old,2002) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 2,3),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 2,3)),
 
 
                             string(STR_USAGE,
@@ -21435,8 +21329,7 @@ item(FEAT_TRAINS, tokyu3500_old,2003) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_RANGE, 2,5),
+                            string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,5)),
 
 
                             string(STR_USAGE,
@@ -21689,8 +21582,7 @@ item(FEAT_TRAINS, tokyu3800_old,2004) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_RANGE, 2,5),
+                            string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,5)),
 
 
                             string(STR_USAGE,
@@ -21858,8 +21750,7 @@ item(FEAT_TRAINS, tokyu5000_old,2005) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_RANGE, 3,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 3,6)),
 
 
                             string(STR_USAGE,
@@ -22021,8 +21912,7 @@ item(FEAT_TRAINS, tokyu5200_old,2006) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_RANGE, 3,5),
+                            string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 3,5)),
 
 
                             string(STR_USAGE,
@@ -22191,8 +22081,7 @@ item(FEAT_TRAINS, tokyu6000_old,2007) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_4, 2,4,6,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_4, 2,4,6,8)),
 
 
                             string(STR_USAGE,
@@ -22437,8 +22326,7 @@ item(FEAT_TRAINS, tokyu7000_old,2008) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_4, 2,4,6,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_4, 2,4,6,8)),
 
 
                             string(STR_USAGE,
@@ -22849,8 +22737,7 @@ item(FEAT_TRAINS, tokyu7200_old,2009) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_5, 2,3,4,6,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_5, 2,3,4,6,8)),
 
 
                             string(STR_USAGE,
@@ -23076,8 +22963,7 @@ item(FEAT_TRAINS, tokyu7600_old,2010) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 3),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 3)),
 
 
                             string(STR_USAGE,
@@ -23330,8 +23216,7 @@ item(FEAT_TRAINS, tokyu7700_old,2011) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 3,4,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 3,4,6)),
 
 
                             string(STR_USAGE,
@@ -24039,8 +23924,7 @@ item(FEAT_TRAINS, tokyu8000,2012) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_4, 4,5,8,10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_4, 4,5,8,10)),
 
 
                             string(STR_USAGE,
@@ -24560,8 +24444,7 @@ item(FEAT_TRAINS, tokyu8090,2013) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 5,8,9),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 5,8,9)),
 
 
                             string(STR_USAGE,
@@ -24833,8 +24716,7 @@ item(FEAT_TRAINS, tokyu9000,2014) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 5,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 5,8)),
 
 
                             string(STR_USAGE,
@@ -25349,8 +25231,7 @@ item(FEAT_TRAINS, tokyu1000,2015) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 3,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 3,8)),
 
 
                             string(STR_USAGE,
@@ -25619,8 +25500,7 @@ item(FEAT_TRAINS, tokyu2000,2016) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 5,8,10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 5,8,10)),
 
 
                             string(STR_USAGE,
@@ -25827,8 +25707,7 @@ item(FEAT_TRAINS, tokyu3000,2017) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 6,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
 
 
                             string(STR_USAGE,
@@ -26043,8 +25922,7 @@ item(FEAT_TRAINS, y000,2018) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 2),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 2)),
 
 
                             string(STR_USAGE,
@@ -27041,8 +26919,7 @@ item(FEAT_TRAINS, tokyu5000,2019) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS_REFIT, 4, 6),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 6,8,10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 6,8,10)),
 
 
                             string(STR_USAGE,
@@ -27241,8 +27118,7 @@ item(FEAT_TRAINS, y500,2020) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
 
 
                             string(STR_USAGE,
@@ -27529,8 +27405,7 @@ item(FEAT_TRAINS, tokyu6000,2021) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 6,7),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 6,7)),
 
 
                             string(STR_USAGE,
@@ -27705,8 +27580,7 @@ item(FEAT_TRAINS, tokyu7000,2022) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 3),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 3)),
 
 
                             string(STR_USAGE,
@@ -28467,8 +28341,7 @@ item(FEAT_TRAINS, tokyu2020,2023) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_4, 6,7,8,10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_4, 6,7,8,10)),
 
 
                             string(STR_USAGE,
@@ -28828,8 +28701,7 @@ item(FEAT_TRAINS, tobu5700,2050) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 1),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 2,4,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,6)),
 
 
                             string(STR_USAGE,
@@ -28958,8 +28830,7 @@ item(FEAT_TRAINS, tobu1700,2051) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 1),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 2,4,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,6)),
 
 
                             string(STR_USAGE,
@@ -29159,8 +29030,7 @@ item(FEAT_TRAINS, tobu1720,2052) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 1),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
 
 
                             string(STR_USAGE,
@@ -29326,8 +29196,7 @@ item(FEAT_TRAINS, tobu6000,2053) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 2),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 2,4,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,6)),
 
 
                             string(STR_USAGE,
@@ -29777,8 +29646,7 @@ item(FEAT_TRAINS, tobu1800,2055) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 1),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 4,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
 
 
                             string(STR_USAGE,
@@ -30043,8 +29911,7 @@ item(FEAT_TRAINS, tobu6050,2054) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 2),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 2,4,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,6)),
 
 
                             string(STR_USAGE,
@@ -30881,8 +30748,7 @@ item(FEAT_TRAINS, tobu100,2058) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 1),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
 
 
                             string(STR_USAGE,
@@ -31294,8 +31160,7 @@ item(FEAT_TRAINS, tobu200,2059) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 1),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
 
 
                             string(STR_USAGE,
@@ -31481,8 +31346,7 @@ item(FEAT_TRAINS, tobu300,2060) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 1),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 4,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
 
 
                             string(STR_USAGE,
@@ -31663,8 +31527,7 @@ item(FEAT_TRAINS, tobu500,2061) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 1),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 3,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 3,6)),
 
 
                             string(STR_USAGE,
@@ -31854,8 +31717,7 @@ item(FEAT_TRAINS, tobu100n,2062) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 1),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
 
 
                             string(STR_USAGE,
@@ -31977,8 +31839,7 @@ item(FEAT_TRAINS, tobu_deha1,2065) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 1),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
 
 
                             string(STR_USAGE,
@@ -32668,8 +32529,7 @@ item(FEAT_TRAINS, tobu_deha10,2066) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS_REFIT, 2, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_RANGE, 1,4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 1,4)),
 
 
                             string(STR_USAGE,
@@ -33041,8 +32901,7 @@ item(FEAT_TRAINS, tobu7300,2067) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 2,4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 2,4)),
 
 
                             string(STR_USAGE,
@@ -33329,8 +33188,7 @@ item(FEAT_TRAINS, tobu2000,2068) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 4,6,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 4,6,8)),
 
 
                             string(STR_USAGE,
@@ -34946,8 +34804,7 @@ item(FEAT_TRAINS, tobu8000,2069) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_5, 2,3,4,6,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_5, 2,3,4,6,8)),
 
 
                             string(STR_USAGE,
@@ -35256,8 +35113,7 @@ item(FEAT_TRAINS, tobu3000,2070) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 2,4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 2,4)),
 
 
                             string(STR_USAGE,
@@ -35643,8 +35499,7 @@ item(FEAT_TRAINS, tobu5000,2071) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 2,4,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,6)),
 
 
                             string(STR_USAGE,
@@ -35948,8 +35803,7 @@ item(FEAT_TRAINS, tobu9000,2072) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
 
 
                             string(STR_USAGE,
@@ -36423,8 +36277,7 @@ item(FEAT_TRAINS, tobu10000,2073) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_5, 2,4,6,8,10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_5, 2,4,6,8,10)),
 
 
                             string(STR_USAGE,
@@ -36618,8 +36471,7 @@ item(FEAT_TRAINS, tobu20000,2075) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
 
 
                             string(STR_USAGE,
@@ -36777,8 +36629,7 @@ item(FEAT_TRAINS, tobu20400,2076) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
 
 
                             string(STR_USAGE,
@@ -36981,8 +36832,7 @@ item(FEAT_TRAINS, tobu30000,2077) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
 
 
                             string(STR_USAGE,
@@ -38082,8 +37932,7 @@ item(FEAT_TRAINS, tobu50000,2078) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
 
 
                             string(STR_USAGE,
@@ -38290,8 +38139,7 @@ item(FEAT_TRAINS, tobu60000,2079) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
 
 
                             string(STR_USAGE,
@@ -38576,8 +38424,7 @@ item(FEAT_TRAINS, tobu70000,2080) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 7),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 7)),
 
 
                             string(STR_USAGE,
@@ -38742,8 +38589,7 @@ item(FEAT_TRAINS, seibu5000,2100) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 2),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 4,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
 
 
                             string(STR_USAGE,
@@ -39635,8 +39481,7 @@ item(FEAT_TRAINS, seibu10000,2101) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 1),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 7),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 7)),
 
 
                             string(STR_USAGE,
@@ -39837,8 +39682,7 @@ item(FEAT_TRAINS, seibu001,2102) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 1),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
 
 
                             string(STR_USAGE,
@@ -39945,8 +39789,7 @@ item(FEAT_TRAINS, seibuDeha100,2105) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 2),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 1,2),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 1,2)),
 
 
                             string(STR_USAGE,
@@ -40181,8 +40024,7 @@ item(FEAT_TRAINS, seibuDeha5560,2106) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS_REFIT, 2, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 2),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 2)),
 
 
                             string(STR_USAGE,
@@ -40466,8 +40308,7 @@ item(FEAT_TRAINS, seibu311,2107) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 2,3),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 2,3)),
 
 
                             string(STR_USAGE,
@@ -40654,8 +40495,7 @@ item(FEAT_TRAINS, seibu401_1,2108) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 2,4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 2,4)),
 
 
                             string(STR_USAGE,
@@ -40863,8 +40703,7 @@ item(FEAT_TRAINS, seibu351,2109) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 3),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 3)),
 
 
                             string(STR_USAGE,
@@ -41112,8 +40951,7 @@ item(FEAT_TRAINS, seibu451,2110) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 2,4,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,6)),
 
 
                             string(STR_USAGE,
@@ -41281,8 +41119,7 @@ item(FEAT_TRAINS, seibu551,2111) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 2,4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 2,4)),
 
 
                             string(STR_USAGE,
@@ -41440,8 +41277,7 @@ item(FEAT_TRAINS, seibu571,2112) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 2,4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 2,4)),
 
 
                             string(STR_USAGE,
@@ -41635,8 +41471,7 @@ item(FEAT_TRAINS, seibu411,2113) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 2),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 2)),
 
 
                             string(STR_USAGE,
@@ -41938,8 +41773,7 @@ item(FEAT_TRAINS, seibu501,2114) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_4, 2,3,4,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_4, 2,3,4,6)),
 
 
                             string(STR_USAGE,
@@ -43105,8 +42939,7 @@ item(FEAT_TRAINS, seibu301,2115) {
            string(STR_NARROWGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 3),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_4, 2,4,6,8),
+           string(STR_FORMATION, string(STR_NUM_CARS_4, 2,4,6,8)),
 
 
            string(STR_USAGE,
@@ -43533,8 +43366,7 @@ item(FEAT_TRAINS, seibu2000,2116) {
            string(STR_NARROWGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 4),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_4, 2,4,6,8),
+           string(STR_FORMATION, string(STR_NUM_CARS_4, 2,4,6,8)),
 
 
            string(STR_USAGE,
@@ -44048,8 +43880,7 @@ item(FEAT_TRAINS, seibu3000,2117) {
            string(STR_NARROWGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 3),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_2, 6,8),
+           string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
 
 
            string(STR_USAGE,
@@ -44236,8 +44067,7 @@ item(FEAT_TRAINS, seibu4000,2118) {
            string(STR_NARROWGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 2),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_1, 4),
+           string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
 
 
            string(STR_USAGE,
@@ -44641,8 +44471,7 @@ item(FEAT_TRAINS, seibu6000,2119) {
            string(STR_NARROWGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 4),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_1, 10),
+           string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
 
 
            string(STR_USAGE,
@@ -45233,8 +45062,7 @@ item(FEAT_TRAINS, seibu9000,2120) {
            string(STR_NARROWGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 4),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_2, 4,10),
+           string(STR_FORMATION, string(STR_NUM_CARS_2, 4,10)),
 
 
            string(STR_USAGE,
@@ -45697,8 +45525,7 @@ item(FEAT_TRAINS, seibu20000,2121) {
            string(STR_NARROWGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 4),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_2, 8,10),
+           string(STR_FORMATION, string(STR_NUM_CARS_2, 8,10)),
 
 
            string(STR_USAGE,
@@ -46399,8 +46226,7 @@ item(FEAT_TRAINS, seibu30000,2122) {
            string(STR_NARROWGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 4),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_3, 2,8,10),
+           string(STR_FORMATION, string(STR_NUM_CARS_3, 2,8,10)),
 
 
            string(STR_USAGE,
@@ -46809,8 +46635,7 @@ item(FEAT_TRAINS, seibu40000,2123) {
            string(STR_NARROWGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 4),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_1, 10),
+           string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
 
 
            string(STR_USAGE,
@@ -46834,7 +46659,8 @@ item(FEAT_TRAINS, seibu40000,2123) {
 
 
 
-item(FEAT_TRAINS, sotetsu12000, 2200) {}
+item(FEAT_TRAINS, sotetsu12000, 2211) {}
+item(FEAT_TRAINS, sotetsu20000, 2212) {}
 # 1 "src/private/Kanto/sotetsu/sotetsu12000.pnml" 1
 
 spriteset(sotetsu12000_front_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/sotetsu/sotetsu12000/sotetsu12000.png"){ tmpl_std(0, 0) }
@@ -46853,95 +46679,95 @@ switch(FEAT_TRAINS, SELF, sotetsu12000_mot_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRITE
 
   spriteset(sotetsu12000_front_base_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/sotetsu/sotetsu12000/sotetsu12000.png"){ tmpl_purchase_1c(0, 0) }
   spriteset(sotetsu12000_car_base_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/sotetsu/sotetsu12000/sotetsu12000.png"){ tmpl_purchase_2c(0, 25) }
-  switch(FEAT_TRAINS, SELF, sotetsu12000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_tokyu; 1: roof_gray_med_h1_c1; 2: sotetsu12000_front_base_c1; 3: ac_long_toshiba_c1; 4: roof_gray_med_c2; 5: sotetsu12000_car_base_c2; 6: ac_long_toshiba_c2;}
+  switch(FEAT_TRAINS, SELF, sotetsu12000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_sotetsu; 1: roof_gray_med_h1_c1; 2: sotetsu12000_front_base_c1; 3: ac_long_toshiba_c1; 4: roof_gray_med_c2; 5: sotetsu12000_car_base_c2; 6: ac_long_toshiba_c2;}
 
 
 
 
-switch(FEAT_TRAINS, SELF, sw_sotetsu12000_panto_placer_1,position_in_vehid_chain %3){
-    0: sotetsu12000_mot;
-    sotetsu12000_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_sotetsu12000_panto_placer_1_rev,1-position_in_vehid_chain_from_end %3){
-    0: sotetsu12000_mot_rev;
-    sotetsu12000_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_sotetsu12000_panto_placer_main_1,vehicle_is_reversed){
-    1: sw_sotetsu12000_panto_placer_1_rev;
-    sw_sotetsu12000_panto_placer_1;
-}
+ switch(FEAT_TRAINS, SELF, sw_sotetsu12000_panto_placer_1,position_in_vehid_chain %6){
+  1: sotetsu12000_mot_rev;
+  3: sotetsu12000_mot_2;
+  sotetsu12000_wag;
+ }
+ switch(FEAT_TRAINS, SELF, sw_sotetsu12000_panto_placer_1_rev,position_in_vehid_chain_from_end %6 -1){
+  1: sotetsu12000_mot;
+  3: sotetsu12000_mot_2;
+  sotetsu12000_wag;
+ }
+ switch(FEAT_TRAINS, PARENT, sw_sotetsu12000_panto_placer_main_1,vehicle_is_reversed){
+  1: sw_sotetsu12000_panto_placer_1_rev;
+  sw_sotetsu12000_panto_placer_1;
+ }
 
-switch(FEAT_TRAINS, SELF, sw_sotetsu12000_panto_placer_2,position_in_vehid_chain %5){
-    0: sotetsu12000_mot;
-    2: sotetsu12000_mot;
-    sotetsu12000_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_sotetsu12000_panto_placer_2_rev,position_in_vehid_chain_from_end %5 -1){
-    0: sotetsu12000_mot_rev;
-    2: sotetsu12000_mot_rev;
-    sotetsu12000_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_sotetsu12000_panto_placer_main_2,vehicle_is_reversed){
-    1: sw_sotetsu12000_panto_placer_2_rev;
-    sw_sotetsu12000_panto_placer_2;
-}
+ switch(FEAT_TRAINS, SELF, sw_sotetsu12000_panto_placer_2,position_in_vehid_chain %5){
+  0: sotetsu12000_mot_rev;
+  2: sotetsu12000_mot_2;
+  sotetsu12000_wag;
+ }
+ switch(FEAT_TRAINS, SELF, sw_sotetsu12000_panto_placer_2_rev,1-position_in_vehid_chain_from_end %5){
+  0: sotetsu12000_mot;
+  2: sotetsu12000_mot_2;
+  sotetsu12000_wag;
+ }
+ switch(FEAT_TRAINS, PARENT, sw_sotetsu12000_panto_placer_main_2,vehicle_is_reversed){
+  1: sw_sotetsu12000_panto_placer_2_rev;
+  sw_sotetsu12000_panto_placer_2;
+ }
 
-switch(FEAT_TRAINS, SELF, sw_sotetsu12000_panto_placer_3,position_in_vehid_chain %2){
-    0: sotetsu12000_mot_rev;
-    1: sotetsu12000_mot;
-    sotetsu12000_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_sotetsu12000_panto_placer_3_rev,1-position_in_vehid_chain_from_end %2){
-    0: sotetsu12000_mot;
-    1: sotetsu12000_mot_rev;
-    sotetsu12000_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_sotetsu12000_panto_placer_main_3,vehicle_is_reversed){
-    1: sw_sotetsu12000_panto_placer_3_rev;
-    sw_sotetsu12000_panto_placer_3;
-}
+ switch(FEAT_TRAINS, SELF, sw_sotetsu12000_panto_placer_3,position_in_vehid_chain %5){
+  0: sotetsu12000_mot_2;
+  2: sotetsu12000_mot_rev;
+  sotetsu12000_wag;
+ }
+ switch(FEAT_TRAINS, SELF, sw_sotetsu12000_panto_placer_3_rev,1-position_in_vehid_chain_from_end %5){
+  0: sotetsu12000_mot_2;
+  2: sotetsu12000_mot;
+  sotetsu12000_wag;
+ }
+ switch(FEAT_TRAINS, PARENT, sw_sotetsu12000_panto_placer_main_3,vehicle_is_reversed){
+  1: sw_sotetsu12000_panto_placer_3_rev;
+  sw_sotetsu12000_panto_placer_3;
+ }
 
-switch(FEAT_TRAINS, SELF, sw_sotetsu12000_panto_placer_main,num_vehs_in_vehid_chain+1){
-    4:sw_sotetsu12000_panto_placer_main_3;
-    5:sw_sotetsu12000_panto_placer_main_2;
-    8:sw_sotetsu12000_panto_placer_main_2;
-    sw_sotetsu12000_panto_placer_main_1;
-}
+  switch(FEAT_TRAINS, SELF, sw_sotetsu12000_panto_placer_main,num_vehs_in_vehid_chain+1){
+   3..5:sw_sotetsu12000_panto_placer_main_3;
+   8..9:sw_sotetsu12000_panto_placer_main_2;
+   sw_sotetsu12000_panto_placer_main_1;
+  }
 
-
-switch(FEAT_TRAINS, SELF, sw_sotetsu12000_end_gfx_main,position_in_vehid_chain_from_end){
-    0: sotetsu12000_end;
-    default: sw_sotetsu12000_panto_placer_main;
-}
-switch(FEAT_TRAINS, SELF, sw_sotetsu12000_front_gfx_main,position_in_vehid_chain_from_end){
-    0: sotetsu12000_front;
-    default: sw_sotetsu12000_panto_placer_main;
-}
-switch(FEAT_TRAINS, SELF, sw_sotetsu12000_lv,vehicle_type_id){
-    mu_car_narrow:sw_sotetsu12000_end_gfx_main;
-    sw_sotetsu12000_front_gfx_main;
-}
+ switch(FEAT_TRAINS, SELF, sw_sotetsu12000_end_gfx_main,position_in_vehid_chain_from_end){
+  0: sotetsu12000_end;
+  default: sw_sotetsu12000_panto_placer_main;
+ }
+ switch(FEAT_TRAINS, SELF, sw_sotetsu12000_front_gfx_main,position_in_vehid_chain_from_end){
+  0: sotetsu12000_front;
+  default: sw_sotetsu12000_panto_placer_main;
+ }
+ switch(FEAT_TRAINS, SELF, sw_sotetsu12000_lv,vehicle_type_id){
+  mu_car_narrow:sw_sotetsu12000_end_gfx_main;
+  sw_sotetsu12000_front_gfx_main;
+ }
 
 
 
-switch(FEAT_TRAINS, SELF, sw_sotetsu12000_capacity,position_in_vehid_chain_from_end){
-    0: 133;
-    default: 146;
-}
-switch(FEAT_TRAINS, SELF, sw_sotetsu12000_capacity_1,position_in_vehid_chain){
-    0: 133;
+ switch(FEAT_TRAINS, SELF, sw_sotetsu12000_capacity,position_in_vehid_chain_from_end){
+    0: 140;
+    default: 159;
+ }
+ switch(FEAT_TRAINS, SELF, sw_sotetsu12000_capacity_1,position_in_vehid_chain){
+    0: 140;
     default: sw_sotetsu12000_capacity;
-}
-switch(FEAT_TRAINS, SELF, sw_sotetsu12000_capacity_main,vehicle_type_id){
+ }
+ switch(FEAT_TRAINS, SELF, sw_sotetsu12000_capacity_main,vehicle_type_id){
     mu_car_narrow:sw_sotetsu12000_capacity;
     sw_sotetsu12000_capacity_1;
-}
+ }
 
-switch(FEAT_TRAINS, SELF, sw_sotetsu12000_power_main,position_in_vehid_chain_from_end%5){
-    1..2:return 190;
-    4:return 190;
+ switch(FEAT_TRAINS, SELF, sw_sotetsu12000_power_main,position_in_vehid_chain_from_end%10){
+    1..2:return 140;
+    5..8:return 140;
     return 0;
-}
+ }
 
 switch(FEAT_TRAINS, SELF, sotetsu12000_attach_vehid, vehicle_type_id) {
   mu_car: return string(STR_ATTACH_1067_ERROR);
@@ -46968,51 +46794,46 @@ item(FEAT_TRAINS, sotetsu12000) {
         bitmask_vehicle_info: 0;
 
         climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
-        name: string(STR_TRAIN_NAME, string(STR_NAME_TOBU), "12000", string(STR_NAME_SERIES),);
-        introduction_date: date(2013, 1, 1);
+        name: string(STR_TRAIN_NAME, string(STR_NAME_SOTETSU), "12000", string(STR_NAME_SERIES),);
+        introduction_date: date(2019, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 35;
         reliability_decay: 10;
 
-        cost_factor: 20;
-        running_cost_factor: 50;
+        cost_factor: 21;
+        running_cost_factor: 51;
         speed: 120 km/h;
         track_type: TR_1067_DC;
         power: 1 kW;
-        weight: 31 ton;
+        weight: 34 ton;
         loading_speed: param_loading_4D;
     }
  graphics {
+        default: sw_sotetsu12000_lv;
         power:sw_sotetsu12000_power_main()*4*1342/1000;
         start_stop: sw_stop_start_3;
-        default: sw_sotetsu12000_lv;
         purchase: sotetsu12000_purchase;
         can_attach_wagon: sotetsu12000_attach_vehid;
 
-        additional_text: string(STR_TRAIN_DESC,
-                            string(STR_NARROWGAUGE),
-                            string(STR_DENKI, string(STR_DC_N, 1500)),
-                            string(STR_LOAD_SPEED,
-                            string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 8,10),
-                            string(STR_USAGE, string(STR_COMMUTER)),
-                            string(STR_OPERATOR, string(STR_SOTETSU),
-                            ),
-
-                        );
-
         cargo_capacity: sw_sotetsu12000_capacity_main()*param_capacity_mod/3;
+        additional_text:string(STR_TRAIN_DESC_N,
+                        string(STR_NARROWGAUGE),
+                        string(STR_DENKI, string(STR_DC_N, 1500)),
+                        string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
+                        string(STR_FORMATION, string(STR_NUM_CARS_2, 8,10)),
+                        string(STR_USAGE, string(STR_COMMUTER)),
+                        string(STR_OPERATOR, string(STR_SOTETSU)));
     }
     livery_override(mu_car_narrow){
-        loading_speed: param_loading_4D;
-        cargo_capacity: sw_sotetsu12000_capacity_main()*param_capacity_mod/3;
         default: sw_sotetsu12000_lv;
+        loading_speed: param_loading_4D;
         power: sw_sotetsu12000_power_main()*4*1342/1000;
-        weight: 30;
+        cargo_capacity: sw_sotetsu12000_capacity_main()*param_capacity_mod/3;
+        weight: 32;
       }
 }
-# 92 "src/_private.pnml" 2
+# 93 "src/_private.pnml" 2
+
 
 
 
@@ -47145,8 +46966,7 @@ item(FEAT_TRAINS, twr_70_000series,2290) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 4, 6, 10),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 4, 6, 10)),
 
 
                             string(STR_USAGE,
@@ -47170,7 +46990,7 @@ item(FEAT_TRAINS, twr_70_000series,2290) {
         length: 8;
       }
 }
-# 99 "src/_private.pnml" 2
+# 101 "src/_private.pnml" 2
 
 
 # 1 "src/private/Kanto/tsukuba/1000series.pnml" 1
@@ -47303,8 +47123,7 @@ item(FEAT_TRAINS, tsukuba_1000series,2295) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
 
 
                             string(STR_USAGE,
@@ -47328,7 +47147,7 @@ item(FEAT_TRAINS, tsukuba_1000series,2295) {
         length: 8;
       }
 }
-# 102 "src/_private.pnml" 2
+# 104 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tsukuba/2000series.pnml" 1
 spriteset(tsukuba_2000series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/2000series/2000series_purchase.png"){ tmpl_purchase(0, 0) }
 spriteset(tsukuba_2000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/2000series/2000series.png"){ tmpl_std(0, 0) }
@@ -47458,8 +47277,7 @@ item(FEAT_TRAINS, tsukuba_2000series,2296) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
 
 
                             string(STR_USAGE,
@@ -47483,7 +47301,7 @@ item(FEAT_TRAINS, tsukuba_2000series,2296) {
         length: 8;
       }
 }
-# 103 "src/_private.pnml" 2
+# 105 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tsukuba/3000series.pnml" 1
 spriteset(tsukuba_3000series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/3000series/3000series_purchase.png"){ tmpl_purchase(0, 0) }spriteset(tsukuba_3000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/3000series/3000series.png"){ tmpl_std(0, 0) }
 spriteset(tsukuba_3000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/3000series/3000series.png"){ tmpl_std_rev(0, 25) }
@@ -47612,8 +47430,7 @@ item(FEAT_TRAINS, tsukuba_3000series,2297) {
                             string(STR_NARROWGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
 
 
                             string(STR_USAGE,
@@ -47637,8 +47454,8 @@ item(FEAT_TRAINS, tsukuba_3000series,2297) {
         length: 8;
       }
 }
-# 104 "src/_private.pnml" 2
-# 114 "src/_private.pnml"
+# 106 "src/_private.pnml" 2
+# 116 "src/_private.pnml"
 item(FEAT_TRAINS, keikyu1, 2400) {}
 item(FEAT_TRAINS, keikyu26, 2401) {}
 item(FEAT_TRAINS, keikyu29, 2402) {}
@@ -47702,8 +47519,7 @@ item(FEAT_TRAINS, keikyu1) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 2),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 1),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
 
 
                             string(STR_USAGE,
@@ -47729,7 +47545,7 @@ item(FEAT_TRAINS, keikyu1) {
         length: 6;
       }
 }
-# 132 "src/_private.pnml" 2
+# 134 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu26.pnml" 1
 spriteset (keikyu26_purchase, "gfx/private/Kanto/keikyu/keikyu26/keikyu26_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -47779,8 +47595,7 @@ item(FEAT_TRAINS, keikyu26) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 2),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 1),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
 
 
                             string(STR_USAGE,
@@ -47806,7 +47621,7 @@ item(FEAT_TRAINS, keikyu26) {
         length: 7;
       }
 }
-# 133 "src/_private.pnml" 2
+# 135 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu29.pnml" 1
 spriteset (keikyu29_purchase, "gfx/private/Kanto/keikyu/keikyu29/keikyu29_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -47856,8 +47671,7 @@ item(FEAT_TRAINS, keikyu29) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 2),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 1),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
 
 
                             string(STR_USAGE,
@@ -47883,7 +47697,7 @@ item(FEAT_TRAINS, keikyu29) {
         length: 7;
       }
 }
-# 134 "src/_private.pnml" 2
+# 136 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu51.pnml" 1
 spriteset (keikyu51_purchase, "gfx/private/Kanto/keikyu/keikyu51/keikyu51_purchase.png") { tmpl_purchase(0, 30) }
 
@@ -48049,8 +47863,7 @@ item(FEAT_TRAINS, keikyu51) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 1),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
 
 
                             string(STR_USAGE,
@@ -48077,7 +47890,7 @@ item(FEAT_TRAINS, keikyu51) {
         length: 7;
       }
 }
-# 135 "src/_private.pnml" 2
+# 137 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu_de1.pnml" 1
 spriteset (keikyu_de1_purchase_1, "gfx/private/Kanto/keikyu/keikyu_de1/keikyu_de1_purchase.png") { tmpl_purchase(0, 0) }
 spriteset (keikyu_de1_purchase_2, "gfx/private/Kanto/keikyu/keikyu_de1/keikyu_de1_purchase.png") { tmpl_purchase(0, 15) }
@@ -48261,8 +48074,7 @@ item(FEAT_TRAINS, keikyu_de1) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 2),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 1),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
 
 
                             string(STR_USAGE,
@@ -48289,7 +48101,7 @@ item(FEAT_TRAINS, keikyu_de1) {
         length: 8;
       }
 }
-# 136 "src/_private.pnml" 2
+# 138 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu300.pnml" 1
 spriteset (keikyu300_purchase_1, "gfx/private/Kanto/keikyu/keikyu300/keikyu300_purchase.png") { tmpl_purchase(0, 15) }
 spriteset (keikyu300_purchase_3, "gfx/private/Kanto/keikyu/keikyu300/keikyu300_purchase.png") { tmpl_purchase(0, 30) }
@@ -48559,8 +48371,7 @@ item(FEAT_TRAINS, keikyu300) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 2,3,4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 2,3,4)),
 
 
                             string(STR_USAGE,
@@ -48587,7 +48398,7 @@ item(FEAT_TRAINS, keikyu300) {
         length: 8;
       }
 }
-# 137 "src/_private.pnml" 2
+# 139 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu500.pnml" 1
 spriteset (keikyu500_purchase_1, "gfx/private/Kanto/keikyu/keikyu500/keikyu500_purchase.png") { tmpl_purchase(0, 0) }
 spriteset (keikyu500_purchase_2, "gfx/private/Kanto/keikyu/keikyu500/keikyu500_purchase.png") { tmpl_purchase(0, 15) }
@@ -48859,8 +48670,7 @@ item(FEAT_TRAINS, keikyu500) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS_REFIT, 2, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 3,4,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 3,4,8)),
 
 
                             string(STR_USAGE,
@@ -48887,7 +48697,7 @@ item(FEAT_TRAINS, keikyu500) {
         length: 8;
       }
 }
-# 138 "src/_private.pnml" 2
+# 140 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu600.pnml" 1
 spriteset (keikyu600_purchase, "gfx/private/Kanto/keikyu/keikyu600/keikyu600_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -49087,8 +48897,7 @@ item(FEAT_TRAINS, keikyu600) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 2),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_5, 2,4,6,8,12),
+                            string(STR_FORMATION, string(STR_NUM_CARS_5, 2,4,6,8,12)),
 
 
                             string(STR_USAGE,
@@ -49114,7 +48923,7 @@ item(FEAT_TRAINS, keikyu600) {
         length: 8;
       }
 }
-# 139 "src/_private.pnml" 2
+# 141 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu700.pnml" 1
 spriteset (keikyu700_purchase, "gfx/private/Kanto/keikyu/keikyu700/keikyu700_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -49263,8 +49072,7 @@ item(FEAT_TRAINS, keikyu700) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 2,4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 2,4)),
 
 
                             string(STR_USAGE,
@@ -49290,7 +49098,7 @@ item(FEAT_TRAINS, keikyu700) {
         length: 8;
       }
 }
-# 140 "src/_private.pnml" 2
+# 142 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu1000.pnml" 1
 spriteset (keikyu1000_purchase, "gfx/private/Kanto/keikyu/keikyu1000/keikyu1000_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -49500,8 +49308,7 @@ item(FEAT_TRAINS, keikyu1000) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 4,6,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 4,6,8)),
 
 
                             string(STR_USAGE,
@@ -49526,7 +49333,7 @@ item(FEAT_TRAINS, keikyu1000) {
         length: 8;
       }
 }
-# 141 "src/_private.pnml" 2
+# 143 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu800.pnml" 1
 spriteset (keikyu800_purchase, "gfx/private/Kanto/keikyu/keikyu800/keikyu800_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -49711,8 +49518,7 @@ item(FEAT_TRAINS, keikyu800) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 4),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 3,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 3,6)),
 
 
                             string(STR_USAGE,
@@ -49739,7 +49545,7 @@ item(FEAT_TRAINS, keikyu800) {
         length: 8;
       }
 }
-# 142 "src/_private.pnml" 2
+# 144 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu2000.pnml" 1
 spriteset (keikyu2000_purchase, "gfx/private/Kanto/keikyu/keikyu2000/keikyu2000_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -50008,8 +49814,7 @@ item(FEAT_TRAINS, keikyu2000) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS_REFIT, 2, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
 
 
                             string(STR_USAGE,
@@ -50036,7 +49841,7 @@ item(FEAT_TRAINS, keikyu2000) {
         length: 8;
       }
 }
-# 143 "src/_private.pnml" 2
+# 145 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu1500.pnml" 1
 spriteset (keikyu1500_purchase, "gfx/private/Kanto/keikyu/keikyu1500/keikyu1500_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -50214,8 +50019,7 @@ item(FEAT_TRAINS, keikyu1500) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 4,6,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 4,6,8)),
 
 
                             string(STR_USAGE,
@@ -50240,7 +50044,7 @@ item(FEAT_TRAINS, keikyu1500) {
         length: 8;
       }
 }
-# 144 "src/_private.pnml" 2
+# 146 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu600n.pnml" 1
 spriteset (keikyu600n_purchase, "gfx/private/Kanto/keikyu/keikyu600n/keikyu600n_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -50521,8 +50325,7 @@ item(FEAT_TRAINS, keikyu600n) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
 
 
                             string(STR_USAGE,
@@ -50548,7 +50351,7 @@ item(FEAT_TRAINS, keikyu600n) {
         length: 8;
       }
 }
-# 145 "src/_private.pnml" 2
+# 147 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu2100.pnml" 1
 spriteset (keikyu2100_purchase, "gfx/private/Kanto/keikyu/keikyu2100/keikyu2100_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -50740,8 +50543,7 @@ item(FEAT_TRAINS, keikyu2100) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 2),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
 
 
                             string(STR_USAGE,
@@ -50767,7 +50569,7 @@ item(FEAT_TRAINS, keikyu2100) {
         length: 8;
       }
 }
-# 146 "src/_private.pnml" 2
+# 148 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu1000n.pnml" 1
 spriteset (keikyu1000n_purchase, "gfx/private/Kanto/keikyu/keikyu1000n/keikyu1000n_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -51252,8 +51054,7 @@ item(FEAT_TRAINS, keikyu1000n) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 4,6,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 4,6,8)),
 
 
                             string(STR_USAGE,
@@ -51279,7 +51080,7 @@ item(FEAT_TRAINS, keikyu1000n) {
         length: 8;
       }
 }
-# 147 "src/_private.pnml" 2
+# 149 "src/_private.pnml" 2
 
 
 item(FEAT_TRAINS, keisei1500, 2450) {}
@@ -51517,7 +51318,7 @@ item(FEAT_TRAINS, keisei1500) {
       length: 7;
       }
 }
-# 176 "src/_private.pnml" 2
+# 178 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei1600.pnml" 1
 spriteset (keisei1600_purchase, "gfx/private/Kanto/keisei/keisei1600/keisei1600_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -51670,7 +51471,7 @@ item(FEAT_TRAINS, keisei1600) {
       weight: 33;
       }
 }
-# 177 "src/_private.pnml" 2
+# 179 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei_AE1.pnml" 1
 spriteset (keisei_AE1_purchase_1, "gfx/private/Kanto/keisei/keisei_AE1/keisei_AE1_purchase.png") { tmpl_purchase(0, 0) }
 spriteset (keisei_AE1_purchase_2, "gfx/private/Kanto/keisei/keisei_AE1/keisei_AE1_purchase.png") { tmpl_purchase(0, 15) }
@@ -51868,8 +51669,7 @@ item(FEAT_TRAINS, keisei_AE1) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 1),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 6,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
 
 
                             string(STR_USAGE,
@@ -51896,7 +51696,7 @@ item(FEAT_TRAINS, keisei_AE1) {
         length: 8;
       }
 }
-# 178 "src/_private.pnml" 2
+# 180 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei_AE100.pnml" 1
 spriteset (keisei_AE100_purchase, "gfx/private/Kanto/keisei/keisei_AE100/keisei_AE100_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -52076,7 +51876,7 @@ item(FEAT_TRAINS, keisei_AE100) {
     length: 8;
   }
 }
-# 179 "src/_private.pnml" 2
+# 181 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei_AE2.pnml" 1
 spriteset (keisei_AE2_purchase, "gfx/private/Kanto/keisei/keisei_AE2/keisei_AE2_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -52249,7 +52049,7 @@ item(FEAT_TRAINS, keisei_AE2) {
     length: 8;
   }
 }
-# 180 "src/_private.pnml" 2
+# 182 "src/_private.pnml" 2
 
 # 1 "src/private/Kanto/keisei/keisei1.pnml" 1
 spriteset (keisei1_purchase, "gfx/private/Kanto/keisei/keisei1/keisei1_purchase.png") { tmpl_purchase(0, 0) }
@@ -52331,8 +52131,7 @@ item(FEAT_TRAINS, keisei1) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 2),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 1),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
 
 
                             string(STR_USAGE,
@@ -52358,7 +52157,7 @@ item(FEAT_TRAINS, keisei1) {
         length: 7;
       }
 }
-# 182 "src/_private.pnml" 2
+# 184 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei20.pnml" 1
 spriteset (keisei20_purchase_1, "gfx/private/Kanto/keisei/keisei20/keisei20_purchase.png") { tmpl_purchase(0, 0) }
 spriteset (keisei20_purchase_2, "gfx/private/Kanto/keisei/keisei20/keisei20_purchase.png") { tmpl_purchase(0, 15) }
@@ -52584,7 +52383,7 @@ item(FEAT_TRAINS, keisei20) {
       weight: 29;
       }
 }
-# 183 "src/_private.pnml" 2
+# 185 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei33.pnml" 1
 spriteset (keisei33_purchase_1, "gfx/private/Kanto/keisei/keisei33/keisei33_purchase.png") { tmpl_purchase(0, 0) }
 spriteset (keisei33_purchase_2, "gfx/private/Kanto/keisei/keisei33/keisei33_purchase.png") { tmpl_purchase(0, 15) }
@@ -52769,7 +52568,7 @@ item(FEAT_TRAINS, keisei33) {
       length: 7;
       }
 }
-# 184 "src/_private.pnml" 2
+# 186 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei200.pnml" 1
 spriteset (keisei200_purchase_1, "gfx/private/Kanto/keisei/keisei200/keisei200_purchase.png") { tmpl_purchase(0, 0) }
 spriteset (keisei200_purchase_2, "gfx/private/Kanto/keisei/keisei200/keisei200_purchase.png") { tmpl_purchase(0, 15) }
@@ -53027,7 +52826,7 @@ item(FEAT_TRAINS, keisei200) {
       weight: 33;
       }
 }
-# 185 "src/_private.pnml" 2
+# 187 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei200_2000.pnml" 1
 spriteset (keisei200_2000_purchase_1, "gfx/private/Kanto/keisei/keisei200_2000/keisei200_2000_purchase.png") { tmpl_purchase(0, 0) }
 spriteset (keisei200_2000_purchase_2, "gfx/private/Kanto/keisei/keisei200_2000/keisei200_2000_purchase.png") { tmpl_purchase(0, 15) }
@@ -53175,8 +52974,7 @@ item(FEAT_TRAINS, keisei200_2000) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
 
 
                             string(STR_USAGE,
@@ -53202,7 +53000,7 @@ item(FEAT_TRAINS, keisei200_2000) {
         length: 8;
       }
 }
-# 186 "src/_private.pnml" 2
+# 188 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei300.pnml" 1
 spriteset (keisei300_purchase_1, "gfx/private/Kanto/keisei/keisei300/keisei300_purchase.png") { tmpl_purchase(0, 0) }
 spriteset (keisei300_purchase_2, "gfx/private/Kanto/keisei/keisei300/keisei300_purchase.png") { tmpl_purchase(0, 15) }
@@ -53419,7 +53217,7 @@ item(FEAT_TRAINS, keisei300) {
       length: 7;
       }
 }
-# 187 "src/_private.pnml" 2
+# 189 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei600.pnml" 1
 spriteset (keisei600_purchase_1, "gfx/private/Kanto/keisei/keisei600/keisei600_purchase.png") { tmpl_purchase(0, 0) }
 spriteset (keisei600_purchase_2, "gfx/private/Kanto/keisei/keisei600/keisei600_purchase.png") { tmpl_purchase(0, 15) }
@@ -53652,7 +53450,7 @@ item(FEAT_TRAINS, keisei600) {
       weight: 34;
       }
 }
-# 188 "src/_private.pnml" 2
+# 190 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei700.pnml" 1
 spriteset (keisei700_purchase, "gfx/private/Kanto/keisei/keisei700/keisei700_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -53860,7 +53658,7 @@ item(FEAT_TRAINS, keisei700) {
       weight: 34;
       }
 }
-# 189 "src/_private.pnml" 2
+# 191 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei3000_1.pnml" 1
 spriteset (keisei3000_1_purchase_1, "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_purchase.png") { tmpl_purchase(0, 0) }
 spriteset (keisei3000_1_purchase_2, "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_purchase.png") { tmpl_purchase(0, 15) }
@@ -54228,7 +54026,7 @@ item(FEAT_TRAINS, keisei3000_1) {
       weight: 33;
       }
 }
-# 190 "src/_private.pnml" 2
+# 192 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei3100.pnml" 1
 spriteset (keisei3100_purchase_1, "gfx/private/Kanto/keisei/keisei3100/keisei3100_purchase.png") { tmpl_purchase(0, 0) }
 spriteset (keisei3100_purchase_2, "gfx/private/Kanto/keisei/keisei3100/keisei3100_purchase.png") { tmpl_purchase(0, 15) }
@@ -54676,8 +54474,7 @@ item(FEAT_TRAINS, keisei3100) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 2,4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 2,4)),
 
 
                             string(STR_USAGE,
@@ -54703,7 +54500,7 @@ item(FEAT_TRAINS, keisei3100) {
         length: 8;
       }
 }
-# 191 "src/_private.pnml" 2
+# 193 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei3200.pnml" 1
 spriteset (keisei3200_purchase_1, "gfx/private/Kanto/keisei/keisei3200/keisei3200_purchase.png") { tmpl_purchase(0, 0) }
 spriteset (keisei3200_purchase_2, "gfx/private/Kanto/keisei/keisei3200/keisei3200_purchase.png") { tmpl_purchase(0, 15) }
@@ -55255,8 +55052,7 @@ item(FEAT_TRAINS, keisei3200) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 4,6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
 
 
                             string(STR_USAGE,
@@ -55282,7 +55078,7 @@ item(FEAT_TRAINS, keisei3200) {
         length: 8;
       }
 }
-# 192 "src/_private.pnml" 2
+# 194 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei3300.pnml" 1
 spriteset (keisei3300_purchase_1, "gfx/private/Kanto/keisei/keisei3300/keisei3300_purchase.png") { tmpl_purchase(0, 0) }
 spriteset (keisei3300_purchase_2, "gfx/private/Kanto/keisei/keisei3300/keisei3300_purchase.png") { tmpl_purchase(0, 15) }
@@ -55754,8 +55550,7 @@ item(FEAT_TRAINS, keisei3300) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_3, 4,6,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_3, 4,6,8)),
 
 
                             string(STR_USAGE,
@@ -55781,7 +55576,7 @@ item(FEAT_TRAINS, keisei3300) {
         length: 8;
       }
 }
-# 193 "src/_private.pnml" 2
+# 195 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei3500.pnml" 1
 spriteset (keisei3500_purchase_1, "gfx/private/Kanto/keisei/keisei3500/keisei3500_purchase.png") { tmpl_purchase(0, 0) }
 spriteset (keisei3500_purchase_2, "gfx/private/Kanto/keisei/keisei3500/keisei3500_purchase.png") { tmpl_purchase(0, 15) }
@@ -56042,8 +55837,7 @@ item(FEAT_TRAINS, keisei3500) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
 
 
                             string(STR_USAGE,
@@ -56069,7 +55863,7 @@ item(FEAT_TRAINS, keisei3500) {
         length: 8;
       }
 }
-# 194 "src/_private.pnml" 2
+# 196 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei3600.pnml" 1
 spriteset (keisei3600_purchase_1, "gfx/private/Kanto/keisei/keisei3600/keisei3600_purchase.png") { tmpl_purchase(0, 0) }
 spriteset (keisei3600_purchase_2, "gfx/private/Kanto/keisei/keisei3600/keisei3600_purchase.png") { tmpl_purchase(0, 15) }
@@ -56308,8 +56102,7 @@ item(FEAT_TRAINS, keisei3600) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_4, 2,4,6,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_4, 2,4,6,8)),
 
 
                             string(STR_USAGE,
@@ -56335,7 +56128,7 @@ item(FEAT_TRAINS, keisei3600) {
         length: 8;
       }
 }
-# 195 "src/_private.pnml" 2
+# 197 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei3700.pnml" 1
 spriteset (keisei3700_purchase, "gfx/private/Kanto/keisei/keisei3700/keisei3700_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -56540,8 +56333,7 @@ item(FEAT_TRAINS, keisei3700) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 6,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
 
 
                             string(STR_USAGE,
@@ -56567,7 +56359,7 @@ item(FEAT_TRAINS, keisei3700) {
         length: 8;
       }
 }
-# 196 "src/_private.pnml" 2
+# 198 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei3400.pnml" 1
 spriteset (keisei3400_purchase, "gfx/private/Kanto/keisei/keisei3400/keisei3400_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -56720,8 +56512,7 @@ item(FEAT_TRAINS, keisei3400) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
 
 
                             string(STR_USAGE,
@@ -56747,7 +56538,7 @@ item(FEAT_TRAINS, keisei3400) {
         length: 8;
       }
 }
-# 197 "src/_private.pnml" 2
+# 199 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei3000_2.pnml" 1
 spriteset (keisei3000_2_purchase, "gfx/private/Kanto/keisei/keisei3000_2/keisei3000_2_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -56952,8 +56743,7 @@ item(FEAT_TRAINS, keisei3000_2) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 6,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
 
 
                             string(STR_USAGE,
@@ -56979,7 +56769,7 @@ item(FEAT_TRAINS, keisei3000_2) {
         length: 8;
       }
 }
-# 198 "src/_private.pnml" 2
+# 200 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei3100_2.pnml" 1
 spriteset (keisei3100_2_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/keisei/keisei3100_2/keisei3100_2_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -57108,8 +56898,7 @@ item(FEAT_TRAINS, keisei3100_2) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
 
 
                             string(STR_USAGE,
@@ -57135,7 +56924,7 @@ item(FEAT_TRAINS, keisei3100_2) {
         length: 8;
       }
 }
-# 199 "src/_private.pnml" 2
+# 201 "src/_private.pnml" 2
 
 
 item(FEAT_TRAINS, shinKeisei33, 2500) {}
@@ -57321,7 +57110,7 @@ item(FEAT_TRAINS, shinKeisei33) {
       length: 7;
       }
 }
-# 212 "src/_private.pnml" 2
+# 214 "src/_private.pnml" 2
 # 1 "src/private/Kanto/shinKeisei/shinKeisei300.pnml" 1
 spriteset (shinKeisei300_purchase_1, "gfx/private/Kanto/shinKeisei/shinKeisei300/shinKeisei300_purchase.png") { tmpl_purchase(0, 0) }
 spriteset (shinKeisei300_purchase_2, "gfx/private/Kanto/shinKeisei/shinKeisei300/shinKeisei300_purchase.png") { tmpl_purchase(0, 15) }
@@ -57486,7 +57275,7 @@ item(FEAT_TRAINS, shinKeisei300) {
       length: 7;
       }
 }
-# 213 "src/_private.pnml" 2
+# 215 "src/_private.pnml" 2
 # 1 "src/private/Kanto/shinKeisei/shinKeisei2000.pnml" 1
 spriteset (shinKeisei2000_purchase_1, "gfx/private/Kanto/shinKeisei/shinKeisei2000/shinKeisei2000_purchase.png") { tmpl_purchase(0, 0) }
 spriteset (shinKeisei2000_purchase_2, "gfx/private/Kanto/shinKeisei/shinKeisei2000/shinKeisei2000_purchase.png") { tmpl_purchase(0, 15) }
@@ -57683,8 +57472,7 @@ item(FEAT_TRAINS, shinKeisei2000) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
 
 
                             string(STR_USAGE,
@@ -57710,7 +57498,7 @@ item(FEAT_TRAINS, shinKeisei2000) {
         length: 8;
       }
 }
-# 214 "src/_private.pnml" 2
+# 216 "src/_private.pnml" 2
 # 1 "src/private/Kanto/shinKeisei/shinKeisei800.pnml" 1
 spriteset (shinKeisei800_purchase, "gfx/private/Kanto/shinKeisei/shinKeisei800/shinKeisei800_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -57996,8 +57784,7 @@ item(FEAT_TRAINS, shinKeisei800) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
 
 
                             string(STR_USAGE,
@@ -58023,7 +57810,7 @@ item(FEAT_TRAINS, shinKeisei800) {
         length: 8;
       }
 }
-# 215 "src/_private.pnml" 2
+# 217 "src/_private.pnml" 2
 # 1 "src/private/Kanto/shinKeisei/shinKeisei8000.pnml" 1
 spriteset (shinKeisei8000_purchase, "gfx/private/Kanto/shinKeisei/shinKeisei8000/shinKeisei8000_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -58231,8 +58018,7 @@ item(FEAT_TRAINS, shinKeisei8000) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
 
 
                             string(STR_USAGE,
@@ -58258,7 +58044,7 @@ item(FEAT_TRAINS, shinKeisei8000) {
         length: 8;
       }
 }
-# 216 "src/_private.pnml" 2
+# 218 "src/_private.pnml" 2
 # 1 "src/private/Kanto/shinKeisei/shinKeisei8800.pnml" 1
 spriteset (shinKeisei8800_purchase, "gfx/private/Kanto/shinKeisei/shinKeisei8800/shinKeisei8800_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -58465,8 +58251,7 @@ item(FEAT_TRAINS, shinKeisei8800) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
 
 
                             string(STR_USAGE,
@@ -58492,7 +58277,7 @@ item(FEAT_TRAINS, shinKeisei8800) {
         length: 8;
       }
 }
-# 217 "src/_private.pnml" 2
+# 219 "src/_private.pnml" 2
 # 1 "src/private/Kanto/shinKeisei/shinKeisei8900.pnml" 1
 spriteset (shinKeisei8900_purchase, "gfx/private/Kanto/shinKeisei/shinKeisei8900/shinKeisei8900_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -58666,8 +58451,7 @@ item(FEAT_TRAINS, shinKeisei8900) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
 
 
                             string(STR_USAGE,
@@ -58693,7 +58477,7 @@ item(FEAT_TRAINS, shinKeisei8900) {
         length: 8;
       }
 }
-# 218 "src/_private.pnml" 2
+# 220 "src/_private.pnml" 2
 # 1 "src/private/Kanto/shinKeisei/shinKeisei800n.pnml" 1
 spriteset (shinKeisei800n_purchase, "gfx/private/Kanto/shinKeisei/shinKeisei800n/shinKeisei800n_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -58799,8 +58583,7 @@ item(FEAT_TRAINS, shinKeisei800n) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
 
 
                             string(STR_USAGE,
@@ -58826,7 +58609,7 @@ item(FEAT_TRAINS, shinKeisei800n) {
         length: 8;
       }
 }
-# 219 "src/_private.pnml" 2
+# 221 "src/_private.pnml" 2
 # 1 "src/private/Kanto/shinKeisei/shinKeisei80000.pnml" 1
 spriteset (shinKeisei80000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/shinKeisei/shinKeisei80000/shinKeisei80000_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -58933,8 +58716,7 @@ item(FEAT_TRAINS, shinKeisei80000) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 6),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
 
 
                             string(STR_USAGE,
@@ -58960,7 +58742,7 @@ item(FEAT_TRAINS, shinKeisei80000) {
         length: 8;
       }
 }
-# 220 "src/_private.pnml" 2
+# 222 "src/_private.pnml" 2
 
 
 item(FEAT_TRAINS, hokuso7000, 2520) {}
@@ -59094,8 +58876,7 @@ item(FEAT_TRAINS, hokuso7000) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 6,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
 
 
                             string(STR_USAGE,
@@ -59121,7 +58902,7 @@ item(FEAT_TRAINS, hokuso7000) {
         length: 8;
       }
 }
-# 230 "src/_private.pnml" 2
+# 232 "src/_private.pnml" 2
 # 1 "src/private/Kanto/hokuso/hokuso7150.pnml" 1
 spriteset (hokuso7150_purchase, "gfx/private/Kanto/hokuso/hokuso7150/hokuso7150_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -59378,8 +59159,7 @@ item(FEAT_TRAINS, hokuso7150) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 4,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 4,8)),
 
 
                             string(STR_USAGE,
@@ -59405,7 +59185,7 @@ item(FEAT_TRAINS, hokuso7150) {
         length: 8;
       }
 }
-# 231 "src/_private.pnml" 2
+# 233 "src/_private.pnml" 2
 # 1 "src/private/Kanto/hokuso/hokuso7050.pnml" 1
 spriteset (hokuso7050_purchase, "gfx/private/Kanto/hokuso/hokuso7050/hokuso7050_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -59540,8 +59320,7 @@ item(FEAT_TRAINS, hokuso7050) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 4,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 4,8)),
 
 
                             string(STR_USAGE,
@@ -59567,7 +59346,7 @@ item(FEAT_TRAINS, hokuso7050) {
         length: 8;
       }
 }
-# 232 "src/_private.pnml" 2
+# 234 "src/_private.pnml" 2
 # 1 "src/private/Kanto/hokuso/hokuso7250.pnml" 1
 spriteset (hokuso7250_purchase, "gfx/private/Kanto/hokuso/hokuso7250/hokuso7250_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -59728,8 +59507,7 @@ item(FEAT_TRAINS, hokuso7250) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 4,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 4,8)),
 
 
                             string(STR_USAGE,
@@ -59755,7 +59533,7 @@ item(FEAT_TRAINS, hokuso7250) {
         length: 8;
       }
 }
-# 233 "src/_private.pnml" 2
+# 235 "src/_private.pnml" 2
 # 1 "src/private/Kanto/hokuso/hokuso7300.pnml" 1
 spriteset (hokuso7300_purchase, "gfx/private/Kanto/hokuso/hokuso7300/hokuso7300_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -59883,8 +59661,7 @@ item(FEAT_TRAINS, hokuso7300) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
 
 
                             string(STR_USAGE,
@@ -59910,7 +59687,7 @@ item(FEAT_TRAINS, hokuso7300) {
         length: 8;
       }
 }
-# 234 "src/_private.pnml" 2
+# 236 "src/_private.pnml" 2
 # 1 "src/private/Kanto/hokuso/hokuso7500.pnml" 1
 spriteset (hokuso7500_purchase, "gfx/private/Kanto/hokuso/hokuso7500/hokuso7500_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -60015,8 +59792,7 @@ item(FEAT_TRAINS, hokuso7500) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
 
 
                             string(STR_USAGE,
@@ -60042,7 +59818,7 @@ item(FEAT_TRAINS, hokuso7500) {
         length: 8;
       }
 }
-# 235 "src/_private.pnml" 2
+# 237 "src/_private.pnml" 2
 
 
 item(FEAT_TRAINS, chibaNT_9000, 2540) {}
@@ -60195,8 +59971,7 @@ item(FEAT_TRAINS, chibaNT_9000) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_2, 6,8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
 
 
                             string(STR_USAGE,
@@ -60222,7 +59997,7 @@ item(FEAT_TRAINS, chibaNT_9000) {
         length: 8;
       }
 }
-# 250 "src/_private.pnml" 2
+# 252 "src/_private.pnml" 2
 # 1 "src/private/Kanto/chibaNT/chibaNT_9100.pnml" 1
 spriteset (chibaNT_9100_purchase, "gfx/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -60390,8 +60165,7 @@ item(FEAT_TRAINS, chibaNT_9100) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
 
 
                             string(STR_USAGE,
@@ -60417,7 +60191,7 @@ item(FEAT_TRAINS, chibaNT_9100) {
         length: 8;
       }
 }
-# 251 "src/_private.pnml" 2
+# 253 "src/_private.pnml" 2
 
 
 
@@ -60526,8 +60300,7 @@ item(FEAT_TRAINS, chibaE_1000) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
 
 
                             string(STR_USAGE,
@@ -60553,7 +60326,7 @@ item(FEAT_TRAINS, chibaE_1000) {
         length: 8;
       }
 }
-# 255 "src/_private.pnml" 2
+# 257 "src/_private.pnml" 2
 # 1 "src/private/Kanto/chibaE/chibaE_3050.pnml" 1
 spriteset (chibaE_3050_purchase, "gfx/private/Kanto/chibaExpress/chibaE_3050/chibaE_3050_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -60668,8 +60441,7 @@ item(FEAT_TRAINS, chibaE_3050) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
 
 
                             string(STR_USAGE,
@@ -60695,7 +60467,7 @@ item(FEAT_TRAINS, chibaE_3050) {
         length: 8;
       }
 }
-# 256 "src/_private.pnml" 2
+# 258 "src/_private.pnml" 2
 # 1 "src/private/Kanto/chibaE/chibaE_3100.pnml" 1
 spriteset (chibaE_3100_purchase, "gfx/private/Kanto/chibaExpress/chibaE_3100/chibaE_3100_purchase.png") { tmpl_purchase(0, 0) }
 
@@ -60840,8 +60612,7 @@ item(FEAT_TRAINS, chibaE_3100) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 4),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
 
 
                             string(STR_USAGE,
@@ -60867,7 +60638,7 @@ item(FEAT_TRAINS, chibaE_3100) {
         length: 8;
       }
 }
-# 257 "src/_private.pnml" 2
+# 259 "src/_private.pnml" 2
 
 # 1 "src/private/Kanto/shibayama/shibayama3600.pnml" 1
 spriteset (shibayama3600_purchase, "gfx/private/Kanto/shibayama/shibayama3600/shibayama3600_purchase.png") { tmpl_purchase(0, 0) }
@@ -60972,8 +60743,7 @@ item(FEAT_TRAINS, shibayama3600) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 8),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
 
 
                             string(STR_USAGE,
@@ -60999,7 +60769,7 @@ item(FEAT_TRAINS, shibayama3600) {
         length: 8;
       }
 }
-# 259 "src/_private.pnml" 2
+# 261 "src/_private.pnml" 2
 
 
 
@@ -61114,8 +60884,7 @@ item(FEAT_TRAINS, hankyu1) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 1),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
 
 
                             string(STR_USAGE,
@@ -61141,7 +60910,7 @@ item(FEAT_TRAINS, hankyu1) {
         length: 7;
       }
 }
-# 289 "src/_private.pnml" 2
+# 291 "src/_private.pnml" 2
 # 1 "src/private/Kansai/hankyu/hankyu51.pnml" 1
 
 spriteset(hankyu51_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kansai/hankyu/hankyu51/hankyu51.png"){ tmpl_purchase_1c(0, 0) }
@@ -61227,8 +60996,7 @@ item(FEAT_TRAINS, hankyu51) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 1),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
 
 
                             string(STR_USAGE,
@@ -61254,7 +61022,7 @@ item(FEAT_TRAINS, hankyu51) {
         length: 7;
       }
 }
-# 290 "src/_private.pnml" 2
+# 292 "src/_private.pnml" 2
 # 1 "src/private/Kansai/hankyu/hankyu600.pnml" 1
 
 spriteset(hankyu600_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kansai/hankyu/hankyu600/hankyu600.png"){ tmpl_purchase_1c(0, 0) }
@@ -61355,8 +61123,7 @@ item(FEAT_TRAINS, hankyu600) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_1, 1),
+                            string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
 
 
                             string(STR_USAGE,
@@ -61382,7 +61149,7 @@ item(FEAT_TRAINS, hankyu600) {
         length: 7;
       }
 }
-# 291 "src/_private.pnml" 2
+# 293 "src/_private.pnml" 2
 # 1 "src/private/Kansai/hankyu/hankyu900.pnml" 1
 
 spriteset(hankyu900_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kansai/hankyu/hankyu800/hankyu800.png"){ tmpl_purchase_1c(0, 50) }
@@ -61488,8 +61255,7 @@ item(FEAT_TRAINS, hankyu900) {
            string(STR_STANDARDGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 2),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_RANGE, 2,7),
+           string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,7)),
 
 
            string(STR_USAGE,
@@ -61508,7 +61274,7 @@ item(FEAT_TRAINS, hankyu900) {
    weight: 30;
   }
 }
-# 292 "src/_private.pnml" 2
+# 294 "src/_private.pnml" 2
 # 1 "src/private/Kansai/hankyu/hankyu320.pnml" 1
 
 spriteset(hankyu320_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kansai/hankyu/hankyu320/hankyu320.png"){ tmpl_purchase_1c_7(0, 0) }
@@ -61606,8 +61372,7 @@ item(FEAT_TRAINS, hankyu320) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_RANGE, 2,5),
+                            string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,5)),
 
 
                             string(STR_USAGE,
@@ -61633,7 +61398,7 @@ item(FEAT_TRAINS, hankyu320) {
         length: 7;
       }
 }
-# 293 "src/_private.pnml" 2
+# 295 "src/_private.pnml" 2
 # 1 "src/private/Kansai/hankyu/hankyu500.pnml" 1
 
 spriteset(hankyu500_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kansai/hankyu/hankyu500/hankyu500.png"){ tmpl_purchase_1c_7(0, 50) }
@@ -61731,8 +61496,7 @@ item(FEAT_TRAINS, hankyu500) {
                             string(STR_STANDARDGAUGE),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS, 3),),
-                            string(STR_FORMATION),
-                            string(STR_NUM_CARS_RANGE, 2,5),
+                            string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,5)),
 
 
                             string(STR_USAGE,
@@ -61758,7 +61522,7 @@ item(FEAT_TRAINS, hankyu500) {
         length: 7;
       }
 }
-# 294 "src/_private.pnml" 2
+# 296 "src/_private.pnml" 2
 # 1 "src/private/Kansai/hankyu/hankyu1000.pnml" 1
 
 spriteset(hankyu1000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kansai/hankyu/hankyu1000/hankyu1000.png"){ tmpl_purchase_1c(0, 50) }
@@ -61864,8 +61628,7 @@ item(FEAT_TRAINS, hankyu1000) {
            string(STR_STANDARDGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 2),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_2, 2,4),
+           string(STR_FORMATION, string(STR_NUM_CARS_2, 2,4)),
 
 
            string(STR_USAGE,
@@ -61884,7 +61647,7 @@ item(FEAT_TRAINS, hankyu1000) {
    weight: 30;
   }
 }
-# 295 "src/_private.pnml" 2
+# 297 "src/_private.pnml" 2
 # 1 "src/private/Kansai/hankyu/hankyu1010.pnml" 1
 
 spriteset(hankyu1010_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kansai/hankyu/hankyu1000/hankyu1010_1.png"){ tmpl_purchase_1c(0, 50) }
@@ -62163,8 +61926,7 @@ item(FEAT_TRAINS, hankyu1010) {
            string(STR_STANDARDGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 3),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_RANGE, 2,7),
+           string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,7)),
 
 
            string(STR_USAGE,
@@ -62183,7 +61945,7 @@ item(FEAT_TRAINS, hankyu1010) {
    weight: 31;
   }
 }
-# 296 "src/_private.pnml" 2
+# 298 "src/_private.pnml" 2
 # 1 "src/private/Kansai/hankyu/hankyu2000.pnml" 1
 
 spriteset(hankyu2000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kansai/hankyu/hankyu2000/hankyu2000_1.png"){ tmpl_purchase_1c(0, 50) }
@@ -62524,8 +62286,7 @@ item(FEAT_TRAINS, hankyu2000) {
            string(STR_STANDARDGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 3),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_RANGE, 2,8),
+           string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,8)),
 
 
            string(STR_USAGE,
@@ -62544,7 +62305,7 @@ item(FEAT_TRAINS, hankyu2000) {
    weight: 31;
   }
 }
-# 297 "src/_private.pnml" 2
+# 299 "src/_private.pnml" 2
 # 1 "src/private/Kansai/hankyu/hankyu2300.pnml" 1
 
 spriteset(hankyu2300_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kansai/hankyu/hankyu2000/hankyu2300_1.png"){ tmpl_purchase_1c(0, 0) }
@@ -62795,8 +62556,7 @@ item(FEAT_TRAINS, hankyu2300) {
            string(STR_STANDARDGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 3),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_RANGE, 2,7),
+           string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,7)),
 
 
            string(STR_USAGE,
@@ -62815,7 +62575,7 @@ item(FEAT_TRAINS, hankyu2300) {
    weight: 31;
   }
 }
-# 298 "src/_private.pnml" 2
+# 300 "src/_private.pnml" 2
 # 1 "src/private/Kansai/hankyu/hankyu2800.pnml" 1
 
 spriteset(hankyu2800_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kansai/hankyu/hankyu2000/hankyu2800_1.png"){ tmpl_purchase_1c(0, 50) }
@@ -63059,8 +62819,7 @@ item(FEAT_TRAINS, hankyu2800) {
            string(STR_STANDARDGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 2),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_RANGE, 4,8),
+           string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 4,8)),
 
 
            string(STR_USAGE,
@@ -63079,7 +62838,7 @@ item(FEAT_TRAINS, hankyu2800) {
    weight: 31;
   }
 }
-# 299 "src/_private.pnml" 2
+# 301 "src/_private.pnml" 2
 # 1 "src/private/Kansai/hankyu/hankyu3000.pnml" 1
 
 spriteset(hankyu3000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kansai/hankyu/hankyu3000/hankyu3000_1.png"){ tmpl_purchase_1c(0, 0) }
@@ -63468,8 +63227,7 @@ item(FEAT_TRAINS, hankyu3000) {
            string(STR_STANDARDGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 3),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_RANGE, 3,8),
+           string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 3,8)),
 
 
            string(STR_USAGE,
@@ -63488,7 +63246,7 @@ item(FEAT_TRAINS, hankyu3000) {
    weight: 31;
   }
 }
-# 300 "src/_private.pnml" 2
+# 302 "src/_private.pnml" 2
 # 1 "src/private/Kansai/hankyu/hankyu5000.pnml" 1
 
 spriteset(hankyu5000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kansai/hankyu/hankyu3000/hankyu3000_1.png"){ tmpl_purchase_1c(0, 0) }
@@ -63930,8 +63688,7 @@ item(FEAT_TRAINS, hankyu5000) {
            string(STR_STANDARDGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 3),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_2, 6,8),
+           string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
 
 
            string(STR_USAGE,
@@ -63950,7 +63707,7 @@ item(FEAT_TRAINS, hankyu5000) {
    weight: 34;
   }
 }
-# 301 "src/_private.pnml" 2
+# 303 "src/_private.pnml" 2
 # 1 "src/private/Kansai/hankyu/hankyu5300.pnml" 1
 
   spriteset(hankyu5300_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kansai/hankyu/hankyu5000/hankyu5300_1.png"){ tmpl_purchase_1c(0, 50) }
@@ -64288,8 +64045,7 @@ item(FEAT_TRAINS, hankyu5300) {
            string(STR_STANDARDGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 3),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_2, 7,8),
+           string(STR_FORMATION, string(STR_NUM_CARS_2, 7,8)),
 
 
            string(STR_USAGE,
@@ -64308,7 +64064,7 @@ item(FEAT_TRAINS, hankyu5300) {
    weight: 35;
   }
 }
-# 302 "src/_private.pnml" 2
+# 304 "src/_private.pnml" 2
 # 1 "src/private/Kansai/hankyu/hankyu6000.pnml" 1
 
   spriteset(hankyu6000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kansai/hankyu/hankyu6000/hankyu6000.png"){ tmpl_purchase_1c(0, 50) }
@@ -64512,8 +64268,7 @@ item(FEAT_TRAINS, hankyu6000) {
            string(STR_STANDARDGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 3),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_5, 2,3,4,6,8),
+           string(STR_FORMATION, string(STR_NUM_CARS_5, 2,3,4,6,8)),
 
 
            string(STR_USAGE,
@@ -64532,7 +64287,7 @@ item(FEAT_TRAINS, hankyu6000) {
    weight: 33;
   }
 }
-# 303 "src/_private.pnml" 2
+# 305 "src/_private.pnml" 2
 # 1 "src/private/Kansai/hankyu/hankyu6300.pnml" 1
 
   spriteset(hankyu6300_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kansai/hankyu/hankyu6000/hankyu6300.png"){ tmpl_purchase_1c(0, 0) }
@@ -64657,8 +64412,7 @@ item(FEAT_TRAINS, hankyu6300) {
            string(STR_STANDARDGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 2),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_3, 4,6,8),
+           string(STR_FORMATION, string(STR_NUM_CARS_3, 4,6,8)),
 
 
            string(STR_USAGE,
@@ -64677,7 +64431,7 @@ item(FEAT_TRAINS, hankyu6300) {
    weight: 33;
   }
 }
-# 304 "src/_private.pnml" 2
+# 306 "src/_private.pnml" 2
 # 1 "src/private/Kansai/hankyu/hankyu7000.pnml" 1
 
   spriteset(hankyu7000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kansai/hankyu/hankyu6000/hankyu6000_n.png"){ tmpl_purchase_1c(0, 50) }
@@ -64755,8 +64509,7 @@ item(FEAT_TRAINS, hankyu7000) {
            string(STR_STANDARDGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 3),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_RANGE, 2,8),
+           string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,8)),
 
 
            string(STR_USAGE,
@@ -64775,7 +64528,7 @@ item(FEAT_TRAINS, hankyu7000) {
    weight: 31;
   }
 }
-# 305 "src/_private.pnml" 2
+# 307 "src/_private.pnml" 2
 # 1 "src/private/Kansai/hankyu/hankyu8000.pnml" 1
 
   spriteset(hankyu8000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kansai/hankyu/hankyu8000/hankyu8000.png"){ tmpl_purchase_1c(0, 50) }
@@ -64988,8 +64741,7 @@ item(FEAT_TRAINS, hankyu8000) {
            string(STR_STANDARDGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 3),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_1, 8),
+           string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
 
 
            string(STR_USAGE,
@@ -65008,7 +64760,7 @@ item(FEAT_TRAINS, hankyu8000) {
    weight: 31;
   }
 }
-# 306 "src/_private.pnml" 2
+# 308 "src/_private.pnml" 2
 # 1 "src/private/Kansai/hankyu/hankyu9000.pnml" 1
 
   spriteset(hankyu9000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kansai/hankyu/hankyu9000/hankyu9000.png"){ tmpl_purchase_1c(0, 50) }
@@ -65145,8 +64897,7 @@ item(FEAT_TRAINS, hankyu9000) {
            string(STR_STANDARDGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 3),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_1, 8),
+           string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
 
 
            string(STR_USAGE,
@@ -65165,7 +64916,7 @@ item(FEAT_TRAINS, hankyu9000) {
    weight: 30;
   }
 }
-# 307 "src/_private.pnml" 2
+# 309 "src/_private.pnml" 2
 # 1 "src/private/Kansai/hankyu/hankyu1000n.pnml" 1
 
 spriteset(hankyu1000n_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kansai/hankyu/hankyu1000n/hankyu1000n.png"){ tmpl_purchase_1c(0, 0) }
@@ -65292,8 +65043,7 @@ item(FEAT_TRAINS, hankyu1000n) {
            string(STR_STANDARDGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 3),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_1, 8),
+           string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
 
 
            string(STR_USAGE,
@@ -65312,7 +65062,7 @@ item(FEAT_TRAINS, hankyu1000n) {
    weight: 30;
   }
 }
-# 308 "src/_private.pnml" 2
+# 310 "src/_private.pnml" 2
 # 1 "src/private/Kansai/hankyu/hankyu2000n.pnml" 1
 
 spriteset(hankyu2000n_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kansai/hankyu/hankyu2000n/hankyu2000n.png"){ tmpl_purchase_1c(0, 0) }
@@ -65439,8 +65189,7 @@ item(FEAT_TRAINS, hankyu2000n) {
            string(STR_STANDARDGAUGE),
            string(STR_LOAD_SPEED,
            string(STR_DOORS, 3),),
-           string(STR_FORMATION),
-           string(STR_NUM_CARS_1, 8),
+           string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
 
 
            string(STR_USAGE,
@@ -65459,5 +65208,5 @@ item(FEAT_TRAINS, hankyu2000n) {
    weight: 30;
   }
 }
-# 309 "src/_private.pnml" 2
+# 311 "src/_private.pnml" 2
 # 16 "JPprivate.pnml" 2
