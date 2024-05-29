@@ -2187,6 +2187,15 @@ spriteset (sprite_logo_tobu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_ope
 spriteset (sprite_logo_seibu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 30) }
 spriteset (sprite_logo_odakyu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 45) }
 spriteset (sprite_logo_sotetsu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 60) }
+spriteset (sprite_logo_keikyu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 75) }
+spriteset (sprite_logo_keisei, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 90) }
+spriteset (sprite_logo_shin_keisei, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 105) }
+
+spriteset (sprite_logo_twr, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_s.png") { tmpl_logo_private(0, 45) }
+spriteset (sprite_logo_tsukuba, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_s.png") { tmpl_logo_private(0, 60) }
+spriteset (sprite_logo_chiba_nt, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_s.png") { tmpl_logo_private(0, 75) }
+spriteset (sprite_logo_chiba_e, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_s.png") { tmpl_logo_private(0, 90) }
+spriteset (sprite_logo_shibayama, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_s.png") { tmpl_logo_private(0, 105) }
 
 switch(FEAT_TRAINS, SELF, logo_tokyo_metro, param_hide_logo) {0:sprite_logo_tokyo_metro;}
 switch(FEAT_TRAINS, SELF, logo_toei, param_hide_logo) {0:sprite_logo_toei;}
@@ -2257,6 +2266,15 @@ switch(FEAT_TRAINS, SELF, logo_tobu, param_hide_logo) {0:sprite_logo_tobu;}
 switch(FEAT_TRAINS, SELF, logo_seibu, param_hide_logo) {0:sprite_logo_seibu;}
 switch(FEAT_TRAINS, SELF, logo_odakyu, param_hide_logo) {0:sprite_logo_odakyu;}
 switch(FEAT_TRAINS, SELF, logo_sotetsu, param_hide_logo) {0:sprite_logo_sotetsu;}
+switch(FEAT_TRAINS, SELF, logo_keikyu, param_hide_logo) {0:sprite_logo_keikyu;}
+switch(FEAT_TRAINS, SELF, logo_keisei, param_hide_logo) {0:sprite_logo_keisei;}
+switch(FEAT_TRAINS, SELF, logo_shin_keisei, param_hide_logo) {0:sprite_logo_shin_keisei;}
+
+switch(FEAT_TRAINS, SELF, logo_twr, param_hide_logo) {0:sprite_logo_twr;}
+switch(FEAT_TRAINS, SELF, logo_tsukuba, param_hide_logo) {0:sprite_logo_tsukuba;}
+switch(FEAT_TRAINS, SELF, logo_chiba_nt, param_hide_logo) {0:sprite_logo_chiba_nt;}
+switch(FEAT_TRAINS, SELF, logo_chiba_e, param_hide_logo) {0:sprite_logo_chiba_e;}
+switch(FEAT_TRAINS, SELF, logo_shibayama, param_hide_logo) {0:sprite_logo_shibayama;}
 # 11 "JPprivate.pnml" 2
 # 1 "src/controllers/parts.pnml" 1
 
@@ -28376,8 +28394,10 @@ item(FEAT_TRAINS, tokyu2020,2023) {
 
 
 # 1 "src/private/Kanto/tobu/tobu5700.pnml" 1
-spriteset(tobu5700_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu5700/tobu5700_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(tobu5700_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu5700/tobu5700_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(tobu5700_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu5700/tobu5700_1.png"){ tmpl_purchase_2c(0, 75) }
+  switch(FEAT_TRAINS, SELF, tobu5700_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu5700_purchase_c1; 2: tobu5700_purchase_c2;}
 
     spriteset(tobu5700_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu5700/tobu5700_1.png"){ tmpl_std(0, 0) }
     spriteset(tobu5700_1_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu5700/tobu5700_1.png"){ tmpl_std_rev(0, 25) }
@@ -28738,8 +28758,10 @@ item(FEAT_TRAINS, tobu5700,2050) {
 }
 # 32 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tobu/tobu1700.pnml" 1
-spriteset(tobu1700_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu1700/tobu1700_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(tobu1700_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu1700/tobu1700.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(tobu1700_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu1700/tobu1700.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, tobu1700_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu1700_purchase_c1; 2: tobu1700_purchase_c2;}
 
     spriteset(tobu1700_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu1700/tobu1700.png"){ tmpl_std(0, 0) }
     spriteset(tobu1700_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu1700/tobu1700.png"){ tmpl_std_rev(0, 25) }
@@ -28867,8 +28889,10 @@ item(FEAT_TRAINS, tobu1700,2051) {
 }
 # 33 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tobu/tobu1720.pnml" 1
-spriteset(tobu1720_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu1700/tobu1720_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(tobu1720_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu1700/tobu1720.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(tobu1720_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu1700/tobu1720.png"){ tmpl_purchase_2c(88, 50) }
+  switch(FEAT_TRAINS, SELF, tobu1720_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu1720_purchase_c1; 2: tobu1720_purchase_c2;}
 
     spriteset(tobu1720_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu1700/tobu1720.png"){ tmpl_std(0, 0) }
     spriteset(tobu1720_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu1700/tobu1720.png"){ tmpl_std_rev(0, 25) }
@@ -29065,8 +29089,10 @@ item(FEAT_TRAINS, tobu1720,2052) {
 }
 # 34 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tobu/tobu6000.pnml" 1
-spriteset(tobu6000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu6000/tobu6000_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(tobu6000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu6000/tobu6000.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(tobu6000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu6000/tobu6000.png"){ tmpl_purchase_2c(0, 75) }
+  switch(FEAT_TRAINS, SELF, tobu6000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu6000_purchase_c1; 2: tobu6000_purchase_c2;}
 
     spriteset(tobu6000_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu6000/tobu6000.png"){ tmpl_std(0, 0) }
     spriteset(tobu6000_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu6000/tobu6000.png"){ tmpl_std_rev(0, 25) }
@@ -29232,8 +29258,10 @@ item(FEAT_TRAINS, tobu6000,2053) {
 }
 # 35 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tobu/tobu1800.pnml" 1
-spriteset(tobu1800_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu1800/tobu1800_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(tobu1800_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu1800/tobu1800_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(tobu1800_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu1800/tobu1800_1.png"){ tmpl_purchase_2c(0, 75) }
+  switch(FEAT_TRAINS, SELF, tobu1800_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu1800_purchase_c1; 2: tobu1800_purchase_c2;}
 
     spriteset(tobu1800_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu1800/tobu1800_1.png"){ tmpl_std(0, 0) }
     spriteset(tobu1800_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu1800/tobu1800_1.png"){ tmpl_std_rev(0, 25) }
@@ -29683,8 +29711,10 @@ item(FEAT_TRAINS, tobu1800,2055) {
 }
 # 36 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tobu/tobu6050.pnml" 1
-spriteset(tobu6050_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu6000/tobu6050_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(tobu6050_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu6000/tobu6050_1.png"){ tmpl_purchase_1c(0, 50) }
+  spriteset(tobu6050_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu6000/tobu6050_1.png"){ tmpl_purchase_2c(0, 25) }
+  switch(FEAT_TRAINS, SELF, tobu6050_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu6050_purchase_c1; 2: tobu6050_purchase_c2;}
 
     spriteset(tobu6050_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu6000/tobu6050_1.png"){ tmpl_std(0, 0) }
     spriteset(tobu6050_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu6000/tobu6050_1.png"){ tmpl_std_rev(0, 25) }
@@ -29946,9 +29976,10 @@ item(FEAT_TRAINS, tobu6050,2054) {
 # 37 "src/_private.pnml" 2
 
 # 1 "src/private/Kanto/tobu/tobu100.pnml" 1
-spriteset(tobu100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu100/tobu100_purchase.png"){ tmpl_purchase(0, 0) }
 
-
+  spriteset(tobu100_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu100/tobu100_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(tobu100_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu100/tobu100_1.png"){ tmpl_purchase_2c(0, 100) }
+  switch(FEAT_TRAINS, SELF, tobu100_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu100_purchase_c1; 2: tobu100_purchase_c2;}
 
     spriteset(tobu100_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu100/tobu100_1.png"){ tmpl_long(0, 0) }
     spriteset(tobu100_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu100/tobu100_1.png"){ tmpl_long_rev(0, 25) }
@@ -30783,9 +30814,10 @@ item(FEAT_TRAINS, tobu100,2058) {
 }
 # 39 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tobu/tobu200.pnml" 1
-spriteset(tobu200_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu200/tobu200_purchase.png"){ tmpl_purchase(0, 0) }
 
-
+  spriteset(tobu200_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu200/tobu200_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(tobu200_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu200/tobu200_1.png"){ tmpl_purchase_2c(88, 50) }
+  switch(FEAT_TRAINS, SELF, tobu200_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu200_purchase_c1; 2: tobu200_purchase_c2;}
 
     spriteset(tobu200_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu200/tobu200_1.png"){ tmpl_long(0, 0) }
     spriteset(tobu200_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu200/tobu200_1.png"){ tmpl_long_rev(0, 25) }
@@ -31195,8 +31227,10 @@ item(FEAT_TRAINS, tobu200,2059) {
 }
 # 40 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tobu/tobu300.pnml" 1
-spriteset(tobu300_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu300/tobu300_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(tobu300_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu300/tobu300.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(tobu300_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu300/tobu300.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, tobu300_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu300_purchase_c1; 2: tobu300_purchase_c2;}
 
     spriteset(tobu300_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu300/tobu300.png"){ tmpl_std(0, 0) }
     spriteset(tobu300_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu300/tobu300.png"){ tmpl_std_rev(0, 25) }
@@ -31383,8 +31417,10 @@ item(FEAT_TRAINS, tobu300,2060) {
 }
 # 41 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tobu/tobu500.pnml" 1
-spriteset(tobu500_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu500/tobu500_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(tobu500_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu500/tobu500.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(tobu500_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu500/tobu500.png"){ tmpl_purchase_2c(88, 50) }
+  switch(FEAT_TRAINS, SELF, tobu500_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu500_purchase_c1; 2: tobu500_purchase_c2;}
 
     spriteset(tobu500_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu500/tobu500.png"){ tmpl_std(0, 0) }
     spriteset(tobu500_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu500/tobu500.png"){ tmpl_std_rev(0, 25) }
@@ -31562,8 +31598,10 @@ item(FEAT_TRAINS, tobu500,2061) {
 }
 # 42 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tobu/tobu100n.pnml" 1
-spriteset(tobu100n_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu100n/tobu100n_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(tobu100n_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu100n/tobu100n.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(tobu100n_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu100n/tobu100n.png"){ tmpl_purchase_2c(88, 50) }
+  switch(FEAT_TRAINS, SELF, tobu100n_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu100n_purchase_c1; 2: tobu100n_purchase_c2;}
 
     spriteset(tobu100n_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu100n/tobu100n.png"){ tmpl_std(0, 0) }
     spriteset(tobu100n_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu100n/tobu100n.png"){ tmpl_std_rev(0, 25) }
@@ -31754,8 +31792,9 @@ item(FEAT_TRAINS, tobu100n,2062) {
 
 
 # 1 "src/private/Kanto/tobu/tobu_deha1.pnml" 1
-spriteset(tobu_deha1_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/deha1/tobu_deha1_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(tobu_deha1_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/deha1/tobu_deha1.png"){ tmpl_purchase_1c_7(0, 0) }
+  switch(FEAT_TRAINS, SELF, tobu_deha1_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu_deha1_purchase_c1;}
 
 spriteset(tobu_deha1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/deha1/tobu_deha1.png"){ tmpl_std(0, 0) }
 spriteset(tobu_deha1_front_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/deha1/tobu_deha1.png"){ tmpl_std_rev(0, 25) }
@@ -31875,9 +31914,9 @@ item(FEAT_TRAINS, tobu_deha1,2065) {
 }
 # 46 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tobu/tobu_deha10.pnml" 1
-spriteset(tobu_deha10_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/deha10/tobu_deha10_purchase.png"){ tmpl_purchase(0, 0) }
 
-
+  spriteset(tobu_deha10_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/deha10/tobu_deha10_1.png"){ tmpl_purchase_1c(0, 0) }
+  switch(FEAT_TRAINS, SELF, tobu_deha10_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu_deha10_purchase_c1;}
 
 spriteset(tobu_deha10_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/deha10/tobu_deha10_1.png"){ tmpl_std(0, 0) }
 spriteset(tobu_deha10_1_front_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/deha10/tobu_deha10_1.png"){ tmpl_std_rev(0, 25) }
@@ -32565,9 +32604,10 @@ item(FEAT_TRAINS, tobu_deha10,2066) {
 }
 # 47 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tobu/tobu7300.pnml" 1
-spriteset(tobu7300_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu7300/tobu7300_purchase.png"){ tmpl_purchase(0, 0) }
 
-
+  spriteset(tobu7300_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu7300/tobu7300_1.png"){ tmpl_purchase_1c(0, 50) }
+  spriteset(tobu7300_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu7300/tobu7300_1.png"){ tmpl_purchase_2c(0, 125) }
+  switch(FEAT_TRAINS, SELF, tobu7300_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu7300_purchase_c1; 2: tobu7300_purchase_c2;}
 
 spriteset(tobu7300_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu7300/tobu7300_1.png"){ tmpl_std(0, 0) }
 spriteset(tobu7300_1_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu7300/tobu7300_1.png"){ tmpl_std_rev(0, 25) }
@@ -32935,9 +32975,10 @@ item(FEAT_TRAINS, tobu7300,2067) {
 }
 # 48 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tobu/tobu2000.pnml" 1
-spriteset(tobu2000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu2000/tobu2000_purchase.png"){ tmpl_purchase(0, 0) }
 
-
+  spriteset(tobu2000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu2000/tobu2000.png"){ tmpl_purchase_1c(0, 50) }
+  spriteset(tobu2000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu2000/tobu2000.png"){ tmpl_purchase_2c(0, 125) }
+  switch(FEAT_TRAINS, SELF, tobu2000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu2000_purchase_c1; 2: tobu2000_purchase_c2;}
 
 spriteset(tobu2000_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu2000/tobu2000.png"){ tmpl_std(0, 0) }
 spriteset(tobu2000_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu2000/tobu2000.png"){ tmpl_std_rev(0, 25) }
@@ -33222,9 +33263,10 @@ item(FEAT_TRAINS, tobu2000,2068) {
 }
 # 49 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tobu/tobu8000.pnml" 1
-spriteset(tobu8000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu8000/tobu8000_purchase.png"){ tmpl_purchase(0, 0) }
 
-
+  spriteset(tobu8000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu8000/tobu8000_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(tobu8000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu8000/tobu8000_1.png"){ tmpl_purchase_2c(0, 100) }
+  switch(FEAT_TRAINS, SELF, tobu8000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu8000_purchase_c1; 2: tobu8000_purchase_c2;}
 
 spriteset(tobu8000_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu8000/tobu8000_1.png"){ tmpl_std(0, 0) }
 spriteset(tobu8000_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu8000/tobu8000_1.png"){ tmpl_std_rev(0, 25) }
@@ -34838,9 +34880,10 @@ item(FEAT_TRAINS, tobu8000,2069) {
 }
 # 50 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tobu/tobu3000.pnml" 1
-spriteset(tobu3000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu3000/tobu3000_purchase.png"){ tmpl_purchase(0, 0) }
 
-
+  spriteset(tobu3000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu3000/tobu3000_1.png"){ tmpl_purchase_1c(0, 50) }
+  spriteset(tobu3000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu3000/tobu3000_1.png"){ tmpl_purchase_2c(0, 125) }
+  switch(FEAT_TRAINS, SELF, tobu3000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu3000_purchase_c1; 2: tobu3000_purchase_c2;}
 
 spriteset(tobu3000_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu3000/tobu3000_1.png"){ tmpl_std(0, 0) }
 spriteset(tobu3000_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu3000/tobu3000_1.png"){ tmpl_std_rev(0, 25) }
@@ -35147,9 +35190,10 @@ item(FEAT_TRAINS, tobu3000,2070) {
 }
 # 51 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tobu/tobu5000.pnml" 1
-spriteset(tobu5000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu5000/tobu5000_purchase.png"){ tmpl_purchase(0, 0) }
 
-
+  spriteset(tobu5000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu8000/tobu8000_5.png"){ tmpl_purchase_1c(0, 50) }
+  spriteset(tobu5000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu8000/tobu8000_5.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, tobu5000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu5000_purchase_c1; 2: tobu5000_purchase_c2;}
 
 spriteset(tobu5000_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu8000/tobu8000_1.png"){ tmpl_std(0, 0) }
 spriteset(tobu5000_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu8000/tobu8000_1.png"){ tmpl_std_rev(0, 25) }
@@ -35533,9 +35577,10 @@ item(FEAT_TRAINS, tobu5000,2071) {
 }
 # 52 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tobu/tobu9000.pnml" 1
-spriteset(tobu9000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu9000/tobu9000_purchase.png"){ tmpl_purchase(0, 0) }
 
-
+  spriteset(tobu9000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu9000/tobu9000.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(tobu9000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu9000/tobu9000.png"){ tmpl_purchase_2c(88, 50) }
+  switch(FEAT_TRAINS, SELF, tobu9000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu9000_purchase_c1; 2: tobu9000_purchase_c2;}
 
 spriteset(tobu9000_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu9000/tobu9000.png"){ tmpl_std(0, 0) }
 spriteset(tobu9000_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu9000/tobu9000.png"){ tmpl_std_rev(0, 25) }
@@ -35837,9 +35882,10 @@ item(FEAT_TRAINS, tobu9000,2072) {
 }
 # 53 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tobu/tobu10000.pnml" 1
-spriteset(tobu10000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu10000/tobu10000_purchase.png"){ tmpl_purchase(0, 0) }
 
-
+  spriteset(tobu10000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu10000/tobu10000.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(tobu10000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu10000/tobu10000.png"){ tmpl_purchase_2c(0, 100) }
+  switch(FEAT_TRAINS, SELF, tobu10000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu10000_purchase_c1; 2: tobu10000_purchase_c2;}
 
 spriteset(tobu10000_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu10000/tobu10000.png"){ tmpl_std(0, 0) }
 spriteset(tobu10000_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu10000/tobu10000.png"){ tmpl_std_rev(0, 25) }
@@ -36311,9 +36357,10 @@ item(FEAT_TRAINS, tobu10000,2073) {
 }
 # 54 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tobu/tobu20000.pnml" 1
-spriteset(tobu20000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu20000/tobu20000_purchase.png"){ tmpl_purchase(0, 0) }
 
-
+  spriteset(tobu20000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu20000/tobu20000.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(tobu20000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu20000/tobu20000.png"){ tmpl_purchase_2c(88, 100) }
+  switch(FEAT_TRAINS, SELF, tobu20000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu20000_purchase_c1; 2: tobu20000_purchase_c2;}
 
 spriteset(tobu20000_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu20000/tobu20000.png"){ tmpl_std(0, 0) }
 spriteset(tobu20000_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu20000/tobu20000.png"){ tmpl_std_rev(0, 25) }
@@ -36505,9 +36552,10 @@ item(FEAT_TRAINS, tobu20000,2075) {
 }
 # 55 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tobu/tobu20400.pnml" 1
-spriteset(tobu20400_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu20000/tobu20400_purchase.png"){ tmpl_purchase(0, 0) }
 
-
+  spriteset(tobu20400_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu20000/tobu20400.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(tobu20400_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu20000/tobu20400.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, tobu20400_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu20400_purchase_c1; 2: tobu20400_purchase_c2;}
 
 spriteset(tobu20400_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu20000/tobu20400.png"){ tmpl_std(0, 0) }
 spriteset(tobu20400_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu20000/tobu20400.png"){ tmpl_std_rev(0, 25) }
@@ -36663,9 +36711,10 @@ item(FEAT_TRAINS, tobu20400,2076) {
 }
 # 56 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tobu/tobu30000.pnml" 1
-spriteset(tobu30000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu30000/tobu30000_purchase.png"){ tmpl_purchase(0, 0) }
 
-
+  spriteset(tobu30000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu30000/tobu30000.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(tobu30000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu30000/tobu30000.png"){ tmpl_purchase_2c(0, 75) }
+  switch(FEAT_TRAINS, SELF, tobu30000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu30000_purchase_c1; 2: tobu30000_purchase_c2;}
 
 spriteset(tobu30000_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu30000/tobu30000.png"){ tmpl_std(0, 0) }
 spriteset(tobu30000_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu30000/tobu30000.png"){ tmpl_std_rev(0, 25) }
@@ -36866,8 +36915,10 @@ item(FEAT_TRAINS, tobu30000,2077) {
 }
 # 57 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tobu/tobu50000.pnml" 1
-spriteset(tobu50000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu50000/tobu50000_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(tobu50000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu50000/tobu50000.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(tobu50000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu50000/tobu50000.png"){ tmpl_purchase_2c(88, 50) }
+  switch(FEAT_TRAINS, SELF, tobu50000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu50000_purchase_c1; 2: tobu50000_purchase_c2;}
 
 
 spriteset(tobu50000_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu50000/tobu50000.png"){ tmpl_std(0, 0) }
@@ -37969,9 +38020,10 @@ item(FEAT_TRAINS, tobu50000,2078) {
 }
 # 58 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tobu/tobu60000.pnml" 1
-spriteset(tobu60000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu60000/tobu60000_purchase.png"){ tmpl_purchase(0, 0) }
 
-
+  spriteset(tobu60000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu60000/tobu60000.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(tobu60000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu60000/tobu60000.png"){ tmpl_purchase_2c(88, 50) }
+  switch(FEAT_TRAINS, SELF, tobu60000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu60000_purchase_c1; 2: tobu60000_purchase_c2;}
 
 spriteset(tobu60000_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu60000/tobu60000.png"){ tmpl_std(0, 0) }
 spriteset(tobu60000_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu60000/tobu60000.png"){ tmpl_std_rev(0, 25) }
@@ -38173,9 +38225,10 @@ item(FEAT_TRAINS, tobu60000,2079) {
 }
 # 59 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tobu/tobu70000.pnml" 1
-spriteset(tobu70000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu70000/tobu70000_purchase.png"){ tmpl_purchase(0, 0) }
 
-
+  spriteset(tobu70000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu70000/tobu70000.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(tobu70000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu70000/tobu70000.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, tobu70000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tobu; 1: tobu70000_purchase_c1; 2: tobu70000_purchase_c2;}
 
 spriteset(tobu70000_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu70000/tobu70000.png"){ tmpl_std(0, 0) }
 spriteset(tobu70000_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tobu/tobu70000/tobu70000.png"){ tmpl_std_rev(0, 25) }
@@ -38460,8 +38513,10 @@ item(FEAT_TRAINS, tobu70000,2080) {
 
 
 # 1 "src/private/Kanto/seibu/seibu5000.pnml" 1
-spriteset(seibu5000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu5000/seibu5000_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(seibu5000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu5000/seibu5000.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(seibu5000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu5000/seibu5000.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, seibu5000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_seibu; 1: seibu5000_purchase_c1; 2: seibu5000_purchase_c2;}
 
  spriteset(seibu5000_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu5000/seibu5000.png"){ tmpl_std(0, 0) }
  spriteset(seibu5000_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu5000/seibu5000.png"){ tmpl_std_rev(0, 25) }
@@ -38619,8 +38674,10 @@ item(FEAT_TRAINS, seibu5000,2100) {
 }
 # 63 "src/_private.pnml" 2
 # 1 "src/private/Kanto/seibu/seibu10000.pnml" 1
-spriteset(seibu10000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu10000/seibu10000_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(seibu10000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu10000/seibu10000_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(seibu10000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu10000/seibu10000_1.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, seibu10000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_seibu; 1: seibu10000_purchase_c1; 2: seibu10000_purchase_c2;}
 
  spriteset(seibu10000_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu10000/seibu10000_1.png"){ tmpl_std(0, 0) }
  spriteset(seibu10000_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu10000/seibu10000_1.png"){ tmpl_std_rev(0, 25) }
@@ -39511,8 +39568,10 @@ item(FEAT_TRAINS, seibu10000,2101) {
 }
 # 64 "src/_private.pnml" 2
 # 1 "src/private/Kanto/seibu/seibu001.pnml" 1
-spriteset(seibu001_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu001/seibu001_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(seibu001_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu001/seibu001.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(seibu001_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu001/seibu001.png"){ tmpl_purchase_2c(0, 100) }
+  switch(FEAT_TRAINS, SELF, seibu001_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_seibu; 1: seibu001_purchase_c1; 2: seibu001_purchase_c2;}
 
  spriteset(seibu001_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu001/seibu001.png"){ tmpl_std(0, 0) }
  spriteset(seibu001_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu001/seibu001.png"){ tmpl_std_rev(0, 25) }
@@ -39713,8 +39772,9 @@ item(FEAT_TRAINS, seibu001,2102) {
 # 65 "src/_private.pnml" 2
 
 # 1 "src/private/Kanto/seibu/seibuDeha100.pnml" 1
-spriteset(seibuDeha100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibuDeha100/seibuDeha100_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(seibuDeha100_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibuDeha100/seibuDeha100.png"){ tmpl_purchase_1c(0, 0) }
+  switch(FEAT_TRAINS, SELF, seibuDeha100_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_seibu; 1: seibuDeha100_purchase_c1;}
 
 spriteset(seibuDeha100_front_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibuDeha100/seibuDeha100.png"){ tmpl_std(0, 0) }
 spriteset(seibuDeha100_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibuDeha100/seibuDeha100.png"){ tmpl_std_rev(0, 25) }
@@ -39823,8 +39883,10 @@ item(FEAT_TRAINS, seibuDeha100,2105) {
 }
 # 67 "src/_private.pnml" 2
 # 1 "src/private/Kanto/seibu/seibuDeha5560.pnml" 1
-spriteset(seibuDeha5560_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibuDeha5560/seibu5560_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(seibuDeha5560_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibuDeha5560/seibu5560_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(seibuDeha5560_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibuDeha5560/seibu5560_1.png"){ tmpl_purchase_2c(0, 125) }
+  switch(FEAT_TRAINS, SELF, seibuDeha5560_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_seibu; 1: seibuDeha5560_purchase_c1; 2: seibuDeha5560_purchase_c2;}
 
   spriteset(seibuDeha5560_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibuDeha5560/seibu5560_1.png"){ tmpl_std(0, 0) }
   spriteset(seibuDeha5560_1_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibuDeha5560/seibu5560_1.png"){ tmpl_std_rev(0, 25) }
@@ -40053,8 +40115,10 @@ item(FEAT_TRAINS, seibuDeha5560,2106) {
 }
 # 68 "src/_private.pnml" 2
 # 1 "src/private/Kanto/seibu/seibu311.pnml" 1
-spriteset(seibu311_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu311/seibu311_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(seibu311_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu311/seibu311_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(seibu311_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu311/seibu311_1.png"){ tmpl_purchase_2c(0, 125) }
+  switch(FEAT_TRAINS, SELF, seibu311_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_seibu; 1: seibu311_purchase_c1; 2: seibu311_purchase_c2;}
 
   spriteset(seibu311_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu311/seibu311_1.png"){ tmpl_std(0, 0) }
   spriteset(seibu311_1_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu311/seibu311_1.png"){ tmpl_std_rev(0, 25) }
@@ -40337,8 +40401,10 @@ item(FEAT_TRAINS, seibu311,2107) {
 }
 # 69 "src/_private.pnml" 2
 # 1 "src/private/Kanto/seibu/seibu401_1.pnml" 1
-spriteset(seibu401_1_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu401_1/seibu401_1_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(seibu401_1_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu401_1/seibu401_1_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(seibu401_1_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu401_1/seibu401_1_1.png"){ tmpl_purchase_2c(0, 125) }
+  switch(FEAT_TRAINS, SELF, seibu401_1_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_seibu; 1: seibu401_1_purchase_c1; 2: seibu401_1_purchase_c2;}
 
   spriteset(seibu401_1_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu401_1/seibu401_1_1.png"){ tmpl_std(0, 0) }
   spriteset(seibu401_1_1_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu401_1/seibu401_1_1.png"){ tmpl_std_rev(0, 25) }
@@ -40524,8 +40590,10 @@ item(FEAT_TRAINS, seibu401_1,2108) {
 }
 # 70 "src/_private.pnml" 2
 # 1 "src/private/Kanto/seibu/seibu351.pnml" 1
-spriteset(seibu351_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu351/seibu351_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(seibu351_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu351/seibu351_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(seibu351_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu351/seibu351_1.png"){ tmpl_purchase_2c(0, 75) }
+  switch(FEAT_TRAINS, SELF, seibu351_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_seibu; 1: seibu351_purchase_c1; 2: seibu351_purchase_c2;}
 
   spriteset(seibu351_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu351/seibu351_1.png"){ tmpl_std(0, 0) }
   spriteset(seibu351_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu351/seibu351_1.png"){ tmpl_std_rev(0, 25) }
@@ -40732,8 +40800,10 @@ item(FEAT_TRAINS, seibu351,2109) {
 }
 # 71 "src/_private.pnml" 2
 # 1 "src/private/Kanto/seibu/seibu451.pnml" 1
-spriteset(seibu451_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu451/seibu451_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(seibu451_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu451/seibu451_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(seibu451_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu451/seibu451_1.png"){ tmpl_purchase_2c(0, 125) }
+  switch(FEAT_TRAINS, SELF, seibu451_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_seibu; 1: seibu451_purchase_c1; 2: seibu451_purchase_c2;}
 
   spriteset(seibu451_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu451/seibu451_1.png"){ tmpl_std(0, 0) }
   spriteset(seibu451_1_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu451/seibu451_1.png"){ tmpl_std_rev(0, 25) }
@@ -40980,8 +41050,10 @@ item(FEAT_TRAINS, seibu451,2110) {
 }
 # 72 "src/_private.pnml" 2
 # 1 "src/private/Kanto/seibu/seibu551.pnml" 1
-spriteset(seibu551_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu551/seibu551_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(seibu551_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu551/seibu551.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(seibu551_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu551/seibu551.png"){ tmpl_purchase_2c(0, 125) }
+  switch(FEAT_TRAINS, SELF, seibu551_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_seibu; 1: seibu551_purchase_c1; 2: seibu551_purchase_c2;}
 
   spriteset(seibu551_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu551/seibu551.png"){ tmpl_std(0, 0) }
   spriteset(seibu551_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu551/seibu551.png"){ tmpl_std_rev(0, 25) }
@@ -41148,8 +41220,10 @@ item(FEAT_TRAINS, seibu551,2111) {
 }
 # 73 "src/_private.pnml" 2
 # 1 "src/private/Kanto/seibu/seibu571.pnml" 1
-spriteset(seibu571_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu571/seibu571_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(seibu571_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu571/seibu571.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(seibu571_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu571/seibu571.png"){ tmpl_purchase_2c(0, 125) }
+  switch(FEAT_TRAINS, SELF, seibu571_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_seibu; 1: seibu571_purchase_c1; 2: seibu571_purchase_c2;}
 
   spriteset(seibu571_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu571/seibu571.png"){ tmpl_std(0, 0) }
   spriteset(seibu571_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu571/seibu571.png"){ tmpl_std_rev(0, 25) }
@@ -41306,8 +41380,10 @@ item(FEAT_TRAINS, seibu571,2112) {
 }
 # 74 "src/_private.pnml" 2
 # 1 "src/private/Kanto/seibu/seibu411.pnml" 1
-spriteset(seibu411_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu401/seibu411_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(seibu411_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu401/seibu411_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(seibu411_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu401/seibu411_1.png"){ tmpl_purchase_2c(0, 75) }
+  switch(FEAT_TRAINS, SELF, seibu411_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_seibu; 1: seibu411_purchase_c1; 2: seibu411_purchase_c2;}
 
   spriteset(seibu411_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu401/seibu411_1.png"){ tmpl_std(0, 0) }
   spriteset(seibu411_1_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu401/seibu411_1.png"){ tmpl_std_rev(0, 25) }
@@ -41500,9 +41576,10 @@ item(FEAT_TRAINS, seibu411,2113) {
 }
 # 75 "src/_private.pnml" 2
 # 1 "src/private/Kanto/seibu/seibu501.pnml" 1
-spriteset(seibu501_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu501/seibu501_purchase.png"){ tmpl_purchase(0, 0) }
 
-
+  spriteset(seibu501_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu501/seibu501_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(seibu501_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu501/seibu501_1.png"){ tmpl_purchase_2c(0, 125) }
+  switch(FEAT_TRAINS, SELF, seibu501_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_seibu; 1: seibu501_purchase_c1; 2: seibu501_purchase_c2;}
 
   spriteset(seibu501_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu501/seibu501_1.png"){ tmpl_std(0, 0) }
   spriteset(seibu501_1_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu501/seibu501_1.png"){ tmpl_std_rev(0, 25) }
@@ -41802,7 +41879,10 @@ item(FEAT_TRAINS, seibu501,2114) {
 }
 # 76 "src/_private.pnml" 2
 # 1 "src/private/Kanto/seibu/seibu301.pnml" 1
-spriteset(seibu301_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu301/seibu301_purchase.png"){ tmpl_purchase(0, 0) }
+
+  spriteset(seibu301_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu301/seibu101_3.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(seibu301_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu301/seibu101_3.png"){ tmpl_purchase_2c(0, 100) }
+  switch(FEAT_TRAINS, SELF, seibu301_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_seibu; 1: seibu301_purchase_c1; 2: seibu301_purchase_c2;}
 
 
  spriteset(seibu101_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu301/seibu101_1.png"){ tmpl_std(0, 0) }
@@ -42968,8 +43048,10 @@ item(FEAT_TRAINS, seibu301,2115) {
 }
 # 77 "src/_private.pnml" 2
 # 1 "src/private/Kanto/seibu/seibu2000.pnml" 1
-spriteset(seibu2000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu2000/seibu2000_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(seibu2000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu2000/seibu2000_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(seibu2000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu2000/seibu2000_1.png"){ tmpl_purchase_2c(0, 100) }
+  switch(FEAT_TRAINS, SELF, seibu2000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_seibu; 1: seibu2000_purchase_c1; 2: seibu2000_purchase_c2;}
 
  spriteset(seibu2000_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu2000/seibu2000_1.png"){ tmpl_std(0, 0) }
  spriteset(seibu2000_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu2000/seibu2000_1.png"){ tmpl_std_rev(0, 25) }
@@ -43395,8 +43477,10 @@ item(FEAT_TRAINS, seibu2000,2116) {
 }
 # 78 "src/_private.pnml" 2
 # 1 "src/private/Kanto/seibu/seibu3000.pnml" 1
-spriteset(seibu3000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu3000/seibu3000_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(seibu3000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu3000/seibu3000_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(seibu3000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu3000/seibu3000_1_sk.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, seibu3000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_seibu; 1: seibu3000_purchase_c1; 2: seibu3000_purchase_c2;}
 
  spriteset(seibu3000_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu3000/seibu3000_1.png"){ tmpl_std(0, 0) }
  spriteset(seibu3000_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu3000/seibu3000_1.png"){ tmpl_std_rev(0, 25) }
@@ -43909,8 +43993,10 @@ item(FEAT_TRAINS, seibu3000,2117) {
 }
 # 79 "src/_private.pnml" 2
 # 1 "src/private/Kanto/seibu/seibu4000.pnml" 1
-spriteset(seibu4000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu4000/seibu4000_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(seibu4000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu4000/seibu4000_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(seibu4000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu4000/seibu4000_1.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, seibu4000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_seibu; 1: seibu4000_purchase_c1; 2: seibu4000_purchase_c2;}
 
  spriteset(seibu4000_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu4000/seibu4000_1.png"){ tmpl_std(0, 0) }
  spriteset(seibu4000_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu4000/seibu4000_1.png"){ tmpl_std_rev(0, 25) }
@@ -44096,8 +44182,10 @@ item(FEAT_TRAINS, seibu4000,2118) {
 }
 # 80 "src/_private.pnml" 2
 # 1 "src/private/Kanto/seibu/seibu6000.pnml" 1
-spriteset(seibu6000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu6000/seibu6000_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(seibu6000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu6000/seibu6000_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(seibu6000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu6000/seibu6000_1.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, seibu6000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_seibu; 1: seibu6000_purchase_c1; 2: seibu6000_purchase_c2;}
 
  spriteset(seibu6000_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu6000/seibu6000_1.png"){ tmpl_std(0, 0) }
  spriteset(seibu6000_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu6000/seibu6000_1.png"){ tmpl_std_rev(0, 25) }
@@ -44500,8 +44588,10 @@ item(FEAT_TRAINS, seibu6000,2119) {
 }
 # 81 "src/_private.pnml" 2
 # 1 "src/private/Kanto/seibu/seibu9000.pnml" 1
-spriteset(seibu9000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu9000/seibu9000_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(seibu9000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu9000/seibu9000_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(seibu9000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu9000/seibu9000_1.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, seibu9000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_seibu; 1: seibu9000_purchase_c1; 2: seibu9000_purchase_c2;}
 
  spriteset(seibu9000_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu9000/seibu9000_1.png"){ tmpl_std(0, 0) }
  spriteset(seibu9000_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu9000/seibu9000_1.png"){ tmpl_std_rev(0, 25) }
@@ -45091,8 +45181,10 @@ item(FEAT_TRAINS, seibu9000,2120) {
 }
 # 82 "src/_private.pnml" 2
 # 1 "src/private/Kanto/seibu/seibu20000.pnml" 1
-spriteset(seibu20000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu20000/seibu20000_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(seibu20000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu20000/seibu20000_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(seibu20000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu20000/seibu20000_1.png"){ tmpl_purchase_2c(0, 100) }
+  switch(FEAT_TRAINS, SELF, seibu20000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_seibu; 1: seibu20000_purchase_c1; 2: seibu20000_purchase_c2;}
 
  spriteset(seibu20000_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu20000/seibu20000_1.png"){ tmpl_std(0, 0) }
  spriteset(seibu20000_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu20000/seibu20000_1.png"){ tmpl_std_rev(0, 25) }
@@ -45432,7 +45524,7 @@ spriteset(seibu20000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/
       1:sw_seibu20000_livery_2;
       1:sw_seibu20000_livery_3;
     }
-# 350 "src/private/Kanto/seibu/seibu20000.pnml"
+# 352 "src/private/Kanto/seibu/seibu20000.pnml"
     switch(FEAT_TRAINS, SELF, sw_seibu20000_livery_0, current_year){
       0..2015:sw_seibu20000_livery_1;
       2016..2017:sw_seibu20000_livery_0_1;
@@ -45554,8 +45646,10 @@ item(FEAT_TRAINS, seibu20000,2121) {
 }
 # 83 "src/_private.pnml" 2
 # 1 "src/private/Kanto/seibu/seibu30000.pnml" 1
-spriteset(seibu30000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu30000/seibu30000_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(seibu30000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu30000/seibu30000_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(seibu30000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu30000/seibu30000_1.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, seibu30000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_seibu; 1: seibu30000_purchase_c1; 2: seibu30000_purchase_c2;}
 
  spriteset(seibu30000_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu30000/seibu30000_1.png"){ tmpl_std(0, 0) }
  spriteset(seibu30000_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu30000/seibu30000_1.png"){ tmpl_std_rev(0, 25) }
@@ -46255,8 +46349,10 @@ item(FEAT_TRAINS, seibu30000,2122) {
 }
 # 84 "src/_private.pnml" 2
 # 1 "src/private/Kanto/seibu/seibu40000.pnml" 1
-spriteset(seibu40000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu40000/seibu40000_purchase.png"){ tmpl_purchase(0, 0) }
 
+  spriteset(seibu40000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu40000/seibu40000_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(seibu40000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu40000/seibu40000_1.png"){ tmpl_purchase_2c(0, 100) }
+  switch(FEAT_TRAINS, SELF, seibu40000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_seibu; 1: seibu40000_purchase_c1; 2: seibu40000_purchase_c2;}
 
  spriteset(seibu40000_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu40000/seibu40000_1.png"){ tmpl_std(0, 0) }
  spriteset(seibu40000_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/seibu/seibu40000/seibu40000_1.png"){ tmpl_std_rev(0, 25) }
@@ -46673,6 +46769,10 @@ item(FEAT_TRAINS, sotetsu12000, 2211) {}
 item(FEAT_TRAINS, sotetsu20000, 2212) {}
 # 1 "src/private/Kanto/sotetsu/sotetsu10000.pnml" 1
 
+  spriteset(sotetsu10000_front_base_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(sotetsu10000_car_base_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000.png"){ tmpl_purchase_2c(0, 25) }
+  switch(FEAT_TRAINS, SELF, sotetsu10000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_sotetsu; 1: roof_gray_med_h1_c1; 2: sotetsu10000_front_base_c1; 3: ac_long_toshiba_c1; 4: roof_gray_med_c2; 5: sotetsu10000_car_base_c2; 6: ac_long_toshiba_c2;}
+
 spriteset(sotetsu10000_front_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000.png"){ tmpl_std(0, 0) }
 spriteset(sotetsu10000_end_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000.png"){ tmpl_std_rev(0, 0) }
 spriteset(sotetsu10000_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000.png"){ tmpl_symm(0, 25) }
@@ -46684,11 +46784,6 @@ switch(FEAT_TRAINS, SELF, sotetsu10000_end, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | 
 switch(FEAT_TRAINS, SELF, sotetsu10000_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: roof_gray_med; 1: sotetsu10000_car_base; 2: ac_long_toshiba;}
 switch(FEAT_TRAINS, SELF, sotetsu10000_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: roof_gray_med; 1: sotetsu10000_car_base; 2: ac_long_toshiba; 3: panto_arm_n_single;}
 switch(FEAT_TRAINS, SELF, sotetsu10000_mot_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: roof_gray_med; 1: sotetsu10000_car_base; 2: ac_long_toshiba; 3: panto_arm_n_single_rev;}
-
-
-  spriteset(sotetsu10000_front_base_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000.png"){ tmpl_purchase_1c(0, 0) }
-  spriteset(sotetsu10000_car_base_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000.png"){ tmpl_purchase_2c(0, 25) }
-  switch(FEAT_TRAINS, SELF, sotetsu10000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_sotetsu; 1: roof_gray_med_h1_c1; 2: sotetsu10000_front_base_c1; 3: ac_long_toshiba_c1; 4: roof_gray_med_c2; 5: sotetsu10000_car_base_c2; 6: ac_long_toshiba_c2;}
 
 
 
@@ -47143,7 +47238,12 @@ item(FEAT_TRAINS, sotetsu20000) {
 
 
 # 1 "src/private/Kanto/TWR/70_000series.pnml" 1
-spriteset(twr_70_000series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/TWR/70_000series/70_000series_purchase.png"){ tmpl_purchase(0, 0) }spriteset(twr_70_000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/TWR/70_000series/70_000series.png"){ tmpl_std(0, 0) }
+
+  spriteset(twr_70_000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/TWR/70_000series/70_000series.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(twr_70_000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/TWR/70_000series/70_000series.png"){ tmpl_purchase_2c(0, 75) }
+  switch(FEAT_TRAINS, SELF, twr_70_000series_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_twr; 1: twr_70_000series_purchase_c1; 2: twr_70_000series_purchase_c2;}
+
+spriteset(twr_70_000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/TWR/70_000series/70_000series.png"){ tmpl_std(0, 0) }
 spriteset(twr_70_000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/TWR/70_000series/70_000series.png"){ tmpl_std_rev(0, 25) }
 spriteset(twr_70_000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/TWR/70_000series/70_000series.png"){ tmpl_std(0, 50) }
 spriteset(twr_70_000series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/TWR/70_000series/70_000series.png"){ tmpl_std_rev(0, 50) }
@@ -47233,7 +47333,7 @@ item(FEAT_TRAINS, twr_70_000series,2290) {
         climates_available: param_disable_semiPrivate == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -47296,7 +47396,10 @@ item(FEAT_TRAINS, twr_70_000series,2290) {
 
 
 # 1 "src/private/Kanto/tsukuba/1000series.pnml" 1
-spriteset(tsukuba_1000series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/1000series/1000series_purchase.png"){ tmpl_purchase(0, 0) }
+
+  spriteset(tsukuba_1000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/1000series/1000series.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(tsukuba_1000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/1000series/1000series.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, tsukuba_1000series_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tsukuba; 1: tsukuba_1000series_purchase_c1; 2: tsukuba_1000series_purchase_c2;}
 
 spriteset(tsukuba_1000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/1000series/1000series.png"){ tmpl_std(0, 0) }
 spriteset(tsukuba_1000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/1000series/1000series.png"){ tmpl_std_rev(0, 25) }
@@ -47390,7 +47493,7 @@ item(FEAT_TRAINS, tsukuba_1000series,2295) {
         climates_available: param_disable_semiPrivate == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -47451,7 +47554,11 @@ item(FEAT_TRAINS, tsukuba_1000series,2295) {
 }
 # 106 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tsukuba/2000series.pnml" 1
-spriteset(tsukuba_2000series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/2000series/2000series_purchase.png"){ tmpl_purchase(0, 0) }
+
+  spriteset(tsukuba_2000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/2000series/2000series.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(tsukuba_2000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/2000series/2000series.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, tsukuba_2000series_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tsukuba; 1: tsukuba_2000series_purchase_c1; 2: tsukuba_2000series_purchase_c2;}
+
 spriteset(tsukuba_2000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/2000series/2000series.png"){ tmpl_std(0, 0) }
 spriteset(tsukuba_2000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/2000series/2000series.png"){ tmpl_std_rev(0, 25) }
 spriteset(tsukuba_2000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/2000series/2000series.png"){ tmpl_std(0, 50) }
@@ -47544,7 +47651,7 @@ item(FEAT_TRAINS, tsukuba_2000series,2296) {
         climates_available: param_disable_semiPrivate == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -47605,7 +47712,12 @@ item(FEAT_TRAINS, tsukuba_2000series,2296) {
 }
 # 107 "src/_private.pnml" 2
 # 1 "src/private/Kanto/tsukuba/3000series.pnml" 1
-spriteset(tsukuba_3000series_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/3000series/3000series_purchase.png"){ tmpl_purchase(0, 0) }spriteset(tsukuba_3000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/3000series/3000series.png"){ tmpl_std(0, 0) }
+
+  spriteset(tsukuba_3000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/3000series/3000series.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(tsukuba_3000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/3000series/3000series.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, tsukuba_3000series_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tsukuba; 1: tsukuba_3000series_purchase_c1; 2: tsukuba_3000series_purchase_c2;}
+
+spriteset(tsukuba_3000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/3000series/3000series.png"){ tmpl_std(0, 0) }
 spriteset(tsukuba_3000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/3000series/3000series.png"){ tmpl_std_rev(0, 25) }
 spriteset(tsukuba_3000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/3000series/3000series.png"){ tmpl_std(0, 50) }
 spriteset(tsukuba_3000series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/3000series/3000series.png"){ tmpl_std_rev(0, 50) }
@@ -47697,7 +47809,7 @@ item(FEAT_TRAINS, tsukuba_3000series,2297) {
         climates_available: param_disable_semiPrivate == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -47785,7 +47897,7 @@ item(FEAT_TRAINS, keikyu1) {
         cargo_capacity: 130;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -47861,7 +47973,7 @@ item(FEAT_TRAINS, keikyu26) {
         cargo_capacity: 130;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -47937,7 +48049,7 @@ item(FEAT_TRAINS, keikyu29) {
         cargo_capacity: 130;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -48128,7 +48240,7 @@ item(FEAT_TRAINS, keikyu51) {
         cargo_capacity: 130;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -48339,7 +48451,7 @@ item(FEAT_TRAINS, keikyu_de1) {
         cargo_capacity: 130;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -48648,7 +48760,7 @@ item(FEAT_TRAINS, keikyu300) {
         climates_available: param_disable_keikyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -48947,7 +49059,7 @@ item(FEAT_TRAINS, keikyu500) {
         climates_available: param_disable_keikyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -49174,7 +49286,7 @@ item(FEAT_TRAINS, keikyu600) {
         climates_available: param_disable_keikyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -49349,7 +49461,7 @@ item(FEAT_TRAINS, keikyu700) {
         climates_available: param_disable_keikyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -49585,7 +49697,7 @@ item(FEAT_TRAINS, keikyu1000) {
         climates_available: param_disable_keikyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -49795,7 +49907,7 @@ item(FEAT_TRAINS, keikyu800) {
         climates_available: param_disable_keikyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -50091,7 +50203,7 @@ item(FEAT_TRAINS, keikyu2000) {
         climates_available: param_disable_keikyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -50296,7 +50408,7 @@ item(FEAT_TRAINS, keikyu1500) {
         climates_available: param_disable_keikyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -50602,7 +50714,7 @@ item(FEAT_TRAINS, keikyu600n) {
         climates_available: param_disable_keikyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -50655,7 +50767,10 @@ item(FEAT_TRAINS, keikyu600n) {
 }
 # 149 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu2100.pnml" 1
-spriteset (keikyu2100_purchase, "gfx/private/Kanto/keikyu/keikyu2100/keikyu2100_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(keikyu2100_purchase_c1, "gfx/private/Kanto/keikyu/keikyu2100/keikyu2100_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keikyu2100_purchase_c2, "gfx/private/Kanto/keikyu/keikyu2100/keikyu2100_1.png"){ tmpl_purchase_2c(0, 75) }
+  switch(FEAT_TRAINS, SELF, keikyu2100_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keikyu; 1: keikyu2100_purchase_c1; 2: keikyu2100_purchase_c2;}
 
 spriteset (keikyu2100_1_front, "gfx/private/Kanto/keikyu/keikyu2100/keikyu2100_1.png") { tmpl_std(0, 0) }
 spriteset (keikyu2100_1_end, "gfx/private/Kanto/keikyu/keikyu2100/keikyu2100_1.png") { tmpl_std_rev(0, 25) }
@@ -50820,7 +50935,7 @@ item(FEAT_TRAINS, keikyu2100) {
         climates_available: param_disable_keikyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -51331,7 +51446,7 @@ item(FEAT_TRAINS, keikyu1000n) {
         climates_available: param_disable_keikyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -51553,7 +51668,7 @@ item(FEAT_TRAINS, keisei1500) {
         cargo_capacity: 130;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -51708,7 +51823,7 @@ item(FEAT_TRAINS, keisei1600) {
         cargo_capacity: 130;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -51945,7 +52060,7 @@ item(FEAT_TRAINS, keisei_AE1) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -52124,7 +52239,7 @@ item(FEAT_TRAINS, keisei_AE100) {
     climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
     ai_special_flag: AI_FLAG_PASSENGER;
     sprite_id: SPRITE_ID_NEW_TRAIN;
-    misc_flags: bitmask(TRAIN_FLAG_MU);
+    misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
     refittable_cargo_classes: bitmask(CC_PASSENGERS);
     non_refittable_cargo_classes: bitmask();
     refit_cost: 0;
@@ -52180,7 +52295,10 @@ item(FEAT_TRAINS, keisei_AE100) {
 }
 # 183 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei_AE2.pnml" 1
-spriteset (keisei_AE2_purchase, "gfx/private/Kanto/keisei/keisei_AE2/keisei_AE2_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(keisei_AE2_purchase_c1, "gfx/private/Kanto/keisei/keisei_AE2/keisei_AE2.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei_AE2_purchase_c2, "gfx/private/Kanto/keisei/keisei_AE2/keisei_AE2.png"){ tmpl_purchase_2c(88, 125) }
+  switch(FEAT_TRAINS, SELF, keisei_AE2_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei_AE2_purchase_c1; 2: keisei_AE2_purchase_c2;}
 
 spriteset (keisei_AE2_1_front_1, "gfx/private/Kanto/keisei/keisei_AE2/keisei_AE2.png") { tmpl_std(0, 0) }
 spriteset (keisei_AE2_1_end_1, "gfx/private/Kanto/keisei/keisei_AE2/keisei_AE2.png") { tmpl_std_rev(0, 25) }
@@ -52297,7 +52415,7 @@ item(FEAT_TRAINS, keisei_AE2) {
     climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
     ai_special_flag: AI_FLAG_PASSENGER;
     sprite_id: SPRITE_ID_NEW_TRAIN;
-    misc_flags: bitmask(TRAIN_FLAG_MU);
+    misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
     refittable_cargo_classes: bitmask(CC_PASSENGERS);
     non_refittable_cargo_classes: bitmask();
     refit_cost: 0;
@@ -52397,7 +52515,7 @@ item(FEAT_TRAINS, keisei1) {
         cargo_capacity: 130;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -52622,7 +52740,7 @@ item(FEAT_TRAINS, keisei20) {
         cargo_capacity: 130;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -52805,7 +52923,7 @@ item(FEAT_TRAINS, keisei33) {
         cargo_capacity: 130;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -53065,7 +53183,7 @@ item(FEAT_TRAINS, keisei200) {
         cargo_capacity: 130;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -53251,7 +53369,7 @@ item(FEAT_TRAINS, keisei200_2000) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -53454,7 +53572,7 @@ item(FEAT_TRAINS, keisei300) {
         cargo_capacity: 130;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -53688,7 +53806,7 @@ item(FEAT_TRAINS, keisei600) {
         cargo_capacity: 130;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -53896,7 +54014,7 @@ item(FEAT_TRAINS, keisei700) {
         cargo_capacity: 130;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -54264,7 +54382,7 @@ item(FEAT_TRAINS, keisei3000_1) {
         cargo_capacity: 130;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -54751,7 +54869,7 @@ item(FEAT_TRAINS, keisei3100) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -55329,7 +55447,7 @@ item(FEAT_TRAINS, keisei3200) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -55827,7 +55945,7 @@ item(FEAT_TRAINS, keisei3300) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -56114,7 +56232,7 @@ item(FEAT_TRAINS, keisei3500) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -56379,7 +56497,7 @@ item(FEAT_TRAINS, keisei3600) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -56610,7 +56728,7 @@ item(FEAT_TRAINS, keisei3700) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -56789,7 +56907,7 @@ item(FEAT_TRAINS, keisei3400) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -57019,7 +57137,7 @@ item(FEAT_TRAINS, keisei3000_2) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -57175,7 +57293,7 @@ item(FEAT_TRAINS, keisei3100_2) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -57347,7 +57465,7 @@ item(FEAT_TRAINS, shinKeisei33) {
         cargo_capacity: 130;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -57512,7 +57630,7 @@ item(FEAT_TRAINS, shinKeisei300) {
         cargo_capacity: 130;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -57749,7 +57867,7 @@ item(FEAT_TRAINS, shinKeisei2000) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -58061,7 +58179,7 @@ item(FEAT_TRAINS, shinKeisei800) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -58294,7 +58412,7 @@ item(FEAT_TRAINS, shinKeisei8000) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -58528,7 +58646,7 @@ item(FEAT_TRAINS, shinKeisei8800) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -58728,7 +58846,7 @@ item(FEAT_TRAINS, shinKeisei8900) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -58859,7 +58977,7 @@ item(FEAT_TRAINS, shinKeisei800n) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -58913,7 +59031,10 @@ item(FEAT_TRAINS, shinKeisei800n) {
 }
 # 223 "src/_private.pnml" 2
 # 1 "src/private/Kanto/shinKeisei/shinKeisei80000.pnml" 1
-spriteset (shinKeisei80000_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/shinKeisei/shinKeisei80000/shinKeisei80000_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(shinKeisei80000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/shinKeisei/shinKeisei80000/shinKeisei80000_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(shinKeisei80000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/shinKeisei/shinKeisei80000/shinKeisei80000_1.png"){ tmpl_purchase_2c(88, 75) }
+  switch(FEAT_TRAINS, SELF, shinKeisei80000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_shin_keisei; 1: shinKeisei80000_purchase_c1; 2: shinKeisei80000_purchase_c2;}
 
 spriteset (shinKeisei80000_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/shinKeisei/shinKeisei80000/shinKeisei80000_1.png") { tmpl_high_skirt(0, 0) }
 spriteset (shinKeisei80000_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/shinKeisei/shinKeisei80000/shinKeisei80000_1.png") { tmpl_high_skirt_rev(0, 25) }
@@ -58993,7 +59114,7 @@ item(FEAT_TRAINS, shinKeisei80000) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -59153,7 +59274,7 @@ item(FEAT_TRAINS, hokuso7000) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -59436,7 +59557,7 @@ item(FEAT_TRAINS, hokuso7150) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -59597,7 +59718,7 @@ item(FEAT_TRAINS, hokuso7050) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -59784,7 +59905,7 @@ item(FEAT_TRAINS, hokuso7250) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -59938,7 +60059,7 @@ item(FEAT_TRAINS, hokuso7300) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -60069,7 +60190,7 @@ item(FEAT_TRAINS, hokuso7500) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -60229,7 +60350,7 @@ spriteset (chibaNT_9000_2_end, "gfx/private/Kanto/chibaNewTown/chibaNT_9000/chib
 
 item(FEAT_TRAINS, chibaNT_9000) {
     property {
-        name: string(STR_TRAIN_NAME, string(STR_NAME_CHIBA_NT), "9000", string(STR_NAME_TYPE));
+        name: string(STR_TRAIN_NAME, string(STR_NAME_CHIBA_NT), "2000/9000", string(STR_NAME_TYPE));
         introduction_date: date(1984, 1, 1);
         model_life: 2017-1984-5;
         vehicle_life: 30;
@@ -60248,7 +60369,7 @@ item(FEAT_TRAINS, chibaNT_9000) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -60442,7 +60563,7 @@ item(FEAT_TRAINS, chibaNT_9100) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -60577,7 +60698,7 @@ item(FEAT_TRAINS, chibaE_1000) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -60718,7 +60839,7 @@ item(FEAT_TRAINS, chibaE_3050) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -60889,7 +61010,7 @@ item(FEAT_TRAINS, chibaE_3100) {
         climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
@@ -61020,7 +61141,7 @@ item(FEAT_TRAINS, shibayama3600) {
         climates_available: param_disable_semiPrivate == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
