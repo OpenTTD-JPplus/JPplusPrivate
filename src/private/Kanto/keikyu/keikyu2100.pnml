@@ -1,5 +1,8 @@
-spriteset (keikyu2100_purchase,   "gfx/private/Kanto/keikyu/keikyu2100/keikyu2100_purchase.png") { tmpl_purchase(0, 0) }
-
+//purchase
+  spriteset(keikyu2100_purchase_c1,      "gfx/private/Kanto/keikyu/keikyu2100/keikyu2100_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keikyu2100_purchase_c2,      "gfx/private/Kanto/keikyu/keikyu2100/keikyu2100_1.png"){ tmpl_purchase_2c(0, 75) }
+  GRAPHIC_STACK_3(keikyu2100_purchase, logo_keikyu, keikyu2100_purchase_c1, keikyu2100_purchase_c2)
+//livery 1
 spriteset (keikyu2100_1_front,       "gfx/private/Kanto/keikyu/keikyu2100/keikyu2100_1.png") { tmpl_std(0, 0) }
 spriteset (keikyu2100_1_end,       "gfx/private/Kanto/keikyu/keikyu2100/keikyu2100_1.png") { tmpl_std_rev(0, 25) }
 spriteset (keikyu2100_1_mot,       "gfx/private/Kanto/keikyu/keikyu2100/keikyu2100_1.png") { tmpl_symm(0, 50) }
@@ -163,7 +166,7 @@ item(FEAT_TRAINS, keikyu2100) {
         climates_available: param_disable_keikyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU);
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
         non_refittable_cargo_classes: bitmask();
         refit_cost: 0;
