@@ -78,7 +78,7 @@ switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_panto_placer_main,num_vehs_in_cons
     9..16: sw_sn_nm_1000series_panto_placer_2_main;
     sw_sn_nm_1000series_panto_placer_1_main;
 }
-//panto placer end 
+//panto placer end
 
 //fake head-end placer
 switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_fake_placer,position_in_consist){
@@ -158,18 +158,16 @@ item(FEAT_TRAINS, sn_nm_1000series,1430) {
         purchase: sn_nm_1000series_purchase;
         can_attach_wagon: sn_nm_1000series_attach_vehid;
         additional_text:
-    string(STR_CONCAT_6,
-                            string(STR_NARROWGAUGE),
-                            string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
-                            string(STR_OPERATOR, 
-                            string(STR_SENDAI),
-                            ),
-                            string(STR_LINES_USED,
-                            string(STR_SENDAI_NAMBOKU)
-                            ),
-                        );
-        start_stop: sw_stop_start_3; 
-        cargo_capacity: 144*param_capacity_mod/3;  
+    string(STR_TRAIN_DESC,
+		string(STR_NARROWGAUGE),
+		string(STR_DENKI, string(STR_DC_N, 1500)),
+		string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+		string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
+		string(STR_OPERATOR, string(STR_SENDAI)),
+		string(STR_LINES_USED, string(STR_SENDAI_NAMBOKU)));
+
+        start_stop: sw_stop_start_3;
+        cargo_capacity: 144*param_capacity_mod/3;
     }
     livery_override(mu_car_narrow){
         loading_speed: param_loading_4D;
@@ -177,7 +175,7 @@ item(FEAT_TRAINS, sn_nm_1000series,1430) {
         default:                      sw_sn_nm_1000series_livery_1;
         power: 429*2/3;
         weight: 32;
-        length: 8; 
+        length: 8;
       }
 }
 
