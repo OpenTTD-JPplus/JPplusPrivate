@@ -1,7 +1,20 @@
-spriteset (keisei3000_1_purchase_1,   "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_purchase.png") { tmpl_purchase(0, 0) }
-spriteset (keisei3000_1_purchase_2,   "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_purchase.png") { tmpl_purchase(0, 15) }
-spriteset (keisei3000_1_purchase_3,   "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_purchase.png") { tmpl_purchase(0, 30) }
-
+//purchase
+  spriteset(keisei3000_1_purchase_c1_1,      "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3000_1_purchase_c2_1,      "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_1.png"){ tmpl_purchase_2c(0, 50) }
+  GRAPHIC_STACK_3(keisei3000_1_purchase_1, logo_keisei, keisei3000_1_purchase_c1_1, keisei3000_1_purchase_c2_1)
+  spriteset(keisei3000_1_purchase_c1_2,      "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_2.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3000_1_purchase_c2_2,      "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_2.png"){ tmpl_purchase_2c(0, 50) }
+  GRAPHIC_STACK_3(keisei3000_1_purchase_2, logo_keisei, keisei3000_1_purchase_c1_2, keisei3000_1_purchase_c2_2)
+  spriteset(keisei3000_1_purchase_c1_3,      "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_3.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3000_1_purchase_c2_3,      "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_3.png"){ tmpl_purchase_2c(0, 50) }
+  GRAPHIC_STACK_3(keisei3000_1_purchase_3, logo_keisei, keisei3000_1_purchase_c1_3, keisei3000_1_purchase_c2_3)
+  
+  switch(FEAT_TRAINS, PARENT, keisei3000_1_purchase,current_year){
+    0..1958: keisei3000_1_purchase_1;
+    1959..1979: keisei3000_1_purchase_2;
+    keisei3000_1_purchase_3;
+  }
+  //livery 1
 spriteset (keisei3000_1_1_front_mot,       "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_1.png") { tmpl_std(0, 0) }
 spriteset (keisei3000_1_1_end_mot,       "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_1.png") { tmpl_std_rev(0, 25) }
 spriteset (keisei3000_1_1_end_mot_rev,       "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_1.png") { tmpl_std(0, 25) }
@@ -48,13 +61,6 @@ spriteset (keisei3000_1_3_end_ac_rev,       "gfx/private/Kanto/keisei/keisei3000
 spriteset (keisei3000_1_3_mot_ac,       "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_3_ac.png") { tmpl_std(0, 100) }
 spriteset (keisei3000_1_3_mot_ac_rev,       "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_3_ac.png") { tmpl_std_rev(0, 100) }
 spriteset (keisei3000_1_3_wag_ac,       "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_3_ac.png") { tmpl_symm(0, 125) }
-
-//purchase
-  switch(FEAT_TRAINS, PARENT, keisei3000_1_purchase,current_year){
-    0..1958: keisei3000_1_purchase_1;
-    1959..1979: keisei3000_1_purchase_2;
-    keisei3000_1_purchase_3;
-  }
 //
 //*livery 1
   //special gfx
@@ -279,13 +285,15 @@ spriteset (keisei3000_1_3_wag_ac,       "gfx/private/Kanto/keisei/keisei3000_1/k
     }
   switch(FEAT_TRAINS, SELF, sw_keisei3000_1_lv,cargo_subtype){
     0:sw_keisei3000_1_livery_0;
-    1:sw_keisei3000_1_livery_2;
-    2:sw_keisei3000_1_livery_3;
+    1:sw_keisei3000_1_livery_1;
+    2:sw_keisei3000_1_livery_2;
+    3:sw_keisei3000_1_livery_3;
   }
   switch(FEAT_TRAINS, SELF, sw_keisei3000_1_lv_desc,cargo_subtype){
     0:string(LV_RANDOM);
     1:string(LV_KEISEI_AODEN);
-    2:string(LV_KEISEI_ORANGE);
+    2:string(LV_KEISEI_AKADEN);
+    3:string(LV_KEISEI_ORANGE);
   }
 //
 //post fixers
