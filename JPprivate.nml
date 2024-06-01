@@ -2190,6 +2190,7 @@ spriteset (sprite_logo_sotetsu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_
 spriteset (sprite_logo_keikyu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 75) }
 spriteset (sprite_logo_keisei, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 90) }
 spriteset (sprite_logo_shin_keisei, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 105) }
+spriteset (sprite_logo_hokuso, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 120) }
 
 spriteset (sprite_logo_twr, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_s.png") { tmpl_logo_private(0, 45) }
 spriteset (sprite_logo_tsukuba, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_s.png") { tmpl_logo_private(0, 60) }
@@ -2269,6 +2270,7 @@ switch(FEAT_TRAINS, SELF, logo_sotetsu, param_hide_logo) {0:sprite_logo_sotetsu;
 switch(FEAT_TRAINS, SELF, logo_keikyu, param_hide_logo) {0:sprite_logo_keikyu;}
 switch(FEAT_TRAINS, SELF, logo_keisei, param_hide_logo) {0:sprite_logo_keisei;}
 switch(FEAT_TRAINS, SELF, logo_shin_keisei, param_hide_logo) {0:sprite_logo_shin_keisei;}
+switch(FEAT_TRAINS, SELF, logo_hokuso, param_hide_logo) {0:sprite_logo_hokuso;}
 
 switch(FEAT_TRAINS, SELF, logo_twr, param_hide_logo) {0:sprite_logo_twr;}
 switch(FEAT_TRAINS, SELF, logo_tsukuba, param_hide_logo) {0:sprite_logo_tsukuba;}
@@ -47822,7 +47824,7 @@ item(FEAT_TRAINS, tsukuba_3000series,2297) {
         air_drag_coefficient: 0.07;
         bitmask_vehicle_info: 0;
 
-        name: string(STR_TRAIN_NAME_SHORT, "TX-2000", string(STR_NAME_SERIES));
+        name: string(STR_TRAIN_NAME_SHORT, "TX-3000", string(STR_NAME_SERIES));
         introduction_date: date(2019, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 30;
@@ -47888,7 +47890,9 @@ item(FEAT_TRAINS, keikyu2100, 2414) {}
 item(FEAT_TRAINS, keikyu1000n, 2415) {}
 
 # 1 "src/private/Kanto/keikyu/keikyu1.pnml" 1
-spriteset (keikyu1_purchase, "gfx/private/Kanto/keikyu/keikyu1/keikyu1_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(keikyu1_purchase_c1, "gfx/private/Kanto/keikyu/keikyu1/keikyu1.png"){ tmpl_purchase_1c(-88, 0) }
+  switch(FEAT_TRAINS, SELF, keikyu1_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keikyu; 1: keikyu1_purchase_c1;}
 
 spriteset (sw_keikyu1_lv, "gfx/private/Kanto/keikyu/keikyu1/keikyu1.png") { tmpl_std_rev(0, 0) }
 
@@ -47961,7 +47965,9 @@ item(FEAT_TRAINS, keikyu1) {
 }
 # 136 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu26.pnml" 1
-spriteset (keikyu26_purchase, "gfx/private/Kanto/keikyu/keikyu26/keikyu26_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(keikyu26_purchase_c1, "gfx/private/Kanto/keikyu/keikyu26/keikyu26.png"){ tmpl_purchase_1c(-88, 0) }
+  switch(FEAT_TRAINS, SELF, keikyu26_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keikyu; 1: keikyu26_purchase_c1;}
 
 spriteset (sw_keikyu26_lv, "gfx/private/Kanto/keikyu/keikyu26/keikyu26.png") { tmpl_std_rev(0, 0) }
 
@@ -48037,7 +48043,9 @@ item(FEAT_TRAINS, keikyu26) {
 }
 # 137 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu29.pnml" 1
-spriteset (keikyu29_purchase, "gfx/private/Kanto/keikyu/keikyu29/keikyu29_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(keikyu29_purchase_c1, "gfx/private/Kanto/keikyu/keikyu29/keikyu29.png"){ tmpl_purchase_1c(-88, 0) }
+  switch(FEAT_TRAINS, SELF, keikyu29_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keikyu; 1: keikyu29_purchase_c1;}
 
 spriteset (sw_keikyu29_lv, "gfx/private/Kanto/keikyu/keikyu29/keikyu29.png") { tmpl_std_rev(0, 0) }
 
@@ -48113,7 +48121,9 @@ item(FEAT_TRAINS, keikyu29) {
 }
 # 138 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu51.pnml" 1
-spriteset (keikyu51_purchase, "gfx/private/Kanto/keikyu/keikyu51/keikyu51_purchase.png") { tmpl_purchase(0, 30) }
+
+  spriteset(keikyu51_purchase_c1, "gfx/private/Kanto/keikyu/keikyu51/keikyu51_1.png"){ tmpl_purchase_1c(-88, 0) }
+  switch(FEAT_TRAINS, SELF, keikyu51_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keikyu; 1: keikyu51_purchase_c1;}
 
 spriteset (sw_keikyu51_livery_1, "gfx/private/Kanto/keikyu/keikyu51/keikyu51_1.png") { tmpl_std_rev(0, 0) }
 
@@ -48306,9 +48316,21 @@ item(FEAT_TRAINS, keikyu51) {
 }
 # 139 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu_de1.pnml" 1
-spriteset (keikyu_de1_purchase_1, "gfx/private/Kanto/keikyu/keikyu_de1/keikyu_de1_purchase.png") { tmpl_purchase(0, 0) }
-spriteset (keikyu_de1_purchase_2, "gfx/private/Kanto/keikyu/keikyu_de1/keikyu_de1_purchase.png") { tmpl_purchase(0, 15) }
-spriteset (keikyu_de1_purchase_3, "gfx/private/Kanto/keikyu/keikyu_de1/keikyu_de1_purchase.png") { tmpl_purchase(0, 30) }
+
+  spriteset(keikyu_de1_purchase_c1_1, "gfx/private/Kanto/keikyu/keikyu_de1/keikyu_de1_1.png"){ tmpl_purchase_1c(0, 25) }
+  switch(FEAT_TRAINS, SELF, keikyu_de1_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keikyu; 1: keikyu_de1_purchase_c1_1;}
+  spriteset(keikyu_de1_purchase_c1_2, "gfx/private/Kanto/keikyu/keikyu_de1/keikyu_de1_2.png"){ tmpl_purchase_1c(0, 25) }
+  spriteset(keikyu_de1_purchase_c2_2, "gfx/private/Kanto/keikyu/keikyu_de1/keikyu_de1_2.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keikyu_de1_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keikyu; 1: keikyu_de1_purchase_c1_2; 2: keikyu_de1_purchase_c2_2;}
+  spriteset(keikyu_de1_purchase_c1_3, "gfx/private/Kanto/keikyu/keikyu_de1/keikyu_de1_3.png"){ tmpl_purchase_1c(0, 25) }
+  spriteset(keikyu_de1_purchase_c2_3, "gfx/private/Kanto/keikyu/keikyu_de1/keikyu_de1_3.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keikyu_de1_purchase_3, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keikyu; 1: keikyu_de1_purchase_c1_3; 2: keikyu_de1_purchase_c2_3;}
+
+  switch(FEAT_TRAINS, SELF, keikyu_de1_purchase, current_year){
+    0..1947: keikyu_de1_purchase_1;
+    1948..1961: keikyu_de1_purchase_2;
+    keikyu_de1_purchase_3;
+  }
 
 spriteset (keikyu_de1_1_front_rev, "gfx/private/Kanto/keikyu/keikyu_de1/keikyu_de1_1.png") { tmpl_std_rev(0, 0) }
 spriteset (keikyu_de1_1_front, "gfx/private/Kanto/keikyu/keikyu_de1/keikyu_de1_1.png") { tmpl_std(0, 25) }
@@ -48324,12 +48346,6 @@ spriteset (keikyu_de1_3_front_rev, "gfx/private/Kanto/keikyu/keikyu_de1/keikyu_d
 spriteset (keikyu_de1_3_front, "gfx/private/Kanto/keikyu/keikyu_de1/keikyu_de1_3.png") { tmpl_std(0, 25) }
 spriteset (keikyu_de1_3_end, "gfx/private/Kanto/keikyu/keikyu_de1/keikyu_de1_3.png") { tmpl_std_rev(0, 50) }
 spriteset (keikyu_de1_3_end_rev, "gfx/private/Kanto/keikyu/keikyu_de1/keikyu_de1_3.png") { tmpl_std(0, 50) }
-
-  switch(FEAT_TRAINS, SELF, keikyu_de1_purchase, current_year){
-    0..1947: keikyu_de1_purchase_1;
-    1948..1961: keikyu_de1_purchase_1;
-    keikyu_de1_purchase_3;
-  }
 
 
  switch(FEAT_TRAINS, PARENT, sw_keikyu_de1_1_front_gfx, vehicle_is_reversed==1&&num_vehs_in_consist==1){
@@ -48517,9 +48533,22 @@ item(FEAT_TRAINS, keikyu_de1) {
 }
 # 140 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu300.pnml" 1
-spriteset (keikyu300_purchase_1, "gfx/private/Kanto/keikyu/keikyu300/keikyu300_purchase.png") { tmpl_purchase(0, 15) }
-spriteset (keikyu300_purchase_3, "gfx/private/Kanto/keikyu/keikyu300/keikyu300_purchase.png") { tmpl_purchase(0, 30) }
-spriteset (keikyu400_purchase_1, "gfx/private/Kanto/keikyu/keikyu300/keikyu300_purchase.png") { tmpl_purchase(0, 45) }
+
+  spriteset(keikyu300_purchase_c1_1, "gfx/private/Kanto/keikyu/keikyu300/keikyu300_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keikyu300_purchase_c2_1, "gfx/private/Kanto/keikyu/keikyu300/keikyu300_1.png"){ tmpl_purchase_2c(0, 175) }
+  switch(FEAT_TRAINS, SELF, keikyu300_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keikyu; 1: keikyu300_purchase_c1_1;}
+  spriteset(keikyu300_purchase_c1_2, "gfx/private/Kanto/keikyu/keikyu300/keikyu300_2.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keikyu300_purchase_c2_2, "gfx/private/Kanto/keikyu/keikyu300/keikyu300_2.png"){ tmpl_purchase_2c(0, 175) }
+  switch(FEAT_TRAINS, SELF, keikyu300_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keikyu; 1: keikyu300_purchase_c1_2; 2: keikyu300_purchase_c2_2;}
+  spriteset(keikyu400_purchase_c1_1, "gfx/private/Kanto/keikyu/keikyu300/keikyu400_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keikyu400_purchase_c2_1, "gfx/private/Kanto/keikyu/keikyu300/keikyu400_1.png"){ tmpl_purchase_2c(0, 175) }
+  switch(FEAT_TRAINS, SELF, keikyu400_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keikyu; 1: keikyu400_purchase_c1_1; 2: keikyu400_purchase_c2_1;}
+
+  switch(FEAT_TRAINS, SELF, keikyu300_purchase, current_year){
+    0..1956: keikyu300_purchase_1;
+    0..1964: keikyu300_purchase_2;
+    keikyu400_purchase_1;
+  }
 
 spriteset (keikyu300_1_front_mot_2, "gfx/private/Kanto/keikyu/keikyu300/keikyu300_1.png") { tmpl_std(0, 50) }
 spriteset (keikyu300_1_end_mot_2, "gfx/private/Kanto/keikyu/keikyu300/keikyu300_1.png") { tmpl_std_rev(0, 75) }
@@ -48553,12 +48582,6 @@ spriteset (keikyu400_1_end, "gfx/private/Kanto/keikyu/keikyu300/keikyu400_1.png"
 spriteset (keikyu400_1_end_rev, "gfx/private/Kanto/keikyu/keikyu300/keikyu400_1.png") { tmpl_std(0, 125) }
 spriteset (keikyu400_1_wag, "gfx/private/Kanto/keikyu/keikyu300/keikyu400_1.png") { tmpl_symm(0, 175) }
 
-
-  switch(FEAT_TRAINS, SELF, keikyu300_purchase, current_year){
-    0..1956: keikyu300_purchase_1;
-    0..1964: keikyu300_purchase_3;
-    keikyu400_purchase_1;
-  }
 
 
 
@@ -48814,9 +48837,22 @@ item(FEAT_TRAINS, keikyu300) {
 }
 # 141 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu500.pnml" 1
-spriteset (keikyu500_purchase_1, "gfx/private/Kanto/keikyu/keikyu500/keikyu500_purchase.png") { tmpl_purchase(0, 0) }
-spriteset (keikyu500_purchase_2, "gfx/private/Kanto/keikyu/keikyu500/keikyu500_purchase.png") { tmpl_purchase(0, 15) }
-spriteset (keikyu500_purchase_3, "gfx/private/Kanto/keikyu/keikyu500/keikyu500_purchase.png") { tmpl_purchase(0, 30) }
+
+  spriteset(keikyu500_purchase_c1_1, "gfx/private/Kanto/keikyu/keikyu500/keikyu500_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keikyu500_purchase_c2_1, "gfx/private/Kanto/keikyu/keikyu500/keikyu500_1.png"){ tmpl_purchase_2c(0, 125) }
+  switch(FEAT_TRAINS, SELF, keikyu500_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keikyu; 1: keikyu500_purchase_c1_1;}
+  spriteset(keikyu500_purchase_c1_2, "gfx/private/Kanto/keikyu/keikyu500/keikyu500_2.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keikyu500_purchase_c2_2, "gfx/private/Kanto/keikyu/keikyu500/keikyu500_2.png"){ tmpl_purchase_2c(0, 125) }
+  switch(FEAT_TRAINS, SELF, keikyu500_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keikyu; 1: keikyu500_purchase_c1_2; 2: keikyu500_purchase_c2_2;}
+  spriteset(keikyu500_purchase_c1_3, "gfx/private/Kanto/keikyu/keikyu500/keikyu500_3.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keikyu500_purchase_c2_3, "gfx/private/Kanto/keikyu/keikyu500/keikyu500_3.png"){ tmpl_purchase_2c(0, 125) }
+  switch(FEAT_TRAINS, SELF, keikyu500_purchase_3, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keikyu; 1: keikyu500_purchase_c1_3; 2: keikyu500_purchase_c2_3;}
+
+  switch(FEAT_TRAINS, SELF, keikyu500_purchase, current_year){
+    0..1964: keikyu500_purchase_1;
+    1965..1968: keikyu500_purchase_2;
+    keikyu500_purchase_3;
+  }
 
 spriteset (keikyu500_1_front_mot, "gfx/private/Kanto/keikyu/keikyu500/keikyu500_1.png") { tmpl_std(0, 0) }
 spriteset (keikyu500_1_end_mot, "gfx/private/Kanto/keikyu/keikyu500/keikyu500_1.png") { tmpl_std_rev(0, 25) }
@@ -48833,13 +48869,6 @@ spriteset (keikyu500_3_end_mot, "gfx/private/Kanto/keikyu/keikyu500/keikyu500_3.
 spriteset (keikyu500_3_end_mot_rev, "gfx/private/Kanto/keikyu/keikyu500/keikyu500_3.png") { tmpl_std(0, 25) }
 spriteset (keikyu500_3_wag, "gfx/private/Kanto/keikyu/keikyu500/keikyu500_3.png") { tmpl_symm(0, 125) }
 
-
-
-  switch(FEAT_TRAINS, SELF, keikyu500_purchase, current_year){
-    0..1964: keikyu500_purchase_1;
-    1965..1968: keikyu500_purchase_2;
-    keikyu500_purchase_3;
-  }
 
 
 
@@ -49113,7 +49142,10 @@ item(FEAT_TRAINS, keikyu500) {
 }
 # 142 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu600.pnml" 1
-spriteset (keikyu600_purchase, "gfx/private/Kanto/keikyu/keikyu600/keikyu600_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(keikyu600_purchase_c1, "gfx/private/Kanto/keikyu/keikyu600/keikyu600_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keikyu600_purchase_c2, "gfx/private/Kanto/keikyu/keikyu600/keikyu600_1.png"){ tmpl_purchase_2c(0, 125) }
+  switch(FEAT_TRAINS, SELF, keikyu600_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keikyu; 1: keikyu600_purchase_c1; 2: keikyu600_purchase_c2;}
 
 spriteset (keikyu600_1_front_mot, "gfx/private/Kanto/keikyu/keikyu600/keikyu600_1.png") { tmpl_std(0, 0) }
 spriteset (keikyu600_1_end_mot, "gfx/private/Kanto/keikyu/keikyu600/keikyu600_1.png") { tmpl_std_rev(0, 25) }
@@ -49339,7 +49371,10 @@ item(FEAT_TRAINS, keikyu600) {
 }
 # 143 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu700.pnml" 1
-spriteset (keikyu700_purchase, "gfx/private/Kanto/keikyu/keikyu700/keikyu700_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(keikyu700_purchase_c1, "gfx/private/Kanto/keikyu/keikyu700/keikyu700_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keikyu700_purchase_c2, "gfx/private/Kanto/keikyu/keikyu700/keikyu700_1.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keikyu700_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keikyu; 1: keikyu700_purchase_c1; 2: keikyu700_purchase_c2;}
 
 spriteset (keikyu700_1_front, "gfx/private/Kanto/keikyu/keikyu700/keikyu700_1.png") { tmpl_std(0, 0) }
 spriteset (keikyu700_1_end, "gfx/private/Kanto/keikyu/keikyu700/keikyu700_1.png") { tmpl_std_rev(0, 25) }
@@ -49514,7 +49549,10 @@ item(FEAT_TRAINS, keikyu700) {
 }
 # 144 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu1000.pnml" 1
-spriteset (keikyu1000_purchase, "gfx/private/Kanto/keikyu/keikyu1000/keikyu1000_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(keikyu1000_purchase_c1, "gfx/private/Kanto/keikyu/keikyu1000/keikyu1000_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keikyu1000_purchase_c2, "gfx/private/Kanto/keikyu/keikyu1000/keikyu1000_1.png"){ tmpl_purchase_2c(0, 125) }
+  switch(FEAT_TRAINS, SELF, keikyu1000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keikyu; 1: keikyu1000_purchase_c1; 2: keikyu1000_purchase_c2;}
 
 spriteset (keikyu1000_1_front_mot, "gfx/private/Kanto/keikyu/keikyu1000/keikyu1000_1.png") { tmpl_std(0, 0) }
 spriteset (keikyu1000_1_end_mot, "gfx/private/Kanto/keikyu/keikyu1000/keikyu1000_1.png") { tmpl_std_rev(0, 25) }
@@ -49749,7 +49787,10 @@ item(FEAT_TRAINS, keikyu1000) {
 }
 # 145 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu800.pnml" 1
-spriteset (keikyu800_purchase, "gfx/private/Kanto/keikyu/keikyu800/keikyu800_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(keikyu800_purchase_c1, "gfx/private/Kanto/keikyu/keikyu800/keikyu800_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keikyu800_purchase_c2, "gfx/private/Kanto/keikyu/keikyu800/keikyu800_1.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keikyu800_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keikyu; 1: keikyu800_purchase_c1; 2: keikyu800_purchase_c2;}
 
 spriteset (keikyu800_1_front, "gfx/private/Kanto/keikyu/keikyu800/keikyu800_1.png") { tmpl_std(0, 0) }
 spriteset (keikyu800_1_end, "gfx/private/Kanto/keikyu/keikyu800/keikyu800_1.png") { tmpl_std_rev(0, 25) }
@@ -49961,7 +50002,10 @@ item(FEAT_TRAINS, keikyu800) {
 }
 # 146 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu2000.pnml" 1
-spriteset (keikyu2000_purchase, "gfx/private/Kanto/keikyu/keikyu2000/keikyu2000_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(keikyu2000_purchase_c1, "gfx/private/Kanto/keikyu/keikyu2000/keikyu2000_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keikyu2000_purchase_c2, "gfx/private/Kanto/keikyu/keikyu2000/keikyu2000_1.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keikyu2000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keikyu; 1: keikyu2000_purchase_c1; 2: keikyu2000_purchase_c2;}
 
 spriteset (keikyu2000_1_front, "gfx/private/Kanto/keikyu/keikyu2000/keikyu2000_1.png") { tmpl_std(0, 0) }
 spriteset (keikyu2000_1_end, "gfx/private/Kanto/keikyu/keikyu2000/keikyu2000_1.png") { tmpl_std_rev(0, 25) }
@@ -50257,7 +50301,10 @@ item(FEAT_TRAINS, keikyu2000) {
 }
 # 147 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu1500.pnml" 1
-spriteset (keikyu1500_purchase, "gfx/private/Kanto/keikyu/keikyu1500/keikyu1500_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(keikyu1500_purchase_c1, "gfx/private/Kanto/keikyu/keikyu1500/keikyu1500_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keikyu1500_purchase_c2, "gfx/private/Kanto/keikyu/keikyu1500/keikyu1500_1.png"){ tmpl_purchase_2c(0, 150) }
+  switch(FEAT_TRAINS, SELF, keikyu1500_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keikyu; 1: keikyu1500_purchase_c1; 2: keikyu1500_purchase_c2;}
 
 spriteset (keikyu1500_1_front_mot, "gfx/private/Kanto/keikyu/keikyu1500/keikyu1500_1.png") { tmpl_std(0, 0) }
 spriteset (keikyu1500_1_end_mot, "gfx/private/Kanto/keikyu/keikyu1500/keikyu1500_1.png") { tmpl_std_rev(0, 25) }
@@ -50460,7 +50507,10 @@ item(FEAT_TRAINS, keikyu1500) {
 }
 # 148 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu600n.pnml" 1
-spriteset (keikyu600n_purchase, "gfx/private/Kanto/keikyu/keikyu600n/keikyu600n_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(keikyu600n_purchase_c1, "gfx/private/Kanto/keikyu/keikyu600n/keikyu600n_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keikyu600n_purchase_c2, "gfx/private/Kanto/keikyu/keikyu600n/keikyu600n_1.png"){ tmpl_purchase_2c(0, 150) }
+  switch(FEAT_TRAINS, SELF, keikyu600n_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keikyu; 1: keikyu600n_purchase_c1; 2: keikyu600n_purchase_c2;}
 
 spriteset (keikyu600n_1_front_mot, "gfx/private/Kanto/keikyu/keikyu600n/keikyu600n_1.png") { tmpl_std(0, 0) }
 spriteset (keikyu600n_1_end_mot, "gfx/private/Kanto/keikyu/keikyu600n/keikyu600n_1.png") { tmpl_std_rev(0, 25) }
@@ -50988,7 +51038,10 @@ item(FEAT_TRAINS, keikyu2100) {
 }
 # 150 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keikyu/keikyu1000n.pnml" 1
-spriteset (keikyu1000n_purchase, "gfx/private/Kanto/keikyu/keikyu1000n/keikyu1000n_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(keikyu1000n_purchase_c1, "gfx/private/Kanto/keikyu/keikyu1000n/keikyu1000n_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keikyu1000n_purchase_c2, "gfx/private/Kanto/keikyu/keikyu1000n/keikyu1000n_1.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keikyu1000n_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keikyu; 1: keikyu1000n_purchase_c1; 2: keikyu1000n_purchase_c2;}
 
 spriteset (keikyu1000n_1_front, "gfx/private/Kanto/keikyu/keikyu1000n/keikyu1000n_1.png") { tmpl_std(0, 0) }
 spriteset (keikyu1000n_1_end, "gfx/private/Kanto/keikyu/keikyu1000n/keikyu1000n_1.png") { tmpl_std_rev(0, 25) }
@@ -51527,8 +51580,18 @@ item(FEAT_TRAINS, keisei3100_2, 2473) {}
 
 
 # 1 "src/private/Kanto/keisei/keisei1500.pnml" 1
-spriteset (keisei1500_purchase_1, "gfx/private/Kanto/keisei/keisei1500/keisei1500_purchase.png") { tmpl_purchase(0, 0) }
-spriteset (keisei1500_purchase_2, "gfx/private/Kanto/keisei/keisei1500/keisei1500_purchase.png") { tmpl_purchase(0, 15) }
+
+  spriteset(keisei1500_purchase_c1_1, "gfx/private/Kanto/keisei/keisei1500/keisei1500_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei1500_purchase_c2_1, "gfx/private/Kanto/keisei/keisei1500/keisei1500_1.png"){ tmpl_purchase_2c_7(0, 75) }
+  switch(FEAT_TRAINS, SELF, keisei1500_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei1500_purchase_c1_1; 2: keisei1500_purchase_c2_1;}
+  spriteset(keisei1500_purchase_c1_2, "gfx/private/Kanto/keisei/keisei1500/keisei1500_2.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei1500_purchase_c2_2, "gfx/private/Kanto/keisei/keisei1500/keisei1500_2.png"){ tmpl_purchase_2c_7(0, 75) }
+  switch(FEAT_TRAINS, SELF, keisei1500_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei1500_purchase_c1_2; 2: keisei1500_purchase_c2_2;}
+
+  switch(FEAT_TRAINS, SELF, keisei1500_purchase,current_year){
+    0..1954:keisei1500_purchase_1;
+    keisei1500_purchase_2;
+  }
 
 spriteset (keisei1500_1_front_mot, "gfx/private/Kanto/keisei/keisei1500/keisei1500_1.png") { tmpl_std(0, 0) }
 spriteset (keisei1500_1_end_mot, "gfx/private/Kanto/keisei/keisei1500/keisei1500_1.png") { tmpl_std_rev(0, 25) }
@@ -51543,12 +51606,6 @@ spriteset (keisei1500_2_end_mot_rev, "gfx/private/Kanto/keisei/keisei1500/keisei
 spriteset (keisei1500_2_front, "gfx/private/Kanto/keisei/keisei1500/keisei1500_2.png") { tmpl_std(0, 50) }
 spriteset (keisei1500_2_end, "gfx/private/Kanto/keisei/keisei1500/keisei1500_2.png") { tmpl_std_rev(0, 75) }
 spriteset (keisei1500_2_end_rev, "gfx/private/Kanto/keisei/keisei1500/keisei1500_2.png") { tmpl_std(0, 75) }
-
-
-  switch(FEAT_TRAINS, SELF, keisei1500_purchase,current_year){
-    0..1954:keisei1500_purchase_1;
-    keisei1500_purchase_2;
-  }
 
 
 
@@ -51737,7 +51794,10 @@ item(FEAT_TRAINS, keisei1500) {
 }
 # 180 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei1600.pnml" 1
-spriteset (keisei1600_purchase, "gfx/private/Kanto/keisei/keisei1600/keisei1600_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(keisei1600_purchase_c1, "gfx/private/Kanto/keisei/keisei1600/keisei1600.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei1600_purchase_c2, "gfx/private/Kanto/keisei/keisei1600/keisei1600.png"){ tmpl_purchase_2c(0, 100) }
+  switch(FEAT_TRAINS, SELF, keisei1600_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei1600_purchase_c1; 2: keisei1600_purchase_c2;}
 
 spriteset (keisei1600_1_front_mot, "gfx/private/Kanto/keisei/keisei1600/keisei1600.png") { tmpl_std(0, 0) }
 spriteset (keisei1600_1_end_mot, "gfx/private/Kanto/keisei/keisei1600/keisei1600.png") { tmpl_std_rev(0, 25) }
@@ -51890,8 +51950,18 @@ item(FEAT_TRAINS, keisei1600) {
 }
 # 181 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei_AE1.pnml" 1
-spriteset (keisei_AE1_purchase_1, "gfx/private/Kanto/keisei/keisei_AE1/keisei_AE1_purchase.png") { tmpl_purchase(0, 0) }
-spriteset (keisei_AE1_purchase_2, "gfx/private/Kanto/keisei/keisei_AE1/keisei_AE1_purchase.png") { tmpl_purchase(0, 15) }
+
+  spriteset(keisei_AE1_purchase_c1_1, "gfx/private/Kanto/keisei/keisei_AE1/keisei_AE1_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei_AE1_purchase_c2_1, "gfx/private/Kanto/keisei/keisei_AE1/keisei_AE1_1.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei_AE1_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei_AE1_purchase_c1_1; 2: keisei_AE1_purchase_c2_1;}
+  spriteset(keisei_AE1_purchase_c1_2, "gfx/private/Kanto/keisei/keisei_AE1/keisei_AE1_2.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei_AE1_purchase_c2_2, "gfx/private/Kanto/keisei/keisei_AE1/keisei_AE1_2.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei_AE1_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei_AE1_purchase_c1_2; 2: keisei_AE1_purchase_c2_2;}
+
+  switch(FEAT_TRAINS, SELF, keisei_AE1_purchase, current_year){
+    0..1982: keisei_AE1_purchase_1;
+    keisei_AE1_purchase_2;
+  }
 
 spriteset (keisei_AE1_1_front, "gfx/private/Kanto/keisei/keisei_AE1/keisei_AE1_1.png") { tmpl_std(0, 0) }
 spriteset (keisei_AE1_1_end, "gfx/private/Kanto/keisei/keisei_AE1/keisei_AE1_1.png") { tmpl_std_rev(0, 25) }
@@ -51906,12 +51976,6 @@ spriteset (keisei_AE1_2_mot, "gfx/private/Kanto/keisei/keisei_AE1/keisei_AE1_2.p
 spriteset (keisei_AE1_2_mot_rev, "gfx/private/Kanto/keisei/keisei_AE1/keisei_AE1_2.png") { tmpl_std_rev(0, 50) }
 spriteset (keisei_AE1_2_wag, "gfx/private/Kanto/keisei/keisei_AE1/keisei_AE1_2.png") { tmpl_std(0, 75) }
 spriteset (keisei_AE1_2_wag_rev, "gfx/private/Kanto/keisei/keisei_AE1/keisei_AE1_2.png") { tmpl_std_rev(0, 75) }
-
-
-  switch(FEAT_TRAINS, SELF, keisei_AE1_purchase, current_year){
-    0..1982: keisei_AE1_purchase_1;
-    keisei_AE1_purchase_2;
-  }
 
 
 
@@ -52115,7 +52179,10 @@ item(FEAT_TRAINS, keisei_AE1) {
 }
 # 182 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei_AE100.pnml" 1
-spriteset (keisei_AE100_purchase, "gfx/private/Kanto/keisei/keisei_AE100/keisei_AE100_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(keisei_AE100_purchase_c1, "gfx/private/Kanto/keisei/keisei_AE100/keisei_AE100.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei_AE100_purchase_c2, "gfx/private/Kanto/keisei/keisei_AE100/keisei_AE100.png"){ tmpl_purchase_2c(88, 100) }
+  switch(FEAT_TRAINS, SELF, keisei_AE100_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei_AE100_purchase_c1; 2: keisei_AE100_purchase_c2;}
 
 spriteset (keisei_AE100_1_front_1, "gfx/private/Kanto/keisei/keisei_AE100/keisei_AE100.png") { tmpl_std(0, 0) }
 spriteset (keisei_AE100_1_end_1, "gfx/private/Kanto/keisei/keisei_AE100/keisei_AE100.png") { tmpl_std_rev(0, 25) }
@@ -52472,7 +52539,9 @@ item(FEAT_TRAINS, keisei_AE2) {
 # 184 "src/_private.pnml" 2
 
 # 1 "src/private/Kanto/keisei/keisei1.pnml" 1
-spriteset (keisei1_purchase, "gfx/private/Kanto/keisei/keisei1/keisei1_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(keisei1_purchase_c1, "gfx/private/Kanto/keisei/keisei1/keisei1.png"){ tmpl_purchase_1c(-88, 0) }
+  switch(FEAT_TRAINS, SELF, keisei1_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei1_purchase_c1;}
 
 spriteset (keisei1_front, "gfx/private/Kanto/keisei/keisei1/keisei1.png") { tmpl_std_rev(0, 0) }
 spriteset (keisei1_front_rev, "gfx/private/Kanto/keisei/keisei1/keisei1.png") { tmpl_std(0, 0) }
@@ -52579,10 +52648,22 @@ item(FEAT_TRAINS, keisei1) {
 }
 # 186 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei20.pnml" 1
-spriteset (keisei20_purchase_1, "gfx/private/Kanto/keisei/keisei20/keisei20_purchase.png") { tmpl_purchase(0, 0) }
-spriteset (keisei20_purchase_2, "gfx/private/Kanto/keisei/keisei20/keisei20_purchase.png") { tmpl_purchase(0, 15) }
-spriteset (keisei20_purchase_3, "gfx/private/Kanto/keisei/keisei20/keisei20_purchase.png") { tmpl_purchase(0, 30) }
-spriteset (keisei20_purchase_4, "gfx/private/Kanto/keisei/keisei20/keisei20_purchase.png") { tmpl_purchase(0, 45) }
+
+  spriteset(keisei20_purchase_c1_1, "gfx/private/Kanto/keisei/keisei20/keisei20_1.png"){ tmpl_purchase_1c(0, 0) }
+  switch(FEAT_TRAINS, SELF, keisei20_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei20_purchase_c1_1;}
+  spriteset(keisei20_purchase_c1_2, "gfx/private/Kanto/keisei/keisei20/keisei20_2.png"){ tmpl_purchase_1c(0, 0) }
+  switch(FEAT_TRAINS, SELF, keisei20_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei20_purchase_c1_2;}
+  spriteset(keisei20_purchase_c1_3, "gfx/private/Kanto/keisei/keisei20/keisei20_3.png"){ tmpl_purchase_1c(0, 0) }
+  switch(FEAT_TRAINS, SELF, keisei20_purchase_3, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei20_purchase_c1_3;}
+  spriteset(keisei20_purchase_c1_4, "gfx/private/Kanto/keisei/keisei20/keisei20_4.png"){ tmpl_purchase_1c(0, 0) }
+  switch(FEAT_TRAINS, SELF, keisei20_purchase_4, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei20_purchase_c1_4;}
+
+  switch(FEAT_TRAINS, SELF, keisei20_purchase,current_year){
+    0..1924:keisei20_purchase_1;
+    1925..1940:keisei20_purchase_2;
+    1941..1949:keisei20_purchase_3;
+    keisei20_purchase_4;
+  }
 
 spriteset (sw_keisei20_livery_1, "gfx/private/Kanto/keisei/keisei20/keisei20_1.png") { tmpl_std(0, 0) }
 
@@ -52600,14 +52681,6 @@ spriteset (keisei20_4_front_rev, "gfx/private/Kanto/keisei/keisei20/keisei20_4.p
 spriteset (keisei20_4_front, "gfx/private/Kanto/keisei/keisei20/keisei20_4.png") { tmpl_std(0, 25) }
 spriteset (keisei20_4_end, "gfx/private/Kanto/keisei/keisei20/keisei20_4.png") { tmpl_std_rev(0, 50) }
 spriteset (keisei20_4_end_rev, "gfx/private/Kanto/keisei/keisei20/keisei20_4.png") { tmpl_std(0, 50) }
-
-
-  switch(FEAT_TRAINS, SELF, keisei20_purchase,current_year){
-    0..1924:keisei20_purchase_1;
-    1925..1940:keisei20_purchase_2;
-    1941..1949:keisei20_purchase_3;
-    keisei20_purchase_4;
-  }
 
 
 
@@ -52805,9 +52878,19 @@ item(FEAT_TRAINS, keisei20) {
 }
 # 187 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei33.pnml" 1
-spriteset (keisei33_purchase_1, "gfx/private/Kanto/keisei/keisei33/keisei33_purchase.png") { tmpl_purchase(0, 0) }
-spriteset (keisei33_purchase_2, "gfx/private/Kanto/keisei/keisei33/keisei33_purchase.png") { tmpl_purchase(0, 15) }
-spriteset (keisei33_purchase_3, "gfx/private/Kanto/keisei/keisei33/keisei33_purchase.png") { tmpl_purchase(0, 30) }
+
+  spriteset(keisei33_purchase_c1_1, "gfx/private/Kanto/keisei/keisei33/keisei33_1.png"){ tmpl_purchase_1c(-88, 0) }
+  switch(FEAT_TRAINS, SELF, keisei33_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei33_purchase_c1_1;}
+  spriteset(keisei33_purchase_c1_2, "gfx/private/Kanto/keisei/keisei33/keisei33_2.png"){ tmpl_purchase_1c(-88, 0) }
+  switch(FEAT_TRAINS, SELF, keisei33_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei33_purchase_c1_2;}
+  spriteset(keisei33_purchase_c1_3, "gfx/private/Kanto/keisei/keisei33/keisei33_3.png"){ tmpl_purchase_1c(-88, 0) }
+  switch(FEAT_TRAINS, SELF, keisei33_purchase_3, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei33_purchase_c1_3;}
+
+  switch(FEAT_TRAINS, SELF, keisei33_purchase,current_year){
+    0..1924:keisei33_purchase_1;
+    1925..1942:keisei33_purchase_2;
+    keisei33_purchase_3;
+  }
 
 spriteset (sw_keisei33_livery_1, "gfx/private/Kanto/keisei/keisei33/keisei33_1.png") { tmpl_std_rev(0, 0) }
 
@@ -52820,13 +52903,6 @@ spriteset (keisei33_3_front, "gfx/private/Kanto/keisei/keisei33/keisei33_3.png")
 spriteset (keisei33_3_front_rev, "gfx/private/Kanto/keisei/keisei33/keisei33_3.png") { tmpl_std(0, 25) }
 spriteset (keisei33_3_end, "gfx/private/Kanto/keisei/keisei33/keisei33_3.png") { tmpl_std(0, 50) }
 spriteset (keisei33_3_end_rev, "gfx/private/Kanto/keisei/keisei33/keisei33_3.png") { tmpl_std_rev(0, 50) }
-
-
-  switch(FEAT_TRAINS, SELF, keisei33_purchase,current_year){
-    0..1924:keisei33_purchase_1;
-    1925..1942:keisei33_purchase_2;
-    keisei33_purchase_3;
-  }
 
 
 
@@ -52990,10 +53066,22 @@ item(FEAT_TRAINS, keisei33) {
 }
 # 188 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei200.pnml" 1
-spriteset (keisei200_purchase_1, "gfx/private/Kanto/keisei/keisei200/keisei200_purchase.png") { tmpl_purchase(0, 0) }
-spriteset (keisei200_purchase_2, "gfx/private/Kanto/keisei/keisei200/keisei200_purchase.png") { tmpl_purchase(0, 15) }
-spriteset (keisei200_purchase_3, "gfx/private/Kanto/keisei/keisei200/keisei200_purchase.png") { tmpl_purchase(0, 30) }
-spriteset (keisei200_purchase_4, "gfx/private/Kanto/keisei/keisei200/keisei200_purchase.png") { tmpl_purchase(0, 45) }
+
+  spriteset(keisei200_purchase_c1_1, "gfx/private/Kanto/keisei/keisei200/keisei200_1.png"){ tmpl_purchase_1c(-88, 0) }
+  switch(FEAT_TRAINS, SELF, keisei200_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei200_purchase_c1_1;}
+  spriteset(keisei200_purchase_c1_2, "gfx/private/Kanto/keisei/keisei200/keisei200_2.png"){ tmpl_purchase_1c(-88, 0) }
+  switch(FEAT_TRAINS, SELF, keisei200_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei200_purchase_c1_2;}
+  spriteset(keisei200_purchase_c1_3, "gfx/private/Kanto/keisei/keisei200/keisei200_3.png"){ tmpl_purchase_1c(-88, 0) }
+  switch(FEAT_TRAINS, SELF, keisei200_purchase_3, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei200_purchase_c1_3;}
+  spriteset(keisei200_purchase_c1_4, "gfx/private/Kanto/keisei/keisei200/keisei200_4.png"){ tmpl_purchase_1c(-88, 0) }
+  switch(FEAT_TRAINS, SELF, keisei200_purchase_4, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei200_purchase_c1_4;}
+
+  switch(FEAT_TRAINS, SELF, keisei200_purchase,current_year){
+    0..1940:keisei200_purchase_1;
+    1941..1945:keisei200_purchase_2;
+    1946..1949:keisei200_purchase_3;
+    keisei200_purchase_4;
+  }
 
 spriteset (keisei200_1_front, "gfx/private/Kanto/keisei/keisei200/keisei200_1.png") { tmpl_std_rev(0, 0) }
 spriteset (keisei200_1_front_rev, "gfx/private/Kanto/keisei/keisei200/keisei200_1.png") { tmpl_std(0, 25) }
@@ -53014,14 +53102,6 @@ spriteset (keisei200_4_front, "gfx/private/Kanto/keisei/keisei200/keisei200_4.pn
 spriteset (keisei200_4_front_rev, "gfx/private/Kanto/keisei/keisei200/keisei200_4.png") { tmpl_std(0, 25) }
 spriteset (keisei200_4_end_rev, "gfx/private/Kanto/keisei/keisei200/keisei200_4.png") { tmpl_std_rev(0, 50) }
 spriteset (keisei200_4_end, "gfx/private/Kanto/keisei/keisei200/keisei200_4.png") { tmpl_std(0, 50) }
-
-
-  switch(FEAT_TRAINS, SELF, keisei200_purchase,current_year){
-    0..1940:keisei200_purchase_1;
-    1941..1945:keisei200_purchase_2;
-    1946..1949:keisei200_purchase_3;
-    keisei200_purchase_4;
-  }
 
 
 
@@ -53248,8 +53328,18 @@ item(FEAT_TRAINS, keisei200) {
 }
 # 189 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei200_2000.pnml" 1
-spriteset (keisei200_2000_purchase_1, "gfx/private/Kanto/keisei/keisei200_2000/keisei200_2000_purchase.png") { tmpl_purchase(0, 0) }
-spriteset (keisei200_2000_purchase_2, "gfx/private/Kanto/keisei/keisei200_2000/keisei200_2000_purchase.png") { tmpl_purchase(0, 15) }
+
+  spriteset(keisei200_2000_purchase_c1_1, "gfx/private/Kanto/keisei/keisei200_2000/keisei200_2000_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei200_2000_purchase_c2_1, "gfx/private/Kanto/keisei/keisei200_2000/keisei200_2000_1.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei200_2000_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei200_2000_purchase_c1_1; 2: keisei200_2000_purchase_c2_1;}
+  spriteset(keisei200_2000_purchase_c1_2, "gfx/private/Kanto/keisei/keisei200_2000/keisei200_2000_2.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei200_2000_purchase_c2_2, "gfx/private/Kanto/keisei/keisei200_2000/keisei200_2000_2.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei200_2000_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei200_2000_purchase_c1_2; 2: keisei200_2000_purchase_c2_2;}
+
+  switch(FEAT_TRAINS, SELF, keisei200_2000_purchase, current_year){
+    0..1979:keisei200_2000_purchase_1;
+    keisei200_2000_purchase_2;
+  }
 
 spriteset (keisei200_2000_1_front, "gfx/private/Kanto/keisei/keisei200_2000/keisei200_2000_1.png") { tmpl_std(0, 0) }
 spriteset (keisei200_2000_1_end, "gfx/private/Kanto/keisei/keisei200_2000/keisei200_2000_1.png") { tmpl_std_rev(0, 25) }
@@ -53262,12 +53352,6 @@ spriteset (keisei200_2000_2_end, "gfx/private/Kanto/keisei/keisei200_2000/keisei
 spriteset (keisei200_2000_2_end_rev, "gfx/private/Kanto/keisei/keisei200_2000/keisei200_2000_2.png") { tmpl_std(0, 25) }
 spriteset (keisei200_2000_2_mot, "gfx/private/Kanto/keisei/keisei200_2000/keisei200_2000_2.png") { tmpl_std(0, 50) }
 spriteset (keisei200_2000_2_mot_rev, "gfx/private/Kanto/keisei/keisei200_2000/keisei200_2000_2.png") { tmpl_std_rev(0, 50) }
-
-
-  switch(FEAT_TRAINS, SELF, keisei200_2000_purchase, current_year){
-    0..1979:keisei200_2000_purchase_1;
-    keisei200_2000_purchase_2;
-  }
 
 
 
@@ -53341,7 +53425,7 @@ spriteset (keisei200_2000_2_mot_rev, "gfx/private/Kanto/keisei/keisei200_2000/ke
     1:string(LV_KEISEI_ORANGE);
     2:string(LV_KEISEI_AODEN);
   }
-# 110 "src/private/Kanto/keisei/keisei200_2000.pnml"
+# 114 "src/private/Kanto/keisei/keisei200_2000.pnml"
     switch(FEAT_TRAINS, SELF, sw_keisei200_2000_power_main,position_in_consist_from_end%2){
       0:return 55;
       return 0;
@@ -53422,9 +53506,19 @@ item(FEAT_TRAINS, keisei200_2000) {
 }
 # 190 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei300.pnml" 1
-spriteset (keisei300_purchase_1, "gfx/private/Kanto/keisei/keisei300/keisei300_purchase.png") { tmpl_purchase(0, 0) }
-spriteset (keisei300_purchase_2, "gfx/private/Kanto/keisei/keisei300/keisei300_purchase.png") { tmpl_purchase(0, 15) }
-spriteset (keisei300_purchase_3, "gfx/private/Kanto/keisei/keisei300/keisei300_purchase.png") { tmpl_purchase(0, 30) }
+
+  spriteset(keisei300_purchase_c1_1, "gfx/private/Kanto/keisei/keisei300/keisei300_1.png"){ tmpl_purchase_1c(0, 0) }
+  switch(FEAT_TRAINS, SELF, keisei300_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei300_purchase_c1_1;}
+  spriteset(keisei300_purchase_c1_2, "gfx/private/Kanto/keisei/keisei300/keisei300_2.png"){ tmpl_purchase_1c(0, 0) }
+  switch(FEAT_TRAINS, SELF, keisei300_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei300_purchase_c1_2;}
+  spriteset(keisei300_purchase_c1_3, "gfx/private/Kanto/keisei/keisei300/keisei300_3.png"){ tmpl_purchase_1c(0, 0) }
+  switch(FEAT_TRAINS, SELF, keisei300_purchase_3, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei300_purchase_c1_3;}
+
+  switch(FEAT_TRAINS, SELF, keisei300_purchase,current_year){
+    0..1940:keisei300_purchase_1;
+    1941..1949:keisei300_purchase_2;
+    keisei300_purchase_3;
+  }
 
 spriteset (keisei300_1_front, "gfx/private/Kanto/keisei/keisei300/keisei300_1.png") { tmpl_std_rev(0, 0) }
 spriteset (keisei300_1_front_rev, "gfx/private/Kanto/keisei/keisei300/keisei300_1.png") { tmpl_std(0, 25) }
@@ -53440,13 +53534,6 @@ spriteset (keisei300_3_front, "gfx/private/Kanto/keisei/keisei300/keisei300_3.pn
 spriteset (keisei300_3_front_rev, "gfx/private/Kanto/keisei/keisei300/keisei300_3.png") { tmpl_std(0, 25) }
 spriteset (keisei300_3_end_rev, "gfx/private/Kanto/keisei/keisei300/keisei300_3.png") { tmpl_std_rev(0, 50) }
 spriteset (keisei300_3_end, "gfx/private/Kanto/keisei/keisei300/keisei300_3.png") { tmpl_std(0, 50) }
-
-
-  switch(FEAT_TRAINS, SELF, keisei300_purchase,current_year){
-    0..1940:keisei300_purchase_1;
-    1941..1949:keisei300_purchase_2;
-    keisei300_purchase_3;
-  }
 
 
 
@@ -53639,10 +53726,26 @@ item(FEAT_TRAINS, keisei300) {
 }
 # 191 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei600.pnml" 1
-spriteset (keisei600_purchase_1, "gfx/private/Kanto/keisei/keisei600/keisei600_purchase.png") { tmpl_purchase(0, 0) }
-spriteset (keisei600_purchase_2, "gfx/private/Kanto/keisei/keisei600/keisei600_purchase.png") { tmpl_purchase(0, 15) }
-spriteset (keisei600_purchase_3, "gfx/private/Kanto/keisei/keisei600/keisei600_purchase.png") { tmpl_purchase(0, 30) }
-spriteset (keisei600_purchase_4, "gfx/private/Kanto/keisei/keisei600/keisei600_purchase.png") { tmpl_purchase(0, 45) }
+
+  spriteset(keisei600_purchase_c1_1, "gfx/private/Kanto/keisei/keisei600/keisei600_1.png"){ tmpl_purchase_1c(-88, 0) }
+  spriteset(keisei600_purchase_c2_1, "gfx/private/Kanto/keisei/keisei600/keisei600_1.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei600_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei600_purchase_c1_1; 2: keisei600_purchase_c2_1;}
+  spriteset(keisei600_purchase_c1_2, "gfx/private/Kanto/keisei/keisei600/keisei600_2.png"){ tmpl_purchase_1c(-88, 0) }
+  spriteset(keisei600_purchase_c2_2, "gfx/private/Kanto/keisei/keisei600/keisei600_2.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei600_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei600_purchase_c1_2; 2: keisei600_purchase_c2_2;}
+  spriteset(keisei600_purchase_c1_3, "gfx/private/Kanto/keisei/keisei600/keisei600_3.png"){ tmpl_purchase_1c(-88, 0) }
+  spriteset(keisei600_purchase_c2_3, "gfx/private/Kanto/keisei/keisei600/keisei600_3.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei600_purchase_3, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei600_purchase_c1_3; 2: keisei600_purchase_c2_3;}
+  spriteset(keisei600_purchase_c1_4, "gfx/private/Kanto/keisei/keisei600/keisei600_4.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei600_purchase_c2_4, "gfx/private/Kanto/keisei/keisei600/keisei600_4.png"){ tmpl_purchase_2c(0, 25) }
+  switch(FEAT_TRAINS, SELF, keisei600_purchase_4, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei600_purchase_c1_4; 2: keisei600_purchase_c2_4;}
+
+  switch(FEAT_TRAINS, SELF, keisei600_purchase,current_year){
+    0..1950:keisei600_purchase_1;
+    1951..1953:keisei600_purchase_2;
+    1954..1960:keisei600_purchase_3;
+    keisei600_purchase_4;
+  }
 
 spriteset (keisei600_1_front, "gfx/private/Kanto/keisei/keisei600/keisei600_1.png") { tmpl_std_rev(0, 0) }
 spriteset (keisei600_1_front_rev, "gfx/private/Kanto/keisei/keisei600/keisei600_1.png") { tmpl_std(0, 25) }
@@ -53662,14 +53765,6 @@ spriteset (keisei600_3_end_rev, "gfx/private/Kanto/keisei/keisei600/keisei600_3.
 spriteset (keisei600_4_front, "gfx/private/Kanto/keisei/keisei600/keisei600_4.png") { tmpl_std(0, 0) }
 spriteset (keisei600_4_end, "gfx/private/Kanto/keisei/keisei600/keisei600_4.png") { tmpl_std_rev(0, 25) }
 spriteset (keisei600_4_end_rev, "gfx/private/Kanto/keisei/keisei600/keisei600_4.png") { tmpl_std(0, 25) }
-
-
-  switch(FEAT_TRAINS, SELF, keisei600_purchase,current_year){
-    0..1950:keisei600_purchase_1;
-    1951..1953:keisei600_purchase_2;
-    1954..1960:keisei600_purchase_3;
-    keisei600_purchase_4;
-  }
 
 
 
@@ -53872,7 +53967,10 @@ item(FEAT_TRAINS, keisei600) {
 }
 # 192 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei700.pnml" 1
-spriteset (keisei700_purchase, "gfx/private/Kanto/keisei/keisei700/keisei700_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(keisei700_purchase_c1, "gfx/private/Kanto/keisei/keisei700/keisei700.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei700_purchase_c2, "gfx/private/Kanto/keisei/keisei700/keisei700.png"){ tmpl_purchase_2c(0, 100) }
+  switch(FEAT_TRAINS, SELF, keisei700_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei700_purchase_c1; 2: keisei700_purchase_c2;}
 
 spriteset (keisei700_1_front_mot, "gfx/private/Kanto/keisei/keisei700/keisei700.png") { tmpl_std(0, 0) }
 spriteset (keisei700_1_end_mot, "gfx/private/Kanto/keisei/keisei700/keisei700.png") { tmpl_std_rev(0, 25) }
@@ -54080,9 +54178,22 @@ item(FEAT_TRAINS, keisei700) {
 }
 # 193 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei3000_1.pnml" 1
-spriteset (keisei3000_1_purchase_1, "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_purchase.png") { tmpl_purchase(0, 0) }
-spriteset (keisei3000_1_purchase_2, "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_purchase.png") { tmpl_purchase(0, 15) }
-spriteset (keisei3000_1_purchase_3, "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_purchase.png") { tmpl_purchase(0, 30) }
+
+  spriteset(keisei3000_1_purchase_c1_1, "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3000_1_purchase_c2_1, "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_1.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei3000_1_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei3000_1_purchase_c1_1; 2: keisei3000_1_purchase_c2_1;}
+  spriteset(keisei3000_1_purchase_c1_2, "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_2.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3000_1_purchase_c2_2, "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_2.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei3000_1_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei3000_1_purchase_c1_2; 2: keisei3000_1_purchase_c2_2;}
+  spriteset(keisei3000_1_purchase_c1_3, "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_3.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3000_1_purchase_c2_3, "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_3.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei3000_1_purchase_3, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei3000_1_purchase_c1_3; 2: keisei3000_1_purchase_c2_3;}
+
+  switch(FEAT_TRAINS, PARENT, keisei3000_1_purchase,current_year){
+    0..1958: keisei3000_1_purchase_1;
+    1959..1979: keisei3000_1_purchase_2;
+    keisei3000_1_purchase_3;
+  }
 
 spriteset (keisei3000_1_1_front_mot, "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_1.png") { tmpl_std(0, 0) }
 spriteset (keisei3000_1_1_end_mot, "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_1.png") { tmpl_std_rev(0, 25) }
@@ -54130,13 +54241,6 @@ spriteset (keisei3000_1_3_end_ac_rev, "gfx/private/Kanto/keisei/keisei3000_1/kei
 spriteset (keisei3000_1_3_mot_ac, "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_3_ac.png") { tmpl_std(0, 100) }
 spriteset (keisei3000_1_3_mot_ac_rev, "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_3_ac.png") { tmpl_std_rev(0, 100) }
 spriteset (keisei3000_1_3_wag_ac, "gfx/private/Kanto/keisei/keisei3000_1/keisei3000_1_3_ac.png") { tmpl_symm(0, 125) }
-
-
-  switch(FEAT_TRAINS, PARENT, keisei3000_1_purchase,current_year){
-    0..1958: keisei3000_1_purchase_1;
-    1959..1979: keisei3000_1_purchase_2;
-    keisei3000_1_purchase_3;
-  }
 
 
 
@@ -54361,13 +54465,15 @@ spriteset (keisei3000_1_3_wag_ac, "gfx/private/Kanto/keisei/keisei3000_1/keisei3
     }
   switch(FEAT_TRAINS, SELF, sw_keisei3000_1_lv,cargo_subtype){
     0:sw_keisei3000_1_livery_0;
-    1:sw_keisei3000_1_livery_2;
-    2:sw_keisei3000_1_livery_3;
+    1:sw_keisei3000_1_livery_1;
+    2:sw_keisei3000_1_livery_2;
+    3:sw_keisei3000_1_livery_3;
   }
   switch(FEAT_TRAINS, SELF, sw_keisei3000_1_lv_desc,cargo_subtype){
     0:string(LV_RANDOM);
     1:string(LV_KEISEI_AODEN);
-    2:string(LV_KEISEI_ORANGE);
+    2:string(LV_KEISEI_AKADEN);
+    3:string(LV_KEISEI_ORANGE);
   }
 
 
@@ -54448,10 +54554,26 @@ item(FEAT_TRAINS, keisei3000_1) {
 }
 # 194 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei3100.pnml" 1
-spriteset (keisei3100_purchase_1, "gfx/private/Kanto/keisei/keisei3100/keisei3100_purchase.png") { tmpl_purchase(0, 0) }
-spriteset (keisei3100_purchase_2, "gfx/private/Kanto/keisei/keisei3100/keisei3100_purchase.png") { tmpl_purchase(0, 15) }
-spriteset (keisei3100_purchase_3, "gfx/private/Kanto/keisei/keisei3100/keisei3100_purchase.png") { tmpl_purchase(0, 30) }
-spriteset (keisei3100_purchase_4, "gfx/private/Kanto/keisei/keisei3100/keisei3100_purchase.png") { tmpl_purchase(0, 45) }
+
+  spriteset(keisei3100_purchase_c1_1, "gfx/private/Kanto/keisei/keisei3100/keisei3100_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3100_purchase_c2_1, "gfx/private/Kanto/keisei/keisei3100/keisei3100_1.png"){ tmpl_purchase_2c(0, 100) }
+  switch(FEAT_TRAINS, SELF, keisei3100_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei3100_purchase_c1_1; 2: keisei3100_purchase_c2_1;}
+  spriteset(keisei3100_purchase_c1_2, "gfx/private/Kanto/keisei/keisei3100/keisei3100_2.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3100_purchase_c2_2, "gfx/private/Kanto/keisei/keisei3100/keisei3100_2.png"){ tmpl_purchase_2c(0, 100) }
+  switch(FEAT_TRAINS, SELF, keisei3100_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei3100_purchase_c1_2; 2: keisei3100_purchase_c2_2;}
+  spriteset(keisei3100_purchase_c1_3, "gfx/private/Kanto/keisei/keisei3100/keisei3100_2_ac.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3100_purchase_c2_3, "gfx/private/Kanto/keisei/keisei3100/keisei3100_2_ac.png"){ tmpl_purchase_2c(0, 100) }
+  switch(FEAT_TRAINS, SELF, keisei3100_purchase_3, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei3100_purchase_c1_3; 2: keisei3100_purchase_c2_3;}
+  spriteset(keisei3100_purchase_c1_4, "gfx/private/Kanto/keisei/keisei3100/keisei3100_3.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3100_purchase_c2_4, "gfx/private/Kanto/keisei/keisei3100/keisei3100_3.png"){ tmpl_purchase_2c(0, 100) }
+  switch(FEAT_TRAINS, SELF, keisei3100_purchase_4, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei3100_purchase_c1_4; 2: keisei3100_purchase_c2_4;}
+
+  switch(FEAT_TRAINS, SELF, keisei3100_purchase, current_year){
+    0..1980:keisei3100_purchase_1;
+    1981..1985:keisei3100_purchase_2;
+    1986..1991:keisei3100_purchase_3;
+    keisei3100_purchase_4;
+  }
 
 spriteset (keisei3100_1_front_mot, "gfx/private/Kanto/keisei/keisei3100/keisei3100_1.png") { tmpl_std(0, 0) }
 spriteset (keisei3100_1_end_mot, "gfx/private/Kanto/keisei/keisei3100/keisei3100_1.png") { tmpl_std_rev(0, 25) }
@@ -54520,14 +54642,6 @@ spriteset (keisei3150_3_end_mot_rev, "gfx/private/Kanto/keisei/keisei3100/keisei
 spriteset (keisei3150_3_front, "gfx/private/Kanto/keisei/keisei3100/keisei3150_3.png") { tmpl_std(0, 50) }
 spriteset (keisei3150_3_end, "gfx/private/Kanto/keisei/keisei3100/keisei3150_3.png") { tmpl_std_rev(0, 75) }
 spriteset (keisei3150_3_end_rev, "gfx/private/Kanto/keisei/keisei3100/keisei3150_3.png") { tmpl_std(0, 75) }
-
-
-  switch(FEAT_TRAINS, SELF, keisei3100_purchase, current_year){
-    0..1980:keisei3100_purchase_1;
-    1981..1985:keisei3100_purchase_2;
-    1986..1991:keisei3100_purchase_3;
-    keisei3100_purchase_4;
-  }
 
 
 
@@ -54922,10 +55036,26 @@ item(FEAT_TRAINS, keisei3100) {
 }
 # 195 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei3200.pnml" 1
-spriteset (keisei3200_purchase_1, "gfx/private/Kanto/keisei/keisei3200/keisei3200_purchase.png") { tmpl_purchase(0, 0) }
-spriteset (keisei3200_purchase_2, "gfx/private/Kanto/keisei/keisei3200/keisei3200_purchase.png") { tmpl_purchase(0, 15) }
-spriteset (keisei3200_purchase_3, "gfx/private/Kanto/keisei/keisei3200/keisei3200_purchase.png") { tmpl_purchase(0, 30) }
-spriteset (keisei3200_purchase_4, "gfx/private/Kanto/keisei/keisei3200/keisei3200_purchase.png") { tmpl_purchase(0, 45) }
+
+  spriteset(keisei3200_purchase_c1_1, "gfx/private/Kanto/keisei/keisei3200/keisei3200_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3200_purchase_c2_1, "gfx/private/Kanto/keisei/keisei3200/keisei3200_1.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei3200_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei3200_purchase_c1_1; 2: keisei3200_purchase_c2_1;}
+  spriteset(keisei3200_purchase_c1_2, "gfx/private/Kanto/keisei/keisei3200/keisei3200_2.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3200_purchase_c2_2, "gfx/private/Kanto/keisei/keisei3200/keisei3200_2.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei3200_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei3200_purchase_c1_2; 2: keisei3200_purchase_c2_2;}
+  spriteset(keisei3200_purchase_c1_3, "gfx/private/Kanto/keisei/keisei3200/keisei3200_3.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3200_purchase_c2_3, "gfx/private/Kanto/keisei/keisei3200/keisei3200_3.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei3200_purchase_3, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei3200_purchase_c1_3; 2: keisei3200_purchase_c2_3;}
+  spriteset(keisei3200_purchase_c1_4, "gfx/private/Kanto/keisei/keisei3200/keisei3200_4.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3200_purchase_c2_4, "gfx/private/Kanto/keisei/keisei3200/keisei3200_4.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei3200_purchase_4, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei3200_purchase_c1_4; 2: keisei3200_purchase_c2_4;}
+
+  switch(FEAT_TRAINS, SELF, keisei3200_purchase, current_year){
+    0..1980:keisei3200_purchase_1;
+    1981..1988:keisei3200_purchase_2;
+    1989..1991:keisei3200_purchase_3;
+    keisei3200_purchase_4;
+  }
 
 spriteset (keisei3200_1_front, "gfx/private/Kanto/keisei/keisei3200/keisei3200_1.png") { tmpl_std(0, 0) }
 spriteset (keisei3200_1_end, "gfx/private/Kanto/keisei/keisei3200/keisei3200_1.png") { tmpl_std_rev(0, 25) }
@@ -54982,13 +55112,6 @@ spriteset (keisei3200_5_mot, "gfx/private/Kanto/keisei/keisei3200/keisei3200_5.p
 spriteset (keisei3200_5_mot_rev, "gfx/private/Kanto/keisei/keisei3200/keisei3200_5.png") { tmpl_std_rev(0, 50) }
 spriteset (keisei3200_5_mot_2, "gfx/private/Kanto/keisei/keisei3200/keisei3200_5.png") { tmpl_symm(0, 75) }
 spriteset (keisei3200_5_wag, "gfx/private/Kanto/keisei/keisei3200/keisei3200_5.png") { tmpl_symm(0, 100) }
-
-
-  switch(FEAT_TRAINS, SELF, keisei3200_purchase, current_year){
-    0..1980:keisei3200_purchase_1;
-    1981..1991:keisei3200_purchase_2;
-    keisei3200_purchase_4;
-  }
 
 
 
@@ -55419,7 +55542,7 @@ spriteset (keisei3200_5_wag, "gfx/private/Kanto/keisei/keisei3200/keisei3200_5.p
     4:string(LV_KEISEI_TEST_1);
     5:string(LV_KEISEI_TEST_2);
   }
-# 514 "src/private/Kanto/keisei/keisei3200.pnml"
+# 523 "src/private/Kanto/keisei/keisei3200.pnml"
     switch(FEAT_TRAINS, SELF, sw_keisei3200_power_main,position_in_vehid_chain_from_end%6){
       0..3:return 100;
       return 0;
@@ -55500,11 +55623,26 @@ item(FEAT_TRAINS, keisei3200) {
 }
 # 196 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei3300.pnml" 1
-spriteset (keisei3300_purchase_1, "gfx/private/Kanto/keisei/keisei3300/keisei3300_purchase.png") { tmpl_purchase(0, 0) }
-spriteset (keisei3300_purchase_2, "gfx/private/Kanto/keisei/keisei3300/keisei3300_purchase.png") { tmpl_purchase(0, 15) }
-spriteset (keisei3300_purchase_3, "gfx/private/Kanto/keisei/keisei3300/keisei3300_purchase.png") { tmpl_purchase(0, 30) }
-spriteset (keisei3300_purchase_4, "gfx/private/Kanto/keisei/keisei3300/keisei3300_purchase.png") { tmpl_purchase(0, 45) }
-spriteset (keisei3300_purchase_5, "gfx/private/Kanto/keisei/keisei3300/keisei3300_purchase.png") { tmpl_purchase(0, 60) }
+
+  spriteset(keisei3300_purchase_c1_1, "gfx/private/Kanto/keisei/keisei3300/keisei3300_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3300_purchase_c2_1, "gfx/private/Kanto/keisei/keisei3300/keisei3300_1.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei3300_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei3300_purchase_c1_1; 2: keisei3300_purchase_c2_1;}
+  spriteset(keisei3300_purchase_c1_2, "gfx/private/Kanto/keisei/keisei3300/keisei3300_2.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3300_purchase_c2_2, "gfx/private/Kanto/keisei/keisei3300/keisei3300_2.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei3300_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei3300_purchase_c1_2; 2: keisei3300_purchase_c2_2;}
+  spriteset(keisei3300_purchase_c1_3, "gfx/private/Kanto/keisei/keisei3300/keisei3300_2_ac.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3300_purchase_c2_3, "gfx/private/Kanto/keisei/keisei3300/keisei3300_2_ac.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei3300_purchase_3, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei3300_purchase_c1_3; 2: keisei3300_purchase_c2_3;}
+  spriteset(keisei3300_purchase_c1_4, "gfx/private/Kanto/keisei/keisei3300/keisei3300_4.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3300_purchase_c2_4, "gfx/private/Kanto/keisei/keisei3300/keisei3300_4.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei3300_purchase_4, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei3300_purchase_c1_4; 2: keisei3300_purchase_c2_4;}
+
+  switch(FEAT_TRAINS, SELF, keisei3300_purchase, current_year){
+    0..1979:keisei3300_purchase_1;
+    1980..1988:keisei3300_purchase_2;
+    1989..1994:keisei3300_purchase_3;
+    keisei3300_purchase_4;
+  }
 
 spriteset (keisei3300_1_front, "gfx/private/Kanto/keisei/keisei3300/keisei3300_1.png") { tmpl_std(0, 0) }
 spriteset (keisei3300_1_end, "gfx/private/Kanto/keisei/keisei3300/keisei3300_1.png") { tmpl_std_rev(0, 25) }
@@ -55552,12 +55690,6 @@ spriteset (keisei3300_5_mot_rev, "gfx/private/Kanto/keisei/keisei3300/keisei3300
 spriteset (keisei3300_5_wag, "gfx/private/Kanto/keisei/keisei3300/keisei3300_5.png") { tmpl_symm(0, 75) }
 
 
-  switch(FEAT_TRAINS, SELF, keisei3300_purchase, current_year){
-    0..1979:keisei3300_purchase_1;
-    1980..1988:keisei3300_purchase_2;
-    1989..1994:keisei3300_purchase_3;
-    keisei3300_purchase_4;
-  }
 
 
 
@@ -55916,7 +56048,7 @@ spriteset (keisei3300_5_wag, "gfx/private/Kanto/keisei/keisei3300/keisei3300_5.p
     4:string(LV_keisei3300_4);
     5:string(LV_KEISEI_AODEN);
   }
-# 433 "src/private/Kanto/keisei/keisei3300.pnml"
+# 442 "src/private/Kanto/keisei/keisei3300.pnml"
     switch(FEAT_TRAINS, SELF, sw_keisei3300_power_main,position_in_vehid_chain_from_end%8){
       0..1:return 100;
       4..6:return 100;
@@ -55998,9 +56130,18 @@ item(FEAT_TRAINS, keisei3300) {
 }
 # 197 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei3500.pnml" 1
-spriteset (keisei3500_purchase_1, "gfx/private/Kanto/keisei/keisei3500/keisei3500_purchase.png") { tmpl_purchase(0, 0) }
-spriteset (keisei3500_purchase_2, "gfx/private/Kanto/keisei/keisei3500/keisei3500_purchase.png") { tmpl_purchase(0, 15) }
-spriteset (keisei3500_purchase_3, "gfx/private/Kanto/keisei/keisei3500/keisei3500_purchase.png") { tmpl_purchase(0, 30) }
+
+  spriteset(keisei3500_purchase_c1_1, "gfx/private/Kanto/keisei/keisei3500/keisei3500_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3500_purchase_c2_1, "gfx/private/Kanto/keisei/keisei3500/keisei3500_1.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei3500_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei3500_purchase_c1_1; 2: keisei3500_purchase_c2_1;}
+  spriteset(keisei3500_purchase_c1_2, "gfx/private/Kanto/keisei/keisei3500/keisei3500_2.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3500_purchase_c2_2, "gfx/private/Kanto/keisei/keisei3500/keisei3500_2.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei3500_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei3500_purchase_c1_2; 2: keisei3500_purchase_c2_2;}
+
+  switch(FEAT_TRAINS, SELF, keisei3500_purchase, current_year){
+    0..1991: keisei3500_purchase_1;
+    keisei3500_purchase_2;
+  }
 
 spriteset (keisei3500_1_front, "gfx/private/Kanto/keisei/keisei3500/keisei3500_1.png") { tmpl_std(0, 0) }
 spriteset (keisei3500_1_end, "gfx/private/Kanto/keisei/keisei3500/keisei3500_1.png") { tmpl_std_rev(0, 25) }
@@ -56019,12 +56160,6 @@ spriteset (keisei3500_3_end, "gfx/private/Kanto/keisei/keisei3500/keisei3500_3.p
 spriteset (keisei3500_3_end_rev, "gfx/private/Kanto/keisei/keisei3500/keisei3500_3.png") { tmpl_std(0, 25) }
 spriteset (keisei3500_3_mot, "gfx/private/Kanto/keisei/keisei3500/keisei3500_3.png") { tmpl_std(0, 50) }
 spriteset (keisei3500_3_mot_rev, "gfx/private/Kanto/keisei/keisei3500/keisei3500_3.png") { tmpl_std_rev(0, 50) }
-
-
-  switch(FEAT_TRAINS, SELF, keisei3500_purchase, current_year){
-    0..1991: keisei3600_purchase_1;
-    keisei3600_purchase_2;
-  }
 
 
 
@@ -56285,8 +56420,18 @@ item(FEAT_TRAINS, keisei3500) {
 }
 # 198 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei3600.pnml" 1
-spriteset (keisei3600_purchase_1, "gfx/private/Kanto/keisei/keisei3600/keisei3600_purchase.png") { tmpl_purchase(0, 0) }
-spriteset (keisei3600_purchase_2, "gfx/private/Kanto/keisei/keisei3600/keisei3600_purchase.png") { tmpl_purchase(0, 15) }
+
+  spriteset(keisei3600_purchase_c1_1, "gfx/private/Kanto/keisei/keisei3600/keisei3600_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3600_purchase_c2_1, "gfx/private/Kanto/keisei/keisei3600/keisei3600_1.png"){ tmpl_purchase_2c(0, 150) }
+  switch(FEAT_TRAINS, SELF, keisei3600_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei3600_purchase_c1_1; 2: keisei3600_purchase_c2_1;}
+  spriteset(keisei3600_purchase_c1_2, "gfx/private/Kanto/keisei/keisei3600/keisei3600_2.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3600_purchase_c2_2, "gfx/private/Kanto/keisei/keisei3600/keisei3600_2.png"){ tmpl_purchase_2c(0, 150) }
+  switch(FEAT_TRAINS, SELF, keisei3600_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei3600_purchase_c1_2; 2: keisei3600_purchase_c2_2;}
+
+  switch(FEAT_TRAINS, SELF, keisei3600_purchase, current_year>1992){
+    1: keisei3600_purchase_2;
+    keisei3600_purchase_1;
+  }
 
 spriteset (keisei3600_1_front_mot, "gfx/private/Kanto/keisei/keisei3600/keisei3600_1.png") { tmpl_std(0, 0) }
 spriteset (keisei3600_1_end_mot, "gfx/private/Kanto/keisei/keisei3600/keisei3600_1.png") { tmpl_std_rev(0, 25) }
@@ -56305,12 +56450,6 @@ spriteset (keisei3600_2_mot, "gfx/private/Kanto/keisei/keisei3600/keisei3600_2.p
 spriteset (keisei3600_2_mot_rev, "gfx/private/Kanto/keisei/keisei3600/keisei3600_2.png") { tmpl_std_rev(0, 100) }
 spriteset (keisei3600_2_mot_2, "gfx/private/Kanto/keisei/keisei3600/keisei3600_2.png") { tmpl_symm(0, 125) }
 spriteset (keisei3600_2_wag, "gfx/private/Kanto/keisei/keisei3600/keisei3600_2.png") { tmpl_symm(0, 150) }
-
-
-  switch(FEAT_TRAINS, SELF, keisei3600_purchase, current_year>1992){
-    1: keisei3600_purchase_2;
-    keisei3600_purchase_1;
-  }
 
 
 
@@ -56468,7 +56607,7 @@ spriteset (keisei3600_2_wag, "gfx/private/Kanto/keisei/keisei3600/keisei3600_2.p
     1:string(LV_DEFAULT);
     2:string(LV_MODERN);
   }
-# 200 "src/private/Kanto/keisei/keisei3600.pnml"
+# 204 "src/private/Kanto/keisei/keisei3600.pnml"
     switch(FEAT_TRAINS, SELF, sw_keisei3600_power_main,position_in_vehid_chain_from_end%8){
       0..2:return 140;
       5..6:return 140;
@@ -56550,7 +56689,10 @@ item(FEAT_TRAINS, keisei3600) {
 }
 # 199 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei3700.pnml" 1
-spriteset (keisei3700_purchase, "gfx/private/Kanto/keisei/keisei3700/keisei3700_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(keisei3700_purchase_c1, "gfx/private/Kanto/keisei/keisei3700/keisei3700_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3700_purchase_c2, "gfx/private/Kanto/keisei/keisei3700/keisei3700_1.png"){ tmpl_purchase_2c(0, 75) }
+  switch(FEAT_TRAINS, SELF, keisei3700_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei3700_purchase_c1; 2: keisei3700_purchase_c2;}
 
 spriteset (keisei3700_1_front, "gfx/private/Kanto/keisei/keisei3700/keisei3700_1.png") { tmpl_std(0, 0) }
 spriteset (keisei3700_1_end, "gfx/private/Kanto/keisei/keisei3700/keisei3700_1.png") { tmpl_std_rev(0, 25) }
@@ -56781,7 +56923,10 @@ item(FEAT_TRAINS, keisei3700) {
 }
 # 200 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei3400.pnml" 1
-spriteset (keisei3400_purchase, "gfx/private/Kanto/keisei/keisei3400/keisei3400_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(keisei3400_purchase_c1, "gfx/private/Kanto/keisei/keisei3400/keisei3400_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3400_purchase_c2, "gfx/private/Kanto/keisei/keisei3400/keisei3400_1.png"){ tmpl_purchase_2c(0, 75) }
+  switch(FEAT_TRAINS, SELF, keisei3400_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei3400_purchase_c1; 2: keisei3400_purchase_c2;}
 
 spriteset (keisei3400_1_front, "gfx/private/Kanto/keisei/keisei3400/keisei3400_1.png") { tmpl_std(0, 0) }
 spriteset (keisei3400_1_end, "gfx/private/Kanto/keisei/keisei3400/keisei3400_1.png") { tmpl_std_rev(0, 25) }
@@ -56960,7 +57105,10 @@ item(FEAT_TRAINS, keisei3400) {
 }
 # 201 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei3000_2.pnml" 1
-spriteset (keisei3000_2_purchase, "gfx/private/Kanto/keisei/keisei3000_2/keisei3000_2_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(keisei3000_2_purchase_c1, "gfx/private/Kanto/keisei/keisei3000_2/keisei3000_2_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3000_2_purchase_c2, "gfx/private/Kanto/keisei/keisei3000_2/keisei3000_2_1.png"){ tmpl_purchase_2c(88, 75) }
+  switch(FEAT_TRAINS, SELF, keisei3000_2_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei3000_2_purchase_c1; 2: keisei3000_2_purchase_c2;}
 
 spriteset (keisei3000_2_1_front, "gfx/private/Kanto/keisei/keisei3000_2/keisei3000_2_1.png") { tmpl_std(0, 0) }
 spriteset (keisei3000_2_1_end, "gfx/private/Kanto/keisei/keisei3000_2/keisei3000_2_1.png") { tmpl_std_rev(0, 25) }
@@ -57191,7 +57339,10 @@ item(FEAT_TRAINS, keisei3000_2) {
 }
 # 202 "src/_private.pnml" 2
 # 1 "src/private/Kanto/keisei/keisei3100_2.pnml" 1
-spriteset (keisei3100_2_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/keisei/keisei3100_2/keisei3100_2_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(keisei3100_2_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/keisei/keisei3100_2/keisei3100_2_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(keisei3100_2_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/keisei/keisei3100_2/keisei3100_2_1.png"){ tmpl_purchase_2c(88, 75) }
+  switch(FEAT_TRAINS, SELF, keisei3100_2_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_keisei; 1: keisei3100_2_purchase_c1; 2: keisei3100_2_purchase_c2;}
 
 spriteset (keisei3100_2_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/keisei/keisei3100_2/keisei3100_2_1.png") { tmpl_high_skirt(0, 0) }
 spriteset (keisei3100_2_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/keisei/keisei3100_2/keisei3100_2_1.png") { tmpl_high_skirt_rev(0, 25) }
@@ -57358,8 +57509,16 @@ item(FEAT_TRAINS, shinKeisei800n, 2507) {}
 item(FEAT_TRAINS, shinKeisei80000, 2508) {}
 
 # 1 "src/private/Kanto/shinKeisei/shinKeisei33.pnml" 1
-spriteset (shinKeisei33_purchase_1, "gfx/private/Kanto/shinKeisei/shinKeisei33/shinKeisei33_purchase.png") { tmpl_purchase(0, 0) }
-spriteset (shinKeisei33_purchase_2, "gfx/private/Kanto/shinKeisei/shinKeisei33/shinKeisei33_purchase.png") { tmpl_purchase(0, 15) }
+
+  spriteset(shinKeisei33_purchase_c1_1, "gfx/private/Kanto/shinKeisei/shinKeisei33/shinKeisei33_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(shinKeisei33_purchase_c1_2, "gfx/private/Kanto/shinKeisei/shinKeisei33/shinKeisei33_2.png"){ tmpl_purchase_1c(0, 0) }
+  switch(FEAT_TRAINS, SELF, shinKeisei33_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_shin_keisei; 1: shinKeisei33_purchase_c1_1;}
+  switch(FEAT_TRAINS, SELF, shinKeisei33_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_shin_keisei; 1: shinKeisei33_purchase_c1_2;}
+
+  switch(FEAT_TRAINS, SELF, shinKeisei33_purchase,current_year){
+    0..1952:shinKeisei33_purchase_1;
+    shinKeisei33_purchase_2;
+  }
 
 spriteset (shinKeisei33_1_front, "gfx/private/Kanto/shinKeisei/shinKeisei33/shinKeisei33_1.png") { tmpl_std_rev(0, 0) }
 spriteset (shinKeisei33_1_front_rev, "gfx/private/Kanto/shinKeisei/shinKeisei33/shinKeisei33_1.png") { tmpl_std(0, 25) }
@@ -57370,12 +57529,6 @@ spriteset (shinKeisei33_2_front, "gfx/private/Kanto/shinKeisei/shinKeisei33/shin
 spriteset (shinKeisei33_2_front_rev, "gfx/private/Kanto/shinKeisei/shinKeisei33/shinKeisei33_2.png") { tmpl_std(0, 25) }
 spriteset (shinKeisei33_2_end, "gfx/private/Kanto/shinKeisei/shinKeisei33/shinKeisei33_2.png") { tmpl_std(0, 50) }
 spriteset (shinKeisei33_2_end_rev, "gfx/private/Kanto/shinKeisei/shinKeisei33/shinKeisei33_2.png") { tmpl_std_rev(0, 50) }
-
-
-  switch(FEAT_TRAINS, SELF, shinKeisei33_purchase,current_year){
-    0..1952:shinKeisei33_purchase_1;
-    shinKeisei33_purchase_2;
-  }
 
 
 
@@ -57532,8 +57685,18 @@ item(FEAT_TRAINS, shinKeisei33) {
 }
 # 216 "src/_private.pnml" 2
 # 1 "src/private/Kanto/shinKeisei/shinKeisei300.pnml" 1
-spriteset (shinKeisei300_purchase_1, "gfx/private/Kanto/shinKeisei/shinKeisei300/shinKeisei300_purchase.png") { tmpl_purchase(0, 0) }
-spriteset (shinKeisei300_purchase_2, "gfx/private/Kanto/shinKeisei/shinKeisei300/shinKeisei300_purchase.png") { tmpl_purchase(0, 15) }
+
+  spriteset(shinKeisei300_purchase_c1_1, "gfx/private/Kanto/shinKeisei/shinKeisei300/shinKeisei300_1.png"){ tmpl_purchase_1c_7(0, 0) }
+  spriteset(shinKeisei300_purchase_c2_1, "gfx/private/Kanto/shinKeisei/shinKeisei300/shinKeisei300_1.png"){ tmpl_purchase_2c_7(0, 50) }
+  spriteset(shinKeisei300_purchase_c1_2, "gfx/private/Kanto/shinKeisei/shinKeisei300/shinKeisei300_2.png"){ tmpl_purchase_1c_7(0, 0) }
+  spriteset(shinKeisei300_purchase_c2_2, "gfx/private/Kanto/shinKeisei/shinKeisei300/shinKeisei300_2.png"){ tmpl_purchase_2c_7(0, 50) }
+  switch(FEAT_TRAINS, SELF, shinKeisei300_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_shin_keisei; 1: shinKeisei300_purchase_c1_1; 2: shinKeisei300_purchase_c2_1;}
+  switch(FEAT_TRAINS, SELF, shinKeisei300_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_shin_keisei; 1: shinKeisei300_purchase_c1_2; 2: shinKeisei300_purchase_c2_2;}
+
+  switch(FEAT_TRAINS, SELF, shinKeisei300_purchase,current_year){
+    0..1952:shinKeisei300_purchase_1;
+    shinKeisei300_purchase_2;
+  }
 
 spriteset (shinKeisei300_1_front_rev, "gfx/private/Kanto/shinKeisei/shinKeisei300/shinKeisei300_1.png") { tmpl_std_rev(0, 0) }
 spriteset (shinKeisei300_1_front, "gfx/private/Kanto/shinKeisei/shinKeisei300/shinKeisei300_1.png") { tmpl_std(0, 25) }
@@ -57546,12 +57709,6 @@ spriteset (shinKeisei300_2_end_mot_rev, "gfx/private/Kanto/shinKeisei/shinKeisei
 spriteset (shinKeisei300_2_front, "gfx/private/Kanto/shinKeisei/shinKeisei300/shinKeisei300_2.png") { tmpl_std(0, 50) }
 spriteset (shinKeisei300_2_end, "gfx/private/Kanto/shinKeisei/shinKeisei300/shinKeisei300_2.png") { tmpl_std_rev(0, 75) }
 spriteset (shinKeisei300_2_end_rev, "gfx/private/Kanto/shinKeisei/shinKeisei300/shinKeisei300_2.png") { tmpl_std(0, 75) }
-
-
-  switch(FEAT_TRAINS, SELF, shinKeisei300_purchase,current_year){
-    0..1952:shinKeisei300_purchase_1;
-    shinKeisei300_purchase_2;
-  }
 
 
 
@@ -57697,8 +57854,18 @@ item(FEAT_TRAINS, shinKeisei300) {
 }
 # 217 "src/_private.pnml" 2
 # 1 "src/private/Kanto/shinKeisei/shinKeisei2000.pnml" 1
-spriteset (shinKeisei2000_purchase_1, "gfx/private/Kanto/shinKeisei/shinKeisei2000/shinKeisei2000_purchase.png") { tmpl_purchase(0, 0) }
-spriteset (shinKeisei2000_purchase_2, "gfx/private/Kanto/shinKeisei/shinKeisei2000/shinKeisei2000_purchase.png") { tmpl_purchase(0, 15) }
+
+  spriteset(shinKeisei2000_purchase_c1_1, "gfx/private/Kanto/shinKeisei/shinKeisei2000/shinKeisei2000_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(shinKeisei2000_purchase_c1_2, "gfx/private/Kanto/shinKeisei/shinKeisei2000/shinKeisei2000_2.png"){ tmpl_purchase_1c(0, 50) }
+  spriteset(shinKeisei2000_purchase_c2_2, "gfx/private/Kanto/shinKeisei/shinKeisei2000/shinKeisei2000_2.png"){ tmpl_purchase_2c(0, 150) }
+  switch(FEAT_TRAINS, SELF, shinKeisei2000_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_shin_keisei; 1: shinKeisei2000_purchase_c1_1;}
+  switch(FEAT_TRAINS, SELF, shinKeisei2000_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_shin_keisei; 1: shinKeisei2000_purchase_c1_2; 2: shinKeisei2000_purchase_c2_2;}
+
+  switch(FEAT_TRAINS, SELF, shinKeisei2000_purchase, current_year){
+    0..1967:shinKeisei2000_purchase_1;
+    shinKeisei2000_purchase_2;
+  }
+
 
 spriteset (shinKeisei2000_1_front_rev, "gfx/private/Kanto/shinKeisei/shinKeisei2000/shinKeisei2000_1.png") { tmpl_std(0, 0) }
 spriteset (shinKeisei2000_1_front, "gfx/private/Kanto/shinKeisei/shinKeisei2000/shinKeisei2000_1.png") { tmpl_std_rev(0, 25) }
@@ -57713,12 +57880,6 @@ spriteset (shinKeisei2000_2_front_mot, "gfx/private/Kanto/shinKeisei/shinKeisei2
 spriteset (shinKeisei2000_2_end_mot, "gfx/private/Kanto/shinKeisei/shinKeisei2000/shinKeisei2000_2.png") { tmpl_std_rev(0, 75) }
 spriteset (shinKeisei2000_2_end_mot_rev, "gfx/private/Kanto/shinKeisei/shinKeisei2000/shinKeisei2000_2.png") { tmpl_std(0, 75) }
 spriteset (shinKeisei2000_2_wag, "gfx/private/Kanto/shinKeisei/shinKeisei2000/shinKeisei2000_2.png") { tmpl_symm(0, 150) }
-
-
-  switch(FEAT_TRAINS, SELF, shinKeisei2000_purchase, current_year){
-    0..1967:shinKeisei2000_purchase_1;
-    shinKeisei2000_purchase_2;
-  }
 
 
 
@@ -57845,7 +58006,7 @@ spriteset (shinKeisei2000_2_wag, "gfx/private/Kanto/shinKeisei/shinKeisei2000/sh
     1:string(LV_OLD);
     2:string(LV_shinKeisei8000_1);
   }
-# 166 "src/private/Kanto/shinKeisei/shinKeisei2000.pnml"
+# 170 "src/private/Kanto/shinKeisei/shinKeisei2000.pnml"
 item(FEAT_TRAINS, shinKeisei2000) {
     property {
         name: string(STR_TRAIN_NAME, string(STR_NAME_SHIN_KEISEI), "20-2000", string(STR_NAME_TYPE));
@@ -57920,7 +58081,10 @@ item(FEAT_TRAINS, shinKeisei2000) {
 }
 # 218 "src/_private.pnml" 2
 # 1 "src/private/Kanto/shinKeisei/shinKeisei800.pnml" 1
-spriteset (shinKeisei800_purchase, "gfx/private/Kanto/shinKeisei/shinKeisei800/shinKeisei800_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(shinKeisei800_purchase_c1, "gfx/private/Kanto/shinKeisei/shinKeisei800/shinKeisei800_2.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(shinKeisei800_purchase_c2, "gfx/private/Kanto/shinKeisei/shinKeisei800/shinKeisei800_2.png"){ tmpl_purchase_2c(0, 125) }
+  switch(FEAT_TRAINS, SELF, shinKeisei800_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_shin_keisei; 1: shinKeisei800_purchase_c1; 2: shinKeisei800_purchase_c2;}
 
 spriteset (shinKeisei800_1_front, "gfx/private/Kanto/shinKeisei/shinKeisei800/shinKeisei800_1.png") { tmpl_std(0, 0) }
 spriteset (shinKeisei800_1_end, "gfx/private/Kanto/shinKeisei/shinKeisei800/shinKeisei800_1.png") { tmpl_std_rev(0, 25) }
@@ -58232,7 +58396,10 @@ item(FEAT_TRAINS, shinKeisei800) {
 }
 # 219 "src/_private.pnml" 2
 # 1 "src/private/Kanto/shinKeisei/shinKeisei8000.pnml" 1
-spriteset (shinKeisei8000_purchase, "gfx/private/Kanto/shinKeisei/shinKeisei8000/shinKeisei8000_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(shinKeisei8000_purchase_c1, "gfx/private/Kanto/shinKeisei/shinKeisei8000/shinKeisei8000_2.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(shinKeisei8000_purchase_c2, "gfx/private/Kanto/shinKeisei/shinKeisei8000/shinKeisei8000_2.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, shinKeisei8000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_shin_keisei; 1: shinKeisei8000_purchase_c1; 2: shinKeisei8000_purchase_c2;}
 
 spriteset (shinKeisei8000_1_front, "gfx/private/Kanto/shinKeisei/shinKeisei8000/shinKeisei8000_1.png") { tmpl_std(0, 0) }
 spriteset (shinKeisei8000_1_end, "gfx/private/Kanto/shinKeisei/shinKeisei8000/shinKeisei8000_1.png") { tmpl_std_rev(0, 25) }
@@ -58466,7 +58633,10 @@ item(FEAT_TRAINS, shinKeisei8000) {
 }
 # 220 "src/_private.pnml" 2
 # 1 "src/private/Kanto/shinKeisei/shinKeisei8800.pnml" 1
-spriteset (shinKeisei8800_purchase, "gfx/private/Kanto/shinKeisei/shinKeisei8800/shinKeisei8800_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(shinKeisei8800_purchase_c1, "gfx/private/Kanto/shinKeisei/shinKeisei8800/shinKeisei8800_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(shinKeisei8800_purchase_c2, "gfx/private/Kanto/shinKeisei/shinKeisei8800/shinKeisei8800_1.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, shinKeisei8800_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_shin_keisei; 1: shinKeisei8800_purchase_c1; 2: shinKeisei8800_purchase_c2;}
 
 spriteset (shinKeisei8800_1_front_1, "gfx/private/Kanto/shinKeisei/shinKeisei8800/shinKeisei8800_1.png") { tmpl_std(0, 0) }
 spriteset (shinKeisei8800_1_end_1, "gfx/private/Kanto/shinKeisei/shinKeisei8800/shinKeisei8800_1.png") { tmpl_std_rev(0, 25) }
@@ -58699,7 +58869,10 @@ item(FEAT_TRAINS, shinKeisei8800) {
 }
 # 221 "src/_private.pnml" 2
 # 1 "src/private/Kanto/shinKeisei/shinKeisei8900.pnml" 1
-spriteset (shinKeisei8900_purchase, "gfx/private/Kanto/shinKeisei/shinKeisei8900/shinKeisei8900_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(shinKeisei8900_purchase_c1, "gfx/private/Kanto/shinKeisei/shinKeisei8900/shinKeisei8900_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(shinKeisei8900_purchase_c2, "gfx/private/Kanto/shinKeisei/shinKeisei8900/shinKeisei8900_1.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, shinKeisei8900_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_shin_keisei; 1: shinKeisei8900_purchase_c1; 2: shinKeisei8900_purchase_c2;}
 
 spriteset (shinKeisei8900_1_front, "gfx/private/Kanto/shinKeisei/shinKeisei8900/shinKeisei8900_1.png") { tmpl_std(0, 0) }
 spriteset (shinKeisei8900_1_end, "gfx/private/Kanto/shinKeisei/shinKeisei8900/shinKeisei8900_1.png") { tmpl_std_rev(0, 25) }
@@ -58804,7 +58977,7 @@ spriteset (shinKeisei8900_2_wag, "gfx/private/Kanto/shinKeisei/shinKeisei8900/sh
     1:sw_shinKeisei8900_livery_1;
     1:sw_shinKeisei8900_livery_2;
   }
-# 122 "src/private/Kanto/shinKeisei/shinKeisei8900.pnml"
+# 125 "src/private/Kanto/shinKeisei/shinKeisei8900.pnml"
     switch(FEAT_TRAINS, SELF, sw_shinKeisei8900_capacity,position_in_vehid_chain_from_end){
       0: 122;
       default: 127;
@@ -58899,7 +59072,10 @@ item(FEAT_TRAINS, shinKeisei8900) {
 }
 # 222 "src/_private.pnml" 2
 # 1 "src/private/Kanto/shinKeisei/shinKeisei800n.pnml" 1
-spriteset (shinKeisei800n_purchase, "gfx/private/Kanto/shinKeisei/shinKeisei800n/shinKeisei800n_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(shinKeisei800n_purchase_c1, "gfx/private/Kanto/shinKeisei/shinKeisei800n/shinKeisei800n_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(shinKeisei800n_purchase_c2, "gfx/private/Kanto/shinKeisei/shinKeisei800n/shinKeisei800n_1.png"){ tmpl_purchase_2c(0, 75) }
+  switch(FEAT_TRAINS, SELF, shinKeisei800n_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_shin_keisei; 1: shinKeisei800n_purchase_c1; 2: shinKeisei800n_purchase_c2;}
 
 spriteset (shinKeisei800n_1_front, "gfx/private/Kanto/shinKeisei/shinKeisei800n/shinKeisei800n_1.png") { tmpl_std(0, 0) }
 spriteset (shinKeisei800n_1_end, "gfx/private/Kanto/shinKeisei/shinKeisei800n/shinKeisei800n_1.png") { tmpl_std_rev(0, 25) }
@@ -58955,7 +59131,7 @@ spriteset (shinKeisei800n_1_wag_rev, "gfx/private/Kanto/shinKeisei/shinKeisei800
         mu_car: sw_shinKeisei800n_1_gfx_main;
         shinKeisei800n_1_front;
     }
-# 75 "src/private/Kanto/shinKeisei/shinKeisei800n.pnml"
+# 78 "src/private/Kanto/shinKeisei/shinKeisei800n.pnml"
 item(FEAT_TRAINS, shinKeisei800n) {
     property {
         name: string(STR_TRAIN_NAME, string(STR_NAME_SHIN_KEISEI), "N800", string(STR_NAME_TYPE));
@@ -59176,7 +59352,10 @@ item(FEAT_TRAINS, hokuso7250, 2524) {}
 item(FEAT_TRAINS, hokuso7500, 2525) {}
 
 # 1 "src/private/Kanto/hokuso/hokuso7000.pnml" 1
-spriteset (hokuso7000_purchase, "gfx/private/Kanto/hokuso/hokuso7000/hokuso7000_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(hokuso7000_purchase_c1, "gfx/private/Kanto/hokuso/hokuso7000/hokuso7000.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(hokuso7000_purchase_c2, "gfx/private/Kanto/hokuso/hokuso7000/hokuso7000.png"){ tmpl_purchase_2c(0, 100) }
+  switch(FEAT_TRAINS, SELF, hokuso7000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_hokuso; 1: hokuso7000_purchase_c1; 2: hokuso7000_purchase_c2;}
 
 spriteset (hokuso7000_front, "gfx/private/Kanto/hokuso/hokuso7000/hokuso7000.png") { tmpl_std(0, 0) }
 spriteset (hokuso7000_end, "gfx/private/Kanto/hokuso/hokuso7000/hokuso7000.png") { tmpl_std_rev(0, 25) }
@@ -59327,7 +59506,10 @@ item(FEAT_TRAINS, hokuso7000) {
 }
 # 234 "src/_private.pnml" 2
 # 1 "src/private/Kanto/hokuso/hokuso7150.pnml" 1
-spriteset (hokuso7150_purchase, "gfx/private/Kanto/hokuso/hokuso7150/hokuso7150_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(hokuso7150_purchase_c1, "gfx/private/Kanto/hokuso/hokuso7150/hokuso7150_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(hokuso7150_purchase_c2, "gfx/private/Kanto/hokuso/hokuso7150/hokuso7150_1.png"){ tmpl_purchase_2c(0, 125) }
+  switch(FEAT_TRAINS, SELF, hokuso7150_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_hokuso; 1: hokuso7150_purchase_c1; 2: hokuso7150_purchase_c2;}
 
 spriteset (hokuso7150_1_front_mot, "gfx/private/Kanto/hokuso/hokuso7150/hokuso7150_1.png") { tmpl_std(0, 0) }
 spriteset (hokuso7150_1_end_mot, "gfx/private/Kanto/hokuso/hokuso7150/hokuso7150_1.png") { tmpl_std_rev(0, 25) }
@@ -59610,7 +59792,10 @@ item(FEAT_TRAINS, hokuso7150) {
 }
 # 235 "src/_private.pnml" 2
 # 1 "src/private/Kanto/hokuso/hokuso7050.pnml" 1
-spriteset (hokuso7050_purchase, "gfx/private/Kanto/hokuso/hokuso7050/hokuso7050_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(hokuso7050_purchase_c1, "gfx/private/Kanto/hokuso/hokuso7050/hokuso7050.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(hokuso7050_purchase_c2, "gfx/private/Kanto/hokuso/hokuso7050/hokuso7050.png"){ tmpl_purchase_2c(0, 125) }
+  switch(FEAT_TRAINS, SELF, hokuso7050_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_hokuso; 1: hokuso7050_purchase_c1; 2: hokuso7050_purchase_c2;}
 
 spriteset (hokuso7050_front, "gfx/private/Kanto/hokuso/hokuso7050/hokuso7050.png") { tmpl_std(0, 0) }
 spriteset (hokuso7050_end, "gfx/private/Kanto/hokuso/hokuso7050/hokuso7050.png") { tmpl_std_rev(0, 25) }
@@ -59771,7 +59956,10 @@ item(FEAT_TRAINS, hokuso7050) {
 }
 # 236 "src/_private.pnml" 2
 # 1 "src/private/Kanto/hokuso/hokuso7250.pnml" 1
-spriteset (hokuso7250_purchase, "gfx/private/Kanto/hokuso/hokuso7250/hokuso7250_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(hokuso7250_purchase_c1, "gfx/private/Kanto/hokuso/hokuso7250/hokuso7250.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(hokuso7250_purchase_c2, "gfx/private/Kanto/hokuso/hokuso7250/hokuso7250.png"){ tmpl_purchase_2c(0, 100) }
+  switch(FEAT_TRAINS, SELF, hokuso7250_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_hokuso; 1: hokuso7250_purchase_c1; 2: hokuso7250_purchase_c2;}
 
 spriteset (hokuso7250_front, "gfx/private/Kanto/hokuso/hokuso7250/hokuso7250.png") { tmpl_std(0, 0) }
 spriteset (hokuso7250_end, "gfx/private/Kanto/hokuso/hokuso7250/hokuso7250.png") { tmpl_std_rev(0, 25) }
@@ -59958,7 +60146,10 @@ item(FEAT_TRAINS, hokuso7250) {
 }
 # 237 "src/_private.pnml" 2
 # 1 "src/private/Kanto/hokuso/hokuso7300.pnml" 1
-spriteset (hokuso7300_purchase, "gfx/private/Kanto/hokuso/hokuso7300/hokuso7300_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(hokuso7300_purchase_c1, "gfx/private/Kanto/hokuso/hokuso7300/hokuso7300.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(hokuso7300_purchase_c2, "gfx/private/Kanto/hokuso/hokuso7300/hokuso7300.png"){ tmpl_purchase_2c(0, 75) }
+  switch(FEAT_TRAINS, SELF, hokuso7300_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_hokuso; 1: hokuso7300_purchase_c1; 2: hokuso7300_purchase_c2;}
 
 spriteset (hokuso7300_front, "gfx/private/Kanto/hokuso/hokuso7300/hokuso7300.png") { tmpl_std(0, 0) }
 spriteset (hokuso7300_end, "gfx/private/Kanto/hokuso/hokuso7300/hokuso7300.png") { tmpl_std_rev(0, 25) }
@@ -60112,7 +60303,10 @@ item(FEAT_TRAINS, hokuso7300) {
 }
 # 238 "src/_private.pnml" 2
 # 1 "src/private/Kanto/hokuso/hokuso7500.pnml" 1
-spriteset (hokuso7500_purchase, "gfx/private/Kanto/hokuso/hokuso7500/hokuso7500_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(hokuso7500_purchase_c1, "gfx/private/Kanto/hokuso/hokuso7500/hokuso7500.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(hokuso7500_purchase_c2, "gfx/private/Kanto/hokuso/hokuso7500/hokuso7500.png"){ tmpl_purchase_2c(0, 75) }
+  switch(FEAT_TRAINS, SELF, hokuso7500_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_hokuso; 1: hokuso7500_purchase_c1; 2: hokuso7500_purchase_c2;}
 
 spriteset (hokuso7500_front, "gfx/private/Kanto/hokuso/hokuso7500/hokuso7500.png") { tmpl_std(0, 0) }
 spriteset (hokuso7500_end, "gfx/private/Kanto/hokuso/hokuso7500/hokuso7500.png") { tmpl_std_rev(0, 25) }
@@ -60257,7 +60451,10 @@ item(FEAT_TRAINS, shibayama3600, 2548) {}
 item(FEAT_TRAINS, shibayama3500, 2549) {}
 
 # 1 "src/private/Kanto/chibaNT/chibaNT_9000.pnml" 1
-spriteset (chibaNT_9000_purchase, "gfx/private/Kanto/chibaNewTown/chibaNT_9000/chibaNT_9000_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(chibaNT_9000_purchase_c1, "gfx/private/Kanto/chibaNewTown/chibaNT_9000/chibaNT_9000_2.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(chibaNT_9000_purchase_c2, "gfx/private/Kanto/chibaNewTown/chibaNT_9000/chibaNT_9000_1.png"){ tmpl_purchase_2c(0, 75) }
+  switch(FEAT_TRAINS, SELF, chibaNT_9000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_chiba_nt; 1: chibaNT_9000_purchase_c1; 2: chibaNT_9000_purchase_c2;}
 
 spriteset (chibaNT_9000_1_front, "gfx/private/Kanto/chibaNewTown/chibaNT_9000/chibaNT_9000_1.png") { tmpl_std(0, 0) }
 spriteset (chibaNT_9000_1_end, "gfx/private/Kanto/chibaNewTown/chibaNT_9000/chibaNT_9000_1.png") { tmpl_std_rev(0, 25) }
@@ -60422,7 +60619,10 @@ item(FEAT_TRAINS, chibaNT_9000) {
 }
 # 254 "src/_private.pnml" 2
 # 1 "src/private/Kanto/chibaNT/chibaNT_9100.pnml" 1
-spriteset (chibaNT_9100_purchase, "gfx/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(chibaNT_9100_purchase_c1, "gfx/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(chibaNT_9100_purchase_c2, "gfx/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100.png"){ tmpl_purchase_2c(88, 75) }
+  switch(FEAT_TRAINS, SELF, chibaNT_9100_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_chiba_nt; 1: chibaNT_9100_purchase_c1; 2: chibaNT_9100_purchase_c2;}
 
 spriteset (chibaNT_9100_front, "gfx/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100.png") { tmpl_std(0, 0) }
 spriteset (chibaNT_9100_end, "gfx/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100.png") { tmpl_std_rev(0, 25) }
@@ -60619,7 +60819,10 @@ item(FEAT_TRAINS, chibaNT_9100) {
 
 
 # 1 "src/private/Kanto/chibaE/chibaE_1000.pnml" 1
-spriteset (chibaE_1000_purchase, "gfx/private/Kanto/chibaExpress/chibaE_1000/chibaE_1000_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(chibaE_1000_purchase_c1, "gfx/private/Kanto/chibaExpress/chibaE_1000/chibaE_1000.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(chibaE_1000_purchase_c2, "gfx/private/Kanto/chibaExpress/chibaE_1000/chibaE_1000.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, chibaE_1000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_chiba_e; 1: chibaE_1000_purchase_c1; 2: chibaE_1000_purchase_c2;}
 
 spriteset (chibaE_1000_front, "gfx/private/Kanto/chibaExpress/chibaE_1000/chibaE_1000.png") { tmpl_std(0, 0) }
 spriteset (chibaE_1000_end, "gfx/private/Kanto/chibaExpress/chibaE_1000/chibaE_1000.png") { tmpl_std_rev(0, 25) }
@@ -60751,7 +60954,10 @@ item(FEAT_TRAINS, chibaE_1000) {
 }
 # 259 "src/_private.pnml" 2
 # 1 "src/private/Kanto/chibaE/chibaE_3050.pnml" 1
-spriteset (chibaE_3050_purchase, "gfx/private/Kanto/chibaExpress/chibaE_3050/chibaE_3050_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(chibaE_3050_purchase_c1, "gfx/private/Kanto/chibaExpress/chibaE_3050/chibaE_3050.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(chibaE_3050_purchase_c2, "gfx/private/Kanto/chibaExpress/chibaE_3050/chibaE_3050.png"){ tmpl_purchase_2c(0, 125) }
+  switch(FEAT_TRAINS, SELF, chibaE_3050_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_chiba_e; 1: chibaE_3050_purchase_c1; 2: chibaE_3050_purchase_c2;}
 
 spriteset (chibaE_3050_front_mot, "gfx/private/Kanto/chibaExpress/chibaE_3050/chibaE_3050.png") { tmpl_std(0, 0) }
 spriteset (chibaE_3050_end_mot, "gfx/private/Kanto/chibaExpress/chibaE_3050/chibaE_3050.png") { tmpl_std_rev(0, 25) }
@@ -60892,7 +61098,10 @@ item(FEAT_TRAINS, chibaE_3050) {
 }
 # 260 "src/_private.pnml" 2
 # 1 "src/private/Kanto/chibaE/chibaE_3100.pnml" 1
-spriteset (chibaE_3100_purchase, "gfx/private/Kanto/chibaExpress/chibaE_3100/chibaE_3100_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(chibaE_3100_purchase_c1, "gfx/private/Kanto/chibaExpress/chibaE_3100/chibaE_3100.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(chibaE_3100_purchase_c2, "gfx/private/Kanto/chibaExpress/chibaE_3100/chibaE_3100.png"){ tmpl_purchase_2c(0, 125) }
+  switch(FEAT_TRAINS, SELF, chibaE_3100_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_chiba_e; 1: chibaE_3100_purchase_c1; 2: chibaE_3100_purchase_c2;}
 
 spriteset (chibaE_3100_1_front_mot, "gfx/private/Kanto/chibaExpress/chibaE_3100/chibaE_3100.png") { tmpl_std(0, 0) }
 spriteset (chibaE_3100_1_end_mot, "gfx/private/Kanto/chibaExpress/chibaE_3100/chibaE_3100.png") { tmpl_std_rev(0, 25) }
@@ -61064,7 +61273,10 @@ item(FEAT_TRAINS, chibaE_3100) {
 # 261 "src/_private.pnml" 2
 
 # 1 "src/private/Kanto/shibayama/shibayama3600.pnml" 1
-spriteset (shibayama3600_purchase, "gfx/private/Kanto/shibayama/shibayama3600/shibayama3600_purchase.png") { tmpl_purchase(0, 0) }
+
+  spriteset(shibayama3600_purchase_c1, "gfx/private/Kanto/shibayama/shibayama3600/shibayama3600.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(shibayama3600_purchase_c2, "gfx/private/Kanto/shibayama/shibayama3600/shibayama3600.png"){ tmpl_purchase_2c(0, 50) }
+  switch(FEAT_TRAINS, SELF, shibayama3600_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_shibayama; 1: shibayama3600_purchase_c1; 2: shibayama3600_purchase_c2;}
 
 spriteset (shibayama3600_front, "gfx/private/Kanto/shibayama/shibayama3600/shibayama3600.png") { tmpl_std(0, 0) }
 spriteset (shibayama3600_end, "gfx/private/Kanto/shibayama/shibayama3600/shibayama3600.png") { tmpl_std_rev(0, 25) }
