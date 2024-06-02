@@ -1,0 +1,166 @@
+//*purchase
+  spriteset(sotetsu11000_front_base_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu11000_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(sotetsu11000_car_base_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu11000_1.png"){ tmpl_purchase_2c(0, 25) }
+  GRAPHIC_STACK_7(sotetsu11000_purchase, logo_sotetsu, roof_gray_med_h1_c1, sotetsu11000_front_base_c1, ac_long_toshiba_c1, roof_gray_med_c2, sotetsu11000_car_base_c2, ac_long_toshiba_c2)
+//*livery 1
+	spriteset(sotetsu11000_1_front_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu11000_1.png"){ tmpl_std(0, 0) }
+	spriteset(sotetsu11000_1_end_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu11000_1.png"){ tmpl_std_rev(0, 0) }
+	spriteset(sotetsu11000_1_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu11000_1.png"){ tmpl_symm(0, 25) }
+	spriteset(sotetsu11000_1_lights_rear, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu11000_lights.png"){ tmpl_high_skirt(0, 0) }
+	spriteset(sotetsu11000_1_lights_back, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu11000_lights.png"){ tmpl_end_v2(0, 25) }
+
+	TRAIN_CONSTRUCTOR_4(sotetsu11000_1_front, sotetsu11000_1_front_base, roof_gray_med_h1, sotetsu11000_1_lights_rear, ac_long_toshiba)
+	TRAIN_CONSTRUCTOR_4(sotetsu11000_1_end, sotetsu11000_1_end_base, roof_gray_med_h1_rev, sotetsu11000_1_lights_back, ac_long_toshiba)
+	TRAIN_CONSTRUCTOR_3(sotetsu11000_1_wag, sotetsu11000_1_car_base, roof_gray_med, ac_long_toshiba)
+	TRAIN_CONSTRUCTOR_4(sotetsu11000_1_mot_2, sotetsu11000_1_car_base, roof_gray_med, ac_long_toshiba, panto_arm_n)
+	TRAIN_CONSTRUCTOR_4(sotetsu11000_1_mot, sotetsu11000_1_car_base, roof_gray_med, ac_long_toshiba, panto_arm_n_single)
+	TRAIN_CONSTRUCTOR_4(sotetsu11000_1_mot_rev, sotetsu11000_1_car_base, roof_gray_med, ac_long_toshiba, panto_arm_n_single_rev)
+//
+//*livery 1
+	//panto placer
+		//1 10
+			switch(FEAT_TRAINS, SELF, sw_sotetsu11000_1_panto_placer_1,position_in_vehid_chain %9){
+				0: sotetsu11000_1_mot_2;
+				3: sotetsu11000_1_mot;
+				7: sotetsu11000_1_mot;
+				sotetsu11000_1_wag;
+			}
+			switch(FEAT_TRAINS, SELF, sw_sotetsu11000_1_panto_placer_1_rev,position_in_vehid_chain_from_end %9 -1){
+				0: sotetsu11000_1_mot_2;
+				3: sotetsu11000_1_mot_rev;
+				7: sotetsu11000_1_mot_rev;
+				sotetsu11000_1_wag;
+			}
+			switch(FEAT_TRAINS, PARENT, sw_sotetsu11000_1_panto_placer_main_1,vehicle_is_reversed){
+				1: sw_sotetsu11000_1_panto_placer_1_rev;
+				sw_sotetsu11000_1_panto_placer_1;
+			}
+		//2 8
+			switch(FEAT_TRAINS, SELF, sw_sotetsu11000_1_panto_placer_2,position_in_vehid_chain %8){
+				1: sotetsu11000_1_mot_2;
+				5: sotetsu11000_1_mot_2;
+				sotetsu11000_1_wag;
+			}
+			switch(FEAT_TRAINS, SELF, sw_sotetsu11000_1_panto_placer_2_rev,1-position_in_vehid_chain_from_end %8){
+				1: sotetsu11000_1_mot_2;
+				5: sotetsu11000_1_mot_2;
+				sotetsu11000_1_wag;
+			}
+			switch(FEAT_TRAINS, PARENT, sw_sotetsu11000_1_panto_placer_main_2,vehicle_is_reversed){
+				1: sw_sotetsu11000_1_panto_placer_2_rev;
+				sw_sotetsu11000_1_panto_placer_2;
+			}
+		//3 3-5
+			switch(FEAT_TRAINS, SELF, sw_sotetsu11000_1_panto_placer_3,position_in_vehid_chain %5){
+				0: sotetsu11000_1_mot_rev;
+				2: sotetsu11000_1_mot_rev;
+				sotetsu11000_1_wag;
+			}
+			switch(FEAT_TRAINS, SELF, sw_sotetsu11000_1_panto_placer_3_rev,1-position_in_vehid_chain_from_end %5){
+				0: sotetsu11000_1_mot;
+				2: sotetsu11000_1_mot;
+				sotetsu11000_1_wag;
+			}
+			switch(FEAT_TRAINS, PARENT, sw_sotetsu11000_1_panto_placer_main_3,vehicle_is_reversed){
+				1: sw_sotetsu11000_1_panto_placer_3_rev;
+				sw_sotetsu11000_1_panto_placer_3;
+			}
+	//panto controller
+		switch(FEAT_TRAINS, SELF, sw_sotetsu11000_1_panto_placer_main,num_vehs_in_vehid_chain+1){
+			5:sw_sotetsu11000_1_panto_placer_main_3;
+			8..9:sw_sotetsu11000_1_panto_placer_main_2;
+			sw_sotetsu11000_1_panto_placer_main_1;
+		}
+	//front-end-fixer
+		switch(FEAT_TRAINS, SELF, sw_sotetsu11000_1_end_gfx_main,position_in_vehid_chain_from_end){
+			0: sotetsu11000_1_end;
+			default: sw_sotetsu11000_1_panto_placer_main;
+		}
+		switch(FEAT_TRAINS, SELF, sw_sotetsu11000_1_front_gfx_main,position_in_vehid_chain_from_end){
+			0: sotetsu11000_1_front;
+			default: sw_sotetsu11000_1_panto_placer_main;
+		}
+		switch(FEAT_TRAINS, SELF, sw_sotetsu11000_lv,vehicle_type_id){
+			mu_car_narrow:sw_sotetsu11000_1_end_gfx_main;
+			sw_sotetsu11000_1_front_gfx_main;
+		}
+//
+//*post fixers
+	//capacity-changer
+		switch(FEAT_TRAINS, SELF, sw_sotetsu11000_capacity,position_in_vehid_chain_from_end){
+			0: 142;
+			default: 160;
+		}
+		switch(FEAT_TRAINS, SELF, sw_sotetsu11000_capacity_1,position_in_vehid_chain){
+			0: 142;
+			default: sw_sotetsu11000_capacity;
+		}
+		switch(FEAT_TRAINS, SELF, sw_sotetsu11000_capacity_main,vehicle_type_id){
+			mu_car_narrow:sw_sotetsu11000_capacity;
+			sw_sotetsu11000_capacity_1;
+		}
+	//power fix
+		switch(FEAT_TRAINS, SELF, sw_sotetsu11000_power_main,position_in_vehid_chain_from_end%10){
+			1..2:return 140;
+			5..8:return 140;
+			return 0;
+		}
+//
+item(FEAT_TRAINS, sotetsu11000) {
+	property {
+		//tech/rewritten
+			cargo_capacity: 1;
+			power: 1 kW;
+			ai_special_flag: AI_FLAG_PASSENGER;
+			sprite_id: SPRITE_ID_NEW_TRAIN;
+			misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
+			refittable_cargo_classes: bitmask(CC_PASSENGERS);
+			non_refittable_cargo_classes: bitmask();
+			running_cost_base: RUNNING_COST_ELECTRIC;
+			engine_class: ENGINE_CLASS_ELECTRIC;
+			visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+			tractive_effort_coefficient: 0.3;
+			air_drag_coefficient: 0.07;
+			bitmask_vehicle_info: 0;
+		//
+		name: string(STR_TRAIN_NAME, string(STR_NAME_SOTETSU), "11000", string(STR_NAME_SERIES),);
+		climates_available: param_disable_sotetsu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+		introduction_date: date(2008, 1, 1);
+		model_life: VEHICLE_NEVER_EXPIRES;
+		vehicle_life: 35;
+		reliability_decay: 10;
+
+		cost_factor: 20;
+		running_cost_factor: 50;
+		speed: 120 km/h;
+		track_type: TR_1067_DC;
+		weight: 34 ton;
+		loading_speed: param_loading_4D;
+	}
+	graphics {
+		cargo_capacity: sw_sotetsu11000_capacity_main()*param_capacity_mod/3;  
+		power:sw_sotetsu11000_power_main()*4*1342/1000;
+		purchase: sotetsu11000_purchase;
+		default: sw_sotetsu11000_lv;
+		//cargo_subtype_text:sw_sotetsu11000_lv_desc;
+		
+		start_stop: sw_stop_start_3;
+		can_attach_wagon: sw_1067_attach_vehid;
+		additional_text:
+			string(STR_TRAIN_DESC,
+			string(STR_NARROWGAUGE),
+			string(STR_DENKI, string(STR_DC_N, 1500)),
+			string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
+			string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
+			string(STR_USAGE, string(STR_COMMUTER)),
+			string(STR_OPERATOR, string(STR_SOTETSU)));
+	}
+	livery_override(mu_car_narrow){
+		cargo_capacity: sw_sotetsu11000_capacity_main()*param_capacity_mod/3;
+		//cargo_subtype_text:sw_sotetsu11000_lv_desc;
+		power:  sw_sotetsu11000_power_main()*4*1342/1000;
+		default: sw_sotetsu11000_lv;
+		loading_speed: param_loading_4D;
+		weight: 32;
+	}
+}
