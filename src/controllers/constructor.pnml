@@ -17,3 +17,14 @@ switch(FEAT_TRAINS, SELF, name, [\
     2: s1;\
     3: s2;\
 }
+#define TRAIN_CONSTRUCTOR_5(name,body,roof,s1,s2,s3) \
+switch(FEAT_TRAINS, SELF, name, [\
+    STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100),\
+    getbits(extra_callback_info1, 8, 8)\
+    ]) { /* The game allows stacking up to 8 graphics */ \
+    0: roof;\
+    1: body;\
+    2: s1;\
+    3: s2;\
+    4: s3;\
+}
