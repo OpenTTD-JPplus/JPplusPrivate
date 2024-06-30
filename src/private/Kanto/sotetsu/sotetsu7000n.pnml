@@ -17,7 +17,7 @@ switch(FEAT_TRAINS,PARENT, sw_sotetsu7000n_panto_rev, current_year){
   GRAPHIC_STACK_7(sotetsu7000n_purchase_2, logo_sotetsu, roof_gray_med_h1_c1, sotetsu7000n_2_front_base_c1, ac_long_toshiba_c1, roof_gray_med_c2, sotetsu7000n_2_car_base_c2, ac_long_toshiba_c2)
 
 	switch(FEAT_TRAINS, SELF, sotetsu7000n_purchase, current_year){
-		0..2009: sotetsu7000n_purchase_1;
+		0..2006: sotetsu7000n_purchase_1;
 		sotetsu7000n_purchase_2;
 	}
 //*lights
@@ -235,7 +235,7 @@ switch(FEAT_TRAINS,PARENT, sw_sotetsu7000n_panto_rev, current_year){
 //
 //*livery logic
 	switch(FEAT_TRAINS, PARENT, sw_sotetsu7000n_livery_0, current_year){
-		0..2009: sw_sotetsu7000n_livery_1;
+		0..2006: sw_sotetsu7000n_livery_1;
 		sw_sotetsu7000n_livery_2;
 	}
 	switch(FEAT_TRAINS, SELF, sw_sotetsu7000n_lv, cargo_subtype){
@@ -245,8 +245,8 @@ switch(FEAT_TRAINS,PARENT, sw_sotetsu7000n_panto_rev, current_year){
 	}
 	switch(FEAT_TRAINS, SELF, sw_sotetsu7000n_lv_desc, cargo_subtype){
 		0:string(LV_RANDOM);
-		1:string(LV_DEFAULT);
-		2:string(LV_MODERN);
+		1:string(LV_DATED,string(STR_PREFIX_OLD,string(STR_BELT,string(STR_RED))),2004);
+		2:string(LV_DATED,string(LV_sotetsu_orange_blue),2007);
 	}
 //
 //*post fixers
@@ -303,15 +303,15 @@ item(FEAT_TRAINS, sotetsu7000n) {
 		name: string(STR_TRAIN_NAME, string(STR_NAME_SOTETSU), string(STR_NAME_NEW, "7000"), string(STR_NAME_SERIES),);
 		climates_available: param_disable_sotetsu == 0 ? ALL_CLIMATES : NO_CLIMATE;
 		introduction_date: date(1986, 1, 1);
-		model_life: VEHICLE_NEVER_EXPIRES;
-		vehicle_life: 35;
+		model_life: 2019-1986-5;
+		vehicle_life: 2019-1986;
 		reliability_decay: 10;
 
-		cost_factor: 19;
+		cost_factor: 20;
 		running_cost_factor: 49;
 		speed: 110 km/h;
 		track_type: TR_1067_DC;
-		weight: 34 ton;
+		weight: 31 ton;
 		loading_speed: param_loading_4D;
 	}
 	graphics {
@@ -338,6 +338,6 @@ item(FEAT_TRAINS, sotetsu7000n) {
 		power:  sw_sotetsu7000n_power_main()*4*1342/1000;
 		default: sw_sotetsu7000n_lv;
 		loading_speed: param_loading_4D;
-		weight: 32;
+		weight: 30;
 	}
 }
