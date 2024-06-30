@@ -1,0 +1,227 @@
+//*purchase
+  spriteset(sotetsu5000n_1_front_base_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/sotetsu/sotetsu5000/sotetsu5000n_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(sotetsu5000n_1_car_base_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/sotetsu/sotetsu5000/sotetsu5000n_1.png"){ tmpl_purchase_2c(0, 25) }
+  GRAPHIC_STACK_7(sotetsu5000n_purchase, logo_sotetsu, roof_gray_med_h1_c1, sotetsu5000n_1_front_base_c1, ac_long_toshiba_c1, roof_gray_med_c2, sotetsu5000n_1_car_base_c2, ac_long_toshiba_c2)
+
+//*livery 1
+	spriteset(sotetsu5000n_1_front_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/sotetsu/sotetsu5000/sotetsu5000n_1.png"){ tmpl_std(0, 0) }
+	spriteset(sotetsu5000n_1_end_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/sotetsu/sotetsu5000/sotetsu5000n_1.png"){ tmpl_std_rev(0, 0) }
+	spriteset(sotetsu5000n_1_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/sotetsu/sotetsu5000/sotetsu5000n_1.png"){ tmpl_symm(0, 25) }
+	spriteset(sotetsu5000n_lights_rear, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/sotetsu/sotetsu5000/sotetsu5000n_lights.png"){ tmpl_high_skirt(0, 0) }
+	spriteset(sotetsu5000n_lights_back, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/sotetsu/sotetsu5000/sotetsu5000n_lights.png"){ tmpl_high_skirt_rev(0, 25) }
+
+	TRAIN_CONSTRUCTOR_4(sotetsu5000n_1_front, sotetsu5000n_1_front_base, roof_gray_med, sotetsu5000n_lights_rear, ac_vents_ac_1)
+	TRAIN_CONSTRUCTOR_3(sotetsu5000n_1_front_f, sotetsu5000n_1_front_base, roof_gray_med, ac_vents_ac_1)
+	TRAIN_CONSTRUCTOR_4(sotetsu5000n_1_end, sotetsu5000n_1_end_base, roof_gray_med, sotetsu5000n_lights_back, ac_vents_ac_1_rev)
+	TRAIN_CONSTRUCTOR_3(sotetsu5000n_1_end_f, sotetsu5000n_1_end_base, roof_gray_med, ac_vents_ac_1_rev)
+	TRAIN_CONSTRUCTOR_5(sotetsu5000n_1_front_mot, sotetsu5000n_1_front_base, roof_gray_med, sotetsu5000n_lights_rear, ac_vents_ac_1, panto_d_arm_single)
+	TRAIN_CONSTRUCTOR_4(sotetsu5000n_1_front_mot_f, sotetsu5000n_1_front_base, roof_gray_med, ac_vents_ac_1, panto_d_arm_single)
+	TRAIN_CONSTRUCTOR_5(sotetsu5000n_1_end_mot, sotetsu5000n_1_end_base, roof_gray_med, sotetsu5000n_lights_back, ac_vents_ac_1_rev, panto_d_arm_single_rev)
+	TRAIN_CONSTRUCTOR_4(sotetsu5000n_1_end_mot_f, sotetsu5000n_1_end_base, roof_gray_med, ac_vents_ac_1_rev, panto_d_arm_single_rev)
+	TRAIN_CONSTRUCTOR_3(sotetsu5000n_1_wag, sotetsu5000n_1_car_base, roof_gray_med, ac_vents_ac_1_wag)
+	TRAIN_CONSTRUCTOR_4(sotetsu5000n_1_mot, sotetsu5000n_1_car_base, roof_gray_med, ac_vents_ac_1_mot_rev, panto_d_arm_single)
+	TRAIN_CONSTRUCTOR_4(sotetsu5000n_1_mot_rev, sotetsu5000n_1_car_base, roof_gray_med, ac_vents_ac_1_mot_rev, panto_d_arm_single_rev)
+//
+//*livery 1
+	//special gfx
+		switch(FEAT_TRAINS, PARENT, sw_sotetsu5000n_1_front_gfx,vehicle_is_reversed){
+			1: sotetsu5000n_1_front;
+			sotetsu5000n_1_front_mot;
+		}
+		switch(FEAT_TRAINS, PARENT, sw_sotetsu5000n_1_end_gfx,vehicle_is_reversed){
+			1: sotetsu5000n_1_end_mot;
+			sotetsu5000n_1_end;
+		}
+	//panto placer
+		//1 8
+			switch(FEAT_TRAINS, SELF, sw_sotetsu5000n_1_panto_placer_1,position_in_vehid_chain %2){
+				1: sotetsu5000n_1_mot;
+				sotetsu5000n_1_wag;
+			}
+			switch(FEAT_TRAINS, SELF, sw_sotetsu5000n_1_panto_placer_1_rev,position_in_vehid_chain_from_end %2){
+				0: sotetsu5000n_1_mot_rev;
+				sotetsu5000n_1_wag;
+			}
+			switch(FEAT_TRAINS, PARENT, sw_sotetsu5000n_1_panto_placer_main_1,vehicle_is_reversed){
+				1: sw_sotetsu5000n_1_panto_placer_1_rev;
+				sw_sotetsu5000n_1_panto_placer_1;
+			}
+		//2 10
+			switch(FEAT_TRAINS, SELF, sw_sotetsu5000n_1_panto_placer_2,position_in_vehid_chain %7){
+				1: sotetsu5000n_1_mot;
+				4: sotetsu5000n_1_mot;
+				6: sotetsu5000n_1_mot;
+				sotetsu5000n_1_wag;
+			}
+			switch(FEAT_TRAINS, SELF, sw_sotetsu5000n_1_panto_placer_2_rev,position_in_vehid_chain_from_end %7){
+				2: sotetsu5000n_1_mot_rev;
+				5: sotetsu5000n_1_mot_rev;
+				0: sotetsu5000n_1_mot_rev;
+				sotetsu5000n_1_wag;
+			}
+			switch(FEAT_TRAINS, PARENT, sw_sotetsu5000n_1_panto_placer_main_2,vehicle_is_reversed){
+				1: sw_sotetsu5000n_1_panto_placer_2_rev;
+				sw_sotetsu5000n_1_panto_placer_2;
+			}
+	//fake head-end placer
+		//1 2+2+4
+			switch(FEAT_TRAINS, SELF, sw_sotetsu5000n_1_fake_placer_1,position_in_vehid_chain){
+				1: sotetsu5000n_1_front_mot_f;
+				3: sotetsu5000n_1_front_mot_f;
+				sw_sotetsu5000n_1_panto_placer_main_1;
+			}
+			switch(FEAT_TRAINS, SELF, sw_sotetsu5000n_1_fake_placer_1_rev,position_in_vehid_chain_from_end-1){
+				1: sotetsu5000n_1_end_mot_f;
+				3: sotetsu5000n_1_end_mot_f;
+				sw_sotetsu5000n_1_panto_placer_main_1;
+			}
+			switch(FEAT_TRAINS, PARENT, sw_sotetsu5000n_1_fake_placer_1_gfx,vehicle_is_reversed){
+				1: sw_sotetsu5000n_1_fake_placer_1_rev;
+				sw_sotetsu5000n_1_fake_placer_1;
+			}
+		//2 4+4
+			switch(FEAT_TRAINS, SELF, sw_sotetsu5000n_1_fake_placer_2,position_in_vehid_chain){
+				2: sotetsu5000n_1_end_f;
+				3: sotetsu5000n_1_front_mot_f;
+				sw_sotetsu5000n_1_panto_placer_main_1;
+			}
+			switch(FEAT_TRAINS, SELF, sw_sotetsu5000n_1_fake_placer_2_rev,position_in_vehid_chain_from_end-1){
+				2: sotetsu5000n_1_front_f;
+				3: sotetsu5000n_1_end_mot_f;
+				sw_sotetsu5000n_1_panto_placer_main_1;
+			}
+			switch(FEAT_TRAINS, PARENT, sw_sotetsu5000n_1_fake_placer_2_gfx,vehicle_is_reversed){
+				1: sw_sotetsu5000n_1_fake_placer_2_rev;
+				sw_sotetsu5000n_1_fake_placer_2;
+			}
+		//3 5+5
+			switch(FEAT_TRAINS, SELF, sw_sotetsu5000n_1_fake_placer_3,position_in_vehid_chain){
+				3: sotetsu5000n_1_end_f;
+				4: sotetsu5000n_1_front_mot_f;
+				sw_sotetsu5000n_1_panto_placer_main_2;
+			}
+			switch(FEAT_TRAINS, SELF, sw_sotetsu5000n_1_fake_placer_3_rev,position_in_vehid_chain_from_end-1){
+				3: sotetsu5000n_1_front_f;
+				4: sotetsu5000n_1_end_mot_f;
+				sw_sotetsu5000n_1_panto_placer_main_2;
+			}
+			switch(FEAT_TRAINS, PARENT, sw_sotetsu5000n_1_fake_placer_3_gfx,vehicle_is_reversed){
+				1: sw_sotetsu5000n_1_fake_placer_3_rev;
+				sw_sotetsu5000n_1_fake_placer_3;
+			}
+		//controller
+		random_switch(FEAT_TRAINS,PARENT,sw_sotetsu5000n_1_fake_placer_main_0){
+			1:sw_sotetsu5000n_1_fake_placer_1_gfx;
+			2:sw_sotetsu5000n_1_fake_placer_2_gfx;
+		}
+		switch(FEAT_TRAINS, SELF, sw_sotetsu5000n_1_fake_placer_main,num_vehs_in_vehid_chain+1){
+			0..7: sw_sotetsu5000n_1_panto_placer_main_1;
+			8..9: sw_sotetsu5000n_1_fake_placer_main_0;
+			sw_sotetsu5000n_1_fake_placer_3_gfx;
+		}
+	//front-end-fixer
+		switch(FEAT_TRAINS, SELF, sw_sotetsu5000n_1_end_gfx_main,position_in_vehid_chain_from_end){
+			0: sw_sotetsu5000n_1_end_gfx;
+			default: sw_sotetsu5000n_1_fake_placer_main;
+		}
+		switch(FEAT_TRAINS, SELF, sw_sotetsu5000n_1_front_gfx_main,position_in_vehid_chain_from_end){
+			0: sw_sotetsu5000n_1_front_gfx;
+			default: sw_sotetsu5000n_1_fake_placer_main;
+		}
+		switch(FEAT_TRAINS, SELF, sw_sotetsu5000n_lv,vehicle_type_id){
+			mu_car_narrow:sw_sotetsu5000n_1_end_gfx_main;
+			sw_sotetsu5000n_1_front_gfx_main;
+		}
+
+//*post fixers
+	//capacity-changer
+		switch(FEAT_TRAINS, SELF, sw_sotetsu5000n_capacity,position_in_vehid_chain_from_end){
+			0: 135;
+			default: 150;
+		}
+		switch(FEAT_TRAINS, SELF, sw_sotetsu5000n_capacity_1,position_in_vehid_chain){
+			0: 135;
+			default: sw_sotetsu5000n_capacity;
+		}
+		switch(FEAT_TRAINS, SELF, sw_sotetsu5000n_capacity_main,vehicle_type_id){
+			mu_car_narrow:sw_sotetsu5000n_capacity;
+			sw_sotetsu5000n_capacity_1;
+		}
+	//power fix
+		switch(FEAT_TRAINS, SELF, sw_sotetsu5000n_power_main_0,position_in_vehid_chain_from_end%8){
+			2:return 180;
+			4:return 180;
+			7:return 180;
+			return 0;
+		}
+		switch(FEAT_TRAINS, SELF, sw_sotetsu5000n_head_power,position_in_consist){
+			0: return 180;
+			return 0;
+		}
+		switch(FEAT_TRAINS, SELF, sw_sotetsu5000n_power_main_2,vehicle_type_id){
+			mu_car_narrow:sw_sotetsu5000n_power_main_0;
+			sw_sotetsu5000n_head_power;
+		}
+		switch(FEAT_TRAINS, SELF, sw_sotetsu5000n_power_main,build_year){
+			0..1987:return 75;
+			sw_sotetsu5000n_power_main_2;
+		}
+//
+item(FEAT_TRAINS, sotetsu5000n) {
+	property {
+		//tech/rewritten
+			cargo_capacity: 1;
+			power: 1 kW;
+			ai_special_flag: AI_FLAG_PASSENGER;
+			sprite_id: SPRITE_ID_NEW_TRAIN;
+			misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
+			refittable_cargo_classes: bitmask(CC_PASSENGERS);
+			non_refittable_cargo_classes: bitmask();
+			running_cost_base: RUNNING_COST_ELECTRIC;
+			engine_class: ENGINE_CLASS_ELECTRIC;
+			visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+			tractive_effort_coefficient: 0.3;
+			air_drag_coefficient: 0.07;
+			bitmask_vehicle_info: 0;
+		//
+		name: string(STR_TRAIN_NAME, string(STR_NAME_SOTETSU), string(STR_CONCAT_2_DASH,"5100",string(STR_CONCAT_2,"5000",string(STR_NAME_2_GEN))), string(STR_NAME_SERIES));
+		climates_available: param_disable_sotetsu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+		introduction_date: date(1975, 1, 1);
+		model_life: 2009-1975-5;
+		vehicle_life: 35;
+		reliability_decay: 10;
+
+		cost_factor: 19;
+		running_cost_factor: 49;
+		speed: 100 km/h;
+		track_type: TR_1067_DC;
+		weight: 30 ton;
+		loading_speed: param_loading_4D;
+	}
+	graphics {
+		cargo_capacity: sw_sotetsu5000n_capacity_main()*param_capacity_mod/3;  
+		power:sw_sotetsu5000n_power_main()*4*1342/1000;
+		purchase: sotetsu5000n_purchase;
+		default: sw_sotetsu5000n_lv;
+		// cargo_subtype_text:sw_empty_desc;
+		
+		start_stop: sw_stop_start_2;
+		can_attach_wagon: sw_1067_attach_vehid;
+		additional_text:
+			string(STR_TRAIN_DESC,
+			string(STR_NARROWGAUGE),
+			string(STR_DENKI, string(STR_DC_N, 1500)),
+			string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
+			string(STR_FORMATION, string(STR_NUM_CARS_2, 8,10)),
+			string(STR_USAGE, string(STR_COMMUTER)),
+			string(STR_OPERATOR, string(STR_SOTETSU)));
+	}
+	livery_override(mu_car_narrow){
+		cargo_capacity: sw_sotetsu5000n_capacity_main()*param_capacity_mod/3;
+		cargo_subtype_text:sw_empty_desc;
+		power:  sw_sotetsu5000n_power_main()*4*1342/1000;
+		default: sw_sotetsu5000n_lv;
+		loading_speed: param_loading_4D;
+		weight: 30;
+	}
+}

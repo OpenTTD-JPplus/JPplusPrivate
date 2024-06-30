@@ -38,7 +38,7 @@
 	spriteset(sotetsu6000_1_front_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/sotetsu/sotetsu6000/sotetsu6000_1.png"){ tmpl_std(0, 0) }
 	spriteset(sotetsu6000_1_end_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/sotetsu/sotetsu6000/sotetsu6000_1.png"){ tmpl_std_rev(0, 0) }
 	spriteset(sotetsu6000_1_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/sotetsu/sotetsu6000/sotetsu6000_1.png"){ tmpl_symm(0, 25) }
-	spriteset(sotetsu6000_lights_rear, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/sotetsu/sotetsu6000/sotetsu6000_lights.png"){ tmpl_high_skirt(0, 0) }
+	spriteset(sotetsu6000_lights_rear, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/sotetsu/sotetsu6000/sotetsu6000_lights.png"){ tmpl_std(0, 0) }
 
 	TRAIN_CONSTRUCTOR_4(sotetsu6000_1_front, sotetsu6000_1_front_base, roof_gray_med, sotetsu6000_lights_rear, sw_sotetsu6000_ac)
 	TRAIN_CONSTRUCTOR_3(sotetsu6000_1_end, sotetsu6000_1_end_base, roof_gray_med, sw_sotetsu6000_ac_rev)
@@ -519,10 +519,10 @@
 	switch(FEAT_TRAINS, SELF, sw_sotetsu6000_lv_desc, cargo_subtype){
 		0:string(LV_RANDOM);
 		1:string(LV_DATED, string(STR_CONCAT_2, string(STR_TRAIN_NAME_SHORT, "6000", string(STR_NAME_SERIES)), string(LV_blue_red_belt)), 1961);
-		2:string(LV_DATED, string(STR_CONCAT_2, string(STR_TRAIN_NAME_SHORT, "6000", string(STR_NAME_SERIES)), string(LV_GREEN)), 1973);
+		2:string(LV_DATED, string(STR_CONCAT_2, string(STR_TRAIN_NAME_SHORT, "6000", string(STR_NAME_SERIES)), string(LV_GREEN_P)), 1973);
 		3:string(LV_DATED, string(STR_CONCAT_2, string(STR_TRAIN_NAME_SHORT, "6000", string(STR_NAME_SERIES)), string(LV_ALUMI)), 1976);
 		4:string(LV_DATED, string(STR_CONCAT_2, string(STR_TRAIN_NAME, string(STR_NAME_NEW, "6000"), string(STR_NAME_SERIES)), string(LV_blue_red_belt)), 1971);
-		5:string(LV_DATED, string(STR_CONCAT_2, string(STR_TRAIN_NAME, string(STR_NAME_NEW, "6000"), string(STR_NAME_SERIES)), string(LV_GREEN)), 1972);
+		5:string(LV_DATED, string(STR_CONCAT_2, string(STR_TRAIN_NAME, string(STR_NAME_NEW, "6000"), string(STR_NAME_SERIES)), string(LV_GREEN_P)), 1972);
 	}
 //
 //*post fixers
@@ -583,10 +583,10 @@ item(FEAT_TRAINS, sotetsu6000) {
 			air_drag_coefficient: 0.07;
 			bitmask_vehicle_info: 0;
 		//
-		name: string(STR_TRAIN_NAME, string(STR_NAME_SOTETSU), "6000", string(STR_NAME_SERIES),);
+		name: string(STR_TRAIN_NAME, string(STR_NAME_SOTETSU), string(STR_CONCAT_2_DASH, "6000", string(STR_NAME_NEW, "6000")), string(STR_NAME_SERIES),);
 		climates_available: param_disable_sotetsu == 0 ? ALL_CLIMATES : NO_CLIMATE;
 		introduction_date: date(1961, 1, 1);
-		model_life: VEHICLE_NEVER_EXPIRES;
+		model_life: 2003-1961-5;
 		vehicle_life: 35;
 		reliability_decay: 10;
 
@@ -594,7 +594,7 @@ item(FEAT_TRAINS, sotetsu6000) {
 		running_cost_factor: 49;
 		speed: 100 km/h;
 		track_type: TR_1067_DC;
-		weight: 34 ton;
+		weight: 32 ton;
 		loading_speed: param_loading_4D;
 	}
 	graphics {
@@ -611,7 +611,7 @@ item(FEAT_TRAINS, sotetsu6000) {
 			string(STR_NARROWGAUGE),
 			string(STR_DENKI, string(STR_DC_N, 1500)),
 			string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
-			string(STR_FORMATION, string(STR_NUM_CARS_2, 8,10)),
+			string(STR_FORMATION, string(STR_NUM_CARS_4, 2,6,8,10)),
 			string(STR_USAGE, string(STR_COMMUTER)),
 			string(STR_OPERATOR, string(STR_SOTETSU)));
 	}
@@ -621,6 +621,6 @@ item(FEAT_TRAINS, sotetsu6000) {
 		power:  sw_sotetsu6000_power_main()*4*1342/1000;
 		default: sw_sotetsu6000_lv;
 		loading_speed: param_loading_4D;
-		weight: 32;
+		weight: 30;
 	}
 }
