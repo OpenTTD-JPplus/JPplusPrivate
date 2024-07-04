@@ -1,0 +1,159 @@
+//ac logic
+    switch(FEAT_TRAINS,PARENT,ac_odakyu8000_front,vehicle_is_reversed){1:ac_long_3_1;ac_long_3_3;}
+    switch(FEAT_TRAINS,PARENT,ac_odakyu8000_back,vehicle_is_reversed){1:ac_long_3_4;ac_long_3_2;}
+//*lights
+	spriteset(odakyu8000_1_lights_rear, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/odakyu/odakyu8000/odakyu8000_lights.png"){ tmpl_high_skirt(0, 0) }
+	spriteset(odakyu8000_1_lights_back, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/odakyu/odakyu8000/odakyu8000_lights.png"){ tmpl_end_v2(0, 25) }
+//*livery 1
+	spriteset(odakyu8000_1_front_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/odakyu/odakyu8000/odakyu8000_1.png"){ tmpl_high_skirt(0, 0) }
+	spriteset(odakyu8000_1_end_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/odakyu/odakyu8000/odakyu8000_1.png"){ tmpl_high_skirt_rev(0, 0) }
+	spriteset(odakyu8000_1_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/odakyu/odakyu8000/odakyu8000_1.png"){ tmpl_symm(0, 25) }
+
+	TRAIN_CONSTRUCTOR_4(odakyu8000_1_front, odakyu8000_1_front_base, roof_gray_med, odakyu8000_1_lights_rear, ac_odakyu8000_front)
+	TRAIN_CONSTRUCTOR_4(odakyu8000_1_end, odakyu8000_1_end_base, roof_gray_med, odakyu8000_1_lights_back, ac_odakyu8000_back)
+	TRAIN_CONSTRUCTOR_4(odakyu8000_1_mot, odakyu8000_1_car_base, roof_gray_med, ac_long_3_mot_rev, panto_arm_n_single)
+	TRAIN_CONSTRUCTOR_4(odakyu8000_1_mot_rev, odakyu8000_1_car_base, roof_gray_med, ac_long_3_mot_rev, panto_arm_n_single_rev)
+	TRAIN_CONSTRUCTOR_3(odakyu8000_1_wag, odakyu8000_1_car_base, roof_gray_med, ac_long_3_wag_rev)
+//
+//*purchase
+  spriteset(odakyu8000_1_front_base_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/odakyu/odakyu8000/odakyu8000_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(odakyu8000_1_car_base_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/odakyu/odakyu8000/odakyu8000_1.png"){ tmpl_purchase_2c(0, 25) }
+  GRAPHIC_STACK_7(odakyu8000_purchase, logo_odakyu, roof_gray_med_h1_c1, odakyu8000_1_front_base_c1, ac_long_3_c1, roof_gray_med_c2, odakyu8000_1_car_base_c2, ac_long_3_c2)
+//
+//*livery 1
+	//panto placer
+		//1
+			switch(FEAT_TRAINS, SELF, sw_odakyu8000_1_panto_placer_1,position_in_vehid_chain %2){
+				0: odakyu8000_1_mot_rev;
+				odakyu8000_1_wag;
+			}
+			switch(FEAT_TRAINS, SELF, sw_odakyu8000_1_panto_placer_1_rev,position_in_vehid_chain_from_end %2-1){
+				0: odakyu8000_1_mot;
+				odakyu8000_1_wag;
+			}
+			switch(FEAT_TRAINS, PARENT, sw_odakyu8000_1_panto_placer_main_1,vehicle_is_reversed){
+				1: sw_odakyu8000_1_panto_placer_1_rev;
+				sw_odakyu8000_1_panto_placer_1;
+			}
+		//2
+			switch(FEAT_TRAINS, SELF, sw_odakyu8000_1_panto_placer_2,position_in_vehid_chain %3){
+				0: odakyu8000_1_mot_rev;
+				1: odakyu8000_1_mot_rev;
+				odakyu8000_1_wag;
+			}
+			switch(FEAT_TRAINS, SELF, sw_odakyu8000_1_panto_placer_2_rev,position_in_vehid_chain_from_end %3-1){
+				0: odakyu8000_1_mot;
+				1: odakyu8000_1_mot;
+				odakyu8000_1_wag;
+			}
+			switch(FEAT_TRAINS, PARENT, sw_odakyu8000_1_panto_placer_main_2,vehicle_is_reversed){
+				1: sw_odakyu8000_1_panto_placer_2_rev;
+				sw_odakyu8000_1_panto_placer_2;
+			}
+		//controller
+			switch(FEAT_TRAINS, SELF, sw_odakyu8000_1_panto_placer_main,num_vehs_in_vehid_chain+1){
+				4: sw_odakyu8000_1_panto_placer_main_2;
+				sw_odakyu8000_1_panto_placer_main_1;
+			}
+	//front-end-fixer
+		switch(FEAT_TRAINS, SELF, sw_odakyu8000_1_end_gfx_main,position_in_vehid_chain_from_end){
+			0: odakyu8000_1_end;
+			default: sw_odakyu8000_1_panto_placer_main;
+		}
+		switch(FEAT_TRAINS, SELF, sw_odakyu8000_1_front_gfx_main,position_in_vehid_chain_from_end){
+			0: odakyu8000_1_front;
+			default: sw_odakyu8000_1_panto_placer_main;
+		}
+		switch(FEAT_TRAINS, SELF, sw_odakyu8000_lv,vehicle_type_id){
+			mu_car_narrow:sw_odakyu8000_1_end_gfx_main;
+			sw_odakyu8000_1_front_gfx_main;
+		}
+//
+//post fixers
+	//capacity-changer
+		switch(FEAT_TRAINS, SELF, sw_odakyu8000_capacity,position_in_vehid_chain_from_end){
+			0: 144;
+			default: 162;
+		}
+		switch(FEAT_TRAINS, SELF, sw_odakyu8000_capacity_1,position_in_vehid_chain){
+			0: 144;
+			sw_odakyu8000_capacity;
+		}
+		switch(FEAT_TRAINS, SELF, sw_odakyu8000_capacity_main,vehicle_type_id){
+			mu_car_narrow:sw_odakyu8000_capacity;
+			sw_odakyu8000_capacity_1;
+		}
+	//power fix
+		switch(FEAT_TRAINS, SELF, sw_odakyu8000_power_main_1,position_in_vehid_chain_from_end%6){
+			1..2:return 140;
+			3:return 140;
+			return 0;
+		}
+		switch(FEAT_TRAINS, SELF, sw_odakyu8000_power_main_2,position_in_vehid_chain_from_end%6){
+			1..2:return 190;
+			3:return 190;
+			return 0;
+		}
+		switch(FEAT_TRAINS, SELF, sw_odakyu8000_power_main,build_year){
+			0..2003:sw_odakyu8000_power_main_1;
+			sw_odakyu8000_power_main_2;
+		}
+//
+item(FEAT_TRAINS, odakyu8000) {
+    property {
+        cargo_capacity: 130;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
+        refittable_cargo_classes: bitmask(CC_PASSENGERS);
+        non_refittable_cargo_classes: bitmask();
+        refit_cost: 0;
+        dual_headed: 0;
+        ai_engine_rank: 0;
+        running_cost_base: RUNNING_COST_ELECTRIC;
+        engine_class: ENGINE_CLASS_ELECTRIC;
+        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+        tractive_effort_coefficient: 0.3;
+        air_drag_coefficient: 0.07;
+        bitmask_vehicle_info: 0;
+        
+        climates_available: param_disable_odakyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+        name: string(STR_TRAIN_NAME, string(STR_NAME_ODAKYU), "8000", string(STR_NAME_TYPE),);
+        introduction_date: date(1982, 1, 1);
+        model_life: VEHICLE_NEVER_EXPIRES;
+        vehicle_life: 35;
+        reliability_decay: 10;
+
+        cost_factor: 22;
+        running_cost_factor: 51;
+        speed: 120 km/h;
+        track_type: TR_1067_DC;
+        power: 1 kW;
+        weight: 34 ton;
+        loading_speed: param_loading_4D;
+    }
+	graphics {
+        default: sw_odakyu8000_lv;
+        power:sw_odakyu8000_power_main()*4*1342/1000;
+        start_stop: sw_stop_start_3;
+        purchase: odakyu8000_purchase;
+        can_attach_wagon: sw_1067_attach_vehid;
+        // cargo_subtype_text:sw_empty_desc;
+        cargo_capacity: sw_odakyu8000_capacity_main()*param_capacity_mod/3;  
+        additional_text:string(STR_TRAIN_DESC,
+                        string(STR_NARROWGAUGE),
+                        string(STR_DENKI, string(STR_DC_N, 1500)),
+                        string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
+                        string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
+                        string(STR_USAGE, string(STR_COMMUTER)),
+                        string(STR_OPERATOR, string(STR_ODAKYU)));
+    }
+    livery_override(mu_car_narrow){
+        cargo_subtype_text:sw_empty_desc;
+        default: sw_odakyu8000_lv;
+        loading_speed: param_loading_4D;
+        power:  sw_odakyu8000_power_main()*4*1342/1000;
+        cargo_capacity: sw_odakyu8000_capacity_main()*param_capacity_mod/3;
+        weight: 32;
+      }
+}
