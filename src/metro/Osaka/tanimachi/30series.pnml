@@ -93,11 +93,6 @@ switch(FEAT_TRAINS, SELF, sw_os_tm_30series_lv_desc, cargo_subtype){
     3: string(LV_os_tm_30series_3);
     4: string(LV_os_tm_30series_4);
 }
-//livery selector desc timed
-switch(FEAT_TRAINS, SELF, sw_os_tm_30series_lv_desc_select, current_year){
-    1..1976: sw_os_tm_30series_lv_desc_old;
-    sw_os_tm_30series_lv_desc;
-}
 //livery selector old
 switch(FEAT_TRAINS, SELF, sw_os_tm_30series_lv_old, cargo_subtype){
     0: sw_os_tm_30series_livery_0;
@@ -180,12 +175,13 @@ item(FEAT_TRAINS, os_tm_30series,1251) {
 		string(STR_OPERATOR, string(STR_OSAKAMETRO)),
 string(STR_LINES_USED, string(STR_OSAKA_TANIMACHI)));
 
-        cargo_subtype_text: sw_os_tm_30series_lv_desc_select;
+        cargo_subtype_text: sw_os_tm_30series_lv_desc;
         start_stop: sw_stop_start_3; 
         cargo_capacity: 91*param_capacity_mod/3;
         
     }
     livery_override(mu_car_metro){
+        cargo_subtype_text: sw_os_tm_30series_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_os_tm_30series_main_capacity;
         default:                      sw_os_tm_30series_lv_select;
