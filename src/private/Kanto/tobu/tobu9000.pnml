@@ -173,11 +173,7 @@ switch(FEAT_TRAINS, PARENT, sw_tobu9000_lv, cargo_subtype){
     2:sw_tobu9050_livery_1;
 }
 
-switch(FEAT_TRAINS, SELF, sw_tobu9000_lv_1_desc, cargo_subtype){
-    0:string(LV_RANDOM);
-    1:string(LV_tobu9000_1);
-}
-switch(FEAT_TRAINS, SELF, sw_tobu9000_lv_2_desc, cargo_subtype){
+switch(FEAT_TRAINS, SELF, sw_tobu9000_lv_desc, cargo_subtype){
     0:string(LV_RANDOM);
     1:string(LV_tobu9000_1);
     2:string(
@@ -185,10 +181,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu9000_lv_2_desc, cargo_subtype){
         string(LV_tobu9050_1),
         string(STR_CAP));
 }
-switch(FEAT_TRAINS, SELF, sw_tobu9000_lv_desc, current_year){
-    0..1993:sw_tobu9000_lv_1_desc;
-    sw_tobu9000_lv_2_desc;
-}
+
 //post fixers
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tobu9000_capacity,position_in_vehid_chain_from_end){
@@ -285,6 +278,7 @@ item(FEAT_TRAINS, tobu9000,2072) {
         cargo_capacity: sw_tobu9000_capacity_main_1()*param_capacity_mod/3;  
     }
     livery_override(mu_car_narrow){
+        cargo_subtype_text:sw_tobu9000_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tobu9000_capacity_main_1()*param_capacity_mod/3;
         default:                      sw_tobu9000_lv;
