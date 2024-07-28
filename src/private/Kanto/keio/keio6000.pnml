@@ -20,11 +20,15 @@
 	spriteset(keio6000_1_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/keio/keio6000/keio6000_1.png"){ tmpl_symm(0, 25) }
 
 	TRAIN_CONSTRUCTOR_4(keio6000_1_front, keio6000_1_front_base, roof_gray_med, keio6000_lights_rear, ac_long_toshiba)
-	TRAIN_CONSTRUCTOR_5(keio6000_1_front_f_1, keio6000_1_front_base, roof_gray_med, keio6000_lights_rear, ac_long_toshiba, sw_keio6000_panto)
-	TRAIN_CONSTRUCTOR_5(keio6000_1_front_f_2, keio6000_1_front_base, roof_gray_med, keio6000_lights_rear, ac_long_toshiba, sw_keio6000_panto_rev)
+	TRAIN_CONSTRUCTOR_3(keio6000_1_front_f, keio6000_1_front_base, roof_gray_med, ac_long_toshiba)
+	TRAIN_CONSTRUCTOR_5(keio6000_1_front_mot_1, keio6000_1_front_base, roof_gray_med, keio6000_lights_rear, ac_long_toshiba, sw_keio6000_panto)
+	TRAIN_CONSTRUCTOR_4(keio6000_1_front_mot_1_f, keio6000_1_front_base, roof_gray_med, ac_long_toshiba, sw_keio6000_panto)
+	TRAIN_CONSTRUCTOR_5(keio6000_1_front_mot_2, keio6000_1_front_base, roof_gray_med, keio6000_lights_rear, ac_long_toshiba, sw_keio6000_panto_rev)
 	TRAIN_CONSTRUCTOR_4(keio6000_1_end, keio6000_1_end_base, roof_gray_med, keio6000_lights_back, ac_long_toshiba)
-	TRAIN_CONSTRUCTOR_5(keio6000_1_end_f_1, keio6000_1_end_base, roof_gray_med, keio6000_lights_back, ac_long_toshiba, sw_keio6000_panto_rev)
-	TRAIN_CONSTRUCTOR_5(keio6000_1_end_f_2, keio6000_1_end_base, roof_gray_med, keio6000_lights_back, ac_long_toshiba, sw_keio6000_panto)
+	TRAIN_CONSTRUCTOR_3(keio6000_1_end_f, keio6000_1_end_base, roof_gray_med, ac_long_toshiba)
+	TRAIN_CONSTRUCTOR_5(keio6000_1_end_mot_1, keio6000_1_end_base, roof_gray_med, keio6000_lights_back, ac_long_toshiba, sw_keio6000_panto_rev)
+	TRAIN_CONSTRUCTOR_4(keio6000_1_end_mot_1_f, keio6000_1_end_base, roof_gray_med, ac_long_toshiba, sw_keio6000_panto_rev)
+	TRAIN_CONSTRUCTOR_5(keio6000_1_end_mot_2, keio6000_1_end_base, roof_gray_med, keio6000_lights_back, ac_long_toshiba, sw_keio6000_panto)
 	TRAIN_CONSTRUCTOR_3(keio6000_1_wag, keio6000_1_car_base, roof_gray_med, ac_long_toshiba)
 	TRAIN_CONSTRUCTOR_4(keio6000_1_mot, keio6000_1_car_base, roof_gray_med, ac_long_toshiba, sw_keio6000_panto)
 	TRAIN_CONSTRUCTOR_4(keio6000_1_mot_rev, keio6000_1_car_base, roof_gray_med, ac_long_toshiba, sw_keio6000_panto_rev)
@@ -33,11 +37,11 @@
 	//special gfx
 		//head
 			switch(FEAT_TRAINS, PARENT, keio6000_1_front_gfx_1,vehicle_is_reversed){
-				1: keio6000_1_front_f_2;
-				keio6000_1_front_f_1;
+				1: keio6000_1_front_mot_2;
+				keio6000_1_front_mot_1;
 			}
 			switch(FEAT_TRAINS, PARENT, keio6000_1_front_gfx_2,vehicle_is_reversed){
-				1: keio6000_1_front_f_2;
+				1: keio6000_1_front_mot_2;
 				keio6000_1_front;
 			}
 			switch(FEAT_TRAINS, SELF, keio6000_1_front_gfx,num_vehs_in_consist){
@@ -47,12 +51,12 @@
 				keio6000_1_front;
 			}
 			switch(FEAT_TRAINS, PARENT, keio6000_1_end_gfx_1,vehicle_is_reversed){
-				1: keio6000_1_end_f_1;
-				keio6000_1_end_f_2;
+				1: keio6000_1_end_mot_1;
+				keio6000_1_end_mot_2;
 			}
 			switch(FEAT_TRAINS, PARENT, keio6000_1_end_gfx_2,vehicle_is_reversed){
 				1: keio6000_1_end;
-				keio6000_1_end_f_2;
+				keio6000_1_end_mot_2;
 			}
 			switch(FEAT_TRAINS, SELF, keio6000_1_end_gfx,num_vehs_in_consist){
 				2: keio6000_1_end_gfx_1;
@@ -107,12 +111,12 @@
 	//fake head placer
 		switch(FEAT_TRAINS, SELF, sw_keio6000_1_fake_placer_1,position_in_vehid_chain){
 			6: keio6000_1_end;
-			7: keio6000_1_front_f_1;
+			7: keio6000_1_front_mot_1;
 			sw_keio6000_1_panto_placer_main;
 		}
 		switch(FEAT_TRAINS, SELF, sw_keio6000_1_fake_placer_1_rev,position_in_vehid_chain_from_end -1){
 			6: keio6000_1_front;
-			7: keio6000_1_end_f_1;
+			7: keio6000_1_end_mot_1;
 			sw_keio6000_1_panto_placer_main;
 		}
 		switch(FEAT_TRAINS, PARENT, sw_keio6000_1_fake_placer_1_gfx,vehicle_is_reversed){

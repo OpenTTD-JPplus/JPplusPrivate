@@ -38,11 +38,6 @@ switch(FEAT_TRAINS, SELF, sw_os_tm_20series_livery_0, current_year){
 sw_os_tm_20series_livery_2;
 }
 //timed-livery selector
-
-switch(FEAT_TRAINS, SELF, sw_os_tm_20series_lv_desc_old, cargo_subtype){
-    0: string(LV_RANDOM);
-    1: string(LV_OLD);
-}
 //liveries
 switch(FEAT_TRAINS, SELF, sw_os_tm_20series_lv_old, cargo_subtype){
     0: sw_os_tm_20series_livery_0;
@@ -100,10 +95,7 @@ item(FEAT_TRAINS, os_tm_20series,1252) {
         sprite_id: SPRITE_ID_NEW_TRAIN;
         misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
         refittable_cargo_classes: bitmask(CC_PASSENGERS);
-        non_refittable_cargo_classes: bitmask();
-        refit_cost: 0;
-        dual_headed: 0;
-        ai_engine_rank: 0;
+        non_refittable_cargo_classes: bitmask();                
         variant_group: 1236;
 
         running_cost_base: RUNNING_COST_ELECTRIC;
@@ -131,11 +123,11 @@ string(STR_LINES_USED, string(STR_OSAKA_TANIMACHI)));
         start_stop: sw_stop_start_2; 
         cargo_capacity: 130*param_capacity_mod/3;  
     }
-    livery_override(mu_car_metro){
+	livery_override((mu_car_metro)){
         cargo_subtype_text: sw_os_tm_20series_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_os_tm_20series_main_capacity;
-        default:                      sw_os_tm_20series_livery_select;
+        default: sw_os_tm_20series_livery_select;
         power: 753*2/5;
         weight: 32;
         length: 8;
