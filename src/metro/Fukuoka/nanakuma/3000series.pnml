@@ -134,21 +134,16 @@ switch(FEAT_TRAINS, SELF, sw_fk_nk_3000series_livery_2,position_in_consist){
     1: fk_nk_3000series_1_wag;
     default: sw_fk_nk_3000series_1_end;
 }
-//front-end-fixer end
-//randomizer
-random_switch(FEAT_TRAINS, PARENT, sw_fk_nk_3000series_livery_0_new){
-    1: sw_fk_nk_3000series_livery_1;
-    2: sw_fk_nk_3000series_livery_2;
-}
-switch(FEAT_TRAINS, SELF, sw_fk_nk_3000series_livery_0, current_year > 2021){
-    1: sw_fk_nk_3000series_livery_0_new;
+
+switch(FEAT_TRAINS, SELF, sw_fk_nk_3000series_livery_0, build_year > 2020){
+    1: sw_fk_nk_3000series_livery_2;
     sw_fk_nk_3000series_livery_1;
 }
 //lv desc stuff
 switch(FEAT_TRAINS, SELF, sw_fk_nk_3000series_lv_desc, cargo_subtype){
     0: string(LV_RANDOM);
-    1: string(LV_fk_nk_3000series_1);
-    2: string(LV_DATED, string(LV_ng_MEMORIA), 2022);
+    1: string(LV_DATED,string(STR_TRAIN_NAME_SHORT,"3000",STR_NAME_SERIES),2004);
+    2: string(LV_DATED,string(STR_TRAIN_NAME_SHORT,"3000A",STR_NAME_SERIES),2021);
 }
 // lv stuff
 switch(FEAT_TRAINS, SELF, sw_fk_nk_3000series_lv, cargo_subtype){
