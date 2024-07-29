@@ -13,26 +13,25 @@ spriteset(os_sn_30series_al_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx
 spriteset(os_sn_30series_al_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/sennichimae/30series/30series_al.png"){ tmpl_std_rev(0, 25) }
 spriteset(os_sn_30series_al_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/sennichimae/30series/30series_al.png"){ tmpl_std(0, 50) }
 
-
 //steel old
 //front-end-fixer
-switch(FEAT_TRAINS, SELF, sw_os_sn_30series_end_gfx,position_in_consist_from_end){
+switch(FEAT_TRAINS, SELF, sw_os_sn_30series_end_gfx,position_in_vehid_chain_from_end){
     0: os_sn_30series_end;
-    default: os_sn_30series_wag;
+    os_sn_30series_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_os_sn_30series_livery_1,position_in_consist){
-    0: os_sn_30series_front;
-    default: sw_os_sn_30series_end_gfx;
+switch(FEAT_TRAINS, SELF, sw_os_sn_30series_livery_1,vehicle_type_id){
+    os_sn_30series: os_sn_30series_front;
+    sw_os_sn_30series_end_gfx;
 }
 //alumi old
 //front-end-fixer
-switch(FEAT_TRAINS, SELF, sw_os_sn_30series_al_end_gfx,position_in_consist_from_end){
+switch(FEAT_TRAINS, SELF, sw_os_sn_30series_al_end_gfx,position_in_vehid_chain_from_end){
     0: os_sn_30series_al_end;
-    default: os_sn_30series_al_wag;
+    os_sn_30series_al_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_os_sn_30series_livery_2,position_in_consist){
-    0: os_sn_30series_al_front;
-    default: sw_os_sn_30series_al_end_gfx;
+switch(FEAT_TRAINS, SELF, sw_os_sn_30series_livery_2,vehicle_type_id){
+    os_sn_30series: os_sn_30series_al_front;
+    sw_os_sn_30series_al_end_gfx;
 }
 
 //randomizer
@@ -43,8 +42,8 @@ random_switch(FEAT_TRAINS, PARENT, sw_os_sn_30series_livery_0){
 //livery selector desc
 switch(FEAT_TRAINS, SELF, sw_os_sn_30series_lv_desc, cargo_subtype){
     0: string(LV_RANDOM);
-    1: string(LV_STEEL);
-    2: string(LV_ALUMI);
+    1: string(LV_DATED, string(STR_LIVERY, string(STR_STEEL)), 1967);
+    2: string(LV_DATED, string(STR_LIVERY, string(STR_ALUMI)), 1968);
 }
 //livery selector 
 switch(FEAT_TRAINS, PARENT, sw_os_sn_30series_lv, cargo_subtype){
@@ -57,12 +56,6 @@ switch(FEAT_TRAINS, PARENT, sw_os_sn_30series_lv, cargo_subtype){
 switch(FEAT_TRAINS, SELF, sw_os_sn_30series_main_capacity,position_in_consist_from_end){
     0: 91*param_capacity_mod/3;
     default: 95*param_capacity_mod/3;
-}
-
-//attachable vehicles
-switch(FEAT_TRAINS, SELF, os_sn_30series_attach_vehid, vehicle_type_id) {
-  mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
 }
 
 item(FEAT_TRAINS, os_sn_30series,1282) {
@@ -102,7 +95,7 @@ item(FEAT_TRAINS, os_sn_30series,1282) {
 	graphics {
         default: sw_os_sn_30series_lv;
         purchase: os_sn_30series_purchase;
-        can_attach_wagon: os_sn_30series_attach_vehid;
+        can_attach_wagon: sw_1435_m_attach_vehid;
         additional_text:
     string(STR_TRAIN_DESC,
 		string(STR_STANDARDGAUGE),

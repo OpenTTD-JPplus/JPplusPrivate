@@ -11,11 +11,11 @@ spriteset(os_ch_6000type_single, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/m
 
 
 //*livery 1
-switch(FEAT_TRAINS, SELF, sw_os_ch_6000type_wag_1_gfx,position_in_consist %2){
+switch(FEAT_TRAINS, SELF, sw_os_ch_6000type_wag_1_gfx,position_in_vehid_chain %2){
     0: os_ch_6000type_wag;
     default: os_ch_6000type_wag_rev;
 }
-switch(FEAT_TRAINS, SELF, sw_os_ch_6000type_wag_rev_gfx,position_in_consist_from_end %2){
+switch(FEAT_TRAINS, SELF, sw_os_ch_6000type_wag_rev_gfx,position_in_vehid_chain_from_end %2 -1){
     0: os_ch_6000type_wag_rev;
     default: os_ch_6000type_wag;
 }
@@ -24,28 +24,18 @@ switch(FEAT_TRAINS, PARENT, sw_os_ch_6000type_wag_gfx,vehicle_is_reversed){
     default: sw_os_ch_6000type_wag_rev_gfx;
 }
 //front-end-fixer
-switch(FEAT_TRAINS, SELF, sw_os_ch_6000type_end_gfx,position_in_consist_from_end){
+switch(FEAT_TRAINS, SELF, sw_os_ch_6000type_end_gfx,position_in_vehid_chain_from_end){
     0: os_ch_6000type_end;
     default: sw_os_ch_6000type_wag_gfx;
 }
-switch(FEAT_TRAINS, SELF, sw_os_ch_6000type_livery_1,position_in_consist){
-    0: os_ch_6000type_front;
+switch(FEAT_TRAINS, SELF, sw_os_ch_6000type_livery_1,vehicle_type_id){
+    os_ch_6000type: os_ch_6000type_front;
     default: sw_os_ch_6000type_end_gfx;
 }
 //special gfx
-switch(FEAT_TRAINS, PARENT, sw_os_ch_6000type_length_check,num_vehs_in_consist){
+switch(FEAT_TRAINS, PARENT, sw_os_ch_6000type_lv,num_vehs_in_consist){
     1: os_ch_6000type_single;
     sw_os_ch_6000type_livery_1;
-}
-//capacity-changer
-//switch(FEAT_TRAINS, SELF, sw_os_ch_6000type_main_capacity,position_in_consist_from_end){
-//    0: 130*param_capacity_mod/3;
-//    default: 140*param_capacity_mod/3;
-//}
-//attachable vehicles
-switch(FEAT_TRAINS, SELF, os_ch_6000type_attach_vehid, vehicle_type_id) {
-  mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
 }
 
 item(FEAT_TRAINS, os_ch_6000type,1270) {
@@ -82,9 +72,9 @@ item(FEAT_TRAINS, os_ch_6000type,1270) {
         bitmask_vehicle_info: 0;
     }
 	graphics {
-        default: sw_os_ch_6000type_length_check;
+        default: sw_os_ch_6000type_lv;
         purchase: os_ch_6000type_purchase;
-        can_attach_wagon: os_ch_6000type_attach_vehid;
+        can_attach_wagon: sw_1435_m_attach_vehid;
         additional_text:
     string(STR_TRAIN_DESC,
 		string(STR_STANDARDGAUGE),
@@ -101,7 +91,7 @@ string(STR_LINES_USED, string(STR_OSAKA_CHUO)));
 		cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: 72*param_capacity_mod/3;
-        default: sw_os_ch_6000type_length_check;
+        default: sw_os_ch_6000type_lv;
         power: 753*2/5;
         weight: 34;
         length: 8; 
