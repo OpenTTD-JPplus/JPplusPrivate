@@ -51,17 +51,10 @@ switch(FEAT_TRAINS, PARENT, sw_os_tm_20series_lv, cargo_subtype){
     2: sw_os_tm_20series_livery_2;
 }
 
-
-
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_os_tm_20series_main_capacity,position_in_consist_from_end){
     0: 130*param_capacity_mod/3;
     default: 140*param_capacity_mod/3;
-}
-//attachable vehicles
-switch(FEAT_TRAINS, SELF, os_tm_20series_attach_vehid, vehicle_type_id) {
-  mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
 }
 
 item(FEAT_TRAINS, os_tm_20series,1252) {
@@ -101,7 +94,7 @@ item(FEAT_TRAINS, os_tm_20series,1252) {
 	graphics {
         default: sw_os_tm_20series_lv;
         purchase: os_tm_20series_purchase;
-        can_attach_wagon: os_tm_20series_attach_vehid;
+        can_attach_wagon: sw_1435_m_attach_vehid;
         additional_text:
     string(STR_TRAIN_DESC,
 		string(STR_STANDARDGAUGE),

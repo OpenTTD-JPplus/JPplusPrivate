@@ -9,24 +9,18 @@ spriteset(os_ch_400series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/met
 
 //*livery 1
 //front-end-fixer
-switch(FEAT_TRAINS, SELF, sw_os_ch_400series_end_gfx,position_in_consist_from_end){
+switch(FEAT_TRAINS, SELF, sw_os_ch_400series_end_gfx,position_in_vehid_chain_from_end){
     0: os_ch_400series_end;
-    default: os_ch_400series_wag;
+    os_ch_400series_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_os_ch_400series_livery_1,position_in_consist){
-    0: os_ch_400series_front;
-    default: sw_os_ch_400series_end_gfx;
+switch(FEAT_TRAINS, SELF, sw_os_ch_400series_lv,vehicle_type_id){
+    os_ch_400series: os_ch_400series_front;
+    sw_os_ch_400series_end_gfx;
 }
-
 //capacity-changer
-switch(FEAT_TRAINS, SELF, sw_os_ch_400series_main_capacity,position_in_consist_from_end){
+switch(FEAT_TRAINS, SELF, sw_os_ch_400series_main_capacity,position_in_vehid_chain_from_end){
     0: 135*param_capacity_mod/3;
-    default: 140*param_capacity_mod/3;
-}
-//attachable vehicles
-switch(FEAT_TRAINS, SELF, os_ch_400series_attach_vehid, vehicle_type_id) {
-  mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
+    140*param_capacity_mod/3;
 }
 
 item(FEAT_TRAINS, os_ch_400series,1276) {
@@ -60,9 +54,9 @@ item(FEAT_TRAINS, os_ch_400series,1276) {
         loading_speed: param_loading_4D;
     }
 	graphics {
-        default: sw_os_ch_400series_livery_1;
+        default: sw_os_ch_400series_lv;
         purchase: os_ch_400series_purchase;
-        can_attach_wagon: os_ch_400series_attach_vehid;
+        can_attach_wagon: sw_1435_m_attach_vehid;
         additional_text:
     string(STR_TRAIN_DESC,
 		string(STR_STANDARDGAUGE),
@@ -79,7 +73,7 @@ string(STR_LINES_USED, string(STR_OSAKA_CHUO)));
 		cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_os_ch_400series_main_capacity;
-        default: sw_os_ch_400series_livery_1;
+        default: sw_os_ch_400series_lv;
         power: 753*2/5;
         weight: 34;
         length: 8; 

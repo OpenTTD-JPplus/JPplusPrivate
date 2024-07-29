@@ -101,22 +101,16 @@ switch(FEAT_TRAINS, PARENT, sw_os_yb_30series_lv, cargo_subtype){
     3: sw_os_yb_30series_livery_3;
     4: sw_os_yb_30series_livery_4;
 }
-//livery selector timed
-switch(FEAT_TRAINS, SELF, sw_os_yb_30series_lv_select, current_year){
-    1..1976: sw_os_yb_30series_lv_old;
-    sw_os_yb_30series_lv;
-}
+// //livery selector timed
+// switch(FEAT_TRAINS, SELF, sw_os_yb_30series_lv, current_year){
+//     1..1976: sw_os_yb_30series_lv_old;
+//     sw_os_yb_30series_lv;
+// }
 
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_os_yb_30series_main_capacity,position_in_consist_from_end){
     0: 91*param_capacity_mod/3;
     default: 95*param_capacity_mod/3;
-}
-
-//attachable vehicles
-switch(FEAT_TRAINS, SELF, os_yb_30series_attach_vehid, vehicle_type_id) {
-  mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
 }
 
 item(FEAT_TRAINS, os_yb_30series,1262) {
@@ -154,9 +148,9 @@ item(FEAT_TRAINS, os_yb_30series,1262) {
         bitmask_vehicle_info: 0;
     }
 	graphics {
-        default: sw_os_yb_30series_lv_select;
+        default: sw_os_yb_30series_lv;
         purchase: os_yb_30series_purchase;
-        can_attach_wagon: os_yb_30series_attach_vehid;
+        can_attach_wagon: sw_1435_m_attach_vehid;
         additional_text:
     string(STR_TRAIN_DESC,
 		string(STR_STANDARDGAUGE),
@@ -175,7 +169,7 @@ string(STR_LINES_USED, string(STR_OSAKA_YOTSU)));
         cargo_subtype_text: sw_os_yb_30series_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_os_yb_30series_main_capacity;
-        default: sw_os_yb_30series_lv_select;
+        default: sw_os_yb_30series_lv;
         power: 644*3/5;
         weight: 32;
         length: 8;

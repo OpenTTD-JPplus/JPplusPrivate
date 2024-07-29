@@ -7,27 +7,20 @@ spriteset(os_ch_kintetsu7000_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gf
 spriteset(os_ch_kintetsu7000_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/chuo/kintetsu7000/kintetsu7000.png"){ tmpl_std_rev(0, 25) }
 spriteset(os_ch_kintetsu7000_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/chuo/kintetsu7000/kintetsu7000.png"){ tmpl_std(0, 50) }
 
-
 //*livery 1
 //front-end-fixer
-switch(FEAT_TRAINS, SELF, sw_os_ch_kintetsu7000_end_gfx,position_in_consist_from_end){
+switch(FEAT_TRAINS, SELF, sw_os_ch_kintetsu7000_end_gfx,position_in_vehid_chain_from_end){
     0: os_ch_kintetsu7000_end;
     default: os_ch_kintetsu7000_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_os_ch_kintetsu7000_livery_1,position_in_consist){
-    0: os_ch_kintetsu7000_front;
+switch(FEAT_TRAINS, SELF, sw_os_ch_kintetsu7000_lv,vehicle_type_id){
+    os_ch_kintetsu7000: os_ch_kintetsu7000_front;
     default: sw_os_ch_kintetsu7000_end_gfx;
 }
-
 //capacity-changer
-switch(FEAT_TRAINS, SELF, sw_os_ch_kintetsu7000_main_capacity,position_in_consist_from_end){
+switch(FEAT_TRAINS, SELF, sw_os_ch_kintetsu7000_main_capacity,position_in_vehid_chain_from_end){
     0: 125*param_capacity_mod/3;
     default: 135*param_capacity_mod/3;
-}
-//attachable vehicles
-switch(FEAT_TRAINS, SELF, os_ch_kintetsu7000_attach_vehid, vehicle_type_id) {
-  mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
 }
 
 item(FEAT_TRAINS, os_ch_kintetsu7000,1277) {
@@ -61,9 +54,9 @@ item(FEAT_TRAINS, os_ch_kintetsu7000,1277) {
         loading_speed: param_loading_4D;
     }
 	graphics {
-        default: sw_os_ch_kintetsu7000_livery_1;
+        default: sw_os_ch_kintetsu7000_lv;
         purchase: os_ch_kintetsu7000_purchase;
-        can_attach_wagon: os_ch_kintetsu7000_attach_vehid;
+        can_attach_wagon: sw_1435_m_attach_vehid;
         additional_text:
     string(STR_TRAIN_DESC,
 		string(STR_STANDARDGAUGE),
@@ -80,7 +73,7 @@ item(FEAT_TRAINS, os_ch_kintetsu7000,1277) {
 		cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_os_ch_kintetsu7000_main_capacity;
-        default: sw_os_ch_kintetsu7000_livery_1;
+        default: sw_os_ch_kintetsu7000_lv;
         power: 753*2/5;
         weight: 35;
         length: 8;

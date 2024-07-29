@@ -2,13 +2,11 @@
 spriteset(os_ch_50series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/chuo/50series/50series.png"){ tmpl_purchase_1c(0, 0) }
 spriteset(os_ch_50series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/chuo/50series/50series.png"){ tmpl_purchase_2c(0, 50) }
 GRAPHIC_STACK_4(os_ch_50series_purchase, logo_osaka_metro, logo_line_os_chuo, os_ch_50series_purchase_c1, os_ch_50series_purchase_c2)
-
 //
 spriteset(os_ch_50series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/chuo/50series/50series.png"){ tmpl_std(0, 0) }
 spriteset(os_ch_50series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/chuo/50series/50series.png"){ tmpl_std_rev(0, 25) }
 spriteset(os_ch_50series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/chuo/50series/50series.png"){ tmpl_std(0, 50) }
 spriteset(os_ch_50series_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/chuo/50series/50series.png"){ tmpl_std_rev(0, 50) }
-//
 //
 spriteset(os_ch_50series_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/chuo/50series/50series_1.png"){ tmpl_std(0, 0) }
 spriteset(os_ch_50series_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/chuo/50series/50series_1.png"){ tmpl_std_rev(0, 25) }
@@ -16,52 +14,52 @@ spriteset(os_ch_50series_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/me
 spriteset(os_ch_50series_1_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Osaka/chuo/50series/50series_1.png"){ tmpl_std_rev(0, 50) }
 
 
-//livery white
+//*livery white
 //wagon specialgfx
-switch(FEAT_TRAINS, SELF, sw_os_ch_50series_wag_1_gfx,position_in_consist %2){
-    0: os_ch_50series_wag;
-    default: os_ch_50series_wag_rev;
-}
-switch(FEAT_TRAINS, SELF, sw_os_ch_50series_wag_rev_gfx,position_in_consist_from_end %2){
+switch(FEAT_TRAINS, SELF, sw_os_ch_50series_wag_1_gfx,position_in_vehid_chain %2){
     0: os_ch_50series_wag_rev;
-    default: os_ch_50series_wag;
+    os_ch_50series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_os_ch_50series_wag_rev_gfx,position_in_vehid_chain_from_end %2 -1){
+    0: os_ch_50series_wag;
+    os_ch_50series_wag_rev;
 }
 switch(FEAT_TRAINS, PARENT, sw_os_ch_50series_wag_gfx,vehicle_is_reversed){
-    1: sw_os_ch_50series_wag_1_gfx;
-    default: sw_os_ch_50series_wag_rev_gfx;
+    1: sw_os_ch_50series_wag_rev_gfx;
+    sw_os_ch_50series_wag_1_gfx;
 }
 //front-end-fixer
-switch(FEAT_TRAINS, SELF, sw_os_ch_50series_end_gfx,position_in_consist_from_end){
+switch(FEAT_TRAINS, SELF, sw_os_ch_50series_end_gfx,position_in_vehid_chain_from_end){
     0: os_ch_50series_end;
-    default: sw_os_ch_50series_wag_gfx;
+    sw_os_ch_50series_wag_gfx;
 }
-switch(FEAT_TRAINS, SELF, sw_os_ch_50series_livery_1,position_in_consist){
-    0: os_ch_50series_front;
-    default: sw_os_ch_50series_end_gfx;
+switch(FEAT_TRAINS, SELF, sw_os_ch_50series_livery_1,vehicle_type_id){
+    os_ch_50series: os_ch_50series_front;
+    sw_os_ch_50series_end_gfx;
 }
 
-//livery green
+//*livery green
 //wagon specialgfx
-switch(FEAT_TRAINS, SELF, sw_os_ch_50series_1_wag_1_gfx,position_in_consist %2){
-    0: os_ch_50series_1_wag;
-    default: os_ch_50series_1_wag_rev;
-}
-switch(FEAT_TRAINS, SELF, sw_os_ch_50series_1_wag_rev_gfx,position_in_consist_from_end %2){
+switch(FEAT_TRAINS, SELF, sw_os_ch_50series_1_wag_1_gfx,position_in_vehid_chain %2){
     0: os_ch_50series_1_wag_rev;
-    default: os_ch_50series_1_wag;
+    os_ch_50series_1_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_os_ch_50series_1_wag_rev_gfx,position_in_vehid_chain_from_end %2 -1){
+    0: os_ch_50series_1_wag;
+    os_ch_50series_1_wag_rev;
 }
 switch(FEAT_TRAINS, PARENT, sw_os_ch_50series_1_wag_gfx,vehicle_is_reversed){
     1: sw_os_ch_50series_1_wag_1_gfx;
-    default: sw_os_ch_50series_1_wag_rev_gfx;
+    sw_os_ch_50series_1_wag_rev_gfx;
 }
 //front-end-fixer
-switch(FEAT_TRAINS, SELF, sw_os_ch_50series_1_end_gfx,position_in_consist_from_end){
+switch(FEAT_TRAINS, SELF, sw_os_ch_50series_1_end_gfx,position_in_vehid_chain_from_end){
     0: os_ch_50series_1_end;
-    default: sw_os_ch_50series_1_wag_gfx;
+    sw_os_ch_50series_1_wag_gfx;
 }
-switch(FEAT_TRAINS, SELF, sw_os_ch_50series_livery_2,position_in_consist){
-    0: os_ch_50series_1_front;
-    default: sw_os_ch_50series_1_end_gfx;
+switch(FEAT_TRAINS, SELF, sw_os_ch_50series_livery_2,vehicle_type_id){
+    os_ch_50series: os_ch_50series_1_front;
+    sw_os_ch_50series_1_end_gfx;
 }
 
 //randomizer
@@ -73,8 +71,8 @@ random_switch(FEAT_TRAINS, PARENT, sw_os_ch_50series_livery_0){
 //livery selector
 switch(FEAT_TRAINS, SELF, sw_os_ch_50series_lv_desc, cargo_subtype){
     0: string(LV_RANDOM);
-    1: string(LV_WHITE);
-    2: string(LV_GREEN_P);
+    1: string(LV_DATED, string(STR_PAINT,string(STR_WHITE)),1967);
+    2: string(LV_DATED, string(STR_PAINT,string(STR_GREEN)),1967);
 }
 //liveries
 switch(FEAT_TRAINS, PARENT, sw_os_ch_50series_lv, cargo_subtype){
@@ -82,16 +80,6 @@ switch(FEAT_TRAINS, PARENT, sw_os_ch_50series_lv, cargo_subtype){
     1: sw_os_ch_50series_livery_1;
     2: sw_os_ch_50series_livery_2;
 }
-
-//capacity-changer
-
-
-//attachable vehicles
-switch(FEAT_TRAINS, SELF, os_ch_50series_attach_vehid, vehicle_type_id) {
-  mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
-}
-
 
 item(FEAT_TRAINS, os_ch_50series,1271) {
     property {
@@ -130,7 +118,7 @@ item(FEAT_TRAINS, os_ch_50series,1271) {
 	graphics {
         default: sw_os_ch_50series_lv;
         purchase: os_ch_50series_purchase;
-        can_attach_wagon: os_ch_50series_attach_vehid;
+        can_attach_wagon: sw_1435_m_attach_vehid;
         additional_text:
     string(STR_TRAIN_DESC,
 		string(STR_STANDARDGAUGE),
