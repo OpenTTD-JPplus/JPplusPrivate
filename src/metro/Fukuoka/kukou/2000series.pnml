@@ -6,91 +6,57 @@ GRAPHIC_STACK_4(fk_kk_2000series_purchase, logo_fukuoka_subway, logo_line_fk_kuk
 
 spriteset(fk_kk_2000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Fukuoka/kukou/2000series/2000series.png"){ tmpl_std(0, 0) }
 spriteset(fk_kk_2000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Fukuoka/kukou/2000series/2000series.png"){ tmpl_std_rev(0, 25) }
-spriteset(fk_kk_2000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Fukuoka/kukou/2000series/2000series.png"){ tmpl_std(0, 75) }
-spriteset(fk_kk_2000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Fukuoka/kukou/2000series/2000series.png"){ tmpl_std(0, 50) }
-spriteset(fk_kk_2000series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Fukuoka/kukou/2000series/2000series.png"){ tmpl_std(0, 100) }
-spriteset(fk_kk_2000series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Fukuoka/kukou/2000series/2000series.png"){ tmpl_std_rev(0, 100) }
+spriteset(fk_kk_2000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Fukuoka/kukou/2000series/2000series.png"){ tmpl_symm(0, 75) }
+spriteset(fk_kk_2000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Fukuoka/kukou/2000series/2000series.png"){ tmpl_symm(0, 50) }
 
 //livery 1
 //panto placer
-switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_panto_placer_1,position_in_consist %7){
+switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_panto_placer_1,position_in_vehid_chain %2){
+    0: fk_kk_2000series_mot;
+    fk_kk_2000series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_panto_placer_1_rev,position_in_vehid_chain_from_end %2-1){
+    0: fk_kk_2000series_mot;
+    fk_kk_2000series_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_fk_kk_2000series_panto_placer_main_1,vehicle_is_reversed){
+    1: sw_fk_kk_2000series_panto_placer_1;
+    sw_fk_kk_2000series_panto_placer_1_rev;
+}
+switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_panto_placer_2,position_in_vehid_chain %5){
     1: fk_kk_2000series_mot;
-    3: fk_kk_2000series_mot;
+    4: fk_kk_2000series_mot;
     fk_kk_2000series_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_panto_placer_1_rev,position_in_consist_from_end %7){
-    1: fk_kk_2000series_mot;
-    3: fk_kk_2000series_mot;
-    fk_kk_2000series_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_fk_kk_2000series_panto_placer_1_main,vehicle_is_reversed){
-    1: sw_fk_kk_2000series_panto_placer_1_rev;
-    sw_fk_kk_2000series_panto_placer_1;
-}
-// 2
-switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_panto_placer_2,position_in_consist %8){
+switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_panto_placer_2_rev,position_in_vehid_chain_from_end %5){
     2: fk_kk_2000series_mot;
-    5: fk_kk_2000series_mot;
+    0: fk_kk_2000series_mot;
     fk_kk_2000series_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_panto_placer_2_rev,position_in_consist_from_end %8){
-    2: fk_kk_2000series_mot;
-    5: fk_kk_2000series_mot;
-    fk_kk_2000series_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_fk_kk_2000series_panto_placer_2_main,vehicle_is_reversed){
+switch(FEAT_TRAINS, PARENT, sw_fk_kk_2000series_panto_placer_main_2,vehicle_is_reversed){
     1: sw_fk_kk_2000series_panto_placer_2_rev;
     sw_fk_kk_2000series_panto_placer_2;
 }
-//panto main
-switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_panto_placer_main,num_vehs_in_consist){
-    5: sw_fk_kk_2000series_panto_placer_2_main;
-    7..9: sw_fk_kk_2000series_panto_placer_2_main;
-    sw_fk_kk_2000series_panto_placer_1_main;
+switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_panto_placer_main,num_vehs_in_vehid_chain+1){
+    0..6: sw_fk_kk_2000series_panto_placer_main_1;
+    sw_fk_kk_2000series_panto_placer_main_2;
 }
-//panto placer end 
-//fake head-end placer
-switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_fake_placer,position_in_consist){
-    5: fk_kk_2000series_end_f;
-    6: fk_kk_2000series_front_f;
-sw_fk_kk_2000series_panto_placer_main;
-}
-switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_fake_placer_rev,position_in_consist_from_end){
-    5: fk_kk_2000series_front_f;
-    6: fk_kk_2000series_end_f;
-sw_fk_kk_2000series_panto_placer_main;
-}
-switch(FEAT_TRAINS, PARENT, sw_fk_kk_2000series_fake_placer_gfx,vehicle_is_reversed){
-    1: sw_fk_kk_2000series_fake_placer_rev;
-    sw_fk_kk_2000series_fake_placer;
-}
-switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_fake_placer_main,num_vehs_in_consist>9){
-    1: sw_fk_kk_2000series_fake_placer_gfx;
-sw_fk_kk_2000series_panto_placer_main;
-}
-//fake head-end placer end
 //front-end-fixer
-switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_end,position_in_consist_from_end){
+switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_end,position_in_vehid_chain_from_end){
     0: fk_kk_2000series_end;
-    default: sw_fk_kk_2000series_fake_placer_main;
+    default: sw_fk_kk_2000series_panto_placer_main;
 }
-switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_lv,position_in_consist){
-    0: fk_kk_2000series_front;
+switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_lv,vehicle_type_id){
+    fk_kk_2000series: fk_kk_2000series_front;
     default: sw_fk_kk_2000series_end;
 }
 //front-end-fixer end
 
 //capacity-changer
-switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_main_capacity,position_in_consist_from_end){
+switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_main_capacity,position_in_vehid_chain_from_end){
     0: 135*param_capacity_mod/3;
     default: 146*param_capacity_mod/3;
 }
-//attachable vehicles
-switch(FEAT_TRAINS, SELF, fk_kk_2000series_attach_vehid, vehicle_type_id) {
-  mu_car_narrow: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
-}
-
 
 item(FEAT_TRAINS, fk_kk_2000series,1451) {
     property {
@@ -125,7 +91,7 @@ item(FEAT_TRAINS, fk_kk_2000series,1451) {
 	graphics {
         default: sw_fk_kk_2000series_lv;
         purchase: fk_kk_2000series_purchase;
-        can_attach_wagon: fk_kk_2000series_attach_vehid;
+        can_attach_wagon: sw_1067_attach_vehid;
         additional_text:
     string(STR_TRAIN_DESC,
 		string(STR_NARROWGAUGE),
