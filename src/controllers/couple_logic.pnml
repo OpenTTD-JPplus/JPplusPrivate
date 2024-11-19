@@ -14,20 +14,38 @@
 //   twr_70_000series: return CB_RESULT_ATTACH_ALLOW;
 //   return string(STR_ATTACH_ERROR_SHIBATA);
 //}
+if ((grf_future_status("YZ\AA\02") == 0) && (grf_future_status("YZ\AA\02") == 0)) {
+  jpTracksAreLoaded = 0;
+}
+if ((grf_future_status("YZ\AA\02") == 1) && (grf_future_status("YZ\AA\02") == 1)) {
+  jpTracksAreLoaded = 1;
+}
+switch(FEAT_TRAINS, SELF, sw_muCarAttach_narrow,jpTracksAreLoaded){
+    1:return string(STR_ATTACH_ERROR);
+    return string(STR_ATTACH_1435_ERROR);
+  }
+switch(FEAT_TRAINS, SELF, sw_muCarAttach_metro,jpTracksAreLoaded){
+    1:return string(STR_ATTACH_ERROR);
+    return string(STR_ATTACH_1435_ERROR);
+  }
 
-//Anarchy. Prevents attaching wrong emu unit.
-switch(FEAT_TRAINS, SELF, sw_1067_attach_vehid, vehicle_type_id) {
-      mu_car: return string(STR_ATTACH_1435_ERROR);
-      mu_car_metro: return string(STR_ATTACH_1435_ERROR);
-      return CB_RESULT_ATTACH_ALLOW;
-    }
 switch(FEAT_TRAINS, SELF, sw_1435_attach_vehid, vehicle_type_id) {
-      mu_car_narrow: return string(STR_ATTACH_1435_ERROR);
-      mu_car_metro: return string(STR_ATTACH_1435_ERROR);
+      mu_car_narrow: sw_muCarAttach_narrow;
+      mu_car_metro: sw_muCarAttach_metro;
       return CB_RESULT_ATTACH_ALLOW;
     }
+switch(FEAT_TRAINS, SELF, sw_1067_attach_vehid_1, vehicle_type_id) {
+      mu_car: return string(STR_ATTACH_1067_ERROR);
+      mu_car_metro: return string(STR_ATTACH_1067_ERROR);
+      return CB_RESULT_ATTACH_ALLOW;
+    }
+switch(FEAT_TRAINS, SELF, sw_1067_attach_vehid, jpTracksAreLoaded){
+  1:sw_1435_attach_vehid;
+  sw_1067_attach_vehid_1;
+}
 switch(FEAT_TRAINS, SELF, sw_1435_m_attach_vehid, vehicle_type_id) {
-      mu_car_narrow: return string(STR_ATTACH_1435_ERROR);
-      mu_car: return string(STR_ATTACH_1435_ERROR);
+      mu_car_narrow: return string(STR_ATTACH_1435_M_ERROR);
+      mu_car: return string(STR_ATTACH_1435_M_ERROR);
       return CB_RESULT_ATTACH_ALLOW;
     }
+    

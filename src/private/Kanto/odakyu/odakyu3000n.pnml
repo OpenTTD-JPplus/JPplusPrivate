@@ -48,6 +48,7 @@
 		}
 		switch(FEAT_TRAINS, SELF, sw_odakyu3000n_lv,vehicle_type_id){
 			mu_car_narrow:sw_odakyu3000n_1_end_gfx_main;
+			mu_car:sw_odakyu3000n_1_end_gfx_main;
 			sw_odakyu3000n_1_front_gfx_main;
 		}
 //
@@ -63,6 +64,7 @@
 		}
 		switch(FEAT_TRAINS, SELF, sw_odakyu3000n_capacity_main,vehicle_type_id){
 			mu_car_narrow:sw_odakyu3000n_capacity;
+			mu_car:sw_odakyu3000n_capacity;
 			sw_odakyu3000n_capacity_1;
 		}
 	//power fix
@@ -117,13 +119,6 @@ item(FEAT_TRAINS, odakyu3000n) {
 		loading_speed: param_loading_4D;
 	}
 	graphics {
-		default: sw_odakyu3000n_lv;
-		power:sw_odakyu3000n_power_main()*4*1342/1000;
-		start_stop: sw_stop_start_3;
-		purchase: odakyu3000n_purchase;
-		can_attach_wagon: sw_1067_attach_vehid;
-		//cargo_subtype_text:sw_odakyu3000n_lv_desc;
-		cargo_capacity: sw_odakyu3000n_capacity_main()*param_capacity_mod/3;  
 		additional_text:string(STR_TRAIN_DESC,
 										string(STR_NARROWGAUGE),
 										string(STR_DENKI, string(STR_DC_N, 1500)),
@@ -131,13 +126,14 @@ item(FEAT_TRAINS, odakyu3000n) {
 										string(STR_FORMATION, string(STR_NUM_CARS_3, 6,8,10)),
 										string(STR_USAGE, string(STR_COMMUTER)),
 										string(STR_OPERATOR, string(STR_ODAKYU)));
-    }
-	livery_override(mu_car_narrow){
-			cargo_subtype_text:sw_empty_desc;
-			default: sw_odakyu3000n_lv;
-			loading_speed: param_loading_4D;
-			power:  sw_odakyu3000n_power_main()*4*1342/1000;
-			cargo_capacity: sw_odakyu3000n_capacity_main()*param_capacity_mod/3;
-			weight: 32;
-		}
+		//cargo_subtype_text:sw_odakyu3000n_lv_desc;
+		can_attach_wagon: sw_1067_attach_vehid;
+		purchase: odakyu3000n_purchase;
+		start_stop: sw_stop_start_3;
+    
+    GRAPHICS_DOUBLE(sw_odakyu3000n_lv,//graphics
+    param_loading_4D,//loading speed
+    sw_odakyu3000n_power_main()*4*1342/1000,//power
+    sw_odakyu3000n_capacity_main(),//cargo capacity
+    mu_car,mu_car_narrow,sw_empty_desc,32)//subtype,weight
 }
