@@ -114,6 +114,7 @@
 		}
 		switch(FEAT_TRAINS, SELF, sw_odakyu3000_lv,vehicle_type_id){
 			mu_car_narrow:sw_odakyu3000_1_end_gfx_main;
+			mu_car:sw_odakyu3000_1_end_gfx_main;
 			sw_odakyu3000_1_front_gfx_main;
 		}
 //
@@ -129,6 +130,7 @@
 	}
 	switch(FEAT_TRAINS, SELF, sw_odakyu3000_capacity_main,vehicle_type_id){
     mu_car_narrow:sw_odakyu3000_capacity;
+    mu_car:sw_odakyu3000_capacity;
     sw_odakyu3000_capacity_1;
 	}
 //power fix
@@ -152,57 +154,41 @@
 	}
 //
 item(FEAT_TRAINS, odakyu3000) {
-    property {
-        cargo_capacity: 130;
-        ai_special_flag: AI_FLAG_PASSENGER;
-        sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
-        refittable_cargo_classes: bitmask(CC_PASSENGERS);
-        non_refittable_cargo_classes: bitmask();                
-        running_cost_base: RUNNING_COST_ELECTRIC;
-        engine_class: ENGINE_CLASS_ELECTRIC;
-        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
-        tractive_effort_coefficient: 0.3;
-        air_drag_coefficient: 0.07;
-        bitmask_vehicle_info: 0;
-        
-        climates_available: param_disable_odakyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
-        name: string(STR_TRAIN_NAME, string(STR_NAME_ODAKYU), "1000", string(STR_NAME_TYPE),);
-        introduction_date: date(1987, 1, 1);
-        model_life: VEHICLE_NEVER_EXPIRES;
-        vehicle_life: 35;
-        reliability_decay: 10;
+  property {
+      OVERRIDEN_TRAIN_DATA
+      
+      climates_available: param_disable_odakyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+      name: string(STR_TRAIN_NAME, string(STR_NAME_ODAKYU), "1000", string(STR_NAME_TYPE),);
+      introduction_date: date(1987, 1, 1);
+      model_life: VEHICLE_NEVER_EXPIRES;
+      vehicle_life: 35;
+      reliability_decay: 10;
 
-        cost_factor: 22;
-        running_cost_factor: 51;
-        speed: 120 km/h;
-        track_type: TR_1067_DC;
-        power: 1 kW;
-        weight: 34 ton;
-        loading_speed: param_loading_4D;
-    }
+      cost_factor: 22;
+      running_cost_factor: 51;
+      speed: 120 km/h;
+      track_type: TR_1067_DC;
+      power: 1 kW;
+      weight: 34 ton;
+  }
 	graphics {
-        default: sw_odakyu3000_lv;
-        power:sw_odakyu3000_power_main()*4*1342/1000;
-        start_stop: sw_stop_start_3;
-        purchase: odakyu3000_purchase;
-        can_attach_wagon: sw_1067_attach_vehid;
-        cargo_subtype_text:sw_empty_desc;
-        cargo_capacity: sw_odakyu3000_capacity_main()*param_capacity_mod/3;  
-        additional_text:string(STR_TRAIN_DESC,
-                        string(STR_NARROWGAUGE),
-                        string(STR_DENKI, string(STR_DC_N, 1500)),
-                        string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
-                        string(STR_FORMATION, string(STR_NUM_CARS_4, 4,6,8,10)),
-                        string(STR_USAGE, string(STR_METRO_ACCESS)),
-                        string(STR_OPERATOR, string(STR_ODAKYU)));
-    }
-	livery_override(mu_car_narrow){
-        cargo_subtype_text:sw_empty_desc;
-        default: sw_odakyu3000_lv;
-        loading_speed: param_loading_4D;
-        power:  sw_odakyu3000_power_main()*4*1342/1000;
-        cargo_capacity: sw_odakyu3000_capacity_main()*param_capacity_mod/3;
-        weight: 32;
-      }
+    additional_text:
+      string(STR_TRAIN_DESC,
+      string(STR_NARROWGAUGE),
+      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
+      string(STR_FORMATION, string(STR_NUM_CARS_4, 4,6,8,10)),
+      string(STR_USAGE, string(STR_METRO_ACCESS)),
+      string(STR_OPERATOR, string(STR_ODAKYU)));
+    // cargo_subtype_text:sw_empty_desc;
+    can_attach_wagon: sw_1067_attach_vehid;
+    purchase: odakyu3000_purchase;
+    start_stop: sw_stop_start_3;
+
+    SET_GRAPHICS_DOUBLE(sw_odakyu3000_lv,//graphics
+    sw_odakyu3000_capacity_main(),//cargo capacity
+    sw_odakyu3000_power_main()*4*1342/1000,//power
+    param_loading_4D,//loading speed
+    sw_empty_desc,//subtype
+    mu_car_narrow,32)//car_fallback,weight
 }

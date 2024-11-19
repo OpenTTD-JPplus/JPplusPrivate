@@ -1,6 +1,22 @@
 // since we are already using the gcc preprocessor, we can define many macros
 // to make the code more readable and maintainable// 1 logo + 2 cars
 
+#define OVERRIDEN_TRAIN_DATA\
+  cargo_capacity: 130;\
+  ai_special_flag: AI_FLAG_PASSENGER;\
+  sprite_id: SPRITE_ID_NEW_TRAIN;\
+  misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);\
+  refittable_cargo_classes: bitmask(CC_PASSENGERS);\
+  non_refittable_cargo_classes: bitmask();		\				
+  running_cost_base: RUNNING_COST_ELECTRIC;\
+  engine_class: ENGINE_CLASS_ELECTRIC;\
+  visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);\
+  tractive_effort_coefficient: 0.3;\
+  air_drag_coefficient: 0.07;\
+  bitmask_vehicle_info: 0;\
+  power: 1 kW;\
+  reliability_decay: 10;
+//
 #define GRAPHIC_STACK_2(name,s0,s1) \
 switch(FEAT_TRAINS, SELF, name, [\
     STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100),\
@@ -65,8 +81,8 @@ livery_override(mu_car){\
     weight: _weight;\
   }
 
-#define GRAPHICS_SINGULAR(graphics,loading,_power,cargo,mu_car,subtype,_weight) \
-    default: graphics;\
+#define SET_GRAPHICS_SINGLE(gfx,cargo,_power,loading,subtype,_weight) \
+    default: gfx;\
     loading_speed:loading;\
 		power:_power;\
 		cargo_capacity: cargo*param_capacity_mod/3;\
@@ -75,21 +91,21 @@ livery_override(mu_car){\
 		cargo_subtype_text:subtype;\
     loading_speed: loading;\
     cargo_capacity: cargo*param_capacity_mod/3;\
-    default: graphics;\
+    default: gfx;\
     power: _power;\
     weight: _weight;\
   }
-#define GRAPHICS_DOUBLE(graphics,loading,_power,cargo,mu_car,mu_car_2,subtype,_weight) \
-    default: graphics;\
+#define SET_GRAPHICS_DOUBLE(gfx,cargo,_power,loading,subtype,mu_car_2,_weight)\
+    default: gfx;\
     loading_speed:loading;\
-		power:_power;\
 		cargo_capacity: cargo*param_capacity_mod/3;\
+		power:_power;\
     }\
   livery_override(mu_car){\
 		cargo_subtype_text:subtype;\
     loading_speed: loading;\
     cargo_capacity: cargo*param_capacity_mod/3;\
-    default: graphics;\
+    default: gfx;\
     power: _power;\
     weight: _weight;\
   }\
@@ -97,7 +113,7 @@ livery_override(mu_car){\
 		cargo_subtype_text:subtype;\
     loading_speed: loading;\
     cargo_capacity: cargo*param_capacity_mod/3;\
-    default: graphics;\
+    default: gfx;\
     power: _power;\
     weight: _weight;\
   }

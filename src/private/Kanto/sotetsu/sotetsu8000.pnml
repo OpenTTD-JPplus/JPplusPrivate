@@ -198,23 +198,10 @@ switch(FEAT_TRAINS,PARENT, sw_sotetsu8000_panto_rev, build_year){
 //
 item(FEAT_TRAINS, sotetsu8000) {
 	property {
-		//tech/rewritten
-			cargo_capacity: 1;
-			power: 1 kW;
-			ai_special_flag: AI_FLAG_PASSENGER;
-			sprite_id: SPRITE_ID_NEW_TRAIN;
-			misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
-			refittable_cargo_classes: bitmask(CC_PASSENGERS);
-			non_refittable_cargo_classes: bitmask();
-			running_cost_base: RUNNING_COST_ELECTRIC;
-			engine_class: ENGINE_CLASS_ELECTRIC;
-			visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
-			tractive_effort_coefficient: 0.3;
-			air_drag_coefficient: 0.07;
-			bitmask_vehicle_info: 0;
-		//
-		name: string(STR_TRAIN_NAME, string(STR_NAME_SOTETSU), "8000", string(STR_NAME_SERIES),);
+		OVERRIDEN_TRAIN_DATA
+
 		climates_available: param_disable_sotetsu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+		name: string(STR_TRAIN_NAME, string(STR_NAME_SOTETSU), "8000", string(STR_NAME_SERIES),);
 		introduction_date: date(1990, 1, 1);
 		model_life: VEHICLE_NEVER_EXPIRES;
 		vehicle_life: 35;
@@ -225,17 +212,8 @@ item(FEAT_TRAINS, sotetsu8000) {
 		speed: 120 km/h;
 		track_type: TR_1067_DC;
 		weight: 32 ton;
-		loading_speed: param_loading_4D;
 	}
 	graphics {
-		cargo_capacity: sw_sotetsu8000_capacity_main()*param_capacity_mod/3;  
-		power:sw_sotetsu8000_power_main()*4*1342/1000;
-		purchase: sotetsu8000_purchase;
-		default: sw_sotetsu8000_lv;
-		cargo_subtype_text:sw_sotetsu8000_lv_desc;
-		
-		start_stop: sw_stop_start_3;
-		can_attach_wagon: sw_1067_attach_vehid;
 		additional_text:
 			string(STR_TRAIN_DESC,
 			string(STR_NARROWGAUGE),
@@ -244,13 +222,15 @@ item(FEAT_TRAINS, sotetsu8000) {
 			string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
 			string(STR_USAGE, string(STR_COMMUTER)),
 			string(STR_OPERATOR, string(STR_SOTETSU)));
-	}
-	livery_override(mu_car_narrow){
-		cargo_capacity: sw_sotetsu8000_capacity_main()*param_capacity_mod/3;
 		cargo_subtype_text:sw_sotetsu8000_lv_desc;
-		power:  sw_sotetsu8000_power_main()*4*1342/1000;
-		default: sw_sotetsu8000_lv;
-		loading_speed: param_loading_4D;
-		weight: 31;
-	}
+		purchase: sotetsu8000_purchase;
+		can_attach_wagon: sw_1067_attach_vehid;
+		start_stop: sw_stop_start_3;
+	
+    SET_GRAPHICS_DOUBLE(sw_sotetsu8000_lv,//graphics
+    sw_sotetsu8000_capacity_main(),//cargo capacity
+    sw_sotetsu8000_power_main()*4*1342/1000,//power
+    param_loading_4D,//loading speed
+    sw_empty_desc,//subtype
+    mu_car_narrow,31)//car_fallback,weight
 }
