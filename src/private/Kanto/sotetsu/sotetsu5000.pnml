@@ -88,23 +88,10 @@
 //
 item(FEAT_TRAINS, sotetsu5000) {
 	property {
-		//tech/rewritten
-			cargo_capacity: 1;
-			power: 1 kW;
-			ai_special_flag: AI_FLAG_PASSENGER;
-			sprite_id: SPRITE_ID_NEW_TRAIN;
-			misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
-			refittable_cargo_classes: bitmask(CC_PASSENGERS);
-			non_refittable_cargo_classes: bitmask();
-			running_cost_base: RUNNING_COST_ELECTRIC;
-			engine_class: ENGINE_CLASS_ELECTRIC;
-			visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
-			tractive_effort_coefficient: 0.3;
-			air_drag_coefficient: 0.07;
-			bitmask_vehicle_info: 0;
-		//
-		name: string(STR_TRAIN_NAME, string(STR_NAME_SOTETSU), string(STR_SHOUDAI,"5000"), string(STR_NAME_SERIES));
+		OVERRIDEN_TRAIN_DATA
+
 		climates_available: param_disable_sotetsu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+		name: string(STR_TRAIN_NAME, string(STR_NAME_SOTETSU), string(STR_SHOUDAI,"5000"), string(STR_NAME_SERIES));
 		introduction_date: date(1955, 1, 1);
 		model_life: 1975-1955-5;
 		vehicle_life: 1975-1955;
@@ -115,17 +102,8 @@ item(FEAT_TRAINS, sotetsu5000) {
 		speed: 100 km/h;
 		track_type: TR_1067_DC;
 		weight: 31 ton;
-		loading_speed: param_loading_3D;
 	}
 	graphics {
-		cargo_capacity: sw_sotetsu5000_capacity_main()*param_capacity_mod/3;  
-		power:65*4*1342/1000;
-		purchase: sotetsu5000_purchase;
-		default: sw_sotetsu5000_lv;
-		//cargo_subtype_text:sw_sotetsu5000_lv_desc;
-		
-		start_stop: sw_stop_start_2;
-		can_attach_wagon: sw_1067_attach_vehid;
 		additional_text:
 			string(STR_TRAIN_DESC,
 			string(STR_NARROWGAUGE),
@@ -134,13 +112,15 @@ item(FEAT_TRAINS, sotetsu5000) {
 			string(STR_FORMATION, string(STR_NUM_CARS_2, 2,4)),
 			string(STR_USAGE, string(STR_COMMUTER)),
 			string(STR_OPERATOR, string(STR_SOTETSU)));
-	}
-	livery_override(mu_car_narrow){
-		cargo_capacity: sw_sotetsu5000_capacity_main()*param_capacity_mod/3;
-		cargo_subtype_text:sw_empty_desc;
-		power:  65*4*1342/1000;
-		default: sw_sotetsu5000_lv;
-		loading_speed: param_loading_3D;
-		weight: 31;
-	}
+		// cargo_subtype_text:sw_sotetsu5000_lv_desc;
+		purchase: sotetsu5000_purchase;
+		can_attach_wagon: sw_1067_attach_vehid;
+		start_stop: sw_stop_start_2;
+
+	  SET_GRAPHICS_DOUBLE(sw_sotetsu5000_lv,//graphics
+    sw_sotetsu5000_capacity_main(),//cargo capacity
+    65*4*1342/1000,//power
+    param_loading_3D,//loading speed
+    sw_empty_desc,//subtype
+    mu_car_narrow,31)//car_fallback,weight
 }

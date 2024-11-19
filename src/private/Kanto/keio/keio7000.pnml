@@ -226,19 +226,10 @@ item(FEAT_TRAINS, keio7000) {
 		cost_factor: 20;
 		running_cost_factor: 50;
 		speed: 120 km/h;
-		track_type: TR_1372;
+		track_type: TR_1372_DC;
 		weight: 33 ton;
-		loading_speed: param_loading_4D;
 	}
 	graphics {
-		cargo_capacity: sw_keio7000_capacity_main()*param_capacity_mod/3;  
-		power:sw_keio7000_power_main()*4*1342/1000;
-		purchase: keio7000_purchase;
-		default: sw_keio7000_lv;
-		//cargo_subtype_text:sw_keio7000_lv_desc;
-		
-		start_stop: sw_stop_start_2;
-		can_attach_wagon: sw_1435_attach_vehid;
 		additional_text:
 			string(STR_TRAIN_DESC,
 			string(STR_SCOTCHGAUGE),
@@ -247,13 +238,14 @@ item(FEAT_TRAINS, keio7000) {
 			string(STR_FORMATION, string(STR_NUM_CARS_6, 2,4,5,6,8,10)),
 			string(STR_USAGE, string(STR_COMMUTER)),
 			string(STR_OPERATOR, string(STR_KEIO)));
-	}
-	livery_override(mu_car){
-		cargo_capacity: sw_keio7000_capacity_main()*param_capacity_mod/3;
 		//cargo_subtype_text:sw_keio7000_lv_desc;
-		power:  sw_keio7000_power_main()*4*1342/1000;
-		default: sw_keio7000_lv;
-		loading_speed: param_loading_4D;
-		weight: 31;
-	}
+		can_attach_wagon: sw_1435_attach_vehid;
+		purchase: keio7000_purchase;
+		start_stop: sw_stop_start_2;
+
+    SET_GRAPHICS_SINGLE(sw_keio7000_lv,//graphics
+    sw_keio7000_capacity_main(),//cargo capacity
+    sw_keio7000_power_main()*4*1342/1000,//power
+    param_loading_4D,//loading speed
+    sw_empty_desc,31)//subtype,weight
 }
