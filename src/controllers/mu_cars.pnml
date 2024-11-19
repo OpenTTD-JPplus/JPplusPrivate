@@ -1,8 +1,56 @@
 switch(FEAT_TRAINS, SELF, sw_empty_desc,cargo_subtype){
     0:string(LV_DEFAULT);
   }
+switch(FEAT_TRAINS, SELF, sw_muCarName,jpTracksAreLoaded){
+    1:return string(MUCAR_NAME);
+    return string(MUCAR_1435);
+  }
 
-item(FEAT_TRAINS, mu_car_metro, 100) {
+
+item(FEAT_TRAINS, mu_car, 100) {
+	property {
+        name:  string(MUCAR_1435);
+        introduction_date: date(1800,1,1);
+        climates_available: ALL_CLIMATES;
+                model_life: VEHICLE_NEVER_EXPIRES;
+                vehicle_life: 60;
+                loading_speed: 0;
+                cost_factor: 64;
+                running_cost_factor: 6;
+                speed: 0 km/h;
+                power: 0 hp;
+                cargo_capacity: 1;
+                weight: 0 ton;
+                tractive_effort_coefficient: 0.3;
+                air_drag_coefficient: 0;
+                reliability_decay: 10;
+                refittable_cargo_classes: bitmask(CC_PASSENGERS);
+                cargo_age_period: 185;
+                refit_cost: 0;
+                track_type: TR_UNIVERSAL;
+                ai_special_flag: AI_FLAG_PASSENGER;
+                running_cost_base: RUNNING_COST_DIESEL;
+                engine_class: ENGINE_CLASS_STEAM;
+                visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_DISABLE, 0, DISABLE_WAGON_POWER);
+                sprite_id: SPRITE_ID_NEW_TRAIN;
+                misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
+                dual_headed: 0;
+                length: 8;
+                extra_power_per_wagon: 0;
+                bitmask_vehicle_info: 0;
+}
+	graphics {
+    name: sw_muCarName;
+        cargo_subtype_text: sw_empty_desc;
+		purchase:                     set_mu_car_purchase;
+    	additional_text:			        return string(MUCAR_DESC);
+    	default: set_mu_car_base;
+		length: 8;
+    }
+
+}
+
+item(FEAT_TRAINS, mu_car_metro, 101) {
 	property {
         name:  string(MUCAR_1435_M);
         introduction_date: date(1800,1,1);
@@ -41,47 +89,8 @@ item(FEAT_TRAINS, mu_car_metro, 100) {
     }
 
 }
-item(FEAT_TRAINS, mu_car, 101) {
-	property {
-        name:  string(MUCAR_1435);
-        introduction_date: date(1800,1,1);
-        climates_available: ALL_CLIMATES;
-                model_life: VEHICLE_NEVER_EXPIRES;
-                vehicle_life: 60;
-                loading_speed: 0;
-                cost_factor: 64;
-                running_cost_factor: 6;
-                speed: 0 km/h;
-                power: 0 hp;
-                cargo_capacity: 1;
-                weight: 0 ton;
-                tractive_effort_coefficient: 0.3;
-                air_drag_coefficient: 0;
-                reliability_decay: 10;
-                refittable_cargo_classes: bitmask(CC_PASSENGERS);
-                cargo_age_period: 185;
-                refit_cost: 0;
-                track_type: TR_UNIVERSAL;
-                ai_special_flag: AI_FLAG_PASSENGER;
-                running_cost_base: RUNNING_COST_DIESEL;
-                engine_class: ENGINE_CLASS_STEAM;
-                visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_DISABLE, 0, DISABLE_WAGON_POWER);
-                sprite_id: SPRITE_ID_NEW_TRAIN;
-                misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
-                dual_headed: 0;
-                length: 8;
-                extra_power_per_wagon: 0;
-                bitmask_vehicle_info: 0;
-}
-	graphics {
-        cargo_subtype_text: sw_empty_desc;
-		purchase:                     set_mu_car_purchase;
-    	additional_text:			        return string(MUCAR_DESC);
-    	default: set_mu_car_base;
-		length: 8;
-    }
 
-}
+
 item(FEAT_TRAINS, mu_car_narrow, 102) {
 	property {
         name:  string(MUCAR_1067);
@@ -122,3 +131,7 @@ item(FEAT_TRAINS, mu_car_narrow, 102) {
     }
 
 }
+
+// if(jpTracksAreLoaded){
+//   disable_item()
+// }

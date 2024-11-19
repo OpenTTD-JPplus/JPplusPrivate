@@ -13,7 +13,7 @@ grf {
     name: string(STR_NAME);
     desc: string(STR_DESC);
   url: string(STR_GRF_URL);
-    version: 250;
+    version: 251;
     min_compatible_version: 6;
 
 
@@ -118,7 +118,7 @@ param 6 {
             name: string(STR_PARAM_HIDE_LOGO);
             desc: string(STR_PARAM_HIDE_LOGO);
             bit: 0;
-            def_value: 1;
+            def_value: 0;
             }
         }
 
@@ -390,9 +390,10 @@ param 6 {
 # 1 "src/controllers/errorController.pnml" 1
 disable_item(FEAT_TRAINS);
 
-if (((grf_future_status("SZ\0D\00") == 0) && (grf_future_status("DP\30\00") == 0))) {
- error( WARNING, string(GRF_JAPANSET));
+if (((grf_future_status("YZ\AA\02") == 0) && (grf_future_status("YZ\AA\02") == 0))) {
+ error( WARNING, string(GRF_JPTRACKS));
 }
+
 
 if ((grf_current_status("mkw\E0") == 1)||(grf_future_status("mkw\E0") == 1)){
  error( ERROR, string(GRF_TKMS));
@@ -405,15 +406,19 @@ if ((grf_current_status("TB\01\01") == 1)||(grf_future_status("TB\01\01") == 1))
 # 1 "src/controllers/railtypes.pnml" 1
 
 railtypetable {
-  TR_1067_DC: [JND1, NABE, ELNG, ELRL],
-  TR_1067_AC: [JNA1, ELNG, ELRL],
-  TR_1067_ACDC: [JNV1, NABE, ELNG, ELRL],
- TR_1435_DC: [JSD1, ELRL],
- TR_1435_AC: [JSA1, ELRL],
- TR_1435_M: [JST1, SAB3, "3RDR", MTRO, ELRL],
- TR_1435_LNR: [JSL1,ELRL],
- TR_1372: [JSC1,ELRL],
- TR_UNIVERSAL: [JUN1,ELRL],
+  TR_1067_NE: [NAAN, RAIL],
+  TR_1067_DC: [NAAD, NABE, ELNG, ELRL],
+  TR_1067_AC: [NAAA, NABE, ELNG, ELRL],
+  TR_1067_ACDC: [NAAE, NABE, ELNG, ELRL],
+ TR_1435_NE: [SAAN, RAIL],
+ TR_1435_DC: [SAAD, ELRL],
+ TR_1435_AC: [SAAA, ELRL],
+ TR_1435_ACDC: [SAAE, ELRL],
+ TR_1435_M: [SAA3, SAB3, "3RDR", MTRO, ELRL],
+ TR_1435_LINEAR: [SAAI, ELRL],
+ TR_1372: [sAAD, sAAE, SAAD, SAAE, ELRL],
+  TR_RUBBER: [rAA3,rAAE, ELRL],
+ TR_UNIVERSAL: [_AAE, RAIL],
 }
 # 6 "JPprivate.pnml" 2
 # 1 "src/controllers/couple_logic.pnml" 1
@@ -426,20 +431,45 @@ railtypetable {
    1: return string(STR_FEW_CARS_3_ERROR);
    return CB_RESULT_NO_TEXT;
   }
-# 19 "src/controllers/couple_logic.pnml"
-switch(FEAT_TRAINS, SELF, sw_1067_attach_vehid, vehicle_type_id) {
-      mu_car: return string(STR_ATTACH_1435_ERROR);
-      mu_car_metro: return string(STR_ATTACH_1435_ERROR);
-      return CB_RESULT_ATTACH_ALLOW;
-    }
+
+
+
+
+
+
+
+if ((grf_future_status("YZ\AA\02") == 0) && (grf_future_status("YZ\AA\02") == 0)) {
+  jpTracksAreLoaded = 0;
+}
+if ((grf_future_status("YZ\AA\02") == 1) && (grf_future_status("YZ\AA\02") == 1)) {
+  jpTracksAreLoaded = 1;
+}
+switch(FEAT_TRAINS, SELF, sw_muCarAttach_narrow,jpTracksAreLoaded){
+    1:return string(STR_ATTACH_ERROR);
+    return string(STR_ATTACH_1435_ERROR);
+  }
+switch(FEAT_TRAINS, SELF, sw_muCarAttach_metro,jpTracksAreLoaded){
+    1:return string(STR_ATTACH_ERROR);
+    return string(STR_ATTACH_1435_ERROR);
+  }
+
 switch(FEAT_TRAINS, SELF, sw_1435_attach_vehid, vehicle_type_id) {
-      mu_car_narrow: return string(STR_ATTACH_1435_ERROR);
-      mu_car_metro: return string(STR_ATTACH_1435_ERROR);
+      mu_car_narrow: sw_muCarAttach_narrow;
+      mu_car_metro: sw_muCarAttach_metro;
       return CB_RESULT_ATTACH_ALLOW;
     }
+switch(FEAT_TRAINS, SELF, sw_1067_attach_vehid_1, vehicle_type_id) {
+      mu_car: return string(STR_ATTACH_1067_ERROR);
+      mu_car_metro: return string(STR_ATTACH_1067_ERROR);
+      return CB_RESULT_ATTACH_ALLOW;
+    }
+switch(FEAT_TRAINS, SELF, sw_1067_attach_vehid, jpTracksAreLoaded){
+  1:sw_1435_attach_vehid;
+  sw_1067_attach_vehid_1;
+}
 switch(FEAT_TRAINS, SELF, sw_1435_m_attach_vehid, vehicle_type_id) {
-      mu_car_narrow: return string(STR_ATTACH_1435_ERROR);
-      mu_car: return string(STR_ATTACH_1435_ERROR);
+      mu_car_narrow: return string(STR_ATTACH_1435_M_ERROR);
+      mu_car: return string(STR_ATTACH_1435_M_ERROR);
       return CB_RESULT_ATTACH_ALLOW;
     }
 # 7 "JPprivate.pnml" 2
@@ -586,8 +616,56 @@ template tmpl_purchase_roof_h1(x,y) {
 switch(FEAT_TRAINS, SELF, sw_empty_desc,cargo_subtype){
     0:string(LV_DEFAULT);
   }
+switch(FEAT_TRAINS, SELF, sw_muCarName,jpTracksAreLoaded){
+    1:return string(MUCAR_NAME);
+    return string(MUCAR_1435);
+  }
 
-item(FEAT_TRAINS, mu_car_metro, 100) {
+
+item(FEAT_TRAINS, mu_car, 100) {
+ property {
+        name: string(MUCAR_1435);
+        introduction_date: date(1800,1,1);
+        climates_available: ALL_CLIMATES;
+                model_life: VEHICLE_NEVER_EXPIRES;
+                vehicle_life: 60;
+                loading_speed: 0;
+                cost_factor: 64;
+                running_cost_factor: 6;
+                speed: 0 km/h;
+                power: 0 hp;
+                cargo_capacity: 1;
+                weight: 0 ton;
+                tractive_effort_coefficient: 0.3;
+                air_drag_coefficient: 0;
+                reliability_decay: 10;
+                refittable_cargo_classes: bitmask(CC_PASSENGERS);
+                cargo_age_period: 185;
+                refit_cost: 0;
+                track_type: TR_UNIVERSAL;
+                ai_special_flag: AI_FLAG_PASSENGER;
+                running_cost_base: RUNNING_COST_DIESEL;
+                engine_class: ENGINE_CLASS_STEAM;
+                visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_DISABLE, 0, DISABLE_WAGON_POWER);
+                sprite_id: SPRITE_ID_NEW_TRAIN;
+                misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
+                dual_headed: 0;
+                length: 8;
+                extra_power_per_wagon: 0;
+                bitmask_vehicle_info: 0;
+}
+ graphics {
+    name: sw_muCarName;
+        cargo_subtype_text: sw_empty_desc;
+  purchase: set_mu_car_purchase;
+     additional_text: return string(MUCAR_DESC);
+     default: set_mu_car_base;
+  length: 8;
+    }
+
+}
+
+item(FEAT_TRAINS, mu_car_metro, 101) {
  property {
         name: string(MUCAR_1435_M);
         introduction_date: date(1800,1,1);
@@ -626,47 +704,8 @@ item(FEAT_TRAINS, mu_car_metro, 100) {
     }
 
 }
-item(FEAT_TRAINS, mu_car, 101) {
- property {
-        name: string(MUCAR_1435);
-        introduction_date: date(1800,1,1);
-        climates_available: ALL_CLIMATES;
-                model_life: VEHICLE_NEVER_EXPIRES;
-                vehicle_life: 60;
-                loading_speed: 0;
-                cost_factor: 64;
-                running_cost_factor: 6;
-                speed: 0 km/h;
-                power: 0 hp;
-                cargo_capacity: 1;
-                weight: 0 ton;
-                tractive_effort_coefficient: 0.3;
-                air_drag_coefficient: 0;
-                reliability_decay: 10;
-                refittable_cargo_classes: bitmask(CC_PASSENGERS);
-                cargo_age_period: 185;
-                refit_cost: 0;
-                track_type: TR_UNIVERSAL;
-                ai_special_flag: AI_FLAG_PASSENGER;
-                running_cost_base: RUNNING_COST_DIESEL;
-                engine_class: ENGINE_CLASS_STEAM;
-                visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_DISABLE, 0, DISABLE_WAGON_POWER);
-                sprite_id: SPRITE_ID_NEW_TRAIN;
-                misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
-                dual_headed: 0;
-                length: 8;
-                extra_power_per_wagon: 0;
-                bitmask_vehicle_info: 0;
-}
- graphics {
-        cargo_subtype_text: sw_empty_desc;
-  purchase: set_mu_car_purchase;
-     additional_text: return string(MUCAR_DESC);
-     default: set_mu_car_base;
-  length: 8;
-    }
 
-}
+
 item(FEAT_TRAINS, mu_car_narrow, 102) {
  property {
         name: string(MUCAR_1067);
@@ -2542,7 +2581,7 @@ item(FEAT_TRAINS, tk_gz_t1000, 1000) {
         length: 8;
         cargo_capacity: 90*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_tk_gz_t1000_lv_desc;
         default: sw_tk_gz_t1000_lv;
         cargo_capacity: 80*param_capacity_mod/3;
@@ -2629,7 +2668,7 @@ item(FEAT_TRAINS, tk_gz_t1100, 1001) {
         length: 8;
         cargo_capacity: 90*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
   cargo_subtype_text:sw_empty_desc;
         default: sw_tk_gz_t1100_livery_1;
         cargo_capacity: 80*param_capacity_mod/3;
@@ -2716,7 +2755,7 @@ item(FEAT_TRAINS, tk_gz_t100, 1002) {
         length: 8;
         cargo_capacity: 85*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
   cargo_subtype_text:sw_empty_desc;
         default: sw_tk_gz_t100_livery_1;
         cargo_capacity: 70*param_capacity_mod/3;
@@ -2863,7 +2902,7 @@ item(FEAT_TRAINS, tk_gz_t1300, 1003) {
         length: 8;
         cargo_capacity: 98*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_tk_gz_t1300_lv_desc;
         default: sw_tk_gz_t1300_lv;
         cargo_capacity: 98*param_capacity_mod/3;
@@ -2988,7 +3027,7 @@ item(FEAT_TRAINS, tk_gz_t1900, 1004) {
         length: 8;
         cargo_capacity: 95*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_tk_gz_t1900_lv_desc;
         default: sw_tk_gz_t1900_lv;
         cargo_capacity: 95*param_capacity_mod/3;
@@ -3105,7 +3144,7 @@ item(FEAT_TRAINS, tk_gz_eidan01, 1005) {
         start_stop: sw_stop_start_3;
         cargo_capacity: sw_tk_gz_eidan01_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
   cargo_subtype_text:sw_empty_desc;
         default: sw_tk_gz_eidan01_lv;
         cargo_capacity: sw_tk_gz_eidan01_capacity_main()*param_capacity_mod/3;
@@ -3207,7 +3246,7 @@ item(FEAT_TRAINS, tk_gz_1000s, 1006) {
         start_stop: sw_stop_start_3;
         cargo_capacity: sw_tk_gz_1000series_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
   cargo_subtype_text:sw_empty_desc;
         default: sw_tk_gz_1000series_lv;
         cargo_capacity: sw_tk_gz_1000series_capacity_main()*param_capacity_mod/3;
@@ -3298,7 +3337,7 @@ item(FEAT_TRAINS, tk_mn_eidan2000,1020) {
         cargo_capacity: 99*param_capacity_mod/3;
 
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
   cargo_subtype_text:sw_empty_desc;
         default: sw_tk_mn_eidan2000_livery_1;
         cargo_capacity: 99*param_capacity_mod/3;
@@ -3393,7 +3432,7 @@ item(FEAT_TRAINS, eidan500,1021) {
         start_stop: sw_stop_start_2;
         cargo_capacity: 122*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
   cargo_subtype_text:sw_empty_desc;
         default: sw_tk_mn_eidan500_livery_1;
         cargo_capacity: sw_tk_mn_eidan500_main_capacity;
@@ -3514,7 +3553,7 @@ item(FEAT_TRAINS, tk_mn_eidan02,1022) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 124*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_tk_mn_eidan02_lv_desc;
         default: sw_tk_mn_eidan02_lv;
         cargo_capacity: sw_tk_mn_eidan02_main_capacity;
@@ -3607,7 +3646,7 @@ item(FEAT_TRAINS, tk_mn_2000series,1023) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 123*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
   cargo_subtype_text:sw_empty_desc;
         default: sw_tk_mn_2000series_livery_1;
         cargo_capacity: sw_tk_mn_2000series_main_capacity;
@@ -3784,7 +3823,7 @@ item(FEAT_TRAINS, tk_hb_eidan3000, 1030) {
         start_stop: sw_stop_start_2;
         cargo_capacity: sw_tk_hb_eidan3000_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         default: sw_tk_hb_eidan3000_lv;
         cargo_capacity: sw_tk_hb_eidan3000_capacity_main()*param_capacity_mod/3;
@@ -4039,7 +4078,7 @@ item(FEAT_TRAINS, tk_hb_eidan03,1031) {
         start_stop: sw_stop_start_3;
        cargo_capacity: sw_tk_hb_eidan03_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
         cargo_subtype_text: sw_tk_hb_eidan03_lv_desc;
         default: sw_tk_hb_eidan03_lv;
         cargo_capacity: sw_tk_hb_eidan03_capacity_main()*param_capacity_mod/3;
@@ -4183,7 +4222,7 @@ item(FEAT_TRAINS, tk_hb_13000series,1032) {
         length: 8;
         cargo_capacity: sw_tk_hb_13000series_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         default: sw_tk_hb_13000series_lv;
         cargo_capacity: sw_tk_hb_13000series_capacity_main()*param_capacity_mod/3;
@@ -4469,7 +4508,7 @@ item(FEAT_TRAINS, tk_tz_5000series,1040) {
         start_stop: sw_stop_start_3;
         cargo_capacity: sw_tk_tz_5000series_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
         cargo_subtype_text: sw_tk_tz_5000series_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_tz_5000series_capacity_main()*param_capacity_mod/3;
@@ -4845,7 +4884,7 @@ item(FEAT_TRAINS, tk_tz_05series,1041) {
         cargo_capacity: sw_tk_tz_05series_capacity_main()*param_capacity_mod/3;
         speed: sw_tk_tz_05series_speed_main;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
         cargo_subtype_text: sw_tk_tz_05series_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_tz_05series_capacity_main()*param_capacity_mod/3;
@@ -4976,7 +5015,7 @@ item(FEAT_TRAINS, tk_tz_07series,1042) {
         start_stop: sw_stop_start_3;
         cargo_capacity: sw_tk_tz_07series_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_tz_07series_capacity_main()*param_capacity_mod/3;
@@ -5126,7 +5165,7 @@ item(FEAT_TRAINS, tk_tz_15000series,1043) {
         start_stop: sw_stop_start_3;
         cargo_capacity: sw_tk_tz_15000series_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_tz_15000series_capacity_main()*param_capacity_mod/3;
@@ -5274,7 +5313,7 @@ item(FEAT_TRAINS, tk_tz_toyo1000,1050) {
         start_stop: sw_stop_start_3;
         cargo_capacity: sw_tk_tz_toyo1000_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_tz_toyo1000_capacity_main()*param_capacity_mod/3;
@@ -5419,7 +5458,7 @@ item(FEAT_TRAINS, tk_tz_toyo2000,1051) {
         start_stop: sw_stop_start_3;
         cargo_capacity: sw_tk_tz_toyo2000_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_tz_toyo2000_capacity_main()*param_capacity_mod/3;
@@ -5640,7 +5679,7 @@ item(FEAT_TRAINS, tk_ch_5000series,1060) {
         start_stop: sw_stop_start_2;
         cargo_capacity: sw_tk_ch_5000series_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_ch_5000series_capacity_main()*param_capacity_mod/3;
@@ -5868,7 +5907,7 @@ item(FEAT_TRAINS, tk_ch_6000series,1061) {
         start_stop: sw_stop_start_2;
         cargo_capacity: sw_tk_ch_6000series_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_ch_6000series_capacity_main()*param_capacity_mod/3;
@@ -6024,7 +6063,7 @@ item(FEAT_TRAINS, tk_ch_06series,1062) {
         start_stop: sw_stop_start_3;
         cargo_capacity: sw_tk_ch_06series_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_ch_06series_capacity_main()*param_capacity_mod/3;
@@ -6187,7 +6226,7 @@ item(FEAT_TRAINS, tk_ch_16000series,1063) {
         start_stop: sw_stop_start_3;
         cargo_capacity: sw_tk_ch_16000series_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_ch_16000series_capacity_main()*param_capacity_mod/3;
@@ -6342,7 +6381,7 @@ item(FEAT_TRAINS, tk_ch_05series,1070) {
         start_stop: sw_stop_start_3;
         cargo_capacity: sw_tk_ch_05series_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_ch_05series_capacity_main()*param_capacity_mod/3;
@@ -6445,7 +6484,7 @@ item(FEAT_TRAINS, tk_yk_07series, 1081) {
         start_stop: sw_stop_start_3;
         cargo_capacity: sw_tk_tz_07series_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_tz_07series_capacity_main()*param_capacity_mod/3;
@@ -6743,7 +6782,7 @@ item(FEAT_TRAINS, tk_yk_7000series,1080) {
         cargo_subtype_text: sw_tk_yk_7000series_lv_desc;
         cargo_capacity: sw_tk_yk_7000series_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
         cargo_subtype_text: sw_tk_yk_7000series_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_yk_7000series_capacity_main()*param_capacity_mod/3;
@@ -6892,7 +6931,7 @@ item(FEAT_TRAINS, tk_yk_10000series,1082) {
 
         cargo_capacity: sw_tk_yk_10000series_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_yk_10000series_capacity_main()*param_capacity_mod/3;
@@ -7041,7 +7080,7 @@ item(FEAT_TRAINS, tk_yk_17000series,1083) {
 
         cargo_capacity: sw_tk_yk_17000series_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_yk_17000series_capacity_main()*param_capacity_mod/3;
@@ -7216,7 +7255,7 @@ item(FEAT_TRAINS, tk_hz_8000series,1100) {
         start_stop: sw_stop_start_3;
         cargo_capacity: sw_tk_hz_8000series_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_hz_8000series_capacity_main()*param_capacity_mod/3;
@@ -7372,7 +7411,7 @@ item(FEAT_TRAINS, tk_hz_08series,1101) {
         start_stop: sw_stop_start_3;
         cargo_capacity: sw_tk_hz_08series_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_hz_08series_capacity_main()*param_capacity_mod/3;
@@ -7527,7 +7566,7 @@ item(FEAT_TRAINS, tk_hz_18000series,1102) {
         start_stop: sw_stop_start_3;
         cargo_capacity: sw_tk_hz_18000series_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_hz_18000series_capacity_main()*param_capacity_mod/3;
@@ -7839,7 +7878,7 @@ item(FEAT_TRAINS, tk_nm_eidan9000,1110) {
         cargo_subtype_text: sw_tk_nm_eidan9000_lv_desc;
         cargo_capacity: sw_tk_nm_eidan9000_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
         cargo_subtype_text: sw_tk_nm_eidan9000_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_nm_eidan9000_capacity_main()*param_capacity_mod/3;
@@ -7984,7 +8023,7 @@ item(FEAT_TRAINS, tk_nm_saitama2000,1115) {
         start_stop: sw_stop_start_3;
         cargo_capacity: sw_tk_nm_saitama2000_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_nm_saitama2000_capacity_main()*param_capacity_mod/3;
@@ -8189,7 +8228,7 @@ item(FEAT_TRAINS, tk_as_toei5000,1120) {
         cargo_capacity: sw_tk_as_toei5000_capacity_main()*param_capacity_mod/3;
     sound_effect: sw_TOEI5000_start_sound;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
         cargo_subtype_text: sw_tk_as_toei5000_lv_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_tk_as_toei5000_capacity_main()*param_capacity_mod/3;
@@ -8351,7 +8390,7 @@ item(FEAT_TRAINS, tk_as_toei5200,1121) {
         cargo_capacity: sw_tk_as_toei5000_capacity_main()*param_capacity_mod/3;
         sound_effect: sw_TOEI5200_start_sound;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_tk_as_toei5000_capacity_main()*param_capacity_mod/3;
@@ -8501,7 +8540,7 @@ item(FEAT_TRAINS, tk_as_toei5300,1122) {
         cargo_capacity: sw_tk_as_toei5300_capacity_main()*param_capacity_mod/3;
         sound_effect: sw_TOEI5300_start_sound;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_tk_as_toei5300_capacity_main()*param_capacity_mod/3;
@@ -8646,7 +8685,7 @@ item(FEAT_TRAINS, tk_as_toei5500,1123) {
         start_stop: sw_stop_start_3;
         cargo_capacity: sw_tk_as_toei5500_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_tk_as_toei5500_capacity_main()*param_capacity_mod/3;
@@ -8941,7 +8980,7 @@ item(FEAT_TRAINS, tk_mt_toei6000,1130) {
         cargo_subtype_text: sw_tk_mt_toei6000_lv_desc;
         cargo_capacity: sw_tk_mt_toei6000_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
         cargo_subtype_text: sw_tk_mt_toei6000_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_mt_toei6000_capacity_main()*param_capacity_mod/3;
@@ -9130,7 +9169,7 @@ item(FEAT_TRAINS, tk_mt_toei6300,1131) {
         cargo_subtype_text: sw_tk_mt_toei6300_lv_desc;
         cargo_capacity: sw_tk_mt_toei6300_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
         cargo_subtype_text: sw_tk_mt_toei6300_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_mt_toei6300_capacity_main()*param_capacity_mod/3;
@@ -9272,7 +9311,7 @@ item(FEAT_TRAINS, tk_mt_toei6500,1132) {
         start_stop: sw_stop_start_3;
         cargo_capacity: sw_tk_mt_toei6500_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_mt_toei6500_capacity_main()*param_capacity_mod/3;
@@ -9689,7 +9728,7 @@ item(FEAT_TRAINS, tk_sj_toei10_000,1140) {
         start_stop: sw_stop_start_3;
         cargo_capacity: sw_tk_sj_toei10_000_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
         cargo_subtype_text: sw_tk_sj_toei10_000_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_sj_toei10_000_capacity_main()*param_capacity_mod/3;
@@ -10069,7 +10108,7 @@ item(FEAT_TRAINS, tk_sj_toei10_300,1141) {
         start_stop: sw_stop_start_3;
         cargo_capacity: sw_tk_sj_toei10_300_capacity_main()*param_capacity_mod/3;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
         cargo_subtype_text: sw_tk_sj_toei10_300_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_tk_sj_toei10_300_capacity_main()*param_capacity_mod/3;
@@ -10367,7 +10406,7 @@ item(FEAT_TRAINS, tk_od_toei12_000,1150) {
         weight: 20 ton;
 
         loading_speed: param_loading_3D;
-        track_type: TR_1435_LNR;
+        track_type: TR_1435_LINEAR;
 
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 30;
@@ -10406,7 +10445,7 @@ item(FEAT_TRAINS, tk_od_toei12_000,1150) {
         cargo_subtype_text: sw_tk_od_toei12_000_lv_desc;
         cargo_capacity: 90*param_capacity_mod/3;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
         cargo_subtype_text: sw_tk_od_toei12_000_lv_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_tk_od_toei12_000_main_capacity;
@@ -10581,7 +10620,7 @@ item(FEAT_TRAINS, yk_bl_1000series,1200) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 140*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_yk_bl_1000series_lv_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_yk_bl_1000series_main_capacity;
@@ -10873,7 +10912,7 @@ item(FEAT_TRAINS, yk_bl_3000series,1201) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 122*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_yk_bl_3000series_lv_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_yk_bl_3000series_main_capacity;
@@ -10988,7 +11027,7 @@ item(FEAT_TRAINS, yk_bl_4000series,1202) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 121*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_yk_bl_4000series_main_capacity;
@@ -11164,7 +11203,7 @@ item(FEAT_TRAINS, yk_gl_10000series,1210) {
         running_cost_factor: 48;
 
         speed: 80 km/h;
-        track_type: TR_1435_LNR;
+        track_type: TR_1435_LINEAR;
         power: 540 kW;
         weight: 27 ton;
 
@@ -11200,7 +11239,7 @@ item(FEAT_TRAINS, yk_gl_10000series,1210) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 88*param_capacity_mod/3;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
         cargo_subtype_text: sw_yk_gl_10000series_lv_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_yk_gl_10000series_main_capacity;
@@ -11295,7 +11334,7 @@ string(STR_LINES_USED, string(STR_OSAKA_MIDO_NAMBOKU)));
         start_stop: sw_stop_start_3;
         cargo_capacity: 120*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_os_nm_8000series_main_capacity;
@@ -11421,7 +11460,7 @@ string(STR_LINES_USED, string(STR_OSAKA_MIDO_NAMBOKU)));
         start_stop: sw_stop_start_3;
         cargo_capacity: 128*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_os_nm_9000series_lv_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_os_nm_9000series_main_capacity;
@@ -11554,7 +11593,7 @@ string(STR_LINES_USED, string(STR_OSAKA_MIDO_YOTSU)));
 
         cargo_capacity: 84*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_os_nm_100series_lv_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: 84*param_capacity_mod/3;
@@ -11643,7 +11682,7 @@ string(STR_LINES_USED, string(STR_OSAKA_MIDO)));
         start_stop: sw_stop_start_2;
         cargo_capacity: 84*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: 84*param_capacity_mod/3;
@@ -11806,7 +11845,7 @@ string(STR_LINES_USED, string(STR_OSAKA_MIDO)));
         start_stop: sw_stop_start_2;
         cargo_capacity: 84*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_os_nm_1000series_lv_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: 84*param_capacity_mod/3;
@@ -11908,7 +11947,7 @@ string(STR_LINES_USED, string(STR_OSAKA_MIDO)));
         start_stop: sw_stop_start_2;
         cargo_capacity: 72*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: 72*param_capacity_mod/3;
@@ -12039,7 +12078,7 @@ string(STR_LINES_USED, string(STR_OSAKA_MIDO)));
         cargo_capacity: 91*param_capacity_mod/3;
 
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_os_nm_30series_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_os_nm_30series_main_capacity;
@@ -12227,7 +12266,7 @@ string(STR_LINES_USED, string(STR_OSAKA_MIDO)));
         start_stop: sw_stop_start_3;
         cargo_capacity: 130*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_os_nm_10series_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_os_nm_10series_main_capacity;
@@ -12365,7 +12404,7 @@ string(STR_LINES_USED, string(STR_OSAKA_MIDO)));
         start_stop: sw_stop_start_2;
         cargo_capacity: 130*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_os_nm_21series_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_os_nm_21series_main_capacity;
@@ -12495,7 +12534,7 @@ string(STR_LINES_USED, string(STR_OSAKA_MIDO)));
         start_stop: sw_stop_start_2;
         cargo_capacity: 130*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_os_nm_30000series_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_os_nm_30000series_main_capacity;
@@ -12644,7 +12683,7 @@ string(STR_LINES_USED, string(STR_OSAKA_TANIMACHI)));
 
         cargo_capacity: 72*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_os_tm_50series_lv_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: 72*param_capacity_mod/3;
@@ -12812,7 +12851,7 @@ string(STR_LINES_USED, string(STR_OSAKA_TANIMACHI)));
         cargo_capacity: 91*param_capacity_mod/3;
 
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_os_tm_30series_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_os_tm_30series_main_capacity;
@@ -12934,7 +12973,7 @@ string(STR_LINES_USED, string(STR_OSAKA_TANIMACHI)));
         start_stop: sw_stop_start_2;
         cargo_capacity: 130*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_os_tm_20series_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_os_tm_20series_main_capacity;
@@ -13054,7 +13093,7 @@ string(STR_LINES_USED, string(STR_OSAKA_TANIMACHI)));
         start_stop: sw_stop_start_2;
         cargo_capacity: 130*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_os_tm_22series_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_os_tm_22series_main_capacity;
@@ -13143,7 +13182,7 @@ string(STR_LINES_USED, string(STR_OSAKA_TANIMACHI)));
         start_stop: sw_stop_start_2;
         cargo_capacity: 130*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_os_tm_30000series_main_capacity;
@@ -13292,7 +13331,7 @@ string(STR_LINES_USED, string(STR_OSAKA_YOTSU)));
         start_stop: sw_stop_start_2;
         cargo_capacity: 72*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_os_yb_1100type_lv_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: 72*param_capacity_mod/3;
@@ -13439,7 +13478,7 @@ string(STR_LINES_USED, string(STR_OSAKA_YOTSU)));
         start_stop: sw_stop_start_2;
         cargo_capacity: 72*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_os_yb_50series_lv_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: 72*param_capacity_mod/3;
@@ -13618,7 +13657,7 @@ string(STR_LINES_USED, string(STR_OSAKA_YOTSU)));
         cargo_capacity: 91*param_capacity_mod/3;
 
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_os_yb_30series_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_os_yb_30series_main_capacity;
@@ -13737,7 +13776,7 @@ string(STR_LINES_USED, string(STR_OSAKA_YOTSU)));
         start_stop: sw_stop_start_2;
         cargo_capacity: 130*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_os_yb_23series_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_os_yb_23series_main_capacity;
@@ -13840,7 +13879,7 @@ string(STR_LINES_USED, string(STR_OSAKA_CHUO)));
 
         cargo_capacity: 72*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: 72*param_capacity_mod/3;
@@ -13986,7 +14025,7 @@ string(STR_LINES_USED, string(STR_OSAKA_CHUO)));
         start_stop: sw_stop_start_2;
         cargo_capacity: 72*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_os_ch_50series_lv_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: 72*param_capacity_mod/3;
@@ -14111,7 +14150,7 @@ string(STR_LINES_USED, string(STR_OSAKA_CHUO)));
         cargo_capacity: 91*param_capacity_mod/3;
 
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_os_ch_30series_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_os_ch_30series_main_capacity;
@@ -14199,7 +14238,7 @@ item(FEAT_TRAINS, os_ch_20series,1273) {
     start_stop: sw_stop_start_2;
     cargo_capacity: 130*param_capacity_mod/3;
   }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
   cargo_subtype_text:sw_empty_desc;
     loading_speed: param_loading_4D;
     cargo_capacity: sw_os_ch_20series_main_capacity;
@@ -14321,7 +14360,7 @@ string(STR_LINES_USED, string(STR_OSAKA_CHUO)));
         start_stop: sw_stop_start_2;
         cargo_capacity: 130*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_os_ch_24series_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_os_ch_24series_main_capacity;
@@ -14405,7 +14444,7 @@ string(STR_LINES_USED, string(STR_OSAKA_CHUO)));
         start_stop: sw_stop_start_2;
         cargo_capacity: 130*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_os_ch_30000series_main_capacity;
@@ -14488,7 +14527,7 @@ string(STR_LINES_USED, string(STR_OSAKA_CHUO)));
         start_stop: sw_stop_start_3;
         cargo_capacity: 135*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_os_ch_400series_main_capacity;
@@ -14571,7 +14610,7 @@ item(FEAT_TRAINS, os_ch_kintetsu7000,1277) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 125*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_os_ch_kintetsu7000_main_capacity;
@@ -14728,7 +14767,7 @@ string(STR_LINES_USED, string(STR_OSAKA_SENNICHI)));
         start_stop: sw_stop_start_2;
         cargo_capacity: 72*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_os_sn_1100type_lv_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_os_sn_1100type_main_capacity;
@@ -14874,7 +14913,7 @@ string(STR_LINES_USED, string(STR_OSAKA_SENNICHI)));
         start_stop: sw_stop_start_2;
         cargo_capacity: 72*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_os_sn_50series_lv_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: 72*param_capacity_mod/3;
@@ -14998,7 +15037,7 @@ string(STR_LINES_USED, string(STR_OSAKA_SENNICHI)));
         cargo_capacity: 91*param_capacity_mod/3;
 
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_os_sn_30series_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_os_sn_30series_main_capacity;
@@ -15116,7 +15155,7 @@ string(STR_LINES_USED, string(STR_OSAKA_SENNICHI)));
         start_stop: sw_stop_start_2;
         cargo_capacity: 130*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text: sw_os_sn_25series_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_os_sn_25series_main_capacity;
@@ -15311,7 +15350,7 @@ string(STR_LINES_USED, string(STR_OSAKA_SAKAISUJI)));
         start_stop: sw_stop_start_2;
         cargo_capacity: 135*param_capacity_mod/3;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
         cargo_subtype_text: sw_os_hk_60series_lv_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_os_hk_60series_main_capacity;
@@ -15482,7 +15521,7 @@ string(STR_LINES_USED, string(STR_OSAKA_SAKAISUJI)));
         start_stop: sw_stop_start_3;
         cargo_capacity: 134*param_capacity_mod/3;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
         cargo_subtype_text: sw_os_hk_66series_lv_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_os_hk_66series_main_capacity;
@@ -15654,7 +15693,7 @@ item(FEAT_TRAINS, os_ts_70series,1300) {
         cost_factor: 19;
         running_cost_factor: 49;
         speed: 100 km/h;
-        track_type: TR_1435_DC;
+        track_type: TR_1435_LINEAR;
         power: 200 kW;
         weight: 24 ton;
         loading_speed: param_loading_3D;
@@ -15676,7 +15715,7 @@ string(STR_LINES_USED, string(STR_OSAKA_TSURUMI)));
         start_stop: sw_stop_start_3;
         cargo_capacity: 89*param_capacity_mod/3;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
         cargo_subtype_text: sw_os_ts_70series_lv_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_os_ts_70series_main_capacity;
@@ -15756,7 +15795,7 @@ item(FEAT_TRAINS, os_ts_80series,1301) {
         cost_factor: 19;
         running_cost_factor: 49;
         speed: 110 km/h;
-        track_type: TR_1435_DC;
+        track_type: TR_1435_LINEAR;
         power: 200 kW;
         weight: 24 ton;
         loading_speed: param_loading_3D;
@@ -15777,7 +15816,7 @@ string(STR_LINES_USED, string(STR_OSAKA_TSURUMI)));
         start_stop: sw_stop_start_3;
         cargo_capacity: 89*param_capacity_mod/3;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_os_ts_80series_main_capacity;
@@ -15860,7 +15899,7 @@ item(FEAT_TRAINS, os_iz_80series,1310) {
         cost_factor: 19;
         running_cost_factor: 49;
         speed: 110 km/h;
-        track_type: TR_1435_LNR;
+        track_type: TR_1435_LINEAR;
         power: 200 kW;
         weight: 24 ton;
         loading_speed: param_loading_3D;
@@ -15881,7 +15920,7 @@ string(STR_LINES_USED, string(STR_OSAKA_IMAZATO)));
         start_stop: sw_stop_start_3;
         cargo_capacity: 89*param_capacity_mod/3;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_os_iz_80series_main_capacity;
@@ -16050,7 +16089,7 @@ item(FEAT_TRAINS, kt_ks_10series,1350) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 130*param_capacity_mod/3;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_kt_ks_10series_main_capacity;
@@ -16217,7 +16256,7 @@ item(FEAT_TRAINS, kt_ks_20series,1351) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 130*param_capacity_mod/3;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_kt_ks_20series_main_capacity;
@@ -16375,7 +16414,7 @@ item(FEAT_TRAINS, kt_tz_50series,1360) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 144*param_capacity_mod/3;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_kt_tz_50series_main_capacity;
@@ -16489,7 +16528,7 @@ item(FEAT_TRAINS, ng_hg_type100,1370) {
         start_stop: sw_stop_start_2;
         cargo_capacity: 110*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_ng_hg_type100_main_capacity;
@@ -16580,7 +16619,7 @@ item(FEAT_TRAINS, ng_hg_type300,1371) {
         start_stop: sw_stop_start_2;
         cargo_capacity: 110*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_ng_hg_type300_main_capacity;
@@ -16691,7 +16730,7 @@ item(FEAT_TRAINS, ng_hg_5000series,1372) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 110*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_ng_hg_5000series_main_capacity;
@@ -16860,7 +16899,7 @@ item(FEAT_TRAINS, ng_hg_5050series,1373) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 96*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text:sw_ng_hg_5050series_lv_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_ng_hg_5050series_main_capacity;
@@ -16971,7 +17010,7 @@ item(FEAT_TRAINS, ng_hg_n1000series,1374) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 97*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_ng_hg_n1000series_main_capacity;
@@ -17063,7 +17102,7 @@ item(FEAT_TRAINS, ng_mj_type1000,1380) {
         start_stop: sw_stop_start_2;
         cargo_capacity: 110*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_ng_mj_type1000_main_capacity;
@@ -17233,7 +17272,7 @@ item(FEAT_TRAINS, ng_mj_2000series,1381) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 96*param_capacity_mod/3;
     }
- livery_override((mu_car_metro)){
+ livery_override(mu_car_metro){
         cargo_subtype_text:sw_ng_mj_2000series_lv_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_ng_mj_2000series_main_capacity;
@@ -17411,7 +17450,7 @@ item(FEAT_TRAINS, ng_tm_3000series,1390) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 130*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_ng_tm_3000series_main_capacity;
@@ -17558,7 +17597,7 @@ item(FEAT_TRAINS, ng_tm_3050series,1391) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 138*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_ng_tm_3050series_main_capacity;
@@ -17772,7 +17811,7 @@ item(FEAT_TRAINS, ng_tm_N3000series,1392) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 136*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
         cargo_subtype_text:sw_ng_tm_N3000series_lv_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_ng_tm_N3000series_main_capacity;
@@ -17923,7 +17962,7 @@ item(FEAT_TRAINS, ng_sk_6000series,1400) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 138*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_ng_sk_6000series_main_capacity;
@@ -18082,7 +18121,7 @@ item(FEAT_TRAINS, ng_sk_6050series,1401) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 136*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_ng_sk_6050series_main_capacity;
@@ -18218,7 +18257,7 @@ item(FEAT_TRAINS, ng_sk_7000series,1410) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 128*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_ng_sk_7000series_main_capacity;
@@ -18390,7 +18429,7 @@ item(FEAT_TRAINS, sn_nm_1000series,1430) {
  graphics {
         default: sw_sn_nm_1000series_lv;
         purchase: sn_nm_1000series_purchase;
-        can_attach_wagon: sn_nm_1000series_attach_vehid;
+        can_attach_wagon: sw_1067_attach_vehid;
         additional_text:
     string(STR_TRAIN_DESC,
   string(STR_NARROWGAUGE),
@@ -18403,15 +18442,8 @@ item(FEAT_TRAINS, sn_nm_1000series,1430) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 144*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
-  cargo_subtype_text:sw_empty_desc;
-        loading_speed: param_loading_4D;
-        cargo_capacity: 144*param_capacity_mod/3;
-        default: sw_sn_nm_1000series_lv;
-        power: 429*2/3;
-        weight: 32;
-        length: 8;
-      }
+    livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_4D; cargo_capacity: 144*param_capacity_mod/3; default: sw_sn_nm_1000series_lv; power: 429*2/3; weight: 32; }
+
 }
 # 178 "src/_metro.pnml" 2
 
@@ -18630,7 +18662,7 @@ item(FEAT_TRAINS, sn_tz_2000series,1435) {
         cost_factor: 18;
         running_cost_factor: 48;
         speed: 105 km/h;
-        track_type: TR_1435_DC;
+        track_type: TR_1435_LINEAR;
         power: 560 kW;
         weight: 32 ton;
         loading_speed: param_loading_3D;
@@ -18652,7 +18684,7 @@ item(FEAT_TRAINS, sn_tz_2000series,1435) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 92*param_capacity_mod/3;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
         cargo_subtype_text:sw_sn_tz_2000series_lv_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_sn_tz_2000series_main_capacity;
@@ -18808,7 +18840,7 @@ item(FEAT_TRAINS, kb_sy_1000series,1440) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 136*param_capacity_mod/3;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_kb_sy_1000series_main_capacity;
@@ -18960,7 +18992,7 @@ item(FEAT_TRAINS, kb_sy_2000series,1441) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 134*param_capacity_mod/3;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_kb_sy_2000series_main_capacity;
@@ -19225,7 +19257,7 @@ item(FEAT_TRAINS, kb_sy_3000series,1442) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 133*param_capacity_mod/3;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
         cargo_subtype_text: kb_sy_3000series_lv_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_kb_sy_3000series_main_capacity;
@@ -19377,7 +19409,7 @@ item(FEAT_TRAINS, kb_sy_7000series,1443) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 133*param_capacity_mod/3;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_kb_sy_7000series_main_capacity;
@@ -19529,7 +19561,7 @@ item(FEAT_TRAINS, kb_sy_6000series,1444) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 124*param_capacity_mod/3;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_kb_sy_6000series_main_capacity;
@@ -19645,7 +19677,7 @@ item(FEAT_TRAINS, kb_kg_5000series,1447) {
         cost_factor: 19;
         running_cost_factor: 49;
         speed: 100 km/h;
-        track_type: TR_1435_DC;
+        track_type: TR_1435_LINEAR;
         power: 270 kW;
         weight: 27 ton;
         loading_speed: param_loading_3D;
@@ -19666,7 +19698,7 @@ item(FEAT_TRAINS, kb_kg_5000series,1447) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 84*param_capacity_mod/3;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_kb_kg_5000series_main_capacity;
@@ -19786,7 +19818,7 @@ item(FEAT_TRAINS, fk_kk_1000series,1450) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 135*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_fk_kk_1000series_main_capacity;
@@ -19904,7 +19936,7 @@ item(FEAT_TRAINS, fk_kk_2000series,1451) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 135*param_capacity_mod/3;
     }
- livery_override((mu_car_narrow)){
+ livery_override(mu_car_narrow){
   cargo_subtype_text:sw_empty_desc;
         loading_speed: param_loading_4D;
         cargo_capacity: sw_fk_kk_2000series_main_capacity;
@@ -20053,7 +20085,7 @@ item(FEAT_TRAINS, fk_nk_3000series,1455) {
     cost_factor: 19;
     running_cost_factor: 49;
     speed: 120 km/h;
-    track_type: TR_1435_DC;
+    track_type: TR_1435_LINEAR;
     power: 300 kW;
     weight: 27 ton;
     loading_speed: param_loading_3D;
@@ -20075,7 +20107,7 @@ item(FEAT_TRAINS, fk_nk_3000series,1455) {
         start_stop: sw_stop_start_3;
         cargo_capacity: 89*param_capacity_mod/3;
     }
- livery_override((mu_car)){
+ livery_override(mu_car){
         cargo_subtype_text: sw_fk_nk_3000series_lv_desc;
         loading_speed: param_loading_3D;
         cargo_capacity: sw_fk_nk_3000series_main_capacity;
@@ -46181,6 +46213,7 @@ item(FEAT_TRAINS, odakyu2000n) {
   }
   switch(FEAT_TRAINS, SELF, sw_odakyu3000n_lv,vehicle_type_id){
    mu_car_narrow:sw_odakyu3000n_1_end_gfx_main;
+   mu_car:sw_odakyu3000n_1_end_gfx_main;
    sw_odakyu3000n_1_front_gfx_main;
   }
 
@@ -46196,6 +46229,7 @@ item(FEAT_TRAINS, odakyu2000n) {
   }
   switch(FEAT_TRAINS, SELF, sw_odakyu3000n_capacity_main,vehicle_type_id){
    mu_car_narrow:sw_odakyu3000n_capacity;
+   mu_car:sw_odakyu3000n_capacity;
    sw_odakyu3000n_capacity_1;
   }
 
@@ -46250,13 +46284,6 @@ item(FEAT_TRAINS, odakyu3000n) {
   loading_speed: param_loading_4D;
  }
  graphics {
-  default: sw_odakyu3000n_lv;
-  power:sw_odakyu3000n_power_main()*4*1342/1000;
-  start_stop: sw_stop_start_3;
-  purchase: odakyu3000n_purchase;
-  can_attach_wagon: sw_1067_attach_vehid;
-
-  cargo_capacity: sw_odakyu3000n_capacity_main()*param_capacity_mod/3;
   additional_text:string(STR_TRAIN_DESC,
           string(STR_NARROWGAUGE),
           string(STR_DENKI, string(STR_DC_N, 1500)),
@@ -46264,15 +46291,16 @@ item(FEAT_TRAINS, odakyu3000n) {
           string(STR_FORMATION, string(STR_NUM_CARS_3, 6,8,10)),
           string(STR_USAGE, string(STR_COMMUTER)),
           string(STR_OPERATOR, string(STR_ODAKYU)));
-    }
- livery_override(mu_car_narrow){
-   cargo_subtype_text:sw_empty_desc;
-   default: sw_odakyu3000n_lv;
-   loading_speed: param_loading_4D;
-   power: sw_odakyu3000n_power_main()*4*1342/1000;
-   cargo_capacity: sw_odakyu3000n_capacity_main()*param_capacity_mod/3;
-   weight: 32;
-  }
+
+  can_attach_wagon: sw_1067_attach_vehid;
+  purchase: odakyu3000n_purchase;
+  start_stop: sw_stop_start_3;
+
+    default: sw_odakyu3000n_lv; loading_speed:param_loading_4D; power:sw_odakyu3000n_power_main()*4*1342/1000; cargo_capacity: sw_odakyu3000n_capacity_main()*param_capacity_mod/3; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_4D; cargo_capacity: sw_odakyu3000n_capacity_main()*param_capacity_mod/3; default: sw_odakyu3000n_lv; power: sw_odakyu3000n_power_main()*4*1342/1000; weight: 32; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_4D; cargo_capacity: sw_odakyu3000n_capacity_main()*param_capacity_mod/3; default: sw_odakyu3000n_lv; power: sw_odakyu3000n_power_main()*4*1342/1000; weight: 32; }
+
+
+
+
 }
 # 100 "src/_private.pnml" 2
 # 1 "src/private/Kanto/odakyu/odakyu4000n.pnml" 1
