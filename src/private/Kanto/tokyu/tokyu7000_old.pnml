@@ -144,6 +144,7 @@ switch(FEAT_TRAINS, SELF, sw_tokyu7000_old_1_front_gfx_main,position_in_vehid_ch
 }
 switch(FEAT_TRAINS, SELF, sw_tokyu7000_old_livery_2,vehicle_type_id){
     mu_car_narrow:sw_tokyu7000_old_1_end_gfx_main;
+    mu_car:sw_tokyu7000_old_1_end_gfx_main;
     sw_tokyu7000_old_1_front_gfx_main;
 }
 
@@ -155,11 +156,11 @@ switch(FEAT_TRAINS, PARENT, sw_tokyu7000_old_lv, current_year > 1984){
 
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_tokyu7000_old_capacity,position_in_vehid_chain_from_end){
-    0: 140*param_capacity_mod/3;
-    default: 150*param_capacity_mod/3;
+    0: 140;
+    default: 150;
 }
 switch(FEAT_TRAINS, SELF, sw_tokyu7000_old_capacity_1,position_in_vehid_chain){
-    0: 140*param_capacity_mod/3;
+    0: 140;
     default: sw_tokyu7000_old_capacity;
 }
 switch(FEAT_TRAINS, SELF, sw_tokyu7000_old_capacity_main,vehicle_type_id){
@@ -168,28 +169,9 @@ switch(FEAT_TRAINS, SELF, sw_tokyu7000_old_capacity_main,vehicle_type_id){
     sw_tokyu7000_old_capacity_1;
 }
 
-//TODO: attachable vehicles -- will be changed later
-switch(FEAT_TRAINS, SELF, tokyu7000_old_attach_vehid, vehicle_type_id) {
-  mu_car: return string(STR_ATTACH_1067_ERROR);
-  mu_car_metro: return string(STR_ATTACH_1067_ERROR);
-  return CB_RESULT_ATTACH_ALLOW;
-}
-
 item(FEAT_TRAINS, tokyu7000_old,2008) {
     property {
-        cargo_capacity: 130;
-        climates_available: param_disable_tokyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
-        ai_special_flag: AI_FLAG_PASSENGER;
-        sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
-        refittable_cargo_classes: bitmask(CC_PASSENGERS);
-        non_refittable_cargo_classes: bitmask();                
-        running_cost_base: RUNNING_COST_ELECTRIC;
-        engine_class: ENGINE_CLASS_ELECTRIC;
-        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
-        tractive_effort_coefficient: 0.3;
-        air_drag_coefficient: 0.07;
-        bitmask_vehicle_info: 0;
+        OVERRIDEN_TRAIN_DATA
 
         name: string(STR_TRAIN_NAME, string(STR_NAME_TOKYU), "7000", string(STR_NAME_SERIES));
         introduction_date: date(1962, 1, 1);
@@ -203,30 +185,25 @@ item(FEAT_TRAINS, tokyu7000_old,2008) {
         track_type: TR_1067_DC;
         power: 280 kW;
         weight: 28 ton;
-        loading_speed: param_loading_3D;
     }
 	graphics {
-        default: sw_tokyu7000_old_lv;
-        purchase: tokyu7000_old_purchase;
-        can_attach_wagon: tokyu7000_old_attach_vehid;
-        start_stop: sw_stop_start_2; 
-        cargo_capacity: sw_tokyu7000_old_capacity_main;
-        //cargo_subtype_text: sw_{...}_lv_desc;
-        additional_text:
-		string(STR_TRAIN_DESC,
-		string(STR_NARROWGAUGE),
-		string(STR_DENKI, string(STR_DC_N, 1500)),
-		string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
-		string(STR_FORMATION, string(STR_NUM_CARS_4, 2,4,6,8)),
-		string(STR_USAGE, string(STR_COMMUTER)),
-		string(STR_OPERATOR, string(STR_TOKYU)));
-    }
-	livery_override(mu_car_narrow){
-        cargo_subtype_text:sw_empty_desc;
-        loading_speed: param_loading_3D;
-        cargo_capacity: sw_tokyu7000_old_capacity_main;
-        default: sw_tokyu7000_old_lv;
-        power: 375;
-        weight: 27;
-      }
+    additional_text:
+			string(STR_TRAIN_DESC,
+      string(STR_NARROWGAUGE),
+      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+      string(STR_FORMATION, string(STR_NUM_CARS_4, 2,4,6,8)),
+      string(STR_USAGE, string(STR_COMMUTER)),
+      string(STR_OPERATOR, string(STR_TOKYU)));
+		// cargo_subtype_text: sw_tokyu7000_old_lv_desc;
+		can_attach_wagon: sw_1067_attach_vehid;
+		purchase: tokyu7000_old_purchase;
+		start_stop: sw_stop_start_2; 
+    
+    SET_GRAPHICS_DOUBLE(sw_tokyu7000_old_lv,//graphics
+		sw_tokyu7000_old_capacity_main(),//cargo capacity
+		375,//power
+		param_loading_3D,//loading speed
+		sw_empty_desc,//subtype
+		mu_car_narrow,27)//car_fallback,weight
 }
