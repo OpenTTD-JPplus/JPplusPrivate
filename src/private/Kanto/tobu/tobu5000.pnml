@@ -105,7 +105,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu5000_1_front_gfx_main,position_in_vehid_chain_f
     default: sw_tobu5000_1_fake_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu5000_livery_1_0,vehicle_type_id){
-    mu_car_narrow:sw_tobu5000_1_end_gfx_main;
+    100..102:sw_tobu5000_1_end_gfx_main;
     sw_tobu5000_1_front_gfx_main;
 }
 
@@ -176,7 +176,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu5000_1_ac_front_gfx_main,position_in_vehid_chai
     default: sw_tobu5000_1_ac_fake_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu5000_livery_1_1,vehicle_type_id){
-    mu_car_narrow:sw_tobu5000_1_ac_end_gfx_main;
+    100..102:sw_tobu5000_1_ac_end_gfx_main;
     sw_tobu5000_1_ac_front_gfx_main;
 }
 
@@ -253,7 +253,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu5000_2_front_gfx_main,position_in_vehid_chain_f
     default: sw_tobu5000_2_fake_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu5000_livery_2,vehicle_type_id){
-    mu_car_narrow:sw_tobu5000_2_end_gfx_main;
+    100..102:sw_tobu5000_2_end_gfx_main;
     sw_tobu5000_2_front_gfx_main;
 }
 
@@ -300,7 +300,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu5000_capacity_1,position_in_vehid_chain){
     default: sw_tobu5000_capacity;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu5000_capacity_main,vehicle_type_id){
-    mu_car_narrow:sw_tobu5000_capacity;
+    100..102:sw_tobu5000_capacity;
     sw_tobu5000_capacity_1;
 }
 
@@ -309,14 +309,6 @@ switch(FEAT_TRAINS, SELF, tobu5000_power, position_in_vehid_chain %2) {
   1: return 520*1342/1000;
   return 0;
 }
-
-//attachable vehicles
-switch(FEAT_TRAINS, SELF, tobu5000_attach_vehid, vehicle_type_id) {
-  mu_car: return string(STR_ATTACH_1067_ERROR);
-  mu_car_metro: return string(STR_ATTACH_1067_ERROR);
-  return CB_RESULT_ATTACH_ALLOW;
-}
-
 item(FEAT_TRAINS, tobu5000,2071) {
     property {
         cargo_capacity: 130;
@@ -351,7 +343,7 @@ item(FEAT_TRAINS, tobu5000,2071) {
 		start_stop: sw_stop_start_2;
         default: sw_tobu5000_lv;
 		purchase: tobu5000_purchase;
-		can_attach_wagon: tobu5000_attach_vehid;
+		can_attach_wagon: sw_1067_attach_vehid;
 		cargo_subtype_text:sw_tobu5000_lv_desc;
 		additional_text:
 				string(STR_TRAIN_DESC,

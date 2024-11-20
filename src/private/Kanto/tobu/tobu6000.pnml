@@ -42,7 +42,7 @@
     }
 
     switch(FEAT_TRAINS, SELF, sw_tobu6000_livery_1,vehicle_type_id){
-        mu_car_narrow:sw_tobu6000_end_fix;
+        100..102:sw_tobu6000_end_fix;
         sw_tobu6000_front_gfx;
     }
 //power fixer
@@ -56,7 +56,7 @@
         default: 150;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu6000_capacity_1,vehicle_type_id){
-        mu_car_narrow:sw_tobu6000_capacity_1_0;
+        100..102:sw_tobu6000_capacity_1_0;
         150;
     }
     //limited service
@@ -65,7 +65,7 @@
         default: 84;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu6000_capacity_2,vehicle_type_id){
-        mu_car_narrow:sw_tobu6000_capacity_2_0;
+        100..102:sw_tobu6000_capacity_2_0;
         84;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu6000_capacity,cargo_subtype){
@@ -89,13 +89,6 @@
         string(LV_DEFAULT),
         string(STR_PAX_AGE));
     }
-
-  //attachable vehicles
-    switch(FEAT_TRAINS, SELF, tobu6000_attach_vehid, vehicle_type_id) {
-    mu_car_narrow:  return CB_RESULT_ATTACH_ALLOW;
-    return string(STR_ATTACH_ERROR);
-    }
-
 item(FEAT_TRAINS, tobu6000,2053) {
     property {
         cargo_capacity: 130;
@@ -131,7 +124,7 @@ item(FEAT_TRAINS, tobu6000,2053) {
         default: sw_tobu6000_lv;
 		purchase: tobu6000_purchase;
         cargo_age_period:sw_tobu6000_cargo_age_main; 
-		can_attach_wagon: tobu6000_attach_vehid;
+		can_attach_wagon: sw_1067_attach_vehid;
 		cargo_subtype_text:sw_tobu6000_lv_desc;
 		additional_text:
 				string(STR_TRAIN_DESC,

@@ -42,16 +42,9 @@
     }
 
     switch(FEAT_TRAINS, SELF, sw_tobu1700_lv,vehicle_type_id){
-        mu_car_narrow:sw_tobu1700_end_fix;
+        100..102:sw_tobu1700_end_fix;
         sw_tobu1700_front_gfx;
     }
-
-  //attachable vehicles
-    switch(FEAT_TRAINS, SELF, tobu1700_attach_vehid, vehicle_type_id) {
-    mu_car_narrow:  return CB_RESULT_ATTACH_ALLOW;
-    return string(STR_ATTACH_ERROR);
-    }
-
 //power fixer
     switch(FEAT_TRAINS, SELF, tobu1700_power, position_in_vehid_chain %2) {
         1: return 75*4*1342/1000;
@@ -92,7 +85,7 @@ item(FEAT_TRAINS, tobu1700,2051) {
 		start_stop: sw_stop_start_2;
         default: sw_tobu1700_lv;
 		purchase: tobu1700_purchase;
-		can_attach_wagon: tobu1700_attach_vehid;
+		can_attach_wagon: sw_1067_attach_vehid;
 		// cargo_subtype_text:sw_tobu1700_lv_desc;
 		additional_text:
 				string(STR_TRAIN_DESC,

@@ -94,7 +94,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu60000_front_gfx_main,position_in_vehid_chain_fr
     default: sw_tobu60000_fake_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu60000_lv,vehicle_type_id){
-    mu_car_narrow:sw_tobu60000_end_gfx_main;
+    100..102:sw_tobu60000_end_gfx_main;
     sw_tobu60000_front_gfx_main;
 }
 
@@ -109,7 +109,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu60000_capacity_1,position_in_vehid_chain){
     default: sw_tobu60000_capacity;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu60000_capacity_main,vehicle_type_id){
-    mu_car_narrow:sw_tobu60000_capacity;
+    100..102:sw_tobu60000_capacity;
     sw_tobu60000_capacity_1;
 }
 //power fix
@@ -123,17 +123,9 @@ switch(FEAT_TRAINS, SELF, sw_tobu60000_head_power,num_vehs_in_consist){
     return 0;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu60000_power_main,vehicle_type_id){
-    mu_car_narrow:sw_tobu60000_power;
+    100..102:sw_tobu60000_power;
     sw_tobu60000_head_power;
 }
-
-//attachable vehicles
-switch(FEAT_TRAINS, SELF, tobu60000_attach_vehid, vehicle_type_id) {
-  mu_car: return string(STR_ATTACH_1067_ERROR);
-  mu_car_metro: return string(STR_ATTACH_1067_ERROR);
-  return CB_RESULT_ATTACH_ALLOW;
-}
-
 item(FEAT_TRAINS, tobu60000,2079) {
     property {
         cargo_capacity: 130;
@@ -169,7 +161,7 @@ item(FEAT_TRAINS, tobu60000,2079) {
 		start_stop: sw_stop_start_3;
         default: sw_tobu60000_lv;
 		purchase: tobu60000_purchase;
-		can_attach_wagon: tobu60000_attach_vehid;
+		can_attach_wagon: sw_1067_attach_vehid;
 		// cargo_subtype_text:sw_tobu60000_lv_desc;
 		additional_text:
 				string(STR_TRAIN_DESC,

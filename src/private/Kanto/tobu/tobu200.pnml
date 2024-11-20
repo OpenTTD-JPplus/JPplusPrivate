@@ -112,7 +112,7 @@
         default: sw_tobu200_1_fake_placer_main;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu200_livery_1,vehicle_type_id){
-        mu_car_narrow:sw_tobu200_1_end_gfx_main;
+        100..102:sw_tobu200_1_end_gfx_main;
         sw_tobu200_1_front_gfx_main;
     }
 //
@@ -188,7 +188,7 @@
         default: sw_tobu200_2_fake_placer_main;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu200_livery_2,vehicle_type_id){
-        mu_car_narrow:sw_tobu200_2_end_gfx_main;
+        100..102:sw_tobu200_2_end_gfx_main;
         sw_tobu200_2_front_gfx_main;
     }
 //
@@ -264,7 +264,7 @@
         default: sw_tobu200_3_fake_placer_main;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu200_livery_3,vehicle_type_id){
-        mu_car_narrow:sw_tobu200_3_end_gfx_main;
+        100..102:sw_tobu200_3_end_gfx_main;
         sw_tobu200_3_front_gfx_main;
     }
 //
@@ -326,21 +326,13 @@
         return 0;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu200_power_main_1,vehicle_type_id){
-        mu_car_narrow:sw_tobu200_power;
+        100..102:sw_tobu200_power;
         sw_tobu200_head_power;
     }
     switch(FEAT_TRAINS, SELF, tobu200_power_main, build_year > 1997) {
         1: sw_tobu200_power_main_1;
         return 300;
     }
-
-  //attachable vehicles
-    switch(FEAT_TRAINS, SELF, tobu200_attach_vehid, vehicle_type_id) {
-        mu_car: return string(STR_ATTACH_1067_ERROR);
-        mu_car_metro: return string(STR_ATTACH_1067_ERROR);
-        return CB_RESULT_ATTACH_ALLOW;
-    }
-
 item(FEAT_TRAINS, tobu200,2059) {
     property {
         cargo_capacity: 130;
@@ -376,7 +368,7 @@ item(FEAT_TRAINS, tobu200,2059) {
 		start_stop: sw_stop_start_3;
         default: sw_tobu200_lv;
 		purchase: tobu200_purchase;
-		can_attach_wagon: tobu200_attach_vehid;
+		can_attach_wagon: sw_1067_attach_vehid;
 		cargo_subtype_text:sw_tobu200_lv_desc;
 		additional_text:
 				string(STR_TRAIN_DESC,
