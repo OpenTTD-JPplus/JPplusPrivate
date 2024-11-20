@@ -110,15 +110,6 @@ switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_lv,position_in_consist){
     0: sw_sn_nm_1000series_front_gfx;
     default: sw_sn_nm_1000series_end;
 }
-//front-end-fixer end
-
-//capacity-changer
-//attachable vehicles
-switch(FEAT_TRAINS, SELF, sn_nm_1000series_attach_vehid, vehicle_type_id) {
-  mu_car_narrow: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
-}
-
 
 item(FEAT_TRAINS, sn_nm_1000series,1430) {
     property {
@@ -152,18 +143,18 @@ item(FEAT_TRAINS, sn_nm_1000series,1430) {
     }
 	graphics {
         default: sw_sn_nm_1000series_lv;
-        purchase: sn_nm_1000series_purchase;
-        can_attach_wagon: sw_1067_attach_vehid;
-        additional_text:
-    string(STR_TRAIN_DESC,
-		string(STR_NARROWGAUGE),
-		string(STR_DENKI, string(STR_DC_N, 1500)),
-		string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
-		string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
-		string(STR_OPERATOR, string(STR_SENDAI)),
-		string(STR_LINES_USED, string(STR_SENDAI_NAMBOKU)));
+		purchase: sn_nm_1000series_purchase;
+		can_attach_wagon: sw_1067_attach_vehid;
+		additional_text:
+ 		   	string(STR_TRAIN_DESC,
+				string(STR_NARROWGAUGE),
+				string(STR_DENKI, string(STR_DC_N, 1500)),
+				string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+				string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
+				string(STR_OPERATOR, string(STR_SENDAI)),
+				string(STR_LINES_USED, string(STR_SENDAI_NAMBOKU)));
 
-        start_stop: sw_stop_start_3;
+		start_stop: sw_stop_start_3;
         cargo_capacity: 144*param_capacity_mod/3;
     }
     GRAPHIC_BLOCK_6(mu_car,sw_empty_desc,param_loading_4D,144,sw_sn_nm_1000series_lv,429*2/3,32)
