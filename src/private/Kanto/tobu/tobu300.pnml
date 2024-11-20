@@ -86,7 +86,7 @@
         default: sw_tobu300_fake_placer_main;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu300_lv,vehicle_type_id){
-        mu_car_narrow:sw_tobu300_end_gfx_main;
+        100..102:sw_tobu300_end_gfx_main;
         sw_tobu300_front_gfx_main;
     }
 
@@ -107,16 +107,9 @@
         return 0;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu300_power_main,vehicle_type_id){
-        mu_car_narrow:sw_tobu300_power;
+        100..102:sw_tobu300_power;
         sw_tobu300_head_power;
     }
-
-  //attachable vehicles
-    switch(FEAT_TRAINS, SELF, tobu300_attach_vehid, vehicle_type_id) {
-    mu_car_narrow:  return CB_RESULT_ATTACH_ALLOW;
-    return string(STR_ATTACH_ERROR);
-    }
-
 item(FEAT_TRAINS, tobu300,2060) {
     property {
         cargo_capacity: 130;
@@ -151,7 +144,7 @@ item(FEAT_TRAINS, tobu300,2060) {
         default: sw_tobu300_lv;
 		purchase: tobu300_purchase;
         cargo_age_period:ltd_express_cargo_age; 
-		can_attach_wagon: tobu300_attach_vehid;
+		can_attach_wagon: sw_1067_attach_vehid;
 		// cargo_subtype_text:sw_tobu300_lv_desc;
 		additional_text:
 				string(STR_TRAIN_DESC,

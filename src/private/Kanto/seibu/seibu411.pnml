@@ -121,12 +121,6 @@
         1: sw_seibu411_power_1;
         return 100;
     }
-  //attachable vehicles
-  switch(FEAT_TRAINS, SELF, seibu411_attach_vehid, vehicle_type_id) {
-			mu_car: return string(STR_ATTACH_1067_ERROR);
-			mu_car_metro: return string(STR_ATTACH_1067_ERROR);
-			return CB_RESULT_ATTACH_ALLOW;
-		}
 
 item(FEAT_TRAINS, seibu411,2113) {
     property {
@@ -165,7 +159,7 @@ item(FEAT_TRAINS, seibu411,2113) {
         cargo_capacity: 160*param_capacity_mod/3;  
         default: sw_seibu411_lv;
 		purchase: seibu411_purchase;
-		can_attach_wagon: seibu411_attach_vehid;
+		can_attach_wagon: sw_1067_attach_vehid;
 		cargo_subtype_text:sw_seibu411_lv_desc;
 		additional_text:
 				string(STR_TRAIN_DESC,

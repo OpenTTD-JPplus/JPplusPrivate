@@ -75,18 +75,9 @@ switch(FEAT_TRAINS, SELF, sw_tobu20400_front_gfx_main,position_in_vehid_chain_fr
     default: sw_tobu20400_fake_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu20400_lv,vehicle_type_id){
-    mu_car_narrow:sw_tobu20400_end_gfx_main;
+    100..102:sw_tobu20400_end_gfx_main;
     sw_tobu20400_front_gfx_main;
 }
-
-//post fixers
-//attachable vehicles
-switch(FEAT_TRAINS, SELF, tobu20400_attach_vehid, vehicle_type_id) {
-  mu_car: return string(STR_ATTACH_1067_ERROR);
-  mu_car_metro: return string(STR_ATTACH_1067_ERROR);
-  return CB_RESULT_ATTACH_ALLOW;
-}
-
 item(FEAT_TRAINS, tobu20400,2076) {
     property {
         cargo_capacity: 130;
@@ -123,7 +114,7 @@ item(FEAT_TRAINS, tobu20400,2076) {
 		start_stop: sw_stop_start_3;
         default: sw_tobu20400_lv;
 		purchase: tobu20400_purchase;
-		can_attach_wagon: tobu20400_attach_vehid;
+		can_attach_wagon: sw_1067_attach_vehid;
 		// cargo_subtype_text:sw_tobu20400_lv_desc;
 		additional_text:
 				string(STR_TRAIN_DESC,
