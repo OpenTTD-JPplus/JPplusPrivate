@@ -14,23 +14,20 @@ switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan500_end_gfx,position_in_consist_from_end
     0: tk_mn_eidan500_end;
     tk_mn_eidan500_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan500_livery_1,position_in_consist){
+switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan500_lv,position_in_consist){
     0: tk_mn_eidan500_front;
     sw_tk_mn_eidan500_end_gfx;
 }
 //capacity changer
-switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan500_capacity_main,position_in_consist_from_end){
-    0: 122*param_capacity_mod/3;
-    default: 137*param_capacity_mod/3;
+switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan500_capacity_main,position_in_vehid_chain_from_end){
+    0: 122;
+    default: 137;
 }
-//attachable vehicles
-switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan500_attach_vehid, vehicle_type_id) {
-  mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
-}
-
 item(FEAT_TRAINS, eidan500,1021) {
     property {
+        OVERRIDEN_TRAIN_DATA
+        
+        climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_TRAIN_NAME, string(STR_NAME_EIDAN), "300~900", string(STR_NAME_TYPE));
         introduction_date: date(1953, 1, 1);
         model_life: 40;
@@ -46,26 +43,8 @@ item(FEAT_TRAINS, eidan500,1021) {
         track_type: TR_1435_M;
         power: 300 kW;
         weight: 35 ton;
-
-        climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
-        ai_special_flag: AI_FLAG_PASSENGER;
-        sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
-        refittable_cargo_classes: bitmask(CC_PASSENGERS);
-        non_refittable_cargo_classes: bitmask();                
-
-        running_cost_base: RUNNING_COST_ELECTRIC;
-        engine_class: ENGINE_CLASS_ELECTRIC;
-        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
-        
-        tractive_effort_coefficient: 0.3;
-        air_drag_coefficient: 0.07;
-        bitmask_vehicle_info: 0;
     }
 	graphics {
-        default: sw_tk_mn_eidan500_livery_1;
-		purchase: tk_mn_eidan500_purchase;
-		can_attach_wagon: sw_tk_mn_eidan500_attach_vehid;
 		additional_text:
  		   	string(STR_TRAIN_DESC,
 				string(STR_STANDARDGAUGE),
@@ -74,18 +53,14 @@ item(FEAT_TRAINS, eidan500,1021) {
 				string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,6)),
 				string(STR_OPERATOR, string(STR_TOKYOMETRO)),
 				string(STR_LINES_USED, string(STR_TOKYO_MARU)));
-
-        length: 8;
+		can_attach_wagon: sw_1435_m_attach_vehid;
+		purchase: tk_mn_eidan500_purchase;
 		start_stop: sw_stop_start_2;
-        cargo_capacity: 122*param_capacity_mod/3;
-    }
-	livery_override(mu_car_metro){
-		cargo_subtype_text:sw_empty_desc;
-        default: sw_tk_mn_eidan500_livery_1;
-        cargo_capacity:               sw_tk_mn_eidan500_capacity_main;
-        loading_speed:                param_loading_3D;
-        power: 402;
-        weight: 30;
-        length: 8;
-      }
+
+    SET_GRAPHICS_DOUBLE(sw_tk_mn_eidan500_lv,//graphics
+		sw_tk_mn_eidan500_capacity_main(),//cargo capacity
+		402,//power
+		param_loading_3D,//loading speed
+		sw_empty_desc,//subtype
+		mu_car_metro,30)//car_fallback,weight
 }

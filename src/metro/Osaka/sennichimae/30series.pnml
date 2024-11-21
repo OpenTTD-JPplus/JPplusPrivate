@@ -53,13 +53,17 @@ switch(FEAT_TRAINS, PARENT, sw_os_sn_30series_lv, cargo_subtype){
 }
 
 //capacity-changer
-switch(FEAT_TRAINS, SELF, sw_os_sn_30series_capacity_main,position_in_consist_from_end){
-    0: 91*param_capacity_mod/3;
-    default: 95*param_capacity_mod/3;
+switch(FEAT_TRAINS, SELF, sw_os_sn_30series_capacity_main,position_in_vehid_chain_from_end){
+    0: 91;
+    default: 95;
 }
 
 item(FEAT_TRAINS, os_sn_30series,1282) {
     property {
+        OVERRIDEN_TRAIN_DATA
+        variant_group: 1235;
+
+        climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_TRAIN_NAME, string(STR_NAME_OSAKA_METRO), "30", string(STR_NAME_SERIES));
         introduction_date: date(1967, 1, 1);
         model_life: 44;
@@ -75,48 +79,25 @@ item(FEAT_TRAINS, os_sn_30series,1282) {
         track_type: TR_1435_M;
         power: 480 kW;
         weight: 30 ton;
-
-        climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
-        ai_special_flag: AI_FLAG_PASSENGER;
-        sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
-        refittable_cargo_classes: bitmask(CC_PASSENGERS);
-        non_refittable_cargo_classes: bitmask();                
-
-        running_cost_base: RUNNING_COST_ELECTRIC;
-        engine_class: ENGINE_CLASS_ELECTRIC;
-        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
-        variant_group: 1235;
-
-        tractive_effort_coefficient: 0.3;
-        air_drag_coefficient: 0.07;
-        bitmask_vehicle_info: 0;
     }
 	graphics {
-        default: sw_os_sn_30series_lv;
-		purchase: os_sn_30series_purchase;
-		can_attach_wagon: sw_1435_m_attach_vehid;
 		additional_text:
- 		   	string(STR_TRAIN_DESC,
-				string(STR_STANDARDGAUGE),
-				string(STR_DENKI, string(STR_DC_N, 750)),
-				string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
-				string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
-				string(STR_OPERATOR, string(STR_OSAKAMETRO)),
-string(STR_LINES_USED, string(STR_OSAKA_SENNICHI)));
-
+      string(STR_TRAIN_DESC,
+      string(STR_STANDARDGAUGE),
+      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+      string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
+      string(STR_OPERATOR, string(STR_OSAKAMETRO)),
+      string(STR_LINES_USED, string(STR_OSAKA_SENNICHI)));
 		cargo_subtype_text: sw_os_sn_30series_lv_desc;
+		can_attach_wagon: sw_1435_m_attach_vehid;
+		purchase: os_sn_30series_purchase;
 		start_stop: sw_stop_start_3; 
-        cargo_capacity: 91*param_capacity_mod/3;
-        
-    }
-	livery_override(mu_car_metro){
-		cargo_subtype_text: sw_os_sn_30series_lv_desc;
-        loading_speed: param_loading_4D;
-        cargo_capacity: sw_os_sn_30series_capacity_main;
-        default: sw_os_sn_30series_lv;
-        power: 644*3/5;
-        weight: 32;
-        length: 8;
-      }
+
+		SET_GRAPHICS_DOUBLE(sw_os_sn_30series_lv,//graphics
+		sw_os_sn_30series_capacity_main(),//cargo capacity
+		644*3/5,//power
+		param_loading_4D,//loading speed
+		sw_os_sn_30series_lv_desc,//subtype
+		mu_car_metro,32)//car_fallback,weight
 }

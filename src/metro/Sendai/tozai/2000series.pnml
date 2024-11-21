@@ -176,9 +176,9 @@ switch(FEAT_TRAINS, PARENT, sw_sn_tz_2000series_lv, cargo_subtype){
 
 
 //capacity-changer
-switch(FEAT_TRAINS, SELF, sw_sn_tz_2000series_capacity_main,position_in_consist_from_end){
-    0: 92*param_capacity_mod/3;
-    default: 102*param_capacity_mod/3;
+switch(FEAT_TRAINS, SELF, sw_sn_tz_2000series_capacity_main,position_in_vehid_chain_from_end){
+    0: 92;
+    default: 102;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, sn_tz_2000series_attach_vehid, vehicle_type_id) {
@@ -189,7 +189,7 @@ switch(FEAT_TRAINS, SELF, sn_tz_2000series_attach_vehid, vehicle_type_id) {
 
 item(FEAT_TRAINS, sn_tz_2000series,1435) {
     property {
-        cargo_capacity: 130;
+       OVERRIDEN_TRAIN_DATA
         climates_available: param_disable_sendai == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
@@ -232,7 +232,7 @@ item(FEAT_TRAINS, sn_tz_2000series,1435) {
 
 		cargo_subtype_text:sw_sn_tz_2000series_lv_desc;
 		start_stop: sw_stop_start_3; 
-        cargo_capacity: 92*param_capacity_mod/3;  
+        cargo_capacity: 92;  
     }
 	livery_override(mu_car){
 		cargo_subtype_text:sw_sn_tz_2000series_lv_desc;

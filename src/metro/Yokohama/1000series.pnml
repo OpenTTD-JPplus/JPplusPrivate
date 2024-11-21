@@ -96,18 +96,15 @@ switch(FEAT_TRAINS, PARENT, sw_yk_bl_1000series_lv, cargo_subtype){
     2: sw_yk_bl_2000series_livery_1;
 }
 //capacity-changer
-switch(FEAT_TRAINS, SELF, sw_yk_bl_1000series_capacity_main,position_in_consist_from_end){
-    0: 140*param_capacity_mod/3;
-    default: 150*param_capacity_mod/3;
+switch(FEAT_TRAINS, SELF, sw_yk_bl_1000series_capacity_main,position_in_vehid_chain_from_end){
+    0: 140;
+    default: 150;
 }
-//attachable vehicles
-switch(FEAT_TRAINS, SELF, yk_bl_1000series_attach_vehid, vehicle_type_id) {
-  mu_car_metro: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
-}
-
 item(FEAT_TRAINS, yk_bl_1000series,1200) {
     property {
+        OVERRIDEN_TRAIN_DATA
+
+        climates_available: param_disable_yokohama == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_TRAIN_NAME, string(STR_NAME_YOKOHAMA), "1000", string(STR_NAME_TYPE));
         introduction_date: date(1972, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
@@ -123,46 +120,25 @@ item(FEAT_TRAINS, yk_bl_1000series,1200) {
         track_type: TR_1435_M;
         power: 560 kW;
         weight: 27 ton;
-
-        climates_available: param_disable_yokohama == 0 ? ALL_CLIMATES : NO_CLIMATE;
-        ai_special_flag: AI_FLAG_PASSENGER;
-        sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
-        refittable_cargo_classes: bitmask(CC_PASSENGERS);
-        non_refittable_cargo_classes: bitmask();                
-
-        running_cost_base: RUNNING_COST_ELECTRIC;
-        engine_class: ENGINE_CLASS_ELECTRIC;
-        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
-        
-        tractive_effort_coefficient: 0.3;
-        air_drag_coefficient: 0.07;
-        bitmask_vehicle_info: 0;
     }
 	graphics {
-        default: sw_yk_bl_1000series_lv;
-		purchase: yk_bl_1000series_purchase;
-		can_attach_wagon: yk_bl_1000series_attach_vehid;
 		additional_text:
- 		   	string(STR_TRAIN_DESC,
-				string(STR_STANDARDGAUGE),
-				string(STR_DENKI, string(STR_DC_N, 750)),
-				string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
-				string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
-				string(STR_OPERATOR, string(STR_YOKOHAMA)),
-				string(STR_LINES_USED, string(STR_YOKOHAMA_BLUE)));
-
+      string(STR_TRAIN_DESC,
+      string(STR_STANDARDGAUGE),
+      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+      string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
+      string(STR_OPERATOR, string(STR_YOKOHAMA)),
+      string(STR_LINES_USED, string(STR_YOKOHAMA_BLUE)));
 		cargo_subtype_text: sw_yk_bl_1000series_lv_desc;
+		can_attach_wagon: sw_1435_m_attach_vehid;
+		purchase: yk_bl_1000series_purchase;
 		start_stop: sw_stop_start_3;
-        cargo_capacity: 140*param_capacity_mod/3;
-    }
-	livery_override(mu_car_metro){
-		cargo_subtype_text: sw_yk_bl_1000series_lv_desc;
-        loading_speed: param_loading_3D;
-        cargo_capacity: sw_yk_bl_1000series_capacity_main;
-        default: sw_yk_bl_1000series_lv;
-        power: 751*3/5;
-        weight: 33;
-        length: 8;
-      }
+
+		SET_GRAPHICS_DOUBLE(sw_yk_bl_1000series_lv,//graphics
+		sw_yk_bl_1000series_capacity_main(),//cargo capacity
+		751*3/5,//power
+		param_loading_3D,//loading speed
+		sw_yk_bl_1000series_lv_desc,//subtype
+		mu_car_metro,33)//car_fallback,weight
 }
