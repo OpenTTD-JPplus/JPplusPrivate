@@ -43,9 +43,14 @@ switch(FEAT_TRAINS, SELF, sw_1067_attach_vehid, jpTracksAreLoaded){
   1:sw_1435_attach_vehid;
   sw_1067_attach_vehid_1;
 }
-switch(FEAT_TRAINS, SELF, sw_1435_m_attach_vehid, vehicle_type_id) {
-      mu_car_narrow: return string(STR_ATTACH_1435_M_ERROR);
-      mu_car: return string(STR_ATTACH_1435_M_ERROR);
-      return CB_RESULT_ATTACH_ALLOW;
-    }
+//Metro mucar
+switch(FEAT_TRAINS, SELF, sw_1435_m_attach_vehid_1, vehicle_type_id) {
+  mu_car_narrow: return string(STR_ATTACH_1435_M_ERROR);
+  mu_car: return string(STR_ATTACH_1435_M_ERROR);
+  return CB_RESULT_ATTACH_ALLOW;
+}
+switch(FEAT_TRAINS, SELF, sw_1435_m_attach_vehid, jpTracksAreLoaded){
+  1:sw_1435_attach_vehid;
+  sw_1435_m_attach_vehid_1;
+}
     
