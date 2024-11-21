@@ -55,7 +55,7 @@
 			default: sw_seibu5000_fake_placer_main;
     }
     switch(FEAT_TRAINS, SELF, sw_seibu5000_lv,vehicle_type_id){
-			mu_car_narrow:sw_seibu5000_end_gfx_main;
+			100..102:sw_seibu5000_end_gfx_main;
 			sw_seibu5000_front_gfx_main;
     }
 //
@@ -82,24 +82,13 @@
 			return 0;
     }
     switch(FEAT_TRAINS, SELF, sw_seibu5000_power_main,vehicle_type_id){
-			mu_car_narrow:sw_seibu5000_power;
+			100..102:sw_seibu5000_power;
 			sw_seibu5000_head_power;
     }
 //
 item(FEAT_TRAINS, seibu5000,2100) {
     property {
-        cargo_capacity: 130;
-        ai_special_flag: AI_FLAG_PASSENGER;
-        sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
-        refittable_cargo_classes: bitmask(CC_PASSENGERS);
-        non_refittable_cargo_classes: bitmask();                
-        running_cost_base: RUNNING_COST_ELECTRIC;
-        engine_class: ENGINE_CLASS_ELECTRIC;
-        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
-        tractive_effort_coefficient: 0.3;
-        air_drag_coefficient: 0.07;
-        bitmask_vehicle_info: 0;
+        OVERRIDEN_TRAIN_DATA
         
         climates_available: param_disable_seibu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_TRAIN_NAME_LONG, string(STR_NAME_SEIBU), "5000", string(STR_NAME_SERIES), string(STR_NAME_SEIBU_RA));
@@ -114,16 +103,8 @@ item(FEAT_TRAINS, seibu5000,2100) {
         track_type: TR_1067_DC;
         power: 520 kW;
         weight: 40 ton;
-        loading_speed: param_loading_2D;
     }
 	graphics {
-		purchase: seibu5000_purchase;
-        default: sw_seibu5000_lv;
-        cargo_capacity: 56*param_capacity_mod/3;
-        power: sw_seibu5000_power_main()*4*1342/1000;  
-        cargo_age_period:ltd_express_cargo_age; 
-		can_attach_wagon: sw_1067_attach_vehid;
-		// cargo_subtype_text:sw_seibu5000_lv_desc;
 		additional_text:
 				string(STR_TRAIN_DESC,
 				string(STR_NARROWGAUGE),
@@ -132,14 +113,15 @@ item(FEAT_TRAINS, seibu5000,2100) {
 				string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
 				string(STR_USAGE, string(STR_LIMITED)),
 				string(STR_OPERATOR, string(STR_SEIBU)));
-	}
-	livery_override(mu_car_narrow){
-		cargo_subtype_text:sw_empty_desc;
-        default: sw_seibu5000_lv;
-        cargo_capacity: sw_seibu5000_capacity_main()*param_capacity_mod/3;
-        power: sw_seibu5000_power_main()*4*1342/1000;
-        cargo_age_period:ltd_express_cargo_age; 
-        loading_speed: param_loading_2D;
-        weight: 39;
-      }
+		// cargo_subtype_text:sw_seibu5000_lv_desc;
+		can_attach_wagon: sw_1067_attach_vehid;
+		purchase: seibu5000_purchase;
+
+		SET_GRAPHICS_DOUBLE_AGE(sw_seibu5000_lv,//graphics
+		sw_seibu5000_capacity_main(),//cargo capacity
+		sw_seibu5000_power_main()*4*1342/1000,//power
+		param_loading_2D,//loading speed
+		sw_empty_desc,//subtype
+		mu_car_narrow,39,//car_fallback,weight
+    ltd_express_cargo_age)//cargo age
 }

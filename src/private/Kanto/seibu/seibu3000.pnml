@@ -125,7 +125,7 @@
 			default: sw_seibu3000_1_fake_placer_main;
     }
     switch(FEAT_TRAINS, SELF, sw_seibu3000_livery_1,vehicle_type_id){
-			mu_car_narrow:sw_seibu3000_1_end_gfx_main;
+			100..102:sw_seibu3000_1_end_gfx_main;
 			sw_seibu3000_1_front_gfx_main;
     }
 
@@ -205,7 +205,7 @@
 			default: sw_seibu3000_2_fake_placer_main;
     }
     switch(FEAT_TRAINS, SELF, sw_seibu3000_livery_2,vehicle_type_id){
-			mu_car_narrow:sw_seibu3000_2_end_gfx_main;
+			100..102:sw_seibu3000_2_end_gfx_main;
 			sw_seibu3000_2_front_gfx_main;
     }
 
@@ -302,7 +302,7 @@
 			default: sw_seibu3000_3_fake_placer_main;
     }
     switch(FEAT_TRAINS, SELF, sw_seibu3000_livery_3,vehicle_type_id){
-			mu_car_narrow:sw_seibu3000_3_end_gfx_main;
+			100..102:sw_seibu3000_3_end_gfx_main;
 			sw_seibu3000_3_front_gfx_main;
     }
 
@@ -369,7 +369,7 @@
 			default: sw_seibu3000_4_fake_placer_main;
     }
     switch(FEAT_TRAINS, SELF, sw_seibu3000_livery_4,vehicle_type_id){
-			mu_car_narrow:sw_seibu3000_4_end_gfx_main;
+			100..102:sw_seibu3000_4_end_gfx_main;
 			sw_seibu3000_4_front_gfx_main;
     }
 
@@ -424,8 +424,8 @@
 			0: 136;
 			default: sw_seibu3000_capacity_wag;
 		}
-		switch(FEAT_TRAINS, SELF, sw_seibu3000_capacity,vehicle_type_id){
-			mu_car_narrow:sw_seibu3000_capacity_wag;
+		switch(FEAT_TRAINS, SELF, sw_seibu3000_capacity_main,vehicle_type_id){
+			100..102:sw_seibu3000_capacity_wag;
 			sw_seibu3000_capacity_head;
 		}
 	//power
@@ -438,24 +438,13 @@
 			return 0;
 		}
 		switch(FEAT_TRAINS, SELF, sw_seibu3000_power_main,vehicle_type_id){
-			mu_car_narrow:sw_seibu3000_power()*4*1342/1000;
-			sw_seibu3000_head_power()*4*1342/1000;
+			100..102:sw_seibu3000_power;
+			sw_seibu3000_head_power;
 		}
 
 item(FEAT_TRAINS, seibu3000,2117) {
 	property {
-		cargo_capacity: 130;
-		ai_special_flag: AI_FLAG_PASSENGER;
-		sprite_id: SPRITE_ID_NEW_TRAIN;
-		misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
-		refittable_cargo_classes: bitmask(CC_PASSENGERS);
-		non_refittable_cargo_classes: bitmask();				
-		running_cost_base: RUNNING_COST_ELECTRIC;
-		engine_class: ENGINE_CLASS_ELECTRIC;
-		visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
-		tractive_effort_coefficient: 0.3;
-		air_drag_coefficient: 0.07;
-		bitmask_vehicle_info: 0;
+		OVERRIDEN_TRAIN_DATA
 		
 		climates_available: param_disable_seibu == 0 ? ALL_CLIMATES : NO_CLIMATE;
 		name: string(STR_TRAIN_NAME, string(STR_NAME_SEIBU), "3000", string(STR_NAME_SERIES));
@@ -470,17 +459,8 @@ item(FEAT_TRAINS, seibu3000,2117) {
 		track_type: TR_1067_DC;
 		power: 400 kW;
 		weight: 38 ton;
-		loading_speed: param_loading_2D;
 	}
 	graphics {
-		purchase: seibu3000_purchase;
-		default: sw_seibu3000_lv;
-		start_stop: sw_stop_start_2;
-		power: sw_seibu3000_power_main;
-		loading_speed: param_loading_3D;
-		cargo_capacity: sw_seibu3000_capacity()*param_capacity_mod/3;  
-		can_attach_wagon: sw_1067_attach_vehid;
-		cargo_subtype_text:sw_seibu3000_lv_desc;
 		additional_text:
 				string(STR_TRAIN_DESC,
 				string(STR_NARROWGAUGE),
@@ -489,13 +469,15 @@ item(FEAT_TRAINS, seibu3000,2117) {
 				string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
 				string(STR_USAGE, string(STR_COMMUTER)),
 		string( STR_OPERATOR, string(STR_SEIBU)));
-    }
-	livery_override(mu_car_narrow){
 		cargo_subtype_text:sw_seibu3000_lv_desc;
-			loading_speed: param_loading_3D;
-			cargo_capacity: sw_seibu3000_capacity()*param_capacity_mod/3;
-			default: sw_seibu3000_lv;
-			power: sw_seibu3000_power_main;
-			weight: 36;
-		}
+		can_attach_wagon: sw_1067_attach_vehid;
+		purchase: seibu3000_purchase;
+		start_stop: sw_stop_start_2;
+
+		SET_GRAPHICS_DOUBLE(sw_seibu3000_lv,//graphics
+		sw_seibu3000_capacity_main(),//cargo capacity
+		sw_seibu3000_power_main()*4*1342/1000,//power
+		param_loading_3D,//loading speed
+		sw_seibu3000_lv_desc,//subtype
+		mu_car_narrow,36)//car_fallback,weight
 }
