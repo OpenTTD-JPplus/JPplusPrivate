@@ -50,13 +50,17 @@ switch(FEAT_TRAINS, PARENT, sw_os_tm_22series_lv, cargo_subtype){
     2: sw_os_tm_22series_livery_2;
 }
 //capacity-changer
-switch(FEAT_TRAINS, SELF, sw_os_tm_22series_capacity_main,position_in_consist_from_end){
-    0: 130*param_capacity_mod/3;
-    default: 140*param_capacity_mod/3;
+switch(FEAT_TRAINS, SELF, sw_os_tm_22series_capacity_main,position_in_vehid_chain_from_end){
+    0: 130;
+    default: 140;
 }
 
 item(FEAT_TRAINS, os_tm_22series,1253) {
     property {
+        OVERRIDEN_TRAIN_DATA
+        variant_group: 1237;
+
+        climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_TRAIN_NAME, string(STR_NAME_OSAKA_METRO), "22", string(STR_NAME_SERIES));
         introduction_date: date(1990, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
@@ -72,47 +76,25 @@ item(FEAT_TRAINS, os_tm_22series,1253) {
         track_type: TR_1435_M;
         power: 560 kW;
         weight: 36 ton;
-
-        climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
-        ai_special_flag: AI_FLAG_PASSENGER;
-        sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
-        refittable_cargo_classes: bitmask(CC_PASSENGERS);
-        non_refittable_cargo_classes: bitmask();                
-        variant_group: 1237;
-
-        running_cost_base: RUNNING_COST_ELECTRIC;
-        engine_class: ENGINE_CLASS_ELECTRIC;
-        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
-        
-        tractive_effort_coefficient: 0.3;
-        air_drag_coefficient: 0.07;
-        bitmask_vehicle_info: 0;
     }
 	graphics {
-        default: sw_os_tm_22series_lv;
-		purchase: os_tm_22series_purchase;
-		can_attach_wagon: sw_1435_m_attach_vehid;
 		additional_text:
- 		   	string(STR_TRAIN_DESC,
-				string(STR_STANDARDGAUGE),
-				string(STR_DENKI, string(STR_DC_N, 750)),
-				string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
-				string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
-				string(STR_OPERATOR, string(STR_OSAKAMETRO)),
-string(STR_LINES_USED, string(STR_OSAKA_TANIMACHI)));
-
+      string(STR_TRAIN_DESC,
+      string(STR_STANDARDGAUGE),
+      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+      string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
+      string(STR_OPERATOR, string(STR_OSAKAMETRO)),
+      string(STR_LINES_USED, string(STR_OSAKA_TANIMACHI)));
 		cargo_subtype_text: sw_os_tm_22series_lv_desc;
+		can_attach_wagon: sw_1435_m_attach_vehid;
+		purchase: os_tm_22series_purchase;
 		start_stop: sw_stop_start_2; 
-        cargo_capacity: 130*param_capacity_mod/3;  
-    }
-	livery_override(mu_car_metro){
-		cargo_subtype_text: sw_os_tm_22series_lv_desc;
-        loading_speed: param_loading_4D;
-        cargo_capacity: sw_os_tm_22series_capacity_main;
-        default: sw_os_tm_22series_lv;
-        power: 753*2/5;
-        weight: 32;
-        length: 8;
-      }
+
+		SET_GRAPHICS_DOUBLE(sw_os_tm_22series_lv,//graphics
+		sw_os_tm_22series_capacity_main(),//cargo capacity
+		753*2/5,//power
+		param_loading_4D,//loading speed
+		sw_os_tm_22series_lv_desc,//subtype
+		mu_car_metro,32)//car_fallback,weight
 }

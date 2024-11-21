@@ -19,27 +19,15 @@ switch(FEAT_TRAINS, SELF, sw_os_ch_kintetsu7000_lv,vehicle_type_id){
 }
 //capacity-changer
 switch(FEAT_TRAINS, SELF, sw_os_ch_kintetsu7000_capacity_main,position_in_vehid_chain_from_end){
-    0: 125*param_capacity_mod/3;
-    default: 135*param_capacity_mod/3;
+    0: 125;
+    default: 135;
 }
 
 item(FEAT_TRAINS, os_ch_kintetsu7000,1277) {
     property {
         name: string(STR_TRAIN_NAME, string(STR_NAME_KINTETSU), "7000", string(STR_NAME_TYPE));
-        cargo_capacity: 130;
-        climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
-        ai_special_flag: AI_FLAG_PASSENGER;
-        sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
-        refittable_cargo_classes: bitmask(CC_PASSENGERS);
-        non_refittable_cargo_classes: bitmask();                
-        running_cost_base: RUNNING_COST_ELECTRIC;
-        engine_class: ENGINE_CLASS_ELECTRIC;
-        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
-        tractive_effort_coefficient: 0.3;
-        air_drag_coefficient: 0.07;
-        bitmask_vehicle_info: 0;
 
+        climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
         introduction_date: date(1984, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 30;
@@ -51,31 +39,24 @@ item(FEAT_TRAINS, os_ch_kintetsu7000,1277) {
         track_type: TR_1435_M;
         power: 560 kW;
         weight: 32 ton;
-        loading_speed: param_loading_4D;
     }
 	graphics {
-        default: sw_os_ch_kintetsu7000_lv;
-		purchase: os_ch_kintetsu7000_purchase;
-		can_attach_wagon: sw_1435_m_attach_vehid;
 		additional_text:
- 		   	string(STR_TRAIN_DESC,
-				string(STR_STANDARDGAUGE),
-				string(STR_DENKI, string(STR_DC_N, 750)),
-				string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
-				string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
-				string(STR_OPERATOR, string(STR_KINTETSU)),
-				string(STR_LINES_USED, string(STR_OSAKA_KEIHANNA)));
-
+      string(STR_TRAIN_DESC,
+      string(STR_STANDARDGAUGE),
+      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+      string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
+      string(STR_OPERATOR, string(STR_KINTETSU)),
+      string(STR_LINES_USED, string(STR_OSAKA_KEIHANNA)));
+		can_attach_wagon: sw_1435_m_attach_vehid;
+		purchase: os_ch_kintetsu7000_purchase;
 		start_stop: sw_stop_start_3;
-        cargo_capacity: 125*param_capacity_mod/3;
-    }
-	livery_override(mu_car_metro){
-		cargo_subtype_text:sw_empty_desc;
-        loading_speed: param_loading_4D;
-        cargo_capacity: sw_os_ch_kintetsu7000_capacity_main;
-        default: sw_os_ch_kintetsu7000_lv;
-        power: 753*2/5;
-        weight: 35;
-        length: 8;
-      }
+
+		SET_GRAPHICS_DOUBLE(sw_os_ch_kintetsu7000_lv,//graphics
+		sw_os_ch_kintetsu7000_capacity_main(),//cargo capacity
+		753*2/5,//power
+		param_loading_4D,//loading speed
+		sw_empty_desc,//subtype
+		mu_car_metro,35)//car_fallback,weight
 }

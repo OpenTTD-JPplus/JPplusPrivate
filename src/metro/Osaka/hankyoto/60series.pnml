@@ -122,9 +122,9 @@ switch(FEAT_TRAINS, SELF, sw_os_hk_60series_lv, cargo_subtype){
 }
 
 //capacity-changer
-switch(FEAT_TRAINS, SELF, sw_os_hk_60series_capacity_main,position_in_consist_from_end){
-    0: 135*param_capacity_mod/3;
-    default: 150*param_capacity_mod/3;
+switch(FEAT_TRAINS, SELF, sw_os_hk_60series_capacity_main,position_in_vehid_chain_from_end){
+    0: 135;
+    default: 150;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, os_hk_60series_attach_vehid, vehicle_type_id) {
@@ -134,7 +134,7 @@ switch(FEAT_TRAINS, SELF, os_hk_60series_attach_vehid, vehicle_type_id) {
 
 item(FEAT_TRAINS, os_hk_60series,1290) {
     property {
-        cargo_capacity: 130;
+       OVERRIDEN_TRAIN_DATA
         climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
@@ -177,7 +177,7 @@ string(STR_LINES_USED, string(STR_OSAKA_SAKAISUJI)));
 
 		cargo_subtype_text: sw_os_hk_60series_lv_desc;
 		start_stop: sw_stop_start_2; 
-        cargo_capacity: 135*param_capacity_mod/3;  
+        cargo_capacity: 135;  
     }
 	livery_override(mu_car){
 		cargo_subtype_text: sw_os_hk_60series_lv_desc;

@@ -81,9 +81,9 @@ switch(FEAT_TRAINS, SELF, sw_kb_sy_7000series_lv,position_in_consist){
 //front-end-fixer end
 
 //capacity-changer
-switch(FEAT_TRAINS, SELF, sw_kb_sy_7000series_capacity_main,position_in_consist_from_end){
-    0: 129*param_capacity_mod/3;
-    default: 142*param_capacity_mod/3;
+switch(FEAT_TRAINS, SELF, sw_kb_sy_7000series_capacity_main,position_in_vehid_chain_from_end){
+    0: 129;
+    default: 142;
 }
 //attachable vehicles
 switch(FEAT_TRAINS, SELF, kb_sy_7000series_attach_vehid, vehicle_type_id) {
@@ -94,20 +94,9 @@ switch(FEAT_TRAINS, SELF, kb_sy_7000series_attach_vehid, vehicle_type_id) {
 
 item(FEAT_TRAINS, kb_sy_7000series,1443) {
     property {
-        cargo_capacity: 130;
+       OVERRIDEN_TRAIN_DATA
         climates_available: param_disable_kobe == 0 ? ALL_CLIMATES : NO_CLIMATE;
-        ai_special_flag: AI_FLAG_PASSENGER;
-        sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
-        refittable_cargo_classes: bitmask(CC_PASSENGERS);
-        non_refittable_cargo_classes: bitmask();                
-        running_cost_base: RUNNING_COST_ELECTRIC;
-        engine_class: ENGINE_CLASS_ELECTRIC;
-        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
-        tractive_effort_coefficient: 0.2;
-        air_drag_coefficient: 0.07;
-        bitmask_vehicle_info: 0;
-
+        
         name: string(STR_TRAIN_NAME, string(STR_NAME_KOBE), "7000", string(STR_NAME_SERIES));
         introduction_date: date(1987, 1, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
@@ -136,7 +125,7 @@ item(FEAT_TRAINS, kb_sy_7000series,1443) {
 				string(STR_LINES_USED, string(STR_KOBE_SEISHIN)));
 
 		start_stop: sw_stop_start_3; 
-        cargo_capacity: 133*param_capacity_mod/3;  
+        cargo_capacity: 133;  
     }
 	livery_override(mu_car){
 		cargo_subtype_text:sw_empty_desc;

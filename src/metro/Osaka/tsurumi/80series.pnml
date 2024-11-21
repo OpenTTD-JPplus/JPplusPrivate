@@ -36,14 +36,14 @@ spriteset(os_ts_80series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metr
       sw_os_ts_80series_end_gfx;
     }
 //capacity-changer
-switch(FEAT_TRAINS, SELF, sw_os_ts_80series_capacity_main,position_in_consist_from_end){
-    0: 89*param_capacity_mod/3;
-    default: 100*param_capacity_mod/3;
+switch(FEAT_TRAINS, SELF, sw_os_ts_80series_capacity_main,position_in_vehid_chain_from_end){
+    0: 89;
+    default: 100;
 }
 
 item(FEAT_TRAINS, os_ts_80series,1301) {
     property {
-        cargo_capacity: 130;
+       OVERRIDEN_TRAIN_DATA
         climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
         ai_special_flag: AI_FLAG_PASSENGER;
         sprite_id: SPRITE_ID_NEW_TRAIN;
@@ -85,7 +85,7 @@ item(FEAT_TRAINS, os_ts_80series,1301) {
 string(STR_LINES_USED, string(STR_OSAKA_TSURUMI)));
 
 		start_stop: sw_stop_start_3; 
-        cargo_capacity: 89*param_capacity_mod/3;  
+        cargo_capacity: 89;  
     }
 	livery_override(mu_car){
 		cargo_subtype_text:sw_empty_desc;
