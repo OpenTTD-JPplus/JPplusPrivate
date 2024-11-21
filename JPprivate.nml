@@ -465,11 +465,16 @@ switch(FEAT_TRAINS, SELF, sw_1067_attach_vehid, jpTracksAreLoaded){
   1:sw_1435_attach_vehid;
   sw_1067_attach_vehid_1;
 }
-switch(FEAT_TRAINS, SELF, sw_1435_m_attach_vehid, vehicle_type_id) {
-      mu_car_narrow: return string(STR_ATTACH_1435_M_ERROR);
-      mu_car: return string(STR_ATTACH_1435_M_ERROR);
-      return CB_RESULT_ATTACH_ALLOW;
-    }
+
+switch(FEAT_TRAINS, SELF, sw_1435_m_attach_vehid_1, vehicle_type_id) {
+  mu_car_narrow: return string(STR_ATTACH_1435_M_ERROR);
+  mu_car: return string(STR_ATTACH_1435_M_ERROR);
+  return CB_RESULT_ATTACH_ALLOW;
+}
+switch(FEAT_TRAINS, SELF, sw_1435_m_attach_vehid, jpTracksAreLoaded){
+  1:sw_1435_attach_vehid;
+  sw_1435_m_attach_vehid_1;
+}
 # 7 "JPprivate.pnml" 2
 # 1 "src/controllers/templates.pnml" 1
 
@@ -667,7 +672,7 @@ item(FEAT_TRAINS, mu_car_metro, 101) {
  property {
         name: string(MUCAR_1435_M);
         introduction_date: date(1800,1,1);
-        climates_available: ALL_CLIMATES;
+        climates_available: jpTracksAreLoaded == 0 ? ALL_CLIMATES : NO_CLIMATE;
                 model_life: VEHICLE_NEVER_EXPIRES;
                 vehicle_life: 60;
                 loading_speed: param_loading_3D;
@@ -3171,6 +3176,9 @@ switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan500_capacity_main,position_in_vehid_chai
 }
 item(FEAT_TRAINS, eidan500,1021) {
     property {
+        cargo_capacity: 130; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK); refittable_cargo_classes: bitmask(CC_PASSENGERS); non_refittable_cargo_classes: bitmask(); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); tractive_effort_coefficient: 0.3; air_drag_coefficient: 0.07; bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 10;
+
+        climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_TRAIN_NAME, string(STR_NAME_EIDAN), "300~900", string(STR_NAME_TYPE));
         introduction_date: date(1953, 1, 1);
         model_life: 40;
@@ -3186,21 +3194,6 @@ item(FEAT_TRAINS, eidan500,1021) {
         track_type: TR_1435_M;
         power: 300 kW;
         weight: 35 ton;
-
-        climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
-        ai_special_flag: AI_FLAG_PASSENGER;
-        sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
-        refittable_cargo_classes: bitmask(CC_PASSENGERS);
-        non_refittable_cargo_classes: bitmask();
-
-        running_cost_base: RUNNING_COST_ELECTRIC;
-        engine_class: ENGINE_CLASS_ELECTRIC;
-        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
-
-        tractive_effort_coefficient: 0.3;
-        air_drag_coefficient: 0.07;
-        bitmask_vehicle_info: 0;
     }
  graphics {
   additional_text:
@@ -13341,6 +13334,7 @@ switch(FEAT_TRAINS, SELF, sw_os_ch_kintetsu7000_capacity_main,position_in_vehid_
 
 item(FEAT_TRAINS, os_ch_kintetsu7000,1277) {
     property {
+        cargo_capacity: 130; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK); refittable_cargo_classes: bitmask(CC_PASSENGERS); non_refittable_cargo_classes: bitmask(); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); tractive_effort_coefficient: 0.3; air_drag_coefficient: 0.07; bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 10;
         name: string(STR_TRAIN_NAME, string(STR_NAME_KINTETSU), "7000", string(STR_NAME_TYPE));
 
         climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
