@@ -42,24 +42,13 @@ switch(FEAT_TRAINS, SELF, sw_tobu_deha1_lv,vehicle_type_id){
     sw_tobu_deha1_front_gfx;
 }
 //power fix
-    switch(FEAT_TRAINS, SELF, sw_tobu_deha1_power,position_in_vehid_chain%2){
+    switch(FEAT_TRAINS, SELF, sw_tobu_deha1_power_main,position_in_vehid_chain%2){
         1:return 0;
         return 240;
     }
 item(FEAT_TRAINS, tobu_deha1,2065) {
     property {
-        cargo_capacity: 130;
-        ai_special_flag: AI_FLAG_PASSENGER;
-        sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
-        refittable_cargo_classes: bitmask(CC_PASSENGERS);
-        non_refittable_cargo_classes: bitmask();                
-        running_cost_base: RUNNING_COST_ELECTRIC;
-        engine_class: ENGINE_CLASS_ELECTRIC;
-        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
-        tractive_effort_coefficient: 0.3;
-        air_drag_coefficient: 0.07;
-        bitmask_vehicle_info: 0;
+        OVERRIDEN_TRAIN_DATA
         
         climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_TRAIN_NAME, string(STR_NAME_TOBU), string(STR_NAME_DEHA, "1"), string(STR_NAME_TYPE));
@@ -96,7 +85,16 @@ item(FEAT_TRAINS, tobu_deha1,2065) {
         loading_speed: param_loading_3D;
         cargo_capacity: 92*param_capacity_mod/3;
         default: sw_tobu_deha1_lv;
-        power: sw_tobu_deha1_power()*1342/1000;
+        power: sw_tobu_deha1_power_main()*1342/1000;
+        weight: 33;
+        length: 7; 
+      }
+	livery_override(mu_car){
+		cargo_subtype_text:sw_empty_desc;
+        loading_speed: param_loading_3D;
+        cargo_capacity: 92*param_capacity_mod/3;
+        default: sw_tobu_deha1_lv;
+        power: sw_tobu_deha1_power_main()*1342/1000;
         weight: 33;
         length: 7; 
       }

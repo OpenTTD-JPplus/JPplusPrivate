@@ -94,7 +94,7 @@
     }
 
 //capacity-changer
-    switch(FEAT_TRAINS, SELF, sw_tobu100n_capacity,position_in_vehid_chain_from_end%6){
+    switch(FEAT_TRAINS, SELF, sw_tobu100n_capacity_main,position_in_vehid_chain_from_end%6){
         0: 20;
         1: 35;
         4: 22;
@@ -116,18 +116,7 @@
     }
 item(FEAT_TRAINS, tobu100n,2062) {
     property {
-        cargo_capacity: 130;
-        ai_special_flag: AI_FLAG_PASSENGER;
-        sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
-        refittable_cargo_classes: bitmask(CC_PASSENGERS);
-        non_refittable_cargo_classes: bitmask();                
-        running_cost_base: RUNNING_COST_ELECTRIC;
-        engine_class: ENGINE_CLASS_ELECTRIC;
-        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
-        tractive_effort_coefficient: 0.3;
-        air_drag_coefficient: 0.07;
-        bitmask_vehicle_info: 0;
+        OVERRIDEN_TRAIN_DATA
         
         climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_TRAIN_NAME_LONG, string(STR_NAME_TOBU), "N100", string(STR_NAME_SERIES), string(STR_NAME_TOBU_SPACIA_X));
@@ -145,11 +134,6 @@ item(FEAT_TRAINS, tobu100n,2062) {
         loading_speed: param_loading_1D;
     }
 	graphics {
-        default: sw_tobu100n_lv;
-		purchase: tobu100n_purchase;
-        cargo_age_period:ltd_express_cargo_age; 
-		can_attach_wagon: sw_1067_attach_vehid;
-		// cargo_subtype_text:sw_tobu100n_lv_desc;
 		additional_text:
 				string(STR_TRAIN_DESC,
 				string(STR_NARROWGAUGE),
@@ -158,17 +142,16 @@ item(FEAT_TRAINS, tobu100n,2062) {
 				string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
 				string(STR_USAGE, string(STR_LIMITED)),
 				string(STR_OPERATOR, string(STR_TOBU)));
+		// cargo_subtype_text:sw_tobu100n_lv_desc;
+		purchase: tobu100n_purchase;
+		can_attach_wagon: sw_1067_attach_vehid;
+    start_stop: sw_stop_start_3;
 
-		cargo_capacity: 23*boost_rapid_mod/2*param_capacity_mod/3;
-        power: sw_tobu100n_power_main()*4*1342/1000;  
-    }
-	livery_override(mu_car_narrow){
-		cargo_subtype_text:sw_empty_desc;
-        cargo_age_period:ltd_express_cargo_age; 
-        loading_speed: param_loading_1D;
-        cargo_capacity: sw_tobu100n_capacity()*boost_rapid_mod/2*param_capacity_mod/3;
-        default: sw_tobu100n_lv;
-        power: sw_tobu100n_power_main()*4*1342/1000;
-        weight: 38;
-      }
+		SET_GRAPHICS_DOUBLE_AGE(sw_tobu100n_lv,//graphics
+		sw_tobu100n_capacity_main()*boost_rapid_mod/2,//cargo capacity
+		sw_tobu100n_power_main()*4*1342/1000,//power
+		param_loading_1D,//loading speed
+		sw_empty_desc,//subtype
+		mu_car_narrow,38,//car_fallback,weight
+		ltd_express_cargo_age)//cargo age
 }

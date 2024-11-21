@@ -118,18 +118,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu20000_power_main,vehicle_type_id){
 }
 item(FEAT_TRAINS, tobu20000,2075) {
     property {
-        cargo_capacity: 130;
-        ai_special_flag: AI_FLAG_PASSENGER;
-        sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
-        refittable_cargo_classes: bitmask(CC_PASSENGERS);
-        non_refittable_cargo_classes: bitmask();                
-        running_cost_base: RUNNING_COST_ELECTRIC;
-        engine_class: ENGINE_CLASS_ELECTRIC;
-        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
-        tractive_effort_coefficient: 0.3;
-        air_drag_coefficient: 0.07;
-        bitmask_vehicle_info: 0;
+        OVERRIDEN_TRAIN_DATA
         
         climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_TRAIN_NAME, string(STR_NAME_TOBU), "20000", string(STR_NAME_SERIES),);
@@ -147,12 +136,6 @@ item(FEAT_TRAINS, tobu20000,2075) {
         loading_speed: param_loading_3D;
     }
 	graphics {
-        power:sw_tobu20000_power_main()*4*1342/1000;
-		start_stop: sw_stop_start_2;
-        default: sw_tobu20000_lv;
-		purchase: tobu20000_purchase;
-		can_attach_wagon: sw_1067_attach_vehid;
-		// cargo_subtype_text:sw_tobu20000_lv_desc;
 		additional_text:
 				string(STR_TRAIN_DESC,
 				string(STR_NARROWGAUGE),
@@ -161,14 +144,15 @@ item(FEAT_TRAINS, tobu20000,2075) {
 				string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
 				string(STR_USAGE, string(STR_COMMUTER)),
 				string(STR_OPERATOR, string(STR_TOBU)));
-        cargo_capacity: sw_tobu20000_capacity_main()*param_capacity_mod/3;  
-    }
-	livery_override(mu_car_narrow){
-		cargo_subtype_text:sw_empty_desc;
-        loading_speed: param_loading_3D;
-        cargo_capacity: sw_tobu20000_capacity_main()*param_capacity_mod/3;
-        default: sw_tobu20000_lv;
-        power:  sw_tobu20000_power_main()*4*1342/1000;
-        weight: 33;
-      }
+		// cargo_subtype_text:sw_tobu20000_lv_desc;
+		can_attach_wagon: sw_1067_attach_vehid;
+		purchase: tobu20000_purchase;
+		start_stop: sw_stop_start_2;
+
+		SET_GRAPHICS_DOUBLE(sw_tobu20000_lv,//graphics
+		sw_tobu20000_capacity_main(),//cargo capacity
+		sw_tobu20000_power_main()*4*1342/1000,//power
+		param_loading_3D,//loading speed
+		sw_empty_desc,//subtype
+		mu_car_narrow,33)//car_fallback,weight
 }
