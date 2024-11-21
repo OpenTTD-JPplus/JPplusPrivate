@@ -122,7 +122,7 @@
         sw_seibu501_1_fake_placer_main;
     }
     switch(FEAT_TRAINS, SELF, sw_seibu501_livery_1,vehicle_type_id){
-        mu_car_narrow:sw_seibu501_1_end_fix;
+        100..102:sw_seibu501_1_end_fix;
         sw_seibu501_1_front_gfx;
     }
 //*livery 2
@@ -183,7 +183,7 @@
         sw_seibu501_2_fake_placer_main;
     }
     switch(FEAT_TRAINS, SELF, sw_seibu501_livery_2,vehicle_type_id){
-        mu_car_narrow:sw_seibu501_2_end_fix;
+        100..102:sw_seibu501_2_end_fix;
         sw_seibu501_2_front_gfx;
     }
 //
@@ -215,34 +215,23 @@
 			0: 141;
 			default: sw_seibu501_capacity_wag;
 		}
-		switch(FEAT_TRAINS, SELF, sw_seibu501_capacity,vehicle_type_id){
-			mu_car_narrow:sw_seibu501_capacity_wag;
+		switch(FEAT_TRAINS, SELF, sw_seibu501_capacity_main,vehicle_type_id){
+			100..102:sw_seibu501_capacity_wag;
 			sw_seibu501_capacity_head;
 		}
   //power fix
-    switch(FEAT_TRAINS, SELF, sw_seibu501_power,position_in_vehid_chain_from_end %5){
+    switch(FEAT_TRAINS, SELF, sw_seibu501_power_1,position_in_vehid_chain_from_end %5){
         1..3: return 120;
         return 0;
     }
-    switch(FEAT_TRAINS, SELF, sw_seibu501_head_power, num_vehs_in_consist){
-        2: return 150;
+    switch(FEAT_TRAINS, SELF, sw_seibu501_power_main, vehicle_type_id){
+        100..102: sw_seibu501_power_1;
         return 0;
     }
 
 item(FEAT_TRAINS, seibu501,2114) {
     property {
-        cargo_capacity: 130;
-        ai_special_flag: AI_FLAG_PASSENGER;
-        sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
-        refittable_cargo_classes: bitmask(CC_PASSENGERS);
-        non_refittable_cargo_classes: bitmask();                
-        running_cost_base: RUNNING_COST_ELECTRIC;
-        engine_class: ENGINE_CLASS_ELECTRIC;
-        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
-        tractive_effort_coefficient: 0.3;
-        air_drag_coefficient: 0.07;
-        bitmask_vehicle_info: 0;
+        OVERRIDEN_TRAIN_DATA
         
         climates_available: param_disable_seibu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         name: string(STR_TRAIN_NAME, string(STR_NAME_SEIBU), "701/801/501", string(STR_NAME_SERIES));
@@ -257,32 +246,25 @@ item(FEAT_TRAINS, seibu501,2114) {
         track_type: TR_1067_DC;
         power: 480 kW;
         weight: 37 ton;
-        loading_speed: param_loading_4D;
     }
 	graphics {
-		start_stop: sw_stop_start_2;
-        power: sw_seibu501_head_power()*4*1342/1000;
-        loading_speed: param_loading_3D;
-        cargo_capacity: sw_seibu501_capacity()*param_capacity_mod/3;  
-        default: sw_seibu501_lv;
-		purchase: seibu501_purchase;
-		can_attach_wagon: sw_1067_attach_vehid;
-		cargo_subtype_text:sw_seibu501_lv_desc;
 		additional_text:
-				string(STR_TRAIN_DESC,
-				string(STR_NARROWGAUGE),
-				string(STR_DENKI, string(STR_DC_N, 1500)),
-				string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
-				string(STR_FORMATION, string(STR_NUM_CARS_4, 2,3,4,6)),
-				string(STR_USAGE, string(STR_COMMUTER)),
-		string( STR_OPERATOR, string(STR_SEIBU)));
-    }
-	livery_override(mu_car_narrow){
+      string(STR_TRAIN_DESC,
+      string(STR_NARROWGAUGE),
+      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+      string(STR_FORMATION, string(STR_NUM_CARS_4, 2,3,4,6)),
+      string(STR_USAGE, string(STR_COMMUTER)),
+		  string( STR_OPERATOR, string(STR_SEIBU)));
 		cargo_subtype_text:sw_seibu501_lv_desc;
-        loading_speed: param_loading_3D;
-        cargo_capacity: sw_seibu501_capacity()*param_capacity_mod/3;
-        default: sw_seibu501_lv;
-        power: sw_seibu501_power()*4*1342/1000;
-        weight: 35;
-      }
+		can_attach_wagon: sw_1067_attach_vehid;
+		start_stop: sw_stop_start_2;
+		purchase: seibu501_purchase;
+
+		SET_GRAPHICS_DOUBLE(sw_seibu501_lv,//graphics
+		sw_seibu501_capacity_main(),//cargo capacity
+		sw_seibu501_power_main()*4*1342/1000,//power
+		param_loading_3D,//loading speed
+		sw_seibu501_lv_desc,//subtype
+		mu_car_narrow,35)//car_fallback,weight
 }
