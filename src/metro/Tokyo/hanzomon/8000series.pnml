@@ -64,7 +64,7 @@ spriteset(tk_hz_8000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/me
     default: sw_tk_hz_8000series_capacity;
   }
   switch(FEAT_TRAINS, SELF, sw_tk_hz_8000series_capacity_main,vehicle_type_id){
-    mu_car_narrow: sw_tk_hz_8000series_capacity;
+    100..102: sw_tk_hz_8000series_capacity;
     sw_tk_hz_8000series_capacity_1;
   }
   //power fix
@@ -78,7 +78,7 @@ spriteset(tk_hz_8000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/me
       return 0;
     }
     switch(FEAT_TRAINS, SELF, sw_tk_hz_8000series_power_main_1,vehicle_type_id){
-      mu_car_narrow:sw_tk_hz_8000series_power_1;
+      100..102:sw_tk_hz_8000series_power_1;
       sw_tk_hz_8000series_head_power_1;
     }
     //2004 VVVF
@@ -93,19 +93,13 @@ spriteset(tk_hz_8000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/me
       return 0;
     }
     switch(FEAT_TRAINS, SELF, sw_tk_hz_8000series_power_main_2,vehicle_type_id){
-      mu_car_narrow:sw_tk_hz_8000series_power_2;
+      100..102:sw_tk_hz_8000series_power_2;
       sw_tk_hz_8000series_head_power_2;
     }
     //main
     switch(FEAT_TRAINS, SELF, sw_tk_hz_8000series_power_main,build_year>2003){
       1: sw_tk_hz_8000series_power_main_2;
       sw_tk_hz_8000series_power_main_1;
-    }
-    //attachable vehicles
-    switch(FEAT_TRAINS, SELF, tk_hz_8000series_attach_vehid, vehicle_type_id) {
-      mu_car: return string(STR_ATTACH_1067_ERROR);
-      mu_car_metro: return string(STR_ATTACH_1067_ERROR);
-      return CB_RESULT_ATTACH_ALLOW;
     }
 //
 item(FEAT_TRAINS, tk_hz_8000series,1100) {
@@ -143,29 +137,22 @@ item(FEAT_TRAINS, tk_hz_8000series,1100) {
         length: 8;
     }
 	graphics {
-        power: sw_tk_hz_8000series_power_main()*4*1342/1000;
-        default: sw_tk_hz_8000series_lv;
-		purchase: tk_hz_8000series_purchase;
-		can_attach_wagon: tk_hz_8000series_attach_vehid;
 		additional_text:
- 		   	string(STR_TRAIN_DESC,
-				string(STR_NARROWGAUGE),
-				string(STR_DENKI, string(STR_DC_N, 1500)),
-				string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
-				string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
-				string(STR_OPERATOR, string(STR_TOKYOMETRO)),
-				string(STR_LINES_USED, string(STR_TOKYO_HANZO)));
-
+      string(STR_TRAIN_DESC,
+      string(STR_NARROWGAUGE),
+      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+      string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
+      string(STR_OPERATOR, string(STR_TOKYOMETRO)),
+      string(STR_LINES_USED, string(STR_TOKYO_HANZO)));
+		purchase: tk_hz_8000series_purchase;
+		can_attach_wagon: sw_1067_attach_vehid;
 		start_stop: sw_stop_start_3;   
-        cargo_capacity: sw_tk_hz_8000series_capacity_main()*param_capacity_mod/3;
-    }
-	livery_override(mu_car_narrow){
-		cargo_subtype_text:sw_empty_desc;
-        loading_speed: param_loading_4D;
-        cargo_capacity: sw_tk_hz_8000series_capacity_main()*param_capacity_mod/3;
-        default: sw_tk_hz_8000series_lv;
-        power: sw_tk_hz_8000series_power_main()*4*1342/1000;
-        weight: 31;
-        length: 8;
-      }
+
+		SET_GRAPHICS_DOUBLE(sw_tk_hz_8000series_lv,//graphics
+		sw_tk_hz_8000series_capacity_main(),//cargo capacity
+		sw_tk_hz_8000series_power_main()*4*1342/1000,//power
+		param_loading_4D,//loading speed
+		sw_empty_desc,//subtype
+		mu_car_narrow,31)//car_fallback,weight
 }

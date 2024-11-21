@@ -106,16 +106,10 @@ random_switch(FEAT_TRAINS, PARENT, sw_ng_tm_3000series_lv){
 }
 
 //capacity-changer
-switch(FEAT_TRAINS, SELF, sw_ng_tm_3000series_main_capacity,position_in_consist_from_end){
+switch(FEAT_TRAINS, SELF, sw_ng_tm_3000series_capacity_main,position_in_consist_from_end){
     0: 130*param_capacity_mod/3;
     default: 140*param_capacity_mod/3;
 }
-//attachable vehicles
-switch(FEAT_TRAINS, SELF, ng_tm_3000series_attach_vehid, vehicle_type_id) {
-  mu_car_narrow: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
-}
-
 item(FEAT_TRAINS, ng_tm_3000series,1390) {
     property {
         cargo_capacity: 130;
@@ -147,9 +141,6 @@ item(FEAT_TRAINS, ng_tm_3000series,1390) {
         loading_speed: param_loading_4D;
     }
 	graphics {
-        default: sw_ng_tm_3000series_lv;
-		purchase: ng_tm_3000series_purchase;
-		can_attach_wagon: ng_tm_3000series_attach_vehid;
 		additional_text:
  		   	string(STR_TRAIN_DESC,
 				string(STR_NARROWGAUGE),
@@ -158,17 +149,14 @@ item(FEAT_TRAINS, ng_tm_3000series,1390) {
 				string(STR_FORMATION, string(STR_NUM_CARS_2, 3,6)),
 				string(STR_OPERATOR, string(STR_NAGOYA)),
 				string(STR_LINES_USED, string(STR_NAGOYA_TSURUMIRAI)));
-
+		can_attach_wagon: sw_1067_attach_vehid;
+		purchase: ng_tm_3000series_purchase;
 		start_stop: sw_stop_start_3; 
-        cargo_capacity: 130*param_capacity_mod/3;  
-    }
-	livery_override(mu_car_narrow){
-		cargo_subtype_text:sw_empty_desc;
-        loading_speed: param_loading_4D;
-        cargo_capacity: sw_ng_tm_3000series_main_capacity;
-        default: sw_ng_tm_3000series_lv;
-        power: 724;
-        weight: 37;
-        length: 8; 
-      }
+
+		SET_GRAPHICS_DOUBLE(sw_ng_tm_3000series_lv,//graphics
+		sw_ng_tm_3000series_capacity_main(),//cargo capacity
+		724,//power
+		param_loading_4D,//loading speed
+		sw_empty_desc,//subtype
+		mu_car_narrow,37)//car_fallback,weight
 }
