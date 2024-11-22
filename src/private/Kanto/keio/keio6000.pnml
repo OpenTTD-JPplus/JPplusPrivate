@@ -20,14 +20,10 @@
 	spriteset(keio6000_1_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/keio/keio6000/keio6000_1.png"){ tmpl_symm(0, 25) }
 
 	TRAIN_CONSTRUCTOR_4(keio6000_1_front, keio6000_1_front_base, roof_gray_med, keio6000_lights_rear, ac_long_toshiba)
-	TRAIN_CONSTRUCTOR_3(keio6000_1_front_f, keio6000_1_front_base, roof_gray_med, ac_long_toshiba)
 	TRAIN_CONSTRUCTOR_5(keio6000_1_front_mot_1, keio6000_1_front_base, roof_gray_med, keio6000_lights_rear, ac_long_toshiba, sw_keio6000_panto)
-	TRAIN_CONSTRUCTOR_4(keio6000_1_front_mot_1_f, keio6000_1_front_base, roof_gray_med, ac_long_toshiba, sw_keio6000_panto)
 	TRAIN_CONSTRUCTOR_5(keio6000_1_front_mot_2, keio6000_1_front_base, roof_gray_med, keio6000_lights_rear, ac_long_toshiba, sw_keio6000_panto_rev)
 	TRAIN_CONSTRUCTOR_4(keio6000_1_end, keio6000_1_end_base, roof_gray_med, keio6000_lights_back, ac_long_toshiba)
-	TRAIN_CONSTRUCTOR_3(keio6000_1_end_f, keio6000_1_end_base, roof_gray_med, ac_long_toshiba)
 	TRAIN_CONSTRUCTOR_5(keio6000_1_end_mot_1, keio6000_1_end_base, roof_gray_med, keio6000_lights_back, ac_long_toshiba, sw_keio6000_panto_rev)
-	TRAIN_CONSTRUCTOR_4(keio6000_1_end_mot_1_f, keio6000_1_end_base, roof_gray_med, ac_long_toshiba, sw_keio6000_panto_rev)
 	TRAIN_CONSTRUCTOR_5(keio6000_1_end_mot_2, keio6000_1_end_base, roof_gray_med, keio6000_lights_back, ac_long_toshiba, sw_keio6000_panto)
 	TRAIN_CONSTRUCTOR_3(keio6000_1_wag, keio6000_1_car_base, roof_gray_med, ac_long_toshiba)
 	TRAIN_CONSTRUCTOR_4(keio6000_1_mot, keio6000_1_car_base, roof_gray_med, ac_long_toshiba, sw_keio6000_panto)
@@ -144,17 +140,9 @@
 //
 //*post fixers
 	//capacity-changer
-		switch(FEAT_TRAINS, SELF, sw_keio6000_capacity,position_in_vehid_chain_from_end){
+		switch(FEAT_TRAINS, SELF, sw_keio6000_capacity_main,position_in_vehid_chain_from_end){
 			0: 150;
 			default: 170;
-		}
-		switch(FEAT_TRAINS, SELF, sw_keio6000_capacity_1,position_in_vehid_chain){
-			0: 150;
-			default: sw_keio6000_capacity;
-		}
-		switch(FEAT_TRAINS, SELF, sw_keio6000_capacity_main,vehicle_type_id){
-			mu_car:sw_keio6000_capacity;
-			sw_keio6000_capacity_1;
 		}
 	//power fix
 		switch(FEAT_TRAINS, SELF, sw_keio6000_power_main_1,position_in_vehid_chain_from_end%10){
@@ -185,21 +173,8 @@
 //
 item(FEAT_TRAINS, keio6000) {
 	property {
-		//tech/rewritten
-			cargo_capacity: 1;
-			power: 1 kW;
-			ai_special_flag: AI_FLAG_PASSENGER;
-			sprite_id: SPRITE_ID_NEW_TRAIN;
-			misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
-			refittable_cargo_classes: bitmask(CC_PASSENGERS);
-			non_refittable_cargo_classes: bitmask();
-			running_cost_base: RUNNING_COST_ELECTRIC;
-			engine_class: ENGINE_CLASS_ELECTRIC;
-			visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
-			tractive_effort_coefficient: 0.3;
-			air_drag_coefficient: 0.07;
-			bitmask_vehicle_info: 0;
-		//
+		OVERRIDEN_TRAIN_DATA
+
 		name: string(STR_TRAIN_NAME, string(STR_NAME_KEIO), "6000", string(STR_NAME_SERIES),);
 		climates_available: param_disable_keio == 0 ? ALL_CLIMATES : NO_CLIMATE;
 		introduction_date: date(1972, 1, 1);
@@ -226,7 +201,7 @@ item(FEAT_TRAINS, keio6000) {
 		can_attach_wagon: sw_1435_attach_vehid;
 		purchase: keio6000_purchase;
 		start_stop: sw_stop_start_2;
-		purchase_power: 150*4;
+		purchase_power: 150*4*1342/1000;
 		
     SET_GRAPHICS_SINGLE(sw_keio6000_lv,//graphics
     sw_keio6000_capacity_main(),//cargo capacity
