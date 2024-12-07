@@ -430,16 +430,10 @@ railtypetable {
    return CB_RESULT_NO_TEXT;
   }
 
-
-
-
-
-
-
-if ((grf_future_status("YZ\AA\02") == 0) && (grf_future_status("YZ\AA\02") == 0)) {
+if ((grf_current_status("YZ\AA\02") == 0) || (grf_future_status("YZ\AA\02") == 0)) {
   jpTracksAreLoaded = 0;
 }
-if ((grf_future_status("YZ\AA\02") == 1) && (grf_future_status("YZ\AA\02") == 1)) {
+if ((grf_current_status("YZ\AA\02") == 1) || (grf_future_status("YZ\AA\02") == 1)) {
   jpTracksAreLoaded = 1;
 }
 switch(FEAT_TRAINS, SELF, sw_muCarAttach_narrow,jpTracksAreLoaded){
@@ -2953,7 +2947,7 @@ spriteset(tk_gz_eidan01_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/metro/Toky
     sw_tk_gz_eidan01_capacity_1;
   }
 
-    switch(FEAT_TRAINS, SELF, sw_tk_gz_eidan01_power,position_in_vehid_chain_from_end%5){
+    switch(FEAT_TRAINS, SELF, sw_tk_gz_eidan01_power,position_in_vehid_chain_from_end %5){
       1..2:return 120;
       4:return 120;
       return 0;
@@ -2965,12 +2959,6 @@ spriteset(tk_gz_eidan01_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/metro/Toky
     switch(FEAT_TRAINS, SELF, sw_tk_gz_eidan01_power_main,vehicle_type_id){
       100..102:sw_tk_gz_eidan01_power;
       sw_tk_gz_eidan01_head_power;
-    }
-
-    switch(FEAT_TRAINS, SELF, sw_tk_gz_01s_attach_vehid, vehicle_type_id) {
-      mu_car: return string(STR_ATTACH_1435_M_ERROR);
-      mu_car_narrow: return string(STR_ATTACH_1435_M_ERROR);
-      return CB_RESULT_ATTACH_ALLOW;
     }
 
 item(FEAT_TRAINS, tk_gz_eidan01, 1005) {
@@ -3003,7 +2991,7 @@ item(FEAT_TRAINS, tk_gz_eidan01, 1005) {
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
       string(STR_LINES_USED, string(STR_TOKYO_GINZA)));
-  can_attach_wagon: sw_tk_gz_01s_attach_vehid;
+  can_attach_wagon: sw_1435_m_attach_vehid;
   purchase: tk_gz_eidan01_purchase;
   start_stop: sw_stop_start_3;
 
@@ -3488,7 +3476,7 @@ spriteset(tk_hb_eidan3000_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/metro/To
     sw_tk_hb_eidan3000_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan3000_power_main,position_in_vehid_chain_from_end%9){
+  switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan3000_power_main,position_in_vehid_chain_from_end %9){
     0..6:return 75;
     return 0;
   }
@@ -3717,7 +3705,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_lv_desc, cargo_subtype){
     1:return 160;
     return 190;
   }
-  switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_power,position_in_vehid_chain_from_end%9){
+  switch(FEAT_TRAINS, SELF, sw_tk_hb_eidan03_power,position_in_vehid_chain_from_end %9){
     1:sw_tk_hb_eidan03_power_year;
     3:sw_tk_hb_eidan03_power_year;
     6:sw_tk_hb_eidan03_power_year;
@@ -3861,7 +3849,7 @@ spriteset(tk_hb_13000series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/me
     sw_tk_hb_13000series_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_tk_hb_13000series_power_main,position_in_vehid_chain_from_end%9){
+  switch(FEAT_TRAINS, SELF, sw_tk_hb_13000series_power_main,position_in_vehid_chain_from_end %9){
     0..5:return 205;
     return 0;
   }
@@ -4128,7 +4116,7 @@ spriteset(tk_tz_5000series_4_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/m
       sw_tk_tz_5000series_capacity_1;
     }
 
-  switch(FEAT_TRAINS, SELF, sw_tk_tz_5000series_power_main,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_tk_tz_5000series_power_main,position_in_vehid_chain_from_end %10){
       0:return 100;
       2..5:return 100;
       7..8:return 100;
@@ -4465,21 +4453,21 @@ spriteset(tk_tz_05series_mot_1_2_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/m
 
 
 
-    switch(FEAT_TRAINS, SELF, sw_tk_tz_05series_power_main_1,position_in_vehid_chain_from_end%10){
+    switch(FEAT_TRAINS, SELF, sw_tk_tz_05series_power_main_1,position_in_vehid_chain_from_end %10){
       1..2:return 160;
       5:return 160;
       7..8:return 160;
       return 0;
     }
 
-    switch(FEAT_TRAINS, SELF, sw_tk_tz_05series_power_main_2,position_in_vehid_chain_from_end%6){
+    switch(FEAT_TRAINS, SELF, sw_tk_tz_05series_power_main_2,position_in_vehid_chain_from_end %6){
       1:return 205;
       3:return 205;
       6:return 205;
       8:return 205;
       return 0;
     }
-    switch(FEAT_TRAINS, SELF, sw_tk_tz_05series_power_main_3,position_in_vehid_chain_from_end%6){
+    switch(FEAT_TRAINS, SELF, sw_tk_tz_05series_power_main_3,position_in_vehid_chain_from_end %6){
       1..2:return 165;
       5:return 165;
       7..8:return 165;
@@ -4609,7 +4597,7 @@ spriteset(tk_tz_07series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/metro/Tok
       sw_tk_tz_07series_capacity_1;
     }
 
-  switch(FEAT_TRAINS, SELF, sw_tk_tz_07series_power_main,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_tk_tz_07series_power_main,position_in_vehid_chain_from_end %10){
       1:return 205;
       3:return 205;
       6:return 205;
@@ -4747,7 +4735,7 @@ spriteset(tk_tz_15000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/metro/
       sw_tk_tz_15000series_capacity_1;
     }
 
-  switch(FEAT_TRAINS, SELF, sw_tk_tz_15000series_power_main,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_tk_tz_15000series_power_main,position_in_vehid_chain_from_end %10){
       1..2:return 225;
       5:return 225;
       7..8:return 225;
@@ -4880,7 +4868,7 @@ spriteset(tk_tz_toyo1000_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/metro
       sw_tk_tz_toyo1000_capacity_1;
     }
 
-  switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo1000_power_main,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo1000_power_main,position_in_vehid_chain_from_end %10){
       0:return 100;
       2..5:return 100;
       7..8:return 100;
@@ -5014,7 +5002,7 @@ spriteset(tk_tz_toyo2000_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/metro
       sw_tk_tz_toyo2000_capacity_1;
     }
 
-  switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo2000_power_main,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo2000_power_main,position_in_vehid_chain_from_end %10){
       1..2:return 165;
       5:return 165;
       6..7:return 165;
@@ -5215,7 +5203,7 @@ spriteset(tk_ch_5000series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/metro
     sw_tk_ch_5000series_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_tk_ch_5000series_power,position_in_vehid_chain_from_end%9){
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_5000series_power,position_in_vehid_chain_from_end %9){
     0..3:return 100;
     return 0;
   }
@@ -5437,7 +5425,7 @@ spriteset(tk_ch_6000series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/met
     sw_tk_ch_6000series_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_tk_ch_6000series_power_main,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_6000series_power_main,position_in_vehid_chain_from_end %10){
     0..3:return 145;
     6:return 145;
     return 0;
@@ -5571,7 +5559,7 @@ spriteset(tk_ch_06series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/metro/Tok
     sw_tk_ch_06series_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_power,position_in_vehid_chain_from_end%9){
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_06series_power,position_in_vehid_chain_from_end %9){
     1:return 205;
     3:return 205;
     6:return 205;
@@ -5721,7 +5709,7 @@ switch(FEAT_TRAINS, SELF, tk_ch_16000series_purchase, [ STORE_TEMP(CB_FLAG_MORE_
     sw_tk_ch_16000series_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_tk_ch_16000series_power,position_in_vehid_chain_from_end%9){
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_16000series_power,position_in_vehid_chain_from_end %9){
     1:return 205;
     3:return 205;
     6:return 205;
@@ -5864,7 +5852,7 @@ spriteset(tk_ch_05series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/metro/Tok
     sw_tk_ch_05series_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_power,position_in_vehid_chain_from_end%5){
+  switch(FEAT_TRAINS, SELF, sw_tk_ch_05series_power,position_in_vehid_chain_from_end %5){
     0..1:return 185;
     4:return 185;
     6..7:return 185;
@@ -6250,7 +6238,7 @@ spriteset(tk_yk_7000series_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/metro
     sw_tk_yk_7000series_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_tk_yk_7000series_power_main,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_tk_yk_7000series_power_main,position_in_vehid_chain_from_end %10){
     1..3:return 160;
   6..7:return 160;
     return 0;
@@ -6386,7 +6374,7 @@ spriteset(tk_yk_10000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/metro/
     sw_tk_yk_10000series_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_tk_yk_10000series_power_main,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_tk_yk_10000series_power_main,position_in_vehid_chain_from_end %10){
     1..2:return 165;
     5..7:return 165;
     return 0;
@@ -6521,7 +6509,7 @@ spriteset(tk_yk_17000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/metro/
     sw_tk_yk_17000series_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_tk_yk_17000series_power_main,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_tk_yk_17000series_power_main,position_in_vehid_chain_from_end %10){
     1:return 165;
     3..4:return 165;
     6:return 165;
@@ -6656,7 +6644,7 @@ spriteset(tk_hz_8000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/metro/T
     sw_tk_hz_8000series_capacity_1;
   }
 
-    switch(FEAT_TRAINS, SELF, sw_tk_hz_8000series_power_1,position_in_vehid_chain_from_end%11){
+    switch(FEAT_TRAINS, SELF, sw_tk_hz_8000series_power_1,position_in_vehid_chain_from_end %11){
       1..2:return 160;
       5..8:return 160;
       return 0;
@@ -6670,7 +6658,7 @@ spriteset(tk_hz_8000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/metro/T
       sw_tk_hz_8000series_head_power_1;
     }
 
-    switch(FEAT_TRAINS, SELF, sw_tk_hz_8000series_power_2,position_in_vehid_chain_from_end%11){
+    switch(FEAT_TRAINS, SELF, sw_tk_hz_8000series_power_2,position_in_vehid_chain_from_end %11){
       1..2:return 165;
       5..6:return 165;
       8:return 165;
@@ -6818,7 +6806,7 @@ spriteset(tk_hz_08series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/metro
       sw_tk_hz_08series_capacity_1;
     }
 
-    switch(FEAT_TRAINS, SELF, sw_tk_hz_08series_power,position_in_vehid_chain_from_end%11){
+    switch(FEAT_TRAINS, SELF, sw_tk_hz_08series_power,position_in_vehid_chain_from_end %11){
       1..2:return 165;
       5:return 165;
       7..8:return 165;
@@ -6958,7 +6946,7 @@ spriteset(tk_hz_18000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/metro/
       sw_tk_hz_18000series_capacity_1;
     }
 
-    switch(FEAT_TRAINS, SELF, sw_tk_hz_18000series_power,position_in_vehid_chain_from_end%10){
+    switch(FEAT_TRAINS, SELF, sw_tk_hz_18000series_power,position_in_vehid_chain_from_end %10){
       1:return 205;
       3:return 205;
       6:return 205;
@@ -7257,12 +7245,12 @@ switch(FEAT_TRAINS, SELF, sw_tk_nm_eidan9000_lv_desc, cargo_subtype){
     sw_tk_nm_eidan9000_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_tk_nm_eidan9000_power_1,position_in_vehid_chain_from_end%6){
+  switch(FEAT_TRAINS, SELF, sw_tk_nm_eidan9000_power_1,position_in_vehid_chain_from_end %6){
     1..2:return 190;
     4:return 190;
     return 0;
   }
-  switch(FEAT_TRAINS, SELF, sw_tk_nm_eidan9000_power_2,position_in_vehid_chain_from_end%6){
+  switch(FEAT_TRAINS, SELF, sw_tk_nm_eidan9000_power_2,position_in_vehid_chain_from_end %6){
     1..2:return 225;
     4:return 225;
     return 0;
@@ -7398,7 +7386,7 @@ spriteset(tk_nm_saitama2000_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/metro/
     sw_tk_nm_saitama2000_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_tk_nm_saitama2000_power_main,position_in_vehid_chain_from_end%6){
+  switch(FEAT_TRAINS, SELF, sw_tk_nm_saitama2000_power_main,position_in_vehid_chain_from_end %6){
     1..2:return 190;
     4:return 190;
     return 0;
@@ -7901,7 +7889,7 @@ spriteset (tk_as_toei5300_wag, "gfx/metro/Tokyo/asakusa/toei5300/toei5300.png") 
       sw_tk_as_toei5300_capacity_1;
     }
 
-    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5300_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5300_power_main,position_in_vehid_chain_from_end %8){
       0:return 165;
       2:return 165;
       5:return 165;
@@ -8049,7 +8037,7 @@ spriteset(tk_as_toei5500_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/metro/Tok
         sw_tk_as_toei5500_capacity_1;
     }
 
-    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_power_main,position_in_vehid_chain_from_end %8){
       0..2:return 155;
       5..7:return 155;
       return 0;
@@ -8342,7 +8330,7 @@ spriteset(tk_mt_toei6000_4_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/met
     sw_tk_mt_toei6000_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6000_power_main,position_in_vehid_chain_from_end%8){
+  switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6000_power_main,position_in_vehid_chain_from_end %8){
     0..5:return 100;
     return 0;
   }
@@ -8515,7 +8503,7 @@ spriteset(tk_mt_toei6300_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/metro/T
       sw_tk_mt_toei6300_capacity_1;
     }
 
-    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_power_main,position_in_vehid_chain_from_end%6){
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_power_main,position_in_vehid_chain_from_end %6){
       1:return 180;
       3..4:return 180;
       return 0;
@@ -8644,7 +8632,7 @@ spriteset(tk_mt_toei6500_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/metro/T
       sw_tk_mt_toei6500_capacity_1;
     }
 
-    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6500_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6500_power_main,position_in_vehid_chain_from_end %8){
       1..2:return 170;
       4..5:return 170;
       return 0;
@@ -9048,7 +9036,7 @@ switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_lv_desc, cargo_subtype){
     sw_tk_sj_toei10_000_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_power_main,position_in_vehid_chain_from_end%9){
+  switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_power_main,position_in_vehid_chain_from_end %9){
     1..6:return 165;
     return 0;
   }
@@ -9414,11 +9402,11 @@ switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_lv_desc, cargo_subtype){
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300R_power_main,position_in_vehid_chain_from_end%9){
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300R_power_main,position_in_vehid_chain_from_end %9){
       1..6:return 165;
       return 0;
     }
-    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_power_main_0,position_in_vehid_chain_from_end%9){
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_power_main_0,position_in_vehid_chain_from_end %9){
       1..3:return 95;
       5..6:return 95;
       8:return 95;
@@ -18726,7 +18714,7 @@ switch(FEAT_TRAINS, SELF, sw_tokyu3500_old_1_panto_placer,1+position_in_vehid_ch
     3: tokyu3500_old_1_end_mot_rev;
     tokyu3500_old_1_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tokyu3500_old_1_panto_placer_rev,position_in_vehid_chain_from_end%4){
+switch(FEAT_TRAINS, SELF, sw_tokyu3500_old_1_panto_placer_rev,position_in_vehid_chain_from_end %4){
     2: tokyu3500_old_1_end_mot_rev;
     3: tokyu3500_old_1_end_mot;
     tokyu3500_old_1_wag;
@@ -23415,7 +23403,7 @@ switch(FEAT_TRAINS, SELF, sw_tokyu5050_2_wag_gfx_1, 1+position_in_vehid_chain%2)
     1:tokyu5050_2_wag_rev;
     tokyu5050_2_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tokyu5050_2_wag_gfx_2, position_in_vehid_chain_from_end%2){
+switch(FEAT_TRAINS, SELF, sw_tokyu5050_2_wag_gfx_2, position_in_vehid_chain_from_end %2){
     1:tokyu5050_2_wag;
     tokyu5050_2_wag_rev;
 }
@@ -23429,7 +23417,7 @@ switch(FEAT_TRAINS, SELF, sw_tokyu5050_2_mot_gfx_1, 1+position_in_vehid_chain%2)
     1:tokyu5050_2_mot_rev;
     tokyu5050_2_mot;
 }
-switch(FEAT_TRAINS, SELF, sw_tokyu5050_2_mot_gfx_2, position_in_vehid_chain_from_end%2){
+switch(FEAT_TRAINS, SELF, sw_tokyu5050_2_mot_gfx_2, position_in_vehid_chain_from_end %2){
     1:tokyu5050_2_mot;
     tokyu5050_2_mot_rev;
 }
@@ -23443,7 +23431,7 @@ switch(FEAT_TRAINS, SELF, sw_tokyu5050_2_mot_1_gfx_1, 1+position_in_vehid_chain%
     1:tokyu5050_2_mot_1_rev;
     tokyu5050_2_mot_2;
 }
-switch(FEAT_TRAINS, SELF, sw_tokyu5050_2_mot_1_rev_gfx_1, position_in_vehid_chain_from_end%2){
+switch(FEAT_TRAINS, SELF, sw_tokyu5050_2_mot_1_rev_gfx_1, position_in_vehid_chain_from_end %2){
     1:tokyu5050_2_mot_1;
     tokyu5050_2_mot_2_rev;
 }
@@ -25562,7 +25550,7 @@ item(FEAT_TRAINS, tobu5700,2050) {
         0:tobu1700_end;
         tobu1700_end_mot_rev;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu1700_panto_placer_rev,1-position_in_vehid_chain_from_end %2){
+    switch(FEAT_TRAINS, SELF, sw_tobu1700_panto_placer_rev,position_in_vehid_chain_from_end %2-1){
         0: tobu1700_end_rev;
         tobu1700_end_mot;
     }
@@ -25749,7 +25737,7 @@ item(FEAT_TRAINS, tobu1700,2051) {
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_tobu1720_capacity_main,position_in_vehid_chain_from_end%6){
+    switch(FEAT_TRAINS, SELF, sw_tobu1720_capacity_main,position_in_vehid_chain_from_end %6){
         0: 58;
         default: 50;
     }
@@ -26271,13 +26259,13 @@ item(FEAT_TRAINS, tobu6000,2053) {
         3:string(LV_tobu1800_3);
     }
 
-    switch(FEAT_TRAINS, SELF, sw_tobu1800_capacity_1,position_in_vehid_chain_from_end%6){
+    switch(FEAT_TRAINS, SELF, sw_tobu1800_capacity_1,position_in_vehid_chain_from_end %6){
         0: 64;
         1: 72;
         4: 72;
         default: 68;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu1800_capacity_2,position_in_vehid_chain_from_end%6){
+    switch(FEAT_TRAINS, SELF, sw_tobu1800_capacity_2,position_in_vehid_chain_from_end %6){
         0: 130;
         default: 140;
     }
@@ -26291,7 +26279,7 @@ item(FEAT_TRAINS, tobu6000,2053) {
         ltd_express_cargo_age;
     }
 
-    switch(FEAT_TRAINS, SELF, sw_tobu1800_power,position_in_vehid_chain_from_end%5){
+    switch(FEAT_TRAINS, SELF, sw_tobu1800_power,position_in_vehid_chain_from_end %5){
         1..2:return 130;
         4:return 130;
         return 0;
@@ -27317,7 +27305,7 @@ item(FEAT_TRAINS, tobu6050,2054) {
 
 
 
-    switch(FEAT_TRAINS, SELF, sw_tobu100_capacity,position_in_vehid_chain_from_end%6){
+    switch(FEAT_TRAINS, SELF, sw_tobu100_capacity,position_in_vehid_chain_from_end %6){
         0: 44;
         1: 64;
         2: 36;
@@ -27690,7 +27678,7 @@ item(FEAT_TRAINS, tobu100,2058) {
 
 
 
-    switch(FEAT_TRAINS, SELF, sw_tobu200_capacity_main,position_in_vehid_chain_from_end%6){
+    switch(FEAT_TRAINS, SELF, sw_tobu200_capacity_main,position_in_vehid_chain_from_end %6){
         0: 60;
         2: 58;
         3: 76;
@@ -27699,7 +27687,7 @@ item(FEAT_TRAINS, tobu100,2058) {
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_tobu200_power,position_in_vehid_chain_from_end%5){
+    switch(FEAT_TRAINS, SELF, sw_tobu200_power,position_in_vehid_chain_from_end %5){
         1..2:return 760;
         4:return 760;
         return 0;
@@ -27851,14 +27839,14 @@ item(FEAT_TRAINS, tobu200,2059) {
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_tobu300_capacity_main,position_in_vehid_chain_from_end%6){
+    switch(FEAT_TRAINS, SELF, sw_tobu300_capacity_main,position_in_vehid_chain_from_end %6){
         0: 64;
         1: 72;
         4: 72;
         default: 68;
     }
 
-    switch(FEAT_TRAINS, SELF, sw_tobu300_power,position_in_vehid_chain_from_end%5){
+    switch(FEAT_TRAINS, SELF, sw_tobu300_power,position_in_vehid_chain_from_end %5){
         0:return 0;
         return 130;
     }
@@ -28008,7 +27996,7 @@ item(FEAT_TRAINS, tobu300,2060) {
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_tobu500_power,position_in_vehid_chain_from_end%6){
+    switch(FEAT_TRAINS, SELF, sw_tobu500_power,position_in_vehid_chain_from_end %6){
         0:return 760;
         2:return 760;
         3:return 760;
@@ -28156,7 +28144,7 @@ item(FEAT_TRAINS, tobu500,2061) {
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_tobu100n_capacity_main,position_in_vehid_chain_from_end%6){
+    switch(FEAT_TRAINS, SELF, sw_tobu100n_capacity_main,position_in_vehid_chain_from_end %6){
         0: 20;
         1: 35;
         4: 22;
@@ -28164,7 +28152,7 @@ item(FEAT_TRAINS, tobu500,2061) {
         default: 56;
     }
 
-    switch(FEAT_TRAINS, SELF, sw_tobu100n_power,position_in_vehid_chain_from_end%5){
+    switch(FEAT_TRAINS, SELF, sw_tobu100n_power,position_in_vehid_chain_from_end %5){
         0:return 0;
         return 165;
     }
@@ -28427,7 +28415,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu_deha10_1_end_gfx_1, (position_in_vehid_chain+1
     1:tobu_deha10_1_wag;
     sw_tobu_deha10_1_mot_gfx;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu_deha10_1_end_gfx_rev, position_in_vehid_chain_from_end%2){
+switch(FEAT_TRAINS, SELF, sw_tobu_deha10_1_end_gfx_rev, position_in_vehid_chain_from_end %2){
     1:tobu_deha10_1_wag;
     sw_tobu_deha10_1_mot_gfx;
 }
@@ -28468,7 +28456,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu_deha10_2_end_gfx_1, (position_in_vehid_chain+1
     1:tobu_deha10_2_wag;
     sw_tobu_deha10_2_mot_gfx;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu_deha10_2_end_gfx_rev, position_in_vehid_chain_from_end%2){
+switch(FEAT_TRAINS, SELF, sw_tobu_deha10_2_end_gfx_rev, position_in_vehid_chain_from_end %2){
     1:tobu_deha10_2_wag;
     sw_tobu_deha10_2_mot_gfx;
 }
@@ -28509,7 +28497,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu_deha10_3_end_gfx_1, (position_in_vehid_chain+1
     1:tobu_deha10_3_wag;
     sw_tobu_deha10_3_mot_gfx;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu_deha10_3_end_gfx_rev, position_in_vehid_chain_from_end%2){
+switch(FEAT_TRAINS, SELF, sw_tobu_deha10_3_end_gfx_rev, position_in_vehid_chain_from_end %2){
     1:tobu_deha10_3_wag;
     sw_tobu_deha10_3_mot_gfx;
 }
@@ -28550,7 +28538,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu_deha10_4_end_gfx_1, (position_in_vehid_chain+1
     1:tobu_deha10_4_wag;
     sw_tobu_deha10_4_mot_gfx;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu_deha10_4_end_gfx_rev, position_in_vehid_chain_from_end%2){
+switch(FEAT_TRAINS, SELF, sw_tobu_deha10_4_end_gfx_rev, position_in_vehid_chain_from_end %2){
     1:tobu_deha10_4_wag;
     sw_tobu_deha10_4_mot_gfx;
 }
@@ -28599,7 +28587,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu_deha10_5_end_gfx_1, (position_in_vehid_chain+1
     1:tobu_deha10_5_wag;
     sw_tobu_deha10_5_mot_gfx;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu_deha10_5_end_gfx_rev, position_in_vehid_chain_from_end%2){
+switch(FEAT_TRAINS, SELF, sw_tobu_deha10_5_end_gfx_rev, position_in_vehid_chain_from_end %2){
     1:tobu_deha10_5_wag;
     sw_tobu_deha10_5_mot_gfx;
 }
@@ -28664,7 +28652,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu_deha10_6_end_gfx_1, (position_in_vehid_chain+1
     1:tobu_deha10_6_wag;
     sw_tobu_deha10_6_mot_gfx;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu_deha10_6_end_gfx_rev, position_in_vehid_chain_from_end%2){
+switch(FEAT_TRAINS, SELF, sw_tobu_deha10_6_end_gfx_rev, position_in_vehid_chain_from_end %2){
     1:tobu_deha10_6_wag;
     sw_tobu_deha10_6_mot_gfx;
 }
@@ -28730,7 +28718,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu_deha10_7_end_gfx_1, (position_in_vehid_chain+1
     1:tobu_deha10_7_wag;
     sw_tobu_deha10_7_mot_gfx;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu_deha10_7_end_gfx_rev, position_in_vehid_chain_from_end%2){
+switch(FEAT_TRAINS, SELF, sw_tobu_deha10_7_end_gfx_rev, position_in_vehid_chain_from_end %2){
     1:tobu_deha10_7_wag;
     sw_tobu_deha10_7_mot_gfx;
 }
@@ -28796,7 +28784,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu_deha10_8_end_gfx_1, (position_in_vehid_chain+1
     1:tobu_deha10_8_wag;
     sw_tobu_deha10_8_mot_gfx;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu_deha10_8_end_gfx_rev, position_in_vehid_chain_from_end%2){
+switch(FEAT_TRAINS, SELF, sw_tobu_deha10_8_end_gfx_rev, position_in_vehid_chain_from_end %2){
     1:tobu_deha10_8_wag;
     sw_tobu_deha10_8_mot_gfx;
 }
@@ -29367,7 +29355,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu2000_panto_placer,position_in_vehid_chain %2){
     1: tobu2000_mot;
     tobu2000_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu2000_panto_placer_rev,1-position_in_vehid_chain_from_end %2){
+switch(FEAT_TRAINS, SELF, sw_tobu2000_panto_placer_rev,position_in_vehid_chain_from_end %2-1){
     1: tobu2000_mot_rev;
     tobu2000_wag;
 }
@@ -29438,7 +29426,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu2080_panto_placer,position_in_vehid_chain %2){
     1: tobu2080_mot;
     tobu2080_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu2080_panto_placer_rev,1-position_in_vehid_chain_from_end %2){
+switch(FEAT_TRAINS, SELF, sw_tobu2080_panto_placer_rev,position_in_vehid_chain_from_end %2-1){
     1: tobu2080_mot_rev;
     tobu2080_wag;
 }
@@ -31205,7 +31193,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu3000_1_panto_placer_1,position_in_vehid_chain %
     1: tobu3000_1_mot;
     tobu3000_1_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu3000_1_panto_placer_1_rev,1-position_in_vehid_chain_from_end %2){
+switch(FEAT_TRAINS, SELF, sw_tobu3000_1_panto_placer_1_rev,position_in_vehid_chain_from_end %2-1){
     1: tobu3000_1_mot_rev;
     tobu3000_1_wag;
 }
@@ -31279,7 +31267,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu3000_2_panto_placer_1,position_in_vehid_chain %
     1: tobu3000_2_mot;
     tobu3000_2_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu3000_2_panto_placer_1_rev,1-position_in_vehid_chain_from_end %2){
+switch(FEAT_TRAINS, SELF, sw_tobu3000_2_panto_placer_1_rev,position_in_vehid_chain_from_end %2-1){
     1: tobu3000_2_mot_rev;
     tobu3000_2_wag;
 }
@@ -31489,7 +31477,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu5000_1_panto_placer_1,position_in_vehid_chain %
     1: tobu5000_1_mot;
     tobu5000_1_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu5000_1_panto_placer_1_rev,1-position_in_vehid_chain_from_end %2){
+switch(FEAT_TRAINS, SELF, sw_tobu5000_1_panto_placer_1_rev,position_in_vehid_chain_from_end %2-1){
     1: tobu5000_1_mot_rev;
     tobu5000_1_wag;
 }
@@ -31561,7 +31549,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu5000_1_ac_panto_placer_1,position_in_vehid_chai
     1: tobu5000_1_ac_mot;
     tobu5000_1_ac_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu5000_1_ac_panto_placer_1_rev,1-position_in_vehid_chain_from_end %2){
+switch(FEAT_TRAINS, SELF, sw_tobu5000_1_ac_panto_placer_1_rev,position_in_vehid_chain_from_end %2-1){
     1: tobu5000_1_ac_mot_rev;
     tobu5000_1_ac_wag;
 }
@@ -31638,7 +31626,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu5000_2_panto_placer_1,position_in_vehid_chain %
     1: tobu5000_2_mot;
     tobu5000_2_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu5000_2_panto_placer_1_rev,1-position_in_vehid_chain_from_end %2){
+switch(FEAT_TRAINS, SELF, sw_tobu5000_2_panto_placer_1_rev,position_in_vehid_chain_from_end %2-1){
     1: tobu5000_2_mot_rev;
     tobu5000_2_wag;
 }
@@ -32420,7 +32408,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu10000_power_0,build_year){
     0..1987 :return 140;
     return 165;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu10000_power,position_in_vehid_chain_from_end%5){
+switch(FEAT_TRAINS, SELF, sw_tobu10000_power,position_in_vehid_chain_from_end %5){
     1..2:sw_tobu10000_power_0;
     4:sw_tobu10000_power_0;
     return 0;
@@ -32580,7 +32568,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu20000_power_0,build_year){
     return 150;
 }
 
-switch(FEAT_TRAINS, SELF, sw_tobu20000_power,position_in_vehid_chain_from_end%8){
+switch(FEAT_TRAINS, SELF, sw_tobu20000_power,position_in_vehid_chain_from_end %8){
     1..6:sw_tobu20000_power_0;
     return 0;
 }
@@ -32869,7 +32857,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu30000_capacity_main,vehicle_type_id){
     sw_tobu30000_capacity_1;
 }
 
-switch(FEAT_TRAINS, SELF, sw_tobu30000_power,position_in_vehid_chain_from_end%5){
+switch(FEAT_TRAINS, SELF, sw_tobu30000_power,position_in_vehid_chain_from_end %5){
     1..2:return 190;
     4:return 190;
     return 0;
@@ -33934,7 +33922,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu50000_cargo_age_main,cargo_subtype){
 }
 
 
-switch(FEAT_TRAINS, SELF, sw_tobu50000_power,position_in_vehid_chain_from_end%5){
+switch(FEAT_TRAINS, SELF, sw_tobu50000_power,position_in_vehid_chain_from_end %5){
     1..2:return 165;
     4:return 165;
     return 0;
@@ -34105,7 +34093,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu60000_capacity_main,vehicle_type_id){
     sw_tobu60000_capacity_1;
 }
 
-switch(FEAT_TRAINS, SELF, sw_tobu60000_power,position_in_vehid_chain_from_end%5){
+switch(FEAT_TRAINS, SELF, sw_tobu60000_power,position_in_vehid_chain_from_end %5){
     1..2:return 165;
     4:return 165;
     return 0;
@@ -34364,7 +34352,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu70000_capacity_main,vehicle_type_id){
     sw_tobu70000_capacity_1;
 }
 
-switch(FEAT_TRAINS, SELF, sw_tobu70000_power_main,position_in_vehid_chain_from_end%8){
+switch(FEAT_TRAINS, SELF, sw_tobu70000_power_main,position_in_vehid_chain_from_end %8){
     0..6:return 205;
     return 0;
 }
@@ -34486,7 +34474,7 @@ item(FEAT_TRAINS, tobu70000,2080) {
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_seibu5000_power,position_in_vehid_chain_from_end%5){
+    switch(FEAT_TRAINS, SELF, sw_seibu5000_power,position_in_vehid_chain_from_end %5){
    0:return 0;
    return 150;
     }
@@ -35350,7 +35338,7 @@ item(FEAT_TRAINS, seibu5000,2100) {
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_seibu10000_power,position_in_vehid_chain_from_end%3){
+    switch(FEAT_TRAINS, SELF, sw_seibu10000_power,position_in_vehid_chain_from_end %3){
    0:return 0;
    return 150;
     }
@@ -35521,7 +35509,7 @@ item(FEAT_TRAINS, seibu10000,2101) {
    default: 26;
     }
 
-    switch(FEAT_TRAINS, SELF, sw_seibu001_power,position_in_vehid_chain_from_end%4){
+    switch(FEAT_TRAINS, SELF, sw_seibu001_power,position_in_vehid_chain_from_end %4){
    0:return 0;
       3:return 0;
    return 170;
@@ -38455,7 +38443,7 @@ item(FEAT_TRAINS, seibu501,2114) {
    sw_seibu301_capacity_head;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_seibu301_power,position_in_vehid_chain_from_end%7){
+  switch(FEAT_TRAINS, SELF, sw_seibu301_power,position_in_vehid_chain_from_end %7){
      0..1:return 150;
    3..4:return 150;
    return 0;
@@ -38845,11 +38833,11 @@ item(FEAT_TRAINS, seibu301,2115) {
    sw_seibu2000_capacity_head;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_seibu2000_power_1,position_in_vehid_chain_from_end%8){
+  switch(FEAT_TRAINS, SELF, sw_seibu2000_power_1,position_in_vehid_chain_from_end %8){
      1..5:return 130;
      return 0;
   }
-  switch(FEAT_TRAINS, SELF, sw_seibu2000_power_2,position_in_vehid_chain_from_end%9){
+  switch(FEAT_TRAINS, SELF, sw_seibu2000_power_2,position_in_vehid_chain_from_end %9){
      1..7:return 130;
      return 0;
   }
@@ -39339,7 +39327,7 @@ item(FEAT_TRAINS, seibu2000,2116) {
    sw_seibu3000_capacity_head;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_seibu3000_power,position_in_vehid_chain_from_end%7){
+  switch(FEAT_TRAINS, SELF, sw_seibu3000_power,position_in_vehid_chain_from_end %7){
      0:return 0;
      return 130;
   }
@@ -39497,7 +39485,7 @@ item(FEAT_TRAINS, seibu3000,2117) {
    sw_seibu4000_capacity_head;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_seibu4000_power,position_in_vehid_chain_from_end%4){
+  switch(FEAT_TRAINS, SELF, sw_seibu4000_power,position_in_vehid_chain_from_end %4){
      1..2:return 150;
      return 0;
   }
@@ -39870,7 +39858,7 @@ item(FEAT_TRAINS, seibu4000,2118) {
    sw_seibu6000_capacity_head;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_seibu6000_power,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_seibu6000_power,position_in_vehid_chain_from_end %10){
      1..2:return 155;
      4..5:return 155;
    7..8:return 155;
@@ -40432,7 +40420,7 @@ item(FEAT_TRAINS, seibu6000,2119) {
    sw_seibu9000_capacity_head;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_seibu9000_power,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_seibu9000_power,position_in_vehid_chain_from_end %10){
      1..2:return 135;
      4..5:return 135;
    7..8:return 135;
@@ -40866,7 +40854,7 @@ item(FEAT_TRAINS, seibu9000,2120) {
    sw_seibu20000_capacity_head;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_seibu20000_power,position_in_vehid_chain_from_end%9){
+  switch(FEAT_TRAINS, SELF, sw_seibu20000_power,position_in_vehid_chain_from_end %9){
      1..2:return 135;
      4..5:return 135;
    7:return 135;
@@ -41537,7 +41525,7 @@ item(FEAT_TRAINS, seibu20000,2121) {
    sw_seibu30000_capacity_head;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_seibu30000_power,position_in_vehid_chain_from_end%9){
+  switch(FEAT_TRAINS, SELF, sw_seibu30000_power,position_in_vehid_chain_from_end %9){
      0:return 165;
      2:return 165;
      4..5:return 165;
@@ -41918,7 +41906,7 @@ item(FEAT_TRAINS, seibu30000,2122) {
    sw_seibu40050_capacity_main;
     }
 
-  switch(FEAT_TRAINS, SELF, sw_seibu40000_power,position_in_vehid_chain_from_end%9){
+  switch(FEAT_TRAINS, SELF, sw_seibu40000_power,position_in_vehid_chain_from_end %9){
      1..2:return 190;
      4..5:return 190;
    7:return 190;
@@ -42074,7 +42062,7 @@ item(FEAT_TRAINS, odakyu5000n, 2184) {}
    144;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_odakyu9000_power_main,position_in_vehid_chain_from_end%6){
+  switch(FEAT_TRAINS, SELF, sw_odakyu9000_power_main,position_in_vehid_chain_from_end %6){
    0..2:return 140;
    4:return 140;
    return 0;
@@ -42207,12 +42195,12 @@ item(FEAT_TRAINS, odakyu9000) {
       sw_odakyu8000_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_odakyu8000_power_main_1,position_in_vehid_chain_from_end%6){
+  switch(FEAT_TRAINS, SELF, sw_odakyu8000_power_main_1,position_in_vehid_chain_from_end %6){
    1..2:return 140;
    3:return 140;
    return 0;
   }
-  switch(FEAT_TRAINS, SELF, sw_odakyu8000_power_main_2,position_in_vehid_chain_from_end%6){
+  switch(FEAT_TRAINS, SELF, sw_odakyu8000_power_main_2,position_in_vehid_chain_from_end %6){
    1..2:return 190;
    3:return 190;
    return 0;
@@ -42397,14 +42385,14 @@ item(FEAT_TRAINS, odakyu8000) {
         sw_odakyu1000_capacity_1;
  }
 
- switch(FEAT_TRAINS, SELF, sw_odakyu1000_power_main_1,position_in_vehid_chain_from_end%10){
+ switch(FEAT_TRAINS, SELF, sw_odakyu1000_power_main_1,position_in_vehid_chain_from_end %10){
     1..2:return 175;
     4:return 175;
     6:return 175;
     8:return 175;
     return 0;
  }
- switch(FEAT_TRAINS, SELF, sw_odakyu1000_power_main_2,position_in_vehid_chain_from_end%10){
+ switch(FEAT_TRAINS, SELF, sw_odakyu1000_power_main_2,position_in_vehid_chain_from_end %10){
     1..2:return 190;
     4:return 190;
     6:return 190;
@@ -42544,7 +42532,7 @@ item(FEAT_TRAINS, odakyu1000) {
         sw_odakyu2000n_capacity_1;
  }
 
- switch(FEAT_TRAINS, SELF, sw_odakyu2000n_power_main,position_in_vehid_chain_from_end%8){
+ switch(FEAT_TRAINS, SELF, sw_odakyu2000n_power_main,position_in_vehid_chain_from_end %8){
     1..2:return 190;
     5..6:return 190;
     return 0;
@@ -42659,14 +42647,14 @@ item(FEAT_TRAINS, odakyu2000n) {
       sw_odakyu3000n_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_odakyu3000n_power_main_1,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_odakyu3000n_power_main_1,position_in_vehid_chain_from_end %10){
    1..2:return 180;
    4:return 180;
    6:return 180;
    8:return 180;
    return 0;
   }
-  switch(FEAT_TRAINS, SELF, sw_odakyu3000n_power_main_2,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_odakyu3000n_power_main_2,position_in_vehid_chain_from_end %10){
    1..2:return 190;
    4:return 190;
    6:return 190;
@@ -42803,7 +42791,7 @@ item(FEAT_TRAINS, odakyu3000n) {
       sw_odakyu4000n_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_odakyu4000n_power_main,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_odakyu4000n_power_main,position_in_vehid_chain_from_end %10){
    1..4:return 190;
    7..8:return 190;
    return 0;
@@ -42935,7 +42923,7 @@ item(FEAT_TRAINS, odakyu4000n) {
       sw_odakyu5000n_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_odakyu5000n_power_main,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_odakyu5000n_power_main,position_in_vehid_chain_from_end %10){
    1..2:return 190;
    5..6:return 190;
    8:return 190;
@@ -43035,7 +43023,7 @@ item(FEAT_TRAINS, sotetsu20000, 2214) {}
    0: sotetsu5000_1_wag;
    sotetsu5000_1_wag_rev;
   }
-  switch(FEAT_TRAINS, PARENT, sw_sotetsu5000_1_wag_rev_gfx,position_in_vehid_chain_from_end%2){
+  switch(FEAT_TRAINS, PARENT, sw_sotetsu5000_1_wag_rev_gfx,position_in_vehid_chain_from_end %2){
    1: sotetsu5000_1_wag;
    sotetsu5000_1_wag_rev;
   }
@@ -43277,7 +43265,7 @@ item(FEAT_TRAINS, sotetsu5000) {
    sw_sotetsu5000n_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_sotetsu5000n_power_main_0,position_in_vehid_chain_from_end%8){
+  switch(FEAT_TRAINS, SELF, sw_sotetsu5000n_power_main_0,position_in_vehid_chain_from_end %8){
    2:return 180;
    4:return 180;
    7:return 180;
@@ -43886,14 +43874,14 @@ item(FEAT_TRAINS, sotetsu5000n) {
    sw_sotetsu6000_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_sotetsu6000_power_main_1,position_in_vehid_chain_from_end%8){
+  switch(FEAT_TRAINS, SELF, sw_sotetsu6000_power_main_1,position_in_vehid_chain_from_end %8){
    0:return 110;
    3:return 110;
    5:return 110;
    6:return 110;
    return 0;
   }
-  switch(FEAT_TRAINS, SELF, sw_sotetsu6000n_power_main_1,position_in_vehid_chain_from_end%8){
+  switch(FEAT_TRAINS, SELF, sw_sotetsu6000n_power_main_1,position_in_vehid_chain_from_end %8){
    0..1:return 130;
    3:return 130;
    6:return 130;
@@ -44047,7 +44035,7 @@ switch(FEAT_TRAINS,PARENT, sw_sotetsu7000_panto_rev, current_year){
    sw_sotetsu7000_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_sotetsu7000_power_main,position_in_vehid_chain_from_end%8){
+  switch(FEAT_TRAINS, SELF, sw_sotetsu7000_power_main,position_in_vehid_chain_from_end %8){
    1..2:return 130;
    5..6:return 130;
    return 0;
@@ -44360,14 +44348,14 @@ switch(FEAT_TRAINS,PARENT, sw_sotetsu7000n_panto_rev, current_year){
    sw_sotetsu7000n_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_sotetsu7000n_power_main_1,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_sotetsu7000n_power_main_1,position_in_vehid_chain_from_end %10){
    1:return 130;
    3:return 130;
    6:return 130;
    7:return 130;
    return 0;
   }
-  switch(FEAT_TRAINS, SELF, sw_sotetsu7000n_power_main_2,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_sotetsu7000n_power_main_2,position_in_vehid_chain_from_end %10){
    1:return 180;
    3:return 180;
    6:return 180;
@@ -44610,7 +44598,7 @@ switch(FEAT_TRAINS,PARENT, sw_sotetsu8000_panto_rev, build_year){
    sw_sotetsu8000_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_sotetsu8000_power_main,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_sotetsu8000_power_main,position_in_vehid_chain_from_end %10){
    1..2:return 150;
    4..5:return 150;
    7..8:return 150;
@@ -44866,7 +44854,7 @@ switch(FEAT_TRAINS, PARENT, ac_super_long_w, vehicle_is_reversed){1: ac_super_lo
    sw_sotetsu9000_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_sotetsu9000_power_main,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_sotetsu9000_power_main,position_in_vehid_chain_from_end %10){
    1..2:return 180;
    4..5:return 180;
    7..8:return 180;
@@ -44992,7 +44980,7 @@ switch(FEAT_TRAINS, SELF, sotetsu10000_4_mot_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRI
     5: sotetsu10000_1_mot_rev;
     sotetsu10000_1_wag;
    }
-   switch(FEAT_TRAINS, SELF, sw_sotetsu10000_1_panto_placer_2_rev,1-position_in_vehid_chain_from_end %8){
+   switch(FEAT_TRAINS, SELF, sw_sotetsu10000_1_panto_placer_2_rev,position_in_vehid_chain_from_end %8-1){
     1: sotetsu10000_1_mot;
     5: sotetsu10000_1_mot;
     sotetsu10000_1_wag;
@@ -45007,7 +44995,7 @@ switch(FEAT_TRAINS, SELF, sotetsu10000_4_mot_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRI
     2: sotetsu10000_1_mot_rev;
     sotetsu10000_1_wag;
    }
-   switch(FEAT_TRAINS, SELF, sw_sotetsu10000_1_panto_placer_3_rev,1-position_in_vehid_chain_from_end %5){
+   switch(FEAT_TRAINS, SELF, sw_sotetsu10000_1_panto_placer_3_rev,position_in_vehid_chain_from_end %5-1){
     0: sotetsu10000_1_mot;
     2: sotetsu10000_1_mot;
     sotetsu10000_1_wag;
@@ -45058,7 +45046,7 @@ switch(FEAT_TRAINS, SELF, sotetsu10000_4_mot_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRI
     5: sotetsu10000_2_mot_rev;
     sotetsu10000_2_wag;
    }
-   switch(FEAT_TRAINS, SELF, sw_sotetsu10000_2_panto_placer_2_rev,1-position_in_vehid_chain_from_end %8){
+   switch(FEAT_TRAINS, SELF, sw_sotetsu10000_2_panto_placer_2_rev,position_in_vehid_chain_from_end %8-1){
     1: sotetsu10000_2_mot;
     5: sotetsu10000_2_mot;
     sotetsu10000_2_wag;
@@ -45073,7 +45061,7 @@ switch(FEAT_TRAINS, SELF, sotetsu10000_4_mot_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRI
     2: sotetsu10000_2_mot_rev;
     sotetsu10000_2_wag;
    }
-   switch(FEAT_TRAINS, SELF, sw_sotetsu10000_2_panto_placer_3_rev,1-position_in_vehid_chain_from_end %5){
+   switch(FEAT_TRAINS, SELF, sw_sotetsu10000_2_panto_placer_3_rev,position_in_vehid_chain_from_end %5){
     0: sotetsu10000_2_mot;
     2: sotetsu10000_2_mot;
     sotetsu10000_2_wag;
@@ -45138,7 +45126,7 @@ switch(FEAT_TRAINS, SELF, sotetsu10000_4_mot_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRI
     5: sotetsu10000_4_mot_rev;
     sotetsu10000_4_wag;
    }
-   switch(FEAT_TRAINS, SELF, sw_sotetsu10000_4_panto_placer_2_rev,1-position_in_vehid_chain_from_end %8){
+   switch(FEAT_TRAINS, SELF, sw_sotetsu10000_4_panto_placer_2_rev,position_in_vehid_chain_from_end %8){
     1: sotetsu10000_4_mot;
     5: sotetsu10000_4_mot;
     sotetsu10000_4_wag;
@@ -45153,7 +45141,7 @@ switch(FEAT_TRAINS, SELF, sotetsu10000_4_mot_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRI
     2: sotetsu10000_4_mot_rev;
     sotetsu10000_4_wag;
    }
-   switch(FEAT_TRAINS, SELF, sw_sotetsu10000_4_panto_placer_3_rev,1-position_in_vehid_chain_from_end %5){
+   switch(FEAT_TRAINS, SELF, sw_sotetsu10000_4_panto_placer_3_rev,position_in_vehid_chain_from_end %5){
     0: sotetsu10000_4_mot;
     2: sotetsu10000_4_mot;
     sotetsu10000_4_wag;
@@ -45222,7 +45210,7 @@ switch(FEAT_TRAINS, SELF, sotetsu10000_4_mot_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRI
    sw_sotetsu10000_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_sotetsu10000_power_main,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_sotetsu10000_power_main,position_in_vehid_chain_from_end %10){
    1..2:return 95;
    5..6:return 95;
    8:return 95;
@@ -45310,7 +45298,7 @@ item(FEAT_TRAINS, sotetsu10000) {
     5: sotetsu11000_1_mot_2;
     sotetsu11000_1_wag;
    }
-   switch(FEAT_TRAINS, SELF, sw_sotetsu11000_1_panto_placer_2_rev,1-position_in_vehid_chain_from_end %8){
+   switch(FEAT_TRAINS, SELF, sw_sotetsu11000_1_panto_placer_2_rev,position_in_vehid_chain_from_end %8-1){
     1: sotetsu11000_1_mot_2;
     5: sotetsu11000_1_mot_2;
     sotetsu11000_1_wag;
@@ -45325,7 +45313,7 @@ item(FEAT_TRAINS, sotetsu10000) {
     2: sotetsu11000_1_mot_rev;
     sotetsu11000_1_wag;
    }
-   switch(FEAT_TRAINS, SELF, sw_sotetsu11000_1_panto_placer_3_rev,1-position_in_vehid_chain_from_end %5){
+   switch(FEAT_TRAINS, SELF, sw_sotetsu11000_1_panto_placer_3_rev,position_in_vehid_chain_from_end %5-1){
     0: sotetsu11000_1_mot;
     2: sotetsu11000_1_mot;
     sotetsu11000_1_wag;
@@ -45369,7 +45357,7 @@ item(FEAT_TRAINS, sotetsu10000) {
    sw_sotetsu11000_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_sotetsu11000_power_main,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_sotetsu11000_power_main,position_in_vehid_chain_from_end %10){
    1..2:return 140;
    5..8:return 140;
    return 0;
@@ -45457,7 +45445,7 @@ switch(FEAT_TRAINS, SELF, sotetsu12000_mot_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRITE
   2: sotetsu12000_mot_2;
   sotetsu12000_wag;
  }
- switch(FEAT_TRAINS, SELF, sw_sotetsu12000_panto_placer_2_rev,1-position_in_vehid_chain_from_end %5){
+ switch(FEAT_TRAINS, SELF, sw_sotetsu12000_panto_placer_2_rev,position_in_vehid_chain_from_end %5-1){
   0: sotetsu12000_mot;
   2: sotetsu12000_mot_2;
   sotetsu12000_wag;
@@ -45472,7 +45460,7 @@ switch(FEAT_TRAINS, SELF, sotetsu12000_mot_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRITE
   2: sotetsu12000_mot_rev;
   sotetsu12000_wag;
  }
- switch(FEAT_TRAINS, SELF, sw_sotetsu12000_panto_placer_3_rev,1-position_in_vehid_chain_from_end %5){
+ switch(FEAT_TRAINS, SELF, sw_sotetsu12000_panto_placer_3_rev,position_in_vehid_chain_from_end %5-1){
   0: sotetsu12000_mot_2;
   2: sotetsu12000_mot;
   sotetsu12000_wag;
@@ -45516,7 +45504,7 @@ switch(FEAT_TRAINS, SELF, sotetsu12000_mot_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRITE
     sw_sotetsu12000_capacity_1;
  }
 
- switch(FEAT_TRAINS, SELF, sw_sotetsu12000_power_main,position_in_vehid_chain_from_end%10){
+ switch(FEAT_TRAINS, SELF, sw_sotetsu12000_power_main,position_in_vehid_chain_from_end %10){
     1..2:return 140;
     5..8:return 140;
     return 0;
@@ -45630,7 +45618,7 @@ switch(FEAT_TRAINS, SELF, sotetsu20000_mot_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRITE
     sw_sotetsu20000_capacity_1;
  }
 
- switch(FEAT_TRAINS, SELF, sw_sotetsu20000_power_main,position_in_vehid_chain_from_end%10){
+ switch(FEAT_TRAINS, SELF, sw_sotetsu20000_power_main,position_in_vehid_chain_from_end %10){
     1:return 190;
     3..4:return 190;
     6:return 190;
@@ -45753,7 +45741,7 @@ switch(FEAT_TRAINS, SELF, sw_twr_70_000series_capacity_main,position_in_vehid_ch
     default: 156;
 }
 
-  switch(FEAT_TRAINS, SELF, sw_twr_70_000series_power_main,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_twr_70_000series_power_main,position_in_vehid_chain_from_end %10){
     1..2:return 95;
     4..5:return 95;
     7..8:return 95;
@@ -45884,7 +45872,7 @@ sw_tsukuba_1000series_panto_placer_main_1;
       sw_tsukuba_1000series_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_power_main,position_in_vehid_chain_from_end%8){
+  switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_power_main,position_in_vehid_chain_from_end %8){
    1..2:return 190;
       4:return 190;
    return 0;
@@ -46011,7 +45999,7 @@ sw_tsukuba_2000series_panto_placer_main_1;
       sw_tsukuba_2000series_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_tsukuba_2000series_power_main,position_in_vehid_chain_from_end%8){
+  switch(FEAT_TRAINS, SELF, sw_tsukuba_2000series_power_main,position_in_vehid_chain_from_end %8){
    1..4:return 190;
    return 0;
   }
@@ -46137,7 +46125,7 @@ sw_tsukuba_3000series_panto_placer_main_1;
    sw_tsukuba_3000series_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_power_main,position_in_vehid_chain_from_end%8){
+  switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_power_main,position_in_vehid_chain_from_end %8){
    1..4:return 190;
    return 0;
   }
@@ -46324,7 +46312,7 @@ item(FEAT_TRAINS, keio5000n, 2267) {}
    0..1965:return 130;
    return 150;
   }
-  switch(FEAT_TRAINS, SELF, sw_keio5000_power_main,position_in_vehid_chain_from_end%2){
+  switch(FEAT_TRAINS, SELF, sw_keio5000_power_main,position_in_vehid_chain_from_end %2){
    0:sw_keio5000_power_main_1;
    return 0;
   }
@@ -46516,11 +46504,11 @@ item(FEAT_TRAINS, keio5000) {
    default: 170;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_keio6000_power_main_1,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_keio6000_power_main_1,position_in_vehid_chain_from_end %10){
    2..6:return 150;
    return 0;
   }
-  switch(FEAT_TRAINS, SELF, sw_keio6000_power_main_2,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_keio6000_power_main_2,position_in_vehid_chain_from_end %10){
    1..6:return 150;
    return 0;
   }
@@ -46755,12 +46743,12 @@ item(FEAT_TRAINS, keio6000) {
    170;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_keio7000_power_main_1,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_keio7000_power_main_1,position_in_vehid_chain_from_end %10){
    1..4:return 150;
    6..7:return 150;
    return 0;
   }
-  switch(FEAT_TRAINS, SELF, sw_keio7000_power_main_2,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_keio7000_power_main_2,position_in_vehid_chain_from_end %10){
    1..2:return 150;
    4:return 150;
    6..8:return 150;
@@ -46927,7 +46915,7 @@ item(FEAT_TRAINS, keio7000) {
    sw_keio8000_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_keio8000_power_main,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_keio8000_power_main,position_in_vehid_chain_from_end %10){
    1..4:return 150;
    7..8:return 150;
    return 0;
@@ -47071,7 +47059,7 @@ item(FEAT_TRAINS, keio8000) {
    sw_keio9000_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_keio9000_power_main,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_keio9000_power_main,position_in_vehid_chain_from_end %10){
    1..2:return 170;
    5..6:return 170;
    8:return 170;
@@ -47220,7 +47208,7 @@ item(FEAT_TRAINS, keio9000) {
    sw_keio5000n_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_keio5000n_power_main,position_in_vehid_chain_from_end%10){
+  switch(FEAT_TRAINS, SELF, sw_keio5000n_power_main,position_in_vehid_chain_from_end %10){
    1..2:return 150;
    4..5:return 150;
    7..8:return 150;
@@ -48106,7 +48094,7 @@ spriteset (keikyu400_1_wag, "gfx/private/Kanto/keikyu/keikyu300/keikyu400_1.png"
       sw_keikyu300_capacity_1;
     }
 
-    switch(FEAT_TRAINS, SELF, sw_keikyu300_power_main,position_in_vehid_chain_from_end%4){
+    switch(FEAT_TRAINS, SELF, sw_keikyu300_power_main,position_in_vehid_chain_from_end %4){
       0:return 150;
       3:return 150;
       return 0;
@@ -48401,7 +48389,7 @@ spriteset (keikyu500_3_wag, "gfx/private/Kanto/keikyu/keikyu500/keikyu500_3.png"
     param_loading_4D;
   }
 
-    switch(FEAT_TRAINS, SELF, sw_keikyu500_power_main,position_in_vehid_chain_from_end%4){
+    switch(FEAT_TRAINS, SELF, sw_keikyu500_power_main,position_in_vehid_chain_from_end %4){
       0:return 150;
       3:return 150;
       return 0;
@@ -48625,7 +48613,7 @@ spriteset (keikyu600_2_wag, "gfx/private/Kanto/keikyu/keikyu600/keikyu600_2.png"
       sw_keikyu600_capacity_1;
     }
 
-    switch(FEAT_TRAINS, SELF, sw_keikyu600_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_keikyu600_power_main,position_in_vehid_chain_from_end %8){
       0..5:return 75;
       return 0;
     }
@@ -48793,7 +48781,7 @@ spriteset (keikyu700_2_wag, "gfx/private/Kanto/keikyu/keikyu700/keikyu700_2.png"
       sw_keikyu700_capacity_1;
     }
 
-    switch(FEAT_TRAINS, SELF, sw_keikyu700_power_main,position_in_vehid_chain_from_end%4){
+    switch(FEAT_TRAINS, SELF, sw_keikyu700_power_main,position_in_vehid_chain_from_end %4){
       0:return 150;
       3:return 150;
       return 0;
@@ -49024,7 +49012,7 @@ switch(FEAT_TRAINS, PARENT, sw_keikyu1000_lv,current_year){
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_keikyu1000_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_keikyu1000_power_main,position_in_vehid_chain_from_end %8){
       0..5:return 75;
       return 0;
     }
@@ -49228,7 +49216,7 @@ spriteset (keikyu800_2_wag, "gfx/private/Kanto/keikyu/keikyu800/keikyu800_2.png"
       sw_keikyu800_capacity_1;
     }
 
-    switch(FEAT_TRAINS, SELF, sw_keikyu800_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_keikyu800_power_main,position_in_vehid_chain_from_end %8){
       0..5:return 100;
       return 0;
     }
@@ -49511,7 +49499,7 @@ spriteset (keikyu2000_2_wag, "gfx/private/Kanto/keikyu/keikyu2000/keikyu2000_2.p
     param_loading_3D;
   }
 
-    switch(FEAT_TRAINS, SELF, sw_keikyu2000_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_keikyu2000_power_main,position_in_vehid_chain_from_end %8){
       0..2:return 120;
       5..7:return 120;
       return 0;
@@ -49718,7 +49706,7 @@ spriteset (keikyu1500_2_end_mot, "gfx/private/Kanto/keikyu/keikyu1500/keikyu1500
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_keikyu1500_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_keikyu1500_power_main,position_in_vehid_chain_from_end %8){
       0..4:return 100;
       return 0;
     }
@@ -50007,12 +49995,12 @@ spriteset (keikyu600n_3_wag, "gfx/private/Kanto/keikyu/keikyu600n/keikyu600n_3.p
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_keikyu600n_power_main_1,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_keikyu600n_power_main_1,position_in_vehid_chain_from_end %8){
       0..3:return 120;
       6..7:return 120;
       return 0;
     }
-    switch(FEAT_TRAINS, SELF, sw_keikyu600n_power_main_2,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_keikyu600n_power_main_2,position_in_vehid_chain_from_end %8){
       0:return 180;
       3..4:return 180;
       7:return 180;
@@ -50227,7 +50215,7 @@ spriteset (keikyu2100_2_wag, "gfx/private/Kanto/keikyu/keikyu2100/keikyu2100_2.p
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_keikyu2100_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_keikyu2100_power_main,position_in_vehid_chain_from_end %8){
       0:return 190;
       3..4:return 190;
       7:return 190;
@@ -50721,14 +50709,14 @@ spriteset (keikyu1000n_2_wag, "gfx/private/Kanto/keikyu/keikyu1000n/keikyu1000n_
 
 
 
-    switch(FEAT_TRAINS, SELF, sw_keikyu1000n_power_main_1,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_keikyu1000n_power_main_1,position_in_vehid_chain_from_end %8){
       0:return 190;
       3..4:return 190;
       7:return 190;
       return 0;
     }
 
-    switch(FEAT_TRAINS, SELF, sw_keikyu1000n_power_main_2,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_keikyu1000n_power_main_2,position_in_vehid_chain_from_end %8){
       0..2:return 155;
       5..7:return 155;
       return 0;
@@ -50966,7 +50954,7 @@ spriteset (keisei1500_2_end_rev, "gfx/private/Kanto/keisei/keisei1500/keisei1500
 
 
 
-    switch(FEAT_TRAINS, SELF, sw_keisei1500_power_main,position_in_consist_from_end%2){
+    switch(FEAT_TRAINS, SELF, sw_keisei1500_power_main,position_in_consist_from_end %2){
       0:return 55;
       return 0;
     }
@@ -51111,7 +51099,7 @@ spriteset (keisei1600_1_wag_rev, "gfx/private/Kanto/keisei/keisei1600/keisei1600
 
 
 
-    switch(FEAT_TRAINS, SELF, sw_keisei1600_power_main,position_in_consist_from_end%2){
+    switch(FEAT_TRAINS, SELF, sw_keisei1600_power_main,position_in_consist_from_end %2){
       0:return 112;
       return 0;
     }
@@ -51322,7 +51310,7 @@ spriteset (keisei_AE1_2_wag_rev, "gfx/private/Kanto/keisei/keisei_AE1/keisei_AE1
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_keisei_AE1_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_keisei_AE1_power_main,position_in_vehid_chain_from_end %8){
       1..4:return 140;
       return 0;
     }
@@ -51492,7 +51480,7 @@ spriteset (keisei_AE100_1_wag_3_rev, "gfx/private/Kanto/keisei/keisei_AE100/keis
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_keisei_AE100_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_keisei_AE100_power_main,position_in_vehid_chain_from_end %8){
       0..1:return 130;
       3..4:return 130;
       6..7:return 130;
@@ -51658,7 +51646,7 @@ spriteset (keisei_AE2_1_wag_2_rev, "gfx/private/Kanto/keisei/keisei_AE2/keisei_A
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_keisei_AE2_power_main,position_in_vehid_chain_from_end%10){
+    switch(FEAT_TRAINS, SELF, sw_keisei_AE2_power_main,position_in_vehid_chain_from_end %10){
       0..1:return 175;
       4..7:return 175;
       return 0;
@@ -52569,7 +52557,7 @@ spriteset (keisei200_2000_2_mot_rev, "gfx/private/Kanto/keisei/keisei200_2000/ke
     2:string(LV_KEISEI_AODEN);
   }
 # 114 "src/private/Kanto/keisei/keisei200_2000.pnml"
-    switch(FEAT_TRAINS, SELF, sw_keisei200_2000_power_main,position_in_consist_from_end%2){
+    switch(FEAT_TRAINS, SELF, sw_keisei200_2000_power_main,position_in_consist_from_end %2){
       0:return 55;
       return 0;
     }
@@ -53011,7 +52999,7 @@ spriteset (keisei600_4_end_rev, "gfx/private/Kanto/keisei/keisei600/keisei600_4.
 
 
 
-    switch(FEAT_TRAINS, SELF, sw_keisei600_power_main,position_in_consist_from_end%2){
+    switch(FEAT_TRAINS, SELF, sw_keisei600_power_main,position_in_consist_from_end %2){
       0:return 56;
       return 0;
     }
@@ -53211,7 +53199,7 @@ spriteset (keisei700_1_wag_2, "gfx/private/Kanto/keisei/keisei700/keisei700.png"
 
 
 
-    switch(FEAT_TRAINS, SELF, sw_keisei700_power_main,position_in_consist_from_end%2){
+    switch(FEAT_TRAINS, SELF, sw_keisei700_power_main,position_in_consist_from_end %2){
       0:return 55;
       return 0;
     }
@@ -53576,7 +53564,7 @@ spriteset (keisei3000_1_3_wag_ac, "gfx/private/Kanto/keisei/keisei3000_1/keisei3
 
 
 
-    switch(FEAT_TRAINS, SELF, sw_keisei3000_1_power_main,position_in_consist_from_end%2){
+    switch(FEAT_TRAINS, SELF, sw_keisei3000_1_power_main,position_in_consist_from_end %2){
       0:return 112;
       return 0;
     }
@@ -54262,7 +54250,7 @@ spriteset (keisei3200_5_wag, "gfx/private/Kanto/keisei/keisei3200/keisei3200_5.p
         3: sw_keisei3200_1_end_rev;
         sw_keisei3200_1_panto_placer_main;
       }
-      switch(FEAT_TRAINS, SELF, sw_keisei3200_1_fake_head_placer_1_rev,position_in_vehid_chain_from_end%4){
+      switch(FEAT_TRAINS, SELF, sw_keisei3200_1_fake_head_placer_1_rev,position_in_vehid_chain_from_end %4){
         3: sw_keisei3200_1_end_rev;
         0: sw_keisei3200_1_end;
         sw_keisei3200_1_panto_placer_main;
@@ -54356,7 +54344,7 @@ spriteset (keisei3200_5_wag, "gfx/private/Kanto/keisei/keisei3200/keisei3200_5.p
         3: sw_keisei3200_2_end_rev;
         sw_keisei3200_2_panto_placer_main;
       }
-      switch(FEAT_TRAINS, SELF, sw_keisei3200_2_fake_head_placer_1_rev,position_in_vehid_chain_from_end%4){
+      switch(FEAT_TRAINS, SELF, sw_keisei3200_2_fake_head_placer_1_rev,position_in_vehid_chain_from_end %4){
         3: sw_keisei3200_2_end_rev;
         0: sw_keisei3200_2_end;
         sw_keisei3200_2_panto_placer_main;
@@ -54423,7 +54411,7 @@ spriteset (keisei3200_5_wag, "gfx/private/Kanto/keisei/keisei3200/keisei3200_5.p
         3: keisei3200_3_end_rev;
         sw_keisei3200_3_panto_placer_main;
       }
-      switch(FEAT_TRAINS, SELF, sw_keisei3200_3_fake_head_placer_1_rev,position_in_vehid_chain_from_end%4){
+      switch(FEAT_TRAINS, SELF, sw_keisei3200_3_fake_head_placer_1_rev,position_in_vehid_chain_from_end %4){
         3: keisei3200_3_end_rev;
         0: keisei3200_3_end;
         sw_keisei3200_3_panto_placer_main;
@@ -54490,7 +54478,7 @@ spriteset (keisei3200_5_wag, "gfx/private/Kanto/keisei/keisei3200/keisei3200_5.p
         3: keisei3200_4_end_rev;
         sw_keisei3200_4_panto_placer_main;
       }
-      switch(FEAT_TRAINS, SELF, sw_keisei3200_4_fake_head_placer_1_rev,position_in_vehid_chain_from_end%4){
+      switch(FEAT_TRAINS, SELF, sw_keisei3200_4_fake_head_placer_1_rev,position_in_vehid_chain_from_end %4){
         3: keisei3200_4_end_rev;
         0: keisei3200_4_end;
         sw_keisei3200_4_panto_placer_main;
@@ -54557,7 +54545,7 @@ spriteset (keisei3200_5_wag, "gfx/private/Kanto/keisei/keisei3200/keisei3200_5.p
         3: keisei3200_5_end_rev;
         sw_keisei3200_5_panto_placer_main;
       }
-      switch(FEAT_TRAINS, SELF, sw_keisei3200_5_fake_head_placer_1_rev,position_in_vehid_chain_from_end%4){
+      switch(FEAT_TRAINS, SELF, sw_keisei3200_5_fake_head_placer_1_rev,position_in_vehid_chain_from_end %4){
         3: keisei3200_5_end_rev;
         0: keisei3200_5_end;
         sw_keisei3200_5_panto_placer_main;
@@ -54620,7 +54608,7 @@ spriteset (keisei3200_5_wag, "gfx/private/Kanto/keisei/keisei3200/keisei3200_5.p
     5:string(LV_KEISEI_TEST_2);
   }
 # 523 "src/private/Kanto/keisei/keisei3200.pnml"
-    switch(FEAT_TRAINS, SELF, sw_keisei3200_power_main,position_in_vehid_chain_from_end%6){
+    switch(FEAT_TRAINS, SELF, sw_keisei3200_power_main,position_in_vehid_chain_from_end %6){
       0..3:return 100;
       return 0;
     }
@@ -54828,7 +54816,7 @@ spriteset (keisei3300_5_wag, "gfx/private/Kanto/keisei/keisei3300/keisei3300_5.p
         3: sw_keisei3300_1_end_rev;
         sw_keisei3300_1_panto_placer_main;
       }
-      switch(FEAT_TRAINS, SELF, sw_keisei3300_1_fake_head_placer_1_rev,position_in_vehid_chain_from_end%4){
+      switch(FEAT_TRAINS, SELF, sw_keisei3300_1_fake_head_placer_1_rev,position_in_vehid_chain_from_end %4){
         3: sw_keisei3300_1_end_rev;
         0: sw_keisei3300_1_end;
         sw_keisei3300_1_panto_placer_main;
@@ -54920,7 +54908,7 @@ spriteset (keisei3300_5_wag, "gfx/private/Kanto/keisei/keisei3300/keisei3300_5.p
         3: sw_keisei3300_2_end_rev;
         sw_keisei3300_2_panto_placer_main;
       }
-      switch(FEAT_TRAINS, SELF, sw_keisei3300_2_fake_head_placer_1_rev,position_in_vehid_chain_from_end%4){
+      switch(FEAT_TRAINS, SELF, sw_keisei3300_2_fake_head_placer_1_rev,position_in_vehid_chain_from_end %4){
         3: sw_keisei3300_2_end_rev;
         0: sw_keisei3300_2_end;
         sw_keisei3300_2_panto_placer_main;
@@ -54997,7 +54985,7 @@ spriteset (keisei3300_5_wag, "gfx/private/Kanto/keisei/keisei3300/keisei3300_5.p
         3: keisei3300_4_end_rev;
         sw_keisei3300_4_panto_placer_main;
       }
-      switch(FEAT_TRAINS, SELF, sw_keisei3300_4_fake_head_placer_1_rev,position_in_vehid_chain_from_end%4){
+      switch(FEAT_TRAINS, SELF, sw_keisei3300_4_fake_head_placer_1_rev,position_in_vehid_chain_from_end %4){
         3: keisei3300_4_end_rev;
         0: keisei3300_4_end;
         sw_keisei3300_4_panto_placer_main;
@@ -55064,7 +55052,7 @@ spriteset (keisei3300_5_wag, "gfx/private/Kanto/keisei/keisei3300/keisei3300_5.p
         3: keisei3300_5_end_rev;
         sw_keisei3300_5_panto_placer_main;
       }
-      switch(FEAT_TRAINS, SELF, sw_keisei3300_5_fake_head_placer_1_rev,position_in_vehid_chain_from_end%4){
+      switch(FEAT_TRAINS, SELF, sw_keisei3300_5_fake_head_placer_1_rev,position_in_vehid_chain_from_end %4){
         3: keisei3300_5_end_rev;
         0: keisei3300_5_end;
         sw_keisei3300_5_panto_placer_main;
@@ -55116,7 +55104,7 @@ spriteset (keisei3300_5_wag, "gfx/private/Kanto/keisei/keisei3300/keisei3300_5.p
     5:string(LV_KEISEI_AODEN);
   }
 # 442 "src/private/Kanto/keisei/keisei3300.pnml"
-    switch(FEAT_TRAINS, SELF, sw_keisei3300_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_keisei3300_power_main,position_in_vehid_chain_from_end %8){
       0..1:return 100;
       4..6:return 100;
       return 0;
@@ -55244,7 +55232,7 @@ spriteset (keisei3500_3_mot_rev, "gfx/private/Kanto/keisei/keisei3500/keisei3500
         3: keisei3500_1_end_rev;
         sw_keisei3500_1_panto_placer_main;
       }
-      switch(FEAT_TRAINS, SELF, sw_keisei3500_1_fake_head_placer_1_rev,position_in_vehid_chain_from_end%4){
+      switch(FEAT_TRAINS, SELF, sw_keisei3500_1_fake_head_placer_1_rev,position_in_vehid_chain_from_end %4){
         3: keisei3500_1_end_rev;
         0: keisei3500_1_end;
         sw_keisei3500_1_panto_placer_main;
@@ -55292,7 +55280,7 @@ spriteset (keisei3500_3_mot_rev, "gfx/private/Kanto/keisei/keisei3500/keisei3500
         3: keisei3500_2_end_rev;
         sw_keisei3500_2_panto_placer_main;
       }
-      switch(FEAT_TRAINS, SELF, sw_keisei3500_2_fake_head_placer_1_rev,position_in_vehid_chain_from_end%4){
+      switch(FEAT_TRAINS, SELF, sw_keisei3500_2_fake_head_placer_1_rev,position_in_vehid_chain_from_end %4){
         3: keisei3500_2_end_rev;
         0: keisei3500_2_end;
         sw_keisei3500_2_panto_placer_main;
@@ -55340,7 +55328,7 @@ spriteset (keisei3500_3_mot_rev, "gfx/private/Kanto/keisei/keisei3500/keisei3500
         3: keisei3500_3_end_rev;
         sw_keisei3500_3_panto_placer_main;
       }
-      switch(FEAT_TRAINS, SELF, sw_keisei3500_3_fake_head_placer_1_rev,position_in_vehid_chain_from_end%4){
+      switch(FEAT_TRAINS, SELF, sw_keisei3500_3_fake_head_placer_1_rev,position_in_vehid_chain_from_end %4){
         3: keisei3500_3_end_rev;
         0: keisei3500_3_end;
         sw_keisei3500_3_panto_placer_main;
@@ -55397,7 +55385,7 @@ spriteset (keisei3500_3_mot_rev, "gfx/private/Kanto/keisei/keisei3500/keisei3500
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_keisei3500_power_main,position_in_vehid_chain_from_end%6){
+    switch(FEAT_TRAINS, SELF, sw_keisei3500_power_main,position_in_vehid_chain_from_end %6){
       0..3:return 100;
       return 0;
     }
@@ -55655,7 +55643,7 @@ spriteset (keisei3600_2_wag, "gfx/private/Kanto/keisei/keisei3600/keisei3600_2.p
     2:string(LV_MODERN);
   }
 # 204 "src/private/Kanto/keisei/keisei3600.pnml"
-    switch(FEAT_TRAINS, SELF, sw_keisei3600_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_keisei3600_power_main,position_in_vehid_chain_from_end %8){
       0..2:return 140;
       5..6:return 140;
       return 0;
@@ -55878,7 +55866,7 @@ spriteset (keisei3700_2_wag, "gfx/private/Kanto/keisei/keisei3700/keisei3700_3.p
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_keisei3700_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_keisei3700_power_main,position_in_vehid_chain_from_end %8){
       0..1:return 130;
       3..4:return 130;
       5:return 130;
@@ -56050,7 +56038,7 @@ spriteset (keisei3400_1_end_1, "gfx/private/Kanto/keisei/keisei3400/keisei3400_2
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_keisei3400_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_keisei3400_power_main,position_in_vehid_chain_from_end %8){
       0..1:return 140;
       3..4:return 140;
       5:return 140;
@@ -56268,7 +56256,7 @@ spriteset (keisei3000_2_2_wag_rev, "gfx/private/Kanto/keisei/keisei3000_2/keisei
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_keisei3000_2_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_keisei3000_2_power_main,position_in_vehid_chain_from_end %8){
       0..1:return 125;
       4..5:return 125;
       6:return 125;
@@ -56422,7 +56410,7 @@ spriteset (keisei3100_2_1_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/priv
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_keisei3100_2_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_keisei3100_2_power_main,position_in_vehid_chain_from_end %8){
       0..1:return 140;
       3..4:return 140;
       5:return 140;
@@ -56762,7 +56750,7 @@ spriteset (shinKeisei300_2_end_rev, "gfx/private/Kanto/shinKeisei/shinKeisei300/
 
 
 
-    switch(FEAT_TRAINS, SELF, sw_shinKeisei300_power_main,position_in_consist_from_end%2){
+    switch(FEAT_TRAINS, SELF, sw_shinKeisei300_power_main,position_in_consist_from_end %2){
       1:return 150;
       return 0;
     }
@@ -57276,7 +57264,7 @@ spriteset (shinKeisei800_2_end_2, "gfx/private/Kanto/shinKeisei/shinKeisei800/sh
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_shinKeisei800_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_shinKeisei800_power_main,position_in_vehid_chain_from_end %8){
       0:return 120;
       2:return 120;
       5:return 120;
@@ -57498,7 +57486,7 @@ spriteset (shinKeisei8000_2_end_2, "gfx/private/Kanto/shinKeisei/shinKeisei8000/
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_shinKeisei8000_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_shinKeisei8000_power_main,position_in_vehid_chain_from_end %8){
       1..2:return 135;
       4..5:return 135;
       return 0;
@@ -57729,7 +57717,7 @@ spriteset (shinKeisei8800_2_wag, "gfx/private/Kanto/shinKeisei/shinKeisei8800/sh
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_shinKeisei8800_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_shinKeisei8800_power_main,position_in_vehid_chain_from_end %8){
       1..2:return 135;
       4..5:return 135;
       return 0;
@@ -57921,7 +57909,7 @@ spriteset (shinKeisei8900_2_wag, "gfx/private/Kanto/shinKeisei/shinKeisei8900/sh
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_shinKeisei8900_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_shinKeisei8900_power_main,position_in_vehid_chain_from_end %8){
       1..2:return 135;
       5..6:return 135;
       return 0;
@@ -58322,7 +58310,7 @@ spriteset (hokuso7000_wag, "gfx/private/Kanto/hokuso/hokuso7000/hokuso7000.png")
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_hokuso7000_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_hokuso7000_power_main,position_in_vehid_chain_from_end %8){
       1..4:return 130;
       return 0;
     }
@@ -58598,7 +58586,7 @@ spriteset(hokuso7150_2_wag_1_rev , ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/priv
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_hokuso7150_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_hokuso7150_power_main,position_in_vehid_chain_from_end %8){
       0..5:return 75;
       return 0;
     }
@@ -58752,7 +58740,7 @@ spriteset (hokuso7050_wag, "gfx/private/Kanto/hokuso/hokuso7050/hokuso7050.png")
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_hokuso7050_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_hokuso7050_power_main,position_in_vehid_chain_from_end %8){
       0..5:return 75;
       return 0;
     }
@@ -58932,7 +58920,7 @@ spriteset (hokuso7250_wag, "gfx/private/Kanto/hokuso/hokuso7250/hokuso7250.png")
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_hokuso7250_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_hokuso7250_power_main,position_in_vehid_chain_from_end %8){
       0..5:return 75;
       return 0;
     }
@@ -59077,7 +59065,7 @@ spriteset (hokuso7300_wag, "gfx/private/Kanto/hokuso/hokuso7300/hokuso7300.png")
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_hokuso7300_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_hokuso7300_power_main,position_in_vehid_chain_from_end %8){
       0..1:return 130;
       3..4:return 130;
       5:return 130;
@@ -59373,7 +59361,7 @@ spriteset (chibaNT_9000_2_end, "gfx/private/Kanto/chibaNewTown/chibaNT_9000/chib
     }
 
 
-    switch(FEAT_TRAINS, SELF, sw_chibaNT_9000_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_chibaNT_9000_power_main,position_in_vehid_chain_from_end %8){
       0..1:return 130;
       3..4:return 130;
       5:return 130;
@@ -59560,7 +59548,7 @@ spriteset (chibaNT_9100_wag_rev, "gfx/private/Kanto/chibaNewTown/chibaNT_9100/ch
       sw_chibaNT_9100_capacity_1;
     }
 
-    switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_power_main,position_in_vehid_chain_from_end%8){
+    switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_power_main,position_in_vehid_chain_from_end %8){
       0..1:return 130;
       3..4:return 130;
       5:return 130;
@@ -60458,7 +60446,7 @@ switch(FEAT_TRAINS, SELF, sw_hankyu600_lv,vehicle_type_id){
     sw_hankyu600_front_gfx;
 }
 
-  switch(FEAT_TRAINS, SELF, sw_hankyu600_power_main_1,position_in_vehid_chain_from_end%2){
+  switch(FEAT_TRAINS, SELF, sw_hankyu600_power_main_1,position_in_vehid_chain_from_end %2){
     1:return 150;
     return 0;
   }
@@ -60576,7 +60564,7 @@ switch(FEAT_TRAINS, SELF, hankyu900_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES 
 
 
 
-  switch(FEAT_TRAINS, SELF, sw_hankyu900_power_main_1,position_in_vehid_chain_from_end%2){
+  switch(FEAT_TRAINS, SELF, sw_hankyu900_power_main_1,position_in_vehid_chain_from_end %2){
     1:return 150;
     return 0;
   }
@@ -60690,7 +60678,7 @@ switch(FEAT_TRAINS, SELF, sw_hankyu320_lv,vehicle_type_id){
     sw_hankyu320_front_gfx;
 }
 
-  switch(FEAT_TRAINS, SELF, sw_hankyu320_power_main_1,position_in_vehid_chain_from_end%2){
+  switch(FEAT_TRAINS, SELF, sw_hankyu320_power_main_1,position_in_vehid_chain_from_end %2){
     1:return 150;
     return 0;
   }
@@ -60803,7 +60791,7 @@ switch(FEAT_TRAINS, SELF, sw_hankyu500_lv,vehicle_type_id){
     sw_hankyu500_front_gfx;
 }
 
-  switch(FEAT_TRAINS, SELF, sw_hankyu500_power_main_1,position_in_vehid_chain_from_end%2){
+  switch(FEAT_TRAINS, SELF, sw_hankyu500_power_main_1,position_in_vehid_chain_from_end %2){
     1:return 150;
     return 0;
   }
@@ -60921,7 +60909,7 @@ switch(FEAT_TRAINS, SELF, hankyu1000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES
 
 
 
-  switch(FEAT_TRAINS, SELF, sw_hankyu1000_power_main_1,position_in_vehid_chain_from_end%2){
+  switch(FEAT_TRAINS, SELF, sw_hankyu1000_power_main_1,position_in_vehid_chain_from_end %2){
     1:return 150;
     return 0;
   }
@@ -61213,7 +61201,7 @@ switch(FEAT_TRAINS, SELF, hankyu1010_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES
 
 
 
-  switch(FEAT_TRAINS, SELF, sw_hankyu1010_power_main_1,position_in_vehid_chain_from_end%2){
+  switch(FEAT_TRAINS, SELF, sw_hankyu1010_power_main_1,position_in_vehid_chain_from_end %2){
     1:return 150;
     return 0;
   }
@@ -61569,7 +61557,7 @@ switch(FEAT_TRAINS, SELF, hankyu2000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES
     sw_hankyu2000_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_hankyu2000_power_main_1,position_in_vehid_chain_from_end%2){
+  switch(FEAT_TRAINS, SELF, sw_hankyu2000_power_main_1,position_in_vehid_chain_from_end %2){
     1:return 150;
     return 0;
   }
@@ -61833,7 +61821,7 @@ switch(FEAT_TRAINS, SELF, hankyu2300_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES
     sw_hankyu2300_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_hankyu2300_power_main_1,position_in_vehid_chain_from_end%2){
+  switch(FEAT_TRAINS, SELF, sw_hankyu2300_power_main_1,position_in_vehid_chain_from_end %2){
     1:return 150;
     return 0;
   }
@@ -62038,7 +62026,7 @@ switch(FEAT_TRAINS, SELF, hankyu2800_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES
         1: sw_hankyu2800_1_end_mot_rev_gfx;
         sw_hankyu2800_1_panto_placer_main_1;
       }
-      switch(FEAT_TRAINS, SELF, sw_hankyu2800_1_fake_head_placer_4_rev,position_in_vehid_chain_from_end%2){
+      switch(FEAT_TRAINS, SELF, sw_hankyu2800_1_fake_head_placer_4_rev,position_in_vehid_chain_from_end %2){
         0: sw_hankyu2800_1_end_mot_gfx;
         1: sw_hankyu2800_1_end_rev_gfx;
         sw_hankyu2800_1_panto_placer_main_1;
@@ -62092,7 +62080,7 @@ switch(FEAT_TRAINS, SELF, hankyu2800_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES
     sw_hankyu2800_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_hankyu2800_power_main_1,position_in_vehid_chain_from_end%2){
+  switch(FEAT_TRAINS, SELF, sw_hankyu2800_power_main_1,position_in_vehid_chain_from_end %2){
     1:return 150;
     return 0;
   }
@@ -62495,7 +62483,7 @@ switch(FEAT_TRAINS, SELF, hankyu3000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES
     sw_hankyu3000_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_hankyu3000_power_main_1,position_in_vehid_chain_from_end%2){
+  switch(FEAT_TRAINS, SELF, sw_hankyu3000_power_main_1,position_in_vehid_chain_from_end %2){
     1:return 170;
     return 0;
   }
@@ -62951,7 +62939,7 @@ switch(FEAT_TRAINS, SELF, hankyu5000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES
     sw_hankyu5000_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_hankyu5000_power_main_1,position_in_vehid_chain_from_end%2){
+  switch(FEAT_TRAINS, SELF, sw_hankyu5000_power_main_1,position_in_vehid_chain_from_end %2){
     1:return 170;
     return 0;
   }
@@ -63302,7 +63290,7 @@ item(FEAT_TRAINS, hankyu5000) {
     sw_hankyu5300_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_hankyu5300_power_main_1,position_in_vehid_chain_from_end%2){
+  switch(FEAT_TRAINS, SELF, sw_hankyu5300_power_main_1,position_in_vehid_chain_from_end %2){
     1:return 140;
     return 0;
   }
@@ -63520,7 +63508,7 @@ item(FEAT_TRAINS, hankyu5300) {
     sw_hankyu6000_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_hankyu6000_power_main_1,position_in_vehid_chain_from_end%8){
+  switch(FEAT_TRAINS, SELF, sw_hankyu6000_power_main_1,position_in_vehid_chain_from_end %8){
     1..2:return 140;
     5:return 140;
     return 0;
@@ -63659,7 +63647,7 @@ item(FEAT_TRAINS, hankyu6000) {
     sw_hankyu6300_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_hankyu6300_power_main_1,position_in_vehid_chain_from_end%8){
+  switch(FEAT_TRAINS, SELF, sw_hankyu6300_power_main_1,position_in_vehid_chain_from_end %8){
     1:return 140;
     3..4:return 140;
     return 0;
@@ -63750,7 +63738,7 @@ item(FEAT_TRAINS, hankyu6300) {
     sw_hankyu7000_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_hankyu7000_power_main_1,position_in_vehid_chain_from_end%8){
+  switch(FEAT_TRAINS, SELF, sw_hankyu7000_power_main_1,position_in_vehid_chain_from_end %8){
     1..2:return 150;
     4:return 150;
     return 0;
@@ -63964,7 +63952,7 @@ item(FEAT_TRAINS, hankyu7000) {
     return 120;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_hankyu8000_power_main_1_0,position_in_vehid_chain_from_end%8){
+  switch(FEAT_TRAINS, SELF, sw_hankyu8000_power_main_1_0,position_in_vehid_chain_from_end %8){
     1..2:return 170;
     6:return 170;
     return 0;
@@ -63973,7 +63961,7 @@ item(FEAT_TRAINS, hankyu7000) {
     hankyu8000: return 170;
     sw_hankyu8000_power_main_1_0;
   }
-  switch(FEAT_TRAINS, SELF, sw_hankyu8000_power_main_2_0,position_in_vehid_chain_from_end%8){
+  switch(FEAT_TRAINS, SELF, sw_hankyu8000_power_main_2_0,position_in_vehid_chain_from_end %8){
     1..2:return 190;
     6:return 190;
     return 0;
@@ -64124,7 +64112,7 @@ item(FEAT_TRAINS, hankyu8000) {
     sw_hankyu9000_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_hankyu9000_power_main_1,position_in_vehid_chain_from_end%8){
+  switch(FEAT_TRAINS, SELF, sw_hankyu9000_power_main_1,position_in_vehid_chain_from_end %8){
     1:return 200;
     6..7:return 200;
     return 0;
@@ -64267,7 +64255,7 @@ switch(FEAT_TRAINS, SELF, hankyu1000n_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITE
     sw_hankyu1000n_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_hankyu1000n_power_main,position_in_vehid_chain_from_end%8){
+  switch(FEAT_TRAINS, SELF, sw_hankyu1000n_power_main,position_in_vehid_chain_from_end %8){
     1..2:return 190;
     5..6:return 190;
     return 0;
@@ -64405,7 +64393,7 @@ switch(FEAT_TRAINS, SELF, hankyu2000n_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITE
     sw_hankyu2000n_capacity_1;
   }
 
-  switch(FEAT_TRAINS, SELF, sw_hankyu2000n_power_main,position_in_vehid_chain_from_end%8){
+  switch(FEAT_TRAINS, SELF, sw_hankyu2000n_power_main,position_in_vehid_chain_from_end %8){
     1..2:return 190;
     5..6:return 190;
     return 0;
