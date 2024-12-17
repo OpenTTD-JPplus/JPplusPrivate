@@ -4,17 +4,12 @@
 # 1 "JPprivate.pnml"
 # 1 "src/controllers/params.pnml" 1
 grf {
-
-
-
-
-
     grfid: "YZ\AA\01";
     name: string(STR_NAME);
     desc: string(STR_DESC);
   url: string(STR_GRF_URL);
     version: 260;
-    min_compatible_version: 6;
+    min_compatible_version: 260;
 
 
  param 0 {
@@ -376,7 +371,6 @@ param 6 {
  }
 
 
-
  local_cargo_age = 185;
  express_cargo_age = 231;
  ltd_express_cargo_age = 278;
@@ -445,6 +439,8 @@ switch(FEAT_TRAINS, SELF, sw_muCarAttach_metro,jpTracksAreLoaded){
     return string(STR_ATTACH_1435_ERROR);
   }
 
+
+
 switch(FEAT_TRAINS, SELF, sw_1435_attach_vehid, vehicle_type_id) {
       mu_car_narrow: sw_muCarAttach_narrow;
       mu_car_metro: sw_muCarAttach_metro;
@@ -455,9 +451,13 @@ switch(FEAT_TRAINS, SELF, sw_1067_attach_vehid_1, vehicle_type_id) {
       mu_car_metro: return string(STR_ATTACH_1067_ERROR);
       return CB_RESULT_ATTACH_ALLOW;
     }
-switch(FEAT_TRAINS, SELF, sw_1067_attach_vehid, jpTracksAreLoaded){
+switch(FEAT_TRAINS, SELF, sw_1067_attach_vehid_2, jpTracksAreLoaded){
   1:sw_1435_attach_vehid;
   sw_1067_attach_vehid_1;
+}
+switch(FEAT_TRAINS, SELF, sw_1067_attach_vehid, grfid==str2number("BS\13\20")){
+  1: return string(STR_ATTACH_ERROR);
+  sw_1067_attach_vehid_2;
 }
 
 switch(FEAT_TRAINS, SELF, sw_1435_m_attach_vehid_1, vehicle_type_id) {
@@ -756,7 +756,7 @@ item(FEAT_TRAINS, mu_car_narrow, 102) {
     refittable_cargo_classes: bitmask(CC_PASSENGERS);
     cargo_age_period: 185;
     refit_cost: 0;
-    track_type:TR_1067_DC;
+    track_type:TR_1067_ACDC;
     ai_special_flag: AI_FLAG_PASSENGER;
     running_cost_base: RUNNING_COST_ELECTRIC;
     engine_class: ENGINE_CLASS_STEAM;
@@ -9075,8 +9075,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_lv_desc, cargo_subtype){
   }
 
   switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_attach_vehid, vehicle_type_id) {
-    mu_car_narrow: return string(STR_ATTACH_1372_ERROR);
-    mu_car_metro: return string(STR_ATTACH_1372_ERROR);
+    mu_car_narrow: return string(STR_ATTACH_1435_ERROR);
+    mu_car_metro: return string(STR_ATTACH_1435_ERROR);
     return CB_RESULT_ATTACH_ALLOW;
   }
 
@@ -9454,8 +9454,8 @@ switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_lv_desc, cargo_subtype){
 
 
     switch(FEAT_TRAINS, SELF, tk_sj_toei10_300_attach_vehid, vehicle_type_id) {
-    mu_car_narrow: return string(STR_ATTACH_1372_ERROR);
-    mu_car_metro: return string(STR_ATTACH_1372_ERROR);
+    mu_car_narrow: return string(STR_ATTACH_1435_ERROR);
+    mu_car_metro: return string(STR_ATTACH_1435_ERROR);
     return CB_RESULT_ATTACH_ALLOW;
     }
 
@@ -17149,13 +17149,6 @@ switch(FEAT_TRAINS, SELF, sw_kb_sy_1000series_capacity_main,position_in_vehid_ch
     0: 136;
     default: 150;
 }
-
-switch(FEAT_TRAINS, SELF, kb_sy_1000series_attach_vehid, vehicle_type_id) {
-  mu_car: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
-}
-
-
 item(FEAT_TRAINS, kb_sy_1000series,1440) {
     property {
        cargo_capacity: 130; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK); refittable_cargo_classes: bitmask(CC_PASSENGERS); non_refittable_cargo_classes: bitmask(); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); tractive_effort_coefficient: 0.3; air_drag_coefficient: 0.07; bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 10;
@@ -17176,30 +17169,24 @@ item(FEAT_TRAINS, kb_sy_1000series,1440) {
         loading_speed: param_loading_3D;
     }
  graphics {
-        default: sw_kb_sy_1000series_lv;
-  purchase: kb_sy_1000series_purchase;
-  can_attach_wagon: kb_sy_1000series_attach_vehid;
   additional_text:
-       string(STR_TRAIN_DESC,
-    string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
-    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
-    string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
-    string(STR_OPERATOR, string(STR_KOBE)),
-    string(STR_LINES_USED, string(STR_KOBE_SEISHIN)));
-
+      string(STR_TRAIN_DESC,
+      string(STR_STANDARDGAUGE),
+      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+      string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
+      string(STR_OPERATOR, string(STR_KOBE)),
+      string(STR_LINES_USED, string(STR_KOBE_SEISHIN)));
+  can_attach_wagon: sw_1435_attach_vehid;
+  purchase: kb_sy_1000series_purchase;
   start_stop: sw_stop_start_3;
-        cargo_capacity: 136;
-    }
- livery_override(mu_car){
-  cargo_subtype_text:sw_empty_desc;
-        loading_speed: param_loading_3D;
-        cargo_capacity: sw_kb_sy_1000series_capacity_main;
-        default: sw_kb_sy_1000series_lv;
-        power: 697*3/5;
-        weight: 32;
-        length: 8;
-      }
+
+    default: sw_kb_sy_1000series_lv; loading_speed:param_loading_3D; power:697*3/5; cargo_capacity: sw_kb_sy_1000series_capacity_main()*param_capacity_mod/3; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_3D; cargo_capacity: sw_kb_sy_1000series_capacity_main()*param_capacity_mod/3; default: sw_kb_sy_1000series_lv; power: 697*3/5; weight: 32; }
+
+
+
+
+
 }
 # 185 "src/_metro.pnml" 2
 # 1 "src/metro/Kobe/seishin/2000series.pnml" 1
@@ -17952,13 +17939,6 @@ switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_capacity_main,position_in_vehid_ch
     0: 84;
     default: 97;
 }
-
-switch(FEAT_TRAINS, SELF, kb_kg_5000series_attach_vehid, vehicle_type_id) {
-  mu_car: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
-}
-
-
 item(FEAT_TRAINS, kb_kg_5000series,1447) {
     property {
        cargo_capacity: 130; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK); refittable_cargo_classes: bitmask(CC_PASSENGERS); non_refittable_cargo_classes: bitmask(); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); tractive_effort_coefficient: 0.3; air_drag_coefficient: 0.07; bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 10;
@@ -17979,9 +17959,6 @@ item(FEAT_TRAINS, kb_kg_5000series,1447) {
         loading_speed: param_loading_3D;
     }
  graphics {
-        default: sw_kb_kg_5000series_lv;
-  purchase: kb_kg_5000series_purchase;
-  can_attach_wagon: kb_kg_5000series_attach_vehid;
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
@@ -17990,19 +17967,16 @@ item(FEAT_TRAINS, kb_kg_5000series,1447) {
     string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
     string(STR_OPERATOR, string(STR_KOBE)),
     string(STR_LINES_USED, string(STR_KOBE_KAIGAN)));
-
+  can_attach_wagon: sw_1435_attach_vehid;
+  purchase: kb_kg_5000series_purchase;
   start_stop: sw_stop_start_3;
-        cargo_capacity: 84;
-    }
- livery_override(mu_car){
-  cargo_subtype_text:sw_empty_desc;
-        loading_speed: param_loading_3D;
-        cargo_capacity: sw_kb_kg_5000series_capacity_main;
-        default: sw_kb_kg_5000series_lv;
-        power: 362;
-        weight: 25;
-        length: 8;
-      }
+
+    default: sw_kb_kg_5000series_lv; loading_speed:param_loading_3D; power:362; cargo_capacity: sw_kb_kg_5000series_capacity_main()*param_capacity_mod/3; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_3D; cargo_capacity: sw_kb_kg_5000series_capacity_main()*param_capacity_mod/3; default: sw_kb_kg_5000series_lv; power: 362; weight: 25; }
+
+
+
+
+
 }
 # 191 "src/_metro.pnml" 2
 
@@ -42107,7 +42081,7 @@ item(FEAT_TRAINS, odakyu9000) {
 
     climates_available: param_disable_odakyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
     name: string(STR_TRAIN_NAME, string(STR_NAME_ODAKYU), "9000", string(STR_NAME_TYPE),);
-    introduction_date: date(1977, 1, 1);
+    introduction_date: date(1972, 1, 1);
     model_life: VEHICLE_NEVER_EXPIRES;
     vehicle_life: 35;
     reliability_decay: 10;
@@ -46754,7 +46728,7 @@ item(FEAT_TRAINS, keio5000n, 2267) {}
     1:sw_keio1000n_livery_5;
     1:sw_keio1000n_livery_6;
     1:sw_keio1000n_livery_7;
-    1:sw_keio1000n_livery_8;
+    1:sw_keio1000n_livery_8_0;
   }
   switch(FEAT_TRAINS,SELF,sw_keio1000n_lv,cargo_subtype){
     0:sw_keio1000n_livery_0;

@@ -69,13 +69,6 @@ switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_capacity_main,position_in_vehid_ch
     0: 84;
     default: 97;
 }
-//attachable vehicles
-switch(FEAT_TRAINS, SELF, kb_kg_5000series_attach_vehid, vehicle_type_id) {
-  mu_car: return CB_RESULT_ATTACH_ALLOW;
-  return string(STR_ATTACH_ERROR);
-}
-
-
 item(FEAT_TRAINS, kb_kg_5000series,1447) {
     property {
        OVERRIDEN_TRAIN_DATA
@@ -96,9 +89,6 @@ item(FEAT_TRAINS, kb_kg_5000series,1447) {
         loading_speed: param_loading_3D;
     }
 	graphics {
-        default: sw_kb_kg_5000series_lv;
-		purchase: kb_kg_5000series_purchase;
-		can_attach_wagon: kb_kg_5000series_attach_vehid;
 		additional_text:
  		   	string(STR_TRAIN_DESC,
 				string(STR_STANDARDGAUGE),
@@ -107,18 +97,15 @@ item(FEAT_TRAINS, kb_kg_5000series,1447) {
 				string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
 				string(STR_OPERATOR, string(STR_KOBE)),
 				string(STR_LINES_USED, string(STR_KOBE_KAIGAN)));
-
+		can_attach_wagon: sw_1435_attach_vehid;
+		purchase: kb_kg_5000series_purchase;
 		start_stop: sw_stop_start_3; 
-        cargo_capacity: 84;  
-    }
-	livery_override(mu_car){
-		cargo_subtype_text:sw_empty_desc;
-        loading_speed: param_loading_3D;
-        cargo_capacity: sw_kb_kg_5000series_capacity_main;
-        default: sw_kb_kg_5000series_lv;
-        power: 362;
-        weight: 25;
-        length: 8; 
-      }
+
+    SET_GRAPHICS_SINGLE(sw_kb_kg_5000series_lv,//graphics
+		sw_kb_kg_5000series_capacity_main(),//cargo capacity
+		362,//power
+		param_loading_3D,//loading speed
+		sw_empty_desc,//subtype
+		25)//car_fallback,weight
 }
 
