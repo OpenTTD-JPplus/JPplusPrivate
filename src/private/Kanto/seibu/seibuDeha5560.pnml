@@ -154,9 +154,9 @@
         param_loading_2D;
     }
   //power fix
-    switch(FEAT_TRAINS, SELF, sw_seibuDeha5560_power_main,position_in_vehid_chain_from_end %2){
-        0: return 0;
-        return 340;
+    switch(FEAT_TRAINS, SELF, sw_seibuDeha5560_power_main,position_in_consist %2){
+        0: return 340;
+        return 0;
     }
 
 item(FEAT_TRAINS, seibuDeha5560) {
@@ -193,7 +193,7 @@ item(FEAT_TRAINS, seibuDeha5560) {
 		start_stop: sw_stop_start_2;
 
 		SET_GRAPHICS_DOUBLE(sw_seibuDeha5560_lv,//graphics
-		110,//cargo capacity
+		110*param_capacity_mod/3,//cargo capacity
 		sw_seibuDeha5560_power_main()*1342/1000,//power
 		sw_seibuDeha5560_load,//loading speed
 		sw_seibuDeha5560_lv_desc,//subtype

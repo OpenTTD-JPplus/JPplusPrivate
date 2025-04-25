@@ -812,13 +812,9 @@
 			0:return 0;
 			return 150;
     }
-    switch(FEAT_TRAINS, SELF, sw_seibu10000_head_power,num_vehs_in_consist){
-			39: return 150;
-			return 0;
-    }
     switch(FEAT_TRAINS, SELF, sw_seibu10000_power_main,vehicle_type_id){
 			100..102:sw_seibu10000_power;
-			sw_seibu10000_head_power;
+			return 0;
     }
 //
 item(FEAT_TRAINS, seibu10000) {
@@ -852,9 +848,10 @@ item(FEAT_TRAINS, seibu10000) {
 		can_attach_wagon: sw_1067_attach_vehid;
 		purchase: seibu10000_purchase;
     start_stop:sw_stop_start_3;
+    purchase_power:sw_seibu10000_power_main()*4*1342/1000;
 
 		SET_GRAPHICS_DOUBLE_AGE(sw_seibu10000_lv,//graphics
-		sw_seibu10000_capacity_main(),//cargo capacity
+		sw_seibu10000_capacity_main()*param_capacity_mod/3,//cargo capacity
 		sw_seibu10000_power_main()*4*1342/1000,//power
 		param_loading_1D,//loading speed
 		sw_seibu10000_lv_desc,//subtype

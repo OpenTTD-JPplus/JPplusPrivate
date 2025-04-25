@@ -132,9 +132,9 @@
         return 135;
     }
   //power fix
-    switch(FEAT_TRAINS, SELF, sw_seibu351_power_main,position_in_vehid_chain_from_end %2){
-      0: return 0;
-      return 400;
+    switch(FEAT_TRAINS, SELF, sw_seibu351_power_main,position_in_consist %2){
+      0: return 400;
+      return 0;
     }
 
 item(FEAT_TRAINS, seibu351) {
@@ -161,7 +161,7 @@ item(FEAT_TRAINS, seibu351) {
       string(STR_NARROWGAUGE),
       string(STR_DENKI, string(STR_DC_N, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
-      string(STR_FORMATION, string(STR_NUM_CARS_1, 3)),
+      string(STR_FORMATION, string(STR_NUM_CARS_3, 2,3,4)),
       string(STR_USAGE, string(STR_COMMUTER)),
 		  string( STR_OPERATOR, string(STR_SEIBU)));
 		cargo_subtype_text:sw_seibu351_lv_desc;
@@ -170,7 +170,7 @@ item(FEAT_TRAINS, seibu351) {
 		start_stop: sw_stop_start_2;
 
 		SET_GRAPHICS_DOUBLE(sw_seibu351_lv,//graphics
-		sw_seibu351_capacity_main(),//cargo capacity
+		sw_seibu351_capacity_main()*param_capacity_mod/3,//cargo capacity
 		sw_seibu351_power_main()*1342/1000,//power
 		param_loading_3D,//loading speed
 		sw_seibu351_lv_desc,//subtype
