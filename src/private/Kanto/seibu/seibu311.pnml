@@ -181,7 +181,7 @@
 //*livery controller
   //livery 0
     //1960
-    random_switch(FEAT_TRAINS, PARENT, sw_seibu311_livery_0_1){
+    random_switch(FEAT_TRAINS, SELF, sw_seibu311_livery_0_1){
       1:sw_seibu311_livery_3;
       1:sw_seibu311_livery_4;
     }
@@ -208,9 +208,9 @@
     }
 //*post fixers
   //power fix
-    switch(FEAT_TRAINS, SELF, sw_seibu311_power_main,position_in_vehid_chain_from_end %2){
-        0: return 0;
-        return 340;
+    switch(FEAT_TRAINS, SELF, sw_seibu311_power_main,position_in_consist %2){
+        0: return 85*4;
+        return 0;
     }
 item(FEAT_TRAINS, seibu311) {
     property {
@@ -245,7 +245,7 @@ item(FEAT_TRAINS, seibu311) {
 		start_stop: sw_stop_start_2;
 
 		SET_GRAPHICS_DOUBLE(sw_seibu311_lv,//graphics
-		118,//cargo capacity
+		118*param_capacity_mod/3,//cargo capacity
 		sw_seibu311_power_main()*1342/1000,//power
 		param_loading_3D,//loading speed
 		sw_seibu311_lv_desc,//subtype

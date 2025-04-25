@@ -111,9 +111,9 @@
     }
 //*post fixers
   //power fix
-    switch(FEAT_TRAINS, SELF, sw_seibu401_1_power_main,position_in_vehid_chain_from_end %2){
-        0: return 0;
-        return 400;
+    switch(FEAT_TRAINS, SELF, sw_seibu401_1_power_main,position_in_consist %2){
+        0: return 400;
+        return 0;
     }
 
 item(FEAT_TRAINS, seibu401_1) {
@@ -149,7 +149,7 @@ item(FEAT_TRAINS, seibu401_1) {
 		start_stop: sw_stop_start_2;
 
 		SET_GRAPHICS_DOUBLE(sw_seibu401_1_lv,//graphics
-		120,//cargo capacity
+		120*param_capacity_mod/3,//cargo capacity
 		sw_seibu401_1_power_main()*1342/1000,//power
 		param_loading_4D,//loading speed
 		sw_seibu401_lv_desc,//subtype
