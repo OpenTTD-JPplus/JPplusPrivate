@@ -154,18 +154,18 @@ switch(FEAT_TRAINS, SELF, sw_y000_capacity_main,vehicle_type_id){
         return 0;
   }
 
-item(FEAT_TRAINS, y000,2018) {
+item(FEAT_TRAINS, y000) {
     property {
         OVERRIDEN_TRAIN_DATA
         
         climates_available: param_disable_tokyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
 
         name: string(STR_TRAIN_NAME, string(STR_NAME_MINATO), "Y000", string(STR_NAME_SERIES));
-        introduction_date: date(1999, 1, 1);
+        introduction_date: date(1999, 8, 1);
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 30;
         reliability_decay: 10;
-        variant_group:2017;
+        variant_group:tokyu3000;
 
         cost_factor: 22;
         running_cost_factor: 52;
@@ -189,7 +189,7 @@ item(FEAT_TRAINS, y000,2018) {
 		start_stop: sw_stop_start_2; 
 
 		SET_GRAPHICS_DOUBLE(sw_y000_lv,//graphics
-		sw_y000_capacity_main(),//cargo capacity
+		sw_y000_capacity_main()*param_capacity_mod/3,//cargo capacity
 		sw_y000_power_main()*4*1342/1000,//power
 		param_loading_4D,//loading speed
 		sw_empty_desc,//subtype
