@@ -84,34 +84,14 @@ switch(FEAT_TRAINS, SELF, sw_tokyu3000_panto_placer_main,num_vehs_in_vehid_chain
     sw_tokyu3000_panto_placer_time;
 }
 
-//fake head-end placer
-switch(FEAT_TRAINS, SELF, sw_tokyu3000_fake_placer,position_in_vehid_chain +1){
-    7: tokyu3000_end;
-    8: tokyu3000_end_rev;
-sw_tokyu3000_panto_placer_main;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu3000_fake_placer_rev,position_in_vehid_chain_from_end ){
-    7: tokyu3000_end;
-    8: tokyu3000_end_rev;
-sw_tokyu3000_panto_placer_main;
-}
-switch(FEAT_TRAINS, PARENT, sw_tokyu3000_fake_placer_gfx,vehicle_is_reversed){
-    1: sw_tokyu3000_fake_placer_rev;
-    sw_tokyu3000_fake_placer;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu3000_fake_placer_main,num_vehs_in_vehid_chain>11 - 1){
-    1: sw_tokyu3000_fake_placer_gfx;
-sw_tokyu3000_panto_placer_main;
-}
-
 //front-end-fixer
 switch(FEAT_TRAINS, SELF, sw_tokyu3000_end_gfx_main,position_in_vehid_chain_from_end){
     0: tokyu3000_end;
-    default: sw_tokyu3000_fake_placer_main;
+    default: sw_tokyu3000_panto_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tokyu3000_front_gfx_main,position_in_vehid_chain_from_end){
     0: tokyu3000_front;
-    default: sw_tokyu3000_fake_placer_main;
+    default: sw_tokyu3000_panto_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tokyu3000_lv,vehicle_type_id){
     100..102:sw_tokyu3000_end_gfx_main;
@@ -119,28 +99,26 @@ switch(FEAT_TRAINS, SELF, sw_tokyu3000_lv,vehicle_type_id){
 }
 
 //post fixers
-//capacity-changer
-switch(FEAT_TRAINS, SELF, sw_tokyu3000_capacity,position_in_vehid_chain_from_end){
-    0: 141;
-    default: 151;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu3000_capacity_1,position_in_vehid_chain){
-    0: 141;
-    default: sw_tokyu3000_capacity;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu3000_capacity_main,vehicle_type_id){
-    100..102:sw_tokyu3000_capacity;
-        sw_tokyu3000_capacity_1;
-}
+  //capacity-changer
+  switch(FEAT_TRAINS, SELF, sw_tokyu3000_capacity_main,position_in_vehid_chain_from_end){
+      0: 141;
+      default: 151;
+  }
+  //power
+  switch(FEAT_TRAINS, SELF, sw_tokyu3000_power_main,position_in_vehid_chain_from_end %8){
+    1..2:return 190;
+    5..6:return 190;
+    return 0;
+  }
 
-item(FEAT_TRAINS, tokyu3000,2017) {
+item(FEAT_TRAINS, tokyu3000) {
     property {
         OVERRIDEN_TRAIN_DATA
 
         climates_available: param_disable_tokyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
         
         name: string(STR_TRAIN_NAME, string(STR_NAME_TOKYU), "3000", string(STR_NAME_SERIES));
-        introduction_date: date(1999, 1, 1);
+        introduction_date: date(1999, 4, 16);
         model_life: VEHICLE_NEVER_EXPIRES;
         vehicle_life: 30;
         reliability_decay: 10;
@@ -159,7 +137,7 @@ item(FEAT_TRAINS, tokyu3000,2017) {
       string(STR_DENKI, string(STR_DC_N, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
-      string(STR_USAGE, string(STR_COMMUTER)),
+      string(STR_USAGE, string(STR_METRO_ACCESS)),
       string(STR_OPERATOR, string(STR_TOKYU)));
 		// cargo_subtype_text: sw_tokyu3000_lv_desc;
 		can_attach_wagon: sw_1067_attach_vehid;
@@ -167,8 +145,8 @@ item(FEAT_TRAINS, tokyu3000,2017) {
 		start_stop: sw_stop_start_3; 
 
     SET_GRAPHICS_DOUBLE(sw_tokyu3000_lv,//graphics
-		sw_tokyu3000_capacity_main(),//cargo capacity
-		1019*3/8,//power
+		sw_tokyu3000_capacity_main()*param_capacity_mod/3,//cargo capacity
+		sw_tokyu3000_power_main()*4*1342/1000,//power
 		param_loading_4D,//loading speed
 		sw_empty_desc,//subtype
 		mu_car_narrow,30)//car_fallback,weight

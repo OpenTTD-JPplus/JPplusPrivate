@@ -605,28 +605,35 @@ switch(FEAT_TRAINS, SELF, sw_tokyu8000_lv, cargo_subtype){
 }
 switch(FEAT_TRAINS, SELF, sw_tokyu8000_lv_desc, cargo_subtype){
     0:string(LV_RANDOM);
-    1:string(LV_tokyu8000_1);
-    2:string(LV_tokyu8000_2);
-    3:string(LV_tokyu8500_1);
-    4:string(LV_tokyu8500_2);
+    1:string(LV_DATED,string(STR_LIVERY,string(STR_CONCAT_3, "8090", string(STR_NAME_SERIES), string(LV_tokyu_toyoko_belt))),1969);
+    2:string(LV_DATED,string(STR_LIVERY,string(STR_CONCAT_3, "8090", string(STR_NAME_SERIES), string(STR_RENEWAL))),1992);
+    3:string(LV_DATED,string(STR_LIVERY,string(STR_CONCAT_3, "8500", string(STR_NAME_SERIES), string(LV_DEFAULT))),1975);
+    4:string(LV_DATED,string(STR_LIVERY,string(STR_CONCAT_3, "8500", string(STR_NAME_SERIES), string(LV_tokyu8500_2))),2018);
 }
 //livery logic end
 
 //capacity-changer
-switch(FEAT_TRAINS, SELF, sw_tokyu8000_capacity,position_in_vehid_chain_from_end){
-    0: 136;
-    default: 144;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu8000_capacity_1,position_in_vehid_chain){
-    0: 136;
-    default: sw_tokyu8000_capacity;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu8000_capacity_main,vehicle_type_id){
-    100..102:sw_tokyu8000_capacity;
-        sw_tokyu8000_capacity_1;
-}
-
-item(FEAT_TRAINS, tokyu8000,2012) {
+    switch(FEAT_TRAINS, SELF, sw_tokyu8000_capacity_main,position_in_vehid_chain_from_end){
+      0: 136;
+      default: 144;
+    }
+  //power
+    switch(FEAT_TRAINS, SELF, sw_tokyu8000_power_main_1,position_in_vehid_chain_from_end %10){
+      1..6:return 130;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tokyu8500_power_main,position_in_vehid_chain_from_end %10){
+      0..1:return 130;
+      3:return 130;
+      5..8:return 130;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tokyu8000_power_main,(cargo_subtype>=2||build_year>=1975)){
+    1: sw_tokyu8500_power_main;
+    sw_tokyu8000_power_main_1;
+  }
+//
+item(FEAT_TRAINS, tokyu8000) {
     property {
         OVERRIDEN_TRAIN_DATA
 
@@ -634,7 +641,7 @@ item(FEAT_TRAINS, tokyu8000,2012) {
         //variant_group:;
         
         name: string(STR_TRAIN_NAME, string(STR_NAME_TOKYU), "8000/8500", string(STR_NAME_SERIES));
-        introduction_date: date(1969, 1, 1);
+        introduction_date: date(1969, 11, 30);
         model_life: 38;
         vehicle_life: 38;
         reliability_decay: 10;
@@ -653,7 +660,7 @@ item(FEAT_TRAINS, tokyu8000,2012) {
 			string(STR_DENKI, string(STR_DC_N, 1500)),
 			string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
 			string(STR_FORMATION, string(STR_NUM_CARS_4, 4,5,8,10)),
-			string(STR_USAGE, string(STR_COMMUTER)),
+			string(STR_USAGE, string(STR_METRO_ACCESS)),
 			string(STR_OPERATOR, string(STR_TOKYU)));
 		cargo_subtype_text: sw_tokyu8000_lv_desc;
 		can_attach_wagon: sw_1067_attach_vehid;
@@ -661,8 +668,8 @@ item(FEAT_TRAINS, tokyu8000,2012) {
 		start_stop: sw_stop_start_3; 
     
     SET_GRAPHICS_DOUBLE(sw_tokyu8000_lv,//graphics
-		sw_tokyu8000_capacity_main(),//cargo capacity
-		697*5/7,//power
+		sw_tokyu8000_capacity_main()*param_capacity_mod/3,//cargo capacity
+		sw_tokyu8000_power_main()*4*1342/1000,//power
 		param_loading_4D,//loading speed
 		sw_tokyu8000_lv_desc,//subtype
 		mu_car_narrow,33)//car_fallback,weight

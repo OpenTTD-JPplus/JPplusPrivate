@@ -75,20 +75,25 @@ switch(FEAT_TRAINS, SELF, sw_tokyu6000_old_lv,vehicle_type_id){
 }
 
 //capacity-changer
-switch(FEAT_TRAINS, SELF, sw_tokyu6000_old_capacity,position_in_vehid_chain_from_end){
-    0: 135;
-    default: 150;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu6000_old_capacity_1,position_in_vehid_chain){
-    0: 135;
-    default: sw_tokyu6000_old_capacity;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu6000_old_capacity_main,vehicle_type_id){
-    100..102:sw_tokyu6000_old_capacity;
-        sw_tokyu6000_old_capacity_1;
-}
-
-item(FEAT_TRAINS, tokyu6000_old,2007) {
+  switch(FEAT_TRAINS, SELF, sw_tokyu6000_old_capacity_main,position_in_vehid_chain_from_end){
+      0: 135;
+      default: 150;
+  }
+  //power
+    switch(FEAT_TRAINS, SELF, sw_tokyu6000_old_power_main_1,position_in_vehid_chain_from_end %6){
+      0..3:return 100;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tokyu6000_old_power_main_2,position_in_vehid_chain_from_end %6){
+      0..3:return 120;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tokyu6000_old_power_main,build_year>1960){
+      1: sw_tokyu6000_old_power_main_2;
+      sw_tokyu6000_old_power_main_1;
+    }
+//
+item(FEAT_TRAINS, tokyu6000_old) {
     property {
         OVERRIDEN_TRAIN_DATA
 
@@ -122,8 +127,8 @@ item(FEAT_TRAINS, tokyu6000_old,2007) {
 		start_stop: sw_stop_start_2; 
     
     SET_GRAPHICS_DOUBLE(sw_tokyu6000_old_lv,//graphics
-		sw_tokyu6000_old_capacity_main(),//cargo capacity
-		536,//power
+		sw_tokyu6000_old_capacity_main()*param_capacity_mod/3,//cargo capacity
+		sw_tokyu6000_old_power_main()*2*1342/1000,//power
 		param_loading_3D,//loading speed
 		sw_empty_desc,//subtype
 		mu_car_narrow,28)//car_fallback,weight
