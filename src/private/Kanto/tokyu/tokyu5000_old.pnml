@@ -90,6 +90,15 @@ switch(FEAT_TRAINS, SELF, sw_tokyu5000_old_lv,vehicle_type_id){
       3:return 110;
       return 0;
     }
+//variant naming shenanigans
+switch (FEAT_TRAINS, SELF, sw_tokyu5000_old_name_purchase, getbits(extra_callback_info1, 8, 8)) { 
+  1: return CB_RESULT_NO_TEXT; 
+  return string(STR_TRAIN_NAME, string(STR_NAME_TOKYU), "5000/5200", string(STR_NAME_SERIES));
+  } 
+switch (FEAT_TRAINS, SELF, sw_tokyu5000_old_name, getbits(extra_callback_info1, 0, 8)) { 
+  0x20: sw_tokyu5000_old_name_purchase; 
+  return CB_RESULT_NO_TEXT;
+}
 //
 item(FEAT_TRAINS, tokyu5000_old) {
     property {
@@ -121,6 +130,7 @@ item(FEAT_TRAINS, tokyu5000_old) {
 		can_attach_wagon: sw_1067_attach_vehid;
 		purchase: tokyu5000_old_purchase;
 		start_stop: sw_stop_start_2;
+    name:sw_tokyu5000_old_name;
 
 		SET_GRAPHICS_DOUBLE(sw_tokyu5000_old_lv,//graphics
 		sw_tokyu5000_old_capacity_main()*param_capacity_mod/3,//cargo capacity

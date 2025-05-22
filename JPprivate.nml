@@ -12,6 +12,8 @@ grf {
     min_compatible_version: 260;
 
 
+
+
  param 0 {
   param_buy {
     type: int;
@@ -290,6 +292,9 @@ param 6 {
    }
 }
 
+
+
+
  if (param_capacities == 0 || param_capacities == 1) {
   param_loading_1D = 10;
   param_loading_2D = 20;
@@ -396,7 +401,6 @@ if ((grf_current_status("TB\01\01") == 1)||(grf_future_status("TB\01\01") == 1))
 }
 # 5 "JPprivate.pnml" 2
 # 1 "src/controllers/railtypes.pnml" 1
-
 railtypetable {
   TR_1067_NE: [NAAN, RAIL],
   TR_1067_DC: [NAAD, NAAE, NABE, ELNG, ELRL],
@@ -19200,6 +19204,15 @@ switch(FEAT_TRAINS, SELF, sw_tokyu5000_old_lv,vehicle_type_id){
       return 0;
     }
 
+switch (FEAT_TRAINS, SELF, sw_tokyu5000_old_name_purchase, getbits(extra_callback_info1, 8, 8)) {
+  1: return CB_RESULT_NO_TEXT;
+  return string(STR_TRAIN_NAME, string(STR_NAME_TOKYU), "5000/5200", string(STR_NAME_SERIES));
+  }
+switch (FEAT_TRAINS, SELF, sw_tokyu5000_old_name, getbits(extra_callback_info1, 0, 8)) {
+  0x20: sw_tokyu5000_old_name_purchase;
+  return CB_RESULT_NO_TEXT;
+}
+
 item(FEAT_TRAINS, tokyu5000_old) {
     property {
         cargo_capacity: 130; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); non_refittable_cargo_classes: bitmask(); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); tractive_effort_coefficient: 0.3; air_drag_coefficient: 0.07; bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 10;
@@ -19230,6 +19243,7 @@ item(FEAT_TRAINS, tokyu5000_old) {
   can_attach_wagon: sw_1067_attach_vehid;
   purchase: tokyu5000_old_purchase;
   start_stop: sw_stop_start_2;
+    name:sw_tokyu5000_old_name;
 
   cargo_capacity: sw_tokyu5000_old_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; loading_speed:param_loading_3D; default: sw_tokyu5000_old_lv; power:sw_tokyu5000_old_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_3D; cargo_capacity: sw_tokyu5000_old_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tokyu5000_old_lv; power: sw_tokyu5000_old_power_main()*4*1342/1000; weight: 23; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_3D; cargo_capacity: sw_tokyu5000_old_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tokyu5000_old_lv; power: sw_tokyu5000_old_power_main()*4*1342/1000; weight: 23; }
 
@@ -19327,6 +19341,7 @@ item(FEAT_TRAINS, tokyu5200_old) {
   can_attach_wagon: sw_1067_attach_vehid;
   purchase: tokyu5200_old_purchase;
   start_stop: sw_stop_start_2;
+    name:sw_tokyu5000_old_name;
 
     cargo_capacity: sw_tokyu5200_old_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; loading_speed:param_loading_3D; default: sw_tokyu5200_old_lv; power:sw_tokyu5000_old_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_3D; cargo_capacity: sw_tokyu5200_old_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tokyu5200_old_lv; power: sw_tokyu5000_old_power_main()*4*1342/1000; weight: 26; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_3D; cargo_capacity: sw_tokyu5200_old_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tokyu5200_old_lv; power: sw_tokyu5000_old_power_main()*4*1342/1000; weight: 26; }
 
@@ -25339,7 +25354,7 @@ item(FEAT_TRAINS, tobu5700,2050) {
   purchase: tobu5700_purchase;
   start_stop: sw_stop_start_2;
 
-    cargo_capacity: 56*param_capacity_mod/3; cargo_age_period: sw_tobu5700_cargo_age_main; loading_speed:param_loading_1D; default: sw_tobu5700_lv; power:sw_tobu5700_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu5700_lv_desc; loading_speed: param_loading_1D; cargo_capacity: 56*param_capacity_mod/3; default: sw_tobu5700_lv; power: sw_tobu5700_power_main()*4*1342/1000; weight: 35; cargo_age_period: sw_tobu5700_cargo_age_main; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu5700_lv_desc; loading_speed: param_loading_1D; cargo_capacity: 56*param_capacity_mod/3; default: sw_tobu5700_lv; power: sw_tobu5700_power_main()*4*1342/1000; weight: 35; cargo_age_period: sw_tobu5700_cargo_age_main; }
+    cargo_capacity: 56*param_capacity_mod/3*param_capacity_mod/3; cargo_age_period: sw_tobu5700_cargo_age_main; loading_speed:param_loading_1D; default: sw_tobu5700_lv; power:sw_tobu5700_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu5700_lv_desc; loading_speed: param_loading_1D; cargo_capacity: 56*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu5700_lv; power: sw_tobu5700_power_main()*4*1342/1000; weight: 35; cargo_age_period: sw_tobu5700_cargo_age_main; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu5700_lv_desc; loading_speed: param_loading_1D; cargo_capacity: 56*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu5700_lv; power: sw_tobu5700_power_main()*4*1342/1000; weight: 35; cargo_age_period: sw_tobu5700_cargo_age_main; }
 
 
 
@@ -25435,7 +25450,7 @@ item(FEAT_TRAINS, tobu1700,2051) {
   purchase: tobu1700_purchase;
   start_stop: sw_stop_start_2;
 
-  cargo_capacity: 56*param_capacity_mod/3; cargo_age_period: ltd_express_cargo_age; loading_speed:param_loading_1D; default: sw_tobu1700_lv; power:sw_tobu1700_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_1D; cargo_capacity: 56*param_capacity_mod/3; default: sw_tobu1700_lv; power: sw_tobu1700_power_main()*4*1342/1000; weight: 35; cargo_age_period: ltd_express_cargo_age; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_1D; cargo_capacity: 56*param_capacity_mod/3; default: sw_tobu1700_lv; power: sw_tobu1700_power_main()*4*1342/1000; weight: 35; cargo_age_period: ltd_express_cargo_age; }
+  cargo_capacity: 56*param_capacity_mod/3*param_capacity_mod/3; cargo_age_period: ltd_express_cargo_age; loading_speed:param_loading_1D; default: sw_tobu1700_lv; power:sw_tobu1700_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_1D; cargo_capacity: 56*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu1700_lv; power: sw_tobu1700_power_main()*4*1342/1000; weight: 35; cargo_age_period: ltd_express_cargo_age; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_1D; cargo_capacity: 56*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu1700_lv; power: sw_tobu1700_power_main()*4*1342/1000; weight: 35; cargo_age_period: ltd_express_cargo_age; }
 
 
 
@@ -25601,7 +25616,7 @@ item(FEAT_TRAINS, tobu1720,2052) {
   purchase: tobu1720_purchase;
     start_stop: sw_stop_start_2;
 
-  cargo_capacity: sw_tobu1720_capacity_main()*param_capacity_mod/3; cargo_age_period: ltd_express_cargo_age; loading_speed:param_loading_1D; default: sw_tobu1720_lv; power:75*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu1720_capacity_main()*param_capacity_mod/3; default: sw_tobu1720_lv; power: 75*4*1342/1000; weight: 36; cargo_age_period: ltd_express_cargo_age; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu1720_capacity_main()*param_capacity_mod/3; default: sw_tobu1720_lv; power: 75*4*1342/1000; weight: 36; cargo_age_period: ltd_express_cargo_age; }
+  cargo_capacity: sw_tobu1720_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; cargo_age_period: ltd_express_cargo_age; loading_speed:param_loading_1D; default: sw_tobu1720_lv; power:75*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu1720_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu1720_lv; power: 75*4*1342/1000; weight: 36; cargo_age_period: ltd_express_cargo_age; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu1720_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu1720_lv; power: 75*4*1342/1000; weight: 36; cargo_age_period: ltd_express_cargo_age; }
 
 
 
@@ -25735,7 +25750,7 @@ item(FEAT_TRAINS, tobu6000,2053) {
   purchase: tobu6000_purchase;
   start_stop: sw_stop_start_2;
 
-  cargo_capacity: sw_tobu6000_capacity_main()*param_capacity_mod/3; cargo_age_period: sw_tobu6000_cargo_age_main; loading_speed:param_loading_2D; default: sw_tobu6000_lv; power:sw_tobu6000_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu6000_lv_desc; loading_speed: param_loading_2D; cargo_capacity: sw_tobu6000_capacity_main()*param_capacity_mod/3; default: sw_tobu6000_lv; power: sw_tobu6000_power_main()*4*1342/1000; weight: 35; cargo_age_period: sw_tobu6000_cargo_age_main; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu6000_lv_desc; loading_speed: param_loading_2D; cargo_capacity: sw_tobu6000_capacity_main()*param_capacity_mod/3; default: sw_tobu6000_lv; power: sw_tobu6000_power_main()*4*1342/1000; weight: 35; cargo_age_period: sw_tobu6000_cargo_age_main; }
+  cargo_capacity: sw_tobu6000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; cargo_age_period: sw_tobu6000_cargo_age_main; loading_speed:param_loading_2D; default: sw_tobu6000_lv; power:sw_tobu6000_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu6000_lv_desc; loading_speed: param_loading_2D; cargo_capacity: sw_tobu6000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu6000_lv; power: sw_tobu6000_power_main()*4*1342/1000; weight: 35; cargo_age_period: sw_tobu6000_cargo_age_main; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu6000_lv_desc; loading_speed: param_loading_2D; cargo_capacity: sw_tobu6000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu6000_lv; power: sw_tobu6000_power_main()*4*1342/1000; weight: 35; cargo_age_period: sw_tobu6000_cargo_age_main; }
 
 
 
@@ -26152,7 +26167,7 @@ item(FEAT_TRAINS, tobu1800,2055) {
   can_attach_wagon: sw_1067_attach_vehid;
   purchase: tobu1800_purchase;
 
-  cargo_capacity: sw_tobu1800_capacity_main()*param_capacity_mod/3; cargo_age_period: sw_tobu1800_cargo_age_main; loading_speed:param_loading_1D; default: sw_tobu1800_lv; power:sw_tobu1800_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu1800_lv_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu1800_capacity_main()*param_capacity_mod/3; default: sw_tobu1800_lv; power: sw_tobu1800_power_main()*4*1342/1000; weight: 36; cargo_age_period: sw_tobu1800_cargo_age_main; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu1800_lv_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu1800_capacity_main()*param_capacity_mod/3; default: sw_tobu1800_lv; power: sw_tobu1800_power_main()*4*1342/1000; weight: 36; cargo_age_period: sw_tobu1800_cargo_age_main; }
+  cargo_capacity: sw_tobu1800_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; cargo_age_period: sw_tobu1800_cargo_age_main; loading_speed:param_loading_1D; default: sw_tobu1800_lv; power:sw_tobu1800_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu1800_lv_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu1800_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu1800_lv; power: sw_tobu1800_power_main()*4*1342/1000; weight: 36; cargo_age_period: sw_tobu1800_cargo_age_main; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu1800_lv_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu1800_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu1800_lv; power: sw_tobu1800_power_main()*4*1342/1000; weight: 36; cargo_age_period: sw_tobu1800_cargo_age_main; }
 
 
 
@@ -26383,7 +26398,7 @@ item(FEAT_TRAINS, tobu6050,2054) {
   purchase: tobu6050_purchase;
   start_stop: sw_stop_start_2;
 
-  cargo_capacity: sw_tobu6050_capacity_main()*param_capacity_mod/3; cargo_age_period: express_cargo_age; loading_speed:param_loading_2D; default: sw_tobu6050_lv; power:sw_tobu6050_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu6050_lv_desc; loading_speed: param_loading_2D; cargo_capacity: sw_tobu6050_capacity_main()*param_capacity_mod/3; default: sw_tobu6050_lv; power: sw_tobu6050_power_main()*4*1342/1000; weight: 37; cargo_age_period: express_cargo_age; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu6050_lv_desc; loading_speed: param_loading_2D; cargo_capacity: sw_tobu6050_capacity_main()*param_capacity_mod/3; default: sw_tobu6050_lv; power: sw_tobu6050_power_main()*4*1342/1000; weight: 37; cargo_age_period: express_cargo_age; }
+  cargo_capacity: sw_tobu6050_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; cargo_age_period: express_cargo_age; loading_speed:param_loading_2D; default: sw_tobu6050_lv; power:sw_tobu6050_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu6050_lv_desc; loading_speed: param_loading_2D; cargo_capacity: sw_tobu6050_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu6050_lv; power: sw_tobu6050_power_main()*4*1342/1000; weight: 37; cargo_age_period: express_cargo_age; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu6050_lv_desc; loading_speed: param_loading_2D; cargo_capacity: sw_tobu6050_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu6050_lv; power: sw_tobu6050_power_main()*4*1342/1000; weight: 37; cargo_age_period: express_cargo_age; }
 
 
 
@@ -27187,7 +27202,7 @@ item(FEAT_TRAINS, tobu100,2058) {
   purchase: tobu100_purchase;
   start_stop: sw_stop_start_3;
 
-  cargo_capacity: sw_tobu100_capacity_main()*boost_rapid_mod/2*param_capacity_mod/3; cargo_age_period: ltd_express_cargo_age; loading_speed:param_loading_1D; default: sw_tobu100_lv; power:sw_tobu100_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu100_lv_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu100_capacity_main()*boost_rapid_mod/2*param_capacity_mod/3; default: sw_tobu100_lv; power: sw_tobu100_power_main()*4*1342/1000; weight: 36; cargo_age_period: ltd_express_cargo_age; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu100_lv_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu100_capacity_main()*boost_rapid_mod/2*param_capacity_mod/3; default: sw_tobu100_lv; power: sw_tobu100_power_main()*4*1342/1000; weight: 36; cargo_age_period: ltd_express_cargo_age; }
+  cargo_capacity: sw_tobu100_capacity_main()*param_capacity_mod/3*boost_rapid_mod/2*param_capacity_mod/3; cargo_age_period: ltd_express_cargo_age; loading_speed:param_loading_1D; default: sw_tobu100_lv; power:sw_tobu100_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu100_lv_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu100_capacity_main()*param_capacity_mod/3*boost_rapid_mod/2*param_capacity_mod/3; default: sw_tobu100_lv; power: sw_tobu100_power_main()*4*1342/1000; weight: 36; cargo_age_period: ltd_express_cargo_age; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu100_lv_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu100_capacity_main()*param_capacity_mod/3*boost_rapid_mod/2*param_capacity_mod/3; default: sw_tobu100_lv; power: sw_tobu100_power_main()*4*1342/1000; weight: 36; cargo_age_period: ltd_express_cargo_age; }
 
 
 
@@ -27564,7 +27579,7 @@ item(FEAT_TRAINS, tobu200,2059) {
   can_attach_wagon: sw_1067_attach_vehid;
   cargo_subtype_text:sw_tobu200_lv_desc;
 
-  cargo_capacity: sw_tobu200_capacity_main()*param_capacity_mod/3; cargo_age_period: ltd_express_cargo_age; loading_speed:param_loading_1D; default: sw_tobu200_lv; power:sw_tobu200_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu200_lv_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu200_capacity_main()*param_capacity_mod/3; default: sw_tobu200_lv; power: sw_tobu200_power_main()*4*1342/1000; weight: 36; cargo_age_period: ltd_express_cargo_age; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu200_lv_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu200_capacity_main()*param_capacity_mod/3; default: sw_tobu200_lv; power: sw_tobu200_power_main()*4*1342/1000; weight: 36; cargo_age_period: ltd_express_cargo_age; }
+  cargo_capacity: sw_tobu200_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; cargo_age_period: ltd_express_cargo_age; loading_speed:param_loading_1D; default: sw_tobu200_lv; power:sw_tobu200_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu200_lv_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu200_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu200_lv; power: sw_tobu200_power_main()*4*1342/1000; weight: 36; cargo_age_period: ltd_express_cargo_age; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu200_lv_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu200_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu200_lv; power: sw_tobu200_power_main()*4*1342/1000; weight: 36; cargo_age_period: ltd_express_cargo_age; }
 
 
 
@@ -27719,7 +27734,7 @@ item(FEAT_TRAINS, tobu300,2060) {
   purchase: tobu300_purchase;
     start_stop: sw_stop_start_3;
 
-  cargo_capacity: sw_tobu300_capacity_main()*param_capacity_mod/3; cargo_age_period: ltd_express_cargo_age; loading_speed:param_loading_1D; default: sw_tobu300_lv; power:sw_tobu300_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu300_capacity_main()*param_capacity_mod/3; default: sw_tobu300_lv; power: sw_tobu300_power_main()*4*1342/1000; weight: 38; cargo_age_period: ltd_express_cargo_age; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu300_capacity_main()*param_capacity_mod/3; default: sw_tobu300_lv; power: sw_tobu300_power_main()*4*1342/1000; weight: 38; cargo_age_period: ltd_express_cargo_age; }
+  cargo_capacity: sw_tobu300_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; cargo_age_period: ltd_express_cargo_age; loading_speed:param_loading_1D; default: sw_tobu300_lv; power:sw_tobu300_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu300_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu300_lv; power: sw_tobu300_power_main()*4*1342/1000; weight: 38; cargo_age_period: ltd_express_cargo_age; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu300_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu300_lv; power: sw_tobu300_power_main()*4*1342/1000; weight: 38; cargo_age_period: ltd_express_cargo_age; }
 
 
 
@@ -27866,7 +27881,7 @@ item(FEAT_TRAINS, tobu500,2061) {
   purchase: tobu500_purchase;
     start_stop: sw_stop_start_2;
 
-  cargo_capacity: sw_tobu500_capacity_main()*param_capacity_mod/3; cargo_age_period: ltd_express_cargo_age; loading_speed:param_loading_1D; default: sw_tobu500_lv; power:sw_tobu500_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu500_capacity_main()*param_capacity_mod/3; default: sw_tobu500_lv; power: sw_tobu500_power_main()*4*1342/1000; weight: 38; cargo_age_period: ltd_express_cargo_age; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu500_capacity_main()*param_capacity_mod/3; default: sw_tobu500_lv; power: sw_tobu500_power_main()*4*1342/1000; weight: 38; cargo_age_period: ltd_express_cargo_age; }
+  cargo_capacity: sw_tobu500_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; cargo_age_period: ltd_express_cargo_age; loading_speed:param_loading_1D; default: sw_tobu500_lv; power:sw_tobu500_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu500_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu500_lv; power: sw_tobu500_power_main()*4*1342/1000; weight: 38; cargo_age_period: ltd_express_cargo_age; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu500_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu500_lv; power: sw_tobu500_power_main()*4*1342/1000; weight: 38; cargo_age_period: ltd_express_cargo_age; }
 
 
 
@@ -28024,7 +28039,7 @@ item(FEAT_TRAINS, tobu100n,2062) {
   can_attach_wagon: sw_1067_attach_vehid;
     start_stop: sw_stop_start_3;
 
-  cargo_capacity: sw_tobu100n_capacity_main()*boost_rapid_mod/2*param_capacity_mod/3; cargo_age_period: ltd_express_cargo_age; loading_speed:param_loading_1D; default: sw_tobu100n_lv; power:sw_tobu100n_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu100n_capacity_main()*boost_rapid_mod/2*param_capacity_mod/3; default: sw_tobu100n_lv; power: sw_tobu100n_power_main()*4*1342/1000; weight: 38; cargo_age_period: ltd_express_cargo_age; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu100n_capacity_main()*boost_rapid_mod/2*param_capacity_mod/3; default: sw_tobu100n_lv; power: sw_tobu100n_power_main()*4*1342/1000; weight: 38; cargo_age_period: ltd_express_cargo_age; }
+  cargo_capacity: sw_tobu100n_capacity_main()*param_capacity_mod/3*boost_rapid_mod/2*param_capacity_mod/3; cargo_age_period: ltd_express_cargo_age; loading_speed:param_loading_1D; default: sw_tobu100n_lv; power:sw_tobu100n_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu100n_capacity_main()*param_capacity_mod/3*boost_rapid_mod/2*param_capacity_mod/3; default: sw_tobu100n_lv; power: sw_tobu100n_power_main()*4*1342/1000; weight: 38; cargo_age_period: ltd_express_cargo_age; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_1D; cargo_capacity: sw_tobu100n_capacity_main()*param_capacity_mod/3*boost_rapid_mod/2*param_capacity_mod/3; default: sw_tobu100n_lv; power: sw_tobu100n_power_main()*4*1342/1000; weight: 38; cargo_age_period: ltd_express_cargo_age; }
 
 
 
@@ -28115,7 +28130,7 @@ item(FEAT_TRAINS, tobu_deha1,2065) {
   purchase: tobu_deha1_purchase;
   can_attach_wagon: sw_1067_attach_vehid;
 
-    cargo_capacity: 92*param_capacity_mod/3; loading_speed:param_loading_3D; default: sw_tobu_deha1_lv; power:sw_tobu_deha1_power_main()*1342/1000; length: 7; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_3D; cargo_capacity: 92*param_capacity_mod/3; default: sw_tobu_deha1_lv; power: sw_tobu_deha1_power_main()*1342/1000; weight: 33; length: 7; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_3D; cargo_capacity: 92*param_capacity_mod/3; default: sw_tobu_deha1_lv; power: sw_tobu_deha1_power_main()*1342/1000; weight: 33; length: 7; }
+    cargo_capacity: 92*param_capacity_mod/3*param_capacity_mod/3; loading_speed:param_loading_3D; default: sw_tobu_deha1_lv; power:sw_tobu_deha1_power_main()*1342/1000; length: 7; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_3D; cargo_capacity: 92*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu_deha1_lv; power: sw_tobu_deha1_power_main()*1342/1000; weight: 33; length: 7; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_3D; cargo_capacity: 92*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu_deha1_lv; power: sw_tobu_deha1_power_main()*1342/1000; weight: 33; length: 7; }
 
 
 
@@ -28771,7 +28786,7 @@ item(FEAT_TRAINS, tobu_deha10,2066) {
   purchase: tobu_deha10_purchase;
     speed: sw_tobu_deha10_speed_fix;
 
-  cargo_capacity: 138*param_capacity_mod/3; loading_speed:sw_tobu_deha10_loading_fix; default: sw_tobu_deha10_lv; power:sw_tobu_deha10_power_main()*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu_deha10_lv_desc; loading_speed: sw_tobu_deha10_loading_fix; cargo_capacity: 138*param_capacity_mod/3; default: sw_tobu_deha10_lv; power: sw_tobu_deha10_power_main()*1342/1000; weight: 41; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu_deha10_lv_desc; loading_speed: sw_tobu_deha10_loading_fix; cargo_capacity: 138*param_capacity_mod/3; default: sw_tobu_deha10_lv; power: sw_tobu_deha10_power_main()*1342/1000; weight: 41; }
+  cargo_capacity: 138*param_capacity_mod/3*param_capacity_mod/3; loading_speed:sw_tobu_deha10_loading_fix; default: sw_tobu_deha10_lv; power:sw_tobu_deha10_power_main()*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu_deha10_lv_desc; loading_speed: sw_tobu_deha10_loading_fix; cargo_capacity: 138*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu_deha10_lv; power: sw_tobu_deha10_power_main()*1342/1000; weight: 41; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu_deha10_lv_desc; loading_speed: sw_tobu_deha10_loading_fix; cargo_capacity: 138*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu_deha10_lv; power: sw_tobu_deha10_power_main()*1342/1000; weight: 41; }
 
 
 
@@ -29119,7 +29134,7 @@ item(FEAT_TRAINS, tobu7300,2067) {
   purchase: tobu7300_purchase;
   start_stop: sw_stop_start_2;
 
-  cargo_capacity: sw_tobu7300_capacity_main()*param_capacity_mod/3; loading_speed:param_loading_4D; default: sw_tobu7300_lv; power:sw_tobu7300_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu7300_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu7300_capacity_main()*param_capacity_mod/3; default: sw_tobu7300_lv; power: sw_tobu7300_power_main()*4*1342/1000; weight: 41; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu7300_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu7300_capacity_main()*param_capacity_mod/3; default: sw_tobu7300_lv; power: sw_tobu7300_power_main()*4*1342/1000; weight: 41; }
+  cargo_capacity: sw_tobu7300_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; loading_speed:param_loading_4D; default: sw_tobu7300_lv; power:sw_tobu7300_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu7300_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu7300_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu7300_lv; power: sw_tobu7300_power_main()*4*1342/1000; weight: 41; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu7300_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu7300_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu7300_lv; power: sw_tobu7300_power_main()*4*1342/1000; weight: 41; }
 
 
 
@@ -29372,7 +29387,7 @@ item(FEAT_TRAINS, tobu2000,2068) {
   purchase: tobu2000_purchase;
   start_stop: sw_stop_start_3;
 
-  cargo_capacity: sw_tobu2000_capacity_main()*param_capacity_mod/3; loading_speed:param_loading_3D; default: sw_tobu2000_lv; power:300*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu2000_lv_desc; loading_speed: param_loading_3D; cargo_capacity: sw_tobu2000_capacity_main()*param_capacity_mod/3; default: sw_tobu2000_lv; power: 300*1342/1000; weight: 32; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu2000_lv_desc; loading_speed: param_loading_3D; cargo_capacity: sw_tobu2000_capacity_main()*param_capacity_mod/3; default: sw_tobu2000_lv; power: 300*1342/1000; weight: 32; }
+  cargo_capacity: sw_tobu2000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; loading_speed:param_loading_3D; default: sw_tobu2000_lv; power:300*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu2000_lv_desc; loading_speed: param_loading_3D; cargo_capacity: sw_tobu2000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu2000_lv; power: 300*1342/1000; weight: 32; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu2000_lv_desc; loading_speed: param_loading_3D; cargo_capacity: sw_tobu2000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu2000_lv; power: 300*1342/1000; weight: 32; }
 
 
 
@@ -30954,7 +30969,7 @@ item(FEAT_TRAINS, tobu8000,2069) {
   purchase: tobu8000_purchase;
   start_stop: sw_stop_start_2;
 
-  cargo_capacity: sw_tobu8000_capacity_main()*param_capacity_mod/3; loading_speed:param_loading_4D; default: sw_tobu8000_lv; power:sw_tobu8000_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu8000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu8000_capacity_main()*param_capacity_mod/3; default: sw_tobu8000_lv; power: sw_tobu8000_power_main()*4*1342/1000; weight: 35; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu8000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu8000_capacity_main()*param_capacity_mod/3; default: sw_tobu8000_lv; power: sw_tobu8000_power_main()*4*1342/1000; weight: 35; }
+  cargo_capacity: sw_tobu8000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; loading_speed:param_loading_4D; default: sw_tobu8000_lv; power:sw_tobu8000_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu8000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu8000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu8000_lv; power: sw_tobu8000_power_main()*4*1342/1000; weight: 35; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu8000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu8000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu8000_lv; power: sw_tobu8000_power_main()*4*1342/1000; weight: 35; }
 
 
 
@@ -31228,7 +31243,7 @@ item(FEAT_TRAINS, tobu3000,2070) {
   purchase: tobu3000_purchase;
   start_stop: sw_stop_start_2;
 
-  cargo_capacity: sw_tobu3000_capacity_main()*param_capacity_mod/3; loading_speed:param_loading_3D; default: sw_tobu3000_lv; power:sw_tobu3000_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu3000_lv_desc; loading_speed: param_loading_3D; cargo_capacity: sw_tobu3000_capacity_main()*param_capacity_mod/3; default: sw_tobu3000_lv; power: sw_tobu3000_power_main()*4*1342/1000; weight: 33; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu3000_lv_desc; loading_speed: param_loading_3D; cargo_capacity: sw_tobu3000_capacity_main()*param_capacity_mod/3; default: sw_tobu3000_lv; power: sw_tobu3000_power_main()*4*1342/1000; weight: 33; }
+  cargo_capacity: sw_tobu3000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; loading_speed:param_loading_3D; default: sw_tobu3000_lv; power:sw_tobu3000_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu3000_lv_desc; loading_speed: param_loading_3D; cargo_capacity: sw_tobu3000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu3000_lv; power: sw_tobu3000_power_main()*4*1342/1000; weight: 33; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu3000_lv_desc; loading_speed: param_loading_3D; cargo_capacity: sw_tobu3000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu3000_lv; power: sw_tobu3000_power_main()*4*1342/1000; weight: 33; }
 
 
 
@@ -31580,7 +31595,7 @@ item(FEAT_TRAINS, tobu5000,2071) {
   purchase: tobu5000_purchase;
   start_stop: sw_stop_start_2;
 
-    cargo_capacity: sw_tobu5000_capacity_main()*param_capacity_mod/3; loading_speed:param_loading_4D; default: sw_tobu5000_lv; power:sw_tobu5000_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu5000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu5000_capacity_main()*param_capacity_mod/3; default: sw_tobu5000_lv; power: sw_tobu5000_power_main()*4*1342/1000; weight: 35; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu5000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu5000_capacity_main()*param_capacity_mod/3; default: sw_tobu5000_lv; power: sw_tobu5000_power_main()*4*1342/1000; weight: 35; }
+    cargo_capacity: sw_tobu5000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; loading_speed:param_loading_4D; default: sw_tobu5000_lv; power:sw_tobu5000_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu5000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu5000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu5000_lv; power: sw_tobu5000_power_main()*4*1342/1000; weight: 35; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu5000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu5000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu5000_lv; power: sw_tobu5000_power_main()*4*1342/1000; weight: 35; }
 
 
 
@@ -31842,7 +31857,7 @@ item(FEAT_TRAINS, tobu9000,2072) {
   purchase: tobu9000_purchase;
   start_stop: sw_stop_start_3;
 
-  cargo_capacity: sw_tobu9000_capacity_main()*param_capacity_mod/3; loading_speed:param_loading_4D; default: sw_tobu9000_lv; power:600*5*1342/9000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu9000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu9000_capacity_main()*param_capacity_mod/3; default: sw_tobu9000_lv; power: 600*5*1342/9000; weight: 34; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu9000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu9000_capacity_main()*param_capacity_mod/3; default: sw_tobu9000_lv; power: 600*5*1342/9000; weight: 34; }
+  cargo_capacity: sw_tobu9000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; loading_speed:param_loading_4D; default: sw_tobu9000_lv; power:600*5*1342/9000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu9000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu9000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu9000_lv; power: 600*5*1342/9000; weight: 34; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu9000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu9000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu9000_lv; power: 600*5*1342/9000; weight: 34; }
 
 
 
@@ -32281,7 +32296,7 @@ item(FEAT_TRAINS, tobu10000,2073) {
   purchase: tobu10000_purchase;
   start_stop: sw_stop_start_2;
 
-  cargo_capacity: sw_tobu10000_capacity_main()*param_capacity_mod/3; loading_speed:param_loading_4D; default: sw_tobu10000_lv; power:sw_tobu10000_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu10000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu10000_capacity_main()*param_capacity_mod/3; default: sw_tobu10000_lv; power: sw_tobu10000_power_main()*4*1342/1000; weight: 34; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu10000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu10000_capacity_main()*param_capacity_mod/3; default: sw_tobu10000_lv; power: sw_tobu10000_power_main()*4*1342/1000; weight: 34; }
+  cargo_capacity: sw_tobu10000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; loading_speed:param_loading_4D; default: sw_tobu10000_lv; power:sw_tobu10000_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu10000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu10000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu10000_lv; power: sw_tobu10000_power_main()*4*1342/1000; weight: 34; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu10000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu10000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu10000_lv; power: sw_tobu10000_power_main()*4*1342/1000; weight: 34; }
 
 
 
@@ -32440,7 +32455,7 @@ item(FEAT_TRAINS, tobu20000,2075) {
   purchase: tobu20000_purchase;
   start_stop: sw_stop_start_2;
 
-  cargo_capacity: sw_tobu20000_capacity_main()*param_capacity_mod/3; loading_speed:param_loading_3D; default: sw_tobu20000_lv; power:sw_tobu20000_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_3D; cargo_capacity: sw_tobu20000_capacity_main()*param_capacity_mod/3; default: sw_tobu20000_lv; power: sw_tobu20000_power_main()*4*1342/1000; weight: 33; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_3D; cargo_capacity: sw_tobu20000_capacity_main()*param_capacity_mod/3; default: sw_tobu20000_lv; power: sw_tobu20000_power_main()*4*1342/1000; weight: 33; }
+  cargo_capacity: sw_tobu20000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; loading_speed:param_loading_3D; default: sw_tobu20000_lv; power:sw_tobu20000_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_3D; cargo_capacity: sw_tobu20000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu20000_lv; power: sw_tobu20000_power_main()*4*1342/1000; weight: 33; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_3D; cargo_capacity: sw_tobu20000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu20000_lv; power: sw_tobu20000_power_main()*4*1342/1000; weight: 33; }
 
 
 
@@ -32562,7 +32577,7 @@ item(FEAT_TRAINS, tobu20400,2076) {
   purchase: tobu20400_purchase;
   start_stop: sw_stop_start_3;
 
-  cargo_capacity: sw_tobu20000_capacity_main()*param_capacity_mod/3; loading_speed:param_loading_3D; default: sw_tobu20400_lv; power:sw_tobu20000_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_3D; cargo_capacity: sw_tobu20000_capacity_main()*param_capacity_mod/3; default: sw_tobu20400_lv; power: sw_tobu20000_power_main()*4*1342/1000; weight: 33; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_3D; cargo_capacity: sw_tobu20000_capacity_main()*param_capacity_mod/3; default: sw_tobu20400_lv; power: sw_tobu20000_power_main()*4*1342/1000; weight: 33; }
+  cargo_capacity: sw_tobu20000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; loading_speed:param_loading_3D; default: sw_tobu20400_lv; power:sw_tobu20000_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_3D; cargo_capacity: sw_tobu20000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu20400_lv; power: sw_tobu20000_power_main()*4*1342/1000; weight: 33; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_3D; cargo_capacity: sw_tobu20000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu20400_lv; power: sw_tobu20000_power_main()*4*1342/1000; weight: 33; }
 
 
 
@@ -32730,7 +32745,7 @@ item(FEAT_TRAINS, tobu30000,2077) {
   purchase: tobu30000_purchase;
   start_stop: sw_stop_start_3;
 
-  cargo_capacity: sw_tobu30000_capacity_main()*param_capacity_mod/3; loading_speed:param_loading_4D; default: sw_tobu30000_lv; power:sw_tobu30000_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu30000_capacity_main()*param_capacity_mod/3; default: sw_tobu30000_lv; power: sw_tobu30000_power_main()*4*1342/1000; weight: 33; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu30000_capacity_main()*param_capacity_mod/3; default: sw_tobu30000_lv; power: sw_tobu30000_power_main()*4*1342/1000; weight: 33; }
+  cargo_capacity: sw_tobu30000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; loading_speed:param_loading_4D; default: sw_tobu30000_lv; power:sw_tobu30000_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu30000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu30000_lv; power: sw_tobu30000_power_main()*4*1342/1000; weight: 33; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu30000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu30000_lv; power: sw_tobu30000_power_main()*4*1342/1000; weight: 33; }
 
 
 
@@ -33796,7 +33811,7 @@ item(FEAT_TRAINS, tobu50000,2078) {
   purchase: tobu50000_purchase;
   start_stop: sw_stop_start_3;
 
-  cargo_capacity: sw_tobu50000_capacity_main()*param_capacity_mod/3; cargo_age_period: sw_tobu50000_cargo_age_main; loading_speed:param_loading_4D; default: sw_tobu50000_lv; power:sw_tobu50000_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu50000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu50000_capacity_main()*param_capacity_mod/3; default: sw_tobu50000_lv; power: sw_tobu50000_power_main()*4*1342/1000; weight: 29; cargo_age_period: sw_tobu50000_cargo_age_main; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu50000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu50000_capacity_main()*param_capacity_mod/3; default: sw_tobu50000_lv; power: sw_tobu50000_power_main()*4*1342/1000; weight: 29; cargo_age_period: sw_tobu50000_cargo_age_main; }
+  cargo_capacity: sw_tobu50000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; cargo_age_period: sw_tobu50000_cargo_age_main; loading_speed:param_loading_4D; default: sw_tobu50000_lv; power:sw_tobu50000_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu50000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu50000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu50000_lv; power: sw_tobu50000_power_main()*4*1342/1000; weight: 29; cargo_age_period: sw_tobu50000_cargo_age_main; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu50000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu50000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu50000_lv; power: sw_tobu50000_power_main()*4*1342/1000; weight: 29; cargo_age_period: sw_tobu50000_cargo_age_main; }
 
 
 
@@ -33966,7 +33981,7 @@ item(FEAT_TRAINS, tobu60000,2079) {
   purchase: tobu60000_purchase;
   start_stop: sw_stop_start_3;
 
-  cargo_capacity: sw_tobu60000_capacity_main()*param_capacity_mod/3; loading_speed:param_loading_4D; default: sw_tobu60000_lv; power:sw_tobu60000_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu60000_capacity_main()*param_capacity_mod/3; default: sw_tobu60000_lv; power: sw_tobu60000_power_main()*4*1342/1000; weight: 30; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu60000_capacity_main()*param_capacity_mod/3; default: sw_tobu60000_lv; power: sw_tobu60000_power_main()*4*1342/1000; weight: 30; }
+  cargo_capacity: sw_tobu60000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; loading_speed:param_loading_4D; default: sw_tobu60000_lv; power:sw_tobu60000_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu60000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu60000_lv; power: sw_tobu60000_power_main()*4*1342/1000; weight: 30; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu60000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu60000_lv; power: sw_tobu60000_power_main()*4*1342/1000; weight: 30; }
 
 
 
@@ -34216,7 +34231,7 @@ item(FEAT_TRAINS, tobu70000,2080) {
   purchase: tobu70000_purchase;
   start_stop: sw_stop_start_3;
 
-    cargo_capacity: sw_tobu70000_capacity_main()*param_capacity_mod/3; loading_speed:param_loading_4D; default: sw_tobu70000_lv; power:sw_tobu70000_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu70000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu70000_capacity_main()*param_capacity_mod/3; default: sw_tobu70000_lv; power: sw_tobu70000_power_main()*4*1342/1000; weight: 33; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu70000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu70000_capacity_main()*param_capacity_mod/3; default: sw_tobu70000_lv; power: sw_tobu70000_power_main()*4*1342/1000; weight: 33; }
+    cargo_capacity: sw_tobu70000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; loading_speed:param_loading_4D; default: sw_tobu70000_lv; power:sw_tobu70000_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_tobu70000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu70000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu70000_lv; power: sw_tobu70000_power_main()*4*1342/1000; weight: 33; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_tobu70000_lv_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tobu70000_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tobu70000_lv; power: sw_tobu70000_power_main()*4*1342/1000; weight: 33; }
 
 
 
