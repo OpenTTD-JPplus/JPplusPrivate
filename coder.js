@@ -1,26 +1,26 @@
-function pantoPlacer(name, array, isReversed) {
+function pantoPlacer(name, pantoArray, isReversed) {
     let string = "";
 
-    for (let i = 0; i < array.length; i++) {
+    for (let i = 0; i < pantoArray.length; i++) {
         //strings template
         const switchString = `switch(FEAT_TRAINS, SELF, sw_${name}_panto_placer_${
             i + 1
-        },position_in_vehid_chain %${array[i][array[i].length - 1]}){\n`;
+        },position_in_vehid_chain %${pantoArray[i][pantoArray[i].length - 1]}){\n`;
         const switchStringRev = `switch(FEAT_TRAINS, SELF, sw_${name}_panto_placer_${
             i + 1
         }_rev,position_in_vehid_chain_from_end %${
-            array[i][array[i].length - 1]
+            pantoArray[i][pantoArray[i].length - 1]
         }){\n`;
 
         //panto logic
         string += `${isReversed ? switchStringRev : switchString}`;
-        for (let j = 0; j < array[i].length - 1; j++) {
-            if (j < array[i].length - 2) {
-                const temp = array[i][j].split(" ");
+        for (let j = 0; j < pantoArray[i].length - 1; j++) {
+            if (j < pantoArray[i].length - 2) {
+                const temp = pantoArray[i][j].split(" ");
                 string += `\t${temp[0]}${name}_${temp[1]};\n`;
             }
         }
-        string += `\t${name}_${array[i][array[i].length - 2]};\n\}\n`;
+        string += `\t${name}_${pantoArray[i][pantoArray[i].length - 2]};\n\}\n`;
     }
     console.log(string);
 }
@@ -36,4 +36,4 @@ const test2 = [
 const testName = "tk_as_toei5000";
 
 pantoPlacer(testName, test, 0);
-pantoPlacer(testName, test2, 1);
+// pantoPlacer(testName, test2, 1);
