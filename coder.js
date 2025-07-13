@@ -1,3 +1,5 @@
+const fs = require("fs");
+
 function pantoPlacer(name, pantoArray, isReversed) {
     let string = "";
 
@@ -5,7 +7,9 @@ function pantoPlacer(name, pantoArray, isReversed) {
         //strings template
         const switchString = `switch(FEAT_TRAINS, SELF, sw_${name}_panto_placer_${
             i + 1
-        },position_in_vehid_chain %${pantoArray[i][pantoArray[i].length - 1]}){\n`;
+        },position_in_vehid_chain %${
+            pantoArray[i][pantoArray[i].length - 1]
+        }){\n`;
         const switchStringRev = `switch(FEAT_TRAINS, SELF, sw_${name}_panto_placer_${
             i + 1
         }_rev,position_in_vehid_chain_from_end %${
@@ -22,12 +26,12 @@ function pantoPlacer(name, pantoArray, isReversed) {
         }
         string += `\t${name}_${pantoArray[i][pantoArray[i].length - 2]};\n\}\n`;
     }
-    console.log(string);
+    return string;
 }
 
 const test = [
     ["1:sw_ mot_gfx", "2: mot_rev", "3: mot_2", "4: mot", "5: mot", "wag", 7],
-    ["6: mot_rev", "7: mot_rev", "wag", 9],
+    // ["6: mot_rev", "7: mot_rev", "wag", 9],
 ];
 const test2 = [
     ["1:sw_ mot_gfx", "2: mot_rev", "3: mot_2", "4: mot", "5: mot", "wag", 7],
@@ -35,5 +39,7 @@ const test2 = [
 ];
 const testName = "tk_as_toei5000";
 
-pantoPlacer(testName, test, 0);
+const file = pantoPlacer(testName, test, 0) + pantoPlacer(testName, test, 1);
+// console.log(file);
+fs.writeFileSync("test.pnml", file);
 // pantoPlacer(testName, test2, 1);

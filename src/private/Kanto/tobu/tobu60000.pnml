@@ -63,35 +63,14 @@ switch(FEAT_TRAINS, SELF, sw_tobu60000_panto_placer_main,num_vehs_in_vehid_chain
     8:sw_tobu60000_panto_placer_main_2;
     sw_tobu60000_panto_placer_main_1;
 }
-
-//fake head-end placer
-switch(FEAT_TRAINS, SELF, sw_tobu60000_fake_placer,position_in_vehid_chain +1){
-    5: tobu60000_front_f;
-    6: tobu60000_end_f;
-sw_tobu60000_panto_placer_main;
-}
-switch(FEAT_TRAINS, SELF, sw_tobu60000_fake_placer_rev,position_in_vehid_chain_from_end ){
-    5: tobu60000_end_f;
-    6: tobu60000_front_f;
-sw_tobu60000_panto_placer_main;
-}
-switch(FEAT_TRAINS, PARENT, sw_tobu60000_fake_placer_gfx,vehicle_is_reversed){
-    1: sw_tobu60000_fake_placer_rev;
-    sw_tobu60000_fake_placer;
-}
-switch(FEAT_TRAINS, SELF, sw_tobu60000_fake_placer_main,num_vehs_in_vehid_chain>10 - 1){
-    1: sw_tobu60000_fake_placer_gfx;
-sw_tobu60000_panto_placer_main;
-}
-
 //front-end-fixer
 switch(FEAT_TRAINS, SELF, sw_tobu60000_end_gfx_main,position_in_vehid_chain_from_end){
     0: tobu60000_end;
-    default: sw_tobu60000_fake_placer_main;
+    default: sw_tobu60000_panto_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu60000_front_gfx_main,position_in_vehid_chain_from_end){
     0: tobu60000_front;
-    default: sw_tobu60000_fake_placer_main;
+    default: sw_tobu60000_panto_placer_main;
 }
 switch(FEAT_TRAINS, SELF, sw_tobu60000_lv,vehicle_type_id){
     100..102:sw_tobu60000_end_gfx_main;
@@ -100,33 +79,17 @@ switch(FEAT_TRAINS, SELF, sw_tobu60000_lv,vehicle_type_id){
 
 //post fixers
 //capacity-changer
-switch(FEAT_TRAINS, SELF, sw_tobu60000_capacity,position_in_vehid_chain_from_end){
+switch(FEAT_TRAINS, SELF, sw_tobu60000_capacity_main,position_in_vehid_chain_from_end){
     0: 133;
     default: 146;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu60000_capacity_1,position_in_vehid_chain){
-    0: 133;
-    default: sw_tobu60000_capacity;
-}
-switch(FEAT_TRAINS, SELF, sw_tobu60000_capacity_main,vehicle_type_id){
-    100..102:sw_tobu60000_capacity;
-    sw_tobu60000_capacity_1;
-}
 //power fix
-switch(FEAT_TRAINS, SELF, sw_tobu60000_power,position_in_vehid_chain_from_end %5){
+switch(FEAT_TRAINS, SELF, sw_tobu60000_power_main,position_in_vehid_chain_from_end %5){
     1..2:return 165;
     4:return 165;
     return 0;
-}
-switch(FEAT_TRAINS, SELF, sw_tobu60000_head_power,num_vehs_in_consist){
-    39: return 165;
-    return 0;
-}
-switch(FEAT_TRAINS, SELF, sw_tobu60000_power_main,vehicle_type_id){
-    100..102:sw_tobu60000_power;
-    sw_tobu60000_head_power;
-}
-item(FEAT_TRAINS, tobu60000,2079) {
+} 
+item(FEAT_TRAINS, tobu60000) {
     property {
         OVERRIDEN_TRAIN_DATA
         
@@ -157,6 +120,7 @@ item(FEAT_TRAINS, tobu60000,2079) {
 		can_attach_wagon: sw_1067_attach_vehid;
 		purchase: tobu60000_purchase;
 		start_stop: sw_stop_start_3;
+    purchase_power:sw_tobu50000_power_main()*4*1342/1000;
 
 		SET_GRAPHICS_DOUBLE(sw_tobu60000_lv,//graphics
 		sw_tobu60000_capacity_main()*param_capacity_mod/3,//cargo capacity
