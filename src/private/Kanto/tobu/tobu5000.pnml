@@ -291,17 +291,9 @@ switch(FEAT_TRAINS, SELF, sw_tobu5000_lv_desc, current_year){
 
 //post fixers
 //capacity-changer
-switch(FEAT_TRAINS, SELF, sw_tobu5000_capacity,position_in_vehid_chain_from_end){
+switch(FEAT_TRAINS, SELF, sw_tobu5000_capacity_main,position_in_vehid_chain_from_end){
     0: 150;
     default: 170;
-}
-switch(FEAT_TRAINS, SELF, sw_tobu5000_capacity_1,position_in_vehid_chain){
-    0: 150;
-    default: sw_tobu5000_capacity;
-}
-switch(FEAT_TRAINS, SELF, sw_tobu5000_capacity_main,vehicle_type_id){
-    100..102:sw_tobu5000_capacity;
-    sw_tobu5000_capacity_1;
 }
 
 //power fixer
@@ -309,7 +301,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu5000_power_main, position_in_vehid_chain %2) {
   1: return 520;
   return 0;
 }
-item(FEAT_TRAINS, tobu5000,2071) {
+item(FEAT_TRAINS, tobu5000) {
     property {
         OVERRIDEN_TRAIN_DATA
         
