@@ -2,65 +2,65 @@
   spriteset(tokyu_deha1_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/tokyu/tokyu_deha1/tokyu_deha1.png"){ tmpl_purchase_1c_7(0, 0) }
   GRAPHIC_STACK_2(tokyu_deha1_purchase, logo_tokyu, tokyu_deha1_purchase_c1)
 //livery 1
-spriteset(tokyu_deha1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/tokyu/tokyu_deha1/tokyu_deha1.png"){ tmpl_std(0, 0) }
-spriteset(tokyu_deha1_front_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/tokyu/tokyu_deha1/tokyu_deha1.png"){ tmpl_std_rev(0, 25) }
-spriteset(tokyu_deha1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/tokyu/tokyu_deha1/tokyu_deha1.png"){ tmpl_std(0, 50) }
-spriteset(tokyu_deha1_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/tokyu/tokyu_deha1/tokyu_deha1.png"){ tmpl_std_rev(0, 50) }
-spriteset(tokyu_deha1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/tokyu/tokyu_deha1/tokyu_deha1.png"){ tmpl_symm(0, 75) }
+  spriteset(tokyu_deha1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/tokyu/tokyu_deha1/tokyu_deha1.png"){ tmpl_std(0, 0) }
+  spriteset(tokyu_deha1_front_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/tokyu/tokyu_deha1/tokyu_deha1.png"){ tmpl_std_rev(0, 25) }
+  spriteset(tokyu_deha1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/tokyu/tokyu_deha1/tokyu_deha1.png"){ tmpl_std(0, 50) }
+  spriteset(tokyu_deha1_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/tokyu/tokyu_deha1/tokyu_deha1.png"){ tmpl_std_rev(0, 50) }
+  spriteset(tokyu_deha1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/tokyu/tokyu_deha1/tokyu_deha1.png"){ tmpl_symm(0, 75) }
+//
+//*livery 1
+  //front-end-fixer
+  switch(FEAT_TRAINS, PARENT, sw_tokyu_deha1_front_gfx, vehicle_is_reversed){
+      1:tokyu_deha1_front_rev;
+      tokyu_deha1_front;
+  }
 
-//front-end-fixer
-switch(FEAT_TRAINS, PARENT, sw_tokyu_deha1_front_gfx, vehicle_is_reversed){
-    1:tokyu_deha1_front_rev;
-    tokyu_deha1_front;
-}
-
-switch(FEAT_TRAINS, PARENT, sw_tokyu_deha1_end_gfx, vehicle_is_reversed){
-    1:tokyu_deha1_end_rev;
-    tokyu_deha1_end;
-}
-//panto placer
-switch(FEAT_TRAINS, SELF, sw_tokyu_deha1_panto_placer,position_in_consist %2){
-    0: sw_tokyu_deha1_end_gfx;
-    tokyu_deha1_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu_deha1_panto_placer_rev,position_in_consist_from_end %2){
-    0: sw_tokyu_deha1_end_gfx;
-    tokyu_deha1_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_tokyu_deha1_panto_placer_main,vehicle_is_reversed){
-    1: sw_tokyu_deha1_panto_placer_rev;
-    sw_tokyu_deha1_panto_placer;
-}
-//end car fixer
-switch(FEAT_TRAINS, SELF, sw_tokyu_deha1_end_fix, position_in_consist_from_end){
-    0:sw_tokyu_deha1_end_gfx;
-    sw_tokyu_deha1_panto_placer_main;
-}
-
-switch(FEAT_TRAINS, SELF, sw_tokyu_deha1_lv,vehicle_type_id){
-    100..102:sw_tokyu_deha1_end_fix;
-        sw_tokyu_deha1_front_gfx;
-}
-
+  switch(FEAT_TRAINS, PARENT, sw_tokyu_deha1_end_gfx, vehicle_is_reversed){
+      1:tokyu_deha1_end_rev;
+      tokyu_deha1_end;
+  }
+  //panto placer
+  switch(FEAT_TRAINS, SELF, sw_tokyu_deha1_panto_placer,position_in_consist %2){
+      0: sw_tokyu_deha1_end_gfx;
+      tokyu_deha1_wag;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu_deha1_panto_placer_rev,position_in_consist_from_end %2){
+      0: sw_tokyu_deha1_end_gfx;
+      tokyu_deha1_wag;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_tokyu_deha1_panto_placer_main,vehicle_is_reversed){
+      1: sw_tokyu_deha1_panto_placer_rev;
+      sw_tokyu_deha1_panto_placer;
+  }
+  //end car fixer
+  switch(FEAT_TRAINS, SELF, sw_tokyu_deha1_end_fix, position_in_consist_from_end){
+      0:sw_tokyu_deha1_end_gfx;
+      sw_tokyu_deha1_panto_placer_main;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu_deha1_lv,vehicle_type_id){
+      100..102:sw_tokyu_deha1_end_fix;
+          sw_tokyu_deha1_front_gfx;
+  }
+//
 item(FEAT_TRAINS, tokyu_deha1) {
-    property {
-        OVERRIDEN_TRAIN_DATA
-        
-        climates_available: param_disable_tokyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
-        name: string(STR_TRAIN_NAME, string(STR_NAME_TOKYU), string(STR_NAME_DEHA, "1"), string(STR_NAME_TYPE));
-        introduction_date: date(1923, 1, 1);
-        model_life: 20;
-        vehicle_life: 46;
-        reliability_decay: 10;
+  property {
+    OVERRIDEN_TRAIN_DATA
+    
+    climates_available: param_disable_tokyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_TOKYU), string(STR_NAME_DEHA, "1"), string(STR_NAME_TYPE));
+    introduction_date: date(1923, 1, 1);
+    model_life: 20;
+    vehicle_life: 46;
+    reliability_decay: 10;
 
-        cost_factor: 12;
-        running_cost_factor: 42;
-        speed: 75 km/h;
-        track_type: TR_1067_DC;
-        power: 240 kW;
-        weight: 33 ton;
-        loading_speed: param_loading_2D;
-    }
+    cost_factor: 12;
+    running_cost_factor: 42;
+    speed: 75 km/h;
+    track_type: TR_1067_DC;
+    power: 240 kW;
+    weight: 33 ton;
+    loading_speed: param_loading_2D;
+  }
 	graphics {
 		additional_text:
       string(STR_TRAIN_DESC,

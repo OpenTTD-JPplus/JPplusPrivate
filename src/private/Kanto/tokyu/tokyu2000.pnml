@@ -95,44 +95,44 @@ random_switch(FEAT_TRAINS, PARENT, sw_tokyu2000_livery_1){
 }
 
 //*livery 2
-//panto placer
-//var 1
-switch(FEAT_TRAINS, SELF, sw_tokyu2000_2_panto_placer,1+position_in_vehid_chain %2){
-    1: tokyu2000_2_mot;
-    tokyu2000_2_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu2000_2_panto_placer_rev,position_in_vehid_chain_from_end %2){
-    1: tokyu2000_2_mot;
-    tokyu2000_2_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_tokyu2000_2_panto_placer_main,vehicle_is_reversed){
-    1: sw_tokyu2000_2_panto_placer_rev;
-    sw_tokyu2000_2_panto_placer;
-}
+  //panto placer
+  //var 1
+  switch(FEAT_TRAINS, SELF, sw_tokyu2000_2_panto_placer,1+position_in_vehid_chain %2){
+      1: tokyu2000_2_mot;
+      tokyu2000_2_wag;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu2000_2_panto_placer_rev,position_in_vehid_chain_from_end %2){
+      1: tokyu2000_2_mot;
+      tokyu2000_2_wag;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_tokyu2000_2_panto_placer_main,vehicle_is_reversed){
+      1: sw_tokyu2000_2_panto_placer_rev;
+      sw_tokyu2000_2_panto_placer;
+  }
 
-//front-end-fixer
-switch(FEAT_TRAINS, SELF, sw_tokyu2000_2_end_gfx_main,position_in_vehid_chain_from_end){
-    0: tokyu2000_2_end;
-    default: sw_tokyu2000_2_panto_placer_main;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu2000_2_front_gfx_main,position_in_vehid_chain_from_end){
-    0: tokyu2000_2_front;
-    default: sw_tokyu2000_2_panto_placer_main;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu2000_livery_2,vehicle_type_id){
-    100..102:sw_tokyu2000_2_end_gfx_main;
-        sw_tokyu2000_2_front_gfx_main;
-}
+  //front-end-fixer
+  switch(FEAT_TRAINS, SELF, sw_tokyu2000_2_end_gfx_main,position_in_vehid_chain_from_end){
+      0: tokyu2000_2_end;
+      default: sw_tokyu2000_2_panto_placer_main;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu2000_2_front_gfx_main,position_in_vehid_chain_from_end){
+      0: tokyu2000_2_front;
+      default: sw_tokyu2000_2_panto_placer_main;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu2000_livery_2,vehicle_type_id){
+      100..102:sw_tokyu2000_2_end_gfx_main;
+          sw_tokyu2000_2_front_gfx_main;
+  }
 
-//livery controller
-switch(FEAT_TRAINS, SELF, sw_tokyu2000_lv,cargo_subtype){
-    0: sw_tokyu2000_livery_1;
-    1: sw_tokyu2000_livery_2;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu2000_lv_desc,cargo_subtype){
-    0: string(LV_DATED,string(STR_LIVERY,string(STR_CONCAT_2, "2000", string(STR_NAME_SERIES))),1992);
-    1: string(LV_DATED,string(STR_LIVERY,string(STR_CONCAT_2, "9020", string(STR_NAME_SERIES))),2019);
-}
+  //livery controller
+  switch(FEAT_TRAINS, SELF, sw_tokyu2000_lv,cargo_subtype){
+      0: sw_tokyu2000_livery_1;
+      1: sw_tokyu2000_livery_2;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu2000_lv_desc,cargo_subtype){
+      0: string(LV_DATED,string(STR_LIVERY,string(STR_CONCAT_2, "2000", string(STR_NAME_SERIES))),1992);
+      1: string(LV_DATED,string(STR_LIVERY,string(STR_CONCAT_2, "9020", string(STR_NAME_SERIES))),2019);
+  }
 
 //post fixers
   //power
