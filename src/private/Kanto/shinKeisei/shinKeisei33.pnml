@@ -19,6 +19,24 @@ spriteset (shinKeisei33_2_front_rev,       "gfx/private/Kanto/shinKeisei/shinKei
 spriteset (shinKeisei33_2_end,       "gfx/private/Kanto/shinKeisei/shinKeisei33/shinKeisei33_2.png") { tmpl_std(0, 50) }
 spriteset (shinKeisei33_2_end_rev,       "gfx/private/Kanto/shinKeisei/shinKeisei33/shinKeisei33_2.png") { tmpl_std_rev(0, 50) }
 //
+//*Merging
+switch(FEAT_TRAINS,SELF,sw_shinKeisei33_addit_text,current_date<date(2025,03,31)){
+  1:string(STR_TRAIN_DESC,
+    string(STR_STANDARDGAUGE),
+    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_SHIN_KEISEI)));
+  
+  string(STR_TRAIN_DESC,
+  string(STR_STANDARDGAUGE),
+  string(STR_DENKI, string(STR_DC_N, 1500)),
+  string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+  string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
+  string(STR_USAGE, string(STR_COMMUTER)),
+  string(STR_OPERATOR, string(STR_KEISEI)));
+}
 //*livery 1
   //special gfx
     switch(FEAT_TRAINS, PARENT, sw_shinKeisei33_1_front_gfx_1,vehicle_is_reversed){
@@ -137,14 +155,7 @@ item(FEAT_TRAINS, shinKeisei33) {
 		purchase: shinKeisei33_purchase;
 		can_attach_wagon: sw_1435_attach_vehid;
 		cargo_subtype_text:sw_shinKeisei33_lv_desc;
-    additional_text:
-				string(STR_TRAIN_DESC,
-				string(STR_STANDARDGAUGE),
-				string(STR_DENKI, string(STR_DC_N, 1500)),
-				string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
-				string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
-				string(STR_USAGE, string(STR_COMMUTER)),
-				string(STR_OPERATOR, string(STR_SHIN_KEISEI)));
+    additional_text:sw_shinKeisei33_addit_text;
                          
         cargo_capacity: 90*param_capacity_mod/3;  
         sound_effect:					sw_SKS33_start_sound;
