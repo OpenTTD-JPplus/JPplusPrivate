@@ -1,0 +1,122 @@
+//purchase sprites
+    spriteset(ng_tm_3050series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Nagoya/tsurumai/3050series/3050series.png"){ tmpl_purchase_1c(0, 100) }
+    spriteset(ng_tm_3050series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Nagoya/tsurumai/3050series/3050series.png"){ tmpl_purchase_2c(0, 75) }
+    GRAPHIC_STACK_4(ng_tm_3050series_purchase, logo_nagoya_subway, logo_line_ng_tsurumai, ng_tm_3050series_purchase_c1, ng_tm_3050series_purchase_c2)
+//livery 1
+spriteset(ng_tm_3050series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Nagoya/tsurumai/3050series/3050series.png"){ tmpl_std(0, 0) }
+spriteset(ng_tm_3050series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Nagoya/tsurumai/3050series/3050series.png"){ tmpl_std_rev(0, 25) }
+spriteset(ng_tm_3050series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Nagoya/tsurumai/3050series/3050series.png"){ tmpl_std(0, 50) }
+spriteset(ng_tm_3050series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Nagoya/tsurumai/3050series/3050series.png"){ tmpl_std_rev(0, 50) }
+spriteset(ng_tm_3050series_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Nagoya/tsurumai/3050series/3050series.png"){ tmpl_std(0, 75) }
+spriteset(ng_tm_3050series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Nagoya/tsurumai/3050series/3050series.png"){ tmpl_std(0, 100) }
+spriteset(ng_tm_3050series_front_m, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Nagoya/tsurumai/3050series/3050series.png"){ tmpl_std(0, 125) }
+spriteset(ng_tm_3050series_end_m, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Nagoya/tsurumai/3050series/3050series.png"){ tmpl_std_rev(0, 150) }
+spriteset(ng_tm_3050series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Nagoya/tsurumai/3050series/3050series.png"){ tmpl_std(0, 175) }
+spriteset(ng_tm_3050series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Nagoya/tsurumai/3050series/3050series.png"){ tmpl_std_rev(0, 175) }
+
+//*livery 1
+//special gfx
+//panto placer
+switch(FEAT_TRAINS, SELF, sw_ng_tm_3050series_panto_placer,position_in_consist %7){
+    0: ng_tm_3050series_mot_2;
+    2: ng_tm_3050series_mot;
+    4: ng_tm_3050series_mot_2;
+    ng_tm_3050series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_ng_tm_3050series_panto_placer_rev,position_in_consist_from_end %7){
+    0: ng_tm_3050series_mot_2;
+    2: ng_tm_3050series_mot_rev;
+    4: ng_tm_3050series_mot_2;
+    ng_tm_3050series_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_ng_tm_3050series_panto_placer_main,vehicle_is_reversed){
+    1: sw_ng_tm_3050series_panto_placer_rev;
+    sw_ng_tm_3050series_panto_placer;
+}
+//panto placer end 
+
+//fake head-end placer
+switch(FEAT_TRAINS, SELF, sw_ng_tm_3050series_fake_placer,position_in_consist){
+    5: ng_tm_3050series_end_f;
+    6: ng_tm_3050series_front_f;
+sw_ng_tm_3050series_panto_placer_main;
+}
+switch(FEAT_TRAINS, SELF, sw_ng_tm_3050series_fake_placer_rev,position_in_consist_from_end){
+    5: ng_tm_3050series_front_f;
+    6: ng_tm_3050series_end_f;
+sw_ng_tm_3050series_panto_placer_main;
+}
+switch(FEAT_TRAINS, PARENT, sw_ng_tm_3050series_fake_placer_gfx,vehicle_is_reversed){
+    1: sw_ng_tm_3050series_fake_placer_rev;
+    sw_ng_tm_3050series_fake_placer;
+}
+switch(FEAT_TRAINS, SELF, sw_ng_tm_3050series_fake_placer_main,num_vehs_in_consist>9){
+    1: sw_ng_tm_3050series_fake_placer_gfx;
+sw_ng_tm_3050series_panto_placer_main;
+}
+//fake head-end placer end
+
+//front-end-fixer
+//1
+//reverse check
+switch(FEAT_TRAINS, PARENT, sw_ng_tm_3050series_front_m_gfx, vehicle_is_reversed){
+    0:ng_tm_3050series_front_m;
+    ng_tm_3050series_front;
+}
+switch(FEAT_TRAINS, PARENT, sw_ng_tm_3050series_end_m_gfx, vehicle_is_reversed){
+    0:ng_tm_3050series_end;
+    ng_tm_3050series_end_m;
+}
+
+switch(FEAT_TRAINS, SELF, sw_ng_tm_3050series_end_gfx,position_in_consist_from_end){
+    0: sw_ng_tm_3050series_end_m_gfx;
+    default: sw_ng_tm_3050series_fake_placer_main;
+}
+switch(FEAT_TRAINS, SELF, sw_ng_tm_3050series_lv,position_in_consist){
+    0: sw_ng_tm_3050series_front_m_gfx;
+    default: sw_ng_tm_3050series_end_gfx;
+}
+//capacity-changer
+switch(FEAT_TRAINS, SELF, sw_ng_tm_3050series_capacity_main,position_in_vehid_chain_from_end){
+    0: 138;
+    default: 152;
+}
+item(FEAT_TRAINS, ng_tm_3050series,1391) {
+    property {
+        OVERRIDEN_TRAIN_DATA
+        
+        climates_available: param_disable_nagoya == 0 ? ALL_CLIMATES : NO_CLIMATE;
+        name: string(STR_TRAIN_NAME, string(STR_NAME_NAGOYA), "3050", string(STR_NAME_TYPE));
+        introduction_date: date(1993, 1, 1);
+        model_life: VEHICLE_NEVER_EXPIRES;
+        vehicle_life: 30;
+        reliability_decay: 10;
+
+        cost_factor: 20;
+        running_cost_factor: 50;
+        speed: 120 km/h;
+        track_type: TR_1067_DC;
+        power: 680 kW;
+        weight: 32 ton;
+        loading_speed: param_loading_4D;
+    }
+	graphics {
+		additional_text:
+ 		   	string(STR_TRAIN_DESC,
+				string(STR_NARROWGAUGE),
+				string(STR_DENKI, string(STR_DC_N, 1500)),
+				string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+				string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
+				string(STR_OPERATOR, string(STR_NAGOYA)),
+				string(STR_LINES_USED, string(STR_NAGOYA_TSURUMAI)));
+		can_attach_wagon: sw_1067_attach_vehid;
+		purchase: ng_tm_3050series_purchase;
+		start_stop: sw_stop_start_3; 
+
+		SET_GRAPHICS_DOUBLE(sw_ng_tm_3050series_lv,//graphics
+		sw_ng_tm_3050series_capacity_main(),//cargo capacity
+		912*2/5,//power
+		param_loading_4D,//loading speed
+		sw_empty_desc,//subtype
+		mu_car_narrow,31)//car_fallback,weight
+}
