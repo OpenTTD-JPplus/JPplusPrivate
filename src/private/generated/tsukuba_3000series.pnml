@@ -1,0 +1,101 @@
+spriteset(gfx_tsukuba_3000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/tsukuba/tsukuba_3000series/tsukuba_3000series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(gfx_tsukuba_3000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/tsukuba/tsukuba_3000series/tsukuba_3000series.png"){ tmpl_purchase_2c_dual(0, 0) }
+GRAPHIC_STACK_3(gfx_tsukuba_3000series_purchase, logo_tsukuba, gfx_tsukuba_3000series_purchase_c1, gfx_tsukuba_3000series_purchase_c2)
+spriteset(gfx_tsukuba_3000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tsukuba/tsukuba_3000series/tsukuba_3000series.png"){ tmpl_std (0, 0) }
+spriteset(gfx_tsukuba_3000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tsukuba/tsukuba_3000series/tsukuba_3000series.png"){ tmpl_std (0, 25) }
+spriteset(gfx_tsukuba_3000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tsukuba/tsukuba_3000series/tsukuba_3000series.png"){ tmpl_std (0, 50) }
+spriteset(gfx_tsukuba_3000series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tsukuba/tsukuba_3000series/tsukuba_3000series.png"){ tmpl_std_rev (0, 50) }
+spriteset(gfx_tsukuba_3000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tsukuba/tsukuba_3000series/tsukuba_3000series.png"){ tmpl_symm (0, 75) }
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_panto_placer_0,position_in_vehid_chain %5){
+0:gfx_tsukuba_3000series_mot;
+2:gfx_tsukuba_3000series_mot;
+gfx_tsukuba_3000series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_panto_placer_0_rev,position_in_vehid_chain_from_end %5){
+0:gfx_tsukuba_3000series_mot_rev;
+2:gfx_tsukuba_3000series_mot_rev;
+gfx_tsukuba_3000series_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_tsukuba_3000series_panto_placer_0_main,vehicle_is_reversed){
+1: sw_tsukuba_3000series_panto_placer_0_rev;
+sw_tsukuba_3000series_panto_placer_0;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_panto_placer_1,position_in_vehid_chain %3){
+0:gfx_tsukuba_3000series_mot;
+gfx_tsukuba_3000series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
+0:gfx_tsukuba_3000series_mot_rev;
+gfx_tsukuba_3000series_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_tsukuba_3000series_panto_placer_1_main,vehicle_is_reversed){
+1: sw_tsukuba_3000series_panto_placer_1_rev;
+sw_tsukuba_3000series_panto_placer_1;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_panto_placer_main, num_vehs_in_vehid_chain){
+default:sw_tsukuba_3000series_panto_placer_0_main;
+5:sw_tsukuba_3000series_panto_placer_1_main;
+2..3:sw_tsukuba_3000series_panto_placer_1_main;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_head_gfx_main,position_in_consist-position_in_vehid_chain>0){
+1: gfx_tsukuba_3000series_end;
+gfx_tsukuba_3000series_front;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_lv,vehicle_type_id){
+100..102:sw_tsukuba_3000series_panto_placer_main;
+sw_tsukuba_3000series_head_gfx_main;
+}
+
+  switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_capacity_main,vehicle_type_id){
+100..102: 151;
+140;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_power_wag,position_in_vehid_chain){
+0..3:190;
+0;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_power_main,vehicle_type_id){
+100..102:sw_tsukuba_3000series_power_wag;
+return 0;
+}
+
+item(FEAT_TRAINS, tsukuba_3000series) {
+  property {
+    OVERRIDEN_TRAIN_DATA
+    
+    climates_available: param_disable_semiPrivate == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME_SHORT, "TX-3000", string(STR_NAME_SERIES));
+    introduction_date: date(2020, 3, 14);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    reliability_decay: 10;
+    dual_headed: 1;
+    
+    cost_factor: 21;
+    running_cost_factor: 52;
+    speed: 130 km/h;
+    track_type: TR_1067_ACDC;
+    power: 1 kW;
+    weight: 37 ton;
+  }
+	graphics {
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_ACDC,20,50,1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
+    string(STR_USAGE, string(STR_EXPRESS)),
+    string(STR_OPERATOR, string(STR_TSUKUBA)));
+    
+    purchase: gfx_tsukuba_3000series_purchase;
+    can_attach_wagon: sw_1067_attach_vehid;
+    start_stop: sw_stop_start_3;
+    purchase_power:sw_tsukuba_3000series_power_main()*4*1342/1000;
+        
+    SET_GRAPHICS_DOUBLE(sw_tsukuba_3000series_lv,
+    sw_tsukuba_3000series_capacity_main()*param_capacity_mod/3,
+    sw_tsukuba_3000series_power_main()*4*1342/1000,
+    param_loading_4D,//loading speed
+    sw_empty_desc,
+    mu_car_narrow,34)
+    }
