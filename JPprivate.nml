@@ -8,7 +8,7 @@ grf {
     name: string(STR_NAME);
     desc: string(STR_DESC);
   url: string(STR_GRF_URL);
-    version: 262;
+    version: 263;
     min_compatible_version: 260;
 
 
@@ -646,6 +646,38 @@ template tmpl_roof_h1(x,y) {
 template tmpl_purchase_roof_h1(x,y) {
   [x +121, y, 31, 17, 8, -13]
   }
+
+template tmpl_purchase_dual (x, y) {
+  [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+   [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+   [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+   [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+   [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+   [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+    [x, y, 76, 15, -33, -10]
+  [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+}
+
+template tmpl_purchase_1c_dual(x,y) {
+  [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+  [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+  [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+  [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+  [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+  [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+  [x +120, y,32, 17, 7, -13]
+  [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+}
+template tmpl_purchase_2c_dual(x,y) {
+  [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+  [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+  [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+  [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+  [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+  [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+  [x +32, y, 8, 17, 39, -13]
+  [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+}
 # 8 "JPprivate.pnml" 2
 # 1 "src/controllers/mu_cars.pnml" 1
 switch(FEAT_TRAINS, SELF, sw_empty_desc,cargo_subtype){
@@ -2218,8 +2250,18 @@ template tmpl_lines(x,y) {
 template tmpl_logo_metro(x,y) {
     [x, y, 15, 15, -32, -10]
 }
+
+
+
 template tmpl_logo_private(x,y) {
-    [x, y, 35, 15, -32, -10]
+  [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+  [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+  [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+  [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+  [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+  [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
+  [x, y, 35, 15, -32, -10]
+  [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
 }
 spriteset (sprite_logo_tokyo_metro, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/m_operators_tokyo.png") { tmpl_logo_metro(0, 0) }
 spriteset (sprite_logo_toei, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/m_operators_tokyo.png") { tmpl_logo_metro(0, 15) }
@@ -2594,7 +2636,7 @@ item(FEAT_TRAINS, tk_gz_t1000, 1000) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 600)),
+      string(STR_DENKI, string(STR_DC, 600)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 1, 4)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -2656,7 +2698,7 @@ item(FEAT_TRAINS, tk_gz_t1100, 1001) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 600)),
+    string(STR_DENKI, string(STR_DC, 600)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 1, 4)),
     string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -2716,7 +2758,7 @@ item(FEAT_TRAINS, tk_gz_t100, 1002) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 600)),
+    string(STR_DENKI, string(STR_DC, 600)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 1, 4)),
     string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -2837,7 +2879,7 @@ item(FEAT_TRAINS, tk_gz_t1300, 1003) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 600)),
+    string(STR_DENKI, string(STR_DC, 600)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 1, 4)),
     string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -2937,7 +2979,7 @@ item(FEAT_TRAINS, tk_gz_t1900, 1004) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 600)),
+    string(STR_DENKI, string(STR_DC, 600)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 3,6)),
     string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -3027,7 +3069,7 @@ item(FEAT_TRAINS, tk_gz_eidan01, 1005) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 600)),
+      string(STR_DENKI, string(STR_DC, 600)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -3103,7 +3145,7 @@ item(FEAT_TRAINS, tk_gz_1000s, 1006) {
     additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 600)),
+    string(STR_DENKI, string(STR_DC, 600)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
     string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -3167,7 +3209,7 @@ item(FEAT_TRAINS, tk_mn_eidan2000,1020) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 600)),
+    string(STR_DENKI, string(STR_DC, 600)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 3)),
     string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -3235,7 +3277,7 @@ item(FEAT_TRAINS, eidan500,1021) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 600)),
+    string(STR_DENKI, string(STR_DC, 600)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,6)),
     string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -3330,7 +3372,7 @@ item(FEAT_TRAINS, tk_mn_eidan02,1022) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 600)),
+      string(STR_DENKI, string(STR_DC, 600)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 3,6)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -3399,7 +3441,7 @@ item(FEAT_TRAINS, tk_mn_2000series,1023) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 600)),
+    string(STR_DENKI, string(STR_DC, 600)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
     string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -3562,7 +3604,7 @@ item(FEAT_TRAINS, tk_hb_eidan3000, 1030) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_4, 2,4,6,8)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -3801,7 +3843,7 @@ item(FEAT_TRAINS, tk_hb_eidan03,1031) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS_REFIT, 3, 5)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -3931,7 +3973,7 @@ item(FEAT_TRAINS, tk_hb_13000series,1032) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 7)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -4203,7 +4245,7 @@ item(FEAT_TRAINS, tk_tz_5000series,1040) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_4, 3,7,8,10)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -4564,7 +4606,7 @@ item(FEAT_TRAINS, tk_tz_05series,1041) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -4684,7 +4726,7 @@ item(FEAT_TRAINS, tk_tz_07series,1042) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -4821,7 +4863,7 @@ item(FEAT_TRAINS, tk_tz_15000series,1043) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -4956,7 +4998,7 @@ item(FEAT_TRAINS, tk_tz_toyo1000,1050) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -5088,7 +5130,7 @@ item(FEAT_TRAINS, tk_tz_toyo2000,1051) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -5296,7 +5338,7 @@ item(FEAT_TRAINS, tk_ch_5000series,1060) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 3,10)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -5510,7 +5552,7 @@ item(FEAT_TRAINS, tk_ch_6000series,1061) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_3, 3,6,10)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -5654,7 +5696,7 @@ item(FEAT_TRAINS, tk_ch_06series,1062) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -5804,7 +5846,7 @@ item(FEAT_TRAINS, tk_ch_16000series,1063) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -5945,7 +5987,7 @@ item(FEAT_TRAINS, tk_ch_05series,1070) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 3)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -6040,7 +6082,7 @@ item(FEAT_TRAINS, tk_yk_07series, 1081) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -6324,7 +6366,7 @@ item(FEAT_TRAINS, tk_yk_7000series,1080) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 8,10)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -6460,7 +6502,7 @@ item(FEAT_TRAINS, tk_yk_10000series,1082) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 8,10)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -6594,7 +6636,7 @@ item(FEAT_TRAINS, tk_yk_17000series,1083) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 8,10)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -6757,7 +6799,7 @@ item(FEAT_TRAINS, tk_hz_8000series,1100) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -6900,7 +6942,7 @@ item(FEAT_TRAINS, tk_hz_08series,1101) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -7042,7 +7084,7 @@ item(FEAT_TRAINS, tk_hz_18000series,1102) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -7339,7 +7381,7 @@ item(FEAT_TRAINS, tk_nm_eidan9000,1110) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -7472,7 +7514,7 @@ item(FEAT_TRAINS, tk_nm_saitama2000,1115) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_TOKYOMETRO)),
@@ -7672,7 +7714,7 @@ item(FEAT_TRAINS, tk_as_toei5000,1120) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
     string(STR_OPERATOR, string(STR_TOEI)),
@@ -7834,7 +7876,7 @@ item(FEAT_TRAINS, tk_as_toei5200,1121) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
     string(STR_OPERATOR, string(STR_TOEI)),
@@ -7985,7 +8027,7 @@ item(FEAT_TRAINS, tk_as_toei5300,1122) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
     string(STR_OPERATOR, string(STR_TOEI)),
@@ -8131,7 +8173,7 @@ item(FEAT_TRAINS, tk_as_toei5500,1123) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
     string(STR_OPERATOR, string(STR_TOEI)),
@@ -8414,7 +8456,7 @@ item(FEAT_TRAINS, tk_mt_toei6000,1130) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_TOEI)),
@@ -8588,7 +8630,7 @@ item(FEAT_TRAINS, tk_mt_toei6300,1131) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_TOEI)),
@@ -8717,7 +8759,7 @@ item(FEAT_TRAINS, tk_mt_toei6500,1132) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
       string(STR_OPERATOR, string(STR_TOEI)),
@@ -9130,7 +9172,7 @@ item(FEAT_TRAINS, tk_sj_toei10_000,1140) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_SCOTCHGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
     string(STR_OPERATOR, string(STR_TOEI)),
@@ -9510,7 +9552,7 @@ item(FEAT_TRAINS, tk_sj_toei10_300,1141) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_SCOTCHGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 8,10)),
     string(STR_OPERATOR, string(STR_TOEI)),
@@ -9848,7 +9890,7 @@ item(FEAT_TRAINS, tk_od_toei12_000,1150) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
     string(STR_OPERATOR, string(STR_TOEI)),
@@ -10001,7 +10043,7 @@ item(FEAT_TRAINS, yk_bl_1000series,1200) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_YOKOHAMA)),
@@ -10268,7 +10310,7 @@ item(FEAT_TRAINS, yk_bl_3000series,1201) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_YOKOHAMA)),
@@ -10360,7 +10402,7 @@ item(FEAT_TRAINS, yk_bl_4000series,1202) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_YOKOHAMA)),
@@ -10568,7 +10610,7 @@ item(FEAT_TRAINS, yk_gl_10000series,1210) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
     string(STR_OPERATOR, string(STR_YOKOHAMA)),
@@ -10643,7 +10685,7 @@ item(FEAT_TRAINS, os_nm_8000series,1220) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
       string(STR_OPERATOR, string(STR_KITAKYU)),
@@ -10744,7 +10786,7 @@ item(FEAT_TRAINS, os_nm_9000series,1221) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
       string(STR_OPERATOR, string(STR_KITAKYU)),
@@ -10853,7 +10895,7 @@ item(FEAT_TRAINS, os_nm_100series,1230) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 1,4)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -10918,7 +10960,7 @@ item(FEAT_TRAINS, os_nm_500series,1231) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,6)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -11056,7 +11098,7 @@ item(FEAT_TRAINS, os_nm_1000series,1232) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,6)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -11134,7 +11176,7 @@ item(FEAT_TRAINS, os_nm_50series,1234) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,6)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -11238,7 +11280,7 @@ item(FEAT_TRAINS, os_nm_30series,1235) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 4,8)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -11402,7 +11444,7 @@ item(FEAT_TRAINS, os_nm_10series,1236) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 750)),
+    string(STR_DENKI, string(STR_DC, 750)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_3, 8,9,10)),
     string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -11516,7 +11558,7 @@ item(FEAT_TRAINS, os_nm_21series,1237) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -11622,7 +11664,7 @@ item(FEAT_TRAINS, os_nm_30000series,1238) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -11765,7 +11807,7 @@ item(FEAT_TRAINS, os_tm_50series,1250) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,6)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -11914,7 +11956,7 @@ item(FEAT_TRAINS, os_tm_30series,1251) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -12018,7 +12060,7 @@ item(FEAT_TRAINS, os_tm_20series,1252) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 4,8)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -12120,7 +12162,7 @@ item(FEAT_TRAINS, os_tm_22series,1253) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -12192,7 +12234,7 @@ item(FEAT_TRAINS, os_tm_30000series,1254) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -12322,7 +12364,7 @@ item(FEAT_TRAINS, os_yb_1100type,1260) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,4)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -12451,7 +12493,7 @@ item(FEAT_TRAINS, os_yb_50series,1261) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,4)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -12600,7 +12642,7 @@ item(FEAT_TRAINS, os_yb_30series,1262) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 5)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -12701,7 +12743,7 @@ item(FEAT_TRAINS, os_yb_23series,1263) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -12787,7 +12829,7 @@ item(FEAT_TRAINS, os_ch_6000type,1270) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 1,4)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -12915,7 +12957,7 @@ item(FEAT_TRAINS, os_ch_50series,1271) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -13021,7 +13063,7 @@ item(FEAT_TRAINS, os_ch_30series,1272) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -13092,7 +13134,7 @@ item(FEAT_TRAINS, os_ch_20series,1273) {
     additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -13195,7 +13237,7 @@ item(FEAT_TRAINS, os_ch_24series,1274) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -13263,7 +13305,7 @@ item(FEAT_TRAINS, os_ch_30000series,1275) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -13328,7 +13370,7 @@ item(FEAT_TRAINS, os_ch_400series,1276) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -13393,7 +13435,7 @@ item(FEAT_TRAINS, os_ch_kintetsu7000,1277) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_KINTETSU)),
@@ -13531,7 +13573,7 @@ item(FEAT_TRAINS, os_sn_1100type,1280) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 750)),
+    string(STR_DENKI, string(STR_DC, 750)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,4)),
     string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -13659,7 +13701,7 @@ item(FEAT_TRAINS, os_sn_50series,1281) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -13764,7 +13806,7 @@ item(FEAT_TRAINS, os_sn_30series,1282) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -13864,7 +13906,7 @@ item(FEAT_TRAINS, os_sn_25series,1283) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 750)),
+      string(STR_DENKI, string(STR_DC, 750)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
       string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -14056,7 +14098,7 @@ item(FEAT_TRAINS, os_hk_60series,1290) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_3, 5,6,8)),
     string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -14227,7 +14269,7 @@ item(FEAT_TRAINS, os_hk_66series,1291) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
     string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -14421,7 +14463,7 @@ item(FEAT_TRAINS, os_ts_70series,1300) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
     string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -14523,7 +14565,7 @@ item(FEAT_TRAINS, os_ts_80series,1301) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
     string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -14627,7 +14669,7 @@ item(FEAT_TRAINS, os_iz_80series,1310) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
     string(STR_OPERATOR, string(STR_OSAKAMETRO)),
@@ -14785,7 +14827,7 @@ item(FEAT_TRAINS, kt_ks_10series,1350) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
     string(STR_OPERATOR, string(STR_KYOTO)),
@@ -14941,7 +14983,7 @@ item(FEAT_TRAINS, kt_ks_20series,1351) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
     string(STR_OPERATOR, string(STR_KYOTO)),
@@ -15088,7 +15130,7 @@ item(FEAT_TRAINS, kt_tz_50series,1360) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
     string(STR_OPERATOR, string(STR_KYOTO)),
@@ -15182,7 +15224,7 @@ item(FEAT_TRAINS, ng_hg_type100,1370) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 600)),
+      string(STR_DENKI, string(STR_DC, 600)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,6)),
       string(STR_OPERATOR, string(STR_NAGOYA)),
@@ -15250,7 +15292,7 @@ item(FEAT_TRAINS, ng_hg_type300,1371) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 600)),
+      string(STR_DENKI, string(STR_DC, 600)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_NAGOYA)),
@@ -15337,7 +15379,7 @@ item(FEAT_TRAINS, ng_hg_5000series,1372) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 600)),
+      string(STR_DENKI, string(STR_DC, 600)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_NAGOYA)),
@@ -15482,7 +15524,7 @@ item(FEAT_TRAINS, ng_hg_5050series,1373) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 600)),
+      string(STR_DENKI, string(STR_DC, 600)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_NAGOYA)),
@@ -15571,7 +15613,7 @@ item(FEAT_TRAINS, ng_hg_n1000series,1374) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 600)),
+      string(STR_DENKI, string(STR_DC, 600)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_NAGOYA)),
@@ -15640,7 +15682,7 @@ item(FEAT_TRAINS, ng_mj_type1000,1380) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 600)),
+      string(STR_DENKI, string(STR_DC, 600)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,6)),
       string(STR_OPERATOR, string(STR_NAGOYA)),
@@ -15786,7 +15828,7 @@ item(FEAT_TRAINS, ng_mj_2000series,1381) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 600)),
+      string(STR_DENKI, string(STR_DC, 600)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_NAGOYA)),
@@ -15942,7 +15984,7 @@ item(FEAT_TRAINS, ng_tm_3000series,1390) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 3,6)),
     string(STR_OPERATOR, string(STR_NAGOYA)),
@@ -16066,7 +16108,7 @@ item(FEAT_TRAINS, ng_tm_3050series,1391) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
     string(STR_OPERATOR, string(STR_NAGOYA)),
@@ -16256,7 +16298,7 @@ item(FEAT_TRAINS, ng_tm_N3000series,1392) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
     string(STR_OPERATOR, string(STR_NAGOYA)),
@@ -16387,7 +16429,7 @@ item(FEAT_TRAINS, ng_sk_6000series,1400) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 4,5)),
     string(STR_OPERATOR, string(STR_NAGOYA)),
@@ -16522,7 +16564,7 @@ item(FEAT_TRAINS, ng_sk_6050series,1401) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 5)),
     string(STR_OPERATOR, string(STR_NAGOYA)),
@@ -16634,7 +16676,7 @@ item(FEAT_TRAINS, ng_sk_7000series,1410) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
     string(STR_OPERATOR, string(STR_NAGOYA)),
@@ -16807,7 +16849,7 @@ item(FEAT_TRAINS, sn_nm_1000series,1430) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
     string(STR_OPERATOR, string(STR_SENDAI)),
@@ -17048,7 +17090,7 @@ item(FEAT_TRAINS, sn_tz_2000series,1435) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
     string(STR_OPERATOR, string(STR_SENDAI)),
@@ -17184,7 +17226,7 @@ item(FEAT_TRAINS, kb_sy_1000series,1440) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_KOBE)),
@@ -17322,7 +17364,7 @@ item(FEAT_TRAINS, kb_sy_2000series,1441) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 5,6)),
     string(STR_OPERATOR, string(STR_KOBE)),
@@ -17575,7 +17617,7 @@ item(FEAT_TRAINS, kb_sy_3000series,1442) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
     string(STR_OPERATOR, string(STR_KOBE)),
@@ -17717,7 +17759,7 @@ item(FEAT_TRAINS, kb_sy_7000series,1443) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 5,6)),
     string(STR_OPERATOR, string(STR_KOBE)),
@@ -17858,7 +17900,7 @@ item(FEAT_TRAINS, kb_sy_6000series,1444) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
     string(STR_OPERATOR, string(STR_KOBE)),
@@ -17974,7 +18016,7 @@ item(FEAT_TRAINS, kb_kg_5000series,1447) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
     string(STR_OPERATOR, string(STR_KOBE)),
@@ -18077,7 +18119,7 @@ item(FEAT_TRAINS, fk_kk_1000series,1450) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_FUKUOKA)),
@@ -18178,7 +18220,7 @@ item(FEAT_TRAINS, fk_kk_2000series,1451) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
       string(STR_OPERATOR, string(STR_FUKUOKA)),
@@ -18338,7 +18380,7 @@ item(FEAT_TRAINS, fk_nk_3000series,1455) {
   additional_text:
        string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
     string(STR_OPERATOR, string(STR_FUKUOKA)),
@@ -18462,7 +18504,7 @@ item(FEAT_TRAINS, tokyu_deha1) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -18547,7 +18589,7 @@ item(FEAT_TRAINS, tokyu_deha3450) {
     additional_text:
    string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -18659,7 +18701,7 @@ item(FEAT_TRAINS, tokyu3300_old) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_NARROWGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
    string(STR_FORMATION, string(STR_NUM_CARS_2, 2,3)),
    string(STR_USAGE, string(STR_COMMUTER)),
@@ -18878,7 +18920,7 @@ item(FEAT_TRAINS, tokyu3500_old) {
     additional_text:
    string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,5)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -19097,7 +19139,7 @@ item(FEAT_TRAINS, tokyu3800_old) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_NARROWGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
    string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,5)),
    string(STR_USAGE, string(STR_COMMUTER)),
@@ -19240,7 +19282,7 @@ item(FEAT_TRAINS, tokyu5000_old) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_NARROWGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
    string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 3,6)),
    string(STR_USAGE, string(STR_COMMUTER)),
@@ -19337,7 +19379,7 @@ item(FEAT_TRAINS, tokyu5200_old) {
     additional_text:
    string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 3,5)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -19475,7 +19517,7 @@ item(FEAT_TRAINS, tokyu6000_old) {
     additional_text:
    string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_4, 2,4,6,8)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -19853,7 +19895,7 @@ item(FEAT_TRAINS, tokyu7000_old) {
     additional_text:
    string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_5, 2,3,4,6,8)),
       string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -20370,7 +20412,7 @@ item(FEAT_TRAINS, tokyu7200_old) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_NARROWGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
    string(STR_FORMATION, string(STR_NUM_CARS_5, 2,3,4,6,8)),
    string(STR_USAGE, string(STR_COMMUTER)),
@@ -21049,7 +21091,7 @@ item(FEAT_TRAINS, tokyu8000) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_NARROWGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
    string(STR_FORMATION, string(STR_NUM_CARS_4, 4,5,8,10)),
    string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -21543,7 +21585,7 @@ item(FEAT_TRAINS, tokyu8090) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_NARROWGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
    string(STR_FORMATION, string(STR_NUM_CARS_4, 5,7,8,10)),
    string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -21775,7 +21817,7 @@ item(FEAT_TRAINS, tokyu9000) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_NARROWGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
    string(STR_FORMATION, string(STR_NUM_CARS_2, 5,8)),
    string(STR_USAGE, string(STR_COMMUTER)),
@@ -22249,7 +22291,7 @@ item(FEAT_TRAINS, tokyu1000) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_NARROWGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
    string(STR_FORMATION, string(STR_NUM_CARS_2, 3,8)),
    string(STR_USAGE, string(STR_COMMUTER)),
@@ -22447,7 +22489,7 @@ item(FEAT_TRAINS, tokyu2000) {
     additional_text:
    string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_3, 5,8,10)),
       string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -22602,7 +22644,7 @@ item(FEAT_TRAINS, tokyu3000) {
     additional_text:
    string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
       string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -22801,7 +22843,7 @@ item(FEAT_TRAINS, y000) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_NARROWGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
    string(STR_FORMATION, string(STR_NUM_CARS_1, 2)),
    string(STR_USAGE, string(STR_COMMUTER)),
@@ -23169,7 +23211,7 @@ item(FEAT_TRAINS, tokyu5000) {
     additional_text:
    string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED,
       string(STR_DOORS_REFIT, 4, 6),),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 8,10)),
@@ -23611,7 +23653,7 @@ item(FEAT_TRAINS, tokyu5050) {
     additional_text:
    string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED,
       string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 8,10)),
@@ -23739,7 +23781,7 @@ item(FEAT_TRAINS, tokyu5080) {
     additional_text:
    string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED,
       string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
@@ -23905,7 +23947,7 @@ item(FEAT_TRAINS, y500) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_NARROWGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
    string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
    string(STR_USAGE, string(STR_COMMUTER)),
@@ -24161,7 +24203,7 @@ item(FEAT_TRAINS, tokyu6000) {
     additional_text:
    string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 6,7)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -24276,7 +24318,7 @@ item(FEAT_TRAINS, tokyu7000) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_NARROWGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
    string(STR_FORMATION, string(STR_NUM_CARS_1, 3)),
    string(STR_USAGE, string(STR_COMMUTER)),
@@ -24537,7 +24579,7 @@ item(FEAT_TRAINS, tokyu2020) {
       additional_text:
    string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1,10)),
       string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -24775,7 +24817,7 @@ item(FEAT_TRAINS, tokyu6020) {
       additional_text:
    string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 5,7)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -25017,7 +25059,7 @@ item(FEAT_TRAINS, tokyu3020) {
       additional_text:
    string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
       string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -25358,7 +25400,7 @@ item(FEAT_TRAINS, tobu5700) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 1)),
     string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,6)),
        string(STR_USAGE,
@@ -25454,7 +25496,7 @@ item(FEAT_TRAINS, tobu1700) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 1)),
     string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,6)),
        string(STR_USAGE,
@@ -25621,7 +25663,7 @@ item(FEAT_TRAINS, tobu1720) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 1)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
     string(STR_USAGE, string(STR_LIMITED)),
@@ -25750,7 +25792,7 @@ item(FEAT_TRAINS, tobu6000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
     string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,6)),
        string(STR_USAGE,
@@ -26168,7 +26210,7 @@ item(FEAT_TRAINS, tobu1800) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 1)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
        string(STR_USAGE,
@@ -26395,7 +26437,7 @@ item(FEAT_TRAINS, tobu6050) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
     string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,6)),
     string(STR_USAGE, string(STR_EXPRESS)),
@@ -27199,7 +27241,7 @@ item(FEAT_TRAINS, tobu100) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 1)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
     string(STR_USAGE, string(STR_LIMITED)),
@@ -27576,7 +27618,7 @@ item(FEAT_TRAINS, tobu200) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 1)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
     string(STR_USAGE, string(STR_LIMITED)),
@@ -27730,7 +27772,7 @@ item(FEAT_TRAINS, tobu300) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 1)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
        string(STR_USAGE,
@@ -27878,7 +27920,7 @@ item(FEAT_TRAINS, tobu500) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 1)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 3,6)),
     string(STR_USAGE, string(STR_LIMITED)),
@@ -28036,7 +28078,7 @@ item(FEAT_TRAINS, tobu100n) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 1)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
     string(STR_USAGE, string(STR_LIMITED)),
@@ -28146,7 +28188,7 @@ item(FEAT_TRAINS, tobu_deha1) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -28798,7 +28840,7 @@ item(FEAT_TRAINS, tobu_deha10) {
   additional_text:
     string(STR_TRAIN_DESC,
         string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
         string(STR_LOAD_SPEED,
         string(STR_DOORS_REFIT, 2, 3),),
         string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 1,4)),
@@ -29140,7 +29182,7 @@ item(FEAT_TRAINS, tobu7300) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 2,4)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -29372,7 +29414,7 @@ item(FEAT_TRAINS, tobu2000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_3, 4,6,8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -30946,7 +30988,7 @@ item(FEAT_TRAINS, tobu8000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_5, 2,3,4,6,8)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -31220,7 +31262,7 @@ item(FEAT_TRAINS, tobu3000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 2,4)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -31564,7 +31606,7 @@ item(FEAT_TRAINS, tobu5000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,6)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -31809,7 +31851,7 @@ item(FEAT_TRAINS, tobu9000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -32248,7 +32290,7 @@ item(FEAT_TRAINS, tobu10000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_5, 2,4,6,8,10)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -32399,7 +32441,7 @@ item(FEAT_TRAINS, tobu20000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -32521,7 +32563,7 @@ item(FEAT_TRAINS, tobu20400) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -32673,7 +32715,7 @@ item(FEAT_TRAINS, tobu30000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -32824,7 +32866,7 @@ item(FEAT_TRAINS, tobu50000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
        string(STR_USAGE,string(STR_METRO_ACCESS)),
@@ -33064,7 +33106,7 @@ item(FEAT_TRAINS, tobu50050) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
        string(STR_USAGE,string(STR_METRO_ACCESS)),
@@ -33243,7 +33285,7 @@ item(FEAT_TRAINS, tobu50090) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
        string(STR_USAGE,string(STR_EXPRESS)),
@@ -33377,7 +33419,7 @@ item(FEAT_TRAINS, tobu60000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -33628,7 +33670,7 @@ item(FEAT_TRAINS, tobu70000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 7)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -33778,7 +33820,7 @@ item(FEAT_TRAINS, seibu5000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
     string(STR_USAGE, string(STR_LIMITED)),
@@ -34639,7 +34681,7 @@ item(FEAT_TRAINS, seibu10000) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 1)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 7)),
       string(STR_USAGE, string(STR_LIMITED)),
@@ -34804,7 +34846,7 @@ item(FEAT_TRAINS, seibu001) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 1)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
     string(STR_USAGE, string(STR_LIMITED)),
@@ -34886,7 +34928,7 @@ item(FEAT_TRAINS, seibuDeha100) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 1,2)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -35086,7 +35128,7 @@ item(FEAT_TRAINS, seibuDeha5560) {
   additional_text:
     string(STR_TRAIN_DESC,
         string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
         string(STR_LOAD_SPEED,
         string(STR_DOORS_REFIT, 2, 3),),
         string(STR_FORMATION, string(STR_NUM_CARS_1, 2)),
@@ -35342,7 +35384,7 @@ item(FEAT_TRAINS, seibu311) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 2,3)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -35501,7 +35543,7 @@ item(FEAT_TRAINS, seibu401_1) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 2,4)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -35681,7 +35723,7 @@ item(FEAT_TRAINS, seibu351) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_3, 2,3,4)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -35901,7 +35943,7 @@ item(FEAT_TRAINS, seibu451) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,6)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -36041,7 +36083,7 @@ item(FEAT_TRAINS, seibu551) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 2,4)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -36171,7 +36213,7 @@ item(FEAT_TRAINS, seibu571) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 2,4)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -36332,7 +36374,7 @@ item(FEAT_TRAINS, seibu411) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 2)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -36604,7 +36646,7 @@ item(FEAT_TRAINS, seibu501) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_4, 2,3,4,6)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -37014,7 +37056,7 @@ item(FEAT_TRAINS, seibu101) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -37792,7 +37834,7 @@ item(FEAT_TRAINS, seibu301) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,8)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -38182,7 +38224,7 @@ item(FEAT_TRAINS, seibu2000) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_4, 2,4,6,8)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -38655,7 +38697,7 @@ item(FEAT_TRAINS, seibu3000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_NARROWGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -38810,7 +38852,7 @@ item(FEAT_TRAINS, seibu4000) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -39174,7 +39216,7 @@ item(FEAT_TRAINS, seibu6000) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
       string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -39725,7 +39767,7 @@ item(FEAT_TRAINS, seibu9000) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 4,10)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -40148,7 +40190,7 @@ item(FEAT_TRAINS, seibu20000) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 8,10)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -40809,7 +40851,7 @@ item(FEAT_TRAINS, seibu30000) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_3, 2,8,10)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -41170,7 +41212,7 @@ item(FEAT_TRAINS, seibu40000) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
       string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -41318,7 +41360,7 @@ item(FEAT_TRAINS, odakyu9000) {
     additional_text:
    string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
       string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -41452,7 +41494,7 @@ item(FEAT_TRAINS, odakyu8000) {
     additional_text:
    string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -41638,7 +41680,7 @@ item(FEAT_TRAINS, odakyu1000) {
     additional_text:
    string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
       string(STR_FORMATION, string(STR_NUM_CARS_4, 4,6,8,10)),
       string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -41764,7 +41806,7 @@ item(FEAT_TRAINS, odakyu2000n) {
     additional_text:
    string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -41883,7 +41925,7 @@ item(FEAT_TRAINS, odakyu3000n) {
   additional_text:
    string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
       string(STR_FORMATION, string(STR_NUM_CARS_3, 6,8,10)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -42007,7 +42049,7 @@ item(FEAT_TRAINS, odakyu4000n) {
   additional_text:
    string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
       string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -42131,7 +42173,7 @@ item(FEAT_TRAINS, odakyu5000n) {
   additional_text:
    string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -42276,7 +42318,7 @@ item(FEAT_TRAINS, sotetsu5000) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_NARROWGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 3),),
    string(STR_FORMATION, string(STR_NUM_CARS_2, 2,4)),
    string(STR_USAGE, string(STR_COMMUTER)),
@@ -42485,7 +42527,7 @@ item(FEAT_TRAINS, sotetsu5000n) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_NARROWGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
    string(STR_FORMATION, string(STR_NUM_CARS_2, 8,10)),
    string(STR_USAGE, string(STR_COMMUTER)),
@@ -43101,7 +43143,7 @@ item(FEAT_TRAINS, sotetsu6000) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_NARROWGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
    string(STR_FORMATION, string(STR_NUM_CARS_4, 2,6,8,10)),
    string(STR_USAGE, string(STR_COMMUTER)),
@@ -43243,7 +43285,7 @@ item(FEAT_TRAINS, sotetsu7000) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_NARROWGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
    string(STR_FORMATION, string(STR_NUM_CARS_2, 8,10)),
    string(STR_USAGE, string(STR_COMMUTER)),
@@ -43568,7 +43610,7 @@ item(FEAT_TRAINS, sotetsu7000n) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_NARROWGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
    string(STR_FORMATION, string(STR_NUM_CARS_2, 8,10)),
    string(STR_USAGE, string(STR_COMMUTER)),
@@ -43806,7 +43848,7 @@ item(FEAT_TRAINS, sotetsu8000) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_NARROWGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
    string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
    string(STR_USAGE, string(STR_COMMUTER)),
@@ -44062,7 +44104,7 @@ item(FEAT_TRAINS, sotetsu9000) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_NARROWGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
    string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
    string(STR_USAGE, string(STR_COMMUTER)),
@@ -44418,7 +44460,7 @@ item(FEAT_TRAINS, sotetsu10000) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_NARROWGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
    string(STR_FORMATION, string(STR_NUM_CARS_2, 8, 10)),
    string(STR_USAGE, string(STR_COMMUTER)),
@@ -44564,7 +44606,7 @@ item(FEAT_TRAINS, sotetsu11000) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_NARROWGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
    string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
    string(STR_USAGE, string(STR_COMMUTER)),
@@ -44712,7 +44754,7 @@ item(FEAT_TRAINS, sotetsu12000) {
     additional_text:
    string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -44828,7 +44870,7 @@ item(FEAT_TRAINS, sotetsu20000) {
     additional_text:
    string(STR_TRAIN_DESC,
       string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
       string(STR_FORMATION, string(STR_NUM_CARS_2, 8,10)),
       string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -44852,84 +44894,69 @@ item(FEAT_TRAINS, sotetsu20000) {
 
 
 
-# 1 "src/private/Kanto/TWR/70_000series.pnml" 1
+# 1 "src/private/generated/twr_70_000series.pnml" 1
+spriteset(gfx_twr_70_000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/TWR/twr_70_000series/twr_70_000series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(gfx_twr_70_000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/TWR/twr_70_000series/twr_70_000series.png"){ tmpl_purchase_2c_dual(0, 0) }
+switch(FEAT_TRAINS, SELF, gfx_twr_70_000series_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_twr; 1: gfx_twr_70_000series_purchase_c1; 2: gfx_twr_70_000series_purchase_c2;}
+spriteset(gfx_twr_70_000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/TWR/twr_70_000series/twr_70_000series.png"){ tmpl_std (0, 0) }
+spriteset(gfx_twr_70_000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/TWR/twr_70_000series/twr_70_000series.png"){ tmpl_std (0, 25) }
+spriteset(gfx_twr_70_000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/TWR/twr_70_000series/twr_70_000series.png"){ tmpl_std (0, 50) }
+spriteset(gfx_twr_70_000series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/TWR/twr_70_000series/twr_70_000series.png"){ tmpl_std_rev (0, 50) }
+spriteset(gfx_twr_70_000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/TWR/twr_70_000series/twr_70_000series.png"){ tmpl_symm (0, 75) }
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_panto_placer_0,position_in_vehid_chain %5){
+0:gfx_twr_70_000series_mot;
+2:gfx_twr_70_000series_mot;
+gfx_twr_70_000series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_panto_placer_0_rev,position_in_vehid_chain_from_end %5){
+0:gfx_twr_70_000series_mot_rev;
+2:gfx_twr_70_000series_mot_rev;
+gfx_twr_70_000series_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_twr_70_000series_panto_placer_0_main,vehicle_is_reversed){
+1: sw_twr_70_000series_panto_placer_0_rev;
+sw_twr_70_000series_panto_placer_0;
+}
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_panto_placer_1,position_in_vehid_chain %3){
+0:gfx_twr_70_000series_mot;
+gfx_twr_70_000series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
+0:gfx_twr_70_000series_mot_rev;
+gfx_twr_70_000series_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_twr_70_000series_panto_placer_1_main,vehicle_is_reversed){
+1: sw_twr_70_000series_panto_placer_1_rev;
+sw_twr_70_000series_panto_placer_1;
+}
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_panto_placer_main, num_vehs_in_vehid_chain){
+default:sw_twr_70_000series_panto_placer_0_main;
+5:sw_twr_70_000series_panto_placer_1_main;
+2..3:sw_twr_70_000series_panto_placer_1_main;
+}
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_head_gfx_main,position_in_consist-position_in_vehid_chain>0){
+1: gfx_twr_70_000series_end;
+gfx_twr_70_000series_front;
+}
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_lv,vehicle_type_id){
+100..102:sw_twr_70_000series_panto_placer_main;
+sw_twr_70_000series_head_gfx_main;
+}
 
-  spriteset(twr_70_000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/TWR/70_000series/70_000series.png"){ tmpl_purchase_1c(0, 0) }
-  spriteset(twr_70_000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/TWR/70_000series/70_000series.png"){ tmpl_purchase_2c(0, 75) }
-  switch(FEAT_TRAINS, SELF, twr_70_000series_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_twr; 1: twr_70_000series_purchase_c1; 2: twr_70_000series_purchase_c2;}
+  switch(FEAT_TRAINS, SELF, sw_twr_70_000series_capacity_main,vehicle_type_id){
+100..102: 156;
+146;
+}
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_power_wag,position_in_vehid_chain){
+0..4:95;
+0;
+}
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_power_main,vehicle_type_id){
+100..102:sw_twr_70_000series_power_wag;
+return 0;
+}
 
-  spriteset(twr_70_000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/TWR/70_000series/70_000series.png"){ tmpl_std(0, 0) }
-  spriteset(twr_70_000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/TWR/70_000series/70_000series.png"){ tmpl_std_rev(0, 25) }
-  spriteset(twr_70_000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/TWR/70_000series/70_000series.png"){ tmpl_std(0, 50) }
-  spriteset(twr_70_000series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/TWR/70_000series/70_000series.png"){ tmpl_std_rev(0, 50) }
-  spriteset(twr_70_000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/TWR/70_000series/70_000series.png"){ tmpl_symm(0, 75) }
-  spriteset(twr_70_000series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/TWR/70_000series/70_000series.png"){ tmpl_std(0, 100) }
-  spriteset(twr_70_000series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/TWR/70_000series/70_000series.png"){ tmpl_std_rev(0, 100) }
-
-
-
-
-
-    switch(FEAT_TRAINS, SELF, sw_twr_70_000series_panto_placer,position_in_vehid_chain %3){
-        1: twr_70_000series_mot;
-        twr_70_000series_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_twr_70_000series_panto_placer_rev,position_in_vehid_chain_from_end %3){
-        2: twr_70_000series_mot_rev;
-        twr_70_000series_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_twr_70_000series_panto_placer_main_1,vehicle_is_reversed){
-        1: sw_twr_70_000series_panto_placer_rev;
-        sw_twr_70_000series_panto_placer;
-    }
-
-    switch(FEAT_TRAINS, SELF, sw_twr_70_000series_1_panto_placer,position_in_vehid_chain %3){
-        0: twr_70_000series_mot;
-        twr_70_000series_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_twr_70_000series_1_panto_placer_rev,position_in_vehid_chain_from_end %3){
-        1: twr_70_000series_mot_rev;
-        twr_70_000series_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_twr_70_000series_panto_placer_main_2,vehicle_is_reversed){
-        1: sw_twr_70_000series_1_panto_placer_rev;
-        sw_twr_70_000series_1_panto_placer;
-    }
-
-  switch(FEAT_TRAINS, SELF, sw_twr_70_000series_panto_placer_main,num_vehs_in_vehid_chain+1){
-  0..3:sw_twr_70_000series_panto_placer_main_2;
-  6:sw_twr_70_000series_panto_placer_main_2;
-  sw_twr_70_000series_panto_placer_main_1;
-  }
-
-  switch(FEAT_TRAINS, SELF, sw_twr_70_000series_end_gfx_main,position_in_vehid_chain_from_end){
-   0: twr_70_000series_end;
-   default: sw_twr_70_000series_panto_placer_main;
-  }
-  switch(FEAT_TRAINS, SELF, sw_twr_70_000series_front_gfx_main,position_in_vehid_chain_from_end){
-   0: twr_70_000series_front;
-   default: sw_twr_70_000series_panto_placer_main;
-  }
-  switch(FEAT_TRAINS, SELF, sw_twr_70_000series_lv,vehicle_type_id){
-   100..102:sw_twr_70_000series_end_gfx_main;
-   sw_twr_70_000series_front_gfx_main;
-  }
-
-
-
-  switch(FEAT_TRAINS, SELF, sw_twr_70_000series_capacity_main,position_in_vehid_chain){
-      0: 146;
-      default: 156;
-  }
-
-  switch(FEAT_TRAINS, SELF, sw_twr_70_000series_power_main,position_in_vehid_chain_from_end %10){
-    1..2:return 95;
-    4..5:return 95;
-    7..8:return 95;
-    return 0;
-  }
-
-item(FEAT_TRAINS, twr_70_000series,2290) {
+item(FEAT_TRAINS, twr_70_000series) {
   property {
     cargo_capacity: 130; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); non_refittable_cargo_classes: bitmask(); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); tractive_effort_coefficient: 0.3; air_drag_coefficient: 0.07; bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 10;
 
@@ -44939,27 +44966,28 @@ item(FEAT_TRAINS, twr_70_000series,2290) {
     model_life: VEHICLE_NEVER_EXPIRES;
     vehicle_life: 30;
     reliability_decay: 10;
+    dual_headed: 1;
 
     cost_factor: 18;
     running_cost_factor: 48;
     speed: 110 km/h;
     track_type: TR_1067_DC;
-    power: 380 kW;
+    power: 1 kW;
     weight: 34 ton;
   }
  graphics {
-    additional_text:
-   string(STR_TRAIN_DESC,
-      string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
-      string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
-      string(STR_FORMATION, string(STR_NUM_CARS_3, 4, 6, 10)),
-      string(STR_USAGE, string(STR_COMMUTER)),
-      string(STR_OPERATOR, string(STR_TWR)));
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC,1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_3, 4,6,10)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_TWR)));
 
-  purchase: twr_70_000series_purchase;
-  can_attach_wagon: sw_1067_attach_vehid;
-  start_stop: sw_stop_start_3;
+    purchase: gfx_twr_70_000series_purchase;
+    can_attach_wagon: sw_1067_attach_vehid;
+    start_stop: sw_stop_start_3;
+    purchase_power:sw_twr_70_000series_power_main()*4*1342/1000;
 
     cargo_capacity: sw_twr_70_000series_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; loading_speed:param_loading_4D; default: sw_twr_70_000series_lv; power:sw_twr_70_000series_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_4D; cargo_capacity: sw_twr_70_000series_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_twr_70_000series_lv; power: sw_twr_70_000series_power_main()*4*1342/1000; weight: 34; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_4D; cargo_capacity: sw_twr_70_000series_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_twr_70_000series_lv; power: sw_twr_70_000series_power_main()*4*1342/1000; weight: 34; }
 
@@ -44967,91 +44995,74 @@ item(FEAT_TRAINS, twr_70_000series,2290) {
 
 
 
-}
+    }
 # 224 "src/_private.pnml" 2
 
 
-# 1 "src/private/Kanto/tsukuba/1000series.pnml" 1
+# 1 "src/private/generated/tsukuba_1000series.pnml" 1
+spriteset(gfx_tsukuba_1000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/tsukuba/tsukuba_1000series/tsukuba_1000series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(gfx_tsukuba_1000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/tsukuba/tsukuba_1000series/tsukuba_1000series.png"){ tmpl_purchase_2c_dual(0, 0) }
+switch(FEAT_TRAINS, SELF, gfx_tsukuba_1000series_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tsukuba; 1: gfx_tsukuba_1000series_purchase_c1; 2: gfx_tsukuba_1000series_purchase_c2;}
+spriteset(gfx_tsukuba_1000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tsukuba/tsukuba_1000series/tsukuba_1000series.png"){ tmpl_std (0, 0) }
+spriteset(gfx_tsukuba_1000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tsukuba/tsukuba_1000series/tsukuba_1000series.png"){ tmpl_std (0, 25) }
+spriteset(gfx_tsukuba_1000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tsukuba/tsukuba_1000series/tsukuba_1000series.png"){ tmpl_std (0, 50) }
+spriteset(gfx_tsukuba_1000series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tsukuba/tsukuba_1000series/tsukuba_1000series.png"){ tmpl_std_rev (0, 50) }
+spriteset(gfx_tsukuba_1000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tsukuba/tsukuba_1000series/tsukuba_1000series.png"){ tmpl_symm (0, 75) }
+switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_panto_placer_0,position_in_vehid_chain %5){
+0:gfx_tsukuba_1000series_mot;
+2:gfx_tsukuba_1000series_mot;
+gfx_tsukuba_1000series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_panto_placer_0_rev,position_in_vehid_chain_from_end %5){
+0:gfx_tsukuba_1000series_mot_rev;
+2:gfx_tsukuba_1000series_mot_rev;
+gfx_tsukuba_1000series_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_tsukuba_1000series_panto_placer_0_main,vehicle_is_reversed){
+1: sw_tsukuba_1000series_panto_placer_0_rev;
+sw_tsukuba_1000series_panto_placer_0;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_panto_placer_1,position_in_vehid_chain %3){
+0:gfx_tsukuba_1000series_mot;
+gfx_tsukuba_1000series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
+0:gfx_tsukuba_1000series_mot_rev;
+gfx_tsukuba_1000series_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_tsukuba_1000series_panto_placer_1_main,vehicle_is_reversed){
+1: sw_tsukuba_1000series_panto_placer_1_rev;
+sw_tsukuba_1000series_panto_placer_1;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_panto_placer_main, num_vehs_in_vehid_chain){
+default:sw_tsukuba_1000series_panto_placer_0_main;
+5:sw_tsukuba_1000series_panto_placer_1_main;
+2..3:sw_tsukuba_1000series_panto_placer_1_main;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_head_gfx_main,position_in_consist-position_in_vehid_chain>0){
+1: gfx_tsukuba_1000series_end;
+gfx_tsukuba_1000series_front;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_lv,vehicle_type_id){
+100..102:sw_tsukuba_1000series_panto_placer_main;
+sw_tsukuba_1000series_head_gfx_main;
+}
 
-  spriteset(tsukuba_1000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/1000series/1000series.png"){ tmpl_purchase_1c(0, 0) }
-  spriteset(tsukuba_1000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/1000series/1000series.png"){ tmpl_purchase_2c(0, 50) }
-  switch(FEAT_TRAINS, SELF, tsukuba_1000series_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tsukuba; 1: tsukuba_1000series_purchase_c1; 2: tsukuba_1000series_purchase_c2;}
+  switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_capacity_main,vehicle_type_id){
+100..102: 158;
+147;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_power_wag,position_in_vehid_chain){
+0..1:190;
+3:190;
+0;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_power_main,vehicle_type_id){
+100..102:sw_tsukuba_1000series_power_wag;
+return 0;
+}
 
-  spriteset(tsukuba_1000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/1000series/1000series.png"){ tmpl_std(0, 0) }
-  spriteset(tsukuba_1000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/1000series/1000series.png"){ tmpl_std_rev(0, 25) }
-  spriteset(tsukuba_1000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/1000series/1000series.png"){ tmpl_std(0, 50) }
-  spriteset(tsukuba_1000series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/1000series/1000series.png"){ tmpl_std_rev(0, 50) }
-  spriteset(tsukuba_1000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/1000series/1000series.png"){ tmpl_symm(0, 75) }
-  spriteset(tsukuba_1000series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/1000series/1000series.png"){ tmpl_std(0, 100) }
-  spriteset(tsukuba_1000series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/1000series/1000series.png"){ tmpl_std_rev(0, 100) }
-
-
-
-
-
-    switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_panto_placer,1+position_in_vehid_chain %5){
-        1: tsukuba_1000series_mot;
-        3: tsukuba_1000series_mot;
-        tsukuba_1000series_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_panto_placer_rev,position_in_vehid_chain_from_end %5){
-        1: tsukuba_1000series_mot_rev;
-        3: tsukuba_1000series_mot_rev;
-        tsukuba_1000series_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_tsukuba_1000series_panto_placer_main_1,vehicle_is_reversed){
-        1: sw_tsukuba_1000series_panto_placer_rev;
-        sw_tsukuba_1000series_panto_placer;
-    }
-
-    switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_1_panto_placer,1+position_in_vehid_chain %3){
-        1: tsukuba_1000series_mot;
-        tsukuba_1000series_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_1_panto_placer_rev,position_in_vehid_chain_from_end %3){
-        1: tsukuba_1000series_mot_rev;
-        tsukuba_1000series_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_tsukuba_1000series_panto_placer_main_2,vehicle_is_reversed){
-        1: sw_tsukuba_1000series_1_panto_placer_rev;
-        sw_tsukuba_1000series_1_panto_placer;
-    }
-
-    switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_panto_placer_main,num_vehs_in_vehid_chain+1){
-    4..5:sw_tsukuba_1000series_panto_placer_main_2;
-    7:sw_tsukuba_1000series_panto_placer_main_2;
-    sw_tsukuba_1000series_panto_placer_main_1;
-    }
-
-
-    switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_end_gfx_main,position_in_vehid_chain_from_end){
-   0: tsukuba_1000series_end;
-   default: sw_tsukuba_1000series_panto_placer_main;
-  }
-  switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_front_gfx_main,position_in_vehid_chain_from_end){
-   0: tsukuba_1000series_front;
-   default: sw_tsukuba_1000series_panto_placer_main;
-  }
-  switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_lv,vehicle_type_id){
-   100..102:sw_tsukuba_1000series_end_gfx_main;
-      sw_tsukuba_1000series_front_gfx_main;
-  }
-
-
-
-
-  switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_capacity_main,position_in_vehid_chain_from_end){
-   0: 147;
-   default: 158;
-  }
-
-  switch(FEAT_TRAINS, SELF, sw_tsukuba_1000series_power_main,position_in_vehid_chain_from_end %8){
-   1..2:return 190;
-      4:return 190;
-   return 0;
-  }
-
-item(FEAT_TRAINS, tsukuba_1000series,2295) {
+item(FEAT_TRAINS, tsukuba_1000series) {
   property {
     cargo_capacity: 130; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); non_refittable_cargo_classes: bitmask(); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); tractive_effort_coefficient: 0.3; air_drag_coefficient: 0.07; bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 10;
 
@@ -45061,27 +45072,28 @@ item(FEAT_TRAINS, tsukuba_1000series,2295) {
     model_life: VEHICLE_NEVER_EXPIRES;
     vehicle_life: 30;
     reliability_decay: 10;
+    dual_headed: 1;
 
     cost_factor: 21;
     running_cost_factor: 51;
     speed: 130 km/h;
     track_type: TR_1067_ACDC;
-    power: 760 kW;
+    power: 1 kW;
     weight: 32 ton;
   }
  graphics {
-    additional_text:
-   string(STR_TRAIN_DESC,
-      string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_AC_DC, 20, 50, 1500)),
-      string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
-      string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
-      string(STR_USAGE, string(STR_EXPRESS)),
-      string(STR_OPERATOR, string(STR_TSUKUBA)));
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_ACDC,20,50,1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
+    string(STR_USAGE, string(STR_EXPRESS)),
+    string(STR_OPERATOR, string(STR_TSUKUBA)));
 
-  purchase: tsukuba_1000series_purchase;
-  can_attach_wagon: sw_1067_attach_vehid;
-  start_stop: sw_stop_start_3;
+    purchase: gfx_tsukuba_1000series_purchase;
+    can_attach_wagon: sw_1067_attach_vehid;
+    start_stop: sw_stop_start_3;
+    purchase_power:sw_tsukuba_1000series_power_main()*4*1342/1000;
 
     cargo_capacity: sw_tsukuba_1000series_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; loading_speed:param_loading_4D; default: sw_tsukuba_1000series_lv; power:sw_tsukuba_1000series_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tsukuba_1000series_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tsukuba_1000series_lv; power: sw_tsukuba_1000series_power_main()*4*1342/1000; weight: 31; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tsukuba_1000series_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tsukuba_1000series_lv; power: sw_tsukuba_1000series_power_main()*4*1342/1000; weight: 31; }
 
@@ -45089,87 +45101,71 @@ item(FEAT_TRAINS, tsukuba_1000series,2295) {
 
 
 
-}
+    }
 # 227 "src/_private.pnml" 2
-# 1 "src/private/Kanto/tsukuba/2000series.pnml" 1
+# 1 "src/private/generated/tsukuba_2000series.pnml" 1
+spriteset(gfx_tsukuba_2000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/tsukuba/tsukuba_2000series/tsukuba_2000series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(gfx_tsukuba_2000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/tsukuba/tsukuba_2000series/tsukuba_2000series.png"){ tmpl_purchase_2c_dual(0, 0) }
+switch(FEAT_TRAINS, SELF, gfx_tsukuba_2000series_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tsukuba; 1: gfx_tsukuba_2000series_purchase_c1; 2: gfx_tsukuba_2000series_purchase_c2;}
+spriteset(gfx_tsukuba_2000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tsukuba/tsukuba_2000series/tsukuba_2000series.png"){ tmpl_std (0, 0) }
+spriteset(gfx_tsukuba_2000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tsukuba/tsukuba_2000series/tsukuba_2000series.png"){ tmpl_std (0, 25) }
+spriteset(gfx_tsukuba_2000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tsukuba/tsukuba_2000series/tsukuba_2000series.png"){ tmpl_std (0, 50) }
+spriteset(gfx_tsukuba_2000series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tsukuba/tsukuba_2000series/tsukuba_2000series.png"){ tmpl_std_rev (0, 50) }
+spriteset(gfx_tsukuba_2000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tsukuba/tsukuba_2000series/tsukuba_2000series.png"){ tmpl_symm (0, 75) }
+switch(FEAT_TRAINS, SELF, sw_tsukuba_2000series_panto_placer_0,position_in_vehid_chain %5){
+0:gfx_tsukuba_2000series_mot;
+2:gfx_tsukuba_2000series_mot;
+gfx_tsukuba_2000series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_2000series_panto_placer_0_rev,position_in_vehid_chain_from_end %5){
+0:gfx_tsukuba_2000series_mot_rev;
+2:gfx_tsukuba_2000series_mot_rev;
+gfx_tsukuba_2000series_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_tsukuba_2000series_panto_placer_0_main,vehicle_is_reversed){
+1: sw_tsukuba_2000series_panto_placer_0_rev;
+sw_tsukuba_2000series_panto_placer_0;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_2000series_panto_placer_1,position_in_vehid_chain %3){
+0:gfx_tsukuba_2000series_mot;
+gfx_tsukuba_2000series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_2000series_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
+0:gfx_tsukuba_2000series_mot_rev;
+gfx_tsukuba_2000series_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_tsukuba_2000series_panto_placer_1_main,vehicle_is_reversed){
+1: sw_tsukuba_2000series_panto_placer_1_rev;
+sw_tsukuba_2000series_panto_placer_1;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_2000series_panto_placer_main, num_vehs_in_vehid_chain){
+default:sw_tsukuba_2000series_panto_placer_0_main;
+5:sw_tsukuba_2000series_panto_placer_1_main;
+2..3:sw_tsukuba_2000series_panto_placer_1_main;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_2000series_head_gfx_main,position_in_consist-position_in_vehid_chain>0){
+1: gfx_tsukuba_2000series_end;
+gfx_tsukuba_2000series_front;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_2000series_lv,vehicle_type_id){
+100..102:sw_tsukuba_2000series_panto_placer_main;
+sw_tsukuba_2000series_head_gfx_main;
+}
 
-  spriteset(tsukuba_2000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/2000series/2000series.png"){ tmpl_purchase_1c(0, 0) }
-  spriteset(tsukuba_2000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/2000series/2000series.png"){ tmpl_purchase_2c(0, 50) }
-  switch(FEAT_TRAINS, SELF, tsukuba_2000series_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tsukuba; 1: tsukuba_2000series_purchase_c1; 2: tsukuba_2000series_purchase_c2;}
+  switch(FEAT_TRAINS, SELF, sw_tsukuba_2000series_capacity_main,vehicle_type_id){
+100..102: 158;
+147;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_2000series_power_wag,position_in_vehid_chain){
+0..3:190;
+0;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_2000series_power_main,vehicle_type_id){
+100..102:sw_tsukuba_2000series_power_wag;
+return 0;
+}
 
-  spriteset(tsukuba_2000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/2000series/2000series.png"){ tmpl_std(0, 0) }
-  spriteset(tsukuba_2000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/2000series/2000series.png"){ tmpl_std_rev(0, 25) }
-  spriteset(tsukuba_2000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/2000series/2000series.png"){ tmpl_std(0, 50) }
-  spriteset(tsukuba_2000series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/2000series/2000series.png"){ tmpl_std_rev(0, 50) }
-  spriteset(tsukuba_2000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/2000series/2000series.png"){ tmpl_symm(0, 75) }
-  spriteset(tsukuba_2000series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/2000series/2000series.png"){ tmpl_std(0, 100) }
-  spriteset(tsukuba_2000series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/2000series/2000series.png"){ tmpl_std_rev(0, 100) }
-
-
-
-
-
-    switch(FEAT_TRAINS, SELF, sw_tsukuba_2000series_panto_placer,1+position_in_vehid_chain %5){
-        1: tsukuba_2000series_mot;
-        3: tsukuba_2000series_mot;
-        tsukuba_2000series_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_tsukuba_2000series_panto_placer_rev,position_in_vehid_chain_from_end %5){
-        1: tsukuba_2000series_mot_rev;
-        3: tsukuba_2000series_mot_rev;
-        tsukuba_2000series_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_tsukuba_2000series_panto_placer_main_1,vehicle_is_reversed){
-        1: sw_tsukuba_2000series_panto_placer_rev;
-        sw_tsukuba_2000series_panto_placer;
-    }
-
-    switch(FEAT_TRAINS, SELF, sw_tsukuba_2000series_1_panto_placer,1+position_in_vehid_chain %3){
-        1: tsukuba_2000series_mot;
-        tsukuba_2000series_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_tsukuba_2000series_1_panto_placer_rev,position_in_vehid_chain_from_end %3){
-        1: tsukuba_2000series_mot_rev;
-        tsukuba_2000series_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_tsukuba_2000series_panto_placer_main_2,vehicle_is_reversed){
-        1: sw_tsukuba_2000series_1_panto_placer_rev;
-        sw_tsukuba_2000series_1_panto_placer;
-    }
-
-    switch(FEAT_TRAINS, SELF, sw_tsukuba_2000series_panto_placer_main,num_vehs_in_vehid_chain+1){
-    4..5:sw_tsukuba_2000series_panto_placer_main_2;
-    7:sw_tsukuba_2000series_panto_placer_main_2;
-    sw_tsukuba_2000series_panto_placer_main_1;
-    }
-
-    switch(FEAT_TRAINS, SELF, sw_tsukuba_2000series_end_gfx_main,position_in_vehid_chain_from_end){
-   0: tsukuba_2000series_end;
-   default: sw_tsukuba_2000series_panto_placer_main;
-  }
-  switch(FEAT_TRAINS, SELF, sw_tsukuba_2000series_front_gfx_main,position_in_vehid_chain_from_end){
-   0: tsukuba_2000series_front;
-   default: sw_tsukuba_2000series_panto_placer_main;
-  }
-  switch(FEAT_TRAINS, SELF, sw_tsukuba_2000series_lv,vehicle_type_id){
-   100..102:sw_tsukuba_2000series_end_gfx_main;
-      sw_tsukuba_2000series_front_gfx_main;
-  }
-
-
-
-  switch(FEAT_TRAINS, SELF, sw_tsukuba_2000series_capacity_main,position_in_vehid_chain_from_end){
-    0: 147;
-    default: 158;
-  }
-
-  switch(FEAT_TRAINS, SELF, sw_tsukuba_2000series_power_main,position_in_vehid_chain_from_end %8){
-    1..4:return 190;
-    return 0;
-  }
-
-
-item(FEAT_TRAINS, tsukuba_2000series,2296) {
+item(FEAT_TRAINS, tsukuba_2000series) {
   property {
     cargo_capacity: 130; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); non_refittable_cargo_classes: bitmask(); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); tractive_effort_coefficient: 0.3; air_drag_coefficient: 0.07; bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 10;
 
@@ -45179,27 +45175,28 @@ item(FEAT_TRAINS, tsukuba_2000series,2296) {
     model_life: VEHICLE_NEVER_EXPIRES;
     vehicle_life: 30;
     reliability_decay: 10;
+    dual_headed: 1;
 
     cost_factor: 22;
     running_cost_factor: 52;
     speed: 130 km/h;
     track_type: TR_1067_ACDC;
-    power: 760 kW;
+    power: 1 kW;
     weight: 36 ton;
   }
  graphics {
-    additional_text:
-   string(STR_TRAIN_DESC,
-      string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_AC_DC, 20, 50, 1500)),
-      string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
-      string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
-      string(STR_USAGE, string(STR_EXPRESS)),
-      string(STR_OPERATOR, string(STR_TSUKUBA)));
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_ACDC,20,50,1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
+    string(STR_USAGE, string(STR_EXPRESS)),
+    string(STR_OPERATOR, string(STR_TSUKUBA)));
 
-  purchase: tsukuba_2000series_purchase;
-  can_attach_wagon: sw_1067_attach_vehid;
-  start_stop: sw_stop_start_3;
+    purchase: gfx_tsukuba_2000series_purchase;
+    can_attach_wagon: sw_1067_attach_vehid;
+    start_stop: sw_stop_start_3;
+    purchase_power:sw_tsukuba_2000series_power_main()*4*1342/1000;
 
     cargo_capacity: sw_tsukuba_2000series_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; loading_speed:param_loading_4D; default: sw_tsukuba_2000series_lv; power:sw_tsukuba_2000series_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tsukuba_2000series_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tsukuba_2000series_lv; power: sw_tsukuba_2000series_power_main()*4*1342/1000; weight: 34; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tsukuba_2000series_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tsukuba_2000series_lv; power: sw_tsukuba_2000series_power_main()*4*1342/1000; weight: 34; }
 
@@ -45207,116 +45204,102 @@ item(FEAT_TRAINS, tsukuba_2000series,2296) {
 
 
 
-}
+    }
 # 228 "src/_private.pnml" 2
-# 1 "src/private/Kanto/tsukuba/3000series.pnml" 1
+# 1 "src/private/generated/tsukuba_3000series.pnml" 1
+spriteset(gfx_tsukuba_3000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/tsukuba/tsukuba_3000series/tsukuba_3000series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(gfx_tsukuba_3000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/tsukuba/tsukuba_3000series/tsukuba_3000series.png"){ tmpl_purchase_2c_dual(0, 0) }
+switch(FEAT_TRAINS, SELF, gfx_tsukuba_3000series_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tsukuba; 1: gfx_tsukuba_3000series_purchase_c1; 2: gfx_tsukuba_3000series_purchase_c2;}
+spriteset(gfx_tsukuba_3000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tsukuba/tsukuba_3000series/tsukuba_3000series.png"){ tmpl_std (0, 0) }
+spriteset(gfx_tsukuba_3000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tsukuba/tsukuba_3000series/tsukuba_3000series.png"){ tmpl_std (0, 25) }
+spriteset(gfx_tsukuba_3000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tsukuba/tsukuba_3000series/tsukuba_3000series.png"){ tmpl_std (0, 50) }
+spriteset(gfx_tsukuba_3000series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tsukuba/tsukuba_3000series/tsukuba_3000series.png"){ tmpl_std_rev (0, 50) }
+spriteset(gfx_tsukuba_3000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tsukuba/tsukuba_3000series/tsukuba_3000series.png"){ tmpl_symm (0, 75) }
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_panto_placer_0,position_in_vehid_chain %5){
+0:gfx_tsukuba_3000series_mot;
+2:gfx_tsukuba_3000series_mot;
+gfx_tsukuba_3000series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_panto_placer_0_rev,position_in_vehid_chain_from_end %5){
+0:gfx_tsukuba_3000series_mot_rev;
+2:gfx_tsukuba_3000series_mot_rev;
+gfx_tsukuba_3000series_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_tsukuba_3000series_panto_placer_0_main,vehicle_is_reversed){
+1: sw_tsukuba_3000series_panto_placer_0_rev;
+sw_tsukuba_3000series_panto_placer_0;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_panto_placer_1,position_in_vehid_chain %3){
+0:gfx_tsukuba_3000series_mot;
+gfx_tsukuba_3000series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
+0:gfx_tsukuba_3000series_mot_rev;
+gfx_tsukuba_3000series_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_tsukuba_3000series_panto_placer_1_main,vehicle_is_reversed){
+1: sw_tsukuba_3000series_panto_placer_1_rev;
+sw_tsukuba_3000series_panto_placer_1;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_panto_placer_main, num_vehs_in_vehid_chain){
+default:sw_tsukuba_3000series_panto_placer_0_main;
+5:sw_tsukuba_3000series_panto_placer_1_main;
+2..3:sw_tsukuba_3000series_panto_placer_1_main;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_head_gfx_main,position_in_consist-position_in_vehid_chain>0){
+1: gfx_tsukuba_3000series_end;
+gfx_tsukuba_3000series_front;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_lv,vehicle_type_id){
+100..102:sw_tsukuba_3000series_panto_placer_main;
+sw_tsukuba_3000series_head_gfx_main;
+}
 
-  spriteset(tsukuba_3000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/3000series/3000series.png"){ tmpl_purchase_1c(0, 0) }
-  spriteset(tsukuba_3000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/3000series/3000series.png"){ tmpl_purchase_2c(0, 50) }
-  switch(FEAT_TRAINS, SELF, tsukuba_3000series_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: logo_tsukuba; 1: tsukuba_3000series_purchase_c1; 2: tsukuba_3000series_purchase_c2;}
+  switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_capacity_main,vehicle_type_id){
+100..102: 151;
+140;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_power_wag,position_in_vehid_chain){
+0..3:190;
+0;
+}
+switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_power_main,vehicle_type_id){
+100..102:sw_tsukuba_3000series_power_wag;
+return 0;
+}
 
-  spriteset(tsukuba_3000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/3000series/3000series.png"){ tmpl_std(0, 0) }
-  spriteset(tsukuba_3000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/3000series/3000series.png"){ tmpl_std_rev(0, 25) }
-  spriteset(tsukuba_3000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/3000series/3000series.png"){ tmpl_std(0, 50) }
-  spriteset(tsukuba_3000series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/3000series/3000series.png"){ tmpl_std_rev(0, 50) }
-  spriteset(tsukuba_3000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/3000series/3000series.png"){ tmpl_symm(0, 75) }
-  spriteset(tsukuba_3000series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/3000series/3000series.png"){ tmpl_std(0, 100) }
-  spriteset(tsukuba_3000series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/private/Kanto/tsukuba/3000series/3000series.png"){ tmpl_std_rev(0, 100) }
-
-
-
-
-
-    switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_panto_placer,1+position_in_vehid_chain %5){
-        1: tsukuba_3000series_mot;
-        3: tsukuba_3000series_mot;
-        tsukuba_3000series_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_panto_placer_rev,position_in_vehid_chain_from_end %5){
-        1: tsukuba_3000series_mot_rev;
-        3: tsukuba_3000series_mot_rev;
-        tsukuba_3000series_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_tsukuba_3000series_panto_placer_main_1,vehicle_is_reversed){
-        1: sw_tsukuba_3000series_panto_placer_rev;
-        sw_tsukuba_3000series_panto_placer;
-    }
-
-    switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_1_panto_placer,1+position_in_vehid_chain %3){
-        1: tsukuba_3000series_mot;
-        tsukuba_3000series_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_1_panto_placer_rev,position_in_vehid_chain_from_end %3){
-        1: tsukuba_3000series_mot_rev;
-        tsukuba_3000series_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_tsukuba_3000series_panto_placer_main_2,vehicle_is_reversed){
-        1: sw_tsukuba_3000series_1_panto_placer_rev;
-        sw_tsukuba_3000series_1_panto_placer;
-    }
-
-    switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_panto_placer_main,num_vehs_in_vehid_chain+1){
-    4..5:sw_tsukuba_3000series_panto_placer_main_2;
-    7:sw_tsukuba_3000series_panto_placer_main_2;
-    sw_tsukuba_3000series_panto_placer_main_1;
-    }
-
-
-    switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_end_gfx_main,position_in_vehid_chain_from_end){
-   0: tsukuba_3000series_end;
-   default: sw_tsukuba_3000series_panto_placer_main;
-  }
-  switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_front_gfx_main,position_in_vehid_chain_from_end){
-   0: tsukuba_3000series_front;
-   default: sw_tsukuba_3000series_panto_placer_main;
-  }
-  switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_lv,vehicle_type_id){
-   100..102:sw_tsukuba_3000series_end_gfx_main;
-   sw_tsukuba_3000series_front_gfx_main;
-  }
-
-
-
-  switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_capacity_main,position_in_vehid_chain_from_end){
-    0: 140;
-    default: 151;
-  }
-
-  switch(FEAT_TRAINS, SELF, sw_tsukuba_3000series_power_main,position_in_vehid_chain_from_end %8){
-    1..4:return 190;
-    return 0;
-  }
-
-item(FEAT_TRAINS, tsukuba_3000series,2297) {
+item(FEAT_TRAINS, tsukuba_3000series) {
   property {
-      cargo_capacity: 130; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); non_refittable_cargo_classes: bitmask(); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); tractive_effort_coefficient: 0.3; air_drag_coefficient: 0.07; bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 10;
+    cargo_capacity: 130; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); non_refittable_cargo_classes: bitmask(); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); tractive_effort_coefficient: 0.3; air_drag_coefficient: 0.07; bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 10;
 
-      climates_available: param_disable_semiPrivate == 0 ? ALL_CLIMATES : NO_CLIMATE;
-      name: string(STR_TRAIN_NAME_SHORT, "TX-3000", string(STR_NAME_SERIES));
-      introduction_date: date(2020, 3, 14);
-      model_life: VEHICLE_NEVER_EXPIRES;
-      vehicle_life: 30;
-      reliability_decay: 10;
+    climates_available: param_disable_semiPrivate == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME_SHORT, "TX-3000", string(STR_NAME_SERIES));
+    introduction_date: date(2020, 3, 14);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    reliability_decay: 10;
+    dual_headed: 1;
 
-      cost_factor: 22;
-      running_cost_factor: 52;
-      speed: 130 km/h;
-      track_type: TR_1067_ACDC;
-      weight: 37 ton;
+    cost_factor: 21;
+    running_cost_factor: 52;
+    speed: 130 km/h;
+    track_type: TR_1067_ACDC;
+    power: 1 kW;
+    weight: 37 ton;
   }
  graphics {
-    additional_text:
-    string(STR_TRAIN_DESC,
-      string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_AC_DC, 20, 50, 1500)),
-      string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
-      string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
-      string(STR_USAGE, string(STR_EXPRESS)),
-      string(STR_OPERATOR, string(STR_TSUKUBA)));
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_ACDC,20,50,1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
+    string(STR_USAGE, string(STR_EXPRESS)),
+    string(STR_OPERATOR, string(STR_TSUKUBA)));
 
-  purchase: tsukuba_3000series_purchase;
-  can_attach_wagon: sw_1067_attach_vehid;
-  start_stop: sw_stop_start_3;
+    purchase: gfx_tsukuba_3000series_purchase;
+    can_attach_wagon: sw_1067_attach_vehid;
+    start_stop: sw_stop_start_3;
+    purchase_power:sw_tsukuba_3000series_power_main()*4*1342/1000;
 
     cargo_capacity: sw_tsukuba_3000series_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; loading_speed:param_loading_4D; default: sw_tsukuba_3000series_lv; power:sw_tsukuba_3000series_power_main()*4*1342/1000; } livery_override(mu_car){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tsukuba_3000series_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tsukuba_3000series_lv; power: sw_tsukuba_3000series_power_main()*4*1342/1000; weight: 34; } livery_override(mu_car_narrow){ cargo_subtype_text:sw_empty_desc; loading_speed: param_loading_4D; cargo_capacity: sw_tsukuba_3000series_capacity_main()*param_capacity_mod/3*param_capacity_mod/3; default: sw_tsukuba_3000series_lv; power: sw_tsukuba_3000series_power_main()*4*1342/1000; weight: 34; }
 
@@ -45324,7 +45307,7 @@ item(FEAT_TRAINS, tsukuba_3000series,2297) {
 
 
 
-}
+    }
 # 229 "src/_private.pnml" 2
 # 237 "src/_private.pnml"
 item(FEAT_TRAINS, keio1000n, 2259) {}
@@ -45945,7 +45928,7 @@ item(FEAT_TRAINS, keio1000n) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_NARROWGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
    string(STR_FORMATION, string(STR_NUM_CARS_1, 5)),
    string(STR_USAGE, string(STR_COMMUTER)),
@@ -46124,7 +46107,7 @@ item(FEAT_TRAINS, keio5000) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_SCOTCHGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 3),),
    string(STR_FORMATION, string(STR_NUM_CARS_6, 2,3,4,5,6,8)),
    string(STR_USAGE, string(STR_COMMUTER)),
@@ -46337,7 +46320,7 @@ item(FEAT_TRAINS, keio6000) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_SCOTCHGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
    string(STR_FORMATION, string(STR_NUM_CARS_6, 2,3,4,5,6,8)),
    string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -46570,7 +46553,7 @@ item(FEAT_TRAINS, keio7000) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_SCOTCHGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
    string(STR_FORMATION, string(STR_NUM_CARS_6, 2,4,5,6,8,10)),
    string(STR_USAGE, string(STR_COMMUTER)),
@@ -46733,7 +46716,7 @@ item(FEAT_TRAINS, keio8000) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_SCOTCHGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
    string(STR_FORMATION, string(STR_NUM_CARS_4, 4,6,8,10)),
    string(STR_USAGE, string(STR_COMMUTER)),
@@ -46870,7 +46853,7 @@ item(FEAT_TRAINS, keio9000) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_SCOTCHGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
    string(STR_FORMATION, string(STR_NUM_CARS_2, 8,10)),
    string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -47011,7 +46994,7 @@ item(FEAT_TRAINS, keio5000n) {
   additional_text:
    string(STR_TRAIN_DESC,
    string(STR_SCOTCHGAUGE),
-   string(STR_DENKI, string(STR_DC_N, 1500)),
+   string(STR_DENKI, string(STR_DC, 1500)),
    string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
    string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
    string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -47091,7 +47074,7 @@ item(FEAT_TRAINS, keikyu1) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -47158,7 +47141,7 @@ item(FEAT_TRAINS, keikyu26) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -47225,7 +47208,7 @@ item(FEAT_TRAINS, keikyu29) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -47408,7 +47391,7 @@ item(FEAT_TRAINS, keikyu51) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -47613,7 +47596,7 @@ item(FEAT_TRAINS, keikyu_de1) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -47905,7 +47888,7 @@ item(FEAT_TRAINS, keikyu300) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_3, 2,3,4)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -48200,7 +48183,7 @@ item(FEAT_TRAINS, keikyu500) {
   additional_text:
     string(STR_TRAIN_DESC,
                             string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS_REFIT, 2, 4),),
                             string(STR_FORMATION, string(STR_NUM_CARS_3, 3,4,8)),
@@ -48423,7 +48406,7 @@ item(FEAT_TRAINS, keikyu600) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
     string(STR_FORMATION, string(STR_NUM_CARS_5, 2,4,6,8,12)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -48592,7 +48575,7 @@ item(FEAT_TRAINS, keikyu700) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 2,4)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -48822,7 +48805,7 @@ item(FEAT_TRAINS, keikyu1000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_3, 4,6,8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -49026,7 +49009,7 @@ item(FEAT_TRAINS, keikyu800) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 3,6)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -49315,7 +49298,7 @@ item(FEAT_TRAINS, keikyu2000) {
   additional_text:
     string(STR_TRAIN_DESC,
                             string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
                             string(STR_LOAD_SPEED,
                             string(STR_DOORS_REFIT, 2, 3),),
                             string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
@@ -49516,7 +49499,7 @@ item(FEAT_TRAINS, keikyu1500) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_3, 4,6,8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -49816,7 +49799,7 @@ item(FEAT_TRAINS, keikyu600n) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -50027,7 +50010,7 @@ item(FEAT_TRAINS, keikyu2100) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
     string(STR_USAGE, string(STR_EXPRESS)),
@@ -50531,7 +50514,7 @@ item(FEAT_TRAINS, keikyu1000n) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_3, 4,6,8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -50761,7 +50744,7 @@ item(FEAT_TRAINS, keisei1500) {
     additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 2)),
     string(STR_USAGE, string(STR_LIMITED)),
@@ -50906,7 +50889,7 @@ item(FEAT_TRAINS, keisei1600) {
     additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 1)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 2,3)),
     string(STR_USAGE, string(STR_LIMITED)),
@@ -51121,7 +51104,7 @@ item(FEAT_TRAINS, keisei_AE1) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 1)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
     string(STR_USAGE, string(STR_LIMITED)),
@@ -51293,7 +51276,7 @@ item(FEAT_TRAINS, keisei_AE100) {
     additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 1)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
     string(STR_USAGE, string(STR_LIMITED)),
@@ -51458,7 +51441,7 @@ item(FEAT_TRAINS, keisei_AE2) {
     additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 1)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
     string(STR_USAGE, string(STR_LIMITED)),
@@ -51559,7 +51542,7 @@ item(FEAT_TRAINS, keisei1) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -51778,7 +51761,7 @@ item(FEAT_TRAINS, keisei20) {
     additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -51951,7 +51934,7 @@ item(FEAT_TRAINS, keisei33) {
     additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -52202,7 +52185,7 @@ item(FEAT_TRAINS, keisei200) {
     additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -52367,7 +52350,7 @@ item(FEAT_TRAINS, keisei200_2000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -52575,7 +52558,7 @@ item(FEAT_TRAINS, keisei300) {
     additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -52805,7 +52788,7 @@ item(FEAT_TRAINS, keisei600) {
     additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 2)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -53005,7 +52988,7 @@ item(FEAT_TRAINS, keisei700) {
     additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 2,4)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -53369,7 +53352,7 @@ item(FEAT_TRAINS, keisei3000_1) {
     additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_4, 2,4,6,8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -53841,7 +53824,7 @@ item(FEAT_TRAINS, keisei3100) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 2,4)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -54418,7 +54401,7 @@ item(FEAT_TRAINS, keisei3200) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -54915,7 +54898,7 @@ item(FEAT_TRAINS, keisei3300) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_3, 4,6,8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -55195,7 +55178,7 @@ item(FEAT_TRAINS, keisei3500) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -55454,7 +55437,7 @@ item(FEAT_TRAINS, keisei3600) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_4, 2,4,6,8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -55678,7 +55661,7 @@ item(FEAT_TRAINS, keisei3700) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -55850,7 +55833,7 @@ item(FEAT_TRAINS, keisei3400) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -56074,7 +56057,7 @@ item(FEAT_TRAINS, keisei3000_2) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -56222,7 +56205,7 @@ item(FEAT_TRAINS, keisei3100_2) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -56281,7 +56264,7 @@ item(FEAT_TRAINS, shinKeisei80000, 2508) {}
   switch(FEAT_TRAINS,SELF,sw_shinKeisei33_addit_text,current_date<date(2025,03,31)){
     1:string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
       string(STR_USAGE, string(STR_COMMUTER)),
@@ -56289,7 +56272,7 @@ item(FEAT_TRAINS, shinKeisei80000, 2508) {}
 
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -56460,7 +56443,7 @@ spriteset (shinKeisei300_2_end_rev, "gfx/private/Kanto/shinKeisei/shinKeisei300/
 switch(FEAT_TRAINS,SELF,sw_shinKeisei300_addit_text,current_date<date(2025,03,31)){
   1:string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 2)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -56468,7 +56451,7 @@ switch(FEAT_TRAINS,SELF,sw_shinKeisei300_addit_text,current_date<date(2025,03,31
 
   string(STR_TRAIN_DESC,
   string(STR_STANDARDGAUGE),
-  string(STR_DENKI, string(STR_DC_N, 1500)),
+  string(STR_DENKI, string(STR_DC, 1500)),
   string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
   string(STR_FORMATION, string(STR_NUM_CARS_1, 2)),
   string(STR_USAGE, string(STR_COMMUTER)),
@@ -56629,7 +56612,7 @@ spriteset (shinKeisei2000_2_wag, "gfx/private/Kanto/shinKeisei/shinKeisei2000/sh
 switch(FEAT_TRAINS,SELF,sw_shinKeisei2000_addit_text,current_date<date(2025,03,31)){
   1:string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -56637,7 +56620,7 @@ switch(FEAT_TRAINS,SELF,sw_shinKeisei2000_addit_text,current_date<date(2025,03,3
 
   string(STR_TRAIN_DESC,
   string(STR_STANDARDGAUGE),
-  string(STR_DENKI, string(STR_DC_N, 1500)),
+  string(STR_DENKI, string(STR_DC, 1500)),
   string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
   string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
   string(STR_USAGE, string(STR_COMMUTER)),
@@ -56866,7 +56849,7 @@ spriteset (shinKeisei800_2_end_2, "gfx/private/Kanto/shinKeisei/shinKeisei800/sh
 switch(FEAT_TRAINS,SELF,sw_shinKeisei_common_addit_text,current_date<date(2025,03,31)){
   1:string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -56874,7 +56857,7 @@ switch(FEAT_TRAINS,SELF,sw_shinKeisei_common_addit_text,current_date<date(2025,0
 
   string(STR_TRAIN_DESC,
   string(STR_STANDARDGAUGE),
-  string(STR_DENKI, string(STR_DC_N, 1500)),
+  string(STR_DENKI, string(STR_DC, 1500)),
   string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
   string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
   string(STR_USAGE, string(STR_COMMUTER)),
@@ -56883,7 +56866,7 @@ switch(FEAT_TRAINS,SELF,sw_shinKeisei_common_addit_text,current_date<date(2025,0
 switch(FEAT_TRAINS,SELF,sw_shinKeisei_common_addit_text_68,current_date<date(2025,03,31)){
   1:string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -56891,7 +56874,7 @@ switch(FEAT_TRAINS,SELF,sw_shinKeisei_common_addit_text_68,current_date<date(202
 
   string(STR_TRAIN_DESC,
   string(STR_STANDARDGAUGE),
-  string(STR_DENKI, string(STR_DC_N, 1500)),
+  string(STR_DENKI, string(STR_DC, 1500)),
   string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
   string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
   string(STR_USAGE, string(STR_COMMUTER)),
@@ -58243,7 +58226,7 @@ item(FEAT_TRAINS, hokuso7000) {
     additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -58519,7 +58502,7 @@ item(FEAT_TRAINS, hokuso7150) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 4,8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -58673,7 +58656,7 @@ item(FEAT_TRAINS, hokuso7050) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 4,8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -58853,7 +58836,7 @@ item(FEAT_TRAINS, hokuso7250) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 4,8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -59000,7 +58983,7 @@ item(FEAT_TRAINS, hokuso7300) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -59124,7 +59107,7 @@ item(FEAT_TRAINS, hokuso7500) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -59296,7 +59279,7 @@ item(FEAT_TRAINS, chibaNT_9000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -59483,7 +59466,7 @@ item(FEAT_TRAINS, chibaNT_9100) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -59611,7 +59594,7 @@ item(FEAT_TRAINS, chibaE_1000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -59745,7 +59728,7 @@ item(FEAT_TRAINS, chibaE_3050) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -59909,7 +59892,7 @@ item(FEAT_TRAINS, chibaE_3100) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -60038,7 +60021,7 @@ item(FEAT_TRAINS, shibayama3600) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
       string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -60169,7 +60152,7 @@ item(FEAT_TRAINS, hankyu1) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -60269,7 +60252,7 @@ item(FEAT_TRAINS, hankyu51) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -60384,7 +60367,7 @@ item(FEAT_TRAINS, hankyu600) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -60507,7 +60490,7 @@ item(FEAT_TRAINS, hankyu900) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
     string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,7)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -60616,7 +60599,7 @@ item(FEAT_TRAINS, hankyu320) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,5)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -60729,7 +60712,7 @@ item(FEAT_TRAINS, hankyu500) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,5)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -60852,7 +60835,7 @@ item(FEAT_TRAINS, hankyu1000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 2,4)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -61145,7 +61128,7 @@ item(FEAT_TRAINS, hankyu1010) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,7)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -61500,7 +61483,7 @@ item(FEAT_TRAINS, hankyu2000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,8)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -61765,7 +61748,7 @@ item(FEAT_TRAINS, hankyu2300) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,7)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -62023,7 +62006,7 @@ item(FEAT_TRAINS, hankyu2800) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
     string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 4,8)),
     string(STR_USAGE, string(STR_EXPRESS)),
@@ -62426,7 +62409,7 @@ item(FEAT_TRAINS, hankyu3000) {
   additional_text:
       string(STR_TRAIN_DESC,
       string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC_N, 1500)),
+      string(STR_DENKI, string(STR_DC, 1500)),
       string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
       string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 3,8)),
       string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -62882,7 +62865,7 @@ item(FEAT_TRAINS, hankyu5000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -63234,7 +63217,7 @@ item(FEAT_TRAINS, hankyu5300) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_2, 7,8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -63452,7 +63435,7 @@ item(FEAT_TRAINS, hankyu6000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_5, 2,3,4,6,8)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -63591,7 +63574,7 @@ item(FEAT_TRAINS, hankyu6300) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
     string(STR_FORMATION, string(STR_NUM_CARS_3, 4,6,8)),
     string(STR_USAGE, string(STR_EXPRESS)),
@@ -63683,7 +63666,7 @@ item(FEAT_TRAINS, hankyu7000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_RANGE, 2,8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -63910,7 +63893,7 @@ item(FEAT_TRAINS, hankyu8000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -64059,7 +64042,7 @@ item(FEAT_TRAINS, hankyu9000) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
     string(STR_USAGE, string(STR_COMMUTER)),
@@ -64197,7 +64180,7 @@ item(FEAT_TRAINS, hankyu1000n) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
     string(STR_USAGE, string(STR_METRO_ACCESS)),
@@ -64335,7 +64318,7 @@ item(FEAT_TRAINS, hankyu2000n) {
   additional_text:
     string(STR_TRAIN_DESC,
     string(STR_STANDARDGAUGE),
-    string(STR_DENKI, string(STR_DC_N, 1500)),
+    string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
     string(STR_USAGE, string(STR_COMMUTER)),
