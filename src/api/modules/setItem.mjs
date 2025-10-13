@@ -37,12 +37,15 @@ export function setItem(dataObj) {
     doors,
     current,
     power,
+    variantGroup,
     dualHeaded = 1,
   } = dataObj;
 
   const currentStringArr = formatCurrentString(current);
 
   return `
+${dataObj.options?.variantHeader ? dataObj.options.variantHeader : ""}
+
 item(FEAT_TRAINS, ${trainName}) {
   property {
     OVERRIDEN_TRAIN_DATA
@@ -54,6 +57,7 @@ item(FEAT_TRAINS, ${trainName}) {
     vehicle_life: ${scrapYear == 0 ? "30" : introductionDate.split(",")[0] - scrapYear};
     reliability_decay: 10;
     dual_headed: ${dualHeaded};
+    ${variantGroup ? `variant_group: ${variantGroup};` : ""}
     
     cost_factor: ${costFactor};
     running_cost_factor: ${runningCost};
@@ -73,7 +77,7 @@ item(FEAT_TRAINS, ${trainName}) {
     SET_GRAPHICS_DOUBLE(sw_${trainName}_lv,
     sw_${trainName}_capacity_main()*param_capacity_mod/3,
     sw_${trainName}_power_main()*4*1342/1000,
-    param_loading_${doors}D,//loading speed
+    ${dataObj.options?.customLoadingSpeed ? `sw_${trainName}_loading_main` : `param_loading_${doors}D`},//loading speed
     ${liveries.length > 1 ? `sw_${trainName}_lv_desc,` : "sw_empty_desc,"}
     mu_car_narrow,${weight[1]})
     }`;
