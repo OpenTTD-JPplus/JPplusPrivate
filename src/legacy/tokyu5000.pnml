@@ -22,151 +22,85 @@ spriteset(tokyu5000_3_mot_1_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/p
 spriteset(tokyu5000_3_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/tokyu/tokyu5000/tokyu5000_2.png"){ tmpl_symm(0, 100) }
 
 //*5000 Den en Toshi Line livery
-//panto placer
-//var 1 2000-2005
-switch(FEAT_TRAINS, SELF, sw_tokyu5000_panto_placer_1,1+position_in_vehid_chain %9){
-    1: tokyu5000_mot_1;
-    4: tokyu5000_mot;
-    8: tokyu5000_mot;
-    tokyu5000_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu5000_panto_placer_1_rev,position_in_vehid_chain_from_end %9){
-    1: tokyu5000_mot_1_rev;
-    4: tokyu5000_mot;
-    8: tokyu5000_mot;
-    tokyu5000_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_tokyu5000_panto_placer_main_1,vehicle_is_reversed){
-    1: sw_tokyu5000_panto_placer_1_rev;
-    sw_tokyu5000_panto_placer_1;
-}
+  //panto placer
+  //var 1 2000-2005
+  switch(FEAT_TRAINS, SELF, sw_tokyu5000_panto_placer_1,1+position_in_vehid_chain %9){
+      1: tokyu5000_mot_1;
+      4: tokyu5000_mot;
+      8: tokyu5000_mot;
+      tokyu5000_wag;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu5000_panto_placer_1_rev,position_in_vehid_chain_from_end %9){
+      1: tokyu5000_mot_1_rev;
+      4: tokyu5000_mot;
+      8: tokyu5000_mot;
+      tokyu5000_wag;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_tokyu5000_panto_placer_main_1,vehicle_is_reversed){
+      1: sw_tokyu5000_panto_placer_1_rev;
+      sw_tokyu5000_panto_placer_1;
+  }
 
-//var 2 2006..
-switch(FEAT_TRAINS, SELF, sw_tokyu5000_panto_placer_2,1+position_in_vehid_chain %9){
-    2: tokyu5000_mot;
-    6: tokyu5000_mot;
-    8: tokyu5000_mot_1;
-    tokyu5000_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu5000_panto_placer_2_rev,position_in_vehid_chain_from_end %9){
-    2: tokyu5000_mot;
-    6: tokyu5000_mot;
-    8: tokyu5000_mot_1_rev;
-    tokyu5000_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_tokyu5000_panto_placer_main_2,vehicle_is_reversed){
-    1: sw_tokyu5000_panto_placer_2_rev;
-    sw_tokyu5000_panto_placer_2;
-}
+  //var 2 2006..
+  switch(FEAT_TRAINS, SELF, sw_tokyu5000_panto_placer_2,1+position_in_vehid_chain %9){
+      2: tokyu5000_mot;
+      6: tokyu5000_mot;
+      8: tokyu5000_mot_1;
+      tokyu5000_wag;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu5000_panto_placer_2_rev,position_in_vehid_chain_from_end %9){
+      2: tokyu5000_mot;
+      6: tokyu5000_mot;
+      8: tokyu5000_mot_1_rev;
+      tokyu5000_wag;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_tokyu5000_panto_placer_main_2,vehicle_is_reversed){
+      1: sw_tokyu5000_panto_placer_2_rev;
+      sw_tokyu5000_panto_placer_2;
+  }
 
-//var 3. For short forms
-switch(FEAT_TRAINS, SELF, sw_tokyu5000_panto_placer_3,1+position_in_vehid_chain %3){
-    1: tokyu5000_mot;
-    tokyu5000_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu5000_panto_placer_3_rev,position_in_vehid_chain_from_end %3){
-    1: tokyu5000_mot;
-    tokyu5000_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_tokyu5000_panto_placer_main_3,vehicle_is_reversed){
-    1: sw_tokyu5000_panto_placer_3_rev;
-    sw_tokyu5000_panto_placer_3;
-}
+  //var 3. For short forms
+  switch(FEAT_TRAINS, SELF, sw_tokyu5000_panto_placer_3,1+position_in_vehid_chain %3){
+      1: tokyu5000_mot;
+      tokyu5000_wag;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu5000_panto_placer_3_rev,position_in_vehid_chain_from_end %3){
+      1: tokyu5000_mot;
+      tokyu5000_wag;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_tokyu5000_panto_placer_main_3,vehicle_is_reversed){
+      1: sw_tokyu5000_panto_placer_3_rev;
+      sw_tokyu5000_panto_placer_3;
+  }
 
-switch(FEAT_TRAINS,PARENT,sw_tokyu5000_panto_placer_time,(build_year<2006)){
-    1:sw_tokyu5000_panto_placer_main_1;
-    sw_tokyu5000_panto_placer_main_2;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu5000_panto_placer_main,num_vehs_in_vehid_chain+1){
-    0..4:sw_tokyu5000_panto_placer_main_3;
-    6..7:sw_tokyu5000_panto_placer_main_3;
-    sw_tokyu5000_panto_placer_time;
-}
+  switch(FEAT_TRAINS,PARENT,sw_tokyu5000_panto_placer_time,(build_year<2006)){
+      1:sw_tokyu5000_panto_placer_main_1;
+      sw_tokyu5000_panto_placer_main_2;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu5000_panto_placer_main,num_vehs_in_vehid_chain+1){
+      0..4:sw_tokyu5000_panto_placer_main_3;
+      6..7:sw_tokyu5000_panto_placer_main_3;
+      sw_tokyu5000_panto_placer_time;
+  }
 
-//front-end-fixer
-switch(FEAT_TRAINS, SELF, sw_tokyu5000_end_gfx_main,position_in_vehid_chain_from_end){
-    0: tokyu5000_end;
-    default: sw_tokyu5000_panto_placer_main;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu5000_front_gfx_main,position_in_vehid_chain_from_end){
-    0: tokyu5000_front;
-    default: sw_tokyu5000_panto_placer_main;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu5000_livery_1,vehicle_type_id){
-    100..102:sw_tokyu5000_end_gfx_main;
-        sw_tokyu5000_front_gfx_main;
-}
-
+  //front-end-fixer
+  switch(FEAT_TRAINS, SELF, sw_tokyu5000_end_gfx_main,position_in_vehid_chain_from_end){
+      0: tokyu5000_end;
+      default: sw_tokyu5000_panto_placer_main;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu5000_front_gfx_main,position_in_vehid_chain_from_end){
+      0: tokyu5000_front;
+      default: sw_tokyu5000_panto_placer_main;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu5000_livery_1,vehicle_type_id){
+      100..102:sw_tokyu5000_end_gfx_main;
+          sw_tokyu5000_front_gfx_main;
+  }
+//
 //*5000 Den en Toshi 6 door cars livery
 //special gfx
-//6 door cars inserter
-switch(FEAT_TRAINS, SELF, sw_tokyu5000_1_wag_gfx_1_1,1+position_in_vehid_chain){
-    4:tokyu5000_wag_6D;
-    7:tokyu5000_wag_6D;
-    tokyu5000_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu5000_1_wag_gfx_1_2,position_in_vehid_chain_from_end){
-    4:tokyu5000_wag_6D;
-    7:tokyu5000_wag_6D;
-    tokyu5000_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_tokyu5000_1_wag_gfx_1,vehicle_is_reversed){
-    1:sw_tokyu5000_1_wag_gfx_1_2;
-    sw_tokyu5000_1_wag_gfx_1_1;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu5000_1_wag_gfx_2_1,1+position_in_vehid_chain){
-    3:tokyu5000_wag_6D;
-    4:tokyu5000_wag_6D;
-    tokyu5000_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu5000_1_wag_gfx_2_2,position_in_vehid_chain_from_end){
-    3:tokyu5000_wag_6D;
-    4:tokyu5000_wag_6D;
-    tokyu5000_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_tokyu5000_1_wag_gfx_2,vehicle_is_reversed){
-    1:sw_tokyu5000_1_wag_gfx_2_1;
-    sw_tokyu5000_1_wag_gfx_2_2;
-}
 
-switch(FEAT_TRAINS, SELF, sw_tokyu5000_1_wag_gfx,1+num_vehs_in_vehid_chain){
-    8:sw_tokyu5000_1_wag_gfx_2;
-    sw_tokyu5000_1_wag_gfx_1;
-}
-//6 car loading speed change
-switch(FEAT_TRAINS, SELF, sw_tokyu5000_1_wag_load_1_1,1+position_in_vehid_chain){
-    4:param_loading_6D;
-    7:param_loading_6D;
-    param_loading_4D;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu5000_1_wag_load_1_2,position_in_vehid_chain_from_end){
-    4:param_loading_6D;
-    7:param_loading_6D;
-    param_loading_4D;
-}
-switch(FEAT_TRAINS, PARENT, sw_tokyu5000_1_wag_load_1,vehicle_is_reversed){
-    1:sw_tokyu5000_1_wag_load_1_2;
-    sw_tokyu5000_1_wag_load_1_1;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu5000_1_wag_load_2_1,1+position_in_vehid_chain){
-    3:param_loading_6D;
-    4:param_loading_6D;
-    param_loading_4D;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu5000_1_wag_load_2_2,position_in_vehid_chain_from_end){
-    3:param_loading_6D;
-    4:param_loading_6D;
-    param_loading_4D;
-}
-switch(FEAT_TRAINS, PARENT, sw_tokyu5000_1_wag_load_2,vehicle_is_reversed){
-    1:sw_tokyu5000_1_wag_load_2_1;
-    sw_tokyu5000_1_wag_load_2_2;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu5000_1_wag_load,num_vehs_in_vehid_chain+1){
-    0..7:param_loading_4D;
-    8:sw_tokyu5000_1_wag_load_2;
-    sw_tokyu5000_1_wag_load_1;
-}
+
 
 //panto placer
 //var 2 2006..
@@ -278,18 +212,7 @@ switch(FEAT_TRAINS, SELF, sw_tokyu5000_livery_2,vehicle_type_id){
           sw_tokyu5000_3_front_gfx_main;
   }
 
-//livery controller
-random_switch(FEAT_TRAINS, PARENT, sw_tokyu5000_livery_0){
-    5:sw_tokyu5000_livery_1;
-    3:sw_tokyu5000_livery_2;
-    1:sw_tokyu5000_livery_3;
-}
-switch(FEAT_TRAINS, SELF, sw_tokyu5000_lv, cargo_subtype){
-    0: sw_tokyu5000_livery_0;
-    1: sw_tokyu5000_livery_1;
-    2: sw_tokyu5000_livery_2;
-    3: sw_tokyu5000_livery_3;
-}
+
 switch(FEAT_TRAINS, SELF, sw_tokyu5000_lv_desc, cargo_subtype){
     0: string(LV_RANDOM);
     1: string(LV_DATED,string(STR_LIVERY,string(LV_DEFAULT)),2002);
@@ -298,11 +221,7 @@ switch(FEAT_TRAINS, SELF, sw_tokyu5000_lv_desc, cargo_subtype){
 }
 
 //post fixers
-  //load speed changer
-  switch(FEAT_TRAINS, SELF, sw_tokyu5000_load, cargo_subtype){
-  2: sw_tokyu5000_1_wag_load;
-  param_loading_4D;
-  }
+  
   //capacity-changer
   switch(FEAT_TRAINS, SELF, sw_tokyu5000_capacity_main,position_in_vehid_chain_from_end){
       0: 141;
@@ -316,14 +235,7 @@ switch(FEAT_TRAINS, SELF, sw_tokyu5000_lv_desc, cargo_subtype){
     return 0;
   }
 //variant naming shenanigans
-switch (FEAT_TRAINS, SELF, sw_tokyu5000_name_purchase, getbits(extra_callback_info1, 8, 8)) { 
-  1: return CB_RESULT_NO_TEXT; 
-  return string(STR_TRAIN_NAME, string(STR_NAME_TOKYU), "5000/5050/5080", string(STR_NAME_SERIES));
-  } 
-switch (FEAT_TRAINS, SELF, sw_tokyu5000_name, getbits(extra_callback_info1, 0, 8)) { 
-  0x20: sw_tokyu5000_name_purchase; 
-  return CB_RESULT_NO_TEXT;
-}
+
 //
 item(FEAT_TRAINS, tokyu5000) {
     property {

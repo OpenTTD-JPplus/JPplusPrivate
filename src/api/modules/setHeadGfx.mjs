@@ -1,8 +1,11 @@
-export function setHeadGfx(trainName, customHeadGfx) {
-  return `switch(FEAT_TRAINS, SELF, sw_${trainName}_head_gfx_main,position_in_consist-position_in_vehid_chain>0){\n1: ${
-    customHeadGfx ? "sw_" : "gfx_"
-  }${trainName}_end;\n${
-    customHeadGfx ? "sw_" : "gfx_"
-  }${trainName}_front;\n}\nswitch(FEAT_TRAINS, SELF, sw_${trainName}_lv,vehicle_type_id){\n100..102:sw_${trainName}_panto_placer_main;\nsw_${trainName}_head_gfx_main;\n}\n
+export function setHeadGfx(trainName, spriteName, params) {
+  const customHeadLogic = params?.customHeadLogic || false;
+  const customSandwichLogic = params?.customSandwichLogic || false;
+
+  return `switch(FEAT_TRAINS, SELF, sw_${trainName}_head_gfx_main,position_in_consist>0){\n1: ${customHeadLogic ? "sw_" : "gfx_"}${spriteName}_end;\n${
+    customHeadLogic ? "sw_" : "gfx_"
+  }${spriteName}_front;\n}\nswitch(FEAT_TRAINS, SELF, sw_${trainName}_lv,vehicle_type_id){\n100..102:sw_${trainName}_${
+    customSandwichLogic ? "sandwich" : "panto_placer"
+  }_main;\nsw_${trainName}_head_gfx_main;\n}\n
   `;
 }

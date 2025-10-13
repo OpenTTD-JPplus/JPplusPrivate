@@ -20,6 +20,17 @@ const tsukuba_3000series = JSON.parse(tsukubaData).filter((prop) => prop.trainNa
 writeFileSync(`src/private/generated/${tsukuba_3000series.trainName}.pnml`, createTrain(tsukuba_3000series, tsukubaPath));
 
 //*Tokyu
+const tokyuPath = "src/private/Kanto/tokyu";
+const tokyuData = readFileSync("src/private/Kanto/tokyu/tokyu.json");
+const tokyu3000 = JSON.parse(tokyuData).filter((prop) => prop.trainName == "tokyu3000")[0];
+writeFileSync(`src/private/generated/${tokyu3000.trainName}.pnml`, createTrain(tokyu3000, tokyuPath));
+const tokyu5000 = JSON.parse(tokyuData).filter((prop) => prop.trainName == "tokyu5000")[0];
+writeFileSync(`src/private/generated/${tokyu5000.trainName}.pnml`, createTrain(tokyu5000, tokyuPath));
+
+const y000 = JSON.parse(tokyuData).filter((prop) => prop.trainName == "y000")[0];
+writeFileSync(`src/private/generated/${y000.trainName}.pnml`, createTrain(y000, tokyuPath));
+const y500 = JSON.parse(tokyuData).filter((prop) => prop.trainName == "y500")[0];
+writeFileSync(`src/private/generated/${y500.trainName}.pnml`, createTrain(y500, tokyuPath));
 
 //*Tobu
 const tobuPath = "src/private/Kanto/tobu";
