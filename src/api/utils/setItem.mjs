@@ -139,7 +139,9 @@ export function setItem(data) {
     additional_text:${formatDescString(data, usage, operator)}
     ${data.hasLiveryDesc ? `cargo_subtype_text: sw_${trainName}_lv_desc_main;` : ""}
     purchase: gfx_${trainName}_purchase_main;
-    cargo_capacity: sw_${trainName}_capacity_main()*param_capacity_mod/3;
+    cargo_capacity: sw_${
+      data.reuseCapacityFrom ? data.reuseCapacityFrom : trainName
+    }_capacity_main()*param_capacity_mod/3;
     loading_speed:${
       doors.length <= 1 ? `param_loading_${doors}D` : `sw_${trainName}_loading_speed_main`
     };
@@ -154,9 +156,9 @@ export function setItem(data) {
     loading_speed:${
       doors.length <= 1 ? `param_loading_${doors}D` : `sw_${trainName}_loading_speed_main`
     };
-    cargo_capacity: sw_${trainName}_capacity_main()*param_capacity_mod/3${
-    capacity && "*boost_rapid_mod/2"
-  };
+    cargo_capacity: sw_${
+      data.reuseCapacityFrom ? data.reuseCapacityFrom : trainName
+    }_capacity_main()*param_capacity_mod/3${capacity && "*boost_rapid_mod/2"};
     power: sw_${data.reusePowerFrom ? data.reusePowerFrom : trainName}_power_main()*4*1342/1000;
     default:sw_${trainName}_lv;
     weight: ${weight[1]};
