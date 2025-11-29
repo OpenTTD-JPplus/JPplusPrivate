@@ -1,14 +1,18 @@
-spriteset(gfx_y500_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/tokyu/y500/y500.png"){ tmpl_purchase_1c_dual(0, 0) }
-spriteset(gfx_y500_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/tokyu/y500/y500.png"){ tmpl_purchase_2c_dual(0, 0) }
-GRAPHIC_STACK_3(gfx_y500_purchase_main, logo_minato, gfx_y500_purchase_c1, gfx_y500_purchase_c2)
-
-spriteset(gfx_y500_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/y500/y500.png"){ tmpl_std (0, 0) }
-spriteset(gfx_y500_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/y500/y500.png"){ tmpl_std (0, 25) }
-spriteset(gfx_y500_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/y500/y500.png"){ tmpl_std (0, 50) }
-spriteset(gfx_y500_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/y500/y500.png"){ tmpl_std_rev (0, 50) }
-spriteset(gfx_y500_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/y500/y500.png"){ tmpl_std (0, 75) }
-spriteset(gfx_y500_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/y500/y500.png"){ tmpl_std_rev (0, 75) }
-
+spriteset(y500_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/tokyu/y500/y500.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(y500_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/tokyu/y500/y500.png"){ tmpl_purchase_2c_dual(0, 0) }
+  GRAPHIC_STACK_5(gfx_y500_purchase_main, logo_minato, y500_purchase_c1, ac_long_toshiba_c1, y500_purchase_c2, ac_long_toshiba_c2)
+//base
+  spriteset(y500_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/y500/y500.png"){ tmpl_std_v3 (0, 0) }
+  spriteset(y500_wag_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/y500/y500.png"){ tmpl_std_v3 (0, 25) }
+  spriteset(y500_wag_base_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/y500/y500.png"){ tmpl_std_rev_v3 (0, 25) }
+//
+  TRAIN_CONSTRUCTOR_3(gfx_y500_front, y500_head_base, tokyu5000_lights_front, ac_long_toshiba)
+  TRAIN_CONSTRUCTOR_3(gfx_y500_end, y500_head_base, tokyu5000_lights_end, ac_long_toshiba)
+  TRAIN_CONSTRUCTOR_3(gfx_y500_mot, y500_wag_base, ac_long_toshiba,panto_arm_n)
+  TRAIN_CONSTRUCTOR_3(gfx_y500_mot_rev, y500_wag_base_rev, ac_long_toshiba,panto_arm_n)
+  TRAIN_CONSTRUCTOR_2(gfx_y500_wag, y500_wag_base, ac_long_toshiba)
+  TRAIN_CONSTRUCTOR_2(gfx_y500_wag_rev, y500_wag_base_rev, ac_long_toshiba)
+//
 //*Livery 1 
   //motor car gfx
     switch(FEAT_TRAINS, SELF, sw_y500_mot_gfx_1, position_in_vehid_chain>=(num_vehs_in_vehid_chain/2)){
