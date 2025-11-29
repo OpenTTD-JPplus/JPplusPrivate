@@ -8,21 +8,21 @@ function setCapacityVariant(trainName, data, totalVariations, switchCounter) {
   }`;
 
   //handle head capacity
-  if (data.headCapacityArr.length > 1) {
+  if (data.headCapacity.length > 1) {
     str += createSwitch(
       "SELF",
       `sw_${trainName}_head_capacity${suffix}`,
       `position_in_consist+1}`,
-      { default: data.headCapacityArr[1], 1: data.headCapacityArr[0] }
+      { default: data.headCapacity[1], 1: data.headCapacity[0] }
     );
   }
 
   //handle car capacity
-  if (data.wagCapacityArr.length > 1) {
+  if (data.wagCapacity.length > 1) {
     if (!data.wagCapacityReverseArr) {
       const capacityData = {};
-      for (const i in data.wagCapacityArr) {
-        capacityData[i] = data.wagCapacityArr[i];
+      for (const i in data.wagCapacity) {
+        capacityData[i] = data.wagCapacity[i];
       }
 
       str += createSwitch(
@@ -38,8 +38,8 @@ function setCapacityVariant(trainName, data, totalVariations, switchCounter) {
   if (data.wagCapacityReverseArr) {
     const capacityData = { default: `sw_${trainName}_car_capacity${suffix}_rev` };
     const capacityDataRev = {};
-    for (const i in data.wagCapacityArr) {
-      if (i > 0) capacityData[i] = data.wagCapacityArr[i];
+    for (const i in data.wagCapacity) {
+      if (i > 0) capacityData[i] = data.wagCapacity[i];
     }
     for (const i in data.wagCapacityReverseArr) {
       capacityDataRev[i] = data.wagCapacityReverseArr[i];
@@ -66,14 +66,12 @@ function setCapacityVariant(trainName, data, totalVariations, switchCounter) {
     `vehicle_type_id == ${trainName}`,
     {
       1: `${
-        data.headCapacityArr.length > 1
+        data.headCapacity.length > 1
           ? `sw_${trainName}_head_capacity${suffix}`
-          : data.headCapacityArr[0]
+          : data.headCapacity[0]
       }`,
       default: `${
-        data.headCapacityArr.length > 1
-          ? `sw_${trainName}_car_capacity${suffix}`
-          : data.wagCapacityArr[0]
+        data.headCapacity.length > 1 ? `sw_${trainName}_car_capacity${suffix}` : data.wagCapacity[0]
       }`,
     }
   );
@@ -85,12 +83,14 @@ export function setCapacityMain(trainName, data) {
   let res = "";
   let switchCounter = 1;
   let dateArray = [];
+  let liveryUsageArray = [];
 
   //create variants
   data.forEach((props) => {
     res += setCapacityVariant(trainName, props, totalVariations, switchCounter);
     switchCounter++;
     if (props.introYear) dateArray.push(props.introYear);
+    if (props.liveryUsageIds) liveryUsageArray.push(props.liveryUsageIds);
   });
   //handle modernizations
   if (dateArray.length > 0) {
@@ -101,34 +101,43 @@ export function setCapacityMain(trainName, data) {
 
     res += createSwitch(
       "SELF",
-      `sw_${trainName}_capacity_main${data.liveryUsageIds ? "_timed" : ""}`,
+      `sw_${trainName}_capacity_main${liveryUsageArray ? "_timed" : ""}`,
       "build_year",
       positionData
     );
   }
 
-  console.log(res);
+  if (liveryUsageArray.length > 0) {
+    let positionData = {};
+    if (dateArray.length > 0) positionData = { default: `sw_${trainName}_capacity_main_timed` };
+    for (const i in liveryUsageArray) {
+      if (liveryUsageArray[i].length > 1) {
+        liveryUsageArray[i].forEach((pos) => {
+          positionData[pos] = `sw_${trainName}_capacity_${i * 1 + 1}`;
+        });
+      } else positionData[liveryUsageArray[i]] = `sw_${trainName}_capacity_${i * 1 + 1}`;
+    }
+
+    res += createSwitch("SELF", `sw_${trainName}_capacity_main`, "cargo_subtype", positionData);
+  }
+  // console.log(res);
   return res;
 }
 
-setCapacityMain("Rin", [
-  {
-    introYear: "0..1999",
-    headCapacityArr: [150, 151],
-    wagCapacityArr: [160, 162, 163],
-    wagCapacityReverseArr: [160, 162, 163],
-    blockLength: 5,
-    liveryUsageIds: 0,
-    switchCounter: 0,
-    totalVariations: 0,
-  },
-  {
-    introYear: "default",
-    headCapacityArr: [150],
-    wagCapacityArr: [160],
-    blockLength: 5,
-    liveryUsageIds: 0,
-    switchCounter: 0,
-    totalVariations: 0,
-  },
-]);
+// setCapacityMain("Rin", [
+//   {
+//     // introYear: "0..1999",
+//     headCapacity: [150, 151],
+//     wagCapacity: [160, 162, 163],
+//     wagCapacityReverseArr: [160, 162, 163],
+//     blockLength: 5,
+//     liveryUsageIds: [0, 4, 5],
+//   },
+//   {
+//     // introYear: "default",
+//     headCapacity: [150],
+//     wagCapacity: [160],
+//     blockLength: 5,
+//     liveryUsageIds: [1],
+//   },
+// ]);

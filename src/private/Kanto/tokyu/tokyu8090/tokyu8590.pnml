@@ -1,0 +1,149 @@
+//purchase
+  spriteset(tokyu8590_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8590.png"){ tmpl_purchase_1c_dual(0, 0) }
+  GRAPHIC_STACK_3(gfx_tokyu8590_purchase_main, logo_tokyu, tokyu8590_purchase_c1, tokyu8090_purchase_c2)
+//8590
+  spriteset(gfx_tokyu8590_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8590.png"){ tmpl_std(0, 0) }
+  spriteset(gfx_tokyu8590_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8590.png"){ tmpl_std(0, 25) }
+  spriteset(gfx_tokyu8590_skirt_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8590.png"){ tmpl_std(0, 50) }
+  spriteset(gfx_tokyu8590_skirt_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8590.png"){ tmpl_std(0, 75) }
+  spriteset(gfx_tokyu8590_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8590.png"){ tmpl_std(0, 100) }
+  spriteset(gfx_tokyu8590_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8590.png"){ tmpl_std(0, 125) }
+  spriteset(gfx_tokyu8590_skirt_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8590.png"){ tmpl_std(0, 150) }
+  spriteset(gfx_tokyu8590_skirt_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8590.png"){ tmpl_std(0, 175) }
+//8590 Oimachi
+  spriteset(gfx_tokyu8590_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8590.png"){ tmpl_std(0, 200) }
+  spriteset(gfx_tokyu8590_1_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8590.png"){ tmpl_std(0, 225) }
+//
+//*Livery 1
+  //special gfx
+      switch(FEAT_TRAINS, SELF, sw_tokyu8590_front_gfx_1, current_year){
+        0..2013:gfx_tokyu8590_front;
+        gfx_tokyu8590_skirt_front;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tokyu8590_front_mot_gfx, current_year){
+        0..2013:gfx_tokyu8590_front_mot;
+        gfx_tokyu8590_skirt_front_mot;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tokyu8590_end_gfx_1, current_year){
+        0..2013:gfx_tokyu8590_end;
+        gfx_tokyu8590_skirt_end;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tokyu8590_end_mot_gfx, current_year){
+        0..2013:gfx_tokyu8590_end_mot;
+        gfx_tokyu8590_skirt_end_mot;
+      }
+    //head reversing checker
+      switch(FEAT_TRAINS, PARENT, sw_tokyu8590_front_gfx,vehicle_is_reversed){
+          1: sw_tokyu8590_front_gfx_1;
+          sw_tokyu8590_front_mot_gfx;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tokyu8590_end_gfx,vehicle_is_reversed){
+          1: sw_tokyu8590_end_mot_gfx;
+          sw_tokyu8590_end_gfx_1;
+      }
+  //
+  //panto placer
+    //var 1
+      switch(FEAT_TRAINS, SELF, sw_tokyu8590_panto_placer,position_in_vehid_chain %3){
+        0: gfx_tokyu8090_mot_2_rev;
+        gfx_tokyu8090_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tokyu8590_panto_placer_rev,position_in_vehid_chain_from_end %3){
+        0: gfx_tokyu8090_mot_2;
+        gfx_tokyu8090_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tokyu8590_panto_placer_main_1,vehicle_is_reversed){
+        1: sw_tokyu8590_panto_placer;
+        sw_tokyu8590_panto_placer_rev;
+      }
+    //var 2
+      switch(FEAT_TRAINS, SELF, sw_tokyu8590_panto_placer_1,position_in_vehid_chain %8){
+        0: gfx_tokyu8090_mot_2_rev;
+        3: gfx_tokyu8090_mot_2_rev;
+        5: gfx_tokyu8090_mot_2_rev;
+        gfx_tokyu8090_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tokyu8590_panto_placer_1_rev,position_in_vehid_chain_from_end %8){
+        0: gfx_tokyu8090_mot_2;
+        3: gfx_tokyu8090_mot_2;
+        5: gfx_tokyu8090_mot_2;
+        gfx_tokyu8090_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tokyu8590_panto_placer_main_2,vehicle_is_reversed){
+        1: sw_tokyu8590_panto_placer_1;
+        sw_tokyu8590_panto_placer_1_rev;
+      }
+    //5 cars
+      switch(FEAT_TRAINS, SELF, sw_tokyu8590_panto_placer_3,position_in_vehid_chain %3){
+        0: sw_tokyu8090_mot_rev_gfx;
+        gfx_tokyu8090_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tokyu8590_panto_placer_3_rev,position_in_vehid_chain_from_end %3){
+        0: sw_tokyu8090_mot_gfx;
+        gfx_tokyu8090_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tokyu8590_panto_placer_main_3,vehicle_is_reversed){
+        1: sw_tokyu8590_panto_placer_3;
+        sw_tokyu8590_panto_placer_3_rev;
+      }
+  switch(FEAT_TRAINS, SELF, sw_tokyu8590_panto_placer_main, num_vehs_in_vehid_chain){
+    0..5:sw_tokyu8590_panto_placer_main_3;
+    6..7:sw_tokyu8590_panto_placer_main_1;
+    sw_tokyu8590_panto_placer_main_2;
+  }
+  //
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_tokyu8590_head_gfx_main,position_in_consist>0){
+      1: sw_tokyu8590_end_gfx;
+      sw_tokyu8590_front_gfx;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tokyu8590_livery_1,vehicle_type_id){
+      100..102:sw_tokyu8590_panto_placer_main;
+      sw_tokyu8590_head_gfx_main;
+    }
+//
+//*livery 8590 Oimachi
+  //head reversing checker
+    switch(FEAT_TRAINS, PARENT, sw_tokyu8590_1_front_gfx,vehicle_is_reversed){
+      1: gfx_tokyu8090_2_front;
+      gfx_tokyu8590_1_front_mot;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_tokyu8590_1_end_gfx,vehicle_is_reversed){
+      1: gfx_tokyu8590_1_end_mot;
+      gfx_tokyu8090_2_end;
+    }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_tokyu8590_1_head_gfx_main,position_in_consist>0){
+      1: sw_tokyu8590_1_end_gfx;
+      sw_tokyu8590_1_front_gfx;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tokyu8590_livery_2,vehicle_type_id){
+      100..102:sw_tokyu8590_panto_placer_main;
+      sw_tokyu8590_1_head_gfx_main;
+    }
+//
+switch(FEAT_TRAINS, SELF, sw_tokyu8590_lv, cargo_subtype){
+  0:sw_tokyu8590_livery_1;
+  1:sw_tokyu8590_livery_2;
+}
+switch(FEAT_TRAINS, SELF, sw_tokyu8590_lv_desc_main, cargo_subtype){
+  0:string(LV_DATED,string(STR_LIVERY,string(STR_CONCAT_3, "8590", string(STR_NAME_SERIES), string(LV_tokyu_toyoko_belt))),1988);
+  1:string(LV_DATED,string(STR_LIVERY,string(STR_CONCAT_3, "8590", string(STR_NAME_SERIES), string(LV_tokyu_oimachi_belt))),2006);
+}
+//capacity-changer
+    switch(FEAT_TRAINS, SELF, sw_tokyu8590_capacity_main, vehicle_type_id == tokyu9000){
+      1: 136;
+      default: 144;
+    }
+  //power
+    switch(FEAT_TRAINS, SELF, sw_tokyu8590_car_power_main,position_in_vehid_chain %10){
+      0:return 130;
+      2..3:return 130;
+      5..7:return 130;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tokyu8590_power_main,vehicle_type_id){
+    tokyu8590: return 130*2;
+    sw_tokyu8590_car_power_main;
+  }
+//

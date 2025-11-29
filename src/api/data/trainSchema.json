@@ -1,0 +1,265 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Train Configuration Schema",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "descName": {
+        "type": "string",
+        "description": "Localized display name for the train"
+      },
+      "trainName": {
+        "type": "string",
+        "description": "Internal identifier for the train"
+      },
+      "groupType": {
+        "type": "string",
+        "enum": [
+          "semiPrivate",
+          "tokyu",
+          "tobu",
+          "seibu",
+          "sotetsu",
+          "keisei",
+          "keikyu",
+          "odakyu",
+          "keio",
+          "hankyu"
+        ],
+        "description": "Ownership type of company of the train"
+      },
+      "introductionDate": {
+        "type": "string",
+        "pattern": "^\\d{4}, \\d{1,2}, \\d{1,2}$",
+        "description": "Date when train was introduced (YYYY, M, D)"
+      },
+      "scrapYear": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "Year when train was scrapped, 0 for never"
+      },
+      "costFactor": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "Base cost multiplier"
+      },
+      "runningCost": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "Operating cost per unit multiplier"
+      },
+      "variantGroup": {
+        "type": "integer",
+        "description": "Group identifier for train variants"
+      },
+      "isVariantGroupParent": {
+        "type": "boolean",
+        "description": "Indicates if this is the parent variant in a group"
+      },
+      "speed": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "Maximum speed in km/h"
+      },
+      "trackGauge": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "Track gauge in mm",
+        "enum": [1067, 1372, 1435]
+      },
+      "weight": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "minItems": 2,
+        "description": "Weight per vehicle section in tons. [0] is for head cars, [1] is for trailer/motor cars"
+      },
+      "formations": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "minItems": 1,
+        "description": "Available train formation lengths"
+      },
+      "doors": {
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "minItems": 1,
+        "maxItems": 2,
+        "description": "Number of doors per vehicle side, second value for 'refit to n is available'"
+      },
+      "current": {
+        "type": "string",
+        "enum": [
+          "DC_1500",
+          "AC_20000_50hz",
+          "AC_20000_60hz",
+          "AC_250000",
+          "AC_20_50hz_DC",
+          "AC_20_60hz_DC",
+          "AC_25_50hz_DC"
+        ],
+        "minItems": 1,
+        "description": "Electrical system and voltage compatibility"
+      },
+      "usage": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "metro",
+            "commuter",
+            "express",
+            "limited_express",
+            "access_commuter",
+            "access_express",
+            "access_limited_express"
+          ]
+        },
+        "minItems": 1,
+        "description": "Primary usage types"
+      },
+      "operator": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "minItems": 1,
+        "description": "Operating companies or authorities"
+      },
+      "capacity": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "introYear": {
+              "type": "string",
+              "description": "Year when this capacity configuration was introduced, empty for default"
+            },
+            "headCapacity": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "minItems": 1,
+              "description": "Passenger capacity for head vehicles"
+            },
+            "wagCapacity": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "minItems": 1,
+              "description": "Passenger capacity for standard wagons from head"
+            },
+            "wagCapacityReverse": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "description": "Passenger capacity for standard wagons from end"
+            },
+            "liveryUsageIds": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "description": "Liveries that use this capacity configuration"
+            }
+          },
+          "required": ["headCapacity", "wagCapacity"]
+        }
+      },
+      "power": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "introYear": {
+              "type": "string",
+              "description": "Year when this power configuration was introduced, empty for default"
+            },
+            "powerPerMotor": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Power output per motor in kW"
+            },
+            "headMotorCars": {
+              "type": "integer",
+              "minimum": 0,
+              "description": "Number of motorized head cars, empty for 0"
+            },
+            "blockLength": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Block length for power distribution calculations"
+            },
+            "positions": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "minItems": 1,
+              "description": "Vehicle positions that have motors"
+            }
+          },
+          "required": ["powerPerMotor", "blockLength", "positions"]
+        }
+      },
+      "reusePowerFrom": {
+        "type": "string",
+        "description": "Reuse power switch from other train"
+      },
+      "reuseCapacityFrom": {
+        "type": "string",
+        "description": "Reuse power switch from other train"
+      },
+      "isDualHeaded": {
+        "type": "boolean",
+        "description": "Whether the train is dual-headed"
+      },
+      "customLoadingSpeedLogic": {
+        "type": "string",
+        "description": "Custom loading speed logic in .pnml"
+      },
+      "customSpeedLogic": {
+        "type": "string",
+        "description": "Custom speed logic in .pnml"
+      },
+      "hasLiveryDesc": {
+        "type": "boolean",
+        "description": "Custom livery logic in .pnml"
+      }
+    },
+    "required": [
+      "descName",
+      "trainName",
+      "groupType",
+      "introductionDate",
+      "scrapYear",
+      "costFactor",
+      "runningCost",
+      "speed",
+      "trackGauge",
+      "weight",
+      "formations",
+      "doors",
+      "current",
+      "usage",
+      "operator"
+    ]
+  }
+}
