@@ -387,7 +387,7 @@ item(FEAT_TRAINS, tokyu8000) {
     OVERRIDEN_TRAIN_DATA
     
     climates_available: param_disable_tokyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
-    name: string(STR_TRAIN_NAME, string(STR_NAME_TOKYU), "8000/8500", string(STR_NAME_SERIES));
+    name: string(STR_TRAIN_NAME, string(STR_NAME_TOKYU), "8000", string(STR_NAME_SERIES));
     introduction_date: date(1969, 11, 30);
     model_life: 44;
     vehicle_life: 39;
@@ -403,7 +403,7 @@ item(FEAT_TRAINS, tokyu8000) {
     weight: 31 ton;
   }
 	graphics {
-    
+    name: sw_tokyu8000_name;
     
     additional_text:string(STR_TRAIN_DESC,
     string(STR_1067),
@@ -426,6 +426,54 @@ item(FEAT_TRAINS, tokyu8000) {
     cargo_capacity: sw_tokyu8000_capacity_main()*param_capacity_mod/3*boost_rapid_mod/2;
     power: sw_tokyu8000_power_main()*4*1342/1000;
     default:sw_tokyu8000_lv;
+    weight: 33;
+    
+  }
+}
+item(FEAT_TRAINS, tokyu8500) {
+  property {
+    OVERRIDEN_TRAIN_DATA
+    
+    climates_available: param_disable_tokyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_TOKYU), "8500", string(STR_NAME_SERIES));
+    introduction_date: date(1975, 2, 20);
+    model_life: 53;
+    vehicle_life: 48;
+    dual_headed: 1;
+    variant_group: tokyu8000;
+    
+    cost_factor: 20;
+    running_cost_factor: 50;
+    speed: 110 km/h;
+    track_type: TR_1067_DC;
+    power: 1 kW;
+    tractive_effort_coefficient:  0.2;
+    weight: 31 ton;
+  }
+	graphics {
+    
+    name: sw_tokyu8000_name;
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_5, 4,5,6,8,10)),
+    string(STR_USAGE, string(STR_ACCESS_COMMUTER)),
+    string(STR_OPERATOR, string(STR_TOKYU)));
+    cargo_subtype_text: sw_tokyu8500_lv_desc_main;
+    purchase: gfx_tokyu8500_purchase_main;
+    cargo_capacity: sw_tokyu8000_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_tokyu8500_lv;
+    power: sw_tokyu8500_power_main()*4*1342/1000;
+    purchase_power: sw_tokyu8500_car_power_main()*4*1342/1000;
+  }
+  livery_override(mu_car){
+		cargo_subtype_text:sw_tokyu8500_lv_desc_main;
+    loading_speed:param_loading_4D;
+    cargo_capacity: sw_tokyu8000_capacity_main()*param_capacity_mod/3*boost_rapid_mod/2;
+    power: sw_tokyu8500_power_main()*4*1342/1000;
+    default:sw_tokyu8500_lv;
     weight: 33;
     
   }
