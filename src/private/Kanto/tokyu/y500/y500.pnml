@@ -5,78 +5,82 @@ spriteset(y500_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kant
   spriteset(y500_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/y500/y500.png"){ tmpl_std_v3 (0, 0) }
   spriteset(y500_wag_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/y500/y500.png"){ tmpl_std_v3 (0, 25) }
   spriteset(y500_wag_base_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/y500/y500.png"){ tmpl_std_rev_v3 (0, 25) }
+  spriteset(y500_wag_base_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/y500/y500.png"){ tmpl_std_v3 (0, 50) }
+  spriteset(y500_wag_base_2_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/y500/y500.png"){ tmpl_std_rev_v3 (0, 50) }
+  
+  switch(FEAT_TRAINS, SELF, wag_base_gfx_def, position_in_vehid_chain>=(num_vehs_in_vehid_chain/2)){
+      1:y500_wag_base_rev;
+      y500_wag_base;
+  }
+  switch(FEAT_TRAINS, SELF, wag_base_gfx_rev, position_in_vehid_chain_from_end>=(num_vehs_in_vehid_chain/2)){
+      1:y500_wag_base;
+      y500_wag_base_rev;
+  }
+  switch(FEAT_TRAINS, PARENT, wag_base_gfx, vehicle_is_reversed){
+      1:wag_base_gfx_rev;
+      wag_base_gfx_def;
+  }
+  switch(FEAT_TRAINS, SELF, wag_base_2_gfx_def, position_in_vehid_chain>=(num_vehs_in_vehid_chain/2)){
+      1:y500_wag_base_2_rev;
+      y500_wag_base_2;
+  }
+  switch(FEAT_TRAINS, SELF, wag_base_2_gfx_rev, position_in_vehid_chain_from_end>=(num_vehs_in_vehid_chain/2)){
+      1:y500_wag_base_2;
+      y500_wag_base_2_rev;
+  }
+  switch(FEAT_TRAINS, PARENT, wag_base_2_gfx, vehicle_is_reversed){
+      1:wag_base_2_gfx_rev;
+      wag_base_2_gfx_def;
+  }
+  switch(FEAT_TRAINS, SELF, sw_wag_base, position_in_vehid_chain==(num_vehs_in_vehid_chain/2)||position_in_vehid_chain_from_end==(num_vehs_in_vehid_chain/2)){
+      1:wag_base_2_gfx;
+      wag_base_gfx;
+  }
+
 //
   TRAIN_CONSTRUCTOR_3(gfx_y500_front, y500_head_base, tokyu5000_lights_front, ac_long_toshiba)
   TRAIN_CONSTRUCTOR_3(gfx_y500_end, y500_head_base, tokyu5000_lights_end, ac_long_toshiba)
-  TRAIN_CONSTRUCTOR_3(gfx_y500_mot, y500_wag_base, ac_long_toshiba,panto_arm_n)
-  TRAIN_CONSTRUCTOR_3(gfx_y500_mot_rev, y500_wag_base_rev, ac_long_toshiba,panto_arm_n)
-  TRAIN_CONSTRUCTOR_2(gfx_y500_wag, y500_wag_base, ac_long_toshiba)
-  TRAIN_CONSTRUCTOR_2(gfx_y500_wag_rev, y500_wag_base_rev, ac_long_toshiba)
+  TRAIN_CONSTRUCTOR_3(gfx_y500_mot, sw_wag_base, ac_long_toshiba,panto_arm_n)
+  TRAIN_CONSTRUCTOR_2(gfx_y500_wag, sw_wag_base, ac_long_toshiba)
 //
 //*Livery 1 
-  //motor car gfx
-    switch(FEAT_TRAINS, SELF, sw_y500_mot_gfx_1, position_in_vehid_chain>=(num_vehs_in_vehid_chain/2)){
-        1:gfx_y500_mot_rev;
-        gfx_y500_mot;
-    }
-    switch(FEAT_TRAINS, SELF, sw_y500_mot_gfx_2, position_in_vehid_chain_from_end>=(num_vehs_in_vehid_chain/2)){
-        1:gfx_y500_mot;
-        gfx_y500_mot_rev;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_y500_mot, vehicle_is_reversed){
-        1:sw_y500_mot_gfx_2;
-        sw_y500_mot_gfx_1;
-    }
-  //wagon gfx
-    switch(FEAT_TRAINS, SELF, sw_y500_wag_gfx_1, position_in_vehid_chain>=(num_vehs_in_vehid_chain/2)){
-        1:gfx_y500_wag_rev;
-        gfx_y500_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_y500_wag_gfx_2, position_in_vehid_chain_from_end>=(num_vehs_in_vehid_chain/2)){
-        1:gfx_y500_wag;
-        gfx_y500_wag_rev;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_y500_wag, vehicle_is_reversed){
-        1:sw_y500_wag_gfx_2;
-        sw_y500_wag_gfx_1;
-    }
 switch(FEAT_TRAINS, SELF, sw_y500_panto_placer_0,position_in_vehid_chain %7){
-1:sw_y500_mot;
-5:sw_y500_mot;
-sw_y500_wag;
+1:gfx_y500_mot;
+5:gfx_y500_mot;
+gfx_y500_wag;
 }
 switch(FEAT_TRAINS, SELF, sw_y500_panto_placer_0_rev,position_in_vehid_chain_from_end %7){
-1:sw_y500_mot;
-5:sw_y500_mot;
-sw_y500_wag;
+1:gfx_y500_mot;
+5:gfx_y500_mot;
+gfx_y500_wag;
 }
 switch(FEAT_TRAINS, PARENT, sw_y500_panto_placer_0_main,vehicle_is_reversed){
 1: sw_y500_panto_placer_0_rev;
 sw_y500_panto_placer_0;
 }
-switch(FEAT_TRAINS, SELF, sw_y500_panto_placer_1,position_in_vehid_chain %7){
-0:sw_y500_mot;
-5:sw_y500_mot;
-sw_y500_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_y500_panto_placer_1_rev,position_in_vehid_chain_from_end %7){
-0:sw_y500_mot;
-5:sw_y500_mot;
-sw_y500_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_y500_panto_placer_1_main,vehicle_is_reversed){
-1: sw_y500_panto_placer_1_rev;
-sw_y500_panto_placer_1;
-}
+// switch(FEAT_TRAINS, SELF, sw_y500_panto_placer_1,position_in_vehid_chain %7){
+// 0:gfx_y500_mot;
+// 5:gfx_y500_mot;
+// gfx_y500_wag;
+// }
+// switch(FEAT_TRAINS, SELF, sw_y500_panto_placer_1_rev,position_in_vehid_chain_from_end %7){
+// 0:gfx_y500_mot;
+// 5:gfx_y500_mot;
+// gfx_y500_wag;
+// }
+// switch(FEAT_TRAINS, PARENT, sw_y500_panto_placer_1_main,vehicle_is_reversed){
+// 1: sw_y500_panto_placer_1_rev;
+// sw_y500_panto_placer_1;
+// }
 switch(FEAT_TRAINS, SELF, sw_y500_panto_placer_2,position_in_vehid_chain %5){
-0:sw_y500_mot;
-3:sw_y500_mot;
-sw_y500_wag;
+0:gfx_y500_mot;
+3:gfx_y500_mot;
+gfx_y500_wag;
 }
 switch(FEAT_TRAINS, SELF, sw_y500_panto_placer_2_rev,position_in_vehid_chain_from_end %5){
-0:sw_y500_mot;
-3:sw_y500_mot;
-sw_y500_wag;
+0:gfx_y500_mot;
+3:gfx_y500_mot;
+gfx_y500_wag;
 }
 switch(FEAT_TRAINS, PARENT, sw_y500_panto_placer_2_main,vehicle_is_reversed){
 1: sw_y500_panto_placer_2_rev;
