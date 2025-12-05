@@ -2484,9 +2484,9 @@ item(FEAT_TRAINS, tokyu5050, 2020) {}
 item(FEAT_TRAINS, tokyu5080, 2021) {}
 item(FEAT_TRAINS, tokyu6000, 2022) {}
 item(FEAT_TRAINS, tokyu7000, 2023) {}
-
-
-
+item(FEAT_TRAINS, tokyu2020, 2024) {}
+item(FEAT_TRAINS, tokyu6020, 2025) {}
+item(FEAT_TRAINS, tokyu3020, 2026) {}
 item(FEAT_TRAINS, y000, 2027) {}
 item(FEAT_TRAINS, y500, 2028) {}
 
@@ -5141,6 +5141,397 @@ switch (FEAT_TRAINS, SELF, sw_tokyu5000_name, getbits(extra_callback_info1, 0, 8
       sw_tokyu5080_1_head_gfx_main;
     }
 # 17 "src/private/Kanto/tokyu/tokyuList.pnml" 2
+# 1 "src/private/Kanto/tokyu/tokyu2020/tokyu2020.pnml" 1
+
+  spriteset(tokyu2020_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/tokyu/tokyu2020/tokyu2020.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(tokyu2020_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/tokyu/tokyu2020/tokyu2020.png"){ tmpl_purchase_2c_dual(0, 0) }
+  switch(FEAT_TRAINS, SELF, gfx_tokyu2020_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_tokyu; 1: tokyu2020_purchase_c1; 2: ac_long_toshiba_c1; 3: tokyu2020_purchase_c2; 4: ac_long_toshiba_c2;}
+
+  spriteset(tokyu2020_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/tokyu2020/tokyu2020_lights.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tokyu2020_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/tokyu2020/tokyu2020_lights.png"){ tmpl_std_v3(0, 25) }
+
+  spriteset(tokyu2020_1_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/tokyu2020/tokyu2020.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tokyu2020_1_wag_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/tokyu2020/tokyu2020.png"){ tmpl_symm_v3(0, 25) }
+
+  spriteset(tokyu2020_2_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/tokyu2020/tokyu2020_1.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tokyu2020_2_wag_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/tokyu2020/tokyu2020_1.png"){ tmpl_symm_v3(0, 25) }
+
+
+  switch(FEAT_TRAINS, SELF, gfx_tokyu2020_1_front, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu2020_1_head_base; 1: tokyu2020_lights_front; 2: ac_long_toshiba;}
+  switch(FEAT_TRAINS, SELF, gfx_tokyu2020_1_end, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu2020_1_head_base; 1: tokyu2020_lights_end; 2: ac_long_toshiba;}
+
+  switch(FEAT_TRAINS, SELF, gfx_tokyu2020_1_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu2020_1_wag_base; 1: ac_long_toshiba;}
+  switch(FEAT_TRAINS, SELF, gfx_tokyu2020_1_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu2020_1_wag_base; 1: ac_long_toshiba; 2: panto_arm_n_single_rev;}
+  switch(FEAT_TRAINS, SELF, gfx_tokyu2020_1_mot_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu2020_1_wag_base; 1: ac_long_toshiba; 2: panto_arm_n_single;}
+  switch(FEAT_TRAINS, SELF, gfx_tokyu2020_1_mot_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu2020_1_wag_base; 1: ac_long_toshiba; 2: panto_arm_n;}
+
+  switch(FEAT_TRAINS, SELF, gfx_tokyu2020_2_front, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu2020_2_head_base; 1: tokyu2020_lights_front; 2: ac_long_toshiba;}
+  switch(FEAT_TRAINS, SELF, gfx_tokyu2020_2_end, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu2020_2_head_base; 1: tokyu2020_lights_end; 2: ac_long_toshiba;}
+
+  switch(FEAT_TRAINS, SELF, gfx_tokyu2020_2_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu2020_2_wag_base; 1: ac_long_toshiba;}
+  switch(FEAT_TRAINS, SELF, gfx_tokyu2020_2_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu2020_2_wag_base; 1: ac_long_toshiba; 2: panto_arm_n_single_rev;}
+  switch(FEAT_TRAINS, SELF, gfx_tokyu2020_2_mot_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu2020_2_wag_base; 1: ac_long_toshiba; 2: panto_arm_n_single;}
+  switch(FEAT_TRAINS, SELF, gfx_tokyu2020_2_mot_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu2020_2_wag_base; 1: ac_long_toshiba; 2: panto_arm_n;}
+
+
+  switch(FEAT_TRAINS, SELF, sw_tokyu2020_front_gfx,cargo_subtype){
+    1:gfx_tokyu2020_2_front;
+    gfx_tokyu2020_1_front;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu2020_end_gfx,cargo_subtype){
+    1:gfx_tokyu2020_2_end;
+    gfx_tokyu2020_1_end;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu2020_mot_2_gfx,cargo_subtype){
+    1:gfx_tokyu2020_2_mot_2;
+    gfx_tokyu2020_1_mot_2;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu2020_mot_gfx,cargo_subtype){
+    1:gfx_tokyu2020_2_mot;
+    gfx_tokyu2020_1_mot;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu2020_mot_rev_gfx,cargo_subtype){
+    1:gfx_tokyu2020_2_mot_rev;
+    gfx_tokyu2020_1_mot_rev;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu2020_wag_gfx,cargo_subtype){
+    1:gfx_tokyu2020_2_wag;
+    gfx_tokyu2020_1_wag;
+  }
+
+
+
+
+      switch(FEAT_TRAINS, SELF, sw_tokyu2020_panto_placer_1,position_in_vehid_chain_from_end %9){
+        0: sw_tokyu2020_mot_2_gfx;
+        3: sw_tokyu2020_mot_gfx;
+        6: sw_tokyu2020_mot_2_gfx;
+        sw_tokyu2020_wag_gfx;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tokyu2020_panto_placer_1_rev,position_in_vehid_chain %9){
+        0: sw_tokyu2020_mot_2_gfx;
+        3: sw_tokyu2020_mot_rev_gfx;
+        6: sw_tokyu2020_mot_2_gfx;
+        sw_tokyu2020_wag_gfx;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tokyu2020_panto_placer_main_1,vehicle_is_reversed){
+        1: sw_tokyu2020_panto_placer_1_rev;
+        sw_tokyu2020_panto_placer_1;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_tokyu2020_panto_placer_2,position_in_vehid_chain_from_end %3){
+          0: sw_tokyu2020_mot_2_gfx;
+          sw_tokyu2020_wag_gfx;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tokyu2020_panto_placer_2_rev,position_in_vehid_chain %3){
+          0: sw_tokyu2020_mot_2_gfx;
+          sw_tokyu2020_wag_gfx;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tokyu2020_panto_placer_main_2,vehicle_is_reversed){
+          1: sw_tokyu2020_panto_placer_2_rev;
+          sw_tokyu2020_panto_placer_2;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_tokyu2020_panto_placer_3,position_in_vehid_chain %3){
+          0: sw_tokyu2020_mot_gfx;
+          2: sw_tokyu2020_mot_2_gfx;
+          sw_tokyu2020_wag_gfx;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tokyu2020_panto_placer_3_rev,position_in_vehid_chain_from_end %3){
+          0: sw_tokyu2020_mot_rev_gfx;
+          2: sw_tokyu2020_mot_2_gfx;
+          sw_tokyu2020_wag_gfx;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tokyu2020_panto_placer_main_3,vehicle_is_reversed){
+          1:sw_tokyu2020_panto_placer_3_rev;
+          sw_tokyu2020_panto_placer_3;
+      }
+    switch(FEAT_TRAINS, SELF, sw_tokyu2020_panto_placer_main,num_vehs_in_vehid_chain){
+        0..3:sw_tokyu2020_panto_placer_main_3;
+        4..6:sw_tokyu2020_panto_placer_main_2;
+        sw_tokyu2020_panto_placer_main_1;
+    }
+
+
+    switch(FEAT_TRAINS, SELF, sw_tokyu2020_head_gfx_main,position_in_consist>0){
+        1: sw_tokyu2020_end_gfx;
+        sw_tokyu2020_front_gfx;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tokyu2020_lv,vehicle_type_id){
+        100..102:sw_tokyu2020_panto_placer_main;
+        sw_tokyu2020_head_gfx_main;
+      }
+
+
+
+switch(FEAT_TRAINS, SELF, sw_tokyu2020_lv_desc_main, cargo_subtype){
+    0:string(LV_DATED,string(STR_LIVERY,string(LV_DEFAULT)),2018);
+    1:string(LV_DATED,string(STR_LIVERY,string(LV_tokyu_100_anniv)),2022);
+}
+
+
+  switch(FEAT_TRAINS, SELF, sw_tokyu2020_capacity_main,vehicle_type_id){
+      mu_car: 152;
+      141;
+    }
+
+  switch(FEAT_TRAINS, SELF, sw_tokyu2020_car_power_main,position_in_vehid_chain_from_end %10){
+    0..3:return 140;
+    7:return 140;
+    return 0;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu2020_power_main,vehicle_type_id){
+    mu_car:sw_tokyu2020_car_power_main;
+    return 0;
+  }
+
+  switch (FEAT_TRAINS, SELF, sw_tokyu2020_name_purchase, getbits(extra_callback_info1, 8, 8)) {
+    1: return CB_RESULT_NO_TEXT;
+    return string(STR_TRAIN_NAME, string(STR_NAME_TOKYU), "2020/6020/3020", string(STR_NAME_SERIES));
+    }
+  switch (FEAT_TRAINS, SELF, sw_tokyu2020_name, getbits(extra_callback_info1, 0, 8)) {
+    0x20: sw_tokyu2020_name_purchase;
+    return CB_RESULT_NO_TEXT;
+}
+# 18 "src/private/Kanto/tokyu/tokyuList.pnml" 2
+# 1 "src/private/Kanto/tokyu/tokyu2020/tokyu6020.pnml" 1
+
+  spriteset(tokyu6020_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/tokyu/tokyu2020/tokyu6020.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(tokyu6020_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/tokyu/tokyu2020/tokyu6020.png"){ tmpl_purchase_2c_dual(0, 0) }
+  switch(FEAT_TRAINS, SELF, gfx_tokyu6020_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_tokyu; 1: tokyu6020_purchase_c1; 2: ac_long_toshiba_c1; 3: tokyu6020_purchase_c2; 4: ac_long_toshiba_c2;}
+
+  spriteset(tokyu6020_1_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/tokyu2020/tokyu6020.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tokyu6020_1_wag_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/tokyu2020/tokyu6020.png"){ tmpl_symm_v3(0, 25) }
+  spriteset(tokyu6020_1_wag_qcar_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/tokyu2020/tokyu6020.png"){ tmpl_symm_v3(0, 50) }
+
+
+  switch(FEAT_TRAINS, SELF, gfx_tokyu6020_1_front, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu6020_1_head_base; 1: tokyu2020_lights_front; 2: ac_long_toshiba;}
+  switch(FEAT_TRAINS, SELF, gfx_tokyu6020_1_end, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu6020_1_head_base; 1: tokyu2020_lights_end; 2: ac_long_toshiba;}
+
+  switch(FEAT_TRAINS, SELF, gfx_tokyu6020_1_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu6020_1_wag_base; 1: ac_long_toshiba;}
+  switch(FEAT_TRAINS, SELF, gfx_tokyu6020_1_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu6020_1_wag_base; 1: ac_long_toshiba; 2: panto_arm_n_single_rev;}
+  switch(FEAT_TRAINS, SELF, gfx_tokyu6020_1_mot_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu6020_1_wag_base; 1: ac_long_toshiba; 2: panto_arm_n_single;}
+  switch(FEAT_TRAINS, SELF, gfx_tokyu6020_1_mot_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu6020_1_wag_base; 1: ac_long_toshiba; 2: panto_arm_n;}
+  switch(FEAT_TRAINS, SELF, gfx_tokyu6020_1_mot_2_qcar, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu6020_1_wag_qcar_base; 1: ac_long_toshiba; 2: panto_arm_n;}
+  switch(FEAT_TRAINS, SELF, gfx_tokyu6020_1_wag_qcar, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu6020_1_wag_qcar_base; 1: ac_long_toshiba;}
+
+
+  switch(FEAT_TRAINS, SELF, sw_tokyu6020_mot_2_gfx_def,(cargo_subtype==1&&position_in_vehid_chain==1)){
+    1:gfx_tokyu6020_1_mot_2_qcar;
+    gfx_tokyu6020_1_mot_2;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu6020_mot_2_gfx_rev,(cargo_subtype==1&&position_in_vehid_chain_from_end==1)){
+    1:gfx_tokyu6020_1_mot_2_qcar;
+    gfx_tokyu6020_1_mot_2;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_tokyu6020_mot_2_gfx, vehicle_is_reversed){
+    1:sw_tokyu6020_mot_2_gfx_rev;
+    sw_tokyu6020_mot_2_gfx_def;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu6020_wag_gfx_def,(cargo_subtype==1&&position_in_vehid_chain==1)){
+    1:gfx_tokyu6020_1_wag_qcar;
+    gfx_tokyu6020_1_wag;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu6020_wag_gfx_rev,(cargo_subtype==1&&position_in_vehid_chain_from_end==1)){
+    1:gfx_tokyu6020_1_wag_qcar;
+    gfx_tokyu6020_1_wag;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_tokyu6020_wag_gfx, vehicle_is_reversed){
+    1:sw_tokyu6020_wag_gfx_rev;
+    sw_tokyu6020_wag_gfx_def;
+  }
+
+
+
+
+      switch(FEAT_TRAINS, SELF, sw_tokyu6020_panto_placer_1,position_in_vehid_chain_from_end %9){
+        0: sw_tokyu6020_mot_2_gfx;
+        3: gfx_tokyu6020_1_mot;
+        6: sw_tokyu6020_mot_2_gfx;
+        sw_tokyu6020_wag_gfx;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tokyu6020_panto_placer_1_rev,position_in_vehid_chain %9){
+        0: sw_tokyu6020_mot_2_gfx;
+        3: gfx_tokyu6020_1_mot_rev;
+        6: sw_tokyu6020_mot_2_gfx;
+        sw_tokyu6020_wag_gfx;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tokyu6020_panto_placer_main_1,vehicle_is_reversed){
+        1: sw_tokyu6020_panto_placer_1_rev;
+        sw_tokyu6020_panto_placer_1;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_tokyu6020_panto_placer_2,position_in_vehid_chain_from_end %3){
+          0: sw_tokyu6020_mot_2_gfx;
+          sw_tokyu6020_wag_gfx;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tokyu6020_panto_placer_2_rev,position_in_vehid_chain %3){
+          0: sw_tokyu6020_mot_2_gfx;
+          sw_tokyu6020_wag_gfx;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tokyu6020_panto_placer_main_2,vehicle_is_reversed){
+          1: sw_tokyu6020_panto_placer_2_rev;
+          sw_tokyu6020_panto_placer_2;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_tokyu6020_panto_placer_3,position_in_vehid_chain %3){
+          0: gfx_tokyu6020_1_mot;
+          2: sw_tokyu6020_mot_2_gfx;
+          sw_tokyu6020_wag_gfx;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tokyu6020_panto_placer_3_rev,position_in_vehid_chain_from_end %3){
+          0: gfx_tokyu6020_1_mot_rev;
+          2: sw_tokyu6020_mot_2_gfx;
+          sw_tokyu6020_wag_gfx;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tokyu6020_panto_placer_main_3,vehicle_is_reversed){
+          1:sw_tokyu6020_panto_placer_3_rev;
+          sw_tokyu6020_panto_placer_3;
+      }
+    switch(FEAT_TRAINS, SELF, sw_tokyu6020_panto_placer_main,num_vehs_in_vehid_chain){
+        0..3:sw_tokyu6020_panto_placer_main_3;
+        4..6:sw_tokyu6020_panto_placer_main_2;
+        sw_tokyu6020_panto_placer_main_1;
+    }
+
+
+    switch(FEAT_TRAINS, SELF, sw_tokyu6020_head_gfx_main,position_in_consist>0){
+      1: gfx_tokyu6020_1_end;
+      gfx_tokyu6020_1_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tokyu6020_lv,vehicle_type_id){
+      100..102:sw_tokyu6020_panto_placer_main;
+      sw_tokyu6020_head_gfx_main;
+    }
+
+
+  switch(FEAT_TRAINS, SELF, sw_tokyu6020_lv_desc_main, cargo_subtype){
+    0:string(LV_DATED,string(STR_LIVERY,string(LV_DEFAULT)),2018);
+    1:string(LV_DATED,string(STR_LIVERY,string(LV_tokyu_Q_seat)),2018);
+  }
+# 19 "src/private/Kanto/tokyu/tokyuList.pnml" 2
+# 1 "src/private/Kanto/tokyu/tokyu2020/tokyu3020.pnml" 1
+
+  spriteset(tokyu3020_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/tokyu/tokyu2020/tokyu3020.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(tokyu3020_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/tokyu/tokyu2020/tokyu3020.png"){ tmpl_purchase_2c_dual(0, 0) }
+  switch(FEAT_TRAINS, SELF, gfx_tokyu3020_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_tokyu; 1: tokyu3020_purchase_c1; 2: ac_long_toshiba_c1; 3: tokyu3020_purchase_c2; 4: ac_long_toshiba_c2;}
+
+  spriteset(tokyu3020_1_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/tokyu2020/tokyu3020.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tokyu3020_1_wag_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/tokyu2020/tokyu3020.png"){ tmpl_symm_v3(0, 25) }
+
+  spriteset(tokyu3020_2_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/tokyu2020/tokyu3020_1.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tokyu3020_2_wag_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/tokyu2020/tokyu3020_1.png"){ tmpl_symm_v3(0, 25) }
+
+
+  switch(FEAT_TRAINS, SELF, gfx_tokyu3020_1_front, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu3020_1_head_base; 1: tokyu2020_lights_front; 2: ac_long_toshiba;}
+  switch(FEAT_TRAINS, SELF, gfx_tokyu3020_1_end, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu3020_1_head_base; 1: tokyu2020_lights_end; 2: ac_long_toshiba;}
+
+  switch(FEAT_TRAINS, SELF, gfx_tokyu3020_1_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu3020_1_wag_base; 1: ac_long_toshiba;}
+  switch(FEAT_TRAINS, SELF, gfx_tokyu3020_1_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu3020_1_wag_base; 1: ac_long_toshiba; 2: panto_arm_n_single_rev;}
+  switch(FEAT_TRAINS, SELF, gfx_tokyu3020_1_mot_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu3020_1_wag_base; 1: ac_long_toshiba; 2: panto_arm_n_single;}
+  switch(FEAT_TRAINS, SELF, gfx_tokyu3020_1_mot_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu3020_1_wag_base; 1: ac_long_toshiba; 2: panto_arm_n;}
+
+  switch(FEAT_TRAINS, SELF, gfx_tokyu3020_2_front, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu3020_2_head_base; 1: tokyu2020_lights_front; 2: ac_long_toshiba;}
+  switch(FEAT_TRAINS, SELF, gfx_tokyu3020_2_end, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu3020_2_head_base; 1: tokyu2020_lights_end; 2: ac_long_toshiba;}
+
+  switch(FEAT_TRAINS, SELF, gfx_tokyu3020_2_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu3020_2_wag_base; 1: ac_long_toshiba;}
+  switch(FEAT_TRAINS, SELF, gfx_tokyu3020_2_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu3020_2_wag_base; 1: ac_long_toshiba; 2: panto_arm_n_single_rev;}
+  switch(FEAT_TRAINS, SELF, gfx_tokyu3020_2_mot_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu3020_2_wag_base; 1: ac_long_toshiba; 2: panto_arm_n_single;}
+  switch(FEAT_TRAINS, SELF, gfx_tokyu3020_2_mot_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tokyu3020_2_wag_base; 1: ac_long_toshiba; 2: panto_arm_n;}
+
+
+  switch(FEAT_TRAINS, SELF, sw_tokyu3020_front_gfx,cargo_subtype){
+    1:gfx_tokyu3020_2_front;
+    gfx_tokyu3020_1_front;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu3020_end_gfx,cargo_subtype){
+    1:gfx_tokyu3020_2_end;
+    gfx_tokyu3020_1_end;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu3020_mot_2_gfx,cargo_subtype){
+    1:gfx_tokyu3020_2_mot_2;
+    gfx_tokyu3020_1_mot_2;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu3020_mot_gfx,cargo_subtype){
+    1:gfx_tokyu3020_2_mot;
+    gfx_tokyu3020_1_mot;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu3020_mot_rev_gfx,cargo_subtype){
+    1:gfx_tokyu3020_2_mot_rev;
+    gfx_tokyu3020_1_mot_rev;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu3020_wag_gfx,cargo_subtype){
+    1:gfx_tokyu3020_2_wag;
+    gfx_tokyu3020_1_wag;
+  }
+
+
+
+
+      switch(FEAT_TRAINS, SELF, sw_tokyu3020_panto_placer_1,position_in_vehid_chain_from_end %9){
+        0: sw_tokyu3020_mot_2_gfx;
+        3: sw_tokyu3020_mot_gfx;
+        6: sw_tokyu3020_mot_2_gfx;
+        sw_tokyu3020_wag_gfx;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tokyu3020_panto_placer_1_rev,position_in_vehid_chain %9){
+        0: sw_tokyu3020_mot_2_gfx;
+        3: sw_tokyu3020_mot_rev_gfx;
+        6: sw_tokyu3020_mot_2_gfx;
+        sw_tokyu3020_wag_gfx;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tokyu3020_panto_placer_main_1,vehicle_is_reversed){
+        1: sw_tokyu3020_panto_placer_1_rev;
+        sw_tokyu3020_panto_placer_1;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_tokyu3020_panto_placer_2,position_in_vehid_chain_from_end %4){
+          0: sw_tokyu3020_mot_2_gfx;
+          sw_tokyu3020_wag_gfx;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tokyu3020_panto_placer_2_rev,position_in_vehid_chain %4){
+          0: sw_tokyu3020_mot_2_gfx;
+          sw_tokyu3020_wag_gfx;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tokyu3020_panto_placer_main_2,vehicle_is_reversed){
+          1: sw_tokyu3020_panto_placer_2_rev;
+          sw_tokyu3020_panto_placer_2;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_tokyu3020_panto_placer_3,position_in_vehid_chain %2){
+          0: sw_tokyu3020_mot_2_gfx;
+          sw_tokyu3020_wag_gfx;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tokyu3020_panto_placer_3_rev,position_in_vehid_chain_from_end %2){
+          0: sw_tokyu3020_mot_2_gfx;
+          sw_tokyu3020_wag_gfx;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tokyu3020_panto_placer_main_3,vehicle_is_reversed){
+          1:sw_tokyu3020_panto_placer_3_rev;
+          sw_tokyu3020_panto_placer_3;
+      }
+    switch(FEAT_TRAINS, SELF, sw_tokyu3020_panto_placer_main,num_vehs_in_vehid_chain){
+        0..4:sw_tokyu3020_panto_placer_main_3;
+        4..6:sw_tokyu3020_panto_placer_main_2;
+        sw_tokyu3020_panto_placer_main_1;
+    }
+
+
+    switch(FEAT_TRAINS, SELF, sw_tokyu3020_head_gfx_main,position_in_consist>0){
+        1: sw_tokyu3020_end_gfx;
+        sw_tokyu3020_front_gfx;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tokyu3020_lv,vehicle_type_id){
+        100..102:sw_tokyu3020_panto_placer_main;
+        sw_tokyu3020_head_gfx_main;
+      }
+
+
+  switch(FEAT_TRAINS, SELF, sw_tokyu3020_lv_desc_main, cargo_subtype){
+    0:string(LV_DATED,string(STR_LIVERY,string(LV_DEFAULT)),2019);
+    1:string(LV_DATED,string(STR_LIVERY,string(LV_tokyu_100_anniv)),2022);
+  }
+# 20 "src/private/Kanto/tokyu/tokyuList.pnml" 2
 # 1 "src/private/Kanto/tokyu/y000/y000.pnml" 1
 spriteset(gfx_y000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/tokyu/y000/y000.png"){ tmpl_purchase_1c_dual(0, 0) }
 spriteset(gfx_y000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/tokyu/y000/y000.png"){ tmpl_purchase_2c_dual(0, 0) }
@@ -5256,7 +5647,7 @@ switch(FEAT_TRAINS, SELF, sw_y000_power_main,vehicle_type_id){
 100..102:sw_y000_car_power_main;
 190;
 }
-# 18 "src/private/Kanto/tokyu/tokyuList.pnml" 2
+# 21 "src/private/Kanto/tokyu/tokyuList.pnml" 2
 # 1 "src/private/Kanto/tokyu/y500/y500.pnml" 1
 spriteset(y500_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/tokyu/y500/y500.png"){ tmpl_purchase_1c_dual(0, 0) }
 spriteset(y500_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/tokyu/y500/y500.png"){ tmpl_purchase_2c_dual(0, 0) }
@@ -5371,7 +5762,7 @@ switch(FEAT_TRAINS, SELF, sw_y500_power_main,vehicle_type_id){
 100..102:sw_y500_car_power_main;
 return 0;
 }
-# 19 "src/private/Kanto/tokyu/tokyuList.pnml" 2
+# 22 "src/private/Kanto/tokyu/tokyuList.pnml" 2
 
 # 1 "src/private/Kanto/tokyu/items.pnml" 1
 item(FEAT_TRAINS, tokyu5000_old) {
@@ -6142,6 +6533,150 @@ item(FEAT_TRAINS, tokyu5080) {
 
   }
 }
+item(FEAT_TRAINS, tokyu2020) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_tokyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_TOKYU), "2020", string(STR_NAME_SERIES));
+    introduction_date: date(2018, 3, 28);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+
+    cost_factor: 23;
+    running_cost_factor: 53;
+    speed: 120 km/h;
+    track_type: TR_1067_DC;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 32 ton;
+  }
+ graphics {
+    name: sw_tokyu2020_name;
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_TOKYU)));
+    cargo_subtype_text: sw_tokyu2020_lv_desc_main;
+    purchase: gfx_tokyu2020_purchase_main;
+    cargo_capacity: sw_tokyu2020_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_tokyu2020_lv;
+    power: sw_tokyu2020_power_main()*4*1342/1000;
+    purchase_power: sw_tokyu2020_car_power_main()*4*1342/1000;
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_tokyu2020_lv_desc_main;
+    loading_speed:param_loading_4D;
+    cargo_capacity: sw_tokyu2020_capacity_main()*param_capacity_mod/3*boost_rapid_mod/2;
+    power: sw_tokyu2020_power_main()*4*1342/1000;
+    default:sw_tokyu2020_lv;
+    weight: 31;
+
+  }
+}
+item(FEAT_TRAINS, tokyu6020) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_tokyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_TOKYU), "6020", string(STR_NAME_SERIES));
+    introduction_date: date(2018, 3, 28);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+    variant_group: tokyu2020;
+
+    cost_factor: 23;
+    running_cost_factor: 53;
+    speed: 120 km/h;
+    track_type: TR_1067_DC;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 32 ton;
+  }
+ graphics {
+
+    name: sw_tokyu2020_name;
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 5,7)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_TOKYU)));
+    cargo_subtype_text: sw_tokyu6020_lv_desc_main;
+    purchase: gfx_tokyu6020_purchase_main;
+    cargo_capacity: sw_tokyu2020_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_tokyu6020_lv;
+    power: sw_tokyu2020_power_main()*4*1342/1000;
+    purchase_power: sw_tokyu2020_car_power_main()*4*1342/1000;
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_tokyu6020_lv_desc_main;
+    loading_speed:param_loading_4D;
+    cargo_capacity: sw_tokyu2020_capacity_main()*param_capacity_mod/3*boost_rapid_mod/2;
+    power: sw_tokyu2020_power_main()*4*1342/1000;
+    default:sw_tokyu6020_lv;
+    weight: 31;
+
+  }
+}
+item(FEAT_TRAINS, tokyu3020) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_tokyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_TOKYU), "3020", string(STR_NAME_SERIES));
+    introduction_date: date(2019, 11, 22);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+    variant_group: tokyu2020;
+
+    cost_factor: 23;
+    running_cost_factor: 53;
+    speed: 120 km/h;
+    track_type: TR_1067_DC;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 32 ton;
+  }
+ graphics {
+
+    name: sw_tokyu2020_name;
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
+    string(STR_USAGE, string(STR_ACCESS_COMMUTER)),
+    string(STR_OPERATOR, string(STR_TOKYU)));
+    cargo_subtype_text: sw_tokyu3020_lv_desc_main;
+    purchase: gfx_tokyu3020_purchase_main;
+    cargo_capacity: sw_tokyu2020_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_tokyu3020_lv;
+    power: sw_tokyu2020_power_main()*4*1342/1000;
+    purchase_power: sw_tokyu2020_car_power_main()*4*1342/1000;
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_tokyu3020_lv_desc_main;
+    loading_speed:param_loading_4D;
+    cargo_capacity: sw_tokyu2020_capacity_main()*param_capacity_mod/3*boost_rapid_mod/2;
+    power: sw_tokyu2020_power_main()*4*1342/1000;
+    default:sw_tokyu3020_lv;
+    weight: 31;
+
+  }
+}
 item(FEAT_TRAINS, y500) {
   property {
     cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
@@ -6238,7 +6773,7 @@ item(FEAT_TRAINS, y000) {
 
   }
 }
-# 20 "src/private/Kanto/tokyu/tokyuList.pnml" 2
+# 23 "src/private/Kanto/tokyu/tokyuList.pnml" 2
 # 36 "src/_private.pnml" 2
 # 224 "src/_private.pnml"
 item(FEAT_TRAINS, twr_70_000series, 2290) {}
@@ -6344,24 +6879,6 @@ spriteset(twr71000_wag_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Ka
           sw_twr71000_panto_placer_1_def;
       }
 
-      switch(FEAT_TRAINS, SELF, sw_twr71000_panto_placer_2_def,position_in_vehid_chain %3){
-          1: gfx_twr71000_mot_2;
-          gfx_twr71000_wag;
-      }
-      switch(FEAT_TRAINS, SELF, sw_twr71000_panto_placer_2_rev,position_in_vehid_chain_from_end %3){
-          1: gfx_twr71000_mot_2;
-          gfx_twr71000_wag;
-      }
-      switch(FEAT_TRAINS, PARENT, sw_twr71000_panto_placer_2_main,vehicle_is_reversed){
-          1: sw_twr71000_panto_placer_2_rev;
-          sw_twr71000_panto_placer_2_def;
-      }
-
-
-
-
-
-
     switch(FEAT_TRAINS, SELF, sw_twr71000_head_gfx_main,position_in_consist>0){
       1: gfx_twr71000_end;
       gfx_twr71000_front;
@@ -6452,7 +6969,7 @@ item(FEAT_TRAINS, twr71000) {
     cost_factor: 19;
     running_cost_factor: 49;
     speed: 120 km/h;
-    track_type: TR_1067_ACDC;
+    track_type: TR_1067_DC;
     power: 1 kW;
     tractive_effort_coefficient: 0.2;
     weight: 32 ton;
