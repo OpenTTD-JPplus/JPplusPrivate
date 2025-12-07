@@ -101,12 +101,14 @@ export function setItem(data) {
     trackGauge,
     weight,
     formations,
-    capacity,
+    boostCapacity = false,
     doors,
     current,
     power,
     variantGroup,
-    dualHeaded = 1,
+    fixedCapacity,
+    length,
+    isDualHeaded = 1,
   } = data;
   const usage = data.usage.map((el) => `string(STR_${el.toUpperCase()})`).toString();
   const operator = data.operator.map((el) => `string(STR_${el.toUpperCase()})`).toString();
@@ -122,7 +124,7 @@ export function setItem(data) {
       scrapYear == 0 ? "VEHICLE_NEVER_EXPIRES" : scrapYear - introductionDate.split(",")[0] + 5
     };
     vehicle_life: ${scrapYear == 0 ? "30" : scrapYear - introductionDate.split(",")[0]};
-    dual_headed: ${dualHeaded};
+    dual_headed: ${isDualHeaded ? 1 : 0};
     ${variantGroup ? `variant_group: ${variantGroup};` : ""}
     
     cost_factor: ${costFactor};
@@ -132,6 +134,7 @@ export function setItem(data) {
     power: 1 kW;
     tractive_effort_coefficient:  0.2;
     weight: ${weight[0]} ton;
+    ${length ? `length: ${length};` : ""}
   }
 	graphics {
     ${data.isVariantGroupParent ? `name: sw_${trainName}_name;` : ""}
@@ -139,9 +142,13 @@ export function setItem(data) {
     additional_text:${formatDescString(data, usage, operator)}
     ${data.hasLiveryDesc ? `cargo_subtype_text: sw_${trainName}_lv_desc_main;` : ""}
     purchase: gfx_${trainName}_purchase_main;
-    cargo_capacity: sw_${
-      data.reuseCapacityFrom ? data.reuseCapacityFrom : trainName
-    }_capacity_main()*param_capacity_mod/3;
+    ${
+      fixedCapacity
+        ? `cargo_capacity:${fixedCapacity}`
+        : `cargo_capacity:sw_${
+            data.reuseCapacityFrom ? data.reuseCapacityFrom : trainName
+          }_capacity_main()`
+    }*param_capacity_mod/3${boostCapacity ? "*boost_rapid_mod/2" : ""};
     loading_speed:${
       doors.length <= 1 ? `param_loading_${doors}D` : `sw_${trainName}_loading_speed_main`
     };
@@ -156,13 +163,18 @@ export function setItem(data) {
     loading_speed:${
       doors.length <= 1 ? `param_loading_${doors}D` : `sw_${trainName}_loading_speed_main`
     };
-    cargo_capacity: sw_${
-      data.reuseCapacityFrom ? data.reuseCapacityFrom : trainName
-    }_capacity_main()*param_capacity_mod/3${capacity && "*boost_rapid_mod/2"};
+    ${
+      fixedCapacity
+        ? `cargo_capacity:${fixedCapacity}`
+        : `cargo_capacity:sw_${
+            data.reuseCapacityFrom ? data.reuseCapacityFrom : trainName
+          }_capacity_main()`
+    }*param_capacity_mod/3${boostCapacity ? "*boost_rapid_mod/2" : ""};
+    
     power: sw_${data.reusePowerFrom ? data.reusePowerFrom : trainName}_power_main()*4*1342/1000;
     default:sw_${trainName}_lv;
     weight: ${weight[1]};
-    ${data.length ? `length: ${data.length}` : ""}
+    ${length ? `length: ${length};` : ""}
   }
 }`;
   return str;
