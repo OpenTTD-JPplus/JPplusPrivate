@@ -74,14 +74,22 @@ function formatDescString(data, usage, operator) {
     string(STR_FORMATION, string(STR_NUM_CARS_${
       data.formations.length
     }, ${data.formations.toString()})),
-    string(STR_USAGE, ${
-      data.usage.length > 1 ? `string(STR_CONCAT_${data.usage.length}_OR, ${usage})` : `${usage}`
-    }),
+    ${
+      data.usage
+        ? `string(STR_USAGE, ${
+            data.usage.length > 1
+              ? `string(STR_CONCAT_${data.usage.length}_OR, ${usage})`
+              : `${usage}`
+          }),`
+        : ""
+    }
     string(STR_OPERATOR, ${
       data.operator.length > 1
         ? `string(STR_CONCAT_${data.usage.length}, ${operator})`
         : `${operator}`
-    }));`;
+    })
+    ${data.metroLine ? `,string(STR_LINES_USED, string(${data.metroLine}))` : ""}
+    );`;
 }
 
 export function setItem(data) {
@@ -104,13 +112,15 @@ export function setItem(data) {
     boostCapacity = false,
     doors,
     current,
-    power,
+    threeCarsMin,
     variantGroup,
     fixedCapacity,
     length,
+    metroLine,
+    sounds,
     isDualHeaded = 1,
   } = data;
-  const usage = data.usage.map((el) => `string(STR_${el.toUpperCase()})`).toString();
+  const usage = data.usage?.map((el) => `string(STR_${el.toUpperCase()})`).toString();
   const operator = data.operator.map((el) => `string(STR_${el.toUpperCase()})`).toString();
 
   str += `item(FEAT_TRAINS, ${trainName}) {
@@ -157,6 +167,8 @@ export function setItem(data) {
     purchase_power: sw_${
       data.reusePowerFrom ? data.reusePowerFrom : trainName
     }_car_power_main()*4*1342/1000;
+    ${threeCarsMin ? "start_stop: sw_stop_start_3;" : ""}
+    ${sounds ? `sound_effect: ${sounds};` : ""}
   }
   livery_override(mu_car){
 		cargo_subtype_text:${data.hasLiveryDesc ? `sw_${trainName}_lv_desc_main` : "sw_empty_desc"};
