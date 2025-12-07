@@ -5,7 +5,7 @@ template tmpl_purchase_2c(x,y) {
     [x +32,  y,	8,	17,	 39, -13] //2 car
 }
 template tmpl_purchase_1c_7(x,y) {
-    [x +120,  y,28,	17,	 7, -13] //1 car
+    [x +120,  y,28,	17,	 -7, -13] //1 car
 }
 template tmpl_purchase_2c_7(x,y) {
     [x +32,  y,	12,	17,	 35, -13] //2 car
@@ -17,17 +17,17 @@ template tmpl_lines(x,y) {
 template tmpl_logo_metro(x,y) {
     [x, y, 15, 15, -32, -10]
 }
-// template tmpl_logo_private(x,y) {
+// template tmpl_logo_private(x,y,0) {
 //     [x, y, 35, 15, -32, -10]
 // }
-template tmpl_logo_private(x,y) {
+template tmpl_logo_private(x,y,z) {
   [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
   [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
   [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
   [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
   [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
   [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
-  [x, y, 35, 15, -32, -10]
+  [x, y, 35, 15, -32-z, -10]
   [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"] 
 }
 spriteset (sprite_logo_tokyo_metro, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/m_operators_tokyo.png") { tmpl_logo_metro(0, 0) }
@@ -48,9 +48,9 @@ spriteset (sprite_logo_line_tk_mita, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/log
 spriteset (sprite_logo_line_tk_shinjuku, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/m_lines_tokyo.png") { tmpl_lines(180, 0) }
 spriteset (sprite_logo_line_tk_oedo, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/m_lines_tokyo.png") { tmpl_lines(195, 0) }
 
-spriteset (sprite_logo_toyo, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_s.png") { tmpl_logo_private(0, 0) }
-spriteset (sprite_logo_saitama, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_s.png") { tmpl_logo_private(0, 15) }
-spriteset (sprite_logo_minato, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_s.png") { tmpl_logo_private(0, 30) }
+spriteset (sprite_logo_toyo, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_s.png") { tmpl_logo_private(0, 0,0) }
+spriteset (sprite_logo_saitama, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_s.png") { tmpl_logo_private(0, 15,0) }
+spriteset (sprite_logo_minato, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_s.png") { tmpl_logo_private(0, 30,0) }
 
 spriteset (sprite_logo_yokohama_subway, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/m_operators_yokohama.png") { tmpl_logo_metro(0,0) }
 spriteset (sprite_logo_line_yk_blue, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/m_lines_yokohama.png") { tmpl_lines(0, 0) }
@@ -68,8 +68,8 @@ spriteset (sprite_logo_line_os_sakai, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/lo
 spriteset (sprite_logo_line_os_tsurumi, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/m_lines_osaka.png") { tmpl_lines(90, 0) }
 spriteset (sprite_logo_line_os_imazatosuji, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/m_lines_osaka.png") { tmpl_lines(105, 0) }
 
-spriteset (sprite_logo_kintetsu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_osaka_m.png") { tmpl_logo_private(0, 0) }
-spriteset (sprite_logo_hankyu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_osaka_m.png") { tmpl_logo_private(0, 15) }
+spriteset (sprite_logo_kintetsu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_osaka_m.png") { tmpl_logo_private(0, 0,0) }
+spriteset (sprite_logo_hankyu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_osaka_m.png") { tmpl_logo_private(0, 15,0) }
 
 spriteset (sprite_logo_kyoto_subway, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/m_operators_kyoto.png") { tmpl_logo_metro(0,0) }
 spriteset (sprite_logo_line_kt_karasuma, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/m_lines_kyoto.png") { tmpl_lines(0, 0) }
@@ -94,22 +94,23 @@ spriteset (sprite_logo_fukuoka_subway, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/l
 spriteset (sprite_logo_line_fk_kukou, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/m_lines_fukuoka.png") { tmpl_lines(0, 0) }
 spriteset (sprite_logo_line_fk_nanakuma, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/m_lines_fukuoka.png") { tmpl_lines(15, 0) }
 
-spriteset (sprite_logo_tokyu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 0) }
-spriteset (sprite_logo_tobu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 15) }
-spriteset (sprite_logo_seibu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 30) }
-spriteset (sprite_logo_odakyu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 45) }
-spriteset (sprite_logo_sotetsu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 60) }
-spriteset (sprite_logo_keio, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 75) }
-spriteset (sprite_logo_keikyu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 90) }
-spriteset (sprite_logo_keisei, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 105) }
-spriteset (sprite_logo_shin_keisei, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 120) }
-spriteset (sprite_logo_hokuso, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 135) }
+spriteset (sprite_logo_tokyu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 0,0) }
+spriteset (sprite_logo_tokyu_7, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 0, 14) }
+spriteset (sprite_logo_tobu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 15,0) }
+spriteset (sprite_logo_seibu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 30,0) }
+spriteset (sprite_logo_odakyu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 45,0) }
+spriteset (sprite_logo_sotetsu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 60,0) }
+spriteset (sprite_logo_keio, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 75,0) }
+spriteset (sprite_logo_keikyu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 90,0) }
+spriteset (sprite_logo_keisei, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 105,0) }
+spriteset (sprite_logo_shin_keisei, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 120,0) }
+spriteset (sprite_logo_hokuso, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_m.png") { tmpl_logo_private(0, 135,0) }
 
-spriteset (sprite_logo_twr, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_s.png") { tmpl_logo_private(0, 45) }
-spriteset (sprite_logo_tsukuba, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_s.png") { tmpl_logo_private(0, 60) }
-spriteset (sprite_logo_chiba_nt, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_s.png") { tmpl_logo_private(0, 75) }
-spriteset (sprite_logo_chiba_e, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_s.png") { tmpl_logo_private(0, 90) }
-spriteset (sprite_logo_shibayama, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_s.png") { tmpl_logo_private(0, 105) }
+spriteset (sprite_logo_twr, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_s.png") { tmpl_logo_private(0, 45,0) }
+spriteset (sprite_logo_tsukuba, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_s.png") { tmpl_logo_private(0, 60,0) }
+spriteset (sprite_logo_chiba_nt, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_s.png") { tmpl_logo_private(0, 75,0) }
+spriteset (sprite_logo_chiba_e, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_s.png") { tmpl_logo_private(0, 90,0) }
+spriteset (sprite_logo_shibayama, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_tokyo_s.png") { tmpl_logo_private(0, 105,0) }
 
 switch(FEAT_TRAINS, SELF, logo_tokyo_metro, param_hide_logo) {0:sprite_logo_tokyo_metro;}
 switch(FEAT_TRAINS, SELF, logo_toei, param_hide_logo) {0:sprite_logo_toei;}
