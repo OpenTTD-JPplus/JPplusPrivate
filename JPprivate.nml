@@ -2864,7 +2864,7 @@ item(FEAT_TRAINS, tk_as_toei5000) {
   property {
     cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
 
-    climates_available: param_disable_tokyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
     name: string(STR_TRAIN_NAME, string(STR_NAME_TOEI), "5000", string(STR_NAME_TYPE));
     introduction_date: date(1960, 12, 4);
     model_life: 51;
@@ -2918,7 +2918,7 @@ item(FEAT_TRAINS, tk_as_toei5200) {
   property {
     cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
 
-    climates_available: param_disable_tokyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
     name: string(STR_TRAIN_NAME, string(STR_NAME_TOEI), "5200", string(STR_NAME_TYPE));
     introduction_date: date(1976, 4, 1);
     model_life: 35;
@@ -2972,7 +2972,7 @@ item(FEAT_TRAINS, tk_as_toei5300) {
   property {
     cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
 
-    climates_available: param_disable_tokyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
     name: string(STR_TRAIN_NAME, string(STR_NAME_TOEI), "5300", string(STR_NAME_TYPE));
     introduction_date: date(1991, 3, 31);
     model_life: 37;
@@ -3026,7 +3026,7 @@ item(FEAT_TRAINS, tk_as_toei5500) {
   property {
     cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
 
-    climates_available: param_disable_tokyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
     name: string(STR_TRAIN_NAME, string(STR_NAME_TOEI), "5500", string(STR_NAME_TYPE));
     introduction_date: date(2018, 6, 30);
     model_life: VEHICLE_NEVER_EXPIRES;
@@ -3078,6 +3078,418 @@ item(FEAT_TRAINS, tk_as_toei5500) {
 }
 # 6 "src/metro/Tokyo/asakusa/asakusaList.pnml" 2
 # 59 "src/_metro.pnml" 2
+# 198 "src/_metro.pnml"
+item(FEAT_TRAINS, fk_kk_1000series, 1450) {}
+item(FEAT_TRAINS, fk_kk_2000series, 1451) {}
+item(FEAT_TRAINS, fk_kk_4000series, 1452) {}
+item(FEAT_TRAINS, fk_nk_3000series, 1455) {}
+# 1 "src/metro/Fukuoka/fukuokaList.pnml" 1
+# 1 "src/metro/Fukuoka/kukou/1000series/1000series.pnml" 1
+
+spriteset(fk_kk_1000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/metro/Fukuoka/kukou/1000series/1000series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(fk_kk_1000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/kukou/1000series/1000series.png"){ tmpl_purchase_2c_dual(0, 50) }
+switch(FEAT_TRAINS, SELF, gfx_fk_kk_1000series_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_fukuoka_subway; 1: logo_line_fk_kukou; 2: fk_kk_1000series_purchase_c1; 3: fk_kk_1000series_purchase_c2;}
+
+spriteset(fk_kk_1000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/kukou/1000series/1000series.png"){ tmpl_std(0, 0) }
+spriteset(fk_kk_1000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/kukou/1000series/1000series.png"){ tmpl_std_rev(0, 25) }
+spriteset(fk_kk_1000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/kukou/1000series/1000series.png"){ tmpl_symm(0, 75) }
+spriteset(fk_kk_1000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/kukou/1000series/1000series.png"){ tmpl_symm(0, 50) }
+
+
+
+      switch(FEAT_TRAINS, SELF, sw_fk_kk_1000series_panto_placer_1,position_in_vehid_chain %2){
+          0: fk_kk_1000series_mot;
+          fk_kk_1000series_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_fk_kk_1000series_panto_placer_1_rev,position_in_vehid_chain_from_end %2){
+        0: fk_kk_1000series_mot;
+        fk_kk_1000series_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_fk_kk_1000series_panto_placer_main_1,vehicle_is_reversed){
+          1: sw_fk_kk_1000series_panto_placer_1;
+          sw_fk_kk_1000series_panto_placer_1_rev;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_fk_kk_1000series_panto_placer_2,position_in_vehid_chain %5){
+          0: fk_kk_1000series_mot;
+          2: fk_kk_1000series_mot;
+          fk_kk_1000series_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_fk_kk_1000series_panto_placer_2_rev,position_in_vehid_chain_from_end %5){
+          0: fk_kk_1000series_mot;
+          2: fk_kk_1000series_mot;
+          fk_kk_1000series_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_fk_kk_1000series_panto_placer_main_2,vehicle_is_reversed){
+          1: sw_fk_kk_1000series_panto_placer_2_rev;
+          sw_fk_kk_1000series_panto_placer_2;
+      }
+    switch(FEAT_TRAINS, SELF, sw_fk_kk_1000series_panto_placer_main,num_vehs_in_vehid_chain){
+        0..4: sw_fk_kk_1000series_panto_placer_main_2;
+        sw_fk_kk_1000series_panto_placer_main_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_fk_kk_1000series_head_gfx_main,position_in_consist>0){
+      1: fk_kk_1000series_end;
+      fk_kk_1000series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_fk_kk_1000series_lv,vehicle_type_id){
+      mu_car:sw_fk_kk_1000series_panto_placer_main;
+      sw_fk_kk_1000series_head_gfx_main;
+    }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_fk_kk_1000series_capacity_main,vehicle_type_id){
+      fk_kk_1000series: 135;
+      default: 146;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_fk_kk_1000series_car_power_main,position_in_vehid_chain_from_end %6){
+      0..4:return 75;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_fk_kk_1000series_power_main,vehicle_type_id){
+      fk_kk_1000series: 0;
+      sw_fk_kk_1000series_car_power_main;
+    }
+# 2 "src/metro/Fukuoka/fukuokaList.pnml" 2
+# 1 "src/metro/Fukuoka/kukou/2000series/2000series.pnml" 1
+
+spriteset(fk_kk_2000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/metro/Fukuoka/kukou/2000series/2000series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(fk_kk_2000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/kukou/2000series/2000series.png"){ tmpl_purchase_2c_dual(0, 50) }
+switch(FEAT_TRAINS, SELF, gfx_fk_kk_2000series_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_fukuoka_subway; 1: logo_line_fk_kukou; 2: fk_kk_2000series_purchase_c1; 3: fk_kk_2000series_purchase_c2;}
+
+spriteset(fk_kk_2000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/kukou/2000series/2000series.png"){ tmpl_std(0, 0) }
+spriteset(fk_kk_2000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/kukou/2000series/2000series.png"){ tmpl_std_rev(0, 25) }
+spriteset(fk_kk_2000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/kukou/2000series/2000series.png"){ tmpl_symm(0, 75) }
+spriteset(fk_kk_2000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/kukou/2000series/2000series.png"){ tmpl_symm(0, 50) }
+
+
+
+      switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_panto_placer_1,position_in_vehid_chain %2){
+          0: fk_kk_2000series_mot;
+          fk_kk_2000series_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_panto_placer_1_rev,position_in_vehid_chain_from_end %2){
+        0: fk_kk_2000series_mot;
+        fk_kk_2000series_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_fk_kk_2000series_panto_placer_main_1,vehicle_is_reversed){
+          1: sw_fk_kk_2000series_panto_placer_1;
+          sw_fk_kk_2000series_panto_placer_1_rev;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_panto_placer_2,position_in_vehid_chain %5){
+          0: fk_kk_2000series_mot;
+          2: fk_kk_2000series_mot;
+          fk_kk_2000series_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_panto_placer_2_rev,position_in_vehid_chain_from_end %5){
+          0: fk_kk_2000series_mot;
+          2: fk_kk_2000series_mot;
+          fk_kk_2000series_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_fk_kk_2000series_panto_placer_main_2,vehicle_is_reversed){
+          1: sw_fk_kk_2000series_panto_placer_2_rev;
+          sw_fk_kk_2000series_panto_placer_2;
+      }
+    switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_panto_placer_main,num_vehs_in_vehid_chain){
+        0..4: sw_fk_kk_2000series_panto_placer_main_2;
+        sw_fk_kk_2000series_panto_placer_main_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_head_gfx_main,position_in_consist>0){
+      1: fk_kk_2000series_end;
+      fk_kk_2000series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_lv,vehicle_type_id){
+      mu_car:sw_fk_kk_2000series_panto_placer_main;
+      sw_fk_kk_2000series_head_gfx_main;
+    }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_capacity_main,vehicle_type_id){
+      fk_kk_2000series: 135;
+      default: 146;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_car_power_main,position_in_vehid_chain_from_end %6){
+      0..4:return 150;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_fk_kk_2000series_power_main,vehicle_type_id){
+      fk_kk_2000series: 0;
+      sw_fk_kk_2000series_car_power_main;
+    }
+# 3 "src/metro/Fukuoka/fukuokaList.pnml" 2
+# 1 "src/metro/Fukuoka/nanakuma/3000series/3000series.pnml" 1
+
+spriteset(fk_nk_3000series_purchase_c1_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/nanakuma/3000series/3000series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(fk_nk_3000series_purchase_c2_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/nanakuma/3000series/3000series.png"){ tmpl_purchase_2c_dual(0, 75) }
+spriteset(fk_nk_3000series_purchase_c1_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/nanakuma/3000series/3000series_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(fk_nk_3000series_purchase_c2_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/nanakuma/3000series/3000series_1.png"){ tmpl_purchase_2c_dual(0, 75) }
+switch(FEAT_TRAINS, SELF, fk_nk_3000series_purchase_c1, current_year){
+    0..2021: fk_nk_3000series_purchase_c1_1;
+    fk_nk_3000series_purchase_c1_2;
+}
+switch(FEAT_TRAINS, SELF, fk_nk_3000series_purchase_c2, current_year){
+    0..2021: fk_nk_3000series_purchase_c2_1;
+    fk_nk_3000series_purchase_c2_2;
+}
+switch(FEAT_TRAINS, SELF, gfx_fk_nk_3000series_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_fukuoka_subway; 1: logo_line_fk_nanakuma; 2: fk_nk_3000series_purchase_c1; 3: fk_nk_3000series_purchase_c2;}
+
+  spriteset(fk_nk_3000series_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/nanakuma/3000series/3000series.png"){ tmpl_std_v3(0, 0) }
+  spriteset(fk_nk_3000series_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/nanakuma/3000series/3000series.png"){ tmpl_std_v3(0, 25) }
+  spriteset(fk_nk_3000series_1_wag_def, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/nanakuma/3000series/3000series.png"){ tmpl_std_v3(0, 75) }
+  spriteset(fk_nk_3000series_1_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/nanakuma/3000series/3000series.png"){ tmpl_std_rev_v3(0, 75) }
+  switch(FEAT_TRAINS, PARENT, fk_nk_3000series_1_wag,vehicle_is_reversed ){
+    1:fk_nk_3000series_1_wag_rev;fk_nk_3000series_1_wag_def;}
+  spriteset(fk_nk_3000series_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/nanakuma/3000series/3000series.png"){ tmpl_symm_v3(0, 50) }
+
+  spriteset(fk_nk_3000series_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/nanakuma/3000series/3000series_1.png"){ tmpl_std_v3(0, 0) }
+  spriteset(fk_nk_3000series_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/nanakuma/3000series/3000series_1.png"){ tmpl_std_v3(0, 25) }
+  spriteset(fk_nk_3000series_2_wag_def, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/nanakuma/3000series/3000series_1.png"){ tmpl_std_v3(0, 75) }
+  spriteset(fk_nk_3000series_2_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/nanakuma/3000series/3000series_1.png"){ tmpl_std_rev_v3(0, 75) }
+  switch(FEAT_TRAINS, PARENT, fk_nk_3000series_2_wag,vehicle_is_reversed ){
+    1:fk_nk_3000series_2_wag_rev;fk_nk_3000series_2_wag_def;}
+  spriteset(fk_nk_3000series_2_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Fukuoka/nanakuma/3000series/3000series_1.png"){ tmpl_symm_v3(0, 50) }
+
+
+  switch(FEAT_TRAINS, SELF, fk_nk_3000series_front, cargo_subtype==2||(cargo_subtype==0&&current_year>2020)){
+    1:fk_nk_3000series_2_front;
+    fk_nk_3000series_1_front;
+  }
+  switch(FEAT_TRAINS, SELF, fk_nk_3000series_end, cargo_subtype==2||(cargo_subtype==0&&current_year>2020)){
+    1:fk_nk_3000series_2_end;
+    fk_nk_3000series_1_end;
+  }
+  switch(FEAT_TRAINS, SELF, fk_nk_3000series_wag, cargo_subtype==2||(cargo_subtype==0&&current_year>2020)){
+    1:fk_nk_3000series_2_wag;
+    fk_nk_3000series_1_wag;
+  }
+  switch(FEAT_TRAINS, SELF, fk_nk_3000series_mot, cargo_subtype==2||(cargo_subtype==0&&current_year>2020)){
+    1:fk_nk_3000series_2_mot;
+    fk_nk_3000series_1_mot;
+  }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_fk_nk_3000series_panto_placer_1,position_in_vehid_chain %3){
+        1: fk_nk_3000series_mot;
+        fk_nk_3000series_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_fk_nk_3000series_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
+        1: fk_nk_3000series_mot;
+        fk_nk_3000series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_fk_nk_3000series_panto_placer_main_1,vehicle_is_reversed){
+        1: sw_fk_nk_3000series_panto_placer_1_rev;
+        sw_fk_nk_3000series_panto_placer_1;
+    }
+    switch(FEAT_TRAINS, SELF, sw_fk_nk_3000series_panto_placer_main,num_vehs_in_vehid_chain){
+        0..3: fk_nk_3000series_wag;
+        sw_fk_nk_3000series_panto_placer_main_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_fk_nk_3000series_head_gfx_main,position_in_consist>0){
+      1: fk_nk_3000series_end;
+      fk_nk_3000series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_fk_nk_3000series_lv,vehicle_type_id){
+      mu_car:sw_fk_nk_3000series_panto_placer_main;
+      sw_fk_nk_3000series_head_gfx_main;
+    }
+
+
+switch(FEAT_TRAINS, SELF, sw_fk_nk_3000series_lv_desc_main, cargo_subtype){
+    0: string(LV_RANDOM);
+    1: string(LV_DATED,string(STR_TRAIN_NAME_SHORT,"3000",string(STR_NAME_SERIES)),2004);
+    2: string(LV_DATED,string(STR_TRAIN_NAME_SHORT,"3000A",string(STR_NAME_SERIES)),2021);
+}
+
+
+    switch(FEAT_TRAINS, SELF, sw_fk_nk_3000series_capacity_main,vehicle_type_id){
+      fk_nk_3000series: 89;
+      default: 100;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_fk_nk_3000series_car_power_main,position_in_vehid_chain_from_end %6){
+      0..4:return 75;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_fk_nk_3000series_power_main,vehicle_type_id){
+      fk_nk_3000series: 75*2;
+      sw_fk_nk_3000series_car_power_main;
+    }
+# 4 "src/metro/Fukuoka/fukuokaList.pnml" 2
+
+# 1 "src/metro/Fukuoka/items.pnml" 1
+item(FEAT_TRAINS, fk_kk_1000series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_fukuoka == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_FUKUOKA), "1000", string(STR_NAME_SERIES));
+    introduction_date: date(1981, 7, 26);
+    model_life: 51;
+    vehicle_life: 46;
+    dual_headed: 1;
+
+
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 90 km/h;
+    track_type: TR_1067_DC;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 38 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
+
+    string(STR_OPERATOR, string(STR_FUKUOKA))
+    ,string(STR_LINES_USED, string(STR_FUKUOKA_KUKO))
+    );
+
+    purchase: gfx_fk_kk_1000series_purchase_main;
+    cargo_capacity:sw_fk_kk_1000series_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_3D;
+    default:sw_fk_kk_1000series_lv;
+    power: sw_fk_kk_1000series_power_main()*4*1342/1000;
+    purchase_power: sw_fk_kk_1000series_car_power_main()*4*1342/1000;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_fk_kk_1000series_capacity_main()*param_capacity_mod/3;
+
+    power: sw_fk_kk_1000series_power_main()*4*1342/1000;
+    default:sw_fk_kk_1000series_lv;
+    weight: 37;
+
+  }
+}
+item(FEAT_TRAINS, fk_kk_2000series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_fukuoka == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_FUKUOKA), "2000", string(STR_NAME_SERIES));
+    introduction_date: date(1992, 8, 25);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+
+    cost_factor: 20;
+    running_cost_factor: 50;
+    speed: 110 km/h;
+    track_type: TR_1067_DC;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 32 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
+
+    string(STR_OPERATOR, string(STR_FUKUOKA))
+    ,string(STR_LINES_USED, string(STR_FUKUOKA_KUKO))
+    );
+
+    purchase: gfx_fk_kk_2000series_purchase_main;
+    cargo_capacity:sw_fk_kk_2000series_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_3D;
+    default:sw_fk_kk_2000series_lv;
+    power: sw_fk_kk_2000series_power_main()*4*1342/1000;
+    purchase_power: sw_fk_kk_2000series_car_power_main()*4*1342/1000;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_fk_kk_2000series_capacity_main()*param_capacity_mod/3;
+
+    power: sw_fk_kk_2000series_power_main()*4*1342/1000;
+    default:sw_fk_kk_2000series_lv;
+    weight: 33;
+
+  }
+}
+item(FEAT_TRAINS, fk_nk_3000series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_fukuoka == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_FUKUOKA), "3000", string(STR_NAME_SERIES));
+    introduction_date: date(2005, 2, 3);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 120 km/h;
+    track_type: TR_1435_DC;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 27 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
+
+    string(STR_OPERATOR, string(STR_FUKUOKA))
+    ,string(STR_LINES_USED, string(STR_FUKUOKA_NANAKUMA))
+    );
+    cargo_subtype_text: sw_fk_nk_3000series_lv_desc_main;
+    purchase: gfx_fk_nk_3000series_purchase_main;
+    cargo_capacity:sw_fk_nk_3000series_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_3D;
+    default:sw_fk_nk_3000series_lv;
+    power: sw_fk_nk_3000series_power_main()*4*1342/1000;
+    purchase_power: sw_fk_nk_3000series_car_power_main()*4*1342/1000;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_fk_nk_3000series_lv_desc_main;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_fk_nk_3000series_capacity_main()*param_capacity_mod/3;
+
+    power: sw_fk_nk_3000series_power_main()*4*1342/1000;
+    default:sw_fk_nk_3000series_lv;
+    weight: 26;
+
+  }
+}
+# 6 "src/metro/Fukuoka/fukuokaList.pnml" 2
+# 203 "src/_metro.pnml" 2
 # 15 "JPprivate.pnml" 2
 # 1 "src/_private.pnml" 1
 
