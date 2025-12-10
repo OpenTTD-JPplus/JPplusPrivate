@@ -7,6 +7,9 @@ function formatCurrentString(string) {
     case "DC_1500":
       res = "string(STR_DC, 1500)";
       break;
+    case "DC_600":
+      res = "string(STR_DC, 600)";
+      break;
     case "AC_20000_50hz":
       res = "string(STR_AC, 20, 50)";
       break;
@@ -36,6 +39,9 @@ function formatTrackType(string) {
   switch (string) {
     case "DC_1500":
       res = "DC";
+      break;
+    case "DC_600":
+      res = "M";
       break;
     case "AC_20000_50hz":
       res = "AC";
