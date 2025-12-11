@@ -129,6 +129,7 @@ export function setItem(data) {
     current,
     threeCarsMin,
     variantGroup,
+    variantSimple,
     fixedCapacity,
     length,
     metroLine,
@@ -163,7 +164,7 @@ export function setItem(data) {
   }
 	graphics {
     ${data.isVariantGroupParent ? `name: sw_${trainName}_name;` : ""}
-    ${data.variantGroup ? `name: sw_${variantGroup}_name;` : ""}
+    ${variantSimple ? "" : `${data.variantGroup ? `name: sw_${variantGroup}_name;` : ""} `}
     additional_text:${formatDescString(data, usage, operator)}
     ${data.hasLiveryDesc ? `cargo_subtype_text: sw_${trainName}_lv_desc_main;` : ""}
     purchase: gfx_${trainName}_purchase_main;
