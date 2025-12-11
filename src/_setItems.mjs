@@ -2,6 +2,7 @@ import { parseCompany } from "./api/utils/parseData.mjs";
 
 parseCompany("src/metro/Tokyo/asakusa");
 
+parseCompany("src/metro/Osaka");
 parseCompany("src/metro/Kobe");
 parseCompany("src/metro/Kyoto");
 parseCompany("src/metro/Nagoya");

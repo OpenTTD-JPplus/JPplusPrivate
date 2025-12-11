@@ -1,6 +1,6 @@
 import { setPowerMain } from "../modules/setPower.mjs";
 import { setCapacityMain } from "../modules/setCapacity.mjs";
-
+//using switch here is fucking dumb
 function formatCurrentString(string) {
   let res = "";
   switch (string) {
@@ -9,6 +9,9 @@ function formatCurrentString(string) {
       break;
     case "DC_600":
       res = "string(STR_DC, 600)";
+      break;
+    case "DC_750":
+      res = "string(STR_DC, 750)";
       break;
     case "AC_20000_50hz":
       res = "string(STR_AC, 20, 50)";
@@ -44,6 +47,9 @@ function formatTrackType(string) {
       res = "LINEAR";
       break;
     case "DC_600":
+      res = "M";
+      break;
+    case "DC_750":
       res = "M";
       break;
     case "AC_20000_50hz":
