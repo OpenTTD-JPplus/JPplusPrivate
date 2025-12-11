@@ -3076,7 +3076,6 @@ item(FEAT_TRAINS, tk_as_toei5500) {
 item(FEAT_TRAINS, os_nm_8000series, 1220) {}
 item(FEAT_TRAINS, os_nm_9000series, 1221) {}
 
-
 item(FEAT_TRAINS, os_nm_type100, 1230) {}
 item(FEAT_TRAINS, os_nm_type500, 1231) {}
 item(FEAT_TRAINS, os_nm_type1000, 1232) {}
@@ -3085,7 +3084,13 @@ item(FEAT_TRAINS, os_nm_30series, 1234) {}
 item(FEAT_TRAINS, os_nm_10series, 1235) {}
 item(FEAT_TRAINS, os_nm_21series, 1236) {}
 item(FEAT_TRAINS, os_nm_30000series, 1237) {}
-# 115 "src/_metro.pnml"
+
+item(FEAT_TRAINS, os_tm_50series, 1250) {}
+item(FEAT_TRAINS, os_tm_30series, 1251) {}
+item(FEAT_TRAINS, os_tm_20series, 1252) {}
+item(FEAT_TRAINS, os_tm_22series, 1253) {}
+item(FEAT_TRAINS, os_tm_30000series, 1254) {}
+# 117 "src/_metro.pnml"
 # 1 "src/metro/Osaka/osakaList.pnml" 1
 # 1 "src/metro/Osaka/namboku_mido/100series/type100.pnml" 1
 
@@ -3309,8 +3314,8 @@ switch(FEAT_TRAINS, SELF, sw_os_nm_30series_lv_desc_main, cargo_subtype){
 
 
     switch(FEAT_TRAINS, SELF, sw_os_nm_30series_capacity_main,vehicle_type_id){
-      os_nm_30series: 91;
-      default: 95;
+      mu_car: 95;
+      91;
     }
 
     switch(FEAT_TRAINS, SELF, sw_os_nm_30series_car_power_main,position_in_vehid_chain_from_end %8){
@@ -3319,8 +3324,8 @@ switch(FEAT_TRAINS, SELF, sw_os_nm_30series_lv_desc_main, cargo_subtype){
       return 0;
     }
     switch(FEAT_TRAINS, SELF, sw_os_nm_30series_power_main,vehicle_type_id){
-      os_nm_30series: 120*2;
-      sw_os_nm_30series_car_power_main;
+      mu_car:sw_os_nm_30series_car_power_main;
+      120*2;
     }
 # 6 "src/metro/Osaka/osakaList.pnml" 2
 # 1 "src/metro/Osaka/namboku_mido/10series/10series.pnml" 1
@@ -3404,8 +3409,8 @@ spriteset(os_nm_10series_2_wag_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro
 
 
     switch(FEAT_TRAINS, SELF, sw_os_nm_10series_capacity_main,vehicle_type_id){
-      os_nm_10series: 130;
-      default: 140;
+      mu_car: 140;
+      return 130;
     }
 
     switch(FEAT_TRAINS, SELF, sw_os_nm_10series_car_power_main,position_in_vehid_chain_from_end %8){
@@ -3413,8 +3418,8 @@ spriteset(os_nm_10series_2_wag_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro
       return 0;
     }
     switch(FEAT_TRAINS, SELF, sw_os_nm_10series_power_main,vehicle_type_id){
-      os_nm_10series: 140*2;
-      sw_os_nm_10series_car_power_main;
+      mu_car: sw_os_nm_10series_car_power_main;
+      return 140*2;
     }
 
 
@@ -3653,6 +3658,250 @@ switch(FEAT_TRAINS, SELF, sw_os_nm_9000series_lv_desc_main, cargo_subtype){
 }
 # 12 "src/metro/Osaka/osakaList.pnml" 2
 
+# 1 "src/metro/Osaka/tanimachi/50series/50series.pnml" 1
+
+spriteset(os_tm_50series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/50series/50series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(os_tm_50series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/50series/50series.png"){ tmpl_purchase_2c_dual(0, 50) }
+switch(FEAT_TRAINS, SELF, gfx_os_tm_50series_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_osaka_metro; 1: logo_line_os_tani; 2: os_tm_50series_purchase_c1; 3: os_tm_50series_purchase_c2;}
+
+
+spriteset(os_tm_50series_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/50series/50series.png"){ tmpl_std_v3(0, 0) }
+spriteset(os_tm_50series_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/50series/50series.png"){ tmpl_std_v3(0, 25) }
+spriteset(os_tm_50series_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/50series/50series.png"){ tmpl_std_v3(0, 50) }
+spriteset(os_tm_50series_1_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/50series/50series.png"){ tmpl_std_rev_v3(0, 50) }
+
+spriteset(os_tm_50series_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/50series/50series_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(os_tm_50series_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/50series/50series_1.png"){ tmpl_std_v3(0, 25) }
+spriteset(os_tm_50series_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/50series/50series_1.png"){ tmpl_std_v3(0, 50) }
+spriteset(os_tm_50series_2_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/50series/50series_1.png"){ tmpl_std_rev_v3(0, 50) }
+
+
+  switch(FEAT_TRAINS, SELF, os_tm_50series_front, cargo_subtype){
+    1:os_tm_50series_2_front;
+    os_tm_50series_1_front;
+  }
+  switch(FEAT_TRAINS, SELF, os_tm_50series_end, cargo_subtype){
+    1:os_tm_50series_2_end;
+    os_tm_50series_1_end;
+  }
+  switch(FEAT_TRAINS, SELF, os_tm_50series_wag, cargo_subtype){
+    1:os_tm_50series_2_wag;
+    os_tm_50series_1_wag;
+  }
+  switch(FEAT_TRAINS, SELF, os_tm_50series_wag_rev, cargo_subtype){
+    1:os_tm_50series_2_wag_rev;
+    os_tm_50series_1_wag_rev;
+  }
+
+
+  switch(FEAT_TRAINS, SELF, sw_os_tm_50series_wag_1_gfx,position_in_vehid_chain %2){
+    0: os_tm_50series_wag_rev;
+    os_tm_50series_wag;
+  }
+  switch(FEAT_TRAINS, SELF, sw_os_tm_50series_wag_rev_gfx,position_in_vehid_chain_from_end %2){
+    0: os_tm_50series_wag;
+    os_tm_50series_wag_rev;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_os_tm_50series_wag_gfx,vehicle_is_reversed){
+    1: sw_os_tm_50series_wag_1_gfx;
+    sw_os_tm_50series_wag_rev_gfx;
+  }
+
+
+    switch(FEAT_TRAINS, SELF, sw_os_tm_50series_head_gfx_main,position_in_consist>0){
+      1: os_tm_50series_end;
+      os_tm_50series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_os_tm_50series_lv,vehicle_type_id){
+      mu_car:sw_os_tm_50series_wag_gfx;
+      sw_os_tm_50series_head_gfx_main;
+    }
+
+
+
+switch(FEAT_TRAINS, SELF, sw_os_tm_50series_lv_desc_main, cargo_subtype){
+    0: string(LV_DATED, string(STR_PAINT,string(STR_WHITE)),1967);
+    1: string(LV_DATED, string(STR_PAINT,string(STR_GREEN)),1967);
+}
+# 14 "src/metro/Osaka/osakaList.pnml" 2
+# 1 "src/metro/Osaka/tanimachi/30series/30series.pnml" 1
+
+spriteset(os_tm_30series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/30series/30series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(os_tm_30series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/30series/30series.png"){ tmpl_purchase_2c_dual(0, 50) }
+switch(FEAT_TRAINS, SELF, gfx_os_tm_30series_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_osaka_metro; 1: logo_line_os_tani; 2: os_tm_30series_purchase_c1; 3: os_tm_30series_purchase_c2;}
+
+
+spriteset(os_tm_30series_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/30series/30series_old.png"){ tmpl_std_v3(0, 0) }
+spriteset(os_tm_30series_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/30series/30series_old.png"){ tmpl_std_v3(0, 25) }
+spriteset(os_tm_30series_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/30series/30series_old.png"){ tmpl_symm_v3(0, 50) }
+
+
+spriteset(os_tm_30series_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/30series/30series_old_al.png"){ tmpl_std_v3(0, 0) }
+spriteset(os_tm_30series_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/30series/30series_old_al.png"){ tmpl_std_v3(0, 25) }
+spriteset(os_tm_30series_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/30series/30series_old_al.png"){ tmpl_symm_v3(0, 50) }
+
+
+spriteset(os_tm_30series_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/30series/30series.png"){ tmpl_std_v3(0, 0) }
+spriteset(os_tm_30series_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/30series/30series.png"){ tmpl_std_v3(0, 25) }
+spriteset(os_tm_30series_3_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/30series/30series.png"){ tmpl_symm_v3(0, 50) }
+
+
+spriteset(os_tm_30series_4_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/30series/30series_al.png"){ tmpl_std_v3(0, 0) }
+spriteset(os_tm_30series_4_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/30series/30series_al.png"){ tmpl_std_v3(0, 25) }
+spriteset(os_tm_30series_4_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/30series/30series_al.png"){ tmpl_symm_v3(0, 50) }
+
+  switch(FEAT_TRAINS, SELF, os_tm_30series_front, cargo_subtype){
+    1:os_tm_30series_2_front;
+    2:os_tm_30series_3_front;
+    3:os_tm_30series_4_front;
+    os_tm_30series_1_front;
+  }
+  switch(FEAT_TRAINS, SELF, os_tm_30series_end, cargo_subtype){
+    1:os_tm_30series_2_end;
+    2:os_tm_30series_3_end;
+    3:os_tm_30series_4_end;
+    os_tm_30series_1_end;
+  }
+  switch(FEAT_TRAINS, SELF, os_tm_30series_wag, cargo_subtype){
+    1:os_tm_30series_2_wag;
+    2:os_tm_30series_3_wag;
+    3:os_tm_30series_4_wag;
+    os_tm_30series_1_wag;
+  }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_os_tm_30series_head_gfx_main,position_in_consist>0){
+      1: os_tm_30series_end;
+      os_tm_30series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_os_tm_30series_lv,vehicle_type_id){
+      mu_car:os_tm_30series_wag;
+      sw_os_tm_30series_head_gfx_main;
+    }
+
+
+switch(FEAT_TRAINS, SELF, sw_os_tm_30series_lv_desc_main, cargo_subtype){
+    0: string(STR_PREFIX_OLD, string(STR_STEEL));
+    1: string(STR_PREFIX_OLD, string(STR_ALUMI));
+    2: string(STR_STEEL);
+    3: string(STR_ALUMI);
+}
+# 15 "src/metro/Osaka/osakaList.pnml" 2
+# 1 "src/metro/Osaka/tanimachi/20series/20series.pnml" 1
+
+spriteset(os_tm_20series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/20series/20series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(os_tm_20series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/20series/20series.png"){ tmpl_purchase_2c_dual(0, 50) }
+switch(FEAT_TRAINS, SELF, gfx_os_tm_20series_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_osaka_metro; 1: logo_line_os_tani; 2: os_tm_20series_purchase_c1; 3: os_tm_20series_purchase_c2;}
+
+spriteset(os_tm_20series_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/20series/20series.png"){ tmpl_std_v3(0, 0) }
+spriteset(os_tm_20series_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/20series/20series.png"){ tmpl_std_v3(0, 25) }
+spriteset(os_tm_20series_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/20series/20series.png"){ tmpl_symm_v3(0, 50) }
+
+spriteset(os_tm_20series_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/20series/20series_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(os_tm_20series_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/20series/20series_1.png"){ tmpl_std_v3(0, 25) }
+spriteset(os_tm_20series_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/20series/20series_1.png"){ tmpl_symm_v3(0, 50) }
+
+
+  switch(FEAT_TRAINS, SELF, os_tm_20series_front, cargo_subtype==2||(cargo_subtype==0&&current_year>2003)){
+    1:os_tm_20series_2_front;
+    os_tm_20series_1_front;
+  }
+  switch(FEAT_TRAINS, SELF, os_tm_20series_end, cargo_subtype==2||(cargo_subtype==0&&current_year>2003)){
+    1:os_tm_20series_2_end;
+    os_tm_20series_1_end;
+  }
+  switch(FEAT_TRAINS, SELF, os_tm_20series_wag, cargo_subtype==2||(cargo_subtype==0&&current_year>2003)){
+    1:os_tm_20series_2_wag;
+    os_tm_20series_1_wag;
+  }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_os_tm_20series_head_gfx_main,position_in_consist>0){
+      1: os_tm_20series_end;
+      os_tm_20series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_os_tm_20series_lv,vehicle_type_id){
+      mu_car:os_tm_20series_wag;
+      sw_os_tm_20series_head_gfx_main;
+    }
+
+
+switch(FEAT_TRAINS, SELF, sw_os_tm_20series_lv_desc_main, cargo_subtype){
+    0: string(LV_RANDOM);
+    1: string(LV_DATED,string(STR_LIVERY,string(LV_DEFAULT)),1976);
+    2: string(LV_DATED,string(STR_LIVERY,string(STR_RENEWAL)),2004);
+}
+# 16 "src/metro/Osaka/osakaList.pnml" 2
+# 1 "src/metro/Osaka/tanimachi/22series/22series.pnml" 1
+
+spriteset(os_tm_22series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/22series/22series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(os_tm_22series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/22series/22series.png"){ tmpl_purchase_2c_dual(0, 50) }
+switch(FEAT_TRAINS, SELF, gfx_os_tm_22series_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_osaka_metro; 1: logo_line_os_tani; 2: os_tm_22series_purchase_c1; 3: os_tm_22series_purchase_c2;}
+
+spriteset(os_tm_22series_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/22series/22series.png"){ tmpl_std_v3(0, 0) }
+spriteset(os_tm_22series_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/22series/22series.png"){ tmpl_std_v3(0, 25) }
+spriteset(os_tm_22series_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/22series/22series.png"){ tmpl_symm_v3(0, 50) }
+
+spriteset(os_tm_22series_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/22series/22series_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(os_tm_22series_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/22series/22series_1.png"){ tmpl_std_v3(0, 25) }
+spriteset(os_tm_22series_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/22series/22series_1.png"){ tmpl_symm_v3(0, 50) }
+
+
+  switch(FEAT_TRAINS, SELF, os_tm_22series_front, cargo_subtype==2||(cargo_subtype==0&&current_year>2013)){
+    1:os_tm_22series_2_front;
+    os_tm_22series_1_front;
+  }
+  switch(FEAT_TRAINS, SELF, os_tm_22series_end, cargo_subtype==2||(cargo_subtype==0&&current_year>2013)){
+    1:os_tm_22series_2_end;
+    os_tm_22series_1_end;
+  }
+  switch(FEAT_TRAINS, SELF, os_tm_22series_wag, cargo_subtype==2||(cargo_subtype==0&&current_year>2013)){
+    1:os_tm_22series_2_wag;
+    os_tm_22series_1_wag;
+  }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_os_tm_22series_head_gfx_main,position_in_consist>0){
+      1: os_tm_22series_end;
+      os_tm_22series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_os_tm_22series_lv,vehicle_type_id){
+      mu_car:os_tm_22series_wag;
+      sw_os_tm_22series_head_gfx_main;
+    }
+
+
+switch(FEAT_TRAINS, SELF, sw_os_tm_22series_lv_desc_main, cargo_subtype){
+    0: string(LV_RANDOM);
+    1: string(LV_DATED,string(STR_LIVERY,string(LV_DEFAULT)),1991);
+    2: string(LV_DATED,string(STR_LIVERY,string(STR_RENEWAL)),2004);
+}
+# 17 "src/metro/Osaka/osakaList.pnml" 2
+# 1 "src/metro/Osaka/tanimachi/30000series/30000series.pnml" 1
+
+spriteset(os_tm_30000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/30000series/30000series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(os_tm_30000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/30000series/30000series.png"){ tmpl_purchase_2c_dual(0, 50) }
+switch(FEAT_TRAINS, SELF, gfx_os_tm_30000series_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_osaka_metro; 1: logo_line_os_tani; 2: os_tm_30000series_purchase_c1; 3: os_tm_30000series_purchase_c2;}
+
+spriteset(os_tm_30000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/30000series/30000series.png"){ tmpl_std_v3(0, 0) }
+spriteset(os_tm_30000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/30000series/30000series.png"){ tmpl_std_v3(0, 25) }
+spriteset(os_tm_30000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Osaka/tanimachi/30000series/30000series.png"){ tmpl_symm_v3(0, 50) }
+
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_os_tm_30000series_head_gfx_main,position_in_consist>0){
+      1: os_tm_30000series_end;
+      os_tm_30000series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_os_tm_30000series_lv,vehicle_type_id){
+      mu_car:os_tm_30000series_wag;
+      sw_os_tm_30000series_head_gfx_main;
+    }
+# 18 "src/metro/Osaka/osakaList.pnml" 2
 # 1 "src/metro/Osaka/items.pnml" 1
 item(FEAT_TRAINS, os_nm_type100) {
   property {
@@ -4194,8 +4443,278 @@ item(FEAT_TRAINS, os_nm_9000series) {
 
   }
 }
-# 13 "src/metro/Osaka/osakaList.pnml" 2
-# 116 "src/_metro.pnml" 2
+item(FEAT_TRAINS, os_tm_50series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_OSAKA_METRO), "50", string(STR_NAME_SERIES));
+    introduction_date: date(1960, 3, 1);
+    model_life: 34;
+    vehicle_life: 29;
+    dual_headed: 1;
+    variant_group: os_nm_50series;
+
+    cost_factor: 17;
+    running_cost_factor: 47;
+    speed: 70 km/h;
+    track_type: TR_1435_M;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 36 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 750)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 2,6)),
+
+    string(STR_OPERATOR, string(STR_OSAKAMETRO))
+    ,string(STR_LINES_USED, string(STR_OSAKA_TANIMACHI))
+    );
+    cargo_subtype_text: sw_os_tm_50series_lv_desc_main;
+    purchase: gfx_os_tm_50series_purchase_main;
+    cargo_capacity:84*param_capacity_mod/3;
+    loading_speed:param_loading_3D;
+    default:sw_os_tm_50series_lv;
+    power: sw_os_nm_50series_power_main()*4*1342/1000;
+    purchase_power: sw_os_nm_50series_car_power_main()*4*1342/1000;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_os_tm_50series_lv_desc_main;
+    loading_speed:param_loading_3D;
+    cargo_capacity:84*param_capacity_mod/3;
+
+    power: sw_os_nm_50series_power_main()*4*1342/1000;
+    default:sw_os_tm_50series_lv;
+    weight: 36;
+
+  }
+}
+item(FEAT_TRAINS, os_tm_30series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_OSAKA_METRO), "30", string(STR_NAME_SERIES));
+    introduction_date: date(1967, 3, 24);
+    model_life: 51;
+    vehicle_life: 46;
+    dual_headed: 1;
+    variant_group: os_nm_30series;
+
+    cost_factor: 18;
+    running_cost_factor: 48;
+    speed: 75 km/h;
+    track_type: TR_1435_M;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 30 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 750)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
+
+    string(STR_OPERATOR, string(STR_OSAKAMETRO))
+    ,string(STR_LINES_USED, string(STR_OSAKA_TANIMACHI))
+    );
+    cargo_subtype_text: sw_os_tm_30series_lv_desc_main;
+    purchase: gfx_os_tm_30series_purchase_main;
+    cargo_capacity:sw_os_nm_30series_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_os_tm_30series_lv;
+    power: sw_os_nm_30series_power_main()*4*1342/1000;
+    purchase_power: sw_os_nm_30series_car_power_main()*4*1342/1000;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_os_tm_30series_lv_desc_main;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_os_nm_30series_capacity_main()*param_capacity_mod/3;
+
+    power: sw_os_nm_30series_power_main()*4*1342/1000;
+    default:sw_os_tm_30series_lv;
+    weight: 32;
+
+  }
+}
+item(FEAT_TRAINS, os_tm_20series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_OSAKA_METRO), "20", string(STR_NAME_SERIES));
+    introduction_date: date(1976, 2, 16);
+    model_life: 51;
+    vehicle_life: 46;
+    dual_headed: 1;
+    variant_group: os_nm_10series;
+
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 80 km/h;
+    track_type: TR_1435_M;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 30 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 750)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
+
+    string(STR_OPERATOR, string(STR_OSAKAMETRO))
+    ,string(STR_LINES_USED, string(STR_OSAKA_TANIMACHI))
+    );
+    cargo_subtype_text: sw_os_tm_20series_lv_desc_main;
+    purchase: gfx_os_tm_20series_purchase_main;
+    cargo_capacity:sw_os_nm_10series_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_os_tm_20series_lv;
+    power: sw_os_nm_10series_power_main()*4*1342/1000;
+    purchase_power: sw_os_nm_10series_car_power_main()*4*1342/1000;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_os_tm_20series_lv_desc_main;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_os_nm_10series_capacity_main()*param_capacity_mod/3;
+
+    power: sw_os_nm_10series_power_main()*4*1342/1000;
+    default:sw_os_tm_20series_lv;
+    weight: 32;
+
+  }
+}
+item(FEAT_TRAINS, os_tm_22series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_OSAKA_METRO), "22", string(STR_NAME_SERIES));
+    introduction_date: date(1991, 4, 9);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+    variant_group: os_nm_21series;
+
+    cost_factor: 20;
+    running_cost_factor: 50;
+    speed: 95 km/h;
+    track_type: TR_1435_M;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 30 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 750)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
+
+    string(STR_OPERATOR, string(STR_OSAKAMETRO))
+    ,string(STR_LINES_USED, string(STR_OSAKA_TANIMACHI))
+    );
+    cargo_subtype_text: sw_os_tm_22series_lv_desc_main;
+    purchase: gfx_os_tm_22series_purchase_main;
+    cargo_capacity:sw_os_nm_10series_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_os_tm_22series_lv;
+    power: sw_os_nm_10series_power_main()*4*1342/1000;
+    purchase_power: sw_os_nm_10series_car_power_main()*4*1342/1000;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_os_tm_22series_lv_desc_main;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_os_nm_10series_capacity_main()*param_capacity_mod/3;
+
+    power: sw_os_nm_10series_power_main()*4*1342/1000;
+    default:sw_os_tm_22series_lv;
+    weight: 32;
+
+  }
+}
+item(FEAT_TRAINS, os_tm_30000series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_OSAKA_METRO), "30000", string(STR_NAME_SERIES));
+    introduction_date: date(2009, 3, 18);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+    variant_group: os_nm_30000series;
+
+    cost_factor: 20;
+    running_cost_factor: 50;
+    speed: 95 km/h;
+    track_type: TR_1435_M;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 36 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 750)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
+
+    string(STR_OPERATOR, string(STR_OSAKAMETRO))
+    ,string(STR_LINES_USED, string(STR_OSAKA_TANIMACHI))
+    );
+
+    purchase: gfx_os_tm_30000series_purchase_main;
+    cargo_capacity:sw_os_nm_10series_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_os_tm_30000series_lv;
+    power: sw_os_nm_10series_power_main()*4*1342/1000;
+    purchase_power: sw_os_nm_10series_car_power_main()*4*1342/1000;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_os_nm_10series_capacity_main()*param_capacity_mod/3;
+
+    power: sw_os_nm_10series_power_main()*4*1342/1000;
+    default:sw_os_tm_30000series_lv;
+    weight: 32;
+
+  }
+}
+# 18 "src/metro/Osaka/osakaList.pnml" 2
+# 118 "src/_metro.pnml" 2
 
 
 
@@ -4544,8 +5063,8 @@ item(FEAT_TRAINS, kt_tz_50series) {
   }
 }
 # 6 "src/metro/Kyoto/kyotoList.pnml" 2
-# 124 "src/_metro.pnml" 2
-# 132 "src/_metro.pnml"
+# 126 "src/_metro.pnml" 2
+# 134 "src/_metro.pnml"
 item(FEAT_TRAINS, ng_hg_type100, 1370) {}
 item(FEAT_TRAINS, ng_hg_type300, 1371) {}
 item(FEAT_TRAINS, ng_hg_5000series, 1372) {}
@@ -6285,7 +6804,7 @@ item(FEAT_TRAINS, ng_km_7000series) {
   }
 }
 # 19 "src/metro/Nagoya/nagoyaList.pnml" 2
-# 151 "src/_metro.pnml" 2
+# 153 "src/_metro.pnml" 2
 
 
 
@@ -6527,7 +7046,7 @@ item(FEAT_TRAINS, sn_tz_2000series) {
   }
 }
 # 5 "src/metro/Sendai/sendaiList.pnml" 2
-# 159 "src/_metro.pnml" 2
+# 161 "src/_metro.pnml" 2
 
 
 
@@ -7319,7 +7838,7 @@ item(FEAT_TRAINS, kb_sy_6000series) {
   }
 }
 # 9 "src/metro/Kobe/kobeList.pnml" 2
-# 172 "src/_metro.pnml" 2
+# 174 "src/_metro.pnml" 2
 
 
 
@@ -7737,7 +8256,7 @@ item(FEAT_TRAINS, fk_nk_3000series) {
   }
 }
 # 6 "src/metro/Fukuoka/fukuokaList.pnml" 2
-# 184 "src/_metro.pnml" 2
+# 186 "src/_metro.pnml" 2
 # 15 "JPprivate.pnml" 2
 # 1 "src/_private.pnml" 1
 
