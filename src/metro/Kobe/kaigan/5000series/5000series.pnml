@@ -1,111 +1,58 @@
 //purchase
-spriteset(kb_kg_5000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Kobe/kaigan/5000series/5000series.png"){ tmpl_purchase_1c(0, 0) }
-spriteset(kb_kg_5000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Kobe/kaigan/5000series/5000series.png"){ tmpl_purchase_2c(0, 75) }
-GRAPHIC_STACK_4(kb_kg_5000series_purchase, logo_kobe_subway, logo_line_kb_kaigan, kb_kg_5000series_purchase_c1, kb_kg_5000series_purchase_c2)
+spriteset(kb_kg_5000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Kobe/kaigan/5000series/5000series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(kb_kg_5000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Kobe/kaigan/5000series/5000series.png"){ tmpl_purchase_2c_dual(0, 75) }
+GRAPHIC_STACK_4(gfx_kb_kg_5000series_purchase_main, logo_kobe_subway, logo_line_kb_kaigan, kb_kg_5000series_purchase_c1, kb_kg_5000series_purchase_c2)
 //livery 1
 
-spriteset(kb_kg_5000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Kobe/kaigan/5000series/5000series.png"){ tmpl_std(0, 0) }
-spriteset(kb_kg_5000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Kobe/kaigan/5000series/5000series.png"){ tmpl_std_rev(0, 25) }
-spriteset(kb_kg_5000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Kobe/kaigan/5000series/5000series.png"){ tmpl_std(0, 75) }
-spriteset(kb_kg_5000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Kobe/kaigan/5000series/5000series.png"){ tmpl_std(0, 50) }
-spriteset(kb_kg_5000series_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Kobe/kaigan/5000series/5000series.png"){ tmpl_std(0, 100) }
-spriteset(kb_kg_5000series_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/metro/Kobe/kaigan/5000series/5000series.png"){ tmpl_std_rev(0, 100) }
+spriteset(kb_kg_5000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Kobe/kaigan/5000series/5000series.png"){ tmpl_std_v3(0, 0) }
+spriteset(kb_kg_5000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Kobe/kaigan/5000series/5000series.png"){ tmpl_std_v3(0, 25) }
+spriteset(kb_kg_5000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Kobe/kaigan/5000series/5000series.png"){ tmpl_symm_v3(0, 75) }
+spriteset(kb_kg_5000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Kobe/kaigan/5000series/5000series.png"){ tmpl_symm_v3(0, 50) }
 
-//livery 1
-//panto placer
-switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_panto_placer_1,position_in_consist %4){
-    3: kb_kg_5000series_mot;
-    kb_kg_5000series_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_panto_placer_1_rev,position_in_consist_from_end %7){
-    3: kb_kg_5000series_mot;
-    kb_kg_5000series_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_kb_kg_5000series_panto_placer_1_main,vehicle_is_reversed){
-    1: sw_kb_kg_5000series_panto_placer_1_rev;
-    sw_kb_kg_5000series_panto_placer_1;
-}
-//panto main
-switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_panto_placer_main,num_vehs_in_consist >5){
-    1:sw_kb_kg_5000series_panto_placer_1_main;
-    kb_kg_5000series_wag;
-}
-//panto placer end 
-//fake head-end placer
-switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_fake_placer,position_in_consist){
-    3: kb_kg_5000series_end_f;
-    4: kb_kg_5000series_front_f;
-sw_kb_kg_5000series_panto_placer_main;
-}
-switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_fake_placer_rev,position_in_consist_from_end){
-    3: kb_kg_5000series_front_f;
-    4: kb_kg_5000series_end_f;
-sw_kb_kg_5000series_panto_placer_main;
-}
-switch(FEAT_TRAINS, PARENT, sw_kb_kg_5000series_fake_placer_gfx,vehicle_is_reversed){
-    1: sw_kb_kg_5000series_fake_placer_rev;
-    sw_kb_kg_5000series_fake_placer;
-}
-switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_fake_placer_main,num_vehs_in_consist>7){
-    1: sw_kb_kg_5000series_fake_placer_gfx;
-sw_kb_kg_5000series_panto_placer_main;
-}
-//fake head-end placer end
-//front-end-fixer
-switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_end,position_in_consist_from_end){
-    0: kb_kg_5000series_end;
-    1: kb_kg_5000series_wag;
-    default: sw_kb_kg_5000series_fake_placer_main;
-}
-switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_lv,position_in_consist){
-    0: kb_kg_5000series_front;
-    1: kb_kg_5000series_wag;
-    default: sw_kb_kg_5000series_end;
-}
-//front-end-fixer end
-
-//capacity-changer
-switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_capacity_main,position_in_vehid_chain_from_end){
-    0: 84;
-    default: 97;
-}
-item(FEAT_TRAINS, kb_kg_5000series,1447) {
-    property {
-       OVERRIDEN_TRAIN_DATA
-        climates_available: param_disable_kobe == 0 ? ALL_CLIMATES : NO_CLIMATE;
-        
-        name: string(STR_TRAIN_NAME, string(STR_NAME_KOBE), "5000", string(STR_NAME_TYPE));
-        introduction_date: date(2000, 1, 1);
-        model_life: VEHICLE_NEVER_EXPIRES;
-        vehicle_life: 30;
-        reliability_decay: 10;
-
-        cost_factor: 19;
-        running_cost_factor: 49;
-        speed: 100 km/h;
-        track_type: TR_1435_LINEAR;
-        power: 270 kW;
-        weight: 27 ton;
-        loading_speed: param_loading_3D;
+//main
+  //panto placer
+    switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_panto_placer_1,position_in_vehid_chain %3){
+      1: kb_kg_5000series_mot;
+      kb_kg_5000series_wag;
     }
-	graphics {
-		additional_text:
- 		   	string(STR_TRAIN_DESC,
-				string(STR_STANDARDGAUGE),
-				string(STR_DENKI, string(STR_DC, 1500)),
-				string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
-				string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
-				string(STR_OPERATOR, string(STR_KOBE)),
-				string(STR_LINES_USED, string(STR_KOBE_KAIGAN)));
-		// can_attach_wagon: sw_mucar_attach_vehid;
-		purchase: kb_kg_5000series_purchase;
-		start_stop: sw_stop_start_3; 
-
-    SET_GRAPHICS_SINGLE(sw_kb_kg_5000series_lv,//graphics
-		sw_kb_kg_5000series_capacity_main(),//cargo capacity
-		362,//power
-		param_loading_3D,//loading speed
-		sw_empty_desc,//subtype
-		25)//car_fallback,weight
-}
+    switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
+      1: kb_kg_5000series_mot;
+      kb_kg_5000series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_kb_kg_5000series_panto_placer_1_main,vehicle_is_reversed){
+      1: sw_kb_kg_5000series_panto_placer_1_rev;
+      sw_kb_kg_5000series_panto_placer_1;
+    }
+  //panto main
+    switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_panto_placer_main,num_vehs_in_vehid_chain >3){
+      1:sw_kb_kg_5000series_panto_placer_1_main;
+      kb_kg_5000series_wag;
+    }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_head_gfx_main,position_in_consist>0){
+      1: kb_kg_5000series_end;
+      kb_kg_5000series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_lv,vehicle_type_id){
+      mu_car:sw_kb_kg_5000series_panto_placer_main;
+      sw_kb_kg_5000series_head_gfx_main;
+    }
+//
+//post fixers
+  //capacity-changer  
+    switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_capacity_main,vehicle_type_id){
+      kb_kg_5000series: 84;
+      default: 97;
+    } 
+  //power
+    switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_car_power_main,position_in_vehid_chain_from_end %3){
+      0:return 67;
+      1:return 68;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_power_main,vehicle_type_id){
+      kb_kg_5000series: 135;
+      sw_kb_kg_5000series_car_power_main;
+    }
+//
 

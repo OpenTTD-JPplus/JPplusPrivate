@@ -40,6 +40,9 @@ function formatTrackType(string) {
     case "DC_1500":
       res = "DC";
       break;
+    case "DC_1500_LINIMO":
+      res = "LINEAR";
+      break;
     case "DC_600":
       res = "M";
       break;

@@ -5406,7 +5406,803 @@ item(FEAT_TRAINS, sn_tz_2000series) {
 }
 # 5 "src/metro/Sendai/sendaiList.pnml" 2
 # 183 "src/_metro.pnml" 2
-# 200 "src/_metro.pnml"
+
+
+
+
+item(FEAT_TRAINS, kb_sy_1000series, 1440) {}
+item(FEAT_TRAINS, kb_sy_2000series, 1441) {}
+item(FEAT_TRAINS, kb_sy_3000series, 1442) {}
+item(FEAT_TRAINS, kb_sy_7000series, 1443) {}
+item(FEAT_TRAINS, kb_sy_6000series, 1444) {}
+
+item(FEAT_TRAINS, kb_kg_5000series, 1447) {}
+# 1 "src/metro/Kobe/kobeList.pnml" 1
+# 1 "src/metro/Kobe/seishin/1000series/1000series.pnml" 1
+
+spriteset(kb_sy_1000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/1000series/1000series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(kb_sy_1000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/1000series/1000series.png"){ tmpl_purchase_2c_dual(0, 50) }
+switch(FEAT_TRAINS, SELF, gfx_kb_sy_1000series_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_kobe_subway; 1: logo_line_kb_seishin; 2: kb_sy_1000series_purchase_c1; 3: kb_sy_1000series_purchase_c2;}
+
+
+spriteset(kb_sy_1000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/1000series/1000series.png"){ tmpl_std_v3(0, 0) }
+spriteset(kb_sy_1000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/1000series/1000series.png"){ tmpl_std_v3(0, 25) }
+spriteset(kb_sy_1000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/1000series/1000series.png"){ tmpl_symm_v3(0, 75) }
+spriteset(kb_sy_1000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/1000series/1000series.png"){ tmpl_symm_v3(0, 50) }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_1000series_panto_placer_1,position_in_vehid_chain %3){
+        0: kb_sy_1000series_mot;
+        kb_sy_1000series_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_1000series_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
+        0: kb_sy_1000series_mot;
+        kb_sy_1000series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_kb_sy_1000series_panto_placer_1_main,vehicle_is_reversed){
+        1: sw_kb_sy_1000series_panto_placer_1_rev;
+        sw_kb_sy_1000series_panto_placer_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_1000series_panto_placer_2,position_in_vehid_chain %2){
+        0: kb_sy_1000series_mot;
+        kb_sy_1000series_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_1000series_panto_placer_2_rev,position_in_vehid_chain_from_end %2){
+        0: kb_sy_1000series_mot;
+        kb_sy_1000series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_kb_sy_1000series_panto_placer_2_main,vehicle_is_reversed){
+        1: sw_kb_sy_1000series_panto_placer_2_rev;
+        sw_kb_sy_1000series_panto_placer_2;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_1000series_panto_placer_main,num_vehs_in_vehid_chain){
+        3: sw_kb_sy_1000series_panto_placer_2_main;
+        6..7: sw_kb_sy_1000series_panto_placer_2_main;
+        sw_kb_sy_1000series_panto_placer_1_main;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_1000series_head_gfx_main,position_in_consist>0){
+      1: kb_sy_1000series_end;
+      kb_sy_1000series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_1000series_lv,vehicle_type_id){
+      mu_car:sw_kb_sy_1000series_panto_placer_main;
+      sw_kb_sy_1000series_head_gfx_main;
+    }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_1000series_capacity_main,vehicle_type_id){
+      kb_sy_1000series: 136;
+      default: 150;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_1000series_car_power_main,position_in_vehid_chain_from_end %4){
+      0..1:return 130;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_1000series_power_main,vehicle_type_id){
+      kb_sy_1000series: 130*2;
+      sw_kb_sy_1000series_car_power_main;
+    }
+# 2 "src/metro/Kobe/kobeList.pnml" 2
+# 1 "src/metro/Kobe/seishin/2000series/2000series.pnml" 1
+
+spriteset(kb_sy_2000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/2000series/2000series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(kb_sy_2000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/2000series/2000series.png"){ tmpl_purchase_2c_dual(0, 50) }
+switch(FEAT_TRAINS, SELF, gfx_kb_sy_2000series_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_kobe_subway; 1: logo_line_kb_seishin; 2: kb_sy_2000series_purchase_c1; 3: kb_sy_2000series_purchase_c2;}
+
+
+spriteset(kb_sy_2000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/2000series/2000series.png"){ tmpl_std_v3(0, 0) }
+spriteset(kb_sy_2000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/2000series/2000series.png"){ tmpl_std_v3(0, 25) }
+spriteset(kb_sy_2000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/2000series/2000series.png"){ tmpl_symm_v3(0, 75) }
+spriteset(kb_sy_2000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/2000series/2000series.png"){ tmpl_symm_v3(0, 50) }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_2000series_panto_placer_1,position_in_vehid_chain %3){
+        0: kb_sy_2000series_mot;
+        kb_sy_2000series_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_2000series_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
+        0: kb_sy_2000series_mot;
+        kb_sy_2000series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_kb_sy_2000series_panto_placer_1_main,vehicle_is_reversed){
+        1: sw_kb_sy_2000series_panto_placer_1_rev;
+        sw_kb_sy_2000series_panto_placer_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_2000series_panto_placer_2,position_in_vehid_chain %2){
+        0: kb_sy_2000series_mot;
+        kb_sy_2000series_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_2000series_panto_placer_2_rev,position_in_vehid_chain_from_end %2){
+        0: kb_sy_2000series_mot;
+        kb_sy_2000series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_kb_sy_2000series_panto_placer_2_main,vehicle_is_reversed){
+        1: sw_kb_sy_2000series_panto_placer_2_rev;
+        sw_kb_sy_2000series_panto_placer_2;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_2000series_panto_placer_main,num_vehs_in_vehid_chain){
+        3: sw_kb_sy_2000series_panto_placer_2_main;
+        6..7: sw_kb_sy_2000series_panto_placer_2_main;
+        sw_kb_sy_2000series_panto_placer_1_main;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_2000series_head_gfx_main,position_in_consist>0){
+      1: kb_sy_2000series_end;
+      kb_sy_2000series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_2000series_lv,vehicle_type_id){
+      mu_car:sw_kb_sy_2000series_panto_placer_main;
+      sw_kb_sy_2000series_head_gfx_main;
+    }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_2000series_capacity_main,vehicle_type_id){
+      kb_sy_2000series: 134;
+      default: 142;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_2000series_car_power_main,position_in_vehid_chain_from_end %4){
+      0..1:return 130;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_2000series_power_main,vehicle_type_id){
+      kb_sy_2000series: 130*2;
+      sw_kb_sy_2000series_car_power_main;
+    }
+# 3 "src/metro/Kobe/kobeList.pnml" 2
+# 1 "src/metro/Kobe/seishin/3000series/3000series.pnml" 1
+
+spriteset(kb_sy_3000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/3000series/3000series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(kb_sy_3000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/3000series/3000series.png"){ tmpl_purchase_2c_dual(0, 50) }
+switch(FEAT_TRAINS, SELF, gfx_kb_sy_3000series_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_kobe_subway; 1: logo_line_kb_seishin; 2: kb_sy_3000series_purchase_c1; 3: kb_sy_3000series_purchase_c2;}
+
+
+spriteset(kb_sy_3000series_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/3000series/3000series.png"){ tmpl_std_v3(0, 0) }
+spriteset(kb_sy_3000series_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/3000series/3000series.png"){ tmpl_std_v3(0, 25) }
+spriteset(kb_sy_3000series_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/3000series/3000series.png"){ tmpl_symm_v3(0, 75) }
+spriteset(kb_sy_3000series_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/3000series/3000series.png"){ tmpl_symm_v3(0, 50) }
+
+
+spriteset(kb_sy_3000series_2_front_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/3000series/3000series_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(kb_sy_3000series_2_end_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/3000series/3000series_1.png"){ tmpl_std_v3(0, 25) }
+spriteset(kb_sy_3000series_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/3000series/3000series_1.png"){ tmpl_symm_v3(0, 75) }
+spriteset(kb_sy_3000series_2_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/3000series/3000series_1.png"){ tmpl_symm_v3(0, 50) }
+spriteset(kb_sy_3000series_2_front_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/3000series/3000series_1.png"){ tmpl_std_v3(0, 100) }
+spriteset(kb_sy_3000series_2_end_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/3000series/3000series_1.png"){ tmpl_std_v3(0, 125) }
+switch(FEAT_TRAINS, PARENT, kb_sy_3000series_2_front, vehicle_is_reversed){
+  1:kb_sy_3000series_2_front_1;
+  kb_sy_3000series_2_front_2;
+}
+switch(FEAT_TRAINS, PARENT, kb_sy_3000series_2_end, vehicle_is_reversed){
+  1:kb_sy_3000series_2_end_2;
+  kb_sy_3000series_2_end_1;
+}
+
+
+  switch(FEAT_TRAINS, SELF, kb_sy_3000series_front, cargo_subtype){
+    1:kb_sy_3000series_2_front; kb_sy_3000series_1_front;
+  }
+  switch(FEAT_TRAINS, SELF, kb_sy_3000series_end, cargo_subtype){
+    1:kb_sy_3000series_2_end; kb_sy_3000series_1_end;
+  }
+  switch(FEAT_TRAINS, SELF, kb_sy_3000series_wag, cargo_subtype){
+    1:kb_sy_3000series_2_wag; kb_sy_3000series_1_wag;
+  }
+  switch(FEAT_TRAINS, SELF, kb_sy_3000series_mot, cargo_subtype){
+    1:kb_sy_3000series_2_mot; kb_sy_3000series_1_mot;
+  }
+
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_3000series_panto_placer_1,position_in_vehid_chain %3){
+        0: kb_sy_3000series_mot;
+        kb_sy_3000series_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_3000series_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
+        0: kb_sy_3000series_mot;
+        kb_sy_3000series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_kb_sy_3000series_panto_placer_1_main,vehicle_is_reversed){
+        1: sw_kb_sy_3000series_panto_placer_1_rev;
+        sw_kb_sy_3000series_panto_placer_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_3000series_panto_placer_2,position_in_vehid_chain %2){
+        0: kb_sy_3000series_mot;
+        kb_sy_3000series_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_3000series_panto_placer_2_rev,position_in_vehid_chain_from_end %2){
+        0: kb_sy_3000series_mot;
+        kb_sy_3000series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_kb_sy_3000series_panto_placer_2_main,vehicle_is_reversed){
+        1: sw_kb_sy_3000series_panto_placer_2_rev;
+        sw_kb_sy_3000series_panto_placer_2;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_3000series_panto_placer_main,num_vehs_in_vehid_chain){
+        3: sw_kb_sy_3000series_panto_placer_2_main;
+        6..7: sw_kb_sy_3000series_panto_placer_2_main;
+        sw_kb_sy_3000series_panto_placer_1_main;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_3000series_head_gfx_main,position_in_consist>0){
+      1: kb_sy_3000series_end;
+      kb_sy_3000series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_3000series_lv,vehicle_type_id){
+      mu_car:sw_kb_sy_3000series_panto_placer_main;
+      sw_kb_sy_3000series_head_gfx_main;
+    }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_3000series_capacity_main,vehicle_type_id){
+      kb_sy_3000series: 133;
+      default: 142;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_3000series_car_power_main,position_in_vehid_chain_from_end %4){
+      0..1:return 130;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_3000series_power_main,vehicle_type_id){
+      kb_sy_3000series: 130*2;
+      sw_kb_sy_3000series_car_power_main;
+    }
+
+
+switch(FEAT_TRAINS, SELF, sw_kb_sy_3000series_lv_desc_main, cargo_subtype){
+    0: string(LV_DATED,string(STR_LIVERY,string(LV_DEFAULT)),1992);
+    1: string(LV_DATED,string(STR_LIVERY,string(LV_kb_sy_3000series_1)),2017);
+}
+# 4 "src/metro/Kobe/kobeList.pnml" 2
+# 1 "src/metro/Kobe/seishin/7000series/7000series.pnml" 1
+
+spriteset(kb_sy_7000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/7000series/7000series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(kb_sy_7000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/7000series/7000series.png"){ tmpl_purchase_2c_dual(0, 50) }
+switch(FEAT_TRAINS, SELF, gfx_kb_sy_7000series_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_kobe_subway; 1: logo_line_kb_seishin; 2: kb_sy_7000series_purchase_c1; 3: kb_sy_7000series_purchase_c2;}
+
+
+spriteset(kb_sy_7000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/7000series/7000series.png"){ tmpl_std_v3(0, 0) }
+spriteset(kb_sy_7000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/7000series/7000series.png"){ tmpl_std_v3(0, 25) }
+spriteset(kb_sy_7000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/7000series/7000series.png"){ tmpl_symm_v3(0, 75) }
+spriteset(kb_sy_7000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/7000series/7000series.png"){ tmpl_symm_v3(0, 50) }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_7000series_panto_placer_1,position_in_vehid_chain %3){
+        0: kb_sy_7000series_mot;
+        kb_sy_7000series_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_7000series_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
+        0: kb_sy_7000series_mot;
+        kb_sy_7000series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_kb_sy_7000series_panto_placer_1_main,vehicle_is_reversed){
+        1: sw_kb_sy_7000series_panto_placer_1_rev;
+        sw_kb_sy_7000series_panto_placer_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_7000series_panto_placer_2,position_in_vehid_chain %2){
+        0: kb_sy_7000series_mot;
+        kb_sy_7000series_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_7000series_panto_placer_2_rev,position_in_vehid_chain_from_end %2){
+        0: kb_sy_7000series_mot;
+        kb_sy_7000series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_kb_sy_7000series_panto_placer_2_main,vehicle_is_reversed){
+        1: sw_kb_sy_7000series_panto_placer_2_rev;
+        sw_kb_sy_7000series_panto_placer_2;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_7000series_panto_placer_main,num_vehs_in_vehid_chain){
+        3: sw_kb_sy_7000series_panto_placer_2_main;
+        sw_kb_sy_7000series_panto_placer_1_main;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_7000series_head_gfx_main,position_in_consist>0){
+      1: kb_sy_7000series_end;
+      kb_sy_7000series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_7000series_lv,vehicle_type_id){
+      mu_car:sw_kb_sy_7000series_panto_placer_main;
+      sw_kb_sy_7000series_head_gfx_main;
+    }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_7000series_capacity_main,vehicle_type_id){
+      kb_sy_7000series: 129;
+      default: 142;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_7000series_car_power_main,position_in_vehid_chain_from_end %5){
+      0:return 170;
+      2..3:return 170;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_7000series_power_main,vehicle_type_id){
+      kb_sy_7000series: 0;
+      sw_kb_sy_7000series_car_power_main;
+    }
+# 5 "src/metro/Kobe/kobeList.pnml" 2
+# 1 "src/metro/Kobe/seishin/6000series/6000series.pnml" 1
+
+spriteset(kb_sy_6000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/6000series/6000series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(kb_sy_6000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/6000series/6000series.png"){ tmpl_purchase_2c_dual(0, 50) }
+switch(FEAT_TRAINS, SELF, gfx_kb_sy_6000series_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_kobe_subway; 1: logo_line_kb_seishin; 2: kb_sy_6000series_purchase_c1; 3: kb_sy_6000series_purchase_c2;}
+
+
+spriteset(kb_sy_6000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/6000series/6000series.png"){ tmpl_std_v3(0, 0) }
+spriteset(kb_sy_6000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/6000series/6000series.png"){ tmpl_std_v3(0, 25) }
+spriteset(kb_sy_6000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/6000series/6000series.png"){ tmpl_symm_v3(0, 75) }
+spriteset(kb_sy_6000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/seishin/6000series/6000series.png"){ tmpl_symm_v3(0, 50) }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_6000series_panto_placer_1,position_in_vehid_chain %3){
+        0: kb_sy_6000series_mot;
+        kb_sy_6000series_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_6000series_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
+        0: kb_sy_6000series_mot;
+        kb_sy_6000series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_kb_sy_6000series_panto_placer_1_main,vehicle_is_reversed){
+        1: sw_kb_sy_6000series_panto_placer_1_rev;
+        sw_kb_sy_6000series_panto_placer_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_6000series_panto_placer_2,position_in_vehid_chain %2){
+        0: kb_sy_6000series_mot;
+        kb_sy_6000series_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_6000series_panto_placer_2_rev,position_in_vehid_chain_from_end %2){
+        0: kb_sy_6000series_mot;
+        kb_sy_6000series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_kb_sy_6000series_panto_placer_2_main,vehicle_is_reversed){
+        1: sw_kb_sy_6000series_panto_placer_2_rev;
+        sw_kb_sy_6000series_panto_placer_2;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_6000series_panto_placer_main,num_vehs_in_vehid_chain){
+        3: sw_kb_sy_6000series_panto_placer_2_main;
+        sw_kb_sy_6000series_panto_placer_1_main;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_6000series_head_gfx_main,position_in_consist>0){
+      1: kb_sy_6000series_end;
+      kb_sy_6000series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_6000series_lv,vehicle_type_id){
+      mu_car:sw_kb_sy_6000series_panto_placer_main;
+      sw_kb_sy_6000series_head_gfx_main;
+    }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_6000series_capacity_main,vehicle_type_id){
+      kb_sy_6000series: 124;
+      default: 140;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_6000series_car_power_main,position_in_vehid_chain_from_end %5){
+      0:return 170;
+      2..3:return 170;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_6000series_power_main,vehicle_type_id){
+      kb_sy_6000series: 0;
+      sw_kb_sy_6000series_car_power_main;
+    }
+# 6 "src/metro/Kobe/kobeList.pnml" 2
+
+# 1 "src/metro/Kobe/kaigan/5000series/5000series.pnml" 1
+
+spriteset(kb_kg_5000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/kaigan/5000series/5000series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(kb_kg_5000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/kaigan/5000series/5000series.png"){ tmpl_purchase_2c_dual(0, 75) }
+switch(FEAT_TRAINS, SELF, gfx_kb_kg_5000series_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_kobe_subway; 1: logo_line_kb_kaigan; 2: kb_kg_5000series_purchase_c1; 3: kb_kg_5000series_purchase_c2;}
+
+
+spriteset(kb_kg_5000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/kaigan/5000series/5000series.png"){ tmpl_std_v3(0, 0) }
+spriteset(kb_kg_5000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/kaigan/5000series/5000series.png"){ tmpl_std_v3(0, 25) }
+spriteset(kb_kg_5000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/kaigan/5000series/5000series.png"){ tmpl_symm_v3(0, 75) }
+spriteset(kb_kg_5000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Kobe/kaigan/5000series/5000series.png"){ tmpl_symm_v3(0, 50) }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_panto_placer_1,position_in_vehid_chain %3){
+      1: kb_kg_5000series_mot;
+      kb_kg_5000series_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
+      1: kb_kg_5000series_mot;
+      kb_kg_5000series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_kb_kg_5000series_panto_placer_1_main,vehicle_is_reversed){
+      1: sw_kb_kg_5000series_panto_placer_1_rev;
+      sw_kb_kg_5000series_panto_placer_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_panto_placer_main,num_vehs_in_vehid_chain >3){
+      1:sw_kb_kg_5000series_panto_placer_1_main;
+      kb_kg_5000series_wag;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_head_gfx_main,position_in_consist>0){
+      1: kb_kg_5000series_end;
+      kb_kg_5000series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_lv,vehicle_type_id){
+      mu_car:sw_kb_kg_5000series_panto_placer_main;
+      sw_kb_kg_5000series_head_gfx_main;
+    }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_capacity_main,vehicle_type_id){
+      kb_kg_5000series: 84;
+      default: 97;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_car_power_main,position_in_vehid_chain_from_end %3){
+      0:return 67;
+      1:return 68;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kb_kg_5000series_power_main,vehicle_type_id){
+      kb_kg_5000series: 135;
+      sw_kb_kg_5000series_car_power_main;
+    }
+# 8 "src/metro/Kobe/kobeList.pnml" 2
+
+# 1 "src/metro/Kobe/items.pnml" 1
+item(FEAT_TRAINS, kb_kg_5000series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_kobe == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_KOBE), "5000", string(STR_NAME_TYPE));
+    introduction_date: date(2001, 7, 7);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+
+    cost_factor: 18;
+    running_cost_factor: 48;
+    speed: 80 km/h;
+    track_type: TR_1435_LINEAR;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 27 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
+
+    string(STR_OPERATOR, string(STR_KOBE))
+    ,string(STR_LINES_USED, string(STR_KOBE_KAIGAN))
+    );
+
+    purchase: gfx_kb_kg_5000series_purchase_main;
+    cargo_capacity:sw_kb_kg_5000series_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_3D;
+    default:sw_kb_kg_5000series_lv;
+    power: sw_kb_kg_5000series_power_main()*4*1342/1000;
+    purchase_power: sw_kb_kg_5000series_car_power_main()*4*1342/1000;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_kb_kg_5000series_capacity_main()*param_capacity_mod/3;
+
+    power: sw_kb_kg_5000series_power_main()*4*1342/1000;
+    default:sw_kb_kg_5000series_lv;
+    weight: 25;
+
+  }
+}
+item(FEAT_TRAINS, kb_sy_1000series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_kobe == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_KOBE), "1000", string(STR_NAME_TYPE));
+    introduction_date: date(1977, 3, 13);
+    model_life: 51;
+    vehicle_life: 46;
+    dual_headed: 1;
+
+
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 100 km/h;
+    track_type: TR_1435_DC;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 28 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
+
+    string(STR_OPERATOR, string(STR_KOBE))
+    ,string(STR_LINES_USED, string(STR_KOBE_SEISHIN))
+    );
+
+    purchase: gfx_kb_sy_1000series_purchase_main;
+    cargo_capacity:sw_kb_sy_1000series_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_3D;
+    default:sw_kb_sy_1000series_lv;
+    power: sw_kb_sy_1000series_power_main()*4*1342/1000;
+    purchase_power: sw_kb_sy_1000series_car_power_main()*4*1342/1000;
+    start_stop: sw_stop_start_3;
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_kb_sy_1000series_capacity_main()*param_capacity_mod/3;
+
+    power: sw_kb_sy_1000series_power_main()*4*1342/1000;
+    default:sw_kb_sy_1000series_lv;
+    weight: 32;
+
+  }
+}
+item(FEAT_TRAINS, kb_sy_2000series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_kobe == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_KOBE), "2000", string(STR_NAME_TYPE));
+    introduction_date: date(1988, 2, 26);
+    model_life: 39;
+    vehicle_life: 34;
+    dual_headed: 1;
+
+
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 100 km/h;
+    track_type: TR_1435_DC;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 28 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 5,6)),
+
+    string(STR_OPERATOR, string(STR_KOBE))
+    ,string(STR_LINES_USED, string(STR_KOBE_SEISHIN))
+    );
+
+    purchase: gfx_kb_sy_2000series_purchase_main;
+    cargo_capacity:sw_kb_sy_2000series_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_3D;
+    default:sw_kb_sy_2000series_lv;
+    power: sw_kb_sy_2000series_power_main()*4*1342/1000;
+    purchase_power: sw_kb_sy_2000series_car_power_main()*4*1342/1000;
+    start_stop: sw_stop_start_3;
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_kb_sy_2000series_capacity_main()*param_capacity_mod/3;
+
+    power: sw_kb_sy_2000series_power_main()*4*1342/1000;
+    default:sw_kb_sy_2000series_lv;
+    weight: 33;
+
+  }
+}
+item(FEAT_TRAINS, kb_sy_3000series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_kobe == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_KOBE), "3000", string(STR_NAME_TYPE));
+    introduction_date: date(1993, 3, 20);
+    model_life: 33;
+    vehicle_life: 28;
+    dual_headed: 1;
+
+
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 100 km/h;
+    track_type: TR_1435_DC;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 28 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
+
+    string(STR_OPERATOR, string(STR_KOBE))
+    ,string(STR_LINES_USED, string(STR_KOBE_SEISHIN))
+    );
+    cargo_subtype_text: sw_kb_sy_3000series_lv_desc_main;
+    purchase: gfx_kb_sy_3000series_purchase_main;
+    cargo_capacity:sw_kb_sy_3000series_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_3D;
+    default:sw_kb_sy_3000series_lv;
+    power: sw_kb_sy_3000series_power_main()*4*1342/1000;
+    purchase_power: sw_kb_sy_3000series_car_power_main()*4*1342/1000;
+    start_stop: sw_stop_start_3;
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_kb_sy_3000series_lv_desc_main;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_kb_sy_3000series_capacity_main()*param_capacity_mod/3;
+
+    power: sw_kb_sy_3000series_power_main()*4*1342/1000;
+    default:sw_kb_sy_3000series_lv;
+    weight: 32;
+
+  }
+}
+item(FEAT_TRAINS, kb_sy_7000series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_kobe == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_KOBE), "7000", string(STR_NAME_TYPE));
+    introduction_date: date(1988, 4, 2);
+    model_life: 41;
+    vehicle_life: 36;
+    dual_headed: 1;
+
+
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 100 km/h;
+    track_type: TR_1435_DC;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 28 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 5,6)),
+
+    string(STR_OPERATOR, string(STR_KOBE))
+    ,string(STR_LINES_USED, string(STR_KOBE_SEISHIN))
+    );
+
+    purchase: gfx_kb_sy_7000series_purchase_main;
+    cargo_capacity:sw_kb_sy_7000series_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_3D;
+    default:sw_kb_sy_7000series_lv;
+    power: sw_kb_sy_7000series_power_main()*4*1342/1000;
+    purchase_power: sw_kb_sy_7000series_car_power_main()*4*1342/1000;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_kb_sy_7000series_capacity_main()*param_capacity_mod/3;
+
+    power: sw_kb_sy_7000series_power_main()*4*1342/1000;
+    default:sw_kb_sy_7000series_lv;
+    weight: 33;
+
+  }
+}
+item(FEAT_TRAINS, kb_sy_6000series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_kobe == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_KOBE), "6000", string(STR_NAME_TYPE));
+    introduction_date: date(2019, 2, 16);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 100 km/h;
+    track_type: TR_1435_DC;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 29 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 5,6)),
+
+    string(STR_OPERATOR, string(STR_KOBE))
+    ,string(STR_LINES_USED, string(STR_KOBE_SEISHIN))
+    );
+
+    purchase: gfx_kb_sy_6000series_purchase_main;
+    cargo_capacity:sw_kb_sy_6000series_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_3D;
+    default:sw_kb_sy_6000series_lv;
+    power: sw_kb_sy_6000series_power_main()*4*1342/1000;
+    purchase_power: sw_kb_sy_6000series_car_power_main()*4*1342/1000;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_kb_sy_6000series_capacity_main()*param_capacity_mod/3;
+
+    power: sw_kb_sy_6000series_power_main()*4*1342/1000;
+    default:sw_kb_sy_6000series_lv;
+    weight: 31;
+
+  }
+}
+# 9 "src/metro/Kobe/kobeList.pnml" 2
+# 195 "src/_metro.pnml" 2
+
+
+
+
+
+
 item(FEAT_TRAINS, fk_kk_1000series, 1450) {}
 item(FEAT_TRAINS, fk_kk_2000series, 1451) {}
 item(FEAT_TRAINS, fk_kk_4000series, 1452) {}
@@ -5817,7 +6613,7 @@ item(FEAT_TRAINS, fk_nk_3000series) {
   }
 }
 # 6 "src/metro/Fukuoka/fukuokaList.pnml" 2
-# 205 "src/_metro.pnml" 2
+# 206 "src/_metro.pnml" 2
 # 15 "JPprivate.pnml" 2
 # 1 "src/_private.pnml" 1
 
