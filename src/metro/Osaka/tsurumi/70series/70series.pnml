@@ -1,190 +1,120 @@
 //purchase
-spriteset(os_ts_70series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/tsurumi/70series/70series.png"){ tmpl_purchase_1c(0, 0) }
-spriteset(os_ts_70series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/tsurumi/70series/70series.png"){ tmpl_purchase_2c(0, 75) }
+spriteset(os_ts_70series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/tsurumi/70series/70series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(os_ts_70series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/tsurumi/70series/70series.png"){ tmpl_purchase_2c_dual(0, 75) }
 GRAPHIC_STACK_4(gfx_os_ts_70series_purchase_main, logo_osaka_metro, logo_line_os_tsurumi, os_ts_70series_purchase_c1, os_ts_70series_purchase_c2)
 
 //*livery 1
-
 spriteset(os_ts_70series_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/tsurumi/70series/70series.png"){ tmpl_std_v3(0, 0) }
 spriteset(os_ts_70series_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/tsurumi/70series/70series.png"){ tmpl_std_v3(0, 25) }
-spriteset(os_ts_70series_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/tsurumi/70series/70series.png"){ tmpl_std_v3(0, 50) }
-spriteset(os_ts_70series_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/tsurumi/70series/70series.png"){ tmpl_std_v3(0, 75) }
+spriteset(os_ts_70series_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/tsurumi/70series/70series.png"){ tmpl_symm_v3(0, 50) }
+spriteset(os_ts_70series_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/tsurumi/70series/70series.png"){ tmpl_symm_v3(0, 75) }
 
 //*livery 2
-
 spriteset(os_ts_70series_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/tsurumi/70series/70series_1.png"){ tmpl_std_v3(0, 0) }
 spriteset(os_ts_70series_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/tsurumi/70series/70series_1.png"){ tmpl_std_v3(0, 25) }
-spriteset(os_ts_70series_2_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/tsurumi/70series/70series_1.png"){ tmpl_std_v3(0, 50) }
-spriteset(os_ts_70series_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/tsurumi/70series/70series_1.png"){ tmpl_std_v3(0, 75) }
+spriteset(os_ts_70series_2_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/tsurumi/70series/70series_1.png"){ tmpl_symm_v3(0, 50) }
+spriteset(os_ts_70series_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/tsurumi/70series/70series_1.png"){ tmpl_symm_v3(0, 75) }
 
 //*livery 3
-
 spriteset(os_ts_70series_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/tsurumi/70series/70series_2.png"){ tmpl_std_v3(0, 0) }
 spriteset(os_ts_70series_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/tsurumi/70series/70series_2.png"){ tmpl_std_v3(0, 25) }
-spriteset(os_ts_70series_3_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/tsurumi/70series/70series_2.png"){ tmpl_std_v3(0, 50) }
-spriteset(os_ts_70series_3_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/tsurumi/70series/70series_2.png"){ tmpl_std_v3(0, 75) }
+spriteset(os_ts_70series_3_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/tsurumi/70series/70series_2.png"){ tmpl_symm_v3(0, 50) }
+spriteset(os_ts_70series_3_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/tsurumi/70series/70series_2.png"){ tmpl_symm_v3(0, 75) }
 
+//lv stuff
+  switch(FEAT_TRAINS, SELF, os_ts_70series_front_timed, current_year){
+    0..1995: os_ts_70series_1_front;
+    1996..2010: os_ts_70series_2_front;
+    os_ts_70series_3_front;
+  }
+  switch(FEAT_TRAINS, SELF, os_ts_70series_end_timed, current_year){
+    0..1995: os_ts_70series_1_end;
+    1996..2010: os_ts_70series_2_end;
+    os_ts_70series_3_end;
+  }
+  switch(FEAT_TRAINS, SELF, os_ts_70series_mot_timed, current_year){
+    0..1995: os_ts_70series_1_mot;
+    1996..2010: os_ts_70series_2_mot;
+    os_ts_70series_3_mot;
+  }
+  switch(FEAT_TRAINS, SELF, os_ts_70series_wag_timed, current_year){
+    0..1995: os_ts_70series_1_wag;
+    1996..2010: os_ts_70series_2_wag;
+    os_ts_70series_3_wag;
+  }
 
-//*livery 1
+  switch(FEAT_TRAINS, SELF, os_ts_70series_front, cargo_subtype){
+    1: os_ts_70series_1_front;
+    2: os_ts_70series_2_front;
+    3: os_ts_70series_3_front;
+    os_ts_70series_front_timed;
+  }
+  switch(FEAT_TRAINS, SELF, os_ts_70series_end, cargo_subtype){
+    1: os_ts_70series_1_end;
+    2: os_ts_70series_2_end;
+    3: os_ts_70series_3_end;
+    os_ts_70series_end_timed;
+  }
+  switch(FEAT_TRAINS, SELF, os_ts_70series_mot, cargo_subtype){
+    1: os_ts_70series_1_mot;
+    2: os_ts_70series_2_mot;
+    3: os_ts_70series_3_mot;
+    os_ts_70series_mot_timed;
+  }
+  switch(FEAT_TRAINS, SELF, os_ts_70series_wag, cargo_subtype){
+    1: os_ts_70series_1_wag;
+    2: os_ts_70series_2_wag;
+    3: os_ts_70series_3_wag;
+    os_ts_70series_wag_timed;
+  }
+
+//*main
   //panto placer
-    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_1_mot_gfx,position_in_vehid_chain_from_end==1||position_in_vehid_chain==0){
-      1: os_ts_70series_1_wag;
-      os_ts_70series_1_mot;
+    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_panto_placer,position_in_vehid_chain %3){
+      1: os_ts_70series_mot;
+      os_ts_70series_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_1_panto_placer,position_in_vehid_chain %3){
-      1: sw_os_ts_70series_1_mot_gfx;
-      os_ts_70series_1_wag;
+    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_panto_placer_rev,position_in_vehid_chain_from_end %3){
+      1: os_ts_70series_mot;
+      os_ts_70series_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_1_panto_placer_rev,position_in_vehid_chain_from_end %3-1){
-      1: sw_os_ts_70series_1_mot_gfx;
-      os_ts_70series_1_wag;
+    switch(FEAT_TRAINS, PARENT, sw_os_ts_70series_panto_placer_main_1,vehicle_is_reversed){
+      1: sw_os_ts_70series_panto_placer;
+      sw_os_ts_70series_panto_placer_rev;
     }
-    switch(FEAT_TRAINS, PARENT, sw_os_ts_70series_1_panto_placer_main,vehicle_is_reversed){
-      1: sw_os_ts_70series_1_panto_placer;
-      sw_os_ts_70series_1_panto_placer_rev;
+    switch(FEAT_TRAINS, PARENT, sw_os_ts_70series_panto_placer_main,num_vehs_in_vehid_chain){
+      0..4: os_ts_70series_wag;
+      sw_os_ts_70series_panto_placer_main_1;
     }
   //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_1_end_gfx,position_in_vehid_chain_from_end){
-      0:os_ts_70series_1_end;
-      sw_os_ts_70series_1_panto_placer_main;
+    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_head_gfx_main,position_in_consist>0){
+      1: os_ts_70series_end;
+      os_ts_70series_front;
     }
-    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_livery_1,vehicle_type_id){
-      os_ts_70series: os_ts_70series_1_front;
-      sw_os_ts_70series_1_end_gfx;
+    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_lv,vehicle_type_id){
+      mu_car:sw_os_ts_70series_panto_placer_main;
+      sw_os_ts_70series_head_gfx_main;
     }
-//*livery 2
-  //panto placer
-    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_2_mot_gfx,position_in_vehid_chain_from_end==1||position_in_vehid_chain==0){
-      1: os_ts_70series_2_wag;
-      os_ts_70series_2_mot;
-    }
-    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_2_panto_placer,position_in_vehid_chain %3){
-      1: sw_os_ts_70series_2_mot_gfx;
-      os_ts_70series_2_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_2_panto_placer_rev,position_in_vehid_chain_from_end %3-1){
-      1: sw_os_ts_70series_2_mot_gfx;
-      os_ts_70series_2_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_os_ts_70series_2_panto_placer_main,vehicle_is_reversed){
-      1: sw_os_ts_70series_2_panto_placer;
-      sw_os_ts_70series_2_panto_placer_rev;
-    }
-  //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_2_end_gfx,position_in_vehid_chain_from_end){
-      0:os_ts_70series_2_end;
-      sw_os_ts_70series_2_panto_placer_main;
-    }
-    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_livery_2,vehicle_type_id){
-      os_ts_70series: os_ts_70series_2_front;
-      sw_os_ts_70series_2_end_gfx;
-    }
-//*livery 3
-  //panto placer
-    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_3_mot_gfx,position_in_vehid_chain_from_end==1||position_in_vehid_chain==0){
-      1: os_ts_70series_3_wag;
-      os_ts_70series_3_mot;
-    }
-    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_3_panto_placer,position_in_vehid_chain %3){
-      1: sw_os_ts_70series_3_mot_gfx;
-      os_ts_70series_3_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_3_panto_placer_rev,position_in_vehid_chain_from_end %3-1){
-      1: sw_os_ts_70series_3_mot_gfx;
-      os_ts_70series_3_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_os_ts_70series_3_panto_placer_main,vehicle_is_reversed){
-      1: sw_os_ts_70series_3_panto_placer;
-      sw_os_ts_70series_3_panto_placer_rev;
-    }
-  //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_3_end_gfx,position_in_vehid_chain_from_end){
-      0:os_ts_70series_3_end;
-      sw_os_ts_70series_3_panto_placer_main;
-    }
-    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_livery_3,vehicle_type_id){
-      os_ts_70series: os_ts_70series_3_front;
-      sw_os_ts_70series_3_end_gfx;
-    }
-
-switch(FEAT_TRAINS, PARENT, sw_os_ts_70series_livery_0, current_year){
-    0..1995: sw_os_ts_70series_livery_1;
-    1996..2010: sw_os_ts_70series_livery_2;
-    sw_os_ts_70series_livery_3;
-}
 //liveries
-switch(FEAT_TRAINS, SELF, sw_os_ts_70series_lv_desc, cargo_subtype){
+  switch(FEAT_TRAINS, SELF, sw_os_ts_70series_lv_desc_main, cargo_subtype){
     0: string(LV_RANDOM);
     1: string(LV_DATED,string(STR_BATCH,1),1990);
     2: string(LV_DATED,string(STR_LIVERY,string(LV_os_ts_70series_2)),1996);
     3: string(LV_DATED,string(STR_LIVERY,string(STR_RENEWAL)),2011);
 }
-switch(FEAT_TRAINS, SELF, sw_os_ts_70series_lv, cargo_subtype){
-    0: sw_os_ts_70series_livery_0;
-    1: sw_os_ts_70series_livery_1;
-    2: sw_os_ts_70series_livery_2;
-    3: sw_os_ts_70series_livery_3;
-}
-//capacity-changer
-switch(FEAT_TRAINS, SELF, sw_os_ts_70series_capacity_main,position_in_vehid_chain_from_end){
-    0: 89;
-    default: 101;
-}
-
-item(FEAT_TRAINS, os_ts_70series,1300) {
-    property {
-       OVERRIDEN_TRAIN_DATA
-        climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
-        ai_special_flag: AI_FLAG_PASSENGER;
-        sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
-        refittable_cargo_classes: bitmask(CC_PASSENGERS);
-        non_refittable_cargo_classes: bitmask();                
-        running_cost_base: RUNNING_COST_ELECTRIC;
-        engine_class: ENGINE_CLASS_ELECTRIC;
-        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
-        tractive_effort_coefficient: 0.3;
-        air_drag_coefficient: 0.07;
-        bitmask_vehicle_info: 0;
-
-        name: string(STR_TRAIN_NAME, string(STR_NAME_OSAKA_METRO), "70", string(STR_NAME_SERIES));
-        introduction_date: date(1988, 1, 1);
-        model_life: VEHICLE_NEVER_EXPIRES;
-        vehicle_life: 30;
-        reliability_decay: 10;
-
-        cost_factor: 19;
-        running_cost_factor: 49;
-        speed: 100 km/h;
-        track_type: TR_1435_LINEAR;
-        power: 200 kW;
-        weight: 24 ton;
-        loading_speed: param_loading_3D;
+//post fixers
+  //capacity-changer  
+    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_capacity_main,vehicle_type_id){
+      os_ts_70series: 89;
+      default: 101;
+    } 
+  //power
+    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_car_power_main,position_in_vehid_chain_from_end %4){
+      0..1:return 50;
+      return 0;
     }
-	graphics {
-        default: sw_os_ts_70series_lv;
-		purchase: os_ts_70series_purchase;
-		// can_attach_wagon: sw_mucar_attach_vehid;
-		additional_text:
- 		   	string(STR_TRAIN_DESC,
-				string(STR_STANDARDGAUGE),
-				string(STR_DENKI, string(STR_DC, 1500)),
-				string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
-				string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
-				string(STR_OPERATOR, string(STR_OSAKAMETRO)),
-string(STR_LINES_USED, string(STR_OSAKA_TSURUMI)));
-
-		cargo_subtype_text: sw_os_ts_70series_lv_desc;
-		start_stop: sw_stop_start_3; 
-        cargo_capacity: 89;  
+    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_power_main,vehicle_type_id){
+      mu_car:sw_os_ts_70series_car_power_main;
+      100;
     }
-	livery_override(mu_car){
-		cargo_subtype_text: sw_os_ts_70series_lv_desc;
-        loading_speed: param_loading_3D;
-        cargo_capacity: sw_os_ts_70series_capacity_main;
-        default: sw_os_ts_70series_lv;
-        power: 268;
-        weight: 26;
-        length: 8; 
-      }
-}
+//
