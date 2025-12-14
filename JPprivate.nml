@@ -3074,7 +3074,554 @@ item(FEAT_TRAINS, tk_as_toei5500) {
 }
 # 6 "src/metro/Tokyo/asakusa/asakusaList.pnml" 2
 # 59 "src/_metro.pnml" 2
-# 85 "src/_metro.pnml"
+# 76 "src/_metro.pnml"
+  item(FEAT_TRAINS, yk_bl_1000series, 1200) {}
+  item(FEAT_TRAINS, yk_bl_3000series, 1201) {}
+  item(FEAT_TRAINS, yk_bl_4000series, 1202) {}
+
+
+
+# 1 "src/metro/Yokohama/yokohamaList.pnml" 1
+# 1 "src/metro/Yokohama/BlueLine/1000series/1000series.pnml" 1
+
+spriteset(yk_bl_1000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/1000series/1000series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(yk_bl_1000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/1000series/1000series.png"){ tmpl_purchase_2c_dual(0, 50) }
+switch(FEAT_TRAINS, SELF, gfx_yk_bl_1000series_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_yokohama_subway; 1: logo_line_yk_blue; 2: yk_bl_1000series_purchase_c1; 3: yk_bl_1000series_purchase_c2;}
+
+spriteset(yk_bl_1000series_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/1000series/1000series.png"){ tmpl_std_v3(0, 0) }
+spriteset(yk_bl_1000series_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/1000series/1000series.png"){ tmpl_std_v3(0, 25) }
+spriteset(yk_bl_1000series_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/1000series/1000series.png"){ tmpl_symm_v3(0, 50) }
+
+spriteset(yk_bl_2000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/1000series/2000series.png"){ tmpl_std(0, 0) }
+spriteset(yk_bl_2000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/1000series/2000series.png"){ tmpl_std_v3(0, 25) }
+spriteset(yk_bl_2000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/1000series/2000series.png"){ tmpl_symm_v3(0, 50) }
+
+
+  switch(FEAT_TRAINS, SELF, yk_bl_1000series_front, cargo_subtype==2||(cargo_subtype==0&&build_year>1982)){
+    1:yk_bl_2000series_front;
+    yk_bl_1000series_1_front;
+  }
+  switch(FEAT_TRAINS, SELF, yk_bl_1000series_end, cargo_subtype==2||(cargo_subtype==0&&build_year>1982)){
+    1:yk_bl_2000series_end;
+    yk_bl_1000series_1_end;
+  }
+  switch(FEAT_TRAINS, SELF, yk_bl_1000series_wag, cargo_subtype==2||(cargo_subtype==0&&build_year>1982)){
+    1:yk_bl_2000series_wag;
+    yk_bl_1000series_1_wag;
+  }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_yk_bl_1000series_head_gfx_main,position_in_consist>0){
+      1: yk_bl_1000series_end;
+      yk_bl_1000series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_yk_bl_1000series_lv,vehicle_type_id){
+      mu_car:yk_bl_1000series_wag;
+      sw_yk_bl_1000series_head_gfx_main;
+    }
+
+
+    switch(FEAT_TRAINS, SELF, sw_yk_bl_1000series_capacity_main,vehicle_type_id){
+      mu_car: 140;
+      150;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_yk_bl_1000series_car_power_main,position_in_vehid_chain_from_end %5){
+      0..1:return 120;
+      3:return 120;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_yk_bl_1000series_power_main,vehicle_type_id){
+      mu_car:sw_yk_bl_1000series_car_power_main;
+      120;
+    }
+
+
+
+switch(FEAT_TRAINS, SELF, sw_yk_bl_1000series_lv_desc_main, cargo_subtype){
+    0: string(LV_RANDOM);
+    1: string(LV_DATED,string(STR_TRAIN_NAME_SHORT,"1000",string(STR_NAME_SERIES)),1972);
+    2: string(LV_DATED,string(STR_TRAIN_NAME_SHORT,"2000",string(STR_NAME_SERIES)),1983);
+}
+# 2 "src/metro/Yokohama/yokohamaList.pnml" 2
+# 1 "src/metro/Yokohama/BlueLine/3000series/3000series.pnml" 1
+
+spriteset(yk_bl_3000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/3000series/3000A.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(yk_bl_3000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/3000series/3000A.png"){ tmpl_purchase_2c_dual(0, 50) }
+switch(FEAT_TRAINS, SELF, gfx_yk_bl_3000series_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_yokohama_subway; 1: logo_line_yk_blue; 2: yk_bl_3000series_purchase_c1; 3: yk_bl_3000series_purchase_c2;}
+
+spriteset(yk_bl_3000series_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/3000series/3000A.png"){ tmpl_std_v3(0, 0) }
+spriteset(yk_bl_3000series_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/3000series/3000A.png"){ tmpl_std_v3(0, 25) }
+spriteset(yk_bl_3000series_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/3000series/3000A.png"){ tmpl_symm_v3(0, 50) }
+
+spriteset(yk_bl_3000series_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/3000series/3000N.png"){ tmpl_std_v3(0, 0) }
+spriteset(yk_bl_3000series_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/3000series/3000N.png"){ tmpl_std_v3(0, 25) }
+spriteset(yk_bl_3000series_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/3000series/3000N.png"){ tmpl_symm_v3(0, 50) }
+
+spriteset(yk_bl_3000series_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/3000series/3000R.png"){ tmpl_std_v3(0, 0) }
+spriteset(yk_bl_3000series_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/3000series/3000R.png"){ tmpl_std_v3(0, 25) }
+spriteset(yk_bl_3000series_3_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/3000series/3000R.png"){ tmpl_symm_v3(0, 50) }
+
+spriteset(yk_bl_3000series_4_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/3000series/3000S.png"){ tmpl_std_v3(0, 0) }
+spriteset(yk_bl_3000series_4_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/3000series/3000S.png"){ tmpl_std_v3(0, 25) }
+spriteset(yk_bl_3000series_4_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/3000series/3000S.png"){ tmpl_symm_v3(0, 50) }
+
+spriteset(yk_bl_3000series_5_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/3000series/3000V.png"){ tmpl_std_v3(0, 0) }
+spriteset(yk_bl_3000series_5_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/3000series/3000V.png"){ tmpl_std_v3(0, 25) }
+spriteset(yk_bl_3000series_5_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/3000series/3000V.png"){ tmpl_symm_v3(0, 50) }
+
+
+  switch(FEAT_TRAINS, SELF, yk_bl_3000series_front_timed, build_year){
+    0..1998:yk_bl_3000series_1_front;
+    1999..2003:yk_bl_3000series_2_front;
+    2004..2005:yk_bl_3000series_3_front;
+    2006..2016:yk_bl_3000series_4_front;
+    yk_bl_3000series_5_front;
+  }
+  switch(FEAT_TRAINS, SELF, yk_bl_3000series_end_timed, build_year){
+    0..1998:yk_bl_3000series_1_end;
+    1999..2003:yk_bl_3000series_2_end;
+    2004..2005:yk_bl_3000series_3_end;
+    2006..2016:yk_bl_3000series_4_end;
+    yk_bl_3000series_5_end;
+  }
+  switch(FEAT_TRAINS, SELF, yk_bl_3000series_wag_timed, build_year){
+    0..1998:yk_bl_3000series_1_wag;
+    1999..2003:yk_bl_3000series_2_wag;
+    2004..2005:yk_bl_3000series_3_wag;
+    2006..2016:yk_bl_3000series_4_wag;
+    yk_bl_3000series_5_wag;
+  }
+
+  switch(FEAT_TRAINS, SELF, yk_bl_3000series_front, cargo_subtype){
+    1: yk_bl_3000series_1_front;
+    2: yk_bl_3000series_2_front;
+    3: yk_bl_3000series_3_front;
+    4: yk_bl_3000series_4_front;
+    5: yk_bl_3000series_5_front;
+    yk_bl_3000series_front_timed;
+  }
+  switch(FEAT_TRAINS, SELF, yk_bl_3000series_end, cargo_subtype){
+    1: yk_bl_3000series_1_end;
+    2: yk_bl_3000series_2_end;
+    3: yk_bl_3000series_3_end;
+    4: yk_bl_3000series_4_end;
+    5: yk_bl_3000series_5_end;
+    yk_bl_3000series_end_timed;
+  }
+  switch(FEAT_TRAINS, SELF, yk_bl_3000series_wag, cargo_subtype){
+    1: yk_bl_3000series_1_wag;
+    2: yk_bl_3000series_2_wag;
+    3: yk_bl_3000series_3_wag;
+    4: yk_bl_3000series_4_wag;
+    5: yk_bl_3000series_5_wag;
+    yk_bl_3000series_wag_timed;
+  }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_head_gfx_main,position_in_consist>0){
+      1: yk_bl_3000series_end;
+      yk_bl_3000series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_lv,vehicle_type_id){
+      mu_car:yk_bl_3000series_wag;
+      sw_yk_bl_3000series_head_gfx_main;
+    }
+
+  switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_lv_desc_main, cargo_subtype){
+    0: string(LV_RANDOM);
+    1: string(LV_DATED,string(STR_TRAIN_NAME_SHORT,"3000A",string(STR_NAME_TYPE)),1992);
+    2: string(LV_DATED,string(STR_TRAIN_NAME_SHORT,"3000N",string(STR_NAME_TYPE)),1999);
+    3: string(LV_DATED,string(STR_TRAIN_NAME_SHORT,"3000R",string(STR_NAME_TYPE)),2004);
+    4: string(LV_DATED,string(STR_TRAIN_NAME_SHORT,"3000S",string(STR_NAME_TYPE)),2006);
+    5: string(LV_DATED,string(STR_TRAIN_NAME_SHORT,"3000V",string(STR_NAME_TYPE)),2017);
+}
+
+
+    switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_capacity_main,vehicle_type_id){
+      mu_car: 133;
+      122;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_car_power_main,position_in_vehid_chain_from_end %6){
+      0..4:return 140;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_yk_bl_3000series_power_main,vehicle_type_id){
+      mu_car:sw_yk_bl_3000series_car_power_main;
+      0;
+    }
+# 3 "src/metro/Yokohama/yokohamaList.pnml" 2
+# 1 "src/metro/Yokohama/BlueLine/4000series/4000series.pnml" 1
+
+spriteset(yk_bl_4000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/4000series/4000series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(yk_bl_4000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/4000series/4000series.png"){ tmpl_purchase_2c_dual(0, 50) }
+switch(FEAT_TRAINS, SELF, gfx_yk_bl_4000series_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_yokohama_subway; 1: logo_line_yk_blue; 2: yk_bl_4000series_purchase_c1; 3: yk_bl_4000series_purchase_c2;}
+
+spriteset(yk_bl_4000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/4000series/4000series.png"){ tmpl_std_v3(0, 0) }
+spriteset(yk_bl_4000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/4000series/4000series.png"){ tmpl_std_v3(0, 25) }
+spriteset(yk_bl_4000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/BlueLine/4000series/4000series.png"){ tmpl_symm_v3(0, 50) }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_yk_bl_4000series_head_gfx_main,position_in_consist>0){
+      1: yk_bl_4000series_end;
+      yk_bl_4000series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_yk_bl_4000series_lv,vehicle_type_id){
+      mu_car:yk_bl_4000series_wag;
+      sw_yk_bl_4000series_head_gfx_main;
+    }
+
+
+    switch(FEAT_TRAINS, SELF, sw_yk_bl_4000series_capacity_main,vehicle_type_id){
+      mu_car: 133;
+      122;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_yk_bl_4000series_car_power_main,position_in_vehid_chain_from_end %6){
+      0..4:return 140;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_yk_bl_4000series_power_main,vehicle_type_id){
+      mu_car:sw_yk_bl_4000series_car_power_main;
+      0;
+    }
+# 4 "src/metro/Yokohama/yokohamaList.pnml" 2
+
+# 1 "src/metro/Yokohama/GreenLine/10000series/10000series.pnml" 1
+
+spriteset(yk_gl_10000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/GreenLine/10000series/10000series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(yk_gl_10000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/GreenLine/10000series/10000series.png"){ tmpl_purchase_2c_dual(0, 50) }
+switch(FEAT_TRAINS, SELF, gfx_yk_gl_10000series_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_yokohama_subway; 1: logo_line_yk_green; 2: yk_gl_10000series_purchase_c1; 3: yk_gl_10000series_purchase_c2;}
+
+spriteset(yk_gl_10000series_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/GreenLine/10000series/10000series.png"){ tmpl_std_v3(0, 0) }
+spriteset(yk_gl_10000series_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/GreenLine/10000series/10000series.png"){ tmpl_std_v3(0, 25) }
+spriteset(yk_gl_10000series_1_wag_def, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/GreenLine/10000series/10000series.png"){ tmpl_std_v3(0, 75) }
+spriteset(yk_gl_10000series_1_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/GreenLine/10000series/10000series.png"){ tmpl_std_rev_v3(0, 75) }
+spriteset(yk_gl_10000series_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/GreenLine/10000series/10000series.png"){ tmpl_std_v3(0, 50) }
+spriteset(yk_gl_10000series_1_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/GreenLine/10000series/10000series.png"){ tmpl_std_rev_v3(0, 50) }
+
+spriteset(yk_gl_10000series_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/GreenLine/10000series/10000series_3.png"){ tmpl_std_v3(0, 0) }
+spriteset(yk_gl_10000series_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/GreenLine/10000series/10000series_3.png"){ tmpl_std_v3(0, 25) }
+spriteset(yk_gl_10000series_2_wag_def, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/GreenLine/10000series/10000series_3.png"){ tmpl_std_v3(0, 75) }
+spriteset(yk_gl_10000series_2_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/GreenLine/10000series/10000series_3.png"){ tmpl_std_rev_v3(0, 75) }
+spriteset(yk_gl_10000series_2_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/GreenLine/10000series/10000series_3.png"){ tmpl_std_v3(0, 50) }
+spriteset(yk_gl_10000series_2_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Yokohama/GreenLine/10000series/10000series_3.png"){ tmpl_std_rev_v3(0, 50) }
+
+  switch(FEAT_TRAINS, SELF, yk_gl_10000series_front, cargo_subtype){
+    1:yk_gl_10000series_2_front;
+    yk_gl_10000series_1_front;
+  }
+  switch(FEAT_TRAINS, SELF, yk_gl_10000series_end, cargo_subtype){
+    1:yk_gl_10000series_2_end;
+    yk_gl_10000series_1_end;
+  }
+  switch(FEAT_TRAINS, SELF, yk_gl_10000series_wag_def, cargo_subtype){
+    1:yk_gl_10000series_2_wag_def;
+    yk_gl_10000series_1_wag_def;
+  }
+  switch(FEAT_TRAINS, SELF, yk_gl_10000series_wag_rev, cargo_subtype){
+    1:yk_gl_10000series_2_wag_rev;
+    yk_gl_10000series_1_wag_rev;
+  }
+  switch(FEAT_TRAINS, SELF, yk_gl_10000series_mot, cargo_subtype){
+    1:yk_gl_10000series_2_mot;
+    yk_gl_10000series_1_mot;
+  }
+  switch(FEAT_TRAINS, SELF, yk_gl_10000series_mot_rev, cargo_subtype){
+    1:yk_gl_10000series_2_mot_rev;
+    yk_gl_10000series_1_mot_rev;
+  }
+
+
+
+    switch(FEAT_TRAINS, SELF, yk_gl_10000series_wag_1, position_in_vehid_chain %2){
+      1:yk_gl_10000series_wag_def;
+      yk_gl_10000series_wag_rev;
+    }
+    switch(FEAT_TRAINS, SELF, yk_gl_10000series_wag_2, position_in_vehid_chain_from_end %2){
+      1:yk_gl_10000series_wag_rev;
+      yk_gl_10000series_wag_def;
+    }
+    switch(FEAT_TRAINS, PARENT, yk_gl_10000series_wag, vehicle_is_reversed){
+      1:yk_gl_10000series_wag_2;
+      yk_gl_10000series_wag_1;
+    }
+
+
+    switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_panto_placer_1,position_in_vehid_chain %3){
+        1: yk_gl_10000series_mot;
+        yk_gl_10000series_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
+        1: yk_gl_10000series_mot_rev;
+        yk_gl_10000series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_yk_gl_10000series_panto_placer_main_1,vehicle_is_reversed){
+        1: sw_yk_gl_10000series_panto_placer_1_rev;
+        sw_yk_gl_10000series_panto_placer_1;
+    }
+    switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_panto_placer_main,num_vehs_in_vehid_chain){
+        0..3: yk_gl_10000series_wag;
+        sw_yk_gl_10000series_panto_placer_main_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_head_gfx_main,position_in_consist>0){
+      1: yk_gl_10000series_end;
+      yk_gl_10000series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_lv,vehicle_type_id){
+      mu_car:sw_yk_gl_10000series_panto_placer_main;
+      sw_yk_gl_10000series_head_gfx_main;
+    }
+
+
+switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_lv_desc_main, cargo_subtype){
+    0: string(LV_DATED,string(STR_LIVERY,string(LV_DEFAULT)),2007);
+    1: string(LV_DATED,string(STR_LIVERY,string(LV_yk_gl_10000series_2)),2009);
+}
+
+
+    switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_capacity_main,vehicle_type_id){
+      yk_gl_10000series: 88;
+      default: 102;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_car_power_main,position_in_vehid_chain_from_end %5){
+      0..1:return 67;
+      3:return 68;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_yk_gl_10000series_power_main,vehicle_type_id){
+      yk_gl_10000series: 135;
+      sw_yk_gl_10000series_car_power_main;
+    }
+# 6 "src/metro/Yokohama/yokohamaList.pnml" 2
+
+# 1 "src/metro/Yokohama/items.pnml" 1
+item(FEAT_TRAINS, yk_bl_1000series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_yokohama == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_YOKOHAMA), "1000/2000", string(STR_NAME_TYPE));
+    introduction_date: date(1972, 12, 16);
+    model_life: 39;
+    vehicle_life: 34;
+    dual_headed: 1;
+
+
+    cost_factor: 18;
+    running_cost_factor: 50;
+    speed: 90 km/h;
+    track_type: TR_1435_M;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 27 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 750)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_3, 3,5,6)),
+
+    string(STR_OPERATOR, string(STR_YOKOHAMA))
+    ,string(STR_LINES_USED, string(STR_YOKOHAMA_BLUE))
+    );
+    cargo_subtype_text: sw_yk_bl_1000series_lv_desc_main;
+    purchase: gfx_yk_bl_1000series_purchase_main;
+    cargo_capacity:sw_yk_bl_1000series_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_yk_bl_1000series_lv;
+    power: sw_yk_bl_1000series_power_main()*4*1342/1000;
+    purchase_power: sw_yk_bl_1000series_car_power_main()*4*1342/1000;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_yk_bl_1000series_lv_desc_main;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_yk_bl_1000series_capacity_main()*param_capacity_mod/3;
+
+    power: sw_yk_bl_1000series_power_main()*4*1342/1000;
+    default:sw_yk_bl_1000series_lv;
+    weight: 33;
+
+  }
+}
+item(FEAT_TRAINS, yk_bl_3000series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_yokohama == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_YOKOHAMA), "3000", string(STR_NAME_TYPE));
+    introduction_date: date(1992, 7, 6);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 90 km/h;
+    track_type: TR_1435_M;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 27 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 750)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
+
+    string(STR_OPERATOR, string(STR_YOKOHAMA))
+    ,string(STR_LINES_USED, string(STR_YOKOHAMA_BLUE))
+    );
+    cargo_subtype_text: sw_yk_bl_3000series_lv_desc_main;
+    purchase: gfx_yk_bl_3000series_purchase_main;
+    cargo_capacity:sw_yk_bl_3000series_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_yk_bl_3000series_lv;
+    power: sw_yk_bl_3000series_power_main()*4*1342/1000;
+    purchase_power: sw_yk_bl_3000series_car_power_main()*4*1342/1000;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_yk_bl_3000series_lv_desc_main;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_yk_bl_3000series_capacity_main()*param_capacity_mod/3;
+
+    power: sw_yk_bl_3000series_power_main()*4*1342/1000;
+    default:sw_yk_bl_3000series_lv;
+    weight: 33;
+
+  }
+}
+item(FEAT_TRAINS, yk_bl_4000series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_yokohama == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_YOKOHAMA), "4000", string(STR_NAME_TYPE));
+    introduction_date: date(2022, 5, 2);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+
+    cost_factor: 20;
+    running_cost_factor: 50;
+    speed: 90 km/h;
+    track_type: TR_1435_M;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 35 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 750)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
+
+    string(STR_OPERATOR, string(STR_YOKOHAMA))
+    ,string(STR_LINES_USED, string(STR_YOKOHAMA_BLUE))
+    );
+
+    purchase: gfx_yk_bl_4000series_purchase_main;
+    cargo_capacity:sw_yk_bl_4000series_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_yk_bl_4000series_lv;
+    power: sw_yk_bl_4000series_power_main()*4*1342/1000;
+    purchase_power: sw_yk_bl_4000series_car_power_main()*4*1342/1000;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_yk_bl_4000series_capacity_main()*param_capacity_mod/3;
+
+    power: sw_yk_bl_4000series_power_main()*4*1342/1000;
+    default:sw_yk_bl_4000series_lv;
+    weight: 32;
+
+  }
+}
+item(FEAT_TRAINS, yk_gl_10000series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_yokohama == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_YOKOHAMA), "10000", string(STR_NAME_TYPE));
+    introduction_date: date(2008, 3, 30);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 90 km/h;
+    track_type: TR_1435_LINEAR;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 27 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
+
+    string(STR_OPERATOR, string(STR_YOKOHAMA))
+    ,string(STR_LINES_USED, string(STR_YOKOHAMA_GREEN))
+    );
+    cargo_subtype_text: sw_yk_gl_10000series_lv_desc_main;
+    purchase: gfx_yk_gl_10000series_purchase_main;
+    cargo_capacity:sw_yk_gl_10000series_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_3D;
+    default:sw_yk_gl_10000series_lv;
+    power: sw_yk_gl_10000series_power_main()*4*1342/1000;
+    purchase_power: sw_yk_gl_10000series_car_power_main()*4*1342/1000;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_yk_gl_10000series_lv_desc_main;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_yk_gl_10000series_capacity_main()*param_capacity_mod/3;
+
+    power: sw_yk_gl_10000series_power_main()*4*1342/1000;
+    default:sw_yk_gl_10000series_lv;
+    weight: 26;
+
+  }
+}
+# 8 "src/metro/Yokohama/yokohamaList.pnml" 2
+# 83 "src/_metro.pnml" 2
+
+
   item(FEAT_TRAINS, os_nm_8000series, 1220) {}
   item(FEAT_TRAINS, os_nm_9000series, 1221) {}
 
@@ -7447,24 +7994,26 @@ item(FEAT_TRAINS, kt_tz_50series) {
 }
 # 6 "src/metro/Kyoto/kyotoList.pnml" 2
 # 142 "src/_metro.pnml" 2
-# 150 "src/_metro.pnml"
-item(FEAT_TRAINS, ng_hg_type100, 1370) {}
-item(FEAT_TRAINS, ng_hg_type300, 1371) {}
-item(FEAT_TRAINS, ng_hg_5000series, 1372) {}
-item(FEAT_TRAINS, ng_hg_5050series, 1373) {}
-item(FEAT_TRAINS, ng_hg_n1000series, 1374) {}
 
-item(FEAT_TRAINS, ng_mj_type1000, 1380) {}
-item(FEAT_TRAINS, ng_mj_2000series, 1381) {}
 
-item(FEAT_TRAINS, ng_tm_3000series, 1390) {}
-item(FEAT_TRAINS, ng_tm_3050series, 1391) {}
-item(FEAT_TRAINS, ng_tm_N3000series, 1392) {}
 
-item(FEAT_TRAINS, ng_sk_6000series, 1400) {}
-item(FEAT_TRAINS, ng_sk_6050series, 1401) {}
+  item(FEAT_TRAINS, ng_hg_type100, 1370) {}
+  item(FEAT_TRAINS, ng_hg_type300, 1371) {}
+  item(FEAT_TRAINS, ng_hg_5000series, 1372) {}
+  item(FEAT_TRAINS, ng_hg_5050series, 1373) {}
+  item(FEAT_TRAINS, ng_hg_n1000series, 1374) {}
 
-item(FEAT_TRAINS, ng_km_7000series, 1410) {}
+  item(FEAT_TRAINS, ng_mj_type1000, 1380) {}
+  item(FEAT_TRAINS, ng_mj_2000series, 1381) {}
+
+  item(FEAT_TRAINS, ng_tm_3000series, 1390) {}
+  item(FEAT_TRAINS, ng_tm_3050series, 1391) {}
+  item(FEAT_TRAINS, ng_tm_N3000series, 1392) {}
+
+  item(FEAT_TRAINS, ng_sk_6000series, 1400) {}
+  item(FEAT_TRAINS, ng_sk_6050series, 1401) {}
+
+  item(FEAT_TRAINS, ng_km_7000series, 1410) {}
 
 # 1 "src/metro/Nagoya/nagoyaList.pnml" 1
 # 1 "src/metro/Nagoya/higashiyama/type100_250/type100.pnml" 1
@@ -9187,13 +9736,13 @@ item(FEAT_TRAINS, ng_km_7000series) {
   }
 }
 # 19 "src/metro/Nagoya/nagoyaList.pnml" 2
-# 169 "src/_metro.pnml" 2
+# 164 "src/_metro.pnml" 2
 
 
 
-item(FEAT_TRAINS, sn_nm_1000series, 1430) {}
+  item(FEAT_TRAINS, sn_nm_1000series, 1430) {}
 
-item(FEAT_TRAINS, sn_tz_2000series, 1435) {}
+  item(FEAT_TRAINS, sn_tz_2000series, 1435) {}
 
 # 1 "src/metro/Sendai/sendaiList.pnml" 1
 # 1 "src/metro/Sendai/namboku/1000series/1000series.pnml" 1
@@ -9429,18 +9978,18 @@ item(FEAT_TRAINS, sn_tz_2000series) {
   }
 }
 # 5 "src/metro/Sendai/sendaiList.pnml" 2
-# 177 "src/_metro.pnml" 2
+# 172 "src/_metro.pnml" 2
 
 
 
 
-item(FEAT_TRAINS, kb_sy_1000series, 1440) {}
-item(FEAT_TRAINS, kb_sy_2000series, 1441) {}
-item(FEAT_TRAINS, kb_sy_3000series, 1442) {}
-item(FEAT_TRAINS, kb_sy_7000series, 1443) {}
-item(FEAT_TRAINS, kb_sy_6000series, 1444) {}
+  item(FEAT_TRAINS, kb_sy_1000series, 1440) {}
+  item(FEAT_TRAINS, kb_sy_2000series, 1441) {}
+  item(FEAT_TRAINS, kb_sy_3000series, 1442) {}
+  item(FEAT_TRAINS, kb_sy_7000series, 1443) {}
+  item(FEAT_TRAINS, kb_sy_6000series, 1444) {}
 
-item(FEAT_TRAINS, kb_kg_5000series, 1447) {}
+  item(FEAT_TRAINS, kb_kg_5000series, 1447) {}
 
 # 1 "src/metro/Kobe/kobeList.pnml" 1
 # 1 "src/metro/Kobe/seishin/1000series/1000series.pnml" 1
@@ -10221,17 +10770,17 @@ item(FEAT_TRAINS, kb_sy_6000series) {
   }
 }
 # 9 "src/metro/Kobe/kobeList.pnml" 2
-# 190 "src/_metro.pnml" 2
+# 185 "src/_metro.pnml" 2
 
 
 
 
 
 
-item(FEAT_TRAINS, fk_kk_1000series, 1450) {}
-item(FEAT_TRAINS, fk_kk_2000series, 1451) {}
-item(FEAT_TRAINS, fk_kk_4000series, 1452) {}
-item(FEAT_TRAINS, fk_nk_3000series, 1455) {}
+  item(FEAT_TRAINS, fk_kk_1000series, 1450) {}
+  item(FEAT_TRAINS, fk_kk_2000series, 1451) {}
+  item(FEAT_TRAINS, fk_kk_4000series, 1452) {}
+  item(FEAT_TRAINS, fk_nk_3000series, 1455) {}
 
 # 1 "src/metro/Fukuoka/fukuokaList.pnml" 1
 # 1 "src/metro/Fukuoka/kukou/1000series/1000series.pnml" 1
@@ -10639,7 +11188,7 @@ item(FEAT_TRAINS, fk_nk_3000series) {
   }
 }
 # 6 "src/metro/Fukuoka/fukuokaList.pnml" 2
-# 202 "src/_metro.pnml" 2
+# 197 "src/_metro.pnml" 2
 # 15 "JPprivate.pnml" 2
 # 1 "src/_private.pnml" 1
 
