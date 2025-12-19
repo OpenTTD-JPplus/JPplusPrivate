@@ -1,13 +1,13 @@
 //purchase
-spriteset(tk_yk_07series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/yurakucho_fukutoshin/07series/07series.png"){ tmpl_purchase_1c(0, 0) }
-spriteset(tk_yk_07series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/yurakucho_fukutoshin/07series/07series.png"){ tmpl_purchase_2c(0, 50) }
+spriteset(tk_yk_07series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/yurakucho_fukutoshin/07series/07series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(tk_yk_07series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/yurakucho_fukutoshin/07series/07series.png"){ tmpl_purchase_2c_dual(0, 50) }
 GRAPHIC_STACK_4(tk_yk_07series_purchase, logo_tokyo_metro, logo_line_tk_yurakucho, tk_yk_07series_purchase_c1, tk_yk_07series_purchase_c2)
 
-spriteset(tk_yk_07series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/yurakucho_fukutoshin/07series/07series.png"){ tmpl_high_skirt(0, 0) }
-spriteset(tk_yk_07series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/yurakucho_fukutoshin/07series/07series.png"){ tmpl_high_skirt_rev(0, 25) }
-spriteset(tk_yk_07series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/yurakucho_fukutoshin/07series/07series.png"){ tmpl_std(0, 50) }
-spriteset(tk_yk_07series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/yurakucho_fukutoshin/07series/07series.png"){ tmpl_std_rev(0, 50) }
-spriteset(tk_yk_07series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/yurakucho_fukutoshin/07series/07series.png"){ tmpl_symm(0, 75) }
+spriteset(tk_yk_07series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/yurakucho_fukutoshin/07series/07series.png"){ tmpl_std_v3(0, 0) }
+spriteset(tk_yk_07series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/yurakucho_fukutoshin/07series/07series.png"){ tmpl_std_v3(0, 25) }
+spriteset(tk_yk_07series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/yurakucho_fukutoshin/07series/07series.png"){ tmpl_std_v3(0, 50) }
+spriteset(tk_yk_07series_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/yurakucho_fukutoshin/07series/07series.png"){ tmpl_std_rev_v3(0, 50) }
+spriteset(tk_yk_07series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/yurakucho_fukutoshin/07series/07series.png"){ tmpl_symm_v3(0, 75) }
 
 //*livery 1
 	//panto-placers
@@ -17,7 +17,7 @@ spriteset(tk_yk_07series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metr
       2: tk_yk_07series_mot;
       tk_yk_07series_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tk_yk_07series_panto_placer_1_rev,position_in_vehid_chain_from_end %5 -1){
+    switch(FEAT_TRAINS, SELF, sw_tk_yk_07series_panto_placer_1_rev,position_in_vehid_chain_from_end %5){
       0: tk_yk_07series_mot_rev;
       2: tk_yk_07series_mot_rev;
       tk_yk_07series_wag;
@@ -27,65 +27,11 @@ spriteset(tk_yk_07series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metr
       sw_tk_yk_07series_panto_placer_1;
     }
 	//front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_tk_yk_07series_gfx_main,position_in_vehid_chain_from_end){
-      0: tk_yk_07series_end;
-      default: sw_tk_yk_07series_panto_placer_main;
+    switch(FEAT_TRAINS, SELF, sw_tk_yk_07series_head_gfx_main,position_in_consist>0){
+      1:tk_yk_07series_end;
+     tk_yk_07series_front;
     }
     switch(FEAT_TRAINS, SELF, sw_tk_yk_07series_lv,vehicle_type_id){
-      tk_yk_07series: tk_yk_07series_front;
-      default: sw_tk_yk_07series_gfx_main;
+      mu_car:sw_tk_yk_07series_panto_placer_main;
+      sw_tk_yk_07series_head_gfx_main;
     }
-item(FEAT_TRAINS, tk_yk_07series, 1081) {
-    property {
-        name: string(STR_TRAIN_NAME, string(STR_NAME_EIDAN), "07", string(STR_NAME_SERIES));
-        introduction_date: date(1992, 1, 1);
-        model_life: 19;
-        vehicle_life: 20;
-        reliability_decay: 10;
-
-        cargo_capacity: 138;
-        loading_speed: param_loading_4D;
-        cost_factor: 20;
-        running_cost_factor: 51;
-
-        speed: 110 km/h;
-        track_type: TR_1067_DC;
-        power: 820 kW;
-        weight: 35 ton;
-
-        climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
-        ai_special_flag: AI_FLAG_PASSENGER;
-        sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
-        refittable_cargo_classes: bitmask(CC_PASSENGERS);
-        non_refittable_cargo_classes: bitmask();                
-
-        running_cost_base: RUNNING_COST_ELECTRIC;
-        engine_class: ENGINE_CLASS_ELECTRIC;
-        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
-        
-        tractive_effort_coefficient: 0.3;
-        air_drag_coefficient: 0.07;
-        bitmask_vehicle_info: 0;
-        length: 8;
-    }
-	graphics {
-		additional_text:
-      string(STR_TRAIN_DESC,
-      string(STR_NARROWGAUGE),
-      string(STR_DENKI, string(STR_DC, 1500)),
-      string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
-      string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
-      string(STR_OPERATOR, string(STR_TOKYOMETRO)),
-      string(STR_LINES_USED, string(STR_TOKYO_YURA)));
-		// can_attach_wagon: sw_mucar_attach_vehid;
-		start_stop: sw_stop_start_3;  
-		purchase: tk_yk_07series_purchase;
-
-		SET_GRAPHICS_DOUBLE(sw_tk_yk_07series_lv,//graphics
-		sw_tk_tz_07series_capacity_main(),//cargo capacity
-		sw_tk_tz_07series_power_main()*4*1342/1000,//power
-		param_loading_4D,//loading speed
-		sw_empty_desc,//subtype
-		mu_car_narrow,27)//car_fallback,weight
-}
