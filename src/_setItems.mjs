@@ -1,6 +1,7 @@
 import { parseCompany } from "./api/utils/parseData.mjs";
 
 parseCompany("src/metro/Tokyo");
+parseCompany("src/metro/Tokyo/toei");
 
 parseCompany("src/metro/Yokohama");
 parseCompany("src/metro/Osaka");
