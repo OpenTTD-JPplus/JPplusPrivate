@@ -135,6 +135,7 @@ export function setItem(data) {
     metroLine,
     sounds,
     isDualHeaded = 1,
+    customSpeedLogic,
   } = data;
   const usage = data.usage?.map((el) => `string(STR_${el.toUpperCase()})`).toString();
   const operator = data.operator.map((el) => `string(STR_${el.toUpperCase()})`).toString();
@@ -183,8 +184,10 @@ export function setItem(data) {
     purchase_power: sw_${
       data.reusePowerFrom ? data.reusePowerFrom : trainName
     }_car_power_main()*4*1342/1000;
+    ${customSpeedLogic ? `speed:sw_${trainName}_speed_main;` : ""}
     ${threeCarsMin ? "start_stop: sw_stop_start_3;" : ""}
     ${sounds ? `sound_effect: ${sounds};` : ""}
+    
   }
   livery_override(mu_car){
 		cargo_subtype_text:${data.hasLiveryDesc ? `sw_${trainName}_lv_desc_main` : "sw_empty_desc"};
