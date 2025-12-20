@@ -1,94 +1,55 @@
 //purchase
-spriteset(tk_mn_eidan02_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/marunouchi/eidan02/eidan02.png"){ tmpl_purchase_1c(0, 0) }
-spriteset(tk_mn_eidan02_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/marunouchi/eidan02/eidan02.png"){ tmpl_purchase_2c(0, 50) }
-GRAPHIC_STACK_4(tk_mn_eidan02_purchase, logo_tokyo_metro, logo_line_tk_maru, tk_mn_eidan02_purchase_c1, tk_mn_eidan02_purchase_c2)
+spriteset(tk_mn_eidan02_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/marunouchi/eidan02/eidan02.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(tk_mn_eidan02_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/marunouchi/eidan02/eidan02.png"){ tmpl_purchase_2c_dual(0, 50) }
+GRAPHIC_STACK_4(gfx_tk_mn_eidan02_purchase_main, logo_tokyo_metro, logo_line_tk_maru, tk_mn_eidan02_purchase_c1, tk_mn_eidan02_purchase_c2)
 
-spriteset(tk_mn_eidan02_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/marunouchi/eidan02/eidan02.png"){ tmpl_std(0, 0) }
-spriteset(tk_mn_eidan02_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/marunouchi/eidan02/eidan02.png"){ tmpl_symm(0, 50) }
-spriteset(tk_mn_eidan02_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/marunouchi/eidan02/eidan02.png"){ tmpl_std_rev(0, 25) }
-spriteset(tk_mn_eidan02_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/marunouchi/eidan02/eidan02_2.png"){ tmpl_std(0, 0) }
-spriteset(tk_mn_eidan02_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/marunouchi/eidan02/eidan02_2.png"){ tmpl_symm(0, 50) }
-spriteset(tk_mn_eidan02_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/marunouchi/eidan02/eidan02_2.png"){ tmpl_std_rev(0, 25) }
-//setup
-//basic gfx
-// livery 1
-switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan02_end_gfx,position_in_consist_from_end){
-    0: tk_mn_eidan02_end;
-    tk_mn_eidan02_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan02_livery_1,position_in_consist){
-    0: tk_mn_eidan02_front;
-    sw_tk_mn_eidan02_end_gfx;
-}
-// livery 2
-switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan02_1_end_gfx,position_in_consist_from_end){
-    0: tk_mn_eidan02_1_end;
-    tk_mn_eidan02_1_wag;
-}
-switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan02_livery_2,position_in_consist){
-    0: tk_mn_eidan02_1_front;
-    sw_tk_mn_eidan02_1_end_gfx;
-}
-//livery-randomizer
-random_switch(FEAT_TRAINS, PARENT, sw_tk_mn_eidan02_livery_0){
-    5: sw_tk_mn_eidan02_livery_1;
-    1: sw_tk_mn_eidan02_livery_2;
-}
+spriteset(tk_mn_eidan02_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/marunouchi/eidan02/eidan02.png"){ tmpl_std_v3(0, 0) }
+spriteset(tk_mn_eidan02_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/marunouchi/eidan02/eidan02.png"){ tmpl_symm_v3(0, 50) }
+spriteset(tk_mn_eidan02_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/marunouchi/eidan02/eidan02.png"){ tmpl_std_v3(0, 25) }
+
+spriteset(tk_mn_eidan02_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/marunouchi/eidan02/eidan02_2.png"){ tmpl_std_v3(0, 0) }
+spriteset(tk_mn_eidan02_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/marunouchi/eidan02/eidan02_2.png"){ tmpl_symm_v3(0, 50) }
+spriteset(tk_mn_eidan02_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/marunouchi/eidan02/eidan02_2.png"){ tmpl_std_v3(0, 25) }
+//lv stuff
+  switch(FEAT_TRAINS, SELF, tk_mn_eidan02_front, cargo_subtype){
+    0:tk_mn_eidan02_1_front;
+    1:tk_mn_eidan02_2_front;
+  }
+  switch(FEAT_TRAINS, SELF, tk_mn_eidan02_end, cargo_subtype){
+    0:tk_mn_eidan02_1_end;
+    1:tk_mn_eidan02_2_end;
+  }
+  switch(FEAT_TRAINS, SELF, tk_mn_eidan02_wag, cargo_subtype){
+    0:tk_mn_eidan02_1_wag;
+    1:tk_mn_eidan02_2_wag;
+  }
+//main
+  switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan02_head_gfx_main,position_in_consist>0){
+    1:tk_mn_eidan02_end;
+    tk_mn_eidan02_front;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan02_lv,vehicle_type_id){
+    mu_car:tk_mn_eidan02_wag;
+    sw_tk_mn_eidan02_head_gfx_main;
+  }
 //livery selector
-switch(FEAT_TRAINS, PARENT, sw_tk_mn_eidan02_lv, cargo_subtype){
-    0: sw_tk_mn_eidan02_livery_0;
-    1: sw_tk_mn_eidan02_livery_1;
-    2: sw_tk_mn_eidan02_livery_2;
+switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan02_lv_desc_main, cargo_subtype){
+    0: string(LV_DATED,string(LV_DEFAULT),1988);
+    1: string(LV_DATED,string(LV_tk_mn_eidan02_2),2004);
 }
-switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan02_lv_desc, cargo_subtype){
-    0: string(LV_RANDOM);
-    1: string(LV_tk_mn_eidan02_1);
-    2: string(LV_tk_mn_eidan02_2);
-}
-//capacity changer
-switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan02_capacity_main,position_in_vehid_chain_from_end){
-    0: 124;
-    default: 136;
-}
-item(FEAT_TRAINS, tk_mn_eidan02,1022) {
-    property {
-        OVERRIDEN_TRAIN_DATA
-        
-        climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
-        name: string(STR_TRAIN_NAME, string(STR_NAME_EIDAN), "02", string(STR_NAME_SERIES));
-        introduction_date: date(1988, 1, 1);
-        model_life: VEHICLE_NEVER_EXPIRES;
-        vehicle_life: 34;
-        reliability_decay:22;
-
-        cargo_capacity: 124;
-        loading_speed: param_loading_3D;
-        cost_factor: 19;
-        running_cost_factor: 49;
-
-        speed: 80 km/h;
-        track_type: TR_1435_M;
-        power: 480 kW;
-        weight: 29 ton;
-    }
-	graphics {
-		additional_text:
-      string(STR_TRAIN_DESC,
-      string(STR_STANDARDGAUGE),
-      string(STR_DENKI, string(STR_DC, 600)),
-      string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
-      string(STR_FORMATION, string(STR_NUM_CARS_2, 3,6)),
-      string(STR_OPERATOR, string(STR_TOKYOMETRO)),
-      string(STR_LINES_USED, string(STR_TOKYO_MARU)));
-		cargo_subtype_text: sw_tk_mn_eidan02_lv_desc;
-		// can_attach_wagon: sw_mucar_attach_vehid;
-		purchase: tk_mn_eidan02_purchase;
-		start_stop: sw_stop_start_3;
-
-		SET_GRAPHICS_DOUBLE(sw_tk_mn_eidan02_lv,//graphics
-		sw_tk_mn_eidan02_capacity_main(),//cargo capacity
-		644/2,//power
-		param_loading_3D,//loading speed
-		sw_tk_mn_eidan02_lv_desc,//subtype
-		mu_car_metro,26)//car_fallback,weight
-}
+//*post fixers
+  //capacity-changer
+  switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan02_capacity_main,vehicle_type_id){
+    mu_car: 136;
+    124;
+  }
+  //power fix
+  switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan02_car_power_main,position_in_vehid_chain_from_end %6){
+    0..4:120;
+    return 0;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan02_power_main,vehicle_type_id){
+      mu_car:sw_tk_mn_eidan02_car_power_main;
+      0;
+   }
+//
