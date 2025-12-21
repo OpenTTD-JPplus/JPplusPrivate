@@ -1,0 +1,27 @@
+//purchase
+spriteset(tk_gz_type100_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/type100/type100.png"){ tmpl_purchase_1c(0, 0) }
+spriteset(tk_gz_type100_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/type100/type100.png"){ tmpl_purchase_2c(0, 25) }
+GRAPHIC_STACK_3(gfx_tk_gz_type100_purchase_main, logo_tokyo_metro_s, logo_line_tk_ginza_s, tk_gz_type100_purchase_c1)
+
+spriteset(tk_gz_type100_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/type100/type100.png"){ tmpl_std_v3(0, 0) }
+spriteset(tk_gz_type100_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/type100/type100.png"){ tmpl_std_v3(0, 25) }
+spriteset(tk_gz_type100_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/type100/type100.png"){ tmpl_std_v3(0, 50) }
+// livery 1
+switch(FEAT_TRAINS, SELF, sw_tk_gz_type100_end_gfx,position_in_vehid_chain_from_end){
+    0: tk_gz_type100_end;
+    tk_gz_type100_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_tk_gz_type100_lv,position_in_consist){
+    0: tk_gz_type100_front;
+    sw_tk_gz_type100_end_gfx;
+}
+//power fix
+  switch(FEAT_TRAINS, SELF, sw_tk_gz_type100_car_power_main,position_in_vehid_chain_from_end %6){
+    0..4:75;
+    return 0;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_gz_type100_power_main,vehicle_type_id){
+      mu_car:sw_tk_gz_type100_car_power_main;
+      75;
+   }
+//
