@@ -16448,6 +16448,7 @@ item(FEAT_TRAINS, ng_km_7000series) {
 
 
     item(FEAT_TRAINS, sn_nm_1000series, 1430) {}
+    item(FEAT_TRAINS, sn_nm_3000series, 1431) {}
 
     item(FEAT_TRAINS, sn_tz_2000series, 1435) {}
 # 1 "src/metro/Sendai/sendaiList.pnml" 1
@@ -16499,6 +16500,75 @@ spriteset(sn_nm_1000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/S
       sw_sn_nm_1000series_car_power_main;
     }
 # 2 "src/metro/Sendai/sendaiList.pnml" 2
+# 1 "src/metro/Sendai/namboku/3000series/3000series.pnml" 1
+
+  spriteset(sn_nm_3000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sendai/namboku/3000series/3000series_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(sn_nm_3000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sendai/namboku/3000series/3000series_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  switch(FEAT_TRAINS, SELF, gfx_sn_nm_3000series_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_sendai_subway; 1: logo_line_sn_namboku; 2: sn_nm_3000series_purchase_c1; 3: ac_long_toshiba_c1; 4: sn_nm_3000series_purchase_c2; 5: ac_long_toshiba_c2;}
+
+spriteset(sn_nm_3000series_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sendai/namboku/3000series/3000series_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(sn_nm_3000series_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sendai/namboku/3000series/3000series_lights.png"){ tmpl_std_v3(0, 25) }
+spriteset(sn_nm_3000series_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sendai/namboku/3000series/3000series_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(sn_nm_3000series_wag_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sendai/namboku/3000series/3000series_1.png"){ tmpl_symm_v3(0, 25) }
+
+  switch(FEAT_TRAINS, SELF, sn_nm_3000series_front, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sn_nm_3000series_head_base; 1: sn_nm_3000series_lights_front; 2: ac_long_toshiba;}
+  switch(FEAT_TRAINS, SELF, sn_nm_3000series_end, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sn_nm_3000series_head_base; 1: sn_nm_3000series_lights_end; 2: ac_long_toshiba;}
+  switch(FEAT_TRAINS, SELF, sn_nm_3000series_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sn_nm_3000series_wag_base; 1: ac_long_toshiba; 2: panto_arm_n;}
+  switch(FEAT_TRAINS, SELF, sn_nm_3000series_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sn_nm_3000series_wag_base; 1: ac_long_toshiba;}
+
+
+
+
+      switch(FEAT_TRAINS, SELF, sw_sn_nm_3000series_panto_placer_1,position_in_vehid_chain %3){
+        0: sn_nm_3000series_mot;
+        sn_nm_3000series_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_sn_nm_3000series_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
+        0: sn_nm_3000series_mot;
+        sn_nm_3000series_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_sn_nm_3000series_panto_placer_main_1,vehicle_is_reversed){
+        1: sw_sn_nm_3000series_panto_placer_1_rev;
+        sw_sn_nm_3000series_panto_placer_1;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_sn_nm_3000series_panto_placer_2,position_in_vehid_chain %3){
+        1: sn_nm_3000series_mot;
+        sn_nm_3000series_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_sn_nm_3000series_panto_placer_2_rev,position_in_vehid_chain_from_end %3){
+        1: sn_nm_3000series_mot;
+        sn_nm_3000series_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_sn_nm_3000series_panto_placer_main_2,vehicle_is_reversed){
+        1: sw_sn_nm_3000series_panto_placer_2_rev;
+        sw_sn_nm_3000series_panto_placer_2;
+      }
+    switch(FEAT_TRAINS, SELF, sw_sn_nm_3000series_panto_placer_main,num_vehs_in_vehid_chain){
+      3: sw_sn_nm_3000series_panto_placer_main_2;
+      sw_sn_nm_3000series_panto_placer_main_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_sn_nm_3000series_head_gfx_main,position_in_consist>0){
+      1: sn_nm_3000series_end;
+      sn_nm_3000series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_sn_nm_3000series_lv,vehicle_type_id){
+      mu_car:sw_sn_nm_3000series_panto_placer_main;
+      sw_sn_nm_3000series_head_gfx_main;
+    }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_sn_nm_3000series_car_power_main,position_in_vehid_chain_from_end %6){
+      0..3:return 160;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_sn_nm_3000series_power_main,vehicle_type_id){
+      mu_car: sw_sn_nm_3000series_car_power_main;
+      0;
+    }
+# 3 "src/metro/Sendai/sendaiList.pnml" 2
 # 1 "src/metro/Sendai/tozai/2000series/2000series.pnml" 1
 
 spriteset(sn_tz_2000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sendai/tozai/2000series/2000series.png"){ tmpl_purchase_1c_dual(0, 0) }
@@ -16572,7 +16642,7 @@ spriteset(sn_tz_2000series_wag_rev_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/m
       sn_tz_2000series: 135;
       sw_sn_tz_2000series_car_power_main;
     }
-# 3 "src/metro/Sendai/sendaiList.pnml" 2
+# 4 "src/metro/Sendai/sendaiList.pnml" 2
 
 # 1 "src/metro/Sendai/items.pnml" 1
 item(FEAT_TRAINS, sn_nm_1000series) {
@@ -16628,6 +16698,62 @@ item(FEAT_TRAINS, sn_nm_1000series) {
     power: sw_sn_nm_1000series_power_main()*4*1342/1000;
     default:sw_sn_nm_1000series_lv;
     weight: 32;
+
+  }
+}
+item(FEAT_TRAINS, sn_nm_3000series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_sendai == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_SENDAI), "3000", string(STR_NAME_SERIES));
+    introduction_date: date(2024, 10, 24);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 105 km/h;
+    track_type: TR_1067_DC;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 34 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
+
+    string(STR_OPERATOR, string(STR_SENDAI))
+    ,string(STR_LINES_USED, string(STR_SENDAI_NAMBOKU))
+    );
+
+    purchase: gfx_sn_nm_3000series_purchase_main;
+    cargo_capacity:145*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_sn_nm_3000series_lv;
+    power: sw_sn_nm_3000series_power_main()*4*1342/1000;
+    purchase_power: sw_sn_nm_3000series_car_power_main()*4*1342/1000;
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_4D;
+    cargo_capacity:145*param_capacity_mod/3;
+
+    power: sw_sn_nm_3000series_power_main()*4*1342/1000;
+    default:sw_sn_nm_3000series_lv;
+    weight: 34;
 
   }
 }
@@ -16687,8 +16813,8 @@ item(FEAT_TRAINS, sn_tz_2000series) {
 
   }
 }
-# 5 "src/metro/Sendai/sendaiList.pnml" 2
-# 157 "src/_metro.pnml" 2
+# 6 "src/metro/Sendai/sendaiList.pnml" 2
+# 158 "src/_metro.pnml" 2
 
 
 
@@ -17491,7 +17617,7 @@ item(FEAT_TRAINS, kb_sy_6000series) {
   }
 }
 # 9 "src/metro/Kobe/kobeList.pnml" 2
-# 169 "src/_metro.pnml" 2
+# 170 "src/_metro.pnml" 2
 
 
 
@@ -17952,7 +18078,7 @@ item(FEAT_TRAINS, fk_kk_4000series) {
     track_type: TR_1067_DC;
     power: 1 kW;
     tractive_effort_coefficient: 0.2;
-    weight: 50 ton;
+    weight: 33 ton;
 
   }
  graphics {
@@ -17986,7 +18112,7 @@ item(FEAT_TRAINS, fk_kk_4000series) {
 
     power: sw_fk_kk_4000series_power_main()*4*1342/1000;
     default:sw_fk_kk_4000series_lv;
-    weight: 48;
+    weight: 32;
 
   }
 }
@@ -18047,7 +18173,7 @@ item(FEAT_TRAINS, fk_nk_3000series) {
   }
 }
 # 8 "src/metro/Fukuoka/fukuokaList.pnml" 2
-# 178 "src/_metro.pnml" 2
+# 179 "src/_metro.pnml" 2
 # 15 "JPprivate.pnml" 2
 # 1 "src/_private.pnml" 1
 
