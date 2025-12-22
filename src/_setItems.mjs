@@ -10,6 +10,7 @@ parseCompany("src/metro/Kyoto");
 parseCompany("src/metro/Nagoya");
 parseCompany("src/metro/Sendai");
 parseCompany("src/metro/Fukuoka");
+parseCompany("src/metro/Sapporo");
 
 parseCompany("src/private/Kanto/TWR");
 parseCompany("src/private/Kanto/tsukuba");

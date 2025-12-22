@@ -10,6 +10,9 @@ function formatCurrentString(string) {
     case "DC_600":
       res = "string(STR_DC, 600)";
       break;
+    case "DC_750_GUIDE":
+      res = "string(STR_DC, 750)";
+      break;
     case "DC_750":
       res = "string(STR_DC, 750)";
       break;
@@ -40,6 +43,9 @@ function formatCurrentString(string) {
 function formatTrackType(string) {
   let res = "";
   switch (string) {
+    case "DC_750_GUIDE":
+      res = "GUIDE";
+      break;
     case "DC_1500":
       res = "DC";
       break;
