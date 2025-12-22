@@ -1,0 +1,38 @@
+//purchase
+spriteset(sp_nm_5000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Sapporo/5000series/5000series_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(sp_nm_5000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Sapporo/5000series/5000series_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+GRAPHIC_STACK_4(gfx_sp_nm_5000series_purchase_main, sprite_logo_sapporo_subway, sprite_logo_line_sp_namboku, sp_nm_5000series_purchase_c1, sp_nm_5000series_purchase_c2)
+
+spriteset(sp_nm_5000series_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Sapporo/5000series/5000series_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(sp_nm_5000series_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Sapporo/5000series/5000series_lights.png"){ tmpl_std_v3(0, 25) }
+spriteset(sp_nm_5000series_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Sapporo/5000series/5000series_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(sp_nm_5000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Sapporo/5000series/5000series_1.png"){ tmpl_symm_v3(0, 25) }
+TRAIN_CONSTRUCTOR_2(sp_nm_5000series_front, sp_nm_5000series_head_base, sp_nm_5000series_lights_front)
+TRAIN_CONSTRUCTOR_2(sp_nm_5000series_end, sp_nm_5000series_head_base, sp_nm_5000series_lights_end)
+//*main
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_sp_nm_5000series_head_gfx_main,position_in_consist>0){
+      1:sp_nm_5000series_end;
+      sp_nm_5000series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_sp_nm_5000series_lv,vehicle_type_id){
+      mu_car:sp_nm_5000series_wag;
+      sw_sp_nm_5000series_head_gfx_main;
+    }
+//post fixers
+  //capacity-changer
+  switch(FEAT_TRAINS, SELF, sw_sp_nm_5000series_capacity_main,vehicle_type_id){
+    mu_car: 143;
+    128;
+  }
+  //power fix
+    switch(FEAT_TRAINS, SELF, sw_sp_nm_5000series_car_power_main,position_in_vehid_chain %5){
+      0..1:return 150;
+      3:return 150;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_sp_nm_5000series_power_main,vehicle_type_id){
+      mu_car:sw_sp_nm_5000series_car_power_main;
+      0;
+   }
+//
