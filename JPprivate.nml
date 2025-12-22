@@ -2491,6 +2491,7 @@ switch(FEAT_TRAINS, SELF, logo_shibayama, param_hide_logo) {0:sprite_logo_shibay
     spriteset(panto_odakyu_n, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/parts/panto/panto_odakyu.png"){ tmpl_std(0, 0) }
     spriteset(panto_odakyu_n_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/parts/panto/panto_odakyu.png"){ tmpl_std_rev(0, 0) }
 
+    spriteset(panto_d_arm_sapporo, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "gfx/parts/panto/panto_d_arm_sapporo.png"){ tmpl_symm_v3(0, 0) }
 
 
 
@@ -8547,7 +8548,7 @@ switch(FEAT_TRAINS, SELF, gfx_tk_sj_toei10_000_purchase_main, [ STORE_TEMP(CB_FL
 
 switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_lv_desc_main, cargo_subtype){
   0: string(LV_RANDOM);
-  1: string(LV_DATED,string(LV_tk_sj_toei10_000_1),1971);
+  1: string(LV_DATED,string(LV_PROTOTYPE),1971);
   2: string(LV_DATED,string(STR_BATCH_2, 1,6),1978);
   3: string(LV_DATED,string(STR_BATCH, 7),1992);
   4: string(LV_DATED,string(STR_BATCH, 8),1997);
@@ -18210,6 +18211,12 @@ item(FEAT_TRAINS, fk_nk_3000series) {
     item(FEAT_TRAINS, sp_nm_2000series, 1500) {}
     item(FEAT_TRAINS, sp_nm_3000series, 1501) {}
     item(FEAT_TRAINS, sp_nm_5000series, 1502) {}
+
+    item(FEAT_TRAINS, sp_tz_6000series, 1505) {}
+    item(FEAT_TRAINS, sp_tz_8000series, 1506) {}
+
+    item(FEAT_TRAINS, sp_th_7000series, 1510) {}
+    item(FEAT_TRAINS, sp_th_9000series, 1511) {}
 # 1 "src/metro/Sapporo/sapporoList.pnml" 1
 # 1 "src/metro/Sapporo/2000series/2000series.pnml" 1
 
@@ -18337,6 +18344,289 @@ switch(FEAT_TRAINS, SELF, sp_nm_5000series_end, [ STORE_TEMP(CB_FLAG_MORE_SPRITE
       0;
    }
 # 4 "src/metro/Sapporo/sapporoList.pnml" 2
+# 1 "src/metro/Sapporo/6000series/6000series.pnml" 1
+
+spriteset(sp_tz_6000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/6000series/6000series_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(sp_tz_6000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/6000series/6000series_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+switch(FEAT_TRAINS, SELF, gfx_sp_tz_6000series_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: sprite_logo_sapporo_subway; 1: sprite_logo_line_sp_tozai; 2: sp_tz_6000series_purchase_c1; 3: sp_tz_6000series_purchase_c2;}
+
+spriteset(sp_tz_6000series_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/6000series/6000series_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(sp_tz_6000series_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/6000series/6000series_lights.png"){ tmpl_std_v3(0, 25) }
+spriteset(sp_tz_6000series_head_base_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/6000series/6000series_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(sp_tz_6000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/6000series/6000series_1.png"){ tmpl_symm_v3(0, 25) }
+spriteset(sp_tz_6000series_head_base_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/6000series/6000series_2.png"){ tmpl_std_v3(0, 0) }
+
+switch(FEAT_TRAINS, SELF, sp_tz_6000series_front_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sp_tz_6000series_head_base_1; 1: sp_tz_6000series_lights_front;}
+switch(FEAT_TRAINS, SELF, sp_tz_6000series_end_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sp_tz_6000series_head_base_1; 1: sp_tz_6000series_lights_end;}
+switch(FEAT_TRAINS, SELF, sp_tz_6000series_front_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sp_tz_6000series_head_base_2; 1: sp_tz_6000series_lights_front;}
+switch(FEAT_TRAINS, SELF, sp_tz_6000series_end_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sp_tz_6000series_head_base_2; 1: sp_tz_6000series_lights_end;}
+
+switch(FEAT_TRAINS, SELF, sp_tz_6000series_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sp_tz_6000series_wag; 1: panto_d_arm_sapporo;}
+
+
+switch(FEAT_TRAINS, SELF, sp_tz_6000series_front_timed, build_year){
+  0..1975:sp_tz_6000series_front_1; sp_tz_6000series_front_2;
+}
+switch(FEAT_TRAINS, SELF, sp_tz_6000series_end_timed, build_year){
+  0..1975:sp_tz_6000series_end_1; sp_tz_6000series_end_2;
+}
+switch(FEAT_TRAINS, SELF, sp_tz_6000series_front, cargo_subtype){
+  0:sp_tz_6000series_front_timed;
+  1:sp_tz_6000series_front_1;
+  2:sp_tz_6000series_front_2;
+}
+switch(FEAT_TRAINS, SELF, sp_tz_6000series_end, cargo_subtype){
+  0:sp_tz_6000series_end_timed;
+  1:sp_tz_6000series_end_1;
+  2:sp_tz_6000series_end_2;
+}
+
+
+    switch(FEAT_TRAINS, SELF, sp_tz_6000series_panto_placer, position_in_vehid_chain_from_end %3){
+      0:sp_tz_6000series_mot;
+      sp_tz_6000series_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sp_tz_6000series_panto_placer_rev, position_in_vehid_chain %3){
+      0:sp_tz_6000series_mot;
+      sp_tz_6000series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sp_tz_6000series_panto_placer_main, vehicle_is_reversed){
+      1:sp_tz_6000series_panto_placer_rev;
+      sp_tz_6000series_panto_placer;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_sp_tz_6000series_head_gfx_main,position_in_consist>0){
+      1:sp_tz_6000series_end;
+      sp_tz_6000series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_sp_tz_6000series_lv,vehicle_type_id){
+      mu_car:sp_tz_6000series_panto_placer_main;
+      sw_sp_tz_6000series_head_gfx_main;
+    }
+
+  switch(FEAT_TRAINS, SELF, sw_sp_tz_6000series_lv_desc_main, cargo_subtype){
+    0:string(LV_RANDOM);
+    1:string(LV_DATED,string(LV_PROTOTYPE),1975);
+    2:string(LV_DATED,string(LV_DEFAULT),1976);
+  }
+
+
+  switch(FEAT_TRAINS, SELF, sw_sp_tz_6000series_capacity_main,vehicle_type_id){
+    mu_car: 130;
+    110;
+  }
+
+    switch(FEAT_TRAINS, SELF, sw_sp_tz_6000series_car_power_main,position_in_vehid_chain %6){
+      0..5:return 70;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_sp_tz_6000series_power_main,vehicle_type_id){
+      mu_car:sw_sp_tz_6000series_car_power_main;
+      70*2;
+   }
+# 5 "src/metro/Sapporo/sapporoList.pnml" 2
+# 1 "src/metro/Sapporo/7000series/7000series.pnml" 1
+
+spriteset(sp_th_7000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/7000series/7000series_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(sp_th_7000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/7000series/7000series_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+switch(FEAT_TRAINS, SELF, gfx_sp_th_7000series_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: sprite_logo_sapporo_subway; 1: sprite_logo_line_sp_toho; 2: sp_th_7000series_purchase_c1; 3: sp_th_7000series_purchase_c2;}
+
+spriteset(sp_th_7000series_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/7000series/7000series_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(sp_th_7000series_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/7000series/7000series_lights.png"){ tmpl_std_v3(0, 25) }
+spriteset(sp_th_7000series_head_base_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/7000series/7000series_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(sp_th_7000series_wag_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/7000series/7000series_1.png"){ tmpl_symm_v3(0, 25) }
+spriteset(sp_th_7000series_wag_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/7000series/7000series_2.png"){ tmpl_symm_v3(0, 25) }
+spriteset(sp_th_7000series_head_base_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/7000series/7000series_2.png"){ tmpl_std_v3(0, 0) }
+
+switch(FEAT_TRAINS, SELF, sp_th_7000series_front_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sp_th_7000series_head_base_1; 1: sp_th_7000series_lights_front;}
+switch(FEAT_TRAINS, SELF, sp_th_7000series_end_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sp_th_7000series_head_base_1; 1: sp_th_7000series_lights_end;}
+switch(FEAT_TRAINS, SELF, sp_th_7000series_front_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sp_th_7000series_head_base_2; 1: sp_th_7000series_lights_front;}
+switch(FEAT_TRAINS, SELF, sp_th_7000series_end_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sp_th_7000series_head_base_2; 1: sp_th_7000series_lights_end;}
+
+switch(FEAT_TRAINS, SELF, sp_th_7000series_mot_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sp_th_7000series_wag_1; 1: panto_d_arm_sapporo;}
+switch(FEAT_TRAINS, SELF, sp_th_7000series_mot_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sp_th_7000series_wag_2; 1: panto_d_arm_sapporo;}
+
+switch(FEAT_TRAINS, SELF, sp_th_7000series_front_timed, build_year){
+  0..1993:sp_th_7000series_front_1; sp_th_7000series_front_2;
+}
+switch(FEAT_TRAINS, SELF, sp_th_7000series_end_timed, build_year){
+  0..1993:sp_th_7000series_end_1; sp_th_7000series_end_2;
+}
+switch(FEAT_TRAINS, SELF, sp_th_7000series_wag_timed, build_year){
+  0..1993:sp_th_7000series_wag_1; sp_th_7000series_wag_2;
+}
+switch(FEAT_TRAINS, SELF, sp_th_7000series_mot_timed, build_year){
+  0..1993:sp_th_7000series_mot_1; sp_th_7000series_mot_2;
+}
+switch(FEAT_TRAINS, SELF, sp_th_7000series_front, cargo_subtype){
+  0:sp_th_7000series_front_timed;
+  1:sp_th_7000series_front_1;
+  2:sp_th_7000series_front_2;
+}
+switch(FEAT_TRAINS, SELF, sp_th_7000series_end, cargo_subtype){
+  0:sp_th_7000series_end_timed;
+  1:sp_th_7000series_end_1;
+  2:sp_th_7000series_end_2;
+}
+switch(FEAT_TRAINS, SELF, sp_th_7000series_wag, cargo_subtype){
+  0:sp_th_7000series_wag_timed;
+  1:sp_th_7000series_wag_1;
+  2:sp_th_7000series_wag_2;
+}
+switch(FEAT_TRAINS, SELF, sp_th_7000series_mot, cargo_subtype){
+  0:sp_th_7000series_mot_timed;
+  1:sp_th_7000series_mot_1;
+  2:sp_th_7000series_mot_2;
+}
+
+
+    switch(FEAT_TRAINS, SELF, sp_th_7000series_panto_placer, position_in_vehid_chain_from_end %3){
+      0:sp_th_7000series_mot;
+      sp_th_7000series_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sp_th_7000series_panto_placer_rev, position_in_vehid_chain %3){
+      0:sp_th_7000series_mot;
+      sp_th_7000series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sp_th_7000series_panto_placer_main, vehicle_is_reversed){
+      1:sp_th_7000series_panto_placer_rev;
+      sp_th_7000series_panto_placer;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_sp_th_7000series_head_gfx_main,position_in_consist>0){
+      1:sp_th_7000series_end;
+      sp_th_7000series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_sp_th_7000series_lv,vehicle_type_id){
+      mu_car:sp_th_7000series_panto_placer_main;
+      sw_sp_th_7000series_head_gfx_main;
+    }
+
+  switch(FEAT_TRAINS, SELF, sw_sp_th_7000series_lv_desc_main, cargo_subtype){
+    0:string(LV_RANDOM);
+    1:string(LV_DATED,string(LV_DEFAULT),1987);
+    2:string(LV_DATED,string(STR_BATCH,3),1994);
+  }
+
+
+  switch(FEAT_TRAINS, SELF, sw_sp_th_7000series_capacity_main,vehicle_type_id){
+    mu_car: 130;
+    128;
+  }
+
+    switch(FEAT_TRAINS, SELF, sw_sp_th_7000series_car_power_main,position_in_vehid_chain %6){
+      0..5:return 75;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_sp_th_7000series_power_main,vehicle_type_id){
+      mu_car:sw_sp_th_7000series_car_power_main;
+      75*2;
+   }
+# 6 "src/metro/Sapporo/sapporoList.pnml" 2
+# 1 "src/metro/Sapporo/8000series/8000series.pnml" 1
+
+spriteset(sp_tz_8000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/8000series/8000series_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(sp_tz_8000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/8000series/8000series_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+switch(FEAT_TRAINS, SELF, gfx_sp_tz_8000series_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: sprite_logo_sapporo_subway; 1: sprite_logo_line_sp_tozai; 2: sp_tz_8000series_purchase_c1; 3: sp_tz_8000series_purchase_c2;}
+
+spriteset(sp_tz_8000series_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/8000series/8000series_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(sp_tz_8000series_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/8000series/8000series_lights.png"){ tmpl_std_v3(0, 25) }
+spriteset(sp_tz_8000series_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/8000series/8000series_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(sp_tz_8000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/8000series/8000series_1.png"){ tmpl_symm_v3(0, 25) }
+
+switch(FEAT_TRAINS, SELF, sp_tz_8000series_front, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sp_tz_8000series_head_base; 1: sp_tz_8000series_lights_front;}
+switch(FEAT_TRAINS, SELF, sp_tz_8000series_end, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sp_tz_8000series_head_base; 1: sp_tz_8000series_lights_end;}
+switch(FEAT_TRAINS, SELF, sp_tz_8000series_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sp_tz_8000series_wag; 1: panto_d_arm_sapporo;}
+
+
+
+    switch(FEAT_TRAINS, SELF, sp_tz_8000series_panto_placer, position_in_vehid_chain_from_end %3){
+      0:sp_tz_8000series_mot;
+      sp_tz_8000series_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sp_tz_8000series_panto_placer_rev, position_in_vehid_chain %3){
+      0:sp_tz_8000series_mot;
+      sp_tz_8000series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sp_tz_8000series_panto_placer_main, vehicle_is_reversed){
+      1:sp_tz_8000series_panto_placer_rev;
+      sp_tz_8000series_panto_placer;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_sp_tz_8000series_head_gfx_main,position_in_consist>0){
+      1:sp_tz_8000series_end;
+      sp_tz_8000series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_sp_tz_8000series_lv,vehicle_type_id){
+      mu_car:sp_tz_8000series_panto_placer_main;
+      sw_sp_tz_8000series_head_gfx_main;
+    }
+
+
+    switch(FEAT_TRAINS, SELF, sw_sp_tz_8000series_car_power_main,position_in_vehid_chain %5){
+      0..1:return 140;
+      3:return 140;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_sp_tz_8000series_power_main,vehicle_type_id){
+      mu_car:sw_sp_tz_8000series_car_power_main;
+      0;
+   }
+# 7 "src/metro/Sapporo/sapporoList.pnml" 2
+# 1 "src/metro/Sapporo/9000series/9000series.pnml" 1
+
+spriteset(sp_th_9000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/9000series/9000series_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(sp_th_9000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/9000series/9000series_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+switch(FEAT_TRAINS, SELF, gfx_sp_th_9000series_purchase_main, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: sprite_logo_sapporo_subway; 1: sprite_logo_line_sp_toho; 2: sp_th_9000series_purchase_c1; 3: sp_th_9000series_purchase_c2;}
+
+spriteset(sp_th_9000series_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/9000series/9000series_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(sp_th_9000series_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/9000series/9000series_lights.png"){ tmpl_std_v3(0, 25) }
+spriteset(sp_th_9000series_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/9000series/9000series_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(sp_th_9000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Sapporo/9000series/9000series_1.png"){ tmpl_symm_v3(0, 25) }
+
+switch(FEAT_TRAINS, SELF, sp_th_9000series_front, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sp_th_9000series_head_base; 1: sp_th_9000series_lights_front;}
+switch(FEAT_TRAINS, SELF, sp_th_9000series_end, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sp_th_9000series_head_base; 1: sp_th_9000series_lights_end;}
+switch(FEAT_TRAINS, SELF, sp_th_9000series_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sp_th_9000series_wag; 1: panto_d_arm_sapporo;}
+
+
+
+    switch(FEAT_TRAINS, SELF, sp_th_9000series_panto_placer, position_in_vehid_chain_from_end %3){
+      0:sp_th_9000series_mot;
+      sp_th_9000series_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sp_th_9000series_panto_placer_rev, position_in_vehid_chain %3){
+      0:sp_th_9000series_mot;
+      sp_th_9000series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sp_th_9000series_panto_placer_main, vehicle_is_reversed){
+      1:sp_th_9000series_panto_placer_rev;
+      sp_th_9000series_panto_placer;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_sp_th_9000series_head_gfx_main,position_in_consist>0){
+      1:sp_th_9000series_end;
+      sp_th_9000series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_sp_th_9000series_lv,vehicle_type_id){
+      mu_car:sp_th_9000series_panto_placer_main;
+      sw_sp_th_9000series_head_gfx_main;
+    }
+
+  switch(FEAT_TRAINS, SELF, sw_sp_th_9000series_capacity_main,vehicle_type_id){
+    mu_car: 137;
+    121;
+  }
+
+    switch(FEAT_TRAINS, SELF, sw_sp_th_9000series_car_power_main,position_in_vehid_chain %5){
+      0..1:return 140;
+      3:return 140;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_sp_th_9000series_power_main,vehicle_type_id){
+      mu_car:sw_sp_th_9000series_car_power_main;
+      0;
+   }
+# 8 "src/metro/Sapporo/sapporoList.pnml" 2
 
 # 1 "src/metro/Sapporo/items.pnml" 1
 item(FEAT_TRAINS, sp_nm_2000series) {
@@ -18507,8 +18797,232 @@ item(FEAT_TRAINS, sp_nm_5000series) {
 
   }
 }
-# 6 "src/metro/Sapporo/sapporoList.pnml" 2
-# 186 "src/_metro.pnml" 2
+item(FEAT_TRAINS, sp_tz_6000series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_sapporo == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_SAPPORO), "6000", string(STR_NAME_TYPE));
+    introduction_date: date(1975, 10, 14);
+    model_life: 38;
+    vehicle_life: 33;
+    dual_headed: 1;
+
+
+    cost_factor: 18;
+    running_cost_factor: 48;
+    speed: 70 km/h;
+    track_type: TR_3000_GUIDE;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 30 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_3000),
+    string(STR_DENKI, string(STR_DC, 750)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_3, 4,6,7)),
+
+    string(STR_OPERATOR, string(STR_SAPPORO))
+    ,string(STR_LINES_USED, string(STR_SAPPORO_TOZAI))
+    );
+    cargo_subtype_text: sw_sp_tz_6000series_lv_desc_main;
+    purchase: gfx_sp_tz_6000series_purchase_main;
+    cargo_capacity:sw_sp_tz_6000series_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_3D;
+    default:sw_sp_tz_6000series_lv;
+    power: sw_sp_tz_6000series_power_main()*4*1342/1000;
+    purchase_power: sw_sp_tz_6000series_car_power_main()*4*1342/1000;
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_sp_tz_6000series_lv_desc_main;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_sp_tz_6000series_capacity_main()*param_capacity_mod/3;
+
+    power: sw_sp_tz_6000series_power_main()*4*1342/1000;
+    default:sw_sp_tz_6000series_lv;
+    weight: 29;
+
+  }
+}
+item(FEAT_TRAINS, sp_tz_8000series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_sapporo == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_SAPPORO), "8000", string(STR_NAME_TYPE));
+    introduction_date: date(1998, 8, 18);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 80 km/h;
+    track_type: TR_3000_GUIDE;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 30 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_3000),
+    string(STR_DENKI, string(STR_DC, 750)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 7)),
+
+    string(STR_OPERATOR, string(STR_SAPPORO))
+    ,string(STR_LINES_USED, string(STR_SAPPORO_TOZAI))
+    );
+
+    purchase: gfx_sp_tz_8000series_purchase_main;
+    cargo_capacity:130*param_capacity_mod/3;
+    loading_speed:param_loading_3D;
+    default:sw_sp_tz_8000series_lv;
+    power: sw_sp_tz_8000series_power_main()*4*1342/1000;
+    purchase_power: sw_sp_tz_8000series_car_power_main()*4*1342/1000;
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_3D;
+    cargo_capacity:130*param_capacity_mod/3;
+
+    power: sw_sp_tz_8000series_power_main()*4*1342/1000;
+    default:sw_sp_tz_8000series_lv;
+    weight: 29;
+
+  }
+}
+item(FEAT_TRAINS, sp_th_7000series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_sapporo == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_SAPPORO), "7000", string(STR_NAME_TYPE));
+    introduction_date: date(1988, 12, 1);
+    model_life: 33;
+    vehicle_life: 28;
+    dual_headed: 1;
+
+
+    cost_factor: 18;
+    running_cost_factor: 48;
+    speed: 70 km/h;
+    track_type: TR_3000_GUIDE;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 25 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_3000),
+    string(STR_DENKI, string(STR_DC, 750)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
+
+    string(STR_OPERATOR, string(STR_SAPPORO))
+    ,string(STR_LINES_USED, string(STR_SAPPORO_TOHO))
+    );
+    cargo_subtype_text: sw_sp_th_7000series_lv_desc_main;
+    purchase: gfx_sp_th_7000series_purchase_main;
+    cargo_capacity:sw_sp_th_7000series_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_3D;
+    default:sw_sp_th_7000series_lv;
+    power: sw_sp_th_7000series_power_main()*4*1342/1000;
+    purchase_power: sw_sp_th_7000series_car_power_main()*4*1342/1000;
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_sp_th_7000series_lv_desc_main;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_sp_th_7000series_capacity_main()*param_capacity_mod/3;
+
+    power: sw_sp_th_7000series_power_main()*4*1342/1000;
+    default:sw_sp_th_7000series_lv;
+    weight: 24;
+
+  }
+}
+item(FEAT_TRAINS, sp_th_9000series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_sapporo == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_SAPPORO), "9000", string(STR_NAME_TYPE));
+    introduction_date: date(2015, 5, 8);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 70 km/h;
+    track_type: TR_3000_GUIDE;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 27 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_3000),
+    string(STR_DENKI, string(STR_DC, 750)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
+
+    string(STR_OPERATOR, string(STR_SAPPORO))
+    ,string(STR_LINES_USED, string(STR_SAPPORO_TOHO))
+    );
+
+    purchase: gfx_sp_th_9000series_purchase_main;
+    cargo_capacity:sw_sp_th_9000series_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_3D;
+    default:sw_sp_th_9000series_lv;
+    power: sw_sp_th_9000series_power_main()*4*1342/1000;
+    purchase_power: sw_sp_th_9000series_car_power_main()*4*1342/1000;
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_sp_th_9000series_capacity_main()*param_capacity_mod/3;
+
+    power: sw_sp_th_9000series_power_main()*4*1342/1000;
+    default:sw_sp_th_9000series_lv;
+    weight: 26;
+
+  }
+}
+# 10 "src/metro/Sapporo/sapporoList.pnml" 2
+# 192 "src/_metro.pnml" 2
 # 15 "JPprivate.pnml" 2
 # 1 "src/_private.pnml" 1
 
