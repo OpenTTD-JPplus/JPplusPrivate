@@ -1,0 +1,243 @@
+//purchase
+  spriteset(tobu9000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu9000/tobu9000.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(tobu9000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu9000/tobu9000.png"){ tmpl_purchase_2c_dual(88, 50) }
+  GRAPHIC_STACK_3(tobu9000_purchase, logo_tobu, tobu9000_purchase_c1, tobu9000_purchase_c2)
+//livery 1
+spriteset(tobu9000_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu9000/tobu9000.png"){ tmpl_std(0, 0) }
+spriteset(tobu9000_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu9000/tobu9000.png"){ tmpl_std_rev(0, 25) }
+spriteset(tobu9000_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu9000/tobu9000.png"){ tmpl_std(0, 50) }
+spriteset(tobu9000_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu9000/tobu9000.png"){ tmpl_std_rev(0, 50) }
+spriteset(tobu9000_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu9000/tobu9000.png"){ tmpl_symm(0, 75) }
+spriteset(tobu9000_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu9000/tobu9000.png"){ tmpl_std_rev(0, 100) }
+spriteset(tobu9000_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu9000/tobu9000.png"){ tmpl_std(0, 100) }
+
+//livery 2
+
+spriteset(tobu9050_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu9000/tobu9050.png"){ tmpl_std(0, 0) }
+spriteset(tobu9050_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu9000/tobu9050.png"){ tmpl_std_rev(0, 25) }
+spriteset(tobu9050_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu9000/tobu9050.png"){ tmpl_std(0, 50) }
+spriteset(tobu9050_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu9000/tobu9050.png"){ tmpl_std_rev(0, 50) }
+spriteset(tobu9050_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu9000/tobu9050.png"){ tmpl_symm(0, 75) }
+spriteset(tobu9050_front_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu9000/tobu9050.png"){ tmpl_std_rev(0, 100) }
+spriteset(tobu9050_end_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu9000/tobu9050.png"){ tmpl_std(0, 100) }
+
+
+//*main
+//panto placer
+//1
+switch(FEAT_TRAINS, SELF, sw_tobu9000_panto_placer_1,position_in_vehid_chain %3){
+    0: tobu9000_mot;
+    tobu9000_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_tobu9000_panto_placer_1_rev,1-position_in_vehid_chain_from_end %3){
+    0: tobu9000_mot_rev;
+    tobu9000_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_tobu9000_panto_placer_main_1,vehicle_is_reversed){
+    1: sw_tobu9000_panto_placer_1_rev;
+    sw_tobu9000_panto_placer_1;
+}
+//2 
+switch(FEAT_TRAINS, SELF, sw_tobu9000_panto_placer_2,position_in_vehid_chain %2){
+    0: tobu9000_mot;
+    tobu9000_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_tobu9000_panto_placer_2_rev,1-position_in_vehid_chain_from_end %2){
+    0: tobu9000_mot_rev;
+    tobu9000_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_tobu9000_panto_placer_main_2,vehicle_is_reversed){
+    1: sw_tobu9000_panto_placer_2_rev;
+    sw_tobu9000_panto_placer_2;
+}
+//panto controller
+switch(FEAT_TRAINS, SELF, sw_tobu9000_panto_placer_main,num_vehs_in_vehid_chain+1){
+    5:sw_tobu9000_panto_placer_main_2;
+    8:sw_tobu9000_panto_placer_main_2;
+    sw_tobu9000_panto_placer_main_1;
+}
+
+//fake head-end placer
+switch(FEAT_TRAINS, SELF, sw_tobu9000_fake_placer,position_in_vehid_chain +1){
+    5: tobu9000_front_f;
+    6: tobu9000_end_f;
+sw_tobu9000_panto_placer_main;
+}
+switch(FEAT_TRAINS, SELF, sw_tobu9000_fake_placer_rev,position_in_vehid_chain_from_end ){
+    5: tobu9000_end_f;
+    6: tobu9000_front_f;
+sw_tobu9000_panto_placer_main;
+}
+switch(FEAT_TRAINS, PARENT, sw_tobu9000_fake_placer_gfx,vehicle_is_reversed){
+    1: sw_tobu9000_fake_placer_rev;
+    sw_tobu9000_fake_placer;
+}
+switch(FEAT_TRAINS, SELF, sw_tobu9000_fake_placer_main,num_vehs_in_vehid_chain>10 - 1){
+    1: sw_tobu9000_fake_placer_gfx;
+sw_tobu9000_panto_placer_main;
+}
+
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_tobu9000_end_gfx_main,position_in_vehid_chain_from_end){
+    0: tobu9000_end;
+    default: sw_tobu9000_fake_placer_main;
+}
+switch(FEAT_TRAINS, SELF, sw_tobu9000_front_gfx_main,position_in_vehid_chain_from_end){
+    0: tobu9000_front;
+    default: sw_tobu9000_fake_placer_main;
+}
+switch(FEAT_TRAINS, SELF, sw_tobu9000_livery_1,vehicle_type_id){
+    mu_car:sw_tobu9000_end_gfx_main;
+    sw_tobu9000_front_gfx_main;
+}
+
+//*livery 2 9050
+//panto placer
+//1
+switch(FEAT_TRAINS, SELF, sw_tobu9050_panto_placer_1,position_in_vehid_chain %3){
+    0: tobu9050_mot;
+    tobu9050_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_tobu9050_panto_placer_1_rev,1-position_in_vehid_chain_from_end %3){
+    0: tobu9050_mot_rev;
+    tobu9050_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_tobu9050_panto_placer_main_1,vehicle_is_reversed){
+    1: sw_tobu9050_panto_placer_1_rev;
+    sw_tobu9050_panto_placer_1;
+}
+//2 
+switch(FEAT_TRAINS, SELF, sw_tobu9050_panto_placer_2,position_in_vehid_chain %2){
+    0: tobu9050_mot;
+    tobu9050_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_tobu9050_panto_placer_2_rev,1-position_in_vehid_chain_from_end %2){
+    0: tobu9050_mot_rev;
+    tobu9050_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_tobu9050_panto_placer_main_2,vehicle_is_reversed){
+    1: sw_tobu9050_panto_placer_2_rev;
+    sw_tobu9050_panto_placer_2;
+}
+//panto controller
+switch(FEAT_TRAINS, SELF, sw_tobu9050_panto_placer_main,num_vehs_in_vehid_chain+1){
+    5:sw_tobu9050_panto_placer_main_2;
+    8:sw_tobu9050_panto_placer_main_2;
+    sw_tobu9050_panto_placer_main_1;
+}
+
+//fake head-end placer
+switch(FEAT_TRAINS, SELF, sw_tobu9050_fake_placer,position_in_vehid_chain +1){
+    5: tobu9050_front_f;
+    6: tobu9050_end_f;
+sw_tobu9050_panto_placer_main;
+}
+switch(FEAT_TRAINS, SELF, sw_tobu9050_fake_placer_rev,position_in_vehid_chain_from_end ){
+    5: tobu9050_end_f;
+    6: tobu9050_front_f;
+sw_tobu9050_panto_placer_main;
+}
+switch(FEAT_TRAINS, PARENT, sw_tobu9050_fake_placer_gfx,vehicle_is_reversed){
+    1: sw_tobu9050_fake_placer_rev;
+    sw_tobu9050_fake_placer;
+}
+switch(FEAT_TRAINS, SELF, sw_tobu9050_fake_placer_main,num_vehs_in_vehid_chain>10 - 1){
+    1: sw_tobu9050_fake_placer_gfx;
+sw_tobu9050_panto_placer_main;
+}
+
+//front-end-fixer
+switch(FEAT_TRAINS, SELF, sw_tobu9050_end_gfx_main,position_in_vehid_chain_from_end){
+    0: tobu9050_end;
+    default: sw_tobu9050_fake_placer_main;
+}
+switch(FEAT_TRAINS, SELF, sw_tobu9050_front_gfx_main,position_in_vehid_chain_from_end){
+    0: tobu9050_front;
+    default: sw_tobu9050_fake_placer_main;
+}
+switch(FEAT_TRAINS, SELF, sw_tobu9050_livery_1,vehicle_type_id){
+    mu_car:sw_tobu9050_end_gfx_main;
+    sw_tobu9050_front_gfx_main;
+}
+
+//livery_controller
+//livery 0
+switch(FEAT_TRAINS, SELF, sw_tobu9000_livery_0, build_year){
+    0..1993:sw_tobu9000_livery_1;
+    sw_tobu9050_livery_1;
+}
+//livery_selector
+switch(FEAT_TRAINS, PARENT, sw_tobu9000_lv, cargo_subtype){
+    0:sw_tobu9000_livery_0;
+    1:sw_tobu9000_livery_1;
+    2:sw_tobu9050_livery_1;
+}
+
+switch(FEAT_TRAINS, SELF, sw_tobu9000_lv_desc, cargo_subtype){
+    0:string(LV_RANDOM);
+    1:string(LV_tobu9000_1);
+    2:string(
+        STR_CONCAT_2,
+        string(LV_tobu9050_1),
+        string(STR_CAP));
+}
+
+//post fixers
+//capacity-changer
+switch(FEAT_TRAINS, SELF, sw_tobu9000_capacity_main_1,position_in_vehid_chain_from_end){
+    0: 136;
+    default: 144;
+}
+//capacity 2
+switch(FEAT_TRAINS, SELF, sw_tobu9050_capacity_main,position_in_vehid_chain_from_end){
+    0: 141;
+    default: 152;
+}
+switch(FEAT_TRAINS, PARENT, sw_tobu9000_capacity_0, build_year){
+    0..1993:sw_tobu9000_capacity_main_1;
+    sw_tobu9050_capacity_main;
+}
+switch(FEAT_TRAINS, SELF, sw_tobu9000_capacity_main, cargo_subtype){
+    0:sw_tobu9000_capacity_0;
+    1:sw_tobu9000_capacity_main_1;
+    2:sw_tobu9050_capacity_main;
+}
+item(FEAT_TRAINS, tobu9000) {
+    property {
+        OVERRIDEN_TRAIN_DATA
+        
+        climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+        name: string(STR_TRAIN_NAME, string(STR_NAME_TOBU), "9000", string(STR_NAME_SERIES),);
+        introduction_date: date(1981, 12, 28);
+        model_life: VEHICLE_NEVER_EXPIRES;
+        vehicle_life: 35;
+        reliability_decay: 10;
+
+        cost_factor: 20;
+        running_cost_factor: 50;
+        speed: 110 km/h;
+        track_type: TR_1067_DC;
+        power: 600 kW;
+        weight: 33 ton;
+    }
+	graphics {
+		additional_text:
+				string(STR_TRAIN_DESC,
+				string(STR_NARROWGAUGE),
+				string(STR_DENKI, string(STR_DC, 1500)),
+				string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+				string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
+				string(STR_USAGE, string(STR_METRO_ACCESS)),
+				string(STR_OPERATOR, string(STR_TOBU)));
+		cargo_subtype_text:sw_tobu9000_lv_desc;
+		// can_attach_wagon: sw_mucar_attach_vehid;
+		purchase: tobu9000_purchase;
+		start_stop: sw_stop_start_3;
+
+		SET_GRAPHICS_DOUBLE(sw_tobu9000_lv,//graphics
+		sw_tobu9000_capacity_main()*param_capacity_mod/3,//cargo capacity
+		600*5*1342/9000,//power
+		param_loading_4D,//loading speed
+		sw_tobu9000_lv_desc,//subtype
+		mu_car_narrow,34)//car_fallback,weight
+}

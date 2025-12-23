@@ -174,7 +174,7 @@ export function setItem(data) {
     ${variantSimple ? "" : `${data.variantGroup ? `name: sw_${variantGroup}_name;` : ""} `}
     additional_text:${formatDescString(data, usage, operator)}
     ${data.hasLiveryDesc ? `cargo_subtype_text: sw_${trainName}_lv_desc_main;` : ""}
-    purchase: gfx_${trainName}_purchase_main;
+    purchase: ${trainName}_purchase;
     ${
       fixedCapacity
         ? `cargo_capacity:${fixedCapacity}`

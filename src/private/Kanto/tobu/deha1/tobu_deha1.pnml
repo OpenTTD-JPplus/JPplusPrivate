@@ -1,0 +1,87 @@
+//purchase
+  spriteset(tobu_deha1_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/deha1/tobu_deha1.png"){ tmpl_purchase_1c_7(0, 0) }
+  GRAPHIC_STACK_2(tobu_deha1_purchase, logo_tobu, tobu_deha1_purchase_c1)
+//livery 1
+spriteset(tobu_deha1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/deha1/tobu_deha1.png"){ tmpl_std(0, 0) }
+spriteset(tobu_deha1_front_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/deha1/tobu_deha1.png"){ tmpl_std_rev(0, 25) }
+spriteset(tobu_deha1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/deha1/tobu_deha1.png"){ tmpl_std(0, 50) }
+spriteset(tobu_deha1_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/deha1/tobu_deha1.png"){ tmpl_std_rev(0, 50) }
+spriteset(tobu_deha1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/deha1/tobu_deha1.png"){ tmpl_symm(0, 75) }
+
+//front-end-fixer
+switch(FEAT_TRAINS, PARENT, sw_tobu_deha1_front_gfx, vehicle_is_reversed){
+    1:tobu_deha1_front_rev;
+    tobu_deha1_front;
+}
+
+switch(FEAT_TRAINS, PARENT, sw_tobu_deha1_end_gfx, vehicle_is_reversed){
+    1:tobu_deha1_end_rev;
+    tobu_deha1_end;
+}
+//panto placer
+switch(FEAT_TRAINS, SELF, sw_tobu_deha1_panto_placer,position_in_consist %2){
+    0: sw_tobu_deha1_end_gfx;
+    tobu_deha1_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_tobu_deha1_panto_placer_rev,position_in_consist_from_end %2){
+    0: sw_tobu_deha1_end_gfx;
+    tobu_deha1_wag;
+}
+switch(FEAT_TRAINS, PARENT, sw_tobu_deha1_panto_placer_main,vehicle_is_reversed){
+    1: sw_tobu_deha1_panto_placer_rev;
+    sw_tobu_deha1_panto_placer;
+}
+//end car fixer
+switch(FEAT_TRAINS, SELF, sw_tobu_deha1_end_fix, position_in_consist_from_end){
+    0:sw_tobu_deha1_end_gfx;
+    sw_tobu_deha1_panto_placer_main;
+}
+
+switch(FEAT_TRAINS, SELF, sw_tobu_deha1_lv,vehicle_type_id){
+    mu_car:sw_tobu_deha1_end_fix;
+    sw_tobu_deha1_front_gfx;
+}
+//power fix
+    switch(FEAT_TRAINS, SELF, sw_tobu_deha1_power_main,position_in_vehid_chain%2){
+        1:return 0;
+        return 240;
+    }
+item(FEAT_TRAINS, tobu_deha1) {
+    property {
+        OVERRIDEN_TRAIN_DATA
+        
+        climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+        name: string(STR_TRAIN_NAME, string(STR_NAME_TOBU), string(STR_NAME_DEHA, "1"), string(STR_NAME_TYPE));
+        introduction_date: date(1924, 1, 1);
+        model_life: 47;
+        vehicle_life: 57;
+        reliability_decay: 10;
+
+        cost_factor: 12;
+        running_cost_factor: 42;
+        speed: 75 km/h;
+        track_type: TR_1067_DC;
+        power: 240 kW;
+        weight: 33 ton;
+        loading_speed: param_loading_3D;
+  }
+	graphics {
+		additional_text:
+      string(STR_TRAIN_DESC,
+      string(STR_NARROWGAUGE),
+      string(STR_DENKI, string(STR_DC, 1500)),
+      string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+      string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
+      string(STR_USAGE, string(STR_COMMUTER)),
+      string(STR_OPERATOR, string(STR_TOBU)));
+		purchase: tobu_deha1_purchase;
+		// can_attach_wagon: sw_mucar_attach_vehid;
+    
+    SET_GRAPHICS_DOUBLE_CUSTOM(sw_tobu_deha1_lv,//graphics
+		92*param_capacity_mod/3,//cargo capacity
+		sw_tobu_deha1_power_main()*1342/1000,//power
+		param_loading_3D,//loading speed
+		sw_empty_desc,//subtype
+		mu_car_narrow,33,//car_fallback,weight
+		length, 7)//custom
+}

@@ -15,3 +15,4 @@ parseCompany("src/metro/Sapporo");
 parseCompany("src/private/Kanto/TWR");
 parseCompany("src/private/Kanto/tsukuba");
 parseCompany("src/private/Kanto/tokyu");
+parseCompany("src/private/Kanto/tobu");

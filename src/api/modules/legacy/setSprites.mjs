@@ -16,7 +16,7 @@ export function setPurchaseSprite(
     `spriteset(gfx_${trainName}_purchase_c2, ${
       is8bpp ? "" : "ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"
     }"${fullPath}"){ tmpl_purchase_2c_dual(0, ${offsets[0]}) }\n` +
-    `GRAPHIC_STACK_3(gfx_${trainName}_purchase, ${logo}, gfx_${trainName}_purchase_c1, gfx_${trainName}_purchase_c2)\n`
+    `GRAPHIC_STACK_3(${trainName}_purchase, ${logo}, gfx_${trainName}_purchase_c1, gfx_${trainName}_purchase_c2)\n`
   );
 }
 
