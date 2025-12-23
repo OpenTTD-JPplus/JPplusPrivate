@@ -69,7 +69,7 @@ item(FEAT_TRAINS, ${trainName}) {
 	graphics {
     additional_text:${formatDescString(dataObj, currentStringArr)}
     ${liveries.length > 1 ? `cargo_subtype_text:sw_${trainName}_lv_desc_main;` : ""}
-    purchase: gfx_${trainName}_purchase_main;
+    purchase: gfx_${trainName}_purchase;
     // can_attach_wagon: sw_${trackGauge}_attach_vehid;
     ${formations[0] > 2 ? "start_stop: sw_stop_start_3;" : ""}
     cargo_capacity: sw_${trainName}_capacity_head_main()*param_capacity_mod/3;

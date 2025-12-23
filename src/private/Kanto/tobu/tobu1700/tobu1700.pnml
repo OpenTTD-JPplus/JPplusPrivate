@@ -1,0 +1,94 @@
+//purchase
+  spriteset(tobu1700_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu1700/tobu1700.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(tobu1700_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu1700/tobu1700.png"){ tmpl_purchase_2c_dual(0, 50) }
+  GRAPHIC_STACK_3(tobu1700_purchase, logo_tobu, tobu1700_purchase_c1, tobu1700_purchase_c2)
+//livery 1
+    spriteset(tobu1700_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu1700/tobu1700.png"){ tmpl_std(0, 0) }
+    spriteset(tobu1700_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu1700/tobu1700.png"){ tmpl_std_rev(0, 25) }
+    spriteset(tobu1700_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu1700/tobu1700.png"){ tmpl_std(0, 25) }
+    spriteset(tobu1700_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu1700/tobu1700.png"){ tmpl_std(0, 50) }
+    spriteset(tobu1700_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu1700/tobu1700.png"){ tmpl_std_rev(0, 75) }
+    spriteset(tobu1700_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu1700/tobu1700.png"){ tmpl_std(0, 75) }
+
+//*main
+  //special gfx
+    //front&end
+    switch(FEAT_TRAINS, PARENT, sw_tobu1700_front_gfx, vehicle_is_reversed){
+        1: tobu1700_front;
+        tobu1700_front_mot;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_tobu1700_end_gfx, vehicle_is_reversed){
+        1: tobu1700_end_mot;
+        tobu1700_end;
+    }
+
+  //panto placer
+    switch(FEAT_TRAINS, SELF, sw_tobu1700_panto_placer,position_in_vehid_chain %2){
+        0:tobu1700_end;
+        tobu1700_end_mot_rev;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tobu1700_panto_placer_rev,1-position_in_vehid_chain_from_end %2){
+        0: tobu1700_end_rev;
+        tobu1700_end_mot;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_tobu1700_panto_placer_main,vehicle_is_reversed){
+        1: sw_tobu1700_panto_placer_rev;
+        sw_tobu1700_panto_placer;
+    }
+  //end car fixer
+    switch(FEAT_TRAINS, SELF, sw_tobu1700_end_fix, position_in_vehid_chain_from_end){
+        0:sw_tobu1700_end_gfx;
+        sw_tobu1700_panto_placer_main;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_tobu1700_lv,vehicle_type_id){
+        mu_car:sw_tobu1700_end_fix;
+        sw_tobu1700_front_gfx;
+    }
+//power fixer
+    switch(FEAT_TRAINS, SELF, sw_tobu1700_power_main, position_in_vehid_chain %2) {
+        1: return 75;
+    return 0;
+}
+
+item(FEAT_TRAINS, tobu1700) {
+    property {
+        OVERRIDEN_TRAIN_DATA
+        
+        climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+        name: string(STR_TRAIN_NAME, string(STR_NAME_TOBU), "1700", string(STR_NAME_SERIES));
+        introduction_date: date(1956, 1, 1);
+        vehicle_life: 35;
+        model_life: 30;
+        reliability_decay: 10;
+
+        cost_factor: 19;
+        running_cost_factor: 49;
+        speed: 105 km/h;
+        track_type: TR_1067_DC;
+        power: 300 kW;
+        weight: 36 ton;
+    }
+	graphics {
+		additional_text:
+				string(STR_TRAIN_DESC,
+				string(STR_NARROWGAUGE),
+				string(STR_DENKI, string(STR_DC, 1500)),
+				string(STR_LOAD_SPEED, string(STR_DOORS, 1)),
+				string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,6)),
+	      string(STR_USAGE,
+				string(STR_CONCAT_2_OR, string(STR_EXPRESS),string(STR_LIMITED))),
+				string(STR_OPERATOR, string(STR_TOBU)));
+		// cargo_subtype_text:sw_tobu1700_lv_desc;
+		// can_attach_wagon: sw_mucar_attach_vehid;
+		purchase: tobu1700_purchase;
+		start_stop: sw_stop_start_2;
+
+		SET_GRAPHICS_DOUBLE_AGE(sw_tobu1700_lv,//graphics
+		56*param_capacity_mod/3,//cargo capacity
+		sw_tobu1700_power_main()*4*1342/1000,//power
+		param_loading_1D,//loading speed
+		sw_empty_desc,//subtype
+		mu_car_narrow,35,//car_fallback,weight
+		ltd_express_cargo_age)//cargo age
+}
