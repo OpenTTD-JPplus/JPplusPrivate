@@ -285,12 +285,12 @@ switch(FEAT_TRAINS, SELF, sw_tobu_deha10_lv, cargo_subtype){
 //post fixers
   //power fix
     switch(FEAT_TRAINS, SELF, sw_tobu_deha10_car_power_main,position_in_vehid_chain%2){
-      1:return 0;
-      return 110;
+      1:return 110;
+      return 0;
     }
     switch(FEAT_TRAINS, SELF, sw_tobu_deha10_power_main,vehicle_type_id){
       mu_car:sw_tobu_deha10_car_power_main;
-      110;
+      return 110;
     }
   //speed fix
   switch(FEAT_TRAINS, SELF, sw_tobu_deha10_speed_main, build_year){
@@ -300,5 +300,6 @@ switch(FEAT_TRAINS, SELF, sw_tobu_deha10_lv, cargo_subtype){
   //loading speed
   switch(FEAT_TRAINS, SELF, sw_tobu_deha10_loading_speed_main, cargo_subtype){
     7:param_loading_3D;
+    param_loading_2D;
   }
 //
