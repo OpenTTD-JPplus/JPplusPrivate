@@ -1,0 +1,75 @@
+//purchase
+  spriteset(tobu80000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu80000/tobu80000_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(tobu80000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu80000/tobu80000_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  GRAPHIC_STACK_5(tobu80000_purchase, logo_tobu, tobu80000_purchase_c1,ac_long_toshiba_c1, tobu80000_purchase_c2,ac_long_toshiba_c2)
+//base
+spriteset(tobu80000_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu80000/tobu80000_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(tobu80000_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu80000/tobu80000_lights.png"){ tmpl_std_v3(0, 25) }
+spriteset(tobu80000_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu80000/tobu80000_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(tobu80000_wag_base_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu80000/tobu80000_1.png"){ tmpl_symm_v3(0, 25) }
+spriteset(tobu80000_wag_base_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu80000/tobu80000_1.png"){ tmpl_symm_v3(88, 25) }
+//1
+  TRAIN_CONSTRUCTOR_3(tobu80000_front, tobu80000_head_base, tobu80000_lights_front, ac_long_toshiba)
+  TRAIN_CONSTRUCTOR_3(tobu80000_end, tobu80000_head_base, tobu80000_lights_end, ac_long_toshiba)
+  TRAIN_CONSTRUCTOR_3(tobu80000_mot_1, tobu80000_wag_base_1, ac_long_toshiba,panto_arm_n_single)
+  TRAIN_CONSTRUCTOR_3(tobu80000_mot_1_rev, tobu80000_wag_base_1, ac_long_toshiba,panto_arm_n_single_rev)
+  TRAIN_CONSTRUCTOR_3(tobu80000_mot_2, tobu80000_wag_base_2, ac_long_toshiba,panto_arm_n_single_rev)
+  TRAIN_CONSTRUCTOR_3(tobu80000_mot_2_rev, tobu80000_wag_base_2, ac_long_toshiba,panto_arm_n_single)
+  TRAIN_CONSTRUCTOR_2(tobu80000_wag, tobu80000_wag_base_1, ac_long_toshiba)
+//
+
+//main
+  //special gfx
+    switch(FEAT_TRAINS, SELF, tobu80000_mot, position_in_vehid_chain){
+      0:tobu80000_mot_2;      tobu80000_mot_1;
+    }
+    switch(FEAT_TRAINS, SELF, tobu80000_mot_rev, position_in_vehid_chain_from_end){
+      0:tobu80000_mot_2_rev;      tobu80000_mot_1_rev;
+    }
+  //panto placer
+      switch(FEAT_TRAINS, SELF, sw_tobu80000_panto_placer_1,position_in_vehid_chain %2){
+        0: tobu80000_mot;
+        tobu80000_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tobu80000_panto_placer_1_rev,position_in_vehid_chain_from_end %2){
+        0: tobu80000_mot_rev;
+        tobu80000_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tobu80000_panto_placer_main,vehicle_is_reversed){
+        1: sw_tobu80000_panto_placer_1_rev;
+        sw_tobu80000_panto_placer_1;
+      }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_tobu80000_head_gfx_main,position_in_consist>0){
+      1: tobu80000_end;
+      tobu80000_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tobu80000_lv,vehicle_type_id){
+      mu_car:sw_tobu80000_panto_placer_main;
+      sw_tobu80000_head_gfx_main;
+    }
+//
+//post fixers
+  //capacity-changer
+    switch(FEAT_TRAINS, SELF, sw_tobu80000_capacity_1, position_in_vehid_chain){
+      0:144;
+      146;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tobu80000_capacity_2, position_in_vehid_chain_from_end){
+      0:143;
+      sw_tobu80000_capacity_1;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tobu80000_capacity_main,vehicle_type_id){
+        mu_car:sw_tobu80000_capacity_2;
+        133;
+    }
+  //power
+    switch(FEAT_TRAINS, SELF, sw_tobu80000_car_power_main,position_in_vehid_chain_from_end %2){
+      0:return 250;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tobu80000_power_main,vehicle_type_id){
+      mu_car: sw_tobu80000_car_power_main;
+      0;
+    }
+//
