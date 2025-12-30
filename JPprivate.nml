@@ -27101,6 +27101,148 @@ switch(FEAT_TRAINS, SELF, sw_tobu70000_lv_desc_main, cargo_subtype){
       205;
     }
 # 17 "src/private/Kanto/tobu/tobuList.pnml" 2
+# 1 "src/private/Kanto/tobu/tobu80000/tobu80000.pnml" 1
+
+  spriteset(tobu80000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tobu/tobu80000/tobu80000_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(tobu80000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tobu/tobu80000/tobu80000_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  switch(FEAT_TRAINS, SELF, tobu80000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_tobu; 1: tobu80000_purchase_c1; 2: ac_long_toshiba_c1; 3: tobu80000_purchase_c2; 4: ac_long_toshiba_c2;}
+
+spriteset(tobu80000_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tobu/tobu80000/tobu80000_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(tobu80000_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tobu/tobu80000/tobu80000_lights.png"){ tmpl_std_v3(0, 25) }
+spriteset(tobu80000_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tobu/tobu80000/tobu80000_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(tobu80000_wag_base_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tobu/tobu80000/tobu80000_1.png"){ tmpl_symm_v3(0, 25) }
+spriteset(tobu80000_wag_base_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tobu/tobu80000/tobu80000_1.png"){ tmpl_symm_v3(88, 25) }
+
+  switch(FEAT_TRAINS, SELF, tobu80000_front, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tobu80000_head_base; 1: tobu80000_lights_front; 2: ac_long_toshiba;}
+  switch(FEAT_TRAINS, SELF, tobu80000_end, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tobu80000_head_base; 1: tobu80000_lights_end; 2: ac_long_toshiba;}
+  switch(FEAT_TRAINS, SELF, tobu80000_mot_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tobu80000_wag_base_1; 1: ac_long_toshiba; 2: panto_arm_n_single;}
+  switch(FEAT_TRAINS, SELF, tobu80000_mot_1_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tobu80000_wag_base_1; 1: ac_long_toshiba; 2: panto_arm_n_single_rev;}
+  switch(FEAT_TRAINS, SELF, tobu80000_mot_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tobu80000_wag_base_2; 1: ac_long_toshiba; 2: panto_arm_n_single_rev;}
+  switch(FEAT_TRAINS, SELF, tobu80000_mot_2_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tobu80000_wag_base_2; 1: ac_long_toshiba; 2: panto_arm_n_single;}
+  switch(FEAT_TRAINS, SELF, tobu80000_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tobu80000_wag_base_1; 1: ac_long_toshiba;}
+
+
+
+
+    switch(FEAT_TRAINS, SELF, tobu80000_mot, position_in_vehid_chain){
+      0:tobu80000_mot_2; tobu80000_mot_1;
+    }
+    switch(FEAT_TRAINS, SELF, tobu80000_mot_rev, position_in_vehid_chain_from_end){
+      0:tobu80000_mot_2_rev; tobu80000_mot_1_rev;
+    }
+
+      switch(FEAT_TRAINS, SELF, sw_tobu80000_panto_placer_1,position_in_vehid_chain %2){
+        0: tobu80000_mot;
+        tobu80000_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tobu80000_panto_placer_1_rev,position_in_vehid_chain_from_end %2){
+        0: tobu80000_mot_rev;
+        tobu80000_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tobu80000_panto_placer_main,vehicle_is_reversed){
+        1: sw_tobu80000_panto_placer_1_rev;
+        sw_tobu80000_panto_placer_1;
+      }
+
+    switch(FEAT_TRAINS, SELF, sw_tobu80000_head_gfx_main,position_in_consist>0){
+      1: tobu80000_end;
+      tobu80000_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tobu80000_lv,vehicle_type_id){
+      mu_car:sw_tobu80000_panto_placer_main;
+      sw_tobu80000_head_gfx_main;
+    }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_tobu80000_capacity_1, position_in_vehid_chain){
+      0:144;
+      146;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tobu80000_capacity_2, position_in_vehid_chain_from_end){
+      0:143;
+      sw_tobu80000_capacity_1;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tobu80000_capacity_main,vehicle_type_id){
+        mu_car:sw_tobu80000_capacity_2;
+        133;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_tobu80000_car_power_main,position_in_vehid_chain_from_end %2){
+      0:return 250;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tobu80000_power_main,vehicle_type_id){
+      mu_car: sw_tobu80000_car_power_main;
+      0;
+    }
+# 18 "src/private/Kanto/tobu/tobuList.pnml" 2
+# 1 "src/private/Kanto/tobu/tobu90000/tobu90000.pnml" 1
+
+  spriteset(tobu90000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tobu/tobu90000/tobu90000_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(tobu90000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tobu/tobu90000/tobu90000_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  switch(FEAT_TRAINS, SELF, tobu90000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: logo_tobu; 1: tobu90000_purchase_c1; 2: ac_long_toshiba_c1; 3: tobu90000_purchase_c2; 4: ac_long_toshiba_c2;}
+
+spriteset(tobu90000_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tobu/tobu90000/tobu90000_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(tobu90000_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tobu/tobu90000/tobu90000_lights.png"){ tmpl_std_v3(0, 25) }
+spriteset(tobu90000_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tobu/tobu90000/tobu90000_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(tobu90000_wag_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tobu/tobu90000/tobu90000_1.png"){ tmpl_symm_v3(0, 25) }
+
+  switch(FEAT_TRAINS, SELF, tobu90000_front, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tobu90000_head_base; 1: tobu90000_lights_front; 2: ac_long_toshiba;}
+  switch(FEAT_TRAINS, SELF, tobu90000_end, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tobu90000_head_base; 1: tobu90000_lights_end; 2: ac_long_toshiba;}
+  switch(FEAT_TRAINS, SELF, tobu90000_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tobu90000_wag_base; 1: ac_long_toshiba; 2: panto_arm_n_single;}
+  switch(FEAT_TRAINS, SELF, tobu90000_mot_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tobu90000_wag_base; 1: ac_long_toshiba; 2: panto_arm_n_single_rev;}
+  switch(FEAT_TRAINS, SELF, tobu90000_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tobu90000_wag_base; 1: ac_long_toshiba;}
+
+
+
+
+      switch(FEAT_TRAINS, SELF, sw_tobu90000_panto_placer_1,position_in_vehid_chain %2){
+        0: tobu90000_mot;
+        tobu90000_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tobu90000_panto_placer_1_rev,position_in_vehid_chain_from_end %2){
+        0: tobu90000_mot_rev;
+        tobu90000_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tobu90000_panto_placer_main,vehicle_is_reversed){
+        1: sw_tobu90000_panto_placer_1_rev;
+        sw_tobu90000_panto_placer_1;
+      }
+
+    switch(FEAT_TRAINS, SELF, sw_tobu90000_head_gfx_main,position_in_consist>0){
+      1: tobu90000_end;
+      tobu90000_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tobu90000_lv,vehicle_type_id){
+      mu_car:sw_tobu90000_panto_placer_main;
+      sw_tobu90000_head_gfx_main;
+    }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_tobu90000_capacity_1, position_in_vehid_chain){
+      0:144;
+      146;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tobu90000_capacity_2, position_in_vehid_chain_from_end){
+      0:143;
+      sw_tobu90000_capacity_1;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tobu90000_capacity_main,vehicle_type_id){
+        mu_car:sw_tobu90000_capacity_2;
+        133;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_tobu90000_car_power_main,position_in_vehid_chain_from_end %4){
+      0..1:return 250;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tobu90000_power_main,vehicle_type_id){
+      mu_car: sw_tobu90000_car_power_main;
+      0;
+    }
+# 19 "src/private/Kanto/tobu/tobuList.pnml" 2
 
 # 1 "src/private/Kanto/tobu/items.pnml" 1
 item(FEAT_TRAINS, tobu_deha1) {
@@ -27999,7 +28141,119 @@ item(FEAT_TRAINS, tobu70000) {
 
   }
 }
-# 18 "src/private/Kanto/tobu/tobuList.pnml" 2
+item(FEAT_TRAINS, tobu80000) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_TOBU), "80000", string(STR_NAME_SERIES));
+    introduction_date: date(2025, 3, 8);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+
+    cost_factor: 22;
+    running_cost_factor: 51;
+    speed: 120 km/h;
+    track_type: TR_1067_DC;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 32 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 5)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_TOBU))
+
+    );
+
+    purchase: tobu80000_purchase;
+    cargo_capacity:sw_tobu80000_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_tobu80000_lv;
+    power: sw_tobu80000_power_main()*4*1342/1000;
+    purchase_power: sw_tobu80000_car_power_main()*4*1342/1000;
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_tobu80000_capacity_main()*param_capacity_mod/3;
+
+    power: sw_tobu80000_power_main()*4*1342/1000;
+    default:sw_tobu80000_lv;
+    weight: 31;
+
+  }
+}
+item(FEAT_TRAINS, tobu90000) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_tobu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_TOBU), "90000", string(STR_NAME_SERIES));
+    introduction_date: date(2026, 1, 1);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+
+    cost_factor: 22;
+    running_cost_factor: 51;
+    speed: 120 km/h;
+    track_type: TR_1067_DC;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 32 ton;
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_TOBU))
+
+    );
+
+    purchase: tobu90000_purchase;
+    cargo_capacity:sw_tobu90000_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_tobu90000_lv;
+    power: sw_tobu90000_power_main()*4*1342/1000;
+    purchase_power: sw_tobu90000_car_power_main()*4*1342/1000;
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_tobu90000_capacity_main()*param_capacity_mod/3;
+
+    power: sw_tobu90000_power_main()*4*1342/1000;
+    default:sw_tobu90000_lv;
+    weight: 31;
+
+  }
+}
+# 20 "src/private/Kanto/tobu/tobuList.pnml" 2
 # 68 "src/_private.pnml" 2
 # 170 "src/_private.pnml"
 item(FEAT_TRAINS, twr_70_000series, 2290) {}
