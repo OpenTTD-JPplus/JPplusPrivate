@@ -168,6 +168,7 @@ export function setItem(data) {
     power: 1 kW;
     tractive_effort_coefficient:  0.2;
     weight: ${weight[0]} ton;
+    badges: ["company/tobu"];
     ${length ? `length: ${length};` : ""}
   }
 	graphics {
