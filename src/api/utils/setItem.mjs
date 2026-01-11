@@ -1,5 +1,17 @@
 import { setPowerMain } from "../modules/setPower.mjs";
 import { setCapacityMain } from "../modules/setCapacity.mjs";
+
+function formatMetroBadgeExeptions(string) {
+  let res = `, "line/`;
+  if (string === "TOKYO_CHIYODA_BR") return `${res}TOKYO_CHIYODA"`;
+  if (string === "TOKYO_TOZAI_TOYO") return "";
+  if (string === "TOKYO_NAMBOKU_SAITAMA") return "";
+  if (string === "OSAKA_MIDO_NAMBOKU") return `${res}OSAKA_MIDOSUJI"`;
+  if (string === "OSAKA_MIDO_YOTSU") return `${res}OSAKA_MIDOSUJI"`;
+  if (string === "OSAKA_KEIHANNA") return "";
+  return `${res}${string}"`;
+}
+
 //using switch here is fucking dumb
 function formatCurrentString(string) {
   let res = "";
@@ -109,7 +121,7 @@ function formatDescString(data, usage, operator) {
         ? `string(STR_CONCAT_${data.usage.length}, ${operator})`
         : `${operator}`
     })
-    ${data.metroLine ? `,string(STR_LINES_USED, string(${data.metroLine}))` : ""}
+    ${data.metroLine ? `,string(STR_LINES_USED, string(STR_${data.metroLine}))` : ""}
     );`;
 }
 
@@ -168,7 +180,9 @@ export function setItem(data) {
     power: 1 kW;
     tractive_effort_coefficient:  0.2;
     weight: ${weight[0]} ton;
-    badges: ["company/tobu"];
+    badges: ["company/${data.operator[0].toLowerCase()}"${
+    data.metroLine ? `${formatMetroBadgeExeptions(data.metroLine).toLowerCase()}` : ""
+  }];
     ${length ? `length: ${length};` : ""}
   }
 	graphics {
