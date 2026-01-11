@@ -142,6 +142,7 @@ export function setItem(data) {
     sounds,
     isDualHeaded = 1,
     customSpeedLogic,
+    customCargoAge,
   } = data;
   const usage = data.usage?.map((el) => `string(STR_${el.toUpperCase()})`).toString();
   const operator = data.operator.map((el) => `string(STR_${el.toUpperCase()})`).toString();
@@ -193,6 +194,7 @@ export function setItem(data) {
     ${customSpeedLogic ? `speed:sw_${trainName}_speed_main;` : ""}
     ${threeCarsMin ? "start_stop: sw_stop_start_3;" : ""}
     ${sounds ? `sound_effect: ${sounds};` : ""}
+    ${customCargoAge ? `cargo_age_period: ${customCargoAge};` : ""}
     
   }
   livery_override(mu_car){
