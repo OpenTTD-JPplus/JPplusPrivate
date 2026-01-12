@@ -1,0 +1,48 @@
+//purchase
+spriteset(sn_nm_1000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Sendai/sn_nm_1000series/sn_nm_1000series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(sn_nm_1000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Sendai/sn_nm_1000series/sn_nm_1000series.png"){ tmpl_purchase_2c_dual(0, 50) }
+GRAPHIC_STACK_2(sn_nm_1000series_purchase, sn_nm_1000series_purchase_c1, sn_nm_1000series_purchase_c2)
+//*livery 1
+
+spriteset(sn_nm_1000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Sendai/sn_nm_1000series/sn_nm_1000series.png"){ tmpl_std_v3(0, 0) }
+spriteset(sn_nm_1000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Sendai/sn_nm_1000series/sn_nm_1000series.png"){ tmpl_std_v3(0, 25) }
+spriteset(sn_nm_1000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Sendai/sn_nm_1000series/sn_nm_1000series.png"){ tmpl_symm_v3(0, 75) }
+spriteset(sn_nm_1000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Sendai/sn_nm_1000series/sn_nm_1000series.png"){ tmpl_symm_v3(0, 50) }
+
+//*livery 1
+  //panto placer
+    switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_panto_placer_1,position_in_vehid_chain %3){
+        0: sn_nm_1000series_mot;
+        sn_nm_1000series_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
+        0: sn_nm_1000series_mot;
+        sn_nm_1000series_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_sn_nm_1000series_panto_placer_main,vehicle_is_reversed){
+        1: sw_sn_nm_1000series_panto_placer_1_rev;
+        sw_sn_nm_1000series_panto_placer_1;
+    }
+  //front-end-fixer
+    //front-end-fixer
+      switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_head_gfx_main,position_in_consist>0){
+        1: sn_nm_1000series_end;
+        sn_nm_1000series_front;
+      }
+      switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_lv,vehicle_type_id){
+        mu_car:sw_sn_nm_1000series_panto_placer_main;
+        sw_sn_nm_1000series_head_gfx_main;
+      }
+//
+//post fixers
+  //power
+    switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_car_power_main,position_in_vehid_chain_from_end %4){
+      0..1:return 160;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_power_main,vehicle_type_id){
+      sn_nm_1000series: 0;
+      sw_sn_nm_1000series_car_power_main;
+    }
+//
+

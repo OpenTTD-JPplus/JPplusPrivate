@@ -1,0 +1,61 @@
+//livery 1
+spriteset(ng_hg_type100_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Nagoya/higashiyama/ng_hg_type100/ng_hg_type100.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(ng_hg_type100_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Nagoya/higashiyama/ng_hg_type100/ng_hg_type100.png"){ tmpl_purchase_2c_dual(0, 50) }
+GRAPHIC_STACK_2(ng_hg_type100_purchase, ng_hg_type100_purchase_c1, ng_hg_type100_purchase_c2)
+
+spriteset(ng_hg_type100_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Nagoya/higashiyama/ng_hg_type100/ng_hg_type100.png"){ tmpl_std_v3(0, 0) }
+spriteset(ng_hg_type100_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Nagoya/higashiyama/ng_hg_type100/ng_hg_type100.png"){ tmpl_std_v3(0, 25) }
+spriteset(ng_hg_type100_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Nagoya/higashiyama/ng_hg_type100/ng_hg_type100.png"){ tmpl_symm_v3(0, 50) }
+
+
+spriteset(ng_hg_type250_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Nagoya/higashiyama/ng_hg_type100/ng_hg_type250.png"){ tmpl_std_v3(0, 0) }
+spriteset(ng_hg_type250_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Nagoya/higashiyama/ng_hg_type100/ng_hg_type250.png"){ tmpl_std_v3(0, 25) }
+spriteset(ng_hg_type250_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Nagoya/higashiyama/ng_hg_type100/ng_hg_type250.png"){ tmpl_symm_v3(0, 50) }
+
+//lv stuff
+  switch(FEAT_TRAINS, SELF, ng_hg_type100_front, cargo_subtype==2||cargo_subtype==0&&current_year>1982){
+    1:ng_hg_type250_front;
+    ng_hg_type100_1_front;
+  }
+  switch(FEAT_TRAINS, SELF, ng_hg_type100_end, cargo_subtype==2||cargo_subtype==0&&current_year>1982){
+    1:ng_hg_type250_end;
+    ng_hg_type100_1_end;
+  }
+  switch(FEAT_TRAINS, SELF, ng_hg_type100_wag, cargo_subtype==2||cargo_subtype==0&&current_year>1982){
+    1:ng_hg_type250_wag;
+    ng_hg_type100_1_wag;
+  }
+//
+
+//*main
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_ng_hg_type100_head_gfx_main,position_in_consist>0){
+      1: ng_hg_type100_end;
+      ng_hg_type100_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_ng_hg_type100_lv,vehicle_type_id){
+      mu_car:ng_hg_type100_wag;
+      sw_ng_hg_type100_head_gfx_main;
+    }
+//lv selector
+  switch(FEAT_TRAINS, SELF, sw_ng_hg_type100_lv_desc_main, cargo_subtype){
+    0: string(LV_RANDOM);
+    1: string(LV_DEFAULT);
+    2: string(STR_CONCAT_2, "250", string(STR_NAME_TYPE), 1983);
+  }
+//post fixers
+  //capacity-changer  
+    switch(FEAT_TRAINS, SELF, sw_ng_hg_type100_capacity_main,vehicle_type_id){
+      ng_hg_type100: 110;
+      default: 115;
+    } 
+  //power
+    switch(FEAT_TRAINS, SELF, sw_ng_hg_type100_car_power_main,position_in_vehid_chain_from_end %6){
+      0..5:return 48;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_ng_hg_type100_power_main,vehicle_type_id){
+      ng_hg_type100: 48*2;
+      sw_ng_hg_type100_car_power_main;
+    }
+//

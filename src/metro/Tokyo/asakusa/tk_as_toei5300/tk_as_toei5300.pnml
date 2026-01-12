@@ -1,0 +1,82 @@
+//purchase
+  spriteset(tk_as_toei5300_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/asakusa/tk_as_toei5300/tk_as_toei5300.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(tk_as_toei5300_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/asakusa/tk_as_toei5300/tk_as_toei5300.png"){ tmpl_purchase_2c_dual(0, 25) }
+  GRAPHIC_STACK_4(tk_as_toei5300_purchase, tk_as_toei5300_purchase_c1, ac_long_toshiba_c1, tk_as_toei5300_purchase_c2, ac_long_toshiba_c2)
+//base
+spriteset(tk_as_toei5300_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/asakusa/tk_as_toei5300/tk_as_toei5300_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(tk_as_toei5300_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/asakusa/tk_as_toei5300/tk_as_toei5300_lights.png"){ tmpl_std_v3(0, 25) }
+spriteset(tk_as_toei5300_head_base_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/asakusa/tk_as_toei5300/tk_as_toei5300.png"){ tmpl_std_v3(0, 0) }
+spriteset(tk_as_toei5300_head_base_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/asakusa/tk_as_toei5300/tk_as_toei5300.png"){ tmpl_std_v3(0, 25) }
+spriteset(tk_as_toei5300_wag_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/asakusa/tk_as_toei5300/tk_as_toei5300.png"){ tmpl_symm_v3(0, 50) }
+switch(FEAT_TRAINS, SELF, tk_as_toei5300_head_base, build_year){
+  0..1993:tk_as_toei5300_head_base_1;
+  tk_as_toei5300_head_base_2;
+}
+//1
+  TRAIN_CONSTRUCTOR_3(gfx_tk_as_toei5300_front, tk_as_toei5300_head_base, tk_as_toei5300_lights_front, ac_long_toshiba)
+  TRAIN_CONSTRUCTOR_3(gfx_tk_as_toei5300_end, tk_as_toei5300_head_base, tk_as_toei5300_lights_end, ac_long_toshiba)
+  TRAIN_CONSTRUCTOR_3(gfx_tk_as_toei5300_mot, tk_as_toei5300_wag_base, ac_long_toshiba,panto_arm_n)
+  TRAIN_CONSTRUCTOR_2(gfx_tk_as_toei5300_wag, tk_as_toei5300_wag_base, ac_long_toshiba)
+//
+//*main
+  //panto-placers
+    //var 1
+      switch(FEAT_TRAINS, SELF, sw_tk_as_toei5300_panto_placer_1,position_in_vehid_chain %6){
+        1: gfx_tk_as_toei5300_mot;
+        4: gfx_tk_as_toei5300_mot;
+        default: gfx_tk_as_toei5300_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tk_as_toei5300_panto_placer_1_rev,position_in_vehid_chain_from_end %6){
+        1: gfx_tk_as_toei5300_mot;
+        4: gfx_tk_as_toei5300_mot;
+        default: gfx_tk_as_toei5300_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_toei5300_panto_placer_main_1,vehicle_is_reversed){
+        1: sw_tk_as_toei5300_panto_placer_1_rev;
+        sw_tk_as_toei5300_panto_placer_1;
+      }
+    //var 2
+      switch(FEAT_TRAINS, SELF, sw_tk_as_toei5300_panto_placer_2,position_in_vehid_chain %3){
+        0: gfx_tk_as_toei5300_mot;
+        default: gfx_tk_as_toei5300_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tk_as_toei5300_panto_placer_2_rev,position_in_vehid_chain_from_end %3){
+        0: gfx_tk_as_toei5300_mot;
+        default: gfx_tk_as_toei5300_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_toei5300_panto_placer_main_2,vehicle_is_reversed){
+        1: sw_tk_as_toei5300_panto_placer_2_rev;
+        sw_tk_as_toei5300_panto_placer_2;
+      }
+    //panto controller
+    switch(FEAT_TRAINS, SELF, sw_toei5300_panto_placer_main,num_vehs_in_vehid_chain){
+      0..2: sw_toei5300_panto_placer_main_2;
+      4: sw_toei5300_panto_placer_main_2;
+      sw_toei5300_panto_placer_main_1;
+    }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_toei5300_head_gfx_main,position_in_consist>0){
+      1: gfx_tk_as_toei5300_end;
+      gfx_tk_as_toei5300_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5300_lv,vehicle_type_id){
+      mu_car:sw_toei5300_panto_placer_main;
+      sw_toei5300_head_gfx_main;
+    }
+//post fixers
+  //capacity-changer  
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5300_capacity_main,vehicle_type_id){
+      tk_as_toei5300: 123;
+      default: 134;
+    } 
+  //power
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5300_car_power_main,position_in_vehid_chain_from_end %6){
+      1:return 165;
+      4:return 165;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5300_power_main,vehicle_type_id){
+      tk_as_toei5300: 165*2;
+      sw_tk_as_toei5300_car_power_main;
+    }
+//

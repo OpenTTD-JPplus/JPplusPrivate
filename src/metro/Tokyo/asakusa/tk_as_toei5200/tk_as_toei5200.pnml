@@ -1,0 +1,64 @@
+//purchase
+  spriteset(tk_as_toei5200_purchase_1_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/asakusa/tk_as_toei5200/tk_as_toei5200.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(tk_as_toei5200_purchase_1_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/asakusa/tk_as_toei5200/tk_as_toei5200.png"){ tmpl_purchase_2c_dual(0, 25) }
+  GRAPHIC_STACK_5(tk_as_toei5200_purchase_1, tk_as_toei5200_purchase_1_c1, ac_vents_1_c1,panto_d_arm_single_c1, tk_as_toei5200_purchase_1_c2, ac_vents_1_c2)
+  spriteset(tk_as_toei5200_purchase_2_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/asakusa/tk_as_toei5200/tk_as_toei5200.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(tk_as_toei5200_purchase_2_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/asakusa/tk_as_toei5200/tk_as_toei5200.png"){ tmpl_purchase_2c_dual(0, 25) }
+  GRAPHIC_STACK_5(tk_as_toei5200_purchase_2, tk_as_toei5200_purchase_2_c1, ac_long_toshiba_c1, panto_d_arm_single_c1, tk_as_toei5200_purchase_2_c2, ac_long_toshiba_c2)
+  switch(FEAT_TRAINS, SELF, tk_as_toei5200_purchase, current_year){
+    0..1987:tk_as_toei5200_purchase_1;
+    tk_as_toei5200_purchase_2;
+  }
+//ac
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5200_ac, current_year){
+    0..1987:ac_vents_1_wag;
+    ac_long_toshiba;
+  }
+
+//base
+  spriteset(tk_as_toei5200_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/asakusa/tk_as_toei5200/tk_as_toei5200_lights.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tk_as_toei5200_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/asakusa/tk_as_toei5200/tk_as_toei5200_lights.png"){ tmpl_std_v3(0, 25) }
+  spriteset(tk_as_toei5200_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/asakusa/tk_as_toei5200/tk_as_toei5200.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tk_as_toei5200_wag_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/asakusa/tk_as_toei5200/tk_as_toei5200.png"){ tmpl_symm_v3(0, 25) }
+//1
+  TRAIN_CONSTRUCTOR_3(gfx_tk_as_toei5200_front, tk_as_toei5200_head_base, tk_as_toei5200_lights_front, gfx_tk_as_toei5200_ac)
+  TRAIN_CONSTRUCTOR_3(gfx_tk_as_toei5200_end, tk_as_toei5200_head_base, tk_as_toei5200_lights_end, gfx_tk_as_toei5200_ac)
+  TRAIN_CONSTRUCTOR_4(gfx_tk_as_toei5200_front_mot, tk_as_toei5200_head_base, tk_as_toei5200_lights_front, gfx_tk_as_toei5200_ac,panto_d_arm_single)
+  TRAIN_CONSTRUCTOR_4(gfx_tk_as_toei5200_end_mot, tk_as_toei5200_head_base, tk_as_toei5200_lights_end, gfx_tk_as_toei5200_ac,panto_d_arm_single)
+  TRAIN_CONSTRUCTOR_3(gfx_tk_as_toei5200_mot, tk_as_toei5200_wag_base, gfx_tk_as_toei5200_ac,panto_d_arm_single)
+  TRAIN_CONSTRUCTOR_3(gfx_tk_as_toei5200_mot_rev, tk_as_toei5200_wag_base, gfx_tk_as_toei5200_ac,panto_d_arm_single_rev)
+  TRAIN_CONSTRUCTOR_2(gfx_tk_as_toei5200_wag, tk_as_toei5200_wag_base, gfx_tk_as_toei5200_ac)
+//
+//*main
+  //special gfx
+    switch(FEAT_TRAINS, PARENT, tk_as_toei5200_front_gfx, vehicle_is_reversed){
+      1:gfx_tk_as_toei5200_front;
+      gfx_tk_as_toei5200_front_mot;
+    }
+    switch(FEAT_TRAINS, PARENT, tk_as_toei5200_end_gfx, vehicle_is_reversed){
+      1:gfx_tk_as_toei5200_end_mot;
+      gfx_tk_as_toei5200_end;
+    }
+  //panto-placers
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5200_panto_placer_1,position_in_vehid_chain %2){
+      1: gfx_tk_as_toei5200_mot;
+      gfx_tk_as_toei5200_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5200_panto_placer_1_rev,position_in_vehid_chain_from_end %2){
+      1: gfx_tk_as_toei5200_mot_rev;
+      gfx_tk_as_toei5200_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_toei5200_panto_placer_main,vehicle_is_reversed){
+      1: sw_tk_as_toei5200_panto_placer_1_rev;
+      sw_tk_as_toei5200_panto_placer_1;
+    }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_toei5200_head_gfx_main,position_in_consist>0){
+      1: tk_as_toei5200_end_gfx;
+      tk_as_toei5200_front_gfx;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5200_lv,vehicle_type_id){
+      mu_car:sw_toei5200_panto_placer_main;
+      sw_toei5200_head_gfx_main;
+    }
+//

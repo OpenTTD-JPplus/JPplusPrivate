@@ -1,0 +1,72 @@
+//purchase
+spriteset(tk_tz_toyo2000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/tozai/tk_tz_toyo2000/tk_tz_toyo2000.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(tk_tz_toyo2000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/tozai/tk_tz_toyo2000/tk_tz_toyo2000.png"){ tmpl_purchase_2c_dual(0, 50) }
+GRAPHIC_STACK_2(tk_tz_toyo2000_purchase, tk_tz_toyo2000_purchase_c1, tk_tz_toyo2000_purchase_c2)
+
+spriteset(tk_tz_toyo2000_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/tozai/tk_tz_toyo2000/tk_tz_toyo2000.png"){ tmpl_std_v3(0, 0) }
+spriteset(tk_tz_toyo2000_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/tozai/tk_tz_toyo2000/tk_tz_toyo2000.png"){ tmpl_std_v3(0, 25) }
+spriteset(tk_tz_toyo2000_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/tozai/tk_tz_toyo2000/tk_tz_toyo2000.png"){ tmpl_symm_v3(0, 50) }
+spriteset(tk_tz_toyo2000_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/tozai/tk_tz_toyo2000/tk_tz_toyo2000.png"){ tmpl_std_v3(0, 75) }
+spriteset(tk_tz_toyo2000_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/tozai/tk_tz_toyo2000/tk_tz_toyo2000.png"){ tmpl_std_rev_v3(0, 75) }
+
+//*livery 1
+	//panto-placers
+		//var 1
+      switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo2000_panto_placer_1,position_in_vehid_chain %3){
+        0: tk_tz_toyo2000_mot;
+        tk_tz_toyo2000_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo2000_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
+        0: tk_tz_toyo2000_mot_rev;
+        tk_tz_toyo2000_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tk_tz_toyo2000_panto_placer_main_1,vehicle_is_reversed){
+        1: sw_tk_tz_toyo2000_panto_placer_1_rev;
+        sw_tk_tz_toyo2000_panto_placer_1;
+      }
+		//var 2
+      switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo2000_panto_placer_2,position_in_vehid_chain %2){
+        0: tk_tz_toyo2000_mot;
+        tk_tz_toyo2000_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo2000_panto_placer_2_rev,position_in_vehid_chain_from_end %2){
+        0: tk_tz_toyo2000_mot_rev;
+        tk_tz_toyo2000_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tk_tz_toyo2000_panto_placer_main_2,vehicle_is_reversed){
+        1: sw_tk_tz_toyo2000_panto_placer_2_rev;
+        sw_tk_tz_toyo2000_panto_placer_2;
+      }
+		//controller 
+		switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo2000_panto_placer_main,num_vehs_in_vehid_chain){
+      3: sw_tk_tz_toyo2000_panto_placer_main_2;
+      6: sw_tk_tz_toyo2000_panto_placer_main_2;
+      sw_tk_tz_toyo2000_panto_placer_main_1;
+    }
+	//front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo2000_head_gfx_main,position_in_consist>0){
+      1:tk_tz_toyo2000_end;
+      tk_tz_toyo2000_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo2000_lv,vehicle_type_id){
+      mu_car:sw_tk_tz_toyo2000_panto_placer_main;
+      sw_tk_tz_toyo2000_head_gfx_main;
+    }
+//*post fixers
+  //capacity-changer
+    switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo2000_capacity_main,vehicle_type_id){
+      mu_car: 154;
+      143;
+    }
+	//power
+		switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo2000_car_power_main,position_in_vehid_chain_from_end %8){
+      0..1:return 165;
+      4:return 165;
+      5..6:return 165;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_tz_toyo2000_power_main,vehicle_type_id){
+      mu_car:sw_tk_tz_toyo2000_car_power_main;
+      0;
+   }
+//

@@ -1,0 +1,75 @@
+//purchase
+spriteset(os_nm_21series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/namboku_mido/os_nm_21series/os_nm_21series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(os_nm_21series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/namboku_mido/os_nm_21series/os_nm_21series.png"){ tmpl_purchase_2c_dual(0, 50) }
+GRAPHIC_STACK_2(os_nm_21series_purchase, os_nm_21series_purchase_c1, os_nm_21series_purchase_c2)
+
+spriteset(os_nm_21series_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/namboku_mido/os_nm_21series/os_nm_21series.png"){ tmpl_std_v3(0, 0) }
+spriteset(os_nm_21series_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/namboku_mido/os_nm_21series/os_nm_21series.png"){ tmpl_std_v3(0, 25) }
+spriteset(os_nm_21series_1_wag_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/namboku_mido/os_nm_21series/os_nm_21series.png"){ tmpl_symm_v3(0, 50) }
+spriteset(os_nm_21series_1_wag_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/namboku_mido/os_nm_21series/os_nm_21series.png"){ tmpl_symm_v3(0, 75) }
+//wag gfx
+  switch(FEAT_TRAINS, SELF, sw_os_nm_21series_1_wag_def,position_in_vehid_chain==3&&cargo_subtype==2){
+      1: os_nm_21series_1_wag_2;
+      default: os_nm_21series_1_wag_1;
+  }
+  switch(FEAT_TRAINS, SELF, sw_os_nm_21series_1_wag_rev,position_in_vehid_chain_from_end==3&&cargo_subtype==2){
+      1: os_nm_21series_1_wag_2;
+      default: os_nm_21series_1_wag_1;
+  }
+  switch(FEAT_TRAINS, PARENT, os_nm_21series_1_wag,vehicle_is_reversed){
+      1: sw_os_nm_21series_1_wag_rev;
+      default: sw_os_nm_21series_1_wag_def;
+  }
+//
+spriteset(os_nm_21series_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/namboku_mido/os_nm_21series/os_nm_21series_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(os_nm_21series_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/namboku_mido/os_nm_21series/os_nm_21series_1.png"){ tmpl_std_v3(0, 25) }
+spriteset(os_nm_21series_2_wag_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/namboku_mido/os_nm_21series/os_nm_21series_1.png"){ tmpl_symm_v3(0, 50) }
+spriteset(os_nm_21series_2_wag_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/namboku_mido/os_nm_21series/os_nm_21series_1.png"){ tmpl_symm_v3(0, 75) }
+//wag gfx
+  switch(FEAT_TRAINS, SELF, sw_os_nm_21series_2_wag_def,position_in_vehid_chain==3&&cargo_subtype==4){
+      1: os_nm_21series_2_wag_2;
+      default: os_nm_21series_2_wag_1;
+  }
+  switch(FEAT_TRAINS, SELF, sw_os_nm_21series_2_wag_rev,position_in_vehid_chain_from_end==3&&cargo_subtype==4){
+      1: os_nm_21series_2_wag_2;
+      default: os_nm_21series_2_wag_1;
+  }
+  switch(FEAT_TRAINS, PARENT, os_nm_21series_2_wag,vehicle_is_reversed){
+      1: sw_os_nm_21series_2_wag_rev;
+      default: sw_os_nm_21series_2_wag_def;
+  }
+//
+
+//lv stuff
+  switch(FEAT_TRAINS, SELF, os_nm_21series_front, cargo_subtype>2||(cargo_subtype==0&&current_year>2013)){
+    1:os_nm_21series_2_front;
+    os_nm_21series_1_front;
+  }
+  switch(FEAT_TRAINS, SELF, os_nm_21series_end, cargo_subtype>2||(cargo_subtype==0&&current_year>2013)){
+    1:os_nm_21series_2_end;
+    os_nm_21series_1_end;
+  }
+  switch(FEAT_TRAINS, SELF, os_nm_21series_wag, cargo_subtype>2||(cargo_subtype==0&&current_year>2013)){
+    1:os_nm_21series_2_wag;
+    os_nm_21series_1_wag;
+  }
+//
+//main
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_os_nm_21series_head_gfx_main,position_in_consist>0){
+      1: os_nm_21series_end;
+      os_nm_21series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_os_nm_21series_lv,vehicle_type_id){
+      mu_car:os_nm_21series_wag;
+      sw_os_nm_21series_head_gfx_main;
+    }
+//
+//timed-livery selector
+switch(FEAT_TRAINS, SELF, sw_os_nm_21series_lv_desc_main, cargo_subtype){
+    0: string(LV_RANDOM);
+    1: string(LV_DATED,string(STR_LIVERY,string(LV_DEFAULT)),1991);
+    2: string(LV_DATED,string(STR_LIVERY,string(STR_CONCAT_2,string(LV_DEFAULT),string(LV_WOMEN))),2016);
+    3: string(LV_DATED,string(STR_LIVERY,string(STR_RENEWAL)),2014);
+    4: string(LV_DATED,string(STR_LIVERY,string(STR_CONCAT_2,string(STR_RENEWAL),string(LV_WOMEN))),2016);
+}

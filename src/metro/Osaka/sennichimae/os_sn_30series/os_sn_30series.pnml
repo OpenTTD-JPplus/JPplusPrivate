@@ -1,0 +1,45 @@
+//purchase
+spriteset(os_sn_30series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/sennichimae/os_sn_30series/os_sn_30series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(os_sn_30series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/sennichimae/os_sn_30series/os_sn_30series.png"){ tmpl_purchase_2c_dual(0, 50) }
+GRAPHIC_STACK_2(os_sn_30series_purchase, os_sn_30series_purchase_c1, os_sn_30series_purchase_c2)
+//steel old
+//
+spriteset(os_sn_30series_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/sennichimae/os_sn_30series/os_sn_30series.png"){ tmpl_std_v3(0, 0) }
+spriteset(os_sn_30series_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/sennichimae/os_sn_30series/os_sn_30series.png"){ tmpl_std_v3(0, 25) }
+spriteset(os_sn_30series_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/sennichimae/os_sn_30series/os_sn_30series.png"){ tmpl_symm_v3(0, 50) }
+//alumi old
+//
+spriteset(os_sn_30series_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/sennichimae/os_sn_30series/os_sn_30series_al.png"){ tmpl_std_v3(0, 0) }
+spriteset(os_sn_30series_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/sennichimae/os_sn_30series/os_sn_30series_al.png"){ tmpl_std_v3(0, 25) }
+spriteset(os_sn_30series_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/sennichimae/os_sn_30series/os_sn_30series_al.png"){ tmpl_symm_v3(0, 50) }
+
+//lv stuff
+  switch(FEAT_TRAINS, SELF, os_sn_30series_front, cargo_subtype){
+    1:os_sn_30series_2_front;
+    os_sn_30series_1_front;
+  }
+  switch(FEAT_TRAINS, SELF, os_sn_30series_end, cargo_subtype){
+    1:os_sn_30series_2_end;
+    os_sn_30series_1_end;
+  }
+  switch(FEAT_TRAINS, SELF, os_sn_30series_wag, cargo_subtype){
+    1:os_sn_30series_2_wag;
+    os_sn_30series_1_wag;
+  }
+//
+//main
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_os_sn_30series_head_gfx_main,position_in_consist>0){
+      1: os_sn_30series_end;
+      os_sn_30series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_os_sn_30series_lv,vehicle_type_id){
+      mu_car:os_sn_30series_wag;
+      sw_os_sn_30series_head_gfx_main;
+    }
+//
+//livery selector desc
+switch(FEAT_TRAINS, SELF, sw_os_sn_30series_lv_desc_main, cargo_subtype){
+    0: string(STR_PREFIX_OLD, string(STR_STEEL));
+    1: string(STR_PREFIX_OLD, string(STR_ALUMI));
+}

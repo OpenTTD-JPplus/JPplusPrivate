@@ -9,6 +9,38 @@ function handleMetroBadgeExeptions(string) {
   return `${res}${string}"`;
 }
 
+//TODO Possible capacity and power handlers from the data side
+
+function handleRoutes(string) {
+  if (string.includes("tk_gz")) return `ginza/`;
+  if (string.includes("tk_as")) return `asakusa/`;
+  if (string.includes("tk_ch")) return `chiyoda/`;
+  if (string.includes("tk_hz")) return `hanzomon/`;
+  if (string.includes("tk_hb")) return `hibiya/`;
+  if (string.includes("tk_mn")) return `marunouchi/`;
+  if (string.includes("tk_mt")) return `mita/`;
+  if (string.includes("tk_od")) return `oedo/`;
+  if (string.includes("tk_sj")) return `shinjuku/`;
+  if (string.includes("tk_yk")) return `yurakucho_fukutoshin/`;
+  if (string.includes("tk_nm_")) return `namboku/`;
+  if (string.includes("tk_tz_")) return `tozai/`;
+  if (string.includes("os_nm")) return `namboku_mido/`;
+  if (string.includes("os_ch")) return `chuo/`;
+  if (string.includes("kintetsu7000")) return `chuo/`;
+  if (string.includes("os_hk")) return `hankyoto/`;
+  if (string.includes("os_iz")) return `imazatosuji/`;
+  if (string.includes("os_sn")) return `sennichimae/`;
+  if (string.includes("os_tm")) return `tanimachi/`;
+  if (string.includes("os_ts")) return `tsurumi/`;
+  if (string.includes("os_yb")) return `yotsubashi/`;
+  if (string.includes("ng_hg")) return `higashiyama/`;
+  if (string.includes("ng_km")) return `kamiida/`;
+  if (string.includes("ng_mj")) return `meijo/`;
+  if (string.includes("ng_sk")) return `sakura/`;
+  if (string.includes("ng_tm")) return `tsurumai/`;
+  return "";
+}
+
 function handlePower(trainName, fixedPower, reusePowerFrom) {
   if (fixedPower) return `${fixedPower}*4*1342/1000`;
 
@@ -108,8 +140,13 @@ export function setItem(data, path) {
     isDualHeaded = 1,
     customSpeedLogic,
     customCargoAge,
+    customPath,
   } = data;
-  str += `#include "${trainName}/${trainName}.pnml"\n\n`;
+
+  const metroLinePrefix = handleRoutes(trainName);
+  str += `#include "${metroLinePrefix}${
+    customPath ? customPath : trainName
+  }/${trainName}.pnml"\n\n`;
 
   const usage = data.usage?.map((el) => `string(STR_${el.toUpperCase()})`).toString();
   const operator = data.operator.map((el) => `string(STR_${el.toUpperCase()})`).toString();
