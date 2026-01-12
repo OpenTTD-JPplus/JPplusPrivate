@@ -1,0 +1,72 @@
+//purchase
+spriteset(tk_gz_eidan1900_purchase_c1_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/tk_gz_eidan1900/tk_gz_eidan1900.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(tk_gz_eidan1900_purchase_c2_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/tk_gz_eidan1900/tk_gz_eidan1900.png"){ tmpl_purchase_2c_dual(0, 25) }
+spriteset(tk_gz_type2000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/tk_gz_eidan1900/tk_gz_eidan1900.png"){ tmpl_purchase_1c_dual(0, 75) }
+spriteset(tk_gz_type2000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/tk_gz_eidan1900/tk_gz_eidan1900.png"){ tmpl_purchase_2c_dual(0, 100) }
+switch(FEAT_TRAINS, SELF, tk_gz_eidan1900_purchase_c1, current_year){
+    0..1958: tk_gz_eidan1900_purchase_c1_1;
+    tk_gz_type2000_purchase_c1;
+}
+switch(FEAT_TRAINS, SELF, tk_gz_eidan1900_purchase_c2, current_year){
+    0..1958: tk_gz_eidan1900_purchase_c2_1;
+    tk_gz_type2000_purchase_c2;
+}
+GRAPHIC_STACK_2(tk_gz_eidan1900_purchase,  tk_gz_eidan1900_purchase_c1, tk_gz_eidan1900_purchase_c2)
+
+spriteset(tk_gz_eidan1900_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/tk_gz_eidan1900/tk_gz_eidan1900.png"){ tmpl_std_v3(0, 0) }
+spriteset(tk_gz_eidan1900_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/tk_gz_eidan1900/tk_gz_eidan1900.png"){ tmpl_symm_v3(0, 25) }
+spriteset(tk_gz_eidan1900_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/tk_gz_eidan1900/tk_gz_eidan1900.png"){ tmpl_std_v3(0, 50) }
+
+spriteset(tk_gz_type2000_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/tk_gz_eidan1900/tk_gz_eidan1900.png"){ tmpl_std_v3(0, 75) }
+spriteset(tk_gz_type2000_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/tk_gz_eidan1900/tk_gz_eidan1900.png"){ tmpl_symm_v3(0, 100) }
+spriteset(tk_gz_type2000_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/tk_gz_eidan1900/tk_gz_eidan1900.png"){ tmpl_std_v3(0, 125) }
+
+switch(FEAT_TRAINS, SELF, tk_gz_eidan1900_front_timed, build_year){
+  0..1958:tk_gz_eidan1900_1_front;  tk_gz_type2000_1_front;
+}
+switch(FEAT_TRAINS, SELF, tk_gz_eidan1900_end_timed, build_year){
+  0..1958:tk_gz_eidan1900_1_end;  tk_gz_type2000_1_end;
+}
+switch(FEAT_TRAINS, SELF, tk_gz_eidan1900_wag_timed, build_year){
+  0..1958:tk_gz_eidan1900_1_wag;  tk_gz_type2000_1_wag;
+}
+switch(FEAT_TRAINS, SELF, tk_gz_eidan1900_front, cargo_subtype){
+  1:tk_gz_eidan1900_1_front;  2:tk_gz_type2000_1_front;  tk_gz_eidan1900_front_timed;
+}
+switch(FEAT_TRAINS, SELF, tk_gz_eidan1900_end, cargo_subtype){
+  1:tk_gz_eidan1900_1_end;  2:tk_gz_type2000_1_end;  tk_gz_eidan1900_end_timed;
+}
+switch(FEAT_TRAINS, SELF, tk_gz_eidan1900_wag, cargo_subtype){
+  1:tk_gz_eidan1900_1_wag;  2:tk_gz_type2000_1_wag;  tk_gz_eidan1900_wag_timed;
+}
+//main
+  switch(FEAT_TRAINS, SELF, sw_tk_mn_eidan1900_head_gfx_main,position_in_consist>0){
+    1:tk_gz_eidan1900_end;
+    tk_gz_eidan1900_front;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_gz_eidan1900_lv,vehicle_type_id){
+    mu_car:tk_gz_eidan1900_wag;
+    sw_tk_mn_eidan1900_head_gfx_main;
+  }
+//livery selector
+switch(FEAT_TRAINS, SELF, sw_tk_gz_eidan1900_lv_desc_main, cargo_subtype){
+    0: string(LV_RANDOM);
+    1: string(LV_DATED,string(LV_tk_gz_eidan1900_1),1958);
+    2: string(LV_DATED,string(LV_tk_gz_eidan1900_2),1959);
+}
+//*post fixers
+  //capacity-changer
+  switch(FEAT_TRAINS, SELF, sw_tk_gz_eidan1900_capacity_main,vehicle_type_id){
+    mu_car: 100;
+    98;
+  }
+  //power fix
+  switch(FEAT_TRAINS, SELF, sw_tk_gz_eidan1900_car_power_main,position_in_vehid_chain_from_end %4){
+    0..2:55;
+    return 0;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_gz_eidan1900_power_main,vehicle_type_id){
+      mu_car:sw_tk_gz_eidan1900_car_power_main;
+      55*2;
+   }
+//

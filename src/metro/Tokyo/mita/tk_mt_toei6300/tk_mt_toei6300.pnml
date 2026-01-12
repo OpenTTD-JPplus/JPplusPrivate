@@ -1,0 +1,106 @@
+//purchase
+spriteset(tk_mt_toei6300_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/mita/tk_mt_toei6300/tk_mt_toei6300_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(tk_mt_toei6300_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/mita/tk_mt_toei6300/tk_mt_toei6300_1.png"){ tmpl_purchase_2c_dual(0, 50) }
+GRAPHIC_STACK_2(tk_mt_toei6300_purchase, tk_mt_toei6300_purchase_c1, tk_mt_toei6300_purchase_c2)
+
+spriteset(tk_mt_toei6300_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/mita/tk_mt_toei6300/tk_mt_toei6300_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(tk_mt_toei6300_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/mita/tk_mt_toei6300/tk_mt_toei6300_1.png"){ tmpl_std_v3(0, 25) }
+spriteset(tk_mt_toei6300_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/mita/tk_mt_toei6300/tk_mt_toei6300_1.png"){ tmpl_symm_v3(0, 50) }
+spriteset(tk_mt_toei6300_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/mita/tk_mt_toei6300/tk_mt_toei6300_1.png"){ tmpl_symm_v3(0, 75) }
+
+spriteset(tk_mt_toei6300_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/mita/tk_mt_toei6300/tk_mt_toei6300_2.png"){ tmpl_std_v3(0, 0) }
+spriteset(tk_mt_toei6300_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/mita/tk_mt_toei6300/tk_mt_toei6300_2.png"){ tmpl_std_v3(0, 25) }
+
+spriteset(tk_mt_toei6300_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/mita/tk_mt_toei6300/tk_mt_toei6300_2.png"){ tmpl_std_v3(0, 50) }
+spriteset(tk_mt_toei6300_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/mita/tk_mt_toei6300/tk_mt_toei6300_2.png"){ tmpl_std_v3(0, 75) }
+//lv stuff
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6300_front_timed, build_year){
+    0..1992:tk_mt_toei6300_1_front;
+    1993..1998:tk_mt_toei6300_2_front;
+    tk_mt_toei6300_3_front;
+  }
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6300_end_timed, build_year){
+    0..1992:tk_mt_toei6300_1_end;
+    1993..1998:tk_mt_toei6300_1_end;
+    tk_mt_toei6300_3_end;
+  }
+  //
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6300_front, cargo_subtype){
+    1:tk_mt_toei6300_1_front;
+    2:tk_mt_toei6300_1_front;
+    3:tk_mt_toei6300_3_front;
+    tk_mt_toei6300_front_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6300_end, cargo_subtype){
+    1:tk_mt_toei6300_1_end;
+    2:tk_mt_toei6300_2_end;
+    3:tk_mt_toei6300_3_end;
+    tk_mt_toei6300_end_timed;
+  }
+//
+//*livery 1
+  //panto-placers
+    //var 1
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_panto_placer_1,position_in_vehid_chain %3){
+      0: tk_mt_toei6300_mot;
+      tk_mt_toei6300_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
+      0: tk_mt_toei6300_mot;
+      tk_mt_toei6300_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_tk_mt_toei6300_panto_placer_main_1,vehicle_is_reversed){
+      1: sw_tk_mt_toei6300_panto_placer_1_rev;
+      sw_tk_mt_toei6300_panto_placer_1;
+    }
+    //var 2
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_panto_placer_2,position_in_vehid_chain %4){
+      0: tk_mt_toei6300_mot;
+      tk_mt_toei6300_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_panto_placer_2_rev,position_in_vehid_chain_from_end %4){
+      0: tk_mt_toei6300_mot;
+      tk_mt_toei6300_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_tk_mt_toei6300_panto_placer_main_2,vehicle_is_reversed){
+      1: sw_tk_mt_toei6300_panto_placer_2_rev;
+      sw_tk_mt_toei6300_panto_placer_2;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_panto_placer_main,num_vehs_in_vehid_chain){
+      3: sw_tk_mt_toei6300_panto_placer_main_2;
+      6: sw_tk_mt_toei6300_panto_placer_main_2;
+      sw_tk_mt_toei6300_panto_placer_main_1;
+    }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_head_gfx_main,position_in_consist>0){
+      1:tk_mt_toei6300_end;
+     tk_mt_toei6300_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_lv,vehicle_type_id){
+      mu_car:sw_tk_mt_toei6300_panto_placer_main;
+      sw_tk_mt_toei6300_head_gfx_main;
+    }
+//livery selector
+  switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_lv_desc_main, cargo_subtype){
+    0: string(LV_RANDOM);
+    1: string(LV_DATED,string(STR_BATCH, 1),1993);
+    2: string(LV_DATED,string(LV_OLD),1994);
+    3: string(LV_DATED,string(LV_NEW),1999);
+  }
+//*post fixers
+  //capacity-changer
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_capacity_main,vehicle_type_id){
+      mu_car: 148;
+      136;
+    }
+  //power fix
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_car_power_main,position_in_vehid_chain_from_end %5){
+      0:return 180;
+      2..3:return 180;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_power_main,vehicle_type_id){
+      mu_car: sw_tk_mt_toei6300_car_power_main;
+      0;
+    }
+//

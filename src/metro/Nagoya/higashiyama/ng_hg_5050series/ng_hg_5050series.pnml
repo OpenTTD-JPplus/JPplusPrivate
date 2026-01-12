@@ -1,0 +1,62 @@
+//livery 1
+spriteset(ng_hg_5050series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Nagoya/higashiyama/ng_hg_5050series/ng_hg_5050series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(ng_hg_5050series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Nagoya/higashiyama/ng_hg_5050series/ng_hg_5050series.png"){ tmpl_purchase_2c_dual(0, 50) }
+GRAPHIC_STACK_2(ng_hg_5050series_purchase, ng_hg_5050series_purchase_c1, ng_hg_5050series_purchase_c2)
+
+spriteset(ng_hg_5050series_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Nagoya/higashiyama/ng_hg_5050series/ng_hg_5050series.png"){ tmpl_std_v3(0, 0) }
+spriteset(ng_hg_5050series_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Nagoya/higashiyama/ng_hg_5050series/ng_hg_5050series.png"){ tmpl_std_v3(0, 25) }
+spriteset(ng_hg_5050series_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Nagoya/higashiyama/ng_hg_5050series/ng_hg_5050series.png"){ tmpl_symm_v3(0, 50) }
+
+spriteset(ng_hg_5050series_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Nagoya/higashiyama/ng_hg_5050series/ng_hg_5050series_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(ng_hg_5050series_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Nagoya/higashiyama/ng_hg_5050series/ng_hg_5050series_1.png"){ tmpl_std_v3(0, 25) }
+spriteset(ng_hg_5050series_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Nagoya/higashiyama/ng_hg_5050series/ng_hg_5050series_1.png"){ tmpl_symm_v3(0, 50) }
+
+//lv stuff
+  switch(FEAT_TRAINS, SELF, ng_hg_5050series_front, cargo_subtype){
+    1:ng_hg_5050series_2_front;
+    ng_hg_5050series_1_front;
+  }
+  switch(FEAT_TRAINS, SELF, ng_hg_5050series_end, cargo_subtype){
+    1:ng_hg_5050series_2_end;
+    ng_hg_5050series_1_end;
+  }
+  switch(FEAT_TRAINS, SELF, ng_hg_5050series_wag, cargo_subtype){
+    1:ng_hg_5050series_2_wag;
+    ng_hg_5050series_1_wag;
+  }
+//
+
+//*livery 1
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_ng_hg_5050series_head_gfx_main,position_in_consist>0){
+      1: ng_hg_5050series_end;
+      ng_hg_5050series_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_ng_hg_5050series_lv,vehicle_type_id){
+      mu_car:ng_hg_5050series_wag;
+      sw_ng_hg_5050series_head_gfx_main;
+    }
+//
+//post fixers
+  //capacity-changer  
+    switch(FEAT_TRAINS, SELF, sw_ng_hg_5050series_capacity_main,vehicle_type_id){
+      ng_hg_5050series: 96;
+      default: 107;
+    } 
+  //power
+    switch(FEAT_TRAINS, SELF, sw_ng_hg_5050series_car_power_main,position_in_vehid_chain_from_end %6){
+      0..5:return 75;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_ng_hg_5050series_power_main,vehicle_type_id){
+      ng_hg_5050series: 0;
+      sw_ng_hg_5050series_car_power_main;
+    }
+//
+
+//livery selector
+switch(FEAT_TRAINS, SELF, sw_ng_hg_5050series_lv_desc_main, cargo_subtype){
+    0: string(LV_DEFAULT);
+    //TODO 東海テレビのラッピング車両 2008
+    1: string(LV_DATED, string(STR_LIVERY,string(LV_ng_MEMORIA)), 2022);
+}
