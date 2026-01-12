@@ -1,7 +1,4 @@
-import { setPowerMain } from "../modules/setPower.mjs";
-import { setCapacityMain } from "../modules/setCapacity.mjs";
-
-function formatMetroBadgeExeptions(string) {
+function handleMetroBadgeExeptions(string) {
   let res = `, "line/`;
   if (string === "TOKYO_CHIYODA_BR") return `${res}TOKYO_CHIYODA"`;
   if (string === "TOKYO_TOZAI_TOYO") return "";
@@ -12,87 +9,45 @@ function formatMetroBadgeExeptions(string) {
   return `${res}${string}"`;
 }
 
-//using switch here is fucking dumb
-function formatCurrentString(string) {
-  let res = "";
-  switch (string) {
-    case "DC_1500":
-      res = "string(STR_DC, 1500)";
-      break;
-    case "DC_600":
-      res = "string(STR_DC, 600)";
-      break;
-    case "DC_750_GUIDE":
-      res = "string(STR_DC, 750)";
-      break;
-    case "DC_750":
-      res = "string(STR_DC, 750)";
-      break;
-    case "AC_20000_50hz":
-      res = "string(STR_AC, 20, 50)";
-      break;
-    case "AC_20000_60hz":
-      res = "string(STR_AC, 20, 60)";
-      break;
-    case "AC_250000":
-      res = "string(STR_AC, 25, 50)";
-      break;
-    case "AC_20_50hz_DC":
-      res = "string(STR_ACDC, 20, 50, 1500)";
-      break;
-    case "AC_20_60hz_DC":
-      res = "string(STR_ACDC, 20, 60, 1500)";
-      break;
-    case "AC_25_50hz_DC":
-      res = "string(STR_ACDC, 25, 60, 1500)";
-      break;
-    default:
-      res = "string(STR_DC, 1500)";
-      break;
-  }
-  return res;
+function handlePower(trainName, fixedPower, reusePowerFrom) {
+  if (fixedPower) return `${fixedPower}*4*1342/1000`;
+
+  return `sw_${reusePowerFrom ? reusePowerFrom : trainName}_power_main()*4*1342/1000`;
 }
-function formatTrackType(string) {
-  let res = "";
-  switch (string) {
-    case "DC_750_GUIDE":
-      res = "GUIDE";
-      break;
-    case "DC_1500":
-      res = "DC";
-      break;
-    case "DC_1500_LINIMO":
-      res = "LINEAR";
-      break;
-    case "DC_600":
-      res = "M";
-      break;
-    case "DC_750":
-      res = "M";
-      break;
-    case "AC_20000_50hz":
-      res = "AC";
-      break;
-    case "AC_20000_60hz":
-      res = "AC";
-      break;
-    case "AC_250000":
-      res = "AC";
-      break;
-    case "AC_20_50hz_DC":
-      res = "ACDC";
-      break;
-    case "AC_20_60hz_DC":
-      res = "ACDC";
-      break;
-    case "AC_25_50hz_DC":
-      res = "ACDC";
-      break;
-    default:
-      res = "ACDC";
-      break;
+
+function handleCapacity(trainName, fixedCapacity, reuseCapacityFrom, boostCapacity) {
+  let result = "";
+  if (fixedCapacity) {
+    result = `${fixedCapacity}*param_capacity_mod/3`;
+  } else {
+    result = `sw_${
+      reuseCapacityFrom ? reuseCapacityFrom : trainName
+    }_capacity_main()*param_capacity_mod/3`;
   }
-  return res;
+
+  if (boostCapacity) result += "*boost_rapid_mod/2";
+  return result;
+}
+
+function formatCurrentString(string) {
+  const arr = string.split("_");
+
+  if (string.includes("AC") && string.includes("DC")) {
+    const hzNumeric = arr[2].replace(/hz/gm, "");
+    return `string(STR_ACDC, ${arr[1]},${hzNumeric},1500)`;
+  }
+  if (string.includes("AC")) return `string(STR_AC, ${arr[1]},${arr[2]})`;
+
+  return `string(STR_DC, ${arr[1]})`;
+}
+
+function formatTrackType(string) {
+  if (string.includes("GUIDE")) return "GUIDE";
+  if (string.includes("LINIMO")) return "LINEAR";
+  if (string.includes("METRO")) return "METRO";
+  if (string.includes("AC") && string.includes("DC")) return "ACDC";
+  if (string.includes("AC")) return "AC";
+  return "DC";
 }
 
 function formatDescString(data, usage, operator) {
@@ -125,11 +80,8 @@ function formatDescString(data, usage, operator) {
     );`;
 }
 
-export function setItem(data) {
+export function setItem(data, path) {
   let str = "";
-  // str += setPowerMain({ trainName: data.trainName, data: data.power });
-  // str += setCapacityMain(data.trainName, data.capacity);
-
   const {
     descName,
     trainName,
@@ -149,6 +101,7 @@ export function setItem(data) {
     variantGroup,
     variantSimple,
     fixedCapacity,
+    fixedPower,
     length,
     metroLine,
     sounds,
@@ -156,8 +109,17 @@ export function setItem(data) {
     customSpeedLogic,
     customCargoAge,
   } = data;
+  str += `#include "${trainName}/${trainName}.pnml"\n\n`;
+
   const usage = data.usage?.map((el) => `string(STR_${el.toUpperCase()})`).toString();
   const operator = data.operator.map((el) => `string(STR_${el.toUpperCase()})`).toString();
+  const power = handlePower(trainName, data.fixedPower, data.reusePowerFrom);
+  const capacity = handleCapacity(
+    trainName,
+    data.fixedCapacity,
+    data.reuseCapacityFrom,
+    boostCapacity
+  );
 
   str += `item(FEAT_TRAINS, ${trainName}) {
   property {
@@ -172,7 +134,6 @@ export function setItem(data) {
     vehicle_life: ${scrapYear == 0 ? "30" : scrapYear - introductionDate.split(",")[0]};
     dual_headed: ${isDualHeaded ? 1 : 0};
     ${variantGroup ? `variant_group: ${variantGroup};` : ""}
-    
     cost_factor: ${costFactor};
     running_cost_factor: ${runningCost};
     speed: ${speed} km/h;
@@ -181,7 +142,7 @@ export function setItem(data) {
     tractive_effort_coefficient:  0.2;
     weight: ${weight[0]} ton;
     badges: ["company/${data.operator[0].toLowerCase()}"${
-    data.metroLine ? `${formatMetroBadgeExeptions(data.metroLine).toLowerCase()}` : ""
+    data.metroLine ? `${handleMetroBadgeExeptions(data.metroLine).toLowerCase()}` : ""
   }];
     ${length ? `length: ${length};` : ""}
   }
@@ -191,25 +152,29 @@ export function setItem(data) {
     additional_text:${formatDescString(data, usage, operator)}
     ${data.hasLiveryDesc ? `cargo_subtype_text: sw_${trainName}_lv_desc_main;` : ""}
     purchase: ${trainName}_purchase;
-    ${
-      fixedCapacity
-        ? `cargo_capacity:${fixedCapacity}`
-        : `cargo_capacity:sw_${
-            data.reuseCapacityFrom ? data.reuseCapacityFrom : trainName
-          }_capacity_main()`
-    }*param_capacity_mod/3${boostCapacity ? "*boost_rapid_mod/2" : ""};
+    cargo_capacity:${capacity};
     loading_speed:${
       doors.length <= 1 ? `param_loading_${doors}D` : `sw_${trainName}_loading_speed_main`
     };
     default:sw_${trainName}_lv;
-    power: sw_${data.reusePowerFrom ? data.reusePowerFrom : trainName}_power_main()*4*1342/1000;
-    purchase_power: sw_${
-      data.reusePowerFrom ? data.reusePowerFrom : trainName
-    }_car_power_main()*4*1342/1000;
+    power:${power};
+    ${
+      fixedPower
+        ? ""
+        : `purchase_power: sw_${
+            data.reusePowerFrom ? data.reusePowerFrom : trainName
+          }_car_power_main()*4*1342/1000;`
+    }
     ${customSpeedLogic ? `speed:sw_${trainName}_speed_main;` : ""}
     ${threeCarsMin ? "start_stop: sw_stop_start_3;" : ""}
     ${sounds ? `sound_effect: ${sounds};` : ""}
-    ${customCargoAge ? `cargo_age_period: ${customCargoAge};` : ""}
+    ${
+      customCargoAge
+        ? `cargo_age_period: ${customCargoAge};`
+        : data.usage?.at(0).length && data.usage[0].includes("limited_express")
+        ? `cargo_age_period: ltd_express_cargo_age;`
+        : ""
+    }
     
   }
   livery_override(mu_car){
@@ -217,15 +182,8 @@ export function setItem(data) {
     loading_speed:${
       doors.length <= 1 ? `param_loading_${doors}D` : `sw_${trainName}_loading_speed_main`
     };
-    ${
-      fixedCapacity
-        ? `cargo_capacity:${fixedCapacity}`
-        : `cargo_capacity:sw_${
-            data.reuseCapacityFrom ? data.reuseCapacityFrom : trainName
-          }_capacity_main()`
-    }*param_capacity_mod/3${boostCapacity ? "*boost_rapid_mod/2" : ""};
-    
-    power: sw_${data.reusePowerFrom ? data.reusePowerFrom : trainName}_power_main()*4*1342/1000;
+    cargo_capacity:${capacity};
+    power:${power};
     default:sw_${trainName}_lv;
     weight: ${weight[1]};
     ${length ? `length: ${length};` : ""}

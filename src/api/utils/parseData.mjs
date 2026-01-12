@@ -6,7 +6,7 @@ export function parseCompany(path) {
   const parsed = JSON.parse(data);
   let result = "";
   parsed.forEach((train) => {
-    result += setItem(train) + "\n";
+    result += setItem(train,path) + "\n";
   });
   writeFileSync(`${path}/items.pnml`, result);
 }
