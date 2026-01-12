@@ -7912,6 +7912,2160 @@ item(FEAT_TRAINS, tk_nm_saitama2000) {
 
   }
 }
+# 1 "src/metro/Tokyo/asakusa/tk_as_toei5000/tk_as_toei5000.pnml" 1
+
+  spriteset(tk_as_toei5000_purchase_1_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5000/tk_as_toei5000_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(tk_as_toei5000_purchase_1_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5000/tk_as_toei5000_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  switch(FEAT_TRAINS, SELF, tk_as_toei5000_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: tk_as_toei5000_purchase_1_c1; 1: ac_vents_1_c1; 2: panto_d_arm_single_c1; 3: tk_as_toei5000_purchase_1_c2; 4: ac_vents_1_c2;}
+  spriteset(tk_as_toei5000_purchase_2_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5000/tk_as_toei5000_2.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(tk_as_toei5000_purchase_2_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5000/tk_as_toei5000_2.png"){ tmpl_purchase_2c_dual(0, 25) }
+  switch(FEAT_TRAINS, SELF, tk_as_toei5000_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: tk_as_toei5000_purchase_2_c1; 1: ac_vents_1_c1; 2: panto_d_arm_single_c1; 3: tk_as_toei5000_purchase_2_c2; 4: ac_vents_1_c2;}
+  switch(FEAT_TRAINS, SELF, tk_as_toei5000_purchase, current_year){
+    0..1987:tk_as_toei5000_purchase_1;
+    tk_as_toei5000_purchase_2;
+  }
+
+  spriteset(tk_as_toei5000_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5000/tk_as_toei5000_lights.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tk_as_toei5000_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5000/tk_as_toei5000_lights.png"){ tmpl_std_v3(0, 25) }
+
+  spriteset(tk_as_toei5000_1_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5000/tk_as_toei5000_1.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tk_as_toei5000_1_head_base_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5000/tk_as_toei5000_1.png"){ tmpl_std_rev_v3(0, 0) }
+  spriteset(tk_as_toei5000_1_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5000/tk_as_toei5000_1.png"){ tmpl_symm_v3(0, 25) }
+
+  spriteset(tk_as_toei5000_2_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5000/tk_as_toei5000_2.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tk_as_toei5000_2_head_base_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5000/tk_as_toei5000_2.png"){ tmpl_std_rev_v3(0, 0) }
+  spriteset(tk_as_toei5000_2_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5000/tk_as_toei5000_2.png"){ tmpl_symm_v3(0, 25) }
+
+  switch(FEAT_TRAINS, SELF, tk_as_toei5000_head_base, cargo_subtype==2||(cargo_subtype==0&&current_year>1980)){
+    1:tk_as_toei5000_2_head_base;
+    tk_as_toei5000_1_head_base;
+  }
+  switch(FEAT_TRAINS, SELF, tk_as_toei5000_head_base_rev, cargo_subtype==2||(cargo_subtype==0&&current_year>1980)){
+    1:tk_as_toei5000_2_head_base_rev;
+    tk_as_toei5000_1_head_base_rev;
+  }
+  switch(FEAT_TRAINS, SELF, tk_as_toei5000_car_base, cargo_subtype==2||(cargo_subtype==0&&current_year>1980)){
+    1:tk_as_toei5000_2_car_base;
+    tk_as_toei5000_1_car_base;
+  }
+
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5000_front, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5000_head_base; 1: tk_as_toei5000_lights_front; 2: ac_vents_1_wag;}
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5000_end, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5000_head_base; 1: ac_vents_1_wag;}
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5000_end_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5000_head_base_rev; 1: ac_vents_1_wag;}
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5000_front_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5000_head_base; 1: tk_as_toei5000_lights_front; 2: ac_vents_1_wag; 3: panto_d_arm_single;}
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5000_end_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5000_head_base; 1: ac_vents_1_wag; 2: panto_d_arm_single;}
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5000_end_mot_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5000_head_base_rev; 1: ac_vents_1_wag; 2: panto_d_arm_single_rev;}
+
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5000_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5000_car_base; 1: ac_vents_1_wag; 2: panto_d_arm_single;}
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5000_mot_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5000_car_base; 1: ac_vents_1_wag; 2: panto_d_arm_single_rev;}
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5000_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5000_car_base; 1: ac_vents_1_wag;}
+
+
+
+    switch(FEAT_TRAINS, PARENT, tk_as_toei5000_front_gfx, vehicle_is_reversed){
+      1:gfx_tk_as_toei5000_front;
+      gfx_tk_as_toei5000_front_mot;
+    }
+    switch(FEAT_TRAINS, PARENT, tk_as_toei5000_end_gfx, vehicle_is_reversed){
+      1:gfx_tk_as_toei5000_end_mot;
+      gfx_tk_as_toei5000_end;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_panto_placer_1,position_in_vehid_chain %2){
+      1: gfx_tk_as_toei5000_mot;
+      gfx_tk_as_toei5000_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_panto_placer_1_rev,position_in_vehid_chain_from_end %2){
+      1: gfx_tk_as_toei5000_mot_rev;
+      gfx_tk_as_toei5000_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_toei5000_panto_placer_main,vehicle_is_reversed){
+      1: sw_tk_as_toei5000_panto_placer_1_rev;
+      sw_tk_as_toei5000_panto_placer_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_sandwich_placer_1,position_in_vehid_chain){
+      0: gfx_tk_as_toei5000_end_rev;
+      1: gfx_tk_as_toei5000_end_mot;
+      sw_toei5000_panto_placer_main;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_sandwich_placer_1_rev,position_in_vehid_chain_from_end){
+      0: gfx_tk_as_toei5000_end;
+      1: gfx_tk_as_toei5000_end_mot_rev;
+      sw_toei5000_panto_placer_main;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_toei5000_sandwich_placer_main_1,vehicle_is_reversed){
+      1: sw_tk_as_toei5000_sandwich_placer_1_rev;
+      sw_tk_as_toei5000_sandwich_placer_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_sandwich_placer_2,position_in_vehid_chain){
+      2: gfx_tk_as_toei5000_end_rev;
+      3: gfx_tk_as_toei5000_end_mot;
+      sw_toei5000_panto_placer_main;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_sandwich_placer_2_rev,position_in_vehid_chain_from_end){
+      2: gfx_tk_as_toei5000_end;
+      3: gfx_tk_as_toei5000_end_mot_rev;
+      sw_toei5000_panto_placer_main;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_toei5000_sandwich_placer_main_2,vehicle_is_reversed){
+      1: sw_tk_as_toei5000_sandwich_placer_2_rev;
+      sw_tk_as_toei5000_sandwich_placer_2;
+    }
+    switch(FEAT_TRAINS, SELF, sw_toei5000_sandwich_placer_main,num_vehs_in_vehid_chain){
+      0..3: sw_toei5000_panto_placer_main;
+      5..8:sw_toei5000_sandwich_placer_main_2;
+      sw_toei5000_sandwich_placer_main_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_toei5000_head_gfx_main,position_in_consist>0){
+      1: tk_as_toei5000_end_gfx;
+      tk_as_toei5000_front_gfx;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_lv,vehicle_type_id){
+      mu_car:sw_toei5000_sandwich_placer_main;
+      sw_toei5000_head_gfx_main;
+    }
+
+
+
+ switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_lv_desc_main, cargo_subtype){
+    0:string(LV_RANDOM);
+    1:string(LV_DATED,string(STR_LIVERY,string(LV_DEFAULT)),1960);
+    2:string(LV_DATED,string(STR_LIVERY,string(LV_RENEW)),1981);
+ }
+
+
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_capacity_main,vehicle_type_id){
+      tk_as_toei5200: 150;
+      default: 140;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_car_power_main,position_in_vehid_chain_from_end %8){
+      0..6:return 85;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5000_power_main,vehicle_type_id){
+      tk_as_toei5000: 85*2;
+      tk_as_toei5200: 85*2;
+      sw_tk_as_toei5000_car_power_main;
+    }
+# 1916 "src/metro/Tokyo/items.pnml" 2
+
+item(FEAT_TRAINS, tk_as_toei5000) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_TOEI), "5000", string(STR_NAME_TYPE));
+    introduction_date: date(1960, 12, 4);
+    model_life: 51;
+    vehicle_life: 46;
+    dual_headed: 1;
+
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 100 km/h;
+    track_type: TR_1435_DC;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 34 ton;
+    badges: ["company/toei", "line/tokyo_asakusa"];
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_4, 2,4,6,8)),
+
+    string(STR_OPERATOR, string(STR_TOEI))
+    ,string(STR_LINES_USED, string(STR_TOKYO_ASAKUSA))
+    );
+    cargo_subtype_text: sw_tk_as_toei5000_lv_desc_main;
+    purchase: tk_as_toei5000_purchase;
+    cargo_capacity:sw_tk_as_toei5000_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_3D;
+    default:sw_tk_as_toei5000_lv;
+    power:sw_tk_as_toei5000_power_main()*4*1342/1000;
+    purchase_power: sw_tk_as_toei5000_car_power_main()*4*1342/1000;
+
+
+    sound_effect: sw_TOEI5000_start_sound;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_tk_as_toei5000_lv_desc_main;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_tk_as_toei5000_capacity_main()*param_capacity_mod/3;
+    power:sw_tk_as_toei5000_power_main()*4*1342/1000;
+    default:sw_tk_as_toei5000_lv;
+    weight: 33;
+
+  }
+}
+# 1 "src/metro/Tokyo/asakusa/tk_as_toei5200/tk_as_toei5200.pnml" 1
+
+  spriteset(tk_as_toei5200_purchase_1_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5200/tk_as_toei5200.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(tk_as_toei5200_purchase_1_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5200/tk_as_toei5200.png"){ tmpl_purchase_2c_dual(0, 25) }
+  switch(FEAT_TRAINS, SELF, tk_as_toei5200_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: tk_as_toei5200_purchase_1_c1; 1: ac_vents_1_c1; 2: panto_d_arm_single_c1; 3: tk_as_toei5200_purchase_1_c2; 4: ac_vents_1_c2;}
+  spriteset(tk_as_toei5200_purchase_2_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5200/tk_as_toei5200.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(tk_as_toei5200_purchase_2_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5200/tk_as_toei5200.png"){ tmpl_purchase_2c_dual(0, 25) }
+  switch(FEAT_TRAINS, SELF, tk_as_toei5200_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: tk_as_toei5200_purchase_2_c1; 1: ac_long_toshiba_c1; 2: panto_d_arm_single_c1; 3: tk_as_toei5200_purchase_2_c2; 4: ac_long_toshiba_c2;}
+  switch(FEAT_TRAINS, SELF, tk_as_toei5200_purchase, current_year){
+    0..1987:tk_as_toei5200_purchase_1;
+    tk_as_toei5200_purchase_2;
+  }
+
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5200_ac, current_year){
+    0..1987:ac_vents_1_wag;
+    ac_long_toshiba;
+  }
+
+
+  spriteset(tk_as_toei5200_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5200/tk_as_toei5200_lights.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tk_as_toei5200_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5200/tk_as_toei5200_lights.png"){ tmpl_std_v3(0, 25) }
+  spriteset(tk_as_toei5200_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5200/tk_as_toei5200.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tk_as_toei5200_wag_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5200/tk_as_toei5200.png"){ tmpl_symm_v3(0, 25) }
+
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5200_front, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5200_head_base; 1: tk_as_toei5200_lights_front; 2: gfx_tk_as_toei5200_ac;}
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5200_end, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5200_head_base; 1: tk_as_toei5200_lights_end; 2: gfx_tk_as_toei5200_ac;}
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5200_front_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5200_head_base; 1: tk_as_toei5200_lights_front; 2: gfx_tk_as_toei5200_ac; 3: panto_d_arm_single;}
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5200_end_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5200_head_base; 1: tk_as_toei5200_lights_end; 2: gfx_tk_as_toei5200_ac; 3: panto_d_arm_single;}
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5200_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5200_wag_base; 1: gfx_tk_as_toei5200_ac; 2: panto_d_arm_single;}
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5200_mot_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5200_wag_base; 1: gfx_tk_as_toei5200_ac; 2: panto_d_arm_single_rev;}
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5200_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5200_wag_base; 1: gfx_tk_as_toei5200_ac;}
+
+
+
+    switch(FEAT_TRAINS, PARENT, tk_as_toei5200_front_gfx, vehicle_is_reversed){
+      1:gfx_tk_as_toei5200_front;
+      gfx_tk_as_toei5200_front_mot;
+    }
+    switch(FEAT_TRAINS, PARENT, tk_as_toei5200_end_gfx, vehicle_is_reversed){
+      1:gfx_tk_as_toei5200_end_mot;
+      gfx_tk_as_toei5200_end;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5200_panto_placer_1,position_in_vehid_chain %2){
+      1: gfx_tk_as_toei5200_mot;
+      gfx_tk_as_toei5200_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5200_panto_placer_1_rev,position_in_vehid_chain_from_end %2){
+      1: gfx_tk_as_toei5200_mot_rev;
+      gfx_tk_as_toei5200_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_toei5200_panto_placer_main,vehicle_is_reversed){
+      1: sw_tk_as_toei5200_panto_placer_1_rev;
+      sw_tk_as_toei5200_panto_placer_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_toei5200_head_gfx_main,position_in_consist>0){
+      1: tk_as_toei5200_end_gfx;
+      tk_as_toei5200_front_gfx;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5200_lv,vehicle_type_id){
+      mu_car:sw_toei5200_panto_placer_main;
+      sw_toei5200_head_gfx_main;
+    }
+# 1974 "src/metro/Tokyo/items.pnml" 2
+
+item(FEAT_TRAINS, tk_as_toei5200) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_TOEI), "5200", string(STR_NAME_TYPE));
+    introduction_date: date(1976, 4, 1);
+    model_life: 35;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+    cost_factor: 20;
+    running_cost_factor: 50;
+    speed: 100 km/h;
+    track_type: TR_1435_DC;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 34 ton;
+    badges: ["company/toei", "line/tokyo_asakusa"];
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
+
+    string(STR_OPERATOR, string(STR_TOEI))
+    ,string(STR_LINES_USED, string(STR_TOKYO_ASAKUSA))
+    );
+
+    purchase: tk_as_toei5200_purchase;
+    cargo_capacity:sw_tk_as_toei5000_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_3D;
+    default:sw_tk_as_toei5200_lv;
+    power:sw_tk_as_toei5000_power_main()*4*1342/1000;
+    purchase_power: sw_tk_as_toei5000_car_power_main()*4*1342/1000;
+
+
+    sound_effect: sw_TOEI5200_start_sound;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_tk_as_toei5000_capacity_main()*param_capacity_mod/3;
+    power:sw_tk_as_toei5000_power_main()*4*1342/1000;
+    default:sw_tk_as_toei5200_lv;
+    weight: 33;
+
+  }
+}
+# 1 "src/metro/Tokyo/asakusa/tk_as_toei5300/tk_as_toei5300.pnml" 1
+
+  spriteset(tk_as_toei5300_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5300/tk_as_toei5300.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(tk_as_toei5300_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5300/tk_as_toei5300.png"){ tmpl_purchase_2c_dual(0, 25) }
+  switch(FEAT_TRAINS, SELF, tk_as_toei5300_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: tk_as_toei5300_purchase_c1; 1: ac_long_toshiba_c1; 2: tk_as_toei5300_purchase_c2; 3: ac_long_toshiba_c2;}
+
+spriteset(tk_as_toei5300_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5300/tk_as_toei5300_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(tk_as_toei5300_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5300/tk_as_toei5300_lights.png"){ tmpl_std_v3(0, 25) }
+spriteset(tk_as_toei5300_head_base_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5300/tk_as_toei5300.png"){ tmpl_std_v3(0, 0) }
+spriteset(tk_as_toei5300_head_base_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5300/tk_as_toei5300.png"){ tmpl_std_v3(0, 25) }
+spriteset(tk_as_toei5300_wag_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5300/tk_as_toei5300.png"){ tmpl_symm_v3(0, 50) }
+switch(FEAT_TRAINS, SELF, tk_as_toei5300_head_base, build_year){
+  0..1993:tk_as_toei5300_head_base_1;
+  tk_as_toei5300_head_base_2;
+}
+
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5300_front, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5300_head_base; 1: tk_as_toei5300_lights_front; 2: ac_long_toshiba;}
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5300_end, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5300_head_base; 1: tk_as_toei5300_lights_end; 2: ac_long_toshiba;}
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5300_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5300_wag_base; 1: ac_long_toshiba; 2: panto_arm_n;}
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5300_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5300_wag_base; 1: ac_long_toshiba;}
+
+
+
+
+      switch(FEAT_TRAINS, SELF, sw_tk_as_toei5300_panto_placer_1,position_in_vehid_chain %6){
+        1: gfx_tk_as_toei5300_mot;
+        4: gfx_tk_as_toei5300_mot;
+        default: gfx_tk_as_toei5300_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tk_as_toei5300_panto_placer_1_rev,position_in_vehid_chain_from_end %6){
+        1: gfx_tk_as_toei5300_mot;
+        4: gfx_tk_as_toei5300_mot;
+        default: gfx_tk_as_toei5300_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_toei5300_panto_placer_main_1,vehicle_is_reversed){
+        1: sw_tk_as_toei5300_panto_placer_1_rev;
+        sw_tk_as_toei5300_panto_placer_1;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_tk_as_toei5300_panto_placer_2,position_in_vehid_chain %3){
+        0: gfx_tk_as_toei5300_mot;
+        default: gfx_tk_as_toei5300_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tk_as_toei5300_panto_placer_2_rev,position_in_vehid_chain_from_end %3){
+        0: gfx_tk_as_toei5300_mot;
+        default: gfx_tk_as_toei5300_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_toei5300_panto_placer_main_2,vehicle_is_reversed){
+        1: sw_tk_as_toei5300_panto_placer_2_rev;
+        sw_tk_as_toei5300_panto_placer_2;
+      }
+
+    switch(FEAT_TRAINS, SELF, sw_toei5300_panto_placer_main,num_vehs_in_vehid_chain){
+      0..2: sw_toei5300_panto_placer_main_2;
+      4: sw_toei5300_panto_placer_main_2;
+      sw_toei5300_panto_placer_main_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_toei5300_head_gfx_main,position_in_consist>0){
+      1: gfx_tk_as_toei5300_end;
+      gfx_tk_as_toei5300_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5300_lv,vehicle_type_id){
+      mu_car:sw_toei5300_panto_placer_main;
+      sw_toei5300_head_gfx_main;
+    }
+
+
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5300_capacity_main,vehicle_type_id){
+      tk_as_toei5300: 123;
+      default: 134;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5300_car_power_main,position_in_vehid_chain_from_end %6){
+      1:return 165;
+      4:return 165;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5300_power_main,vehicle_type_id){
+      tk_as_toei5300: 165*2;
+      sw_tk_as_toei5300_car_power_main;
+    }
+# 2032 "src/metro/Tokyo/items.pnml" 2
+
+item(FEAT_TRAINS, tk_as_toei5300) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_TOEI), "5300", string(STR_NAME_TYPE));
+    introduction_date: date(1991, 3, 31);
+    model_life: 37;
+    vehicle_life: 32;
+    dual_headed: 1;
+
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 120 km/h;
+    track_type: TR_1435_DC;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 24 ton;
+    badges: ["company/toei", "line/tokyo_asakusa"];
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
+
+    string(STR_OPERATOR, string(STR_TOEI))
+    ,string(STR_LINES_USED, string(STR_TOKYO_ASAKUSA))
+    );
+
+    purchase: tk_as_toei5300_purchase;
+    cargo_capacity:sw_tk_as_toei5300_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_3D;
+    default:sw_tk_as_toei5300_lv;
+    power:sw_tk_as_toei5300_power_main()*4*1342/1000;
+    purchase_power: sw_tk_as_toei5300_car_power_main()*4*1342/1000;
+
+    start_stop: sw_stop_start_3;
+    sound_effect: sw_TOEI5300_start_sound;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_tk_as_toei5300_capacity_main()*param_capacity_mod/3;
+    power:sw_tk_as_toei5300_power_main()*4*1342/1000;
+    default:sw_tk_as_toei5300_lv;
+    weight: 24;
+
+  }
+}
+# 1 "src/metro/Tokyo/asakusa/tk_as_toei5500/tk_as_toei5500.pnml" 1
+
+  spriteset(tk_as_toei5500_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5500/tk_as_toei5500.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(tk_as_toei5500_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5500/tk_as_toei5500.png"){ tmpl_purchase_2c_dual(0, 25) }
+  switch(FEAT_TRAINS, SELF, tk_as_toei5500_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: tk_as_toei5500_purchase_c1; 1: ac_long_toshiba_c1; 2: tk_as_toei5500_purchase_c2; 3: ac_long_toshiba_c2;}
+
+spriteset(tk_as_toei5500_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5500/tk_as_toei5500_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(tk_as_toei5500_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5500/tk_as_toei5500_lights.png"){ tmpl_std_v3(0, 25) }
+spriteset(tk_as_toei5500_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5500/tk_as_toei5500.png"){ tmpl_std_v3(0, 0) }
+spriteset(tk_as_toei5500_wag_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/asakusa/tk_as_toei5500/tk_as_toei5500.png"){ tmpl_symm_v3(0, 25) }
+
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5500_front, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5500_head_base; 1: tk_as_toei5500_lights_front; 2: ac_long_toshiba;}
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5500_end, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5500_head_base; 1: tk_as_toei5500_lights_end; 2: ac_long_toshiba;}
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5500_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5500_wag_base; 1: ac_long_toshiba; 2: panto_arm_n;}
+  switch(FEAT_TRAINS, SELF, gfx_tk_as_toei5500_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_as_toei5500_wag_base; 1: ac_long_toshiba;}
+
+
+
+
+      switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_panto_placer_1,position_in_vehid_chain %6){
+        1: gfx_tk_as_toei5500_mot;
+        4: gfx_tk_as_toei5500_mot;
+        default: gfx_tk_as_toei5500_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_panto_placer_1_rev,position_in_vehid_chain_from_end %6){
+        1: gfx_tk_as_toei5500_mot;
+        4: gfx_tk_as_toei5500_mot;
+        default: gfx_tk_as_toei5500_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_toei5500_panto_placer_main_1,vehicle_is_reversed){
+        1: sw_tk_as_toei5500_panto_placer_1_rev;
+        sw_tk_as_toei5500_panto_placer_1;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_panto_placer_2,position_in_vehid_chain %3){
+        0: gfx_tk_as_toei5500_mot;
+        default: gfx_tk_as_toei5500_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_panto_placer_2_rev,position_in_vehid_chain_from_end %3){
+        0: gfx_tk_as_toei5500_mot;
+        default: gfx_tk_as_toei5500_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_toei5500_panto_placer_main_2,vehicle_is_reversed){
+        1: sw_tk_as_toei5500_panto_placer_2_rev;
+        sw_tk_as_toei5500_panto_placer_2;
+      }
+
+    switch(FEAT_TRAINS, SELF, sw_toei5500_panto_placer_main,num_vehs_in_vehid_chain){
+      0..2: sw_toei5500_panto_placer_main_2;
+      4: sw_toei5500_panto_placer_main_2;
+      sw_toei5500_panto_placer_main_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_toei5500_head_gfx_main,position_in_consist>0){
+      1: gfx_tk_as_toei5500_end;
+      gfx_tk_as_toei5500_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_lv,vehicle_type_id){
+      mu_car:sw_toei5500_panto_placer_main;
+      sw_toei5500_head_gfx_main;
+    }
+
+
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_capacity_main,vehicle_type_id){
+      tk_as_toei5500: 121;
+      default: 134;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_car_power_main,position_in_vehid_chain_from_end %8){
+      0..1:return 155;
+      4..5:return 155;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_power_main,vehicle_type_id){
+      tk_as_toei5500: 155*2;
+      sw_tk_as_toei5500_car_power_main;
+    }
+# 2090 "src/metro/Tokyo/items.pnml" 2
+
+item(FEAT_TRAINS, tk_as_toei5500) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_TOEI), "5500", string(STR_NAME_TYPE));
+    introduction_date: date(2018, 6, 30);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+    cost_factor: 20;
+    running_cost_factor: 50;
+    speed: 130 km/h;
+    track_type: TR_1435_DC;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 30 ton;
+    badges: ["company/toei", "line/tokyo_asakusa"];
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
+
+    string(STR_OPERATOR, string(STR_TOEI))
+    ,string(STR_LINES_USED, string(STR_TOKYO_ASAKUSA))
+    );
+
+    purchase: tk_as_toei5500_purchase;
+    cargo_capacity:sw_tk_as_toei5500_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_3D;
+    default:sw_tk_as_toei5500_lv;
+    power:sw_tk_as_toei5500_power_main()*4*1342/1000;
+    purchase_power: sw_tk_as_toei5500_car_power_main()*4*1342/1000;
+
+    start_stop: sw_stop_start_3;
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_tk_as_toei5500_capacity_main()*param_capacity_mod/3;
+    power:sw_tk_as_toei5500_power_main()*4*1342/1000;
+    default:sw_tk_as_toei5500_lv;
+    weight: 30;
+
+  }
+}
+# 1 "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000.pnml" 1
+
+spriteset(tk_mt_toei6000_purchase_c1_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(tk_mt_toei6000_purchase_c2_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_1.png"){ tmpl_purchase_2c_dual(0, 75) }
+spriteset(tk_mt_toei6000_purchase_c1_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_2.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(tk_mt_toei6000_purchase_c2_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_2.png"){ tmpl_purchase_2c_dual(0, 75) }
+spriteset(tk_mt_toei6000_purchase_c1_3, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_3.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(tk_mt_toei6000_purchase_c2_3, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_3.png"){ tmpl_purchase_2c_dual(0, 75) }
+spriteset(tk_mt_toei6000_purchase_c1_4, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_4.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(tk_mt_toei6000_purchase_c2_4, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_4.png"){ tmpl_purchase_2c_dual(0, 75) }
+switch(FEAT_TRAINS, SELF, tk_mt_toei6000_purchase_c1, current_year){
+    0..1971: tk_mt_toei6000_purchase_c1_1;
+    1972..1983: tk_mt_toei6000_purchase_c1_2;
+    1984..1987: tk_mt_toei6000_purchase_c1_3;
+    tk_mt_toei6000_purchase_c1_4;
+ }
+switch(FEAT_TRAINS, SELF, tk_mt_toei6000_purchase_c2, current_year){
+    0..1971: tk_mt_toei6000_purchase_c2_1;
+    1972..1983: tk_mt_toei6000_purchase_c2_2;
+    1984..1987: tk_mt_toei6000_purchase_c2_3;
+    tk_mt_toei6000_purchase_c2_4;
+ }
+switch(FEAT_TRAINS, SELF, tk_mt_toei6000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_mt_toei6000_purchase_c1; 1: tk_mt_toei6000_purchase_c2;}
+
+spriteset(tk_mt_toei6000_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(tk_mt_toei6000_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_1.png"){ tmpl_std_v3(0, 25) }
+spriteset(tk_mt_toei6000_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_1.png"){ tmpl_std_v3(0, 50) }
+spriteset(tk_mt_toei6000_1_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_1.png"){ tmpl_std_rev_v3(0, 50) }
+spriteset(tk_mt_toei6000_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_1.png"){ tmpl_symm_v3(0, 75) }
+spriteset(tk_mt_toei6000_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_1.png"){ tmpl_std_v3(0, 100) }
+spriteset(tk_mt_toei6000_1_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_1.png"){ tmpl_std_v3(0, 125) }
+
+spriteset(tk_mt_toei6000_2_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_2.png"){ tmpl_std_v3(0, 0) }
+spriteset(tk_mt_toei6000_2_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_2.png"){ tmpl_std_v3(0, 25) }
+spriteset(tk_mt_toei6000_2_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_2.png"){ tmpl_std_v3(0, 100) }
+spriteset(tk_mt_toei6000_2_1_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_2.png"){ tmpl_std_v3(0, 125) }
+spriteset(tk_mt_toei6000_2_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_2.png"){ tmpl_std_v3(0, 50) }
+spriteset(tk_mt_toei6000_2_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_2.png"){ tmpl_std_rev_v3(0, 50) }
+spriteset(tk_mt_toei6000_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_2.png"){ tmpl_symm_v3(0, 75) }
+
+spriteset(tk_mt_toei6000_2_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_3.png"){ tmpl_std_v3(0, 0) }
+spriteset(tk_mt_toei6000_2_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_3.png"){ tmpl_std_v3(0, 25) }
+spriteset(tk_mt_toei6000_2_2_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_3.png"){ tmpl_std_v3(0, 50) }
+spriteset(tk_mt_toei6000_2_2_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_3.png"){ tmpl_std_v3(0, 75) }
+
+spriteset(tk_mt_toei6000_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_4.png"){ tmpl_std_v3(0, 0) }
+spriteset(tk_mt_toei6000_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_4.png"){ tmpl_std_v3(0, 25) }
+spriteset(tk_mt_toei6000_3_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_4.png"){ tmpl_std_v3(0, 100) }
+spriteset(tk_mt_toei6000_3_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_4.png"){ tmpl_std_v3(0, 125) }
+spriteset(tk_mt_toei6000_3_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_4.png"){ tmpl_std_v3(0, 50) }
+spriteset(tk_mt_toei6000_3_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_4.png"){ tmpl_std_rev_v3(0, 50) }
+spriteset(tk_mt_toei6000_3_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6000/tk_mt_toei6000_4.png"){ tmpl_symm_v3(0, 75) }
+
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6000_2_front,current_year > 1987){
+  1: tk_mt_toei6000_2_2_front;
+  tk_mt_toei6000_2_1_front;
+  }
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6000_2_end,current_year > 1987){
+  1: tk_mt_toei6000_2_2_end;
+  tk_mt_toei6000_2_1_end;
+  }
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6000_2_front_mot,current_year > 1987){
+  1: tk_mt_toei6000_2_2_front_mot;
+  tk_mt_toei6000_2_1_front_mot;
+  }
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6000_2_end_mot,current_year > 1987){
+  1: tk_mt_toei6000_2_2_end_mot;
+  tk_mt_toei6000_2_1_end_mot;
+  }
+
+
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6000_front_timed, current_year){
+    0..1971:tk_mt_toei6000_1_front;
+    1972..1987:tk_mt_toei6000_2_front;
+    tk_mt_toei6000_3_front;
+  }
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6000_end_timed, current_year){
+    0..1971:tk_mt_toei6000_1_end;
+    1972..1987:tk_mt_toei6000_2_end;
+    tk_mt_toei6000_3_end;
+  }
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6000_front_mot_timed, current_year){
+    0..1971:tk_mt_toei6000_1_front_mot;
+    1972..1987:tk_mt_toei6000_2_front_mot;
+    tk_mt_toei6000_3_front_mot;
+  }
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6000_end_mot_timed, current_year){
+    0..1971:tk_mt_toei6000_1_end_mot;
+    1972..1987:tk_mt_toei6000_2_end_mot;
+    tk_mt_toei6000_3_end_mot;
+  }
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6000_mot_timed, current_year){
+    0..1971:tk_mt_toei6000_1_mot;
+    1972..1987:tk_mt_toei6000_2_mot;
+    tk_mt_toei6000_3_mot;
+  }
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6000_mot_rev_timed, current_year){
+    0..1971:tk_mt_toei6000_1_mot_rev;
+    1972..1987:tk_mt_toei6000_2_mot_rev;
+    tk_mt_toei6000_3_mot_rev;
+  }
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6000_wag_timed, current_year){
+    0..1971:tk_mt_toei6000_1_wag;
+    1972..1987:tk_mt_toei6000_2_wag;
+    tk_mt_toei6000_3_wag;
+  }
+
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6000_front, cargo_subtype){
+    1:tk_mt_toei6000_1_front;
+    2:tk_mt_toei6000_2_front;
+    3:tk_mt_toei6000_3_front;
+    tk_mt_toei6000_front_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6000_end, cargo_subtype){
+    1:tk_mt_toei6000_1_end;
+    2:tk_mt_toei6000_2_end;
+    3:tk_mt_toei6000_3_end;
+    tk_mt_toei6000_end_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6000_front_mot, cargo_subtype){
+    1:tk_mt_toei6000_1_front_mot;
+    2:tk_mt_toei6000_2_front_mot;
+    3:tk_mt_toei6000_3_front_mot;
+    tk_mt_toei6000_front_mot_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6000_end_mot, cargo_subtype){
+    1:tk_mt_toei6000_1_end_mot;
+    2:tk_mt_toei6000_2_end_mot;
+    3:tk_mt_toei6000_3_end_mot;
+    tk_mt_toei6000_end_mot_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6000_mot, cargo_subtype){
+    1:tk_mt_toei6000_1_mot;
+    2:tk_mt_toei6000_2_mot;
+    3:tk_mt_toei6000_3_mot;
+    tk_mt_toei6000_mot_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6000_mot_rev, cargo_subtype){
+    1:tk_mt_toei6000_1_mot_rev;
+    2:tk_mt_toei6000_2_mot_rev;
+    3:tk_mt_toei6000_3_mot_rev;
+    tk_mt_toei6000_mot_rev_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6000_wag, cargo_subtype){
+    1:tk_mt_toei6000_1_wag;
+    2:tk_mt_toei6000_2_wag;
+    3:tk_mt_toei6000_3_wag;
+    tk_mt_toei6000_wag_timed;
+  }
+
+
+
+
+    switch(FEAT_TRAINS, PARENT, sw_tk_mt_toei6000_front_main,vehicle_is_reversed){
+      1: tk_mt_toei6000_front;
+      tk_mt_toei6000_front_mot;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_tk_mt_toei6000_end_main,vehicle_is_reversed){
+      1: tk_mt_toei6000_end_mot;
+      tk_mt_toei6000_end;
+    }
+
+
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6000_panto_placer_1,position_in_vehid_chain_from_end %2){
+      0: tk_mt_toei6000_mot_rev;
+      tk_mt_toei6000_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6000_panto_placer_1_rev,position_in_vehid_chain %2){
+      0: tk_mt_toei6000_mot;
+      tk_mt_toei6000_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_tk_mt_toei6000_panto_placer_main,vehicle_is_reversed){
+      1: sw_tk_mt_toei6000_panto_placer_1_rev;
+      sw_tk_mt_toei6000_panto_placer_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6000_head_gfx_main,position_in_consist>0){
+      1:sw_tk_mt_toei6000_end_main;
+     sw_tk_mt_toei6000_front_main;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6000_lv,vehicle_type_id){
+      mu_car:sw_tk_mt_toei6000_panto_placer_main;
+      sw_tk_mt_toei6000_head_gfx_main;
+    }
+
+  switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6000_lv_desc_main, cargo_subtype){
+    0: string(LV_RANDOM);
+    1: string(LV_DATED,string(LV_tk_mt_toei6000_1),1968);
+    2: string(LV_DATED,string(STR_BATCH, 2),1972);
+    3: string(LV_DATED,string(STR_LIVERY,string(STR_BATCH, 3)),1988);
+  }
+
+
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6000_capacity_main,vehicle_type_id){
+      mu_car: 170;
+      150;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6000_car_power_main,position_in_vehid_chain_from_end %6){
+      0..3:return 100;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6000_power_main,vehicle_type_id){
+      mu_car: sw_tk_mt_toei6000_car_power_main;
+      100*2;
+    }
+# 2148 "src/metro/Tokyo/items.pnml" 2
+
+item(FEAT_TRAINS, tk_mt_toei6000) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_TOEI), "6000", string(STR_NAME_TYPE));
+    introduction_date: date(1968, 12, 27);
+    model_life: 36;
+    vehicle_life: 31;
+    dual_headed: 1;
+
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 100 km/h;
+    track_type: TR_1067_DC;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 22 ton;
+    badges: ["company/toei", "line/tokyo_mita"];
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
+
+    string(STR_OPERATOR, string(STR_TOEI))
+    ,string(STR_LINES_USED, string(STR_TOKYO_MITA))
+    );
+    cargo_subtype_text: sw_tk_mt_toei6000_lv_desc_main;
+    purchase: tk_mt_toei6000_purchase;
+    cargo_capacity:sw_tk_mt_toei6000_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_tk_mt_toei6000_lv;
+    power:sw_tk_mt_toei6000_power_main()*4*1342/1000;
+    purchase_power: sw_tk_mt_toei6000_car_power_main()*4*1342/1000;
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_tk_mt_toei6000_lv_desc_main;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_tk_mt_toei6000_capacity_main()*param_capacity_mod/3;
+    power:sw_tk_mt_toei6000_power_main()*4*1342/1000;
+    default:sw_tk_mt_toei6000_lv;
+    weight: 21;
+
+  }
+}
+# 1 "src/metro/Tokyo/mita/tk_mt_toei6300/tk_mt_toei6300.pnml" 1
+
+spriteset(tk_mt_toei6300_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6300/tk_mt_toei6300_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(tk_mt_toei6300_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6300/tk_mt_toei6300_1.png"){ tmpl_purchase_2c_dual(0, 50) }
+switch(FEAT_TRAINS, SELF, tk_mt_toei6300_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_mt_toei6300_purchase_c1; 1: tk_mt_toei6300_purchase_c2;}
+
+spriteset(tk_mt_toei6300_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6300/tk_mt_toei6300_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(tk_mt_toei6300_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6300/tk_mt_toei6300_1.png"){ tmpl_std_v3(0, 25) }
+spriteset(tk_mt_toei6300_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6300/tk_mt_toei6300_1.png"){ tmpl_symm_v3(0, 50) }
+spriteset(tk_mt_toei6300_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6300/tk_mt_toei6300_1.png"){ tmpl_symm_v3(0, 75) }
+
+spriteset(tk_mt_toei6300_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6300/tk_mt_toei6300_2.png"){ tmpl_std_v3(0, 0) }
+spriteset(tk_mt_toei6300_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6300/tk_mt_toei6300_2.png"){ tmpl_std_v3(0, 25) }
+
+spriteset(tk_mt_toei6300_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6300/tk_mt_toei6300_2.png"){ tmpl_std_v3(0, 50) }
+spriteset(tk_mt_toei6300_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6300/tk_mt_toei6300_2.png"){ tmpl_std_v3(0, 75) }
+
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6300_front_timed, build_year){
+    0..1992:tk_mt_toei6300_1_front;
+    1993..1998:tk_mt_toei6300_2_front;
+    tk_mt_toei6300_3_front;
+  }
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6300_end_timed, build_year){
+    0..1992:tk_mt_toei6300_1_end;
+    1993..1998:tk_mt_toei6300_1_end;
+    tk_mt_toei6300_3_end;
+  }
+
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6300_front, cargo_subtype){
+    1:tk_mt_toei6300_1_front;
+    2:tk_mt_toei6300_1_front;
+    3:tk_mt_toei6300_3_front;
+    tk_mt_toei6300_front_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_mt_toei6300_end, cargo_subtype){
+    1:tk_mt_toei6300_1_end;
+    2:tk_mt_toei6300_2_end;
+    3:tk_mt_toei6300_3_end;
+    tk_mt_toei6300_end_timed;
+  }
+
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_panto_placer_1,position_in_vehid_chain %3){
+      0: tk_mt_toei6300_mot;
+      tk_mt_toei6300_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
+      0: tk_mt_toei6300_mot;
+      tk_mt_toei6300_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_tk_mt_toei6300_panto_placer_main_1,vehicle_is_reversed){
+      1: sw_tk_mt_toei6300_panto_placer_1_rev;
+      sw_tk_mt_toei6300_panto_placer_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_panto_placer_2,position_in_vehid_chain %4){
+      0: tk_mt_toei6300_mot;
+      tk_mt_toei6300_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_panto_placer_2_rev,position_in_vehid_chain_from_end %4){
+      0: tk_mt_toei6300_mot;
+      tk_mt_toei6300_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_tk_mt_toei6300_panto_placer_main_2,vehicle_is_reversed){
+      1: sw_tk_mt_toei6300_panto_placer_2_rev;
+      sw_tk_mt_toei6300_panto_placer_2;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_panto_placer_main,num_vehs_in_vehid_chain){
+      3: sw_tk_mt_toei6300_panto_placer_main_2;
+      6: sw_tk_mt_toei6300_panto_placer_main_2;
+      sw_tk_mt_toei6300_panto_placer_main_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_head_gfx_main,position_in_consist>0){
+      1:tk_mt_toei6300_end;
+     tk_mt_toei6300_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_lv,vehicle_type_id){
+      mu_car:sw_tk_mt_toei6300_panto_placer_main;
+      sw_tk_mt_toei6300_head_gfx_main;
+    }
+
+  switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_lv_desc_main, cargo_subtype){
+    0: string(LV_RANDOM);
+    1: string(LV_DATED,string(STR_BATCH, 1),1993);
+    2: string(LV_DATED,string(LV_OLD),1994);
+    3: string(LV_DATED,string(LV_NEW),1999);
+  }
+
+
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_capacity_main,vehicle_type_id){
+      mu_car: 148;
+      136;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_car_power_main,position_in_vehid_chain_from_end %5){
+      0:return 180;
+      2..3:return 180;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6300_power_main,vehicle_type_id){
+      mu_car: sw_tk_mt_toei6300_car_power_main;
+      0;
+    }
+# 2206 "src/metro/Tokyo/items.pnml" 2
+
+item(FEAT_TRAINS, tk_mt_toei6300) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_TOEI), "6300", string(STR_NAME_TYPE));
+    introduction_date: date(1993, 6, 23);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+    cost_factor: 20;
+    running_cost_factor: 50;
+    speed: 120 km/h;
+    track_type: TR_1067_DC;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 31 ton;
+    badges: ["company/toei", "line/tokyo_mita"];
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
+
+    string(STR_OPERATOR, string(STR_TOEI))
+    ,string(STR_LINES_USED, string(STR_TOKYO_MITA))
+    );
+    cargo_subtype_text: sw_tk_mt_toei6300_lv_desc_main;
+    purchase: tk_mt_toei6300_purchase;
+    cargo_capacity:sw_tk_mt_toei6300_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_tk_mt_toei6300_lv;
+    power:sw_tk_mt_toei6300_power_main()*4*1342/1000;
+    purchase_power: sw_tk_mt_toei6300_car_power_main()*4*1342/1000;
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_tk_mt_toei6300_lv_desc_main;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_tk_mt_toei6300_capacity_main()*param_capacity_mod/3;
+    power:sw_tk_mt_toei6300_power_main()*4*1342/1000;
+    default:sw_tk_mt_toei6300_lv;
+    weight: 30;
+
+  }
+}
+# 1 "src/metro/Tokyo/mita/tk_mt_toei6500/tk_mt_toei6500.pnml" 1
+
+spriteset(tk_mt_toei6500_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6500/tk_mt_toei6500_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(tk_mt_toei6500_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6500/tk_mt_toei6500_1.png"){ tmpl_purchase_2c_dual(0, 50) }
+switch(FEAT_TRAINS, SELF, tk_mt_toei6500_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_mt_toei6500_purchase_c1; 1: tk_mt_toei6500_purchase_c2;}
+
+spriteset(tk_mt_toei6500_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6500/tk_mt_toei6500_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(tk_mt_toei6500_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6500/tk_mt_toei6500_1.png"){ tmpl_std_v3(0, 25) }
+spriteset(tk_mt_toei6500_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6500/tk_mt_toei6500_1.png"){ tmpl_symm_v3(0, 50) }
+spriteset(tk_mt_toei6500_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/mita/tk_mt_toei6500/tk_mt_toei6500_1.png"){ tmpl_symm_v3(0, 75) }
+
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6500_1_panto_placer_1,position_in_vehid_chain %3){
+      0: tk_mt_toei6500_1_mot;
+      tk_mt_toei6500_1_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6500_1_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
+      0: tk_mt_toei6500_1_mot;
+      tk_mt_toei6500_1_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_tk_mt_toei6500_1_panto_placer_main_1,vehicle_is_reversed){
+      1: sw_tk_mt_toei6500_1_panto_placer_1_rev;
+      sw_tk_mt_toei6500_1_panto_placer_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6500_1_panto_placer_2,position_in_vehid_chain %4){
+      0: tk_mt_toei6500_1_mot;
+      tk_mt_toei6500_1_wag;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6500_1_panto_placer_2_rev,position_in_vehid_chain_from_end %4){
+      0: tk_mt_toei6500_1_mot;
+      tk_mt_toei6500_1_wag;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_tk_mt_toei6500_1_panto_placer_main_2,vehicle_is_reversed){
+      1: sw_tk_mt_toei6500_1_panto_placer_2_rev;
+      sw_tk_mt_toei6500_1_panto_placer_2;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6500_1_panto_placer_main,num_vehs_in_vehid_chain){
+      3: sw_tk_mt_toei6500_1_panto_placer_main_2;
+      6: sw_tk_mt_toei6500_1_panto_placer_main_2;
+      sw_tk_mt_toei6500_1_panto_placer_main_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6500_head_gfx_main,position_in_consist>0){
+      1:tk_mt_toei6500_1_end;
+     tk_mt_toei6500_1_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6500_lv,vehicle_type_id){
+      mu_car:sw_tk_mt_toei6500_1_panto_placer_main;
+      sw_tk_mt_toei6500_head_gfx_main;
+    }
+
+
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6500_capacity_main,vehicle_type_id){
+      mu_car: 149;
+      139;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6500_car_power_main,position_in_vehid_chain_from_end %8){
+      0..1:return 170;
+      3..4:return 170;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_mt_toei6500_power_main,vehicle_type_id){
+      mu_car: sw_tk_mt_toei6500_car_power_main;
+      0;
+    }
+# 2264 "src/metro/Tokyo/items.pnml" 2
+
+item(FEAT_TRAINS, tk_mt_toei6500) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_TOEI), "6500", string(STR_NAME_TYPE));
+    introduction_date: date(2022, 5, 14);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+    cost_factor: 21;
+    running_cost_factor: 51;
+    speed: 120 km/h;
+    track_type: TR_1067_DC;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 26 ton;
+    badges: ["company/toei", "line/tokyo_mita"];
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
+
+    string(STR_OPERATOR, string(STR_TOEI))
+    ,string(STR_LINES_USED, string(STR_TOKYO_MITA))
+    );
+
+    purchase: tk_mt_toei6500_purchase;
+    cargo_capacity:sw_tk_mt_toei6500_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_tk_mt_toei6500_lv;
+    power:sw_tk_mt_toei6500_power_main()*4*1342/1000;
+    purchase_power: sw_tk_mt_toei6500_car_power_main()*4*1342/1000;
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_tk_mt_toei6500_capacity_main()*param_capacity_mod/3;
+    power:sw_tk_mt_toei6500_power_main()*4*1342/1000;
+    default:sw_tk_mt_toei6500_lv;
+    weight: 25;
+
+  }
+}
+# 1 "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000.pnml" 1
+
+spriteset(tk_sj_toei10_000_purchase_c1_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(tk_sj_toei10_000_purchase_c2_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_1.png"){ tmpl_purchase_2c_dual(0, 75) }
+spriteset(tk_sj_toei10_000_purchase_c1_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_2.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(tk_sj_toei10_000_purchase_c2_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_2.png"){ tmpl_purchase_2c_dual(0, 75) }
+spriteset(tk_sj_toei10_000_purchase_c1_3, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_3.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(tk_sj_toei10_000_purchase_c2_3, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_3.png"){ tmpl_purchase_2c_dual(0, 75) }
+spriteset(tk_sj_toei10_000_purchase_c1_4, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_4.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(tk_sj_toei10_000_purchase_c2_4, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_4.png"){ tmpl_purchase_2c_dual(0, 75) }
+spriteset(tk_sj_toei10_000_purchase_c1_5, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_4.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(tk_sj_toei10_000_purchase_c2_5, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_4.png"){ tmpl_purchase_2c_dual(0, 75) }
+switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_purchase_c1, current_year){
+    0..1977: tk_sj_toei10_000_purchase_c1_1;
+    1978..1987: tk_sj_toei10_000_purchase_c1_2;
+    1987..1991: tk_sj_toei10_000_purchase_c1_3;
+    1992..1996: tk_sj_toei10_000_purchase_c1_4;
+    tk_sj_toei10_000_purchase_c1_5;
+ }
+switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_purchase_c2, current_year){
+    0..1977: tk_sj_toei10_000_purchase_c2_1;
+    1978..1987: tk_sj_toei10_000_purchase_c2_2;
+    1987..1991: tk_sj_toei10_000_purchase_c2_3;
+    1992..1996: tk_sj_toei10_000_purchase_c2_4;
+    tk_sj_toei10_000_purchase_c2_5;
+ }
+switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_sj_toei10_000_purchase_c1; 1: tk_sj_toei10_000_purchase_c2;}
+
+
+  spriteset(tk_sj_toei10_000_1_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_1.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tk_sj_toei10_000_1_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_1.png"){ tmpl_std_v3(0, 25) }
+  spriteset(tk_sj_toei10_000_1_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_1.png"){ tmpl_symm_v3(0, 50) }
+  spriteset(tk_sj_toei10_000_1_1_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_1.png"){ tmpl_symm_v3(0, 75) }
+  spriteset(tk_sj_toei10_000_1_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_1.png"){ tmpl_std_v3(0, 100) }
+  spriteset(tk_sj_toei10_000_1_1_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_1.png"){ tmpl_std_rev_v3(0, 100) }
+
+  spriteset(tk_sj_toei10_000_1_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_1n.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tk_sj_toei10_000_1_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_1n.png"){ tmpl_std_v3(0, 25) }
+  spriteset(tk_sj_toei10_000_1_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_1n.png"){ tmpl_symm_v3(0, 50) }
+  spriteset(tk_sj_toei10_000_1_2_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_1n.png"){ tmpl_symm_v3(0, 75) }
+  spriteset(tk_sj_toei10_000_1_2_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_1n.png"){ tmpl_std_v3(0, 100) }
+  spriteset(tk_sj_toei10_000_1_2_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_1n.png"){ tmpl_std_rev_v3(0, 100) }
+
+    switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_1_front,current_year>1987){
+      1: tk_sj_toei10_000_1_2_front;
+      tk_sj_toei10_000_1_1_front;
+    }
+    switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_1_end,current_year>1987){
+      1: tk_sj_toei10_000_1_2_end;
+      tk_sj_toei10_000_1_1_end;
+    }
+    switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_1_mot_2,current_year>1987){
+      1: tk_sj_toei10_000_1_2_mot_2;
+      tk_sj_toei10_000_1_1_mot_2;
+    }
+    switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_1_wag,current_year>1987){
+      1: tk_sj_toei10_000_1_2_wag;
+      tk_sj_toei10_000_1_1_wag;
+    }
+    switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_1_mot,current_year>1987){
+      1: tk_sj_toei10_000_1_2_mot;
+      tk_sj_toei10_000_1_1_mot;
+    }
+    switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_1_mot_rev,current_year>1987){
+      1: tk_sj_toei10_000_1_2_mot_rev;
+      tk_sj_toei10_000_1_1_mot_rev;
+    }
+
+  spriteset(tk_sj_toei10_000_2_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_2.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tk_sj_toei10_000_2_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_2.png"){ tmpl_std_v3(0, 25) }
+  spriteset(tk_sj_toei10_000_2_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_2.png"){ tmpl_symm_v3(0, 50) }
+  spriteset(tk_sj_toei10_000_2_1_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_2.png"){ tmpl_symm_v3(0, 75) }
+  spriteset(tk_sj_toei10_000_2_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_2.png"){ tmpl_std_v3(0, 100) }
+  spriteset(tk_sj_toei10_000_2_1_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_2.png"){ tmpl_std_rev_v3(0, 100) }
+
+  spriteset(tk_sj_toei10_000_2_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_2n.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tk_sj_toei10_000_2_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_2n.png"){ tmpl_std_v3(0, 25) }
+  spriteset(tk_sj_toei10_000_2_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_2n.png"){ tmpl_symm_v3(0, 50) }
+  spriteset(tk_sj_toei10_000_2_2_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_2n.png"){ tmpl_symm_v3(0, 75) }
+  spriteset(tk_sj_toei10_000_2_2_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_2n.png"){ tmpl_std_v3(0, 100) }
+  spriteset(tk_sj_toei10_000_2_2_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_2n.png"){ tmpl_std_rev_v3(0, 100) }
+
+    switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_2_front,current_year>1987){
+      1: tk_sj_toei10_000_2_2_front;
+      tk_sj_toei10_000_2_1_front;
+    }
+    switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_2_end,current_year>1987){
+      1: tk_sj_toei10_000_2_2_end;
+      tk_sj_toei10_000_2_1_end;
+    }
+    switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_2_mot_2,current_year>1987){
+      1: tk_sj_toei10_000_2_2_mot_2;
+      tk_sj_toei10_000_2_1_mot_2;
+    }
+    switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_2_wag,current_year>1987){
+      1: tk_sj_toei10_000_2_2_wag;
+      tk_sj_toei10_000_2_1_wag;
+    }
+    switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_2_mot,current_year>1987){
+      1: tk_sj_toei10_000_2_2_mot;
+      tk_sj_toei10_000_2_1_mot;
+    }
+    switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_2_mot_rev,current_year>1987){
+      1: tk_sj_toei10_000_2_2_mot_rev;
+      tk_sj_toei10_000_2_1_mot_rev;
+    }
+
+  spriteset(tk_sj_toei10_000_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_3.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tk_sj_toei10_000_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_3.png"){ tmpl_std_v3(0, 25) }
+  spriteset(tk_sj_toei10_000_3_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_3.png"){ tmpl_symm_v3(0, 50) }
+  spriteset(tk_sj_toei10_000_3_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_3.png"){ tmpl_symm_v3(0, 75) }
+  spriteset(tk_sj_toei10_000_3_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_3.png"){ tmpl_std_v3(0, 100) }
+  spriteset(tk_sj_toei10_000_3_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_3.png"){ tmpl_std_rev_v3(0, 100) }
+
+  spriteset(tk_sj_toei10_000_4_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_4.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tk_sj_toei10_000_4_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_4.png"){ tmpl_std_v3(0, 25) }
+  spriteset(tk_sj_toei10_000_4_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_4.png"){ tmpl_symm_v3(0, 50) }
+  spriteset(tk_sj_toei10_000_4_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_4.png"){ tmpl_symm_v3(0, 75) }
+  spriteset(tk_sj_toei10_000_4_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_4.png"){ tmpl_std_v3(0, 100) }
+  spriteset(tk_sj_toei10_000_4_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_000/tk_sj_toei10_000_4.png"){ tmpl_std_rev_v3(0, 100) }
+
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_front_timed, build_year){
+    0..1977: tk_sj_toei10_000_1_front;
+    1978..1991: tk_sj_toei10_000_2_front;
+    1992..1996: tk_sj_toei10_000_3_front;
+    tk_sj_toei10_000_4_front;
+  }
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_end_timed, build_year){
+    0..1977: tk_sj_toei10_000_1_end;
+    1978..1991: tk_sj_toei10_000_2_end;
+    1992..1996: tk_sj_toei10_000_3_end;
+    tk_sj_toei10_000_4_end;
+  }
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_wag_timed, build_year){
+    0..1977: tk_sj_toei10_000_1_wag;
+    1978..1991: tk_sj_toei10_000_2_wag;
+    1992..1996: tk_sj_toei10_000_3_wag;
+    tk_sj_toei10_000_4_wag;
+  }
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_mot_2_timed, build_year){
+    0..1977: tk_sj_toei10_000_1_mot_2;
+    1978..1991: tk_sj_toei10_000_2_mot_2;
+    1992..1996: tk_sj_toei10_000_3_mot_2;
+    tk_sj_toei10_000_4_mot_2;
+  }
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_mot_timed, build_year){
+    0..1977: tk_sj_toei10_000_1_mot;
+    1978..1991: tk_sj_toei10_000_2_mot;
+    1992..1996: tk_sj_toei10_000_3_mot;
+    tk_sj_toei10_000_4_mot;
+  }
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_mot_rev_timed, build_year){
+    0..1977: tk_sj_toei10_000_1_mot_rev;
+    1978..1991: tk_sj_toei10_000_2_mot_rev;
+    1992..1996: tk_sj_toei10_000_3_mot_rev;
+    tk_sj_toei10_000_4_mot_rev;
+  }
+
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_front, cargo_subtype){
+    1: tk_sj_toei10_000_1_front;
+    2: tk_sj_toei10_000_2_front;
+    3: tk_sj_toei10_000_3_front;
+    4: tk_sj_toei10_000_4_front;
+    tk_sj_toei10_000_front_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_end, cargo_subtype){
+    1: tk_sj_toei10_000_1_end;
+    2: tk_sj_toei10_000_2_end;
+    3: tk_sj_toei10_000_3_end;
+    4: tk_sj_toei10_000_4_end;
+    tk_sj_toei10_000_end_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_wag, cargo_subtype){
+    1: tk_sj_toei10_000_1_wag;
+    2: tk_sj_toei10_000_2_wag;
+    3: tk_sj_toei10_000_3_wag;
+    4: tk_sj_toei10_000_4_wag;
+    tk_sj_toei10_000_wag_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_mot_2, cargo_subtype){
+    1: tk_sj_toei10_000_1_mot_2;
+    2: tk_sj_toei10_000_2_mot_2;
+    3: tk_sj_toei10_000_3_mot_2;
+    4: tk_sj_toei10_000_4_mot_2;
+    tk_sj_toei10_000_mot_2_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_mot, cargo_subtype){
+    1: tk_sj_toei10_000_1_mot;
+    2: tk_sj_toei10_000_2_mot;
+    3: tk_sj_toei10_000_3_mot;
+    4: tk_sj_toei10_000_4_mot;
+    tk_sj_toei10_000_mot_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_000_mot_rev, cargo_subtype){
+    1: tk_sj_toei10_000_1_mot_rev;
+    2: tk_sj_toei10_000_2_mot_rev;
+    3: tk_sj_toei10_000_3_mot_rev;
+    4: tk_sj_toei10_000_4_mot_rev;
+    tk_sj_toei10_000_mot_rev_timed;
+  }
+
+
+
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_panto_placer_1,position_in_vehid_chain %4){
+        0: tk_sj_toei10_000_mot_2;
+        2: tk_sj_toei10_000_mot;
+        tk_sj_toei10_000_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_panto_placer_1_rev,position_in_vehid_chain_from_end %4){
+        0: tk_sj_toei10_000_mot_2;
+        2: tk_sj_toei10_000_mot_rev;
+        tk_sj_toei10_000_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tk_sj_toei10_000_panto_placer_main_1,vehicle_is_reversed){
+        1: sw_tk_sj_toei10_000_panto_placer_1_rev;
+        sw_tk_sj_toei10_000_panto_placer_1;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_panto_placer_2,position_in_vehid_chain %3){
+        0: tk_sj_toei10_000_mot_2;
+        tk_sj_toei10_000_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_panto_placer_2_rev,position_in_vehid_chain_from_end %3){
+        0: tk_sj_toei10_000_mot_2;
+        tk_sj_toei10_000_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tk_sj_toei10_000_panto_placer_main_2,vehicle_is_reversed){
+        1: sw_tk_sj_toei10_000_panto_placer_2_rev;
+        sw_tk_sj_toei10_000_panto_placer_2;
+      }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_panto_placer_main,num_vehs_in_vehid_chain){
+      4: sw_tk_sj_toei10_000_panto_placer_main_2;
+      8: sw_tk_sj_toei10_000_panto_placer_main_2;
+      sw_tk_sj_toei10_000_panto_placer_main_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_head_gfx_main,position_in_consist>0){
+      1:tk_sj_toei10_000_end;
+     tk_sj_toei10_000_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_lv,vehicle_type_id){
+      mu_car:sw_tk_sj_toei10_000_panto_placer_main;
+      sw_tk_sj_toei10_000_head_gfx_main;
+    }
+
+
+switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_lv_desc_main, cargo_subtype){
+  0: string(LV_RANDOM);
+  1: string(LV_DATED,string(LV_PROTOTYPE),1971);
+  2: string(LV_DATED,string(STR_BATCH_2, 1,6),1978);
+  3: string(LV_DATED,string(STR_BATCH, 7),1992);
+  4: string(LV_DATED,string(STR_BATCH, 8),1997);
+}
+
+
+  switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_capacity_main,vehicle_type_id){
+    mu_car: 149;
+    138;
+  }
+
+  switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_car_power_main,position_in_vehid_chain_from_end %8){
+    0..5:return 165;
+    return 0;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_000_power_main,vehicle_type_id){
+    mu_car: sw_tk_sj_toei10_000_car_power_main;
+    0;
+  }
+# 2322 "src/metro/Tokyo/items.pnml" 2
+
+item(FEAT_TRAINS, tk_sj_toei10_000) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_TOEI), "10-000", string(STR_NAME_TYPE));
+    introduction_date: date(1971, 12, 21);
+    model_life: 52;
+    vehicle_life: 47;
+    dual_headed: 1;
+
+    cost_factor: 20;
+    running_cost_factor: 50;
+    speed: 120 km/h;
+    track_type: TR_1372_DC;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 25 ton;
+    badges: ["company/toei", "line/tokyo_shinjuku"];
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1372),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_3, 4,6,8)),
+
+    string(STR_OPERATOR, string(STR_TOEI))
+    ,string(STR_LINES_USED, string(STR_TOKYO_SHINJUKU))
+    );
+    cargo_subtype_text: sw_tk_sj_toei10_000_lv_desc_main;
+    purchase: tk_sj_toei10_000_purchase;
+    cargo_capacity:sw_tk_sj_toei10_000_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_tk_sj_toei10_000_lv;
+    power:sw_tk_sj_toei10_000_power_main()*4*1342/1000;
+    purchase_power: sw_tk_sj_toei10_000_car_power_main()*4*1342/1000;
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_tk_sj_toei10_000_lv_desc_main;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_tk_sj_toei10_000_capacity_main()*param_capacity_mod/3;
+    power:sw_tk_sj_toei10_000_power_main()*4*1342/1000;
+    default:sw_tk_sj_toei10_000_lv;
+    weight: 24;
+
+  }
+}
+# 1 "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300.pnml" 1
+
+spriteset(tk_sj_toei10_300_purchase_c1_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(tk_sj_toei10_300_purchase_c2_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300_1.png"){ tmpl_purchase_2c_dual(0, 75) }
+spriteset(tk_sj_toei10_300_purchase_c1_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300_2.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(tk_sj_toei10_300_purchase_c2_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300_2.png"){ tmpl_purchase_2c_dual(0, 75) }
+switch(FEAT_TRAINS, SELF, tk_sj_toei10_300_purchase_c1, current_year){
+    0..2009: tk_sj_toei10_300_purchase_c1_1;
+    tk_sj_toei10_300_purchase_c1_2;
+ }
+switch(FEAT_TRAINS, SELF, tk_sj_toei10_300_purchase_c2, current_year){
+    0..2009: tk_sj_toei10_300_purchase_c2_1;
+    tk_sj_toei10_300_purchase_c2_2;
+ }
+switch(FEAT_TRAINS, SELF, tk_sj_toei10_300_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_sj_toei10_300_purchase_c1; 1: tk_sj_toei10_300_purchase_c2;}
+
+
+spriteset(tk_sj_toei10_300R_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300R.png"){ tmpl_std_v3(0, 0) }
+spriteset(tk_sj_toei10_300R_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300R.png"){ tmpl_std_v3(0, 25) }
+spriteset(tk_sj_toei10_300R_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300R.png"){ tmpl_symm_v3(0, 50) }
+spriteset(tk_sj_toei10_300R_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300R.png"){ tmpl_symm_v3(0, 75) }
+spriteset(tk_sj_toei10_300R_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300R.png"){ tmpl_std_v3(0, 100) }
+spriteset(tk_sj_toei10_300R_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300R.png"){ tmpl_std_rev_v3(0, 100) }
+
+spriteset(tk_sj_toei10_300_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(tk_sj_toei10_300_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300_1.png"){ tmpl_std_v3(0, 25) }
+spriteset(tk_sj_toei10_300_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300_1.png"){ tmpl_symm_v3(0, 50) }
+spriteset(tk_sj_toei10_300_1_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300_1.png"){ tmpl_symm_v3(0, 75) }
+spriteset(tk_sj_toei10_300_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300_1.png"){ tmpl_std_v3(0, 100) }
+spriteset(tk_sj_toei10_300_1_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300_1.png"){ tmpl_std_rev_v3(0, 100) }
+
+  spriteset(tk_sj_toei10_300_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300_2.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tk_sj_toei10_300_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300_2.png"){ tmpl_std_v3(0, 25) }
+  spriteset(tk_sj_toei10_300_2_wag_0, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300_2.png"){ tmpl_std_rev_v3(0, 50) }
+  spriteset(tk_sj_toei10_300_2_wag_0_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300_2.png"){ tmpl_std_v3(0, 50) }
+  spriteset(tk_sj_toei10_300_2_mot_0_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300_2.png"){ tmpl_std_v3(0, 75) }
+  spriteset(tk_sj_toei10_300_2_mot_0_2_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300_2.png"){ tmpl_std_rev_v3(0, 75) }
+  spriteset(tk_sj_toei10_300_2_mot_0, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300_2.png"){ tmpl_std_v3(0, 100) }
+  spriteset(tk_sj_toei10_300_2_mot_0_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/shinjuku/tk_sj_toei10_300/tk_sj_toei10_300_2.png"){ tmpl_std_rev_v3(0, 100) }
+
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_2_wag_gfx_1, position_in_vehid_chain<num_vehs_in_vehid_chain/2){
+    1:tk_sj_toei10_300_2_wag_0_rev;
+    tk_sj_toei10_300_2_wag_0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_2_wag_gfx_2, position_in_vehid_chain_from_end<num_vehs_in_vehid_chain/2){
+      1:tk_sj_toei10_300_2_wag_0;
+      tk_sj_toei10_300_2_wag_0_rev;
+    }
+    switch(FEAT_TRAINS, PARENT, tk_sj_toei10_300_2_wag,vehicle_is_reversed){
+      1: sw_tk_sj_toei10_300_2_wag_gfx_2;
+      sw_tk_sj_toei10_300_2_wag_gfx_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_2_mot_2_gfx_1, position_in_vehid_chain<num_vehs_in_vehid_chain/2){
+      1:tk_sj_toei10_300_2_mot_0_2_rev;
+      tk_sj_toei10_300_2_mot_0_2;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_2_mot_2_gfx_2, position_in_vehid_chain_from_end<num_vehs_in_vehid_chain/2){
+        1:tk_sj_toei10_300_2_mot_0_2;
+        tk_sj_toei10_300_2_mot_0_2_rev;
+    }
+    switch(FEAT_TRAINS, PARENT, tk_sj_toei10_300_2_mot_2,vehicle_is_reversed){
+      1: sw_tk_sj_toei10_300_2_mot_2_gfx_2;
+      sw_tk_sj_toei10_300_2_mot_2_gfx_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, tk_sj_toei10_300_2_mot, position_in_vehid_chain<num_vehs_in_vehid_chain/2){
+      1:tk_sj_toei10_300_2_mot_0;
+      tk_sj_toei10_300_2_mot_0_rev;
+    }
+    switch(FEAT_TRAINS, SELF, tk_sj_toei10_300_2_mot_rev, position_in_vehid_chain_from_end<num_vehs_in_vehid_chain/2){
+        1:tk_sj_toei10_300_2_mot_0_rev;
+        tk_sj_toei10_300_2_mot_0;
+    }
+
+
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_300_front_timed, build_year){
+    0..2009:tk_sj_toei10_300_1_front;
+    tk_sj_toei10_300_2_front;
+  }
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_300_end_timed, build_year){
+    0..2009:tk_sj_toei10_300_1_end;
+    tk_sj_toei10_300_2_end;
+  }
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_300_mot_2_timed, build_year){
+    0..2009:tk_sj_toei10_300_1_mot_2;
+    tk_sj_toei10_300_2_mot_2;
+  }
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_300_mot_timed, build_year){
+    0..2009:tk_sj_toei10_300_1_mot;
+    tk_sj_toei10_300_2_mot;
+  }
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_300_mot_rev_timed, build_year){
+    0..2009:tk_sj_toei10_300_1_mot_rev;
+    tk_sj_toei10_300_2_mot_rev;
+  }
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_300_wag_timed, build_year){
+    0..2009:tk_sj_toei10_300_1_wag;
+    tk_sj_toei10_300_2_wag;
+  }
+
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_300_front, cargo_subtype){
+    1:tk_sj_toei10_300R_front;
+    2:tk_sj_toei10_300_1_front;
+    3:tk_sj_toei10_300_2_front;
+    tk_sj_toei10_300_front_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_300_end, cargo_subtype){
+    1:tk_sj_toei10_300R_end;
+    2:tk_sj_toei10_300_1_end;
+    3:tk_sj_toei10_300_2_end;
+    tk_sj_toei10_300_end_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_300_mot_2, cargo_subtype){
+    1:tk_sj_toei10_300R_mot_2;
+    2:tk_sj_toei10_300_1_mot_2;
+    3:tk_sj_toei10_300_2_mot_2;
+    tk_sj_toei10_300_mot_2_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_300_mot, cargo_subtype){
+    1:tk_sj_toei10_300R_mot;
+    2:tk_sj_toei10_300_1_mot;
+    3:tk_sj_toei10_300_2_mot;
+    tk_sj_toei10_300_mot_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_300_mot_rev, cargo_subtype){
+    1:tk_sj_toei10_300R_mot_rev;
+    2:tk_sj_toei10_300_1_mot_rev;
+    3:tk_sj_toei10_300_2_mot_rev;
+    tk_sj_toei10_300_mot_rev_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_sj_toei10_300_wag, cargo_subtype){
+    1:tk_sj_toei10_300R_wag;
+    2:tk_sj_toei10_300_1_wag;
+    3:tk_sj_toei10_300_2_wag;
+    tk_sj_toei10_300_wag_timed;
+  }
+
+
+
+
+
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_panto_placer_1,position_in_vehid_chain %4){
+        0: tk_sj_toei10_300_mot_2;
+        2: tk_sj_toei10_300_mot;
+        tk_sj_toei10_300_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_panto_placer_1_rev,position_in_vehid_chain_from_end %4){
+        0: tk_sj_toei10_300_mot_2;
+        2: tk_sj_toei10_300_mot_rev;
+        tk_sj_toei10_300_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tk_sj_toei10_300_panto_placer_main_1,vehicle_is_reversed){
+        1: sw_tk_sj_toei10_300_panto_placer_1_rev;
+        sw_tk_sj_toei10_300_panto_placer_1;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_panto_placer_2,position_in_vehid_chain %6){
+        0: tk_sj_toei10_300_mot_2;
+        2: tk_sj_toei10_300_mot_2;
+        tk_sj_toei10_300_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_panto_placer_2_rev,position_in_vehid_chain_from_end %6){
+        0: tk_sj_toei10_300_mot_2;
+        2: tk_sj_toei10_300_mot_2;
+        tk_sj_toei10_300_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_tk_sj_toei10_300_panto_placer_main_2,vehicle_is_reversed){
+        1: sw_tk_sj_toei10_300_panto_placer_2_rev;
+        sw_tk_sj_toei10_300_panto_placer_2;
+      }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_panto_placer_main,num_vehs_in_vehid_chain){
+      4: sw_tk_sj_toei10_300_panto_placer_main_2;
+      7..8: sw_tk_sj_toei10_300_panto_placer_main_2;
+      sw_tk_sj_toei10_300_panto_placer_main_1;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_head_gfx_main,position_in_consist>0){
+      1:tk_sj_toei10_300_end;
+     tk_sj_toei10_300_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_lv,vehicle_type_id){
+      mu_car:sw_tk_sj_toei10_300_panto_placer_main;
+      sw_tk_sj_toei10_300_head_gfx_main;
+    }
+
+  switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_lv_desc_main, cargo_subtype){
+      0: string(LV_RANDOM);
+      1: string(LV_DATED,string(LV_tk_sj_toei10_300_r),2004);
+      2: string(LV_DATED,string(STR_BATCH_2, 1,2),2004);
+      3: string(LV_DATED,string(STR_BATCH_2, 3,6),2010);
+  }
+
+
+
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300R_capacity_main,vehicle_type_id){
+        mu_car: 140;
+        136;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_1_capacity_main,vehicle_type_id){
+        mu_car: 148;
+        136;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_2_capacity_main,vehicle_type_id){
+        mu_car: 144;
+        133;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_capacity_main_0,build_year){
+        0..2009: sw_tk_sj_toei10_300_1_capacity_main;
+        sw_tk_sj_toei10_300_2_capacity_main;
+      }
+
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_capacity_main,cargo_subtype){
+        0: sw_tk_sj_toei10_300_capacity_main_0;
+        1: sw_tk_sj_toei10_300R_capacity_main;
+        2: sw_tk_sj_toei10_300_1_capacity_main;
+        3: sw_tk_sj_toei10_300_2_capacity_main;
+      }
+
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300R_power_main,position_in_vehid_chain_from_end %9){
+      0..5:return 165;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_power_main_0,position_in_vehid_chain_from_end %9){
+      0..2:return 95;
+      4..5:return 95;
+      7:return 95;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_car_power_main,cargo_subtype){
+      0: sw_tk_sj_toei10_300_power_main_0;
+      1: sw_tk_sj_toei10_300R_power_main;
+      sw_tk_sj_toei10_300_power_main_0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_sj_toei10_300_power_main,vehicle_type_id){
+      mu_car: sw_tk_sj_toei10_300_car_power_main;
+      0;
+    }
+# 2380 "src/metro/Tokyo/items.pnml" 2
+
+item(FEAT_TRAINS, tk_sj_toei10_300) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_TOEI), "10-300", string(STR_NAME_TYPE));
+    introduction_date: date(2005, 1, 20);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+    cost_factor: 21;
+    running_cost_factor: 51;
+    speed: 120 km/h;
+    track_type: TR_1372_DC;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 23 ton;
+    badges: ["company/toei", "line/tokyo_shinjuku"];
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1372),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 8,10)),
+
+    string(STR_OPERATOR, string(STR_TOEI))
+    ,string(STR_LINES_USED, string(STR_TOKYO_SHINJUKU))
+    );
+    cargo_subtype_text: sw_tk_sj_toei10_300_lv_desc_main;
+    purchase: tk_sj_toei10_300_purchase;
+    cargo_capacity:sw_tk_sj_toei10_300_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_tk_sj_toei10_300_lv;
+    power:sw_tk_sj_toei10_300_power_main()*4*1342/1000;
+    purchase_power: sw_tk_sj_toei10_300_car_power_main()*4*1342/1000;
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_tk_sj_toei10_300_lv_desc_main;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_tk_sj_toei10_300_capacity_main()*param_capacity_mod/3;
+    power:sw_tk_sj_toei10_300_power_main()*4*1342/1000;
+    default:sw_tk_sj_toei10_300_lv;
+    weight: 22;
+
+  }
+}
+# 1 "src/metro/Tokyo/oedo/tk_od_toei12_000/tk_od_toei12_000.pnml" 1
+
+spriteset(tk_od_toei12_000_purchase_1_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_000/tk_od_toei12_000_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(tk_od_toei12_000_purchase_1_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_000/tk_od_toei12_000_1.png"){ tmpl_purchase_2c_dual(0, 50) }
+spriteset(tk_od_toei12_000_purchase_2_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_000/tk_od_toei12_000_2.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(tk_od_toei12_000_purchase_2_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_000/tk_od_toei12_000_2.png"){ tmpl_purchase_2c_dual(0, 50) }
+switch(FEAT_TRAINS, SELF, tk_od_toei12_000_purchase_c1, current_year){
+    0..1996:tk_od_toei12_000_purchase_1_c1;
+    tk_od_toei12_000_purchase_2_c1;
+  }
+switch(FEAT_TRAINS, SELF, tk_od_toei12_000_purchase_c2, current_year){
+    0..1996:tk_od_toei12_000_purchase_1_c2;
+    tk_od_toei12_000_purchase_2_c2;
+  }
+switch(FEAT_TRAINS, SELF, tk_od_toei12_000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_od_toei12_000_purchase_c1; 1: tk_od_toei12_000_purchase_c2;}
+
+
+
+  spriteset(tk_od_toei12_000_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_000/tk_od_toei12_000_1.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tk_od_toei12_000_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_000/tk_od_toei12_000_1.png"){ tmpl_std_v3(0, 25) }
+  spriteset(tk_od_toei12_000_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_000/tk_od_toei12_000_1.png"){ tmpl_std_v3(0, 50) }
+  spriteset(tk_od_toei12_000_1_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_000/tk_od_toei12_000_1.png"){ tmpl_std_rev_v3(0, 50) }
+  spriteset(tk_od_toei12_000_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_000/tk_od_toei12_000_1.png"){ tmpl_symm_v3(0, 75) }
+
+  spriteset(tk_od_toei12_000_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_000/tk_od_toei12_000_2.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tk_od_toei12_000_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_000/tk_od_toei12_000_2.png"){ tmpl_std_v3(0, 25) }
+  spriteset(tk_od_toei12_000_2_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_000/tk_od_toei12_000_2.png"){ tmpl_std_v3(0, 50) }
+  spriteset(tk_od_toei12_000_2_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_000/tk_od_toei12_000_2.png"){ tmpl_std_rev_v3(0, 50) }
+  spriteset(tk_od_toei12_000_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_000/tk_od_toei12_000_2.png"){ tmpl_symm_v3(0, 75) }
+
+
+  switch(FEAT_TRAINS, SELF, tk_od_toei12_000_front_timed, build_year){
+    0..1996:tk_od_toei12_000_1_front;
+    tk_od_toei12_000_2_front;
+  }
+  switch(FEAT_TRAINS, SELF, tk_od_toei12_000_end_timed, build_year){
+    0..1996:tk_od_toei12_000_1_end;
+    tk_od_toei12_000_2_end;
+  }
+  switch(FEAT_TRAINS, SELF, tk_od_toei12_000_mot_timed, build_year){
+    0..1996:tk_od_toei12_000_1_mot;
+    tk_od_toei12_000_2_mot;
+  }
+  switch(FEAT_TRAINS, SELF, tk_od_toei12_000_mot_rev_timed, build_year){
+    0..1996:tk_od_toei12_000_1_mot_rev;
+    tk_od_toei12_000_2_mot_rev;
+  }
+  switch(FEAT_TRAINS, SELF, tk_od_toei12_000_wag_timed, build_year){
+    0..1996:tk_od_toei12_000_1_wag;
+    tk_od_toei12_000_2_wag;
+  }
+
+  switch(FEAT_TRAINS, SELF, tk_od_toei12_000_front, cargo_subtype){
+    1:tk_od_toei12_000_1_front;
+    2:tk_od_toei12_000_2_front;
+    tk_od_toei12_000_front_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_od_toei12_000_end, cargo_subtype){
+    1:tk_od_toei12_000_1_end;
+    2:tk_od_toei12_000_2_end;
+    tk_od_toei12_000_end_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_od_toei12_000_mot, cargo_subtype){
+    1:tk_od_toei12_000_1_mot;
+    2:tk_od_toei12_000_2_mot;
+    tk_od_toei12_000_mot_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_od_toei12_000_mot_rev, cargo_subtype){
+    1:tk_od_toei12_000_1_mot_rev;
+    2:tk_od_toei12_000_2_mot_rev;
+    tk_od_toei12_000_mot_rev_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_od_toei12_000_wag, cargo_subtype){
+    1:tk_od_toei12_000_1_wag;
+    2:tk_od_toei12_000_2_wag;
+    tk_od_toei12_000_wag_timed;
+  }
+
+
+
+
+      switch(FEAT_TRAINS, SELF, sw_tk_od_toei12_000_panto_placer_1,position_in_vehid_chain %3){
+        0: tk_od_toei12_000_mot;
+        2: tk_od_toei12_000_mot_rev;
+        default:tk_od_toei12_000_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tk_od_toei12_000_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
+        0: tk_od_toei12_000_mot_rev;
+        2: tk_od_toei12_000_mot;
+        default:tk_od_toei12_000_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_toei12_000_panto_placer_main,vehicle_is_reversed){
+        1: sw_tk_od_toei12_000_panto_placer_1_rev;
+        sw_tk_od_toei12_000_panto_placer_1;
+      }
+
+    switch(FEAT_TRAINS, SELF, sw_toei12_000_head_gfx_main,position_in_consist>0){
+      1:tk_od_toei12_000_end;
+     tk_od_toei12_000_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_od_toei12_000_lv,vehicle_type_id){
+      mu_car:sw_toei12_000_panto_placer_main;
+      sw_toei12_000_head_gfx_main;
+    }
+
+switch(FEAT_TRAINS, SELF, sw_tk_od_toei12_000_lv_desc_main, cargo_subtype){
+  0: string(LV_RANDOM);
+  1: string(LV_DATED,string(STR_BATCH_2, 1,2),1991);
+  2: string(LV_DATED,string(STR_BATCH, 3),1997);
+}
+
+
+    switch(FEAT_TRAINS, SELF, sw_tk_od_toei12_000_capacity_main,vehicle_type_id){
+      mu_car: 100;
+      90;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_tk_od_toei12_000_car_power_main,position_in_vehid_chain_from_end %8){
+      0..6:return 60;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_od_toei12_000_power_main,vehicle_type_id){
+      mu_car: sw_tk_od_toei12_000_car_power_main;
+      120;
+    }
+# 2438 "src/metro/Tokyo/items.pnml" 2
+
+item(FEAT_TRAINS, tk_od_toei12_000) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_TOEI), "12-000", string(STR_NAME_TYPE));
+    introduction_date: date(1991, 12, 10);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+    cost_factor: 18;
+    running_cost_factor: 48;
+    speed: 90 km/h;
+    track_type: TR_1435_LINEAR;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 20 ton;
+    badges: ["company/toei", "line/tokyo_oedo"];
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
+
+    string(STR_OPERATOR, string(STR_TOEI))
+    ,string(STR_LINES_USED, string(STR_TOKYO_OEDO))
+    );
+    cargo_subtype_text: sw_tk_od_toei12_000_lv_desc_main;
+    purchase: tk_od_toei12_000_purchase;
+    cargo_capacity:sw_tk_od_toei12_000_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_3D;
+    default:sw_tk_od_toei12_000_lv;
+    power:sw_tk_od_toei12_000_power_main()*4*1342/1000;
+    purchase_power: sw_tk_od_toei12_000_car_power_main()*4*1342/1000;
+
+    start_stop: sw_stop_start_3;
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_tk_od_toei12_000_lv_desc_main;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_tk_od_toei12_000_capacity_main()*param_capacity_mod/3;
+    power:sw_tk_od_toei12_000_power_main()*4*1342/1000;
+    default:sw_tk_od_toei12_000_lv;
+    weight: 20;
+
+  }
+}
+# 1 "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600.pnml" 1
+
+spriteset(tk_od_toei12_600_purchase_1_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(tk_od_toei12_600_purchase_1_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600_1.png"){ tmpl_purchase_2c_dual(0, 50) }
+spriteset(tk_od_toei12_600_purchase_2_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600_2.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(tk_od_toei12_600_purchase_2_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600_2.png"){ tmpl_purchase_2c_dual(0, 50) }
+spriteset(tk_od_toei12_600_purchase_3_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600_3.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(tk_od_toei12_600_purchase_3_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600_3.png"){ tmpl_purchase_2c_dual(0, 50) }
+switch(FEAT_TRAINS, SELF, tk_od_toei12_600_purchase_c1, current_year){
+    0..2013:tk_od_toei12_600_purchase_1_c1;
+    2014..2018:tk_od_toei12_600_purchase_2_c1;
+    tk_od_toei12_600_purchase_3_c1;
+  }
+switch(FEAT_TRAINS, SELF, tk_od_toei12_600_purchase_c2, current_year){
+    0..2013:tk_od_toei12_600_purchase_1_c2;
+    2014..2018:tk_od_toei12_600_purchase_2_c2;
+    tk_od_toei12_600_purchase_3_c2;
+  }
+switch(FEAT_TRAINS, SELF, tk_od_toei12_600_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: tk_od_toei12_600_purchase_c1; 1: tk_od_toei12_600_purchase_c2;}
+
+
+
+  spriteset(tk_od_toei12_600_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600_1.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tk_od_toei12_600_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600_1.png"){ tmpl_std_v3(0, 25) }
+  spriteset(tk_od_toei12_600_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600_1.png"){ tmpl_std_v3(0, 50) }
+  spriteset(tk_od_toei12_600_1_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600_1.png"){ tmpl_std_rev_v3(0, 50) }
+  spriteset(tk_od_toei12_600_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600_1.png"){ tmpl_symm_v3(0, 75) }
+
+  spriteset(tk_od_toei12_600_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600_2.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tk_od_toei12_600_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600_2.png"){ tmpl_std_v3(0, 25) }
+  spriteset(tk_od_toei12_600_2_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600_2.png"){ tmpl_std_v3(0, 50) }
+  spriteset(tk_od_toei12_600_2_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600_2.png"){ tmpl_std_rev_v3(0, 50) }
+  spriteset(tk_od_toei12_600_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600_2.png"){ tmpl_symm_v3(0, 75) }
+
+  spriteset(tk_od_toei12_600_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600_3.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tk_od_toei12_600_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600_3.png"){ tmpl_std_v3(0, 25) }
+  spriteset(tk_od_toei12_600_3_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600_3.png"){ tmpl_std_v3(0, 50) }
+  spriteset(tk_od_toei12_600_3_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600_3.png"){ tmpl_std_rev_v3(0, 50) }
+  spriteset(tk_od_toei12_600_3_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600_3.png"){ tmpl_symm_v3(0, 75) }
+
+  spriteset(tk_od_toei12_600_4_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600_4.png"){ tmpl_std_v3(0, 0) }
+  spriteset(tk_od_toei12_600_4_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/metro/Tokyo/oedo/tk_od_toei12_600/tk_od_toei12_600_4.png"){ tmpl_std_v3(0, 25) }
+
+
+  switch(FEAT_TRAINS, SELF, tk_od_toei12_600_front_timed, build_year){
+    0..2013:tk_od_toei12_600_1_front;
+    2014..2018:tk_od_toei12_600_2_front;
+    2019..2022:tk_od_toei12_600_3_front;
+    tk_od_toei12_600_4_front;
+  }
+  switch(FEAT_TRAINS, SELF, tk_od_toei12_600_end_timed, build_year){
+    0..2013:tk_od_toei12_600_1_end;
+    2014..2018:tk_od_toei12_600_2_end;
+    2019..2022:tk_od_toei12_600_3_end;
+    tk_od_toei12_600_4_end;
+  }
+  switch(FEAT_TRAINS, SELF, tk_od_toei12_600_mot_timed, build_year){
+    0..2013:tk_od_toei12_600_1_mot;
+    2014..2018:tk_od_toei12_600_2_mot;
+    tk_od_toei12_600_3_mot;
+  }
+  switch(FEAT_TRAINS, SELF, tk_od_toei12_600_mot_rev_timed, build_year){
+    0..2013:tk_od_toei12_600_1_mot_rev;
+    2014..2018:tk_od_toei12_600_2_mot_rev;
+    tk_od_toei12_600_3_mot_rev;
+  }
+  switch(FEAT_TRAINS, SELF, tk_od_toei12_600_wag_timed, build_year){
+    0..2013:tk_od_toei12_600_1_wag;
+    2014..2018:tk_od_toei12_600_2_wag;
+    tk_od_toei12_600_3_wag;
+  }
+
+  switch(FEAT_TRAINS, SELF, tk_od_toei12_600_front, cargo_subtype){
+    1:tk_od_toei12_600_1_front;
+    2:tk_od_toei12_600_2_front;
+    3:tk_od_toei12_600_3_front;
+    4:tk_od_toei12_600_4_front;
+    tk_od_toei12_600_front_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_od_toei12_600_end, cargo_subtype){
+    1:tk_od_toei12_600_1_end;
+    2:tk_od_toei12_600_2_end;
+    3:tk_od_toei12_600_3_end;
+    4:tk_od_toei12_600_4_end;
+    tk_od_toei12_600_end_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_od_toei12_600_mot, cargo_subtype){
+    1:tk_od_toei12_600_1_mot;
+    2:tk_od_toei12_600_2_mot;
+    3..4:tk_od_toei12_600_3_mot;
+    tk_od_toei12_600_mot_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_od_toei12_600_mot_rev, cargo_subtype){
+    1:tk_od_toei12_600_1_mot_rev;
+    2:tk_od_toei12_600_2_mot_rev;
+    3..4:tk_od_toei12_600_3_mot_rev;
+    tk_od_toei12_600_mot_rev_timed;
+  }
+  switch(FEAT_TRAINS, SELF, tk_od_toei12_600_wag, cargo_subtype){
+    1:tk_od_toei12_600_1_wag;
+    2:tk_od_toei12_600_2_wag;
+    3..4:tk_od_toei12_600_3_wag;
+    tk_od_toei12_600_wag_timed;
+  }
+
+
+
+
+      switch(FEAT_TRAINS, SELF, sw_tk_od_toei12_600_panto_placer_1,position_in_vehid_chain %3){
+        0: tk_od_toei12_600_mot;
+        2: tk_od_toei12_600_mot_rev;
+        default: tk_od_toei12_600_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_tk_od_toei12_600_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
+        0: tk_od_toei12_600_mot_rev;
+        2: tk_od_toei12_600_mot;
+        default: tk_od_toei12_600_wag;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_toei12_600_panto_placer_main,vehicle_is_reversed){
+        1: sw_tk_od_toei12_600_panto_placer_1_rev;
+        sw_tk_od_toei12_600_panto_placer_1;
+      }
+
+    switch(FEAT_TRAINS, SELF, sw_toei12_600_head_gfx_main,position_in_consist>0){
+      1: tk_od_toei12_600_end;
+      tk_od_toei12_600_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_tk_od_toei12_600_lv,vehicle_type_id){
+      mu_car:sw_toei12_600_panto_placer_main;
+      sw_toei12_600_head_gfx_main;
+    }
+
+switch(FEAT_TRAINS, SELF, sw_tk_od_toei12_600_lv_desc_main, cargo_subtype){
+  0: string(LV_RANDOM);
+  1: string(LV_DATED,string(STR_BATCH, 1),2012);
+  2: string(LV_DATED,string(STR_BATCH, 2),2014);
+  3: string(LV_DATED,string(STR_BATCH, 3),2019);
+  4: string(LV_DATED,string(STR_BATCH, 4),2023);
+}
+# 2496 "src/metro/Tokyo/items.pnml" 2
+
+item(FEAT_TRAINS, tk_od_toei12_600) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_tokyo == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_TOEI), "12-600", string(STR_NAME_TYPE));
+    introduction_date: date(2012, 2, 23);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 90 km/h;
+    track_type: TR_1435_LINEAR;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 20 ton;
+    badges: ["company/toei", "line/tokyo_oedo"];
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
+
+    string(STR_OPERATOR, string(STR_TOEI))
+    ,string(STR_LINES_USED, string(STR_TOKYO_OEDO))
+    );
+    cargo_subtype_text: sw_tk_od_toei12_600_lv_desc_main;
+    purchase: tk_od_toei12_600_purchase;
+    cargo_capacity:sw_tk_od_toei12_000_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_3D;
+    default:sw_tk_od_toei12_600_lv;
+    power:sw_tk_od_toei12_000_power_main()*4*1342/1000;
+    purchase_power: sw_tk_od_toei12_000_car_power_main()*4*1342/1000;
+
+    start_stop: sw_stop_start_3;
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_tk_od_toei12_600_lv_desc_main;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_tk_od_toei12_000_capacity_main()*param_capacity_mod/3;
+    power:sw_tk_od_toei12_000_power_main()*4*1342/1000;
+    default:sw_tk_od_toei12_600_lv;
+    weight: 20;
+
+  }
+}
 # 61 "src/_metro.pnml" 2
 
 
