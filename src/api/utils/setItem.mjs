@@ -174,7 +174,8 @@ export function setItem(data, path) {
     cost_factor: ${costFactor};
     running_cost_factor: ${runningCost};
     speed: ${speed} km/h;
-    track_type: TR_${trackGauge}_${formatTrackType(current)};
+    track_type:${trackGauge===13721435?"[TR_1372_DC,TR_1435_DC]":`TR_${trackGauge}_${formatTrackType(current)}`}
+     ;
     power: 1 kW;
     tractive_effort_coefficient:  0.2;
     weight: ${weight[0]} ton;
