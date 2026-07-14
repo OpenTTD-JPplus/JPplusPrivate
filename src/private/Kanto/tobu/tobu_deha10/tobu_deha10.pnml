@@ -1,54 +1,60 @@
 //purchase
   spriteset(tobu_deha10_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_1.png"){ tmpl_purchase_1c(0, 0) }
 
-spriteset(tobu_deha10_lights, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_lights.png"){ tmpl_std_v3(0, 0) }
-//livery 1
-spriteset(tobu_deha10_1_mot_def, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_1.png"){ tmpl_std_v3(0, 0) }
-spriteset(tobu_deha10_1_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_1.png"){ tmpl_std_rev_v3(0, 0) }
-switch(FEAT_TRAINS, PARENT, tobu_deha10_1_mot, vehicle_is_reversed){
-  1:tobu_deha10_1_mot_rev;  tobu_deha10_1_mot_def;
+spriteset(tobu_deha10_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(tobu_deha10_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_lights.png"){ tmpl_std_rev_v3(0, 0) }
+
+switch(FEAT_TRAINS, SELF, sw_tobu_deha10_lights, train_is_driving_backwards != vehicle_is_flipped){
+  1: tobu_deha10_lights_end;
+  tobu_deha10_lights_front;
 }
+//livery 1
+spriteset(tobu_deha10_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_1.png"){ tmpl_std_v3(0, 0) }
+// spriteset(tobu_deha10_1_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_1.png"){ tmpl_std_rev_v3(0, 0) }
+// switch(FEAT_TRAINS, PARENT, tobu_deha10_1_mot, vehicle_is_reversed){
+//   1:tobu_deha10_1_mot_rev;  tobu_deha10_1_mot_def;
+// }
 spriteset(tobu_deha10_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_1.png"){ tmpl_symm_v3(0, 25) }
 
-TRAIN_CONSTRUCTOR_2(tobu_deha10_1_front_mot, tobu_deha10_1_mot,tobu_deha10_lights)
-TRAIN_CONSTRUCTOR_2(tobu_deha10_1_front_mot_rev, tobu_deha10_1_mot,tobu_deha10_lights)
-TRAIN_CONSTRUCTOR_2(tobu_deha10_1_front, tobu_deha10_1_wag,tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_1_front_mot, tobu_deha10_1_mot,sw_tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_1_front_mot_rev, tobu_deha10_1_mot,sw_tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_1_front, tobu_deha10_1_wag,sw_tobu_deha10_lights)
 
 //livery 2
-spriteset(tobu_deha10_2_mot_def, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_2.png"){ tmpl_std_v3(0, 0) }
-spriteset(tobu_deha10_2_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_2.png"){ tmpl_std_rev_v3(0, 0) }
-switch(FEAT_TRAINS, PARENT, tobu_deha10_2_mot, vehicle_is_reversed){
-  1:tobu_deha10_2_mot_rev;  tobu_deha10_2_mot_def;
-}
+spriteset(tobu_deha10_2_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_2.png"){ tmpl_std_v3(0, 0) }
+// spriteset(tobu_deha10_2_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_2.png"){ tmpl_std_rev_v3(0, 0) }
+// switch(FEAT_TRAINS, PARENT, tobu_deha10_2_mot, vehicle_is_reversed){
+//   1:tobu_deha10_2_mot_rev;  tobu_deha10_2_mot_def;
+// }
 spriteset(tobu_deha10_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_2.png"){ tmpl_symm_v3(0, 25) }
 
-TRAIN_CONSTRUCTOR_2(tobu_deha10_2_front_mot, tobu_deha10_2_mot,tobu_deha10_lights)
-TRAIN_CONSTRUCTOR_2(tobu_deha10_2_front_mot_rev, tobu_deha10_2_mot,tobu_deha10_lights)
-TRAIN_CONSTRUCTOR_2(tobu_deha10_2_front, tobu_deha10_2_wag,tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_2_front_mot, tobu_deha10_2_mot,sw_tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_2_front_mot_rev, tobu_deha10_2_mot,sw_tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_2_front, tobu_deha10_2_wag,sw_tobu_deha10_lights)
 
 //livery 3
-spriteset(tobu_deha10_3_mot_def, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_3.png"){ tmpl_std_v3(0, 0) }
-spriteset(tobu_deha10_3_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_3.png"){ tmpl_std_rev_v3(0, 0) }
-switch(FEAT_TRAINS, PARENT, tobu_deha10_3_mot, vehicle_is_reversed){
-  1:tobu_deha10_3_mot_rev;  tobu_deha10_3_mot_def;
-}
+spriteset(tobu_deha10_3_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_3.png"){ tmpl_std_v3(0, 0) }
+// spriteset(tobu_deha10_3_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_3.png"){ tmpl_std_rev_v3(0, 0) }
+// switch(FEAT_TRAINS, PARENT, tobu_deha10_3_mot, vehicle_is_reversed){
+//   1:tobu_deha10_3_mot_rev;  tobu_deha10_3_mot_def;
+// }
 spriteset(tobu_deha10_3_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_3.png"){ tmpl_symm_v3(0, 25) }
 
-TRAIN_CONSTRUCTOR_2(tobu_deha10_3_front_mot, tobu_deha10_3_mot,tobu_deha10_lights)
-TRAIN_CONSTRUCTOR_2(tobu_deha10_3_front_mot_rev, tobu_deha10_3_mot,tobu_deha10_lights)
-TRAIN_CONSTRUCTOR_2(tobu_deha10_3_front, tobu_deha10_3_wag,tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_3_front_mot, tobu_deha10_3_mot,sw_tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_3_front_mot_rev, tobu_deha10_3_mot,sw_tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_3_front, tobu_deha10_3_wag,sw_tobu_deha10_lights)
 
 //livery 4
-spriteset(tobu_deha10_4_mot_def, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_4.png"){ tmpl_std_v3(0, 0) }
-spriteset(tobu_deha10_4_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_4.png"){ tmpl_std_rev_v3(0, 0) }
-switch(FEAT_TRAINS, PARENT, tobu_deha10_4_mot, vehicle_is_reversed){
-  1:tobu_deha10_4_mot_rev;  tobu_deha10_4_mot_def;
-}
+spriteset(tobu_deha10_4_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_4.png"){ tmpl_std_v3(0, 0) }
+// spriteset(tobu_deha10_4_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_4.png"){ tmpl_std_rev_v3(0, 0) }
+// switch(FEAT_TRAINS, PARENT, tobu_deha10_4_mot, vehicle_is_reversed){
+//   1:tobu_deha10_4_mot_rev;  tobu_deha10_4_mot_def;
+// }
 spriteset(tobu_deha10_4_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_4.png"){ tmpl_symm_v3(0, 25) }
 
-TRAIN_CONSTRUCTOR_2(tobu_deha10_4_front_mot, tobu_deha10_4_mot,tobu_deha10_lights)
-TRAIN_CONSTRUCTOR_2(tobu_deha10_4_front_mot_rev, tobu_deha10_4_mot,tobu_deha10_lights)
-TRAIN_CONSTRUCTOR_2(tobu_deha10_4_front, tobu_deha10_4_wag,tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_4_front_mot, tobu_deha10_4_mot,sw_tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_4_front_mot_rev, tobu_deha10_4_mot,sw_tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_4_front, tobu_deha10_4_wag,sw_tobu_deha10_lights)
 
 //livery 5
 spriteset(tobu_deha10_5_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_5.png"){ tmpl_std_v3(0, 0) }
@@ -59,9 +65,9 @@ spriteset(tobu_deha10_5_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/priva
 spriteset(tobu_deha10_5_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_5.png"){ tmpl_std_rev_v3(0, 25) }
 spriteset(tobu_deha10_5_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_5.png"){ tmpl_symm_v3(0, 75) }
 
-TRAIN_CONSTRUCTOR_2(tobu_deha10_5_front_mot, tobu_deha10_5_end_mot,tobu_deha10_lights)
-TRAIN_CONSTRUCTOR_2(tobu_deha10_5_front_mot_rev, tobu_deha10_5_end_mot_rev,tobu_deha10_lights)
-TRAIN_CONSTRUCTOR_2(tobu_deha10_5_front, tobu_deha10_5_end,tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_5_front_mot, tobu_deha10_5_end_mot,sw_tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_5_front_mot_rev, tobu_deha10_5_end_mot_rev,sw_tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_5_front, tobu_deha10_5_end,sw_tobu_deha10_lights)
 
 //livery 6
 spriteset(tobu_deha10_6_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_6.png"){ tmpl_std_v3(0, 0) }
@@ -72,9 +78,9 @@ spriteset(tobu_deha10_6_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/priva
 spriteset(tobu_deha10_6_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_6.png"){ tmpl_std_rev_v3(0, 25) }
 spriteset(tobu_deha10_6_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_6.png"){ tmpl_symm_v3(0, 75) }
 
-TRAIN_CONSTRUCTOR_2(tobu_deha10_6_front_mot, tobu_deha10_6_end_mot,tobu_deha10_lights)
-TRAIN_CONSTRUCTOR_2(tobu_deha10_6_front_mot_rev, tobu_deha10_6_end_mot_rev,tobu_deha10_lights)
-TRAIN_CONSTRUCTOR_2(tobu_deha10_6_front, tobu_deha10_6_end,tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_6_front_mot, tobu_deha10_6_end_mot,sw_tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_6_front_mot_rev, tobu_deha10_6_end_mot_rev,sw_tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_6_front, tobu_deha10_6_end,sw_tobu_deha10_lights)
 
 //livery 7
 spriteset(tobu_deha10_7_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_7.png"){ tmpl_std_v3(0, 0) }
@@ -85,9 +91,9 @@ spriteset(tobu_deha10_7_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/priva
 spriteset(tobu_deha10_7_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_7.png"){ tmpl_std_rev_v3(0, 25) }
 spriteset(tobu_deha10_7_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_7.png"){ tmpl_symm_v3(0, 75) }
 
-TRAIN_CONSTRUCTOR_2(tobu_deha10_7_front_mot, tobu_deha10_7_end_mot,tobu_deha10_lights)
-TRAIN_CONSTRUCTOR_2(tobu_deha10_7_front_mot_rev, tobu_deha10_7_end_mot_rev,tobu_deha10_lights)
-TRAIN_CONSTRUCTOR_2(tobu_deha10_7_front, tobu_deha10_7_end,tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_7_front_mot, tobu_deha10_7_end_mot,sw_tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_7_front_mot_rev, tobu_deha10_7_end_mot_rev,sw_tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_7_front, tobu_deha10_7_end,sw_tobu_deha10_lights)
 
 //livery 8
 spriteset(tobu_deha10_8_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_8.png"){ tmpl_std_v3(0, 0) }
@@ -98,24 +104,24 @@ spriteset(tobu_deha10_8_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/priva
 spriteset(tobu_deha10_8_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_8.png"){ tmpl_std_rev_v3(0, 25) }
 spriteset(tobu_deha10_8_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tobu/tobu_deha10/tobu_deha10_8.png"){ tmpl_symm_v3(0, 75) }
 
-TRAIN_CONSTRUCTOR_2(tobu_deha10_8_front_mot, tobu_deha10_8_end_mot,tobu_deha10_lights)
-TRAIN_CONSTRUCTOR_2(tobu_deha10_8_front_mot_rev, tobu_deha10_8_end_mot_rev,tobu_deha10_lights)
-TRAIN_CONSTRUCTOR_2(tobu_deha10_8_front, tobu_deha10_8_end,tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_8_front_mot, tobu_deha10_8_end_mot,sw_tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_8_front_mot_rev, tobu_deha10_8_end_mot_rev,sw_tobu_deha10_lights)
+TRAIN_CONSTRUCTOR_2(tobu_deha10_8_front, tobu_deha10_8_end,sw_tobu_deha10_lights)
 
 //
 //lv stuff 1-4
   switch(FEAT_TRAINS, SELF, tobu_deha10_14_mot, cargo_subtype){
-    0:tobu_deha10_1_mot_def;
-    1:tobu_deha10_2_mot_def;
-    2:tobu_deha10_3_mot_def;
-    3:tobu_deha10_4_mot_def;
+    0:tobu_deha10_1_mot;
+    1:tobu_deha10_2_mot;
+    2:tobu_deha10_3_mot;
+    3:tobu_deha10_4_mot;
   }
-  switch(FEAT_TRAINS, SELF, tobu_deha10_14_mot_rev, cargo_subtype){
-    0:tobu_deha10_1_mot_rev;
-    1:tobu_deha10_2_mot_rev;
-    2:tobu_deha10_3_mot_rev;
-    3:tobu_deha10_4_mot_rev;
-  }
+  // switch(FEAT_TRAINS, SELF, tobu_deha10_14_mot_rev, cargo_subtype){
+  //   0:tobu_deha10_1_mot_rev;
+  //   1:tobu_deha10_2_mot_rev;
+  //   2:tobu_deha10_3_mot_rev;
+  //   3:tobu_deha10_4_mot_rev;
+  // }
   switch(FEAT_TRAINS, SELF, tobu_deha10_14_wag, cargo_subtype){
     0:tobu_deha10_1_wag;
     1:tobu_deha10_2_wag;
@@ -192,78 +198,41 @@ TRAIN_CONSTRUCTOR_2(tobu_deha10_8_front, tobu_deha10_8_end,tobu_deha10_lights)
   }
 //
 //*main 1-4
-  //special gfx
-    switch(FEAT_TRAINS, SELF, sw_tobu_deha10_14_front_1_gfx, vehicle_is_reversed==1){
-      1:tobu_deha10_14_front_mot_rev;
-      tobu_deha10_14_front_mot;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_tobu_deha10_14_front_gfx, vehicle_is_reversed==1&&num_vehs_in_consist>1){
-      1:tobu_deha10_14_front;
-      sw_tobu_deha10_14_front_1_gfx;
-    }
-  //end gfx
-    switch(FEAT_TRAINS, PARENT, sw_tobu_deha10_14_end_gfx, vehicle_is_reversed){
-      1:tobu_deha10_14_mot_rev;
+  //panto placer
+    switch(FEAT_TRAINS, SELF, sw_tobu_deha10_14_panto_placer_main,position_in_vehid_chain %2){
+      0: tobu_deha10_14_mot;
       tobu_deha10_14_wag;
     }
-  //panto placer
-    switch(FEAT_TRAINS, SELF, sw_tobu_deha10_14_panto_placer,position_in_vehid_chain %2){
-        1: tobu_deha10_14_mot;
-        tobu_deha10_14_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_tobu_deha10_14_panto_placer_rev,position_in_vehid_chain_from_end %2){
-        0: tobu_deha10_14_mot;
-        tobu_deha10_14_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_tobu_deha10_14_panto_placer_main,vehicle_is_reversed){
-        1: sw_tobu_deha10_14_panto_placer_rev;
-        sw_tobu_deha10_14_panto_placer;
-    }
-  //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_tobu_deha10_14_head_gfx_main,position_in_vehid_chain_from_end){
-      0:sw_tobu_deha10_14_end_gfx;
+  //special gfx
+    switch(FEAT_TRAINS, SELF, sw_tobu_deha10_14_end_gfx,position_in_vehid_chain_from_end==0){
+      1: tobu_deha10_14_front;
       sw_tobu_deha10_14_panto_placer_main;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu_deha10_14_lv,position_in_vehid_chain){
-      0:sw_tobu_deha10_14_front_gfx;
-      sw_tobu_deha10_14_head_gfx_main;
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_tobu_deha10_14_lv, position_in_vehid_chain==0){
+      1:tobu_deha10_14_front_mot;
+      sw_tobu_deha10_14_end_gfx;
     }
 //*main 5-8
   //special gfx
-    switch(FEAT_TRAINS, SELF, sw_tobu_deha10_58_front_1_gfx, vehicle_is_reversed==1){
-      1:tobu_deha10_58_front_mot_rev;
+    switch(FEAT_TRAINS, SELF, sw_tobu_deha10_58_end, position_in_vehid_chain%2){
+      1:tobu_deha10_58_front;
       tobu_deha10_58_front_mot;
     }
-    switch(FEAT_TRAINS, PARENT, sw_tobu_deha10_58_front_gfx, vehicle_is_reversed==1&&num_vehs_in_consist>1){
-      1:tobu_deha10_58_front;
-      sw_tobu_deha10_58_front_1_gfx;
+  //panto placer
+    switch(FEAT_TRAINS, SELF, sw_tobu_deha10_58_panto_placer_main,position_in_vehid_chain %2){
+        0: tobu_deha10_58_mot;
+        tobu_deha10_58_wag;
     }
   //end gfx
-    switch(FEAT_TRAINS, PARENT, sw_tobu_deha10_58_end_gfx, vehicle_is_reversed){
-      1:tobu_deha10_58_end_mot;
-      tobu_deha10_58_end;
-    }
-  //panto placer
-    switch(FEAT_TRAINS, SELF, sw_tobu_deha10_58_panto_placer,position_in_vehid_chain %2){
-        1: tobu_deha10_58_mot;
-        tobu_deha10_58_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_tobu_deha10_58_panto_placer_rev,position_in_vehid_chain_from_end %2){
-        0: tobu_deha10_58_mot_rev;
-        tobu_deha10_58_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_tobu_deha10_58_panto_placer_main,vehicle_is_reversed){
-        1: sw_tobu_deha10_58_panto_placer_rev;
-        sw_tobu_deha10_58_panto_placer;
-    }
-  //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_tobu_deha10_58_head_gfx_main,position_in_vehid_chain_from_end){
-      0:sw_tobu_deha10_58_end_gfx;
+    switch(FEAT_TRAINS, SELF, sw_tobu_deha10_58_end_gfx, position_in_vehid_chain_from_end==0){
+      1:sw_tobu_deha10_58_end;
       sw_tobu_deha10_58_panto_placer_main;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu_deha10_58_lv,position_in_vehid_chain){
-      0:sw_tobu_deha10_58_front_gfx;
-      sw_tobu_deha10_58_head_gfx_main;
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_tobu_deha10_58_lv, position_in_vehid_chain==0){
+      1:tobu_deha10_58_front_mot;
+      sw_tobu_deha10_58_end_gfx;
     }
 //
 switch(FEAT_TRAINS, SELF, sw_tobu_deha10_lv, cargo_subtype){

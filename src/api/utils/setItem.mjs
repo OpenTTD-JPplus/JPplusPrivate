@@ -189,7 +189,7 @@ export function setItem(data, path) {
     ${length ? `length: ${length};` : ""}
   }
 	graphics {
-    ${data.attachLogic ? `can_attach_wagon: sw_${trainName}_attach_main;` : ""}
+    ${data.attachLogic ? `can_attach_wagon: sw_same_attach_main;` : ""}
     ${data.isVariantGroupParent ? `name: sw_${trainName}_name;` : ""}
     ${variantSimple ? "" : `${data.variantGroup ? `name: sw_${variantGroup}_name;` : ""} `}
     additional_text:${formatDescString(data, usage, operator)}
