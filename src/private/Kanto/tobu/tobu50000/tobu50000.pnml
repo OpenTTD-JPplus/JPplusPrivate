@@ -12,45 +12,20 @@
 //*main
 //panto placer
 //1
-switch(FEAT_TRAINS, SELF, sw_tobu50000_panto_placer_1,position_in_vehid_chain %3){
+switch(FEAT_TRAINS, SELF, sw_tobu50000_panto_placer_main_1,position_in_vehid_chain %3){
     0: tobu50000_mot;
     tobu50000_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu50000_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
-    0: tobu50000_mot_rev;
-    tobu50000_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_tobu50000_panto_placer_main_1,vehicle_is_reversed){
-    1: sw_tobu50000_panto_placer_1_rev;
-    sw_tobu50000_panto_placer_1;
-}
 //2
-switch(FEAT_TRAINS, SELF, sw_tobu50000_panto_placer_2,position_in_vehid_chain %5){
+switch(FEAT_TRAINS, SELF, sw_tobu50000_panto_placer_main_2,position_in_vehid_chain %5){
     0: tobu50000_mot;
     2: tobu50000_mot;
     tobu50000_wag;
 }
-switch(FEAT_TRAINS, SELF, sw_tobu50000_panto_placer_2_rev,position_in_vehid_chain_from_end %5){
-    0: tobu50000_mot_rev;
-    2: tobu50000_mot_rev;
-    tobu50000_wag;
-}
-switch(FEAT_TRAINS, PARENT, sw_tobu50000_panto_placer_main_2,vehicle_is_reversed){
-    1: sw_tobu50000_panto_placer_2_rev;
-    sw_tobu50000_panto_placer_2;
-}
 //3 4 car special
-switch(FEAT_TRAINS, SELF, sw_tobu50000_panto_placer_3,position_in_vehid_chain %2){
+switch(FEAT_TRAINS, SELF, sw_tobu50000_panto_placer_main_3,position_in_vehid_chain %2){
     0: tobu50000_mot_rev;
     1: tobu50000_mot;
-}
-switch(FEAT_TRAINS, SELF, sw_tobu50000_panto_placer_3_rev,position_in_vehid_chain_from_end %2){
-    0: tobu50000_mot;
-    1: tobu50000_mot_rev;
-}
-switch(FEAT_TRAINS, PARENT, sw_tobu50000_panto_placer_main_3,vehicle_is_reversed){
-    1: sw_tobu50000_panto_placer_3_rev;
-    sw_tobu50000_panto_placer_3;
 }
 //panto controller
 switch(FEAT_TRAINS, SELF, sw_tobu50000_panto_placer_main,num_vehs_in_vehid_chain){
@@ -61,7 +36,7 @@ switch(FEAT_TRAINS, SELF, sw_tobu50000_panto_placer_main,num_vehs_in_vehid_chain
 }
 
   //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_tobu50000_head_gfx_main,position_in_consist>0){
+    switch(FEAT_TRAINS, SELF, sw_tobu50000_head_gfx_main, train_is_driving_backwards != vehicle_is_flipped){
       1:tobu50000_end;
       tobu50000_front;
     }

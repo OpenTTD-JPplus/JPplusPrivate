@@ -85,21 +85,13 @@ spriteset(tobu3000_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/
         tobu3000_end;
     }
   //panto placer
-    switch(FEAT_TRAINS, SELF, sw_tobu3000_panto_placer_1,position_in_vehid_chain %2){
+    switch(FEAT_TRAINS, SELF, sw_tobu3000_panto_placer_main,position_in_vehid_chain %2){
         1: tobu3000_mot;
         tobu3000_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu3000_panto_placer_1_rev,position_in_vehid_chain_from_end %2){
-        1: tobu3000_mot_rev;
-        tobu3000_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_tobu3000_panto_placer_main,vehicle_is_reversed){
-        1: sw_tobu3000_panto_placer_1_rev;
-        sw_tobu3000_panto_placer_1;
-    }
 
   //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_tobu3000_head_gfx_main,position_in_consist>0){
+    switch(FEAT_TRAINS, SELF, sw_tobu3000_head_gfx_main, train_is_driving_backwards != vehicle_is_flipped){
       1:sw_tobu3000_end_gfx;
       sw_tobu3000_front_gfx;
     }

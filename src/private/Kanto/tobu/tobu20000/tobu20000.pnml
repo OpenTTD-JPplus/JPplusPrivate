@@ -35,10 +35,6 @@
     switch(FEAT_TRAINS, SELF, tobu20000_end_1, cargo_subtype==2||(cargo_subtype==0&&build_year>1991&&build_year<1997)){
       1:tobu20000_2_end;      tobu20000_1_end;
     }
-    switch(FEAT_TRAINS, SELF, tobu20000_mot, (position_in_vehid_chain==0||position_in_vehid_chain_from_end==0)
-    &&(cargo_subtype==2||(cargo_subtype==0&&build_year>1991&&build_year<1997))){
-      1:tobu20000_2_mot;      tobu20000_1_mot;
-    }
     switch(FEAT_TRAINS, SELF, tobu20000_mot_rev, (position_in_vehid_chain==0||position_in_vehid_chain_from_end==0)
     &&(cargo_subtype==2||(cargo_subtype==0&&build_year>1991&&build_year<1997))){
       1:tobu20000_2_mot_rev;      tobu20000_1_mot_rev;
@@ -58,37 +54,21 @@
 //*main
   //panto placer
     //1
-    switch(FEAT_TRAINS, SELF, sw_tobu20000_panto_placer_1,position_in_vehid_chain %3){
+    switch(FEAT_TRAINS, SELF, sw_tobu20000_panto_placer_main_1,position_in_vehid_chain %3){
       0: tobu20000_mot_rev;
       tobu20000_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu20000_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
-      0: tobu20000_mot;
-      tobu20000_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_tobu20000_panto_placer_main_1,vehicle_is_reversed){
-      1: sw_tobu20000_panto_placer_1;
-      sw_tobu20000_panto_placer_1_rev;
-    }
     //2
-    switch(FEAT_TRAINS, SELF, sw_tobu20400_panto_placer_1,position_in_vehid_chain %3){
+    switch(FEAT_TRAINS, SELF, sw_tobu20400_panto_placer_main,position_in_vehid_chain %3){
       0: tobu20400_mot;
       tobu20400_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_tobu20400_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
-      0: tobu20400_mot;
-      tobu20400_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_tobu20400_panto_placer_main,vehicle_is_reversed){
-      1: sw_tobu20400_panto_placer_1_rev;
-      sw_tobu20400_panto_placer_1;
     }
     switch(FEAT_TRAINS, PARENT, sw_tobu20000_panto_placer_main,cargo_subtype){
       3: sw_tobu20400_panto_placer_main;
       sw_tobu20000_panto_placer_main_1;
     }
   //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_tobu20000_head_gfx_main,position_in_consist>0){
+    switch(FEAT_TRAINS, SELF, sw_tobu20000_head_gfx_main, train_is_driving_backwards != vehicle_is_flipped){
       1:tobu20000_end;
       tobu20000_front;
     }
