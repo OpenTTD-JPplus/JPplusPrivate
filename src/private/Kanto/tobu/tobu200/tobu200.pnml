@@ -77,38 +77,18 @@
 //*main
   //panto placer
     //1
-    switch(FEAT_TRAINS, SELF, sw_tobu200_panto_placer_1,position_in_vehid_chain %6){
+    switch(FEAT_TRAINS, SELF, sw_tobu200_panto_placer_main_1,position_in_vehid_chain %6){
         0: tobu200_mot;
         1: tobu200_mot_1;
         3: tobu200_mot_rev;
         tobu200_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tobu200_panto_placer_1_rev,position_in_vehid_chain_from_end %6){
-        0: tobu200_mot_rev;
-        1: tobu200_mot_1_rev;
-        3: tobu200_mot;
-        tobu200_wag_rev;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_tobu200_panto_placer_main_1,vehicle_is_reversed){
-        1: sw_tobu200_panto_placer_1_rev;
-        sw_tobu200_panto_placer_1;
-    }
     //2 8 car
-    switch(FEAT_TRAINS, SELF, sw_tobu200_panto_placer_2,position_in_vehid_chain %6){
+    switch(FEAT_TRAINS, SELF, sw_tobu200_panto_placer_main_2,position_in_vehid_chain %6){
         1: tobu200_mot;
         2: tobu200_mot_1;
         4: tobu200_mot_rev;
         tobu200_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_tobu200_panto_placer_2_rev,position_in_vehid_chain_from_end %6){
-        1: tobu200_mot_rev;
-        2: tobu200_mot_1_rev;
-        4: tobu200_mot;
-        tobu200_wag_rev;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_tobu200_panto_placer_main_2,vehicle_is_reversed){
-        1: sw_tobu200_panto_placer_2_rev;
-        sw_tobu200_panto_placer_2;
     }
     //panto controller
     switch(FEAT_TRAINS, SELF, sw_tobu200_panto_placer_main,num_vehs_in_vehid_chain){
@@ -116,7 +96,7 @@
         sw_tobu200_panto_placer_main_1;
     }
   //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_tobu200_head_gfx_main,position_in_consist>0){
+    switch(FEAT_TRAINS, SELF, sw_tobu200_head_gfx_main, train_is_driving_backwards != vehicle_is_flipped){
       1: tobu200_end;
       tobu200_front;
     }
