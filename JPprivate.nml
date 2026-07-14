@@ -18193,3 +18193,113 @@ item(FEAT_TRAINS, sp_th_9000series) {
 }
 # 192 "src/_metro.pnml" 2
 # 15 "JPprivate.pnml" 2
+# 1 "src/_private.pnml" 1
+# 172 "src/_private.pnml"
+item(FEAT_TRAINS, twr_70_000series, 2290) {}
+item(FEAT_TRAINS, twr71000, 2291) {}
+# 1 "src/private/Kanto/TWR/items.pnml" 1
+# 1 "src/private/Kanto/TWR/twr_70_000series/twr_70_000series.pnml" 1
+spriteset(gfx_twr_70_000series_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/TWR/twr_70_000series/twr_70_000series.png"){ tmpl_purchase_1c_dual(0, 0) }
+spriteset(gfx_twr_70_000series_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/TWR/twr_70_000series/twr_70_000series.png"){ tmpl_purchase_2c_dual(0, 0) }
+switch(FEAT_TRAINS, SELF, twr_70_000series_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: gfx_twr_70_000series_purchase_c1; 1: gfx_twr_70_000series_purchase_c2;}
+
+spriteset(gfx_twr_70_000series_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/TWR/twr_70_000series/twr_70_000series.png"){ tmpl_std_v3 (0, 0) }
+spriteset(gfx_twr_70_000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/TWR/twr_70_000series/twr_70_000series.png"){ tmpl_std_v3 (0, 25) }
+spriteset(gfx_twr_70_000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/TWR/twr_70_000series/twr_70_000series.png"){ tmpl_std_v3 (0, 50) }
+spriteset(gfx_twr_70_000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/TWR/twr_70_000series/twr_70_000series.png"){ tmpl_symm_v3 (0, 75) }
+
+switch(FEAT_TRAINS, SELF, sw_twr71000_head, train_is_driving_backwards != vehicle_is_flipped){
+  1: gfx_twr_70_000series_end;
+  gfx_twr_70_000series_front;
+}
+
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_panto_placer_0_main,position_in_vehid_chain %3){
+  0:gfx_twr_70_000series_mot;
+  gfx_twr_70_000series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_panto_placer_1_main,position_in_vehid_chain %2){
+  0:gfx_twr_70_000series_mot;
+  gfx_twr_70_000series_wag;
+}
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_panto_placer_main, num_vehs_in_vehid_chain){
+  default:sw_twr_70_000series_panto_placer_0_main;
+  4..5:sw_twr_70_000series_panto_placer_1_main;
+}
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_lv,vehicle_type_id){
+  mu_car:sw_twr_70_000series_panto_placer_main;
+  sw_twr71000_head;
+}
+
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_capacity_main, vehicle_type_id == twr_70_000series){
+ 1: 146;
+ default: 156;
+}
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_car_power_main, position_in_vehid_chain%6){
+ 0..3: 95;
+ default: 0;
+}
+switch(FEAT_TRAINS, SELF, sw_twr_70_000series_power_main, vehicle_type_id == twr_70_000series){
+ 1: 0;
+ default: sw_twr_70_000series_car_power_main;
+}
+# 2 "src/private/Kanto/TWR/items.pnml" 2
+
+item(FEAT_TRAINS, twr_70_000series) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_semiPrivate == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_TWR), "70-000", string(STR_NAME_TYPE));
+    introduction_date: date(1996, 03, 30);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+    cost_factor: 18;
+    running_cost_factor: 48;
+    speed: 110 km/h;
+    track_type:TR_1067_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 34 ton;
+    badges: ["company/twr"];
+
+  }
+ graphics {
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_3, 4,6,10)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_TWR))
+
+    );
+
+    purchase: twr_70_000series_purchase;
+    cargo_capacity:sw_twr_70_000series_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_twr_70_000series_lv;
+    power:sw_twr_70_000series_power_main()*4*1342/1000;
+    purchase_power: sw_twr_70_000series_car_power_main()*4*1342/1000;
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_twr_70_000series_capacity_main()*param_capacity_mod/3;
+    power:sw_twr_70_000series_power_main()*4*1342/1000;
+    default:sw_twr_70_000series_lv;
+    weight: 34;
+
+  }
+}
+# 175 "src/_private.pnml" 2
+# 16 "JPprivate.pnml" 2
