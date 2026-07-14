@@ -155,7 +155,7 @@ export function setItem(data, path) {
     trainName,
     data.fixedCapacity,
     data.reuseCapacityFrom,
-    boostCapacity
+    boostCapacity,
   );
 
   str += `item(FEAT_TRAINS, ${trainName}) {
@@ -184,11 +184,12 @@ export function setItem(data, path) {
     tractive_effort_coefficient:  0.2;
     weight: ${weight[0]} ton;
     badges: ["company/${data.operator[0].toLowerCase()}"${
-    data.metroLine ? `${handleMetroBadgeExeptions(data.metroLine).toLowerCase()}` : ""
-  }];
+      data.metroLine ? `${handleMetroBadgeExeptions(data.metroLine).toLowerCase()}` : ""
+    }];
     ${length ? `length: ${length};` : ""}
   }
 	graphics {
+    ${data.attachLogic ? `can_attach_wagon: sw_${trainName}_attach_main;` : ""}
     ${data.isVariantGroupParent ? `name: sw_${trainName}_name;` : ""}
     ${variantSimple ? "" : `${data.variantGroup ? `name: sw_${variantGroup}_name;` : ""} `}
     additional_text:${formatDescString(data, usage, operator)}
@@ -214,8 +215,8 @@ export function setItem(data, path) {
       customCargoAge
         ? `cargo_age_period: ${customCargoAge};`
         : data.usage?.at(0).length && data.usage[0].includes("limited_express")
-        ? `cargo_age_period: ltd_express_cargo_age;`
-        : ""
+          ? `cargo_age_period: ltd_express_cargo_age;`
+          : ""
     }
     
   }
