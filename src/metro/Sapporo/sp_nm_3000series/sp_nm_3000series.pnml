@@ -5,19 +5,20 @@ GRAPHIC_STACK_2(sp_nm_3000series_purchase, sp_nm_3000series_purchase_c1, sp_nm_3
 
 spriteset(sp_nm_3000series_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Sapporo/sp_nm_3000series/sp_nm_3000series_lights.png"){ tmpl_std_v3(0, 0) }
 spriteset(sp_nm_3000series_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Sapporo/sp_nm_3000series/sp_nm_3000series_lights.png"){ tmpl_std_v3(0, 25) }
+switch(FEAT_TRAINS, SELF, sp_nm_3000series_lights,  train_is_driving_backwards != vehicle_is_flipped){
+  1: sp_nm_3000series_lights_end;
+  sp_nm_3000series_lights_front;
+}
 spriteset(sp_nm_3000series_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Sapporo/sp_nm_3000series/sp_nm_3000series_1.png"){ tmpl_std_v3(0, 0) }
 spriteset(sp_nm_3000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Sapporo/sp_nm_3000series/sp_nm_3000series_1.png"){ tmpl_symm_v3(0, 25) }
-TRAIN_CONSTRUCTOR_2(sp_nm_3000series_front, sp_nm_3000series_head_base, sp_nm_3000series_lights_front)
-TRAIN_CONSTRUCTOR_2(sp_nm_3000series_end, sp_nm_3000series_head_base, sp_nm_3000series_lights_end)
+TRAIN_CONSTRUCTOR_2(sp_nm_3000series_head, sp_nm_3000series_head_base, sp_nm_3000series_lights)
+
+
 //*main
   //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_sp_nm_3000series_head_gfx_main,position_in_consist>0){
-      1:sp_nm_3000series_end;
-      sp_nm_3000series_front;
-    }
     switch(FEAT_TRAINS, SELF, sw_sp_nm_3000series_lv,vehicle_type_id){
       mu_car:sp_nm_3000series_wag;
-      sw_sp_nm_3000series_head_gfx_main;
+      sp_nm_3000series_head;
     }
 //post fixers
   //capacity-changer

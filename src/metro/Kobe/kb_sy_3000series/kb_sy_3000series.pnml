@@ -40,32 +40,21 @@ switch(FEAT_TRAINS, PARENT, kb_sy_3000series_2_end, vehicle_is_reversed){
   }
 //
 
+switch(FEAT_TRAINS, SELF, sw_kb_sy_3000series_head, train_is_driving_backwards != vehicle_is_flipped){
+  1: kb_sy_3000series_end;
+  kb_sy_3000series_front;
+}
+
 //main
   //panto placer
-    switch(FEAT_TRAINS, SELF, sw_kb_sy_3000series_panto_placer_1,position_in_vehid_chain %3){
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_3000series_panto_placer_1_main,position_in_vehid_chain %3){
         0: kb_sy_3000series_mot;
         kb_sy_3000series_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_kb_sy_3000series_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
-        0: kb_sy_3000series_mot;
-        kb_sy_3000series_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_kb_sy_3000series_panto_placer_1_main,vehicle_is_reversed){
-        1: sw_kb_sy_3000series_panto_placer_1_rev;
-        sw_kb_sy_3000series_panto_placer_1;
     }
   // 2
-    switch(FEAT_TRAINS, SELF, sw_kb_sy_3000series_panto_placer_2,position_in_vehid_chain %2){
+    switch(FEAT_TRAINS, SELF, sw_kb_sy_3000series_panto_placer_2_main,position_in_vehid_chain %2){
         0: kb_sy_3000series_mot;
         kb_sy_3000series_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_kb_sy_3000series_panto_placer_2_rev,position_in_vehid_chain_from_end %2){
-        0: kb_sy_3000series_mot;
-        kb_sy_3000series_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_kb_sy_3000series_panto_placer_2_main,vehicle_is_reversed){
-        1: sw_kb_sy_3000series_panto_placer_2_rev;
-        sw_kb_sy_3000series_panto_placer_2;
     }
   //panto main
     switch(FEAT_TRAINS, SELF, sw_kb_sy_3000series_panto_placer_main,num_vehs_in_vehid_chain){
@@ -74,13 +63,9 @@ switch(FEAT_TRAINS, PARENT, kb_sy_3000series_2_end, vehicle_is_reversed){
         sw_kb_sy_3000series_panto_placer_1_main;
     }
   //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_kb_sy_3000series_head_gfx_main,position_in_consist>0){
-      1: kb_sy_3000series_end;
-      kb_sy_3000series_front;
-    }
     switch(FEAT_TRAINS, SELF, sw_kb_sy_3000series_lv,vehicle_type_id){
       mu_car:sw_kb_sy_3000series_panto_placer_main;
-      sw_kb_sy_3000series_head_gfx_main;
+      sw_kb_sy_3000series_head;
     }
 //
 //post fixers

@@ -78,22 +78,13 @@ GRAPHIC_STACK_2(tk_od_toei12_000_purchase, tk_od_toei12_000_purchase_c1, tk_od_t
 //*main
   //panto placers
     //var 1
-      switch(FEAT_TRAINS, SELF, sw_tk_od_toei12_000_panto_placer_1,position_in_vehid_chain %3){
+      switch(FEAT_TRAINS, SELF, sw_toei12_000_panto_placer_main,position_in_vehid_chain %3){
         0: tk_od_toei12_000_mot;
         2: tk_od_toei12_000_mot_rev;
         default:tk_od_toei12_000_wag;
       }
-      switch(FEAT_TRAINS, SELF, sw_tk_od_toei12_000_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
-        0: tk_od_toei12_000_mot_rev;
-        2: tk_od_toei12_000_mot;
-        default:tk_od_toei12_000_wag;
-      }
-      switch(FEAT_TRAINS, PARENT, sw_toei12_000_panto_placer_main,vehicle_is_reversed){
-        1: sw_tk_od_toei12_000_panto_placer_1_rev;
-        sw_tk_od_toei12_000_panto_placer_1;
-      }
   //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_toei12_000_head_gfx_main,position_in_consist>0){
+    switch(FEAT_TRAINS, SELF, sw_toei12_000_head_gfx_main, train_is_driving_backwards != vehicle_is_flipped){
       1:tk_od_toei12_000_end;
      tk_od_toei12_000_front;
     }

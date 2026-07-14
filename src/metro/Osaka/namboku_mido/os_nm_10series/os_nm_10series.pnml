@@ -18,17 +18,9 @@ switch(FEAT_TRAINS, SELF, os_nm_10series_1_end, current_year>1997){
 spriteset(os_nm_10series_1_wag_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/namboku_mido/os_nm_10series/os_nm_10series_1.png"){ tmpl_symm_v3(0, 100) }
 spriteset(os_nm_10series_1_wag_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/namboku_mido/os_nm_10series/os_nm_10series_1.png"){ tmpl_symm_v3(0, 125) }
 //wag gfx
-  switch(FEAT_TRAINS, SELF, sw_os_nm_10series_1_wag_def,position_in_vehid_chain==3&&cargo_subtype==2){
+  switch(FEAT_TRAINS, SELF, os_nm_10series_1_wag,position_in_vehid_chain==3&&cargo_subtype==2){
       1: os_nm_10series_1_wag_2;
       default: os_nm_10series_1_wag_1;
-  }
-  switch(FEAT_TRAINS, SELF, sw_os_nm_10series_1_wag_rev,position_in_vehid_chain_from_end==3&&cargo_subtype==2){
-      1: os_nm_10series_1_wag_2;
-      default: os_nm_10series_1_wag_1;
-  }
-  switch(FEAT_TRAINS, PARENT, os_nm_10series_1_wag,vehicle_is_reversed){
-      1: sw_os_nm_10series_1_wag_rev;
-      default: sw_os_nm_10series_1_wag_def;
   }
 //
 //*livery 2
@@ -37,17 +29,9 @@ spriteset(os_nm_10series_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/me
 spriteset(os_nm_10series_2_wag_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/namboku_mido/os_nm_10series/os_nm_10series_2.png"){ tmpl_symm_v3(0, 50) }
 spriteset(os_nm_10series_2_wag_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/namboku_mido/os_nm_10series/os_nm_10series_2.png"){ tmpl_symm_v3(0, 75) }
 //wag gfx
-  switch(FEAT_TRAINS, SELF, sw_os_nm_10series_2_wag_def,position_in_vehid_chain==3&&cargo_subtype==4){
+  switch(FEAT_TRAINS, SELF, os_nm_10series_2_wag,position_in_vehid_chain==3&&cargo_subtype==4){
       1: os_nm_10series_2_wag_2;
       default: os_nm_10series_2_wag_1;
-  }
-  switch(FEAT_TRAINS, SELF, sw_os_nm_10series_2_wag_rev,position_in_vehid_chain_from_end==3&&cargo_subtype==4){
-      1: os_nm_10series_2_wag_2;
-      default: os_nm_10series_2_wag_1;
-  }
-  switch(FEAT_TRAINS, PARENT, os_nm_10series_2_wag,vehicle_is_reversed){
-      1: sw_os_nm_10series_2_wag_rev;
-      default: sw_os_nm_10series_2_wag_def;
   }
 
 //lv stuff
@@ -63,10 +47,11 @@ spriteset(os_nm_10series_2_wag_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/
     1:os_nm_10series_2_wag;
     os_nm_10series_1_wag;
   }
+  
 //
 //main
   //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_os_nm_10series_head_gfx_main,position_in_consist>0){
+    switch(FEAT_TRAINS, SELF, sw_os_nm_10series_head_gfx_main, train_is_driving_backwards != vehicle_is_flipped){
       1: os_nm_10series_end;
       os_nm_10series_front;
     }

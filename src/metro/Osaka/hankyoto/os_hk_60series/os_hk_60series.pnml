@@ -17,7 +17,6 @@ GRAPHIC_STACK_2(os_hk_60series_purchase, os_hk_60series_purchase_c1, os_hk_60ser
 spriteset(os_hk_60series_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/hankyoto/os_hk_60series/os_hk_60series_old.png"){ tmpl_std_v3(0, 0) }
 spriteset(os_hk_60series_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/hankyoto/os_hk_60series/os_hk_60series_old.png"){ tmpl_std_v3(0, 25) }
 spriteset(os_hk_60series_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/hankyoto/os_hk_60series/os_hk_60series_old.png"){ tmpl_std_v3(0, 50) }
-spriteset(os_hk_60series_1_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/hankyoto/os_hk_60series/os_hk_60series_old.png"){ tmpl_std_rev_v3(0, 50) }
 spriteset(os_hk_60series_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/hankyoto/os_hk_60series/os_hk_60series_old.png"){ tmpl_symm_v3(0, 75) }
 spriteset(os_hk_60series_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/hankyoto/os_hk_60series/os_hk_60series_old.png"){ tmpl_std_v3(0, 100) }
 spriteset(os_hk_60series_1_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/hankyoto/os_hk_60series/os_hk_60series_old.png"){ tmpl_std_v3(0, 125) }
@@ -26,7 +25,6 @@ spriteset(os_hk_60series_1_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "sr
 spriteset(os_hk_60series_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/hankyoto/os_hk_60series/os_hk_60series.png"){ tmpl_std_v3(0, 0) }
 spriteset(os_hk_60series_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/hankyoto/os_hk_60series/os_hk_60series.png"){ tmpl_std_v3(0, 25) }
 spriteset(os_hk_60series_2_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/hankyoto/os_hk_60series/os_hk_60series.png"){ tmpl_std_v3(0, 50) }
-spriteset(os_hk_60series_2_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/hankyoto/os_hk_60series/os_hk_60series.png"){ tmpl_std_rev_v3(0, 50) }
 spriteset(os_hk_60series_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/hankyoto/os_hk_60series/os_hk_60series.png"){ tmpl_symm_v3(0, 75) }
 spriteset(os_hk_60series_2_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/hankyoto/os_hk_60series/os_hk_60series.png"){ tmpl_std_v3(0, 100) }
 spriteset(os_hk_60series_2_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/hankyoto/os_hk_60series/os_hk_60series.png"){ tmpl_std_v3(0, 125) }
@@ -51,14 +49,11 @@ spriteset(os_hk_60series_2_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "sr
     1:os_hk_60series_2_mot;
     os_hk_60series_1_mot;
   }
-  switch(FEAT_TRAINS, SELF, os_hk_60series_mot_rev, current_year>1989){
-    1:os_hk_60series_2_mot_rev;
-    os_hk_60series_1_mot_rev;
-  }
   switch(FEAT_TRAINS, SELF, os_hk_60series_wag, current_year>1989){
     1:os_hk_60series_2_wag;
     os_hk_60series_1_wag;
   }
+
 //
 //*livery 1
   //special gfx
@@ -70,32 +65,21 @@ spriteset(os_hk_60series_2_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "sr
       1:os_hk_60series_end_mot;
       os_hk_60series_end;
     }
+  switch(FEAT_TRAINS, SELF, sw_os_hk_60series_head, train_is_driving_backwards != vehicle_is_flipped){
+    1: os_hk_60series_end_gfx;
+    os_hk_60series_front_gfx;
+  }
+    
   //panto placer
     //var 1
-      switch(FEAT_TRAINS, SELF, sw_os_hk_60series_panto_placer_1,position_in_vehid_chain_from_end){
+      switch(FEAT_TRAINS, SELF, sw_os_hk_60series_panto_placer_1_main,position_in_vehid_chain_from_end){
           0: os_hk_60series_mot;
           os_hk_60series_wag;
       }
-      switch(FEAT_TRAINS, SELF, sw_os_hk_60series_panto_placer_1_rev,position_in_vehid_chain){
-          0: os_hk_60series_mot_rev;
-          os_hk_60series_wag;
-      }
-      switch(FEAT_TRAINS, PARENT, sw_os_hk_60series_panto_placer_1_main,vehicle_is_reversed){
-          1: sw_os_hk_60series_panto_placer_1_rev;
-          sw_os_hk_60series_panto_placer_1;
-      }
     //var 2
-      switch(FEAT_TRAINS, SELF, sw_os_hk_60series_panto_placer_2,position_in_vehid_chain %3){
+      switch(FEAT_TRAINS, SELF, sw_os_hk_60series_panto_placer_2_main,position_in_vehid_chain %3){
           2: os_hk_60series_mot;
           os_hk_60series_wag;
-      }
-      switch(FEAT_TRAINS, SELF, sw_os_hk_60series_panto_placer_2_rev,position_in_vehid_chain_from_end %3){
-          2: os_hk_60series_mot_rev;
-          os_hk_60series_wag;
-      }
-      switch(FEAT_TRAINS, PARENT, sw_os_hk_60series_panto_placer_2_main,vehicle_is_reversed){
-          1: sw_os_hk_60series_panto_placer_2_rev;
-          sw_os_hk_60series_panto_placer_2;
       }
     switch(FEAT_TRAINS,SELF,sw_os_hk_60series_panto_placer_main,num_vehs_in_vehid_chain){
       0..1:os_hk_60series_wag;
@@ -103,13 +87,9 @@ spriteset(os_hk_60series_2_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "sr
       sw_os_hk_60series_panto_placer_2_main;
     }
   //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_os_hk_60series_head_gfx_main,position_in_consist>0){
-      1: os_hk_60series_end_gfx;
-      os_hk_60series_front_gfx;
-    }
     switch(FEAT_TRAINS, SELF, sw_os_hk_60series_lv,vehicle_type_id){
       mu_car:sw_os_hk_60series_panto_placer_main;
-      sw_os_hk_60series_head_gfx_main;
+      sw_os_hk_60series_head;
     }
 //
 //post fixers

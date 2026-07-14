@@ -5,43 +5,29 @@
 //base
 spriteset(tk_as_toei5500_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/asakusa/tk_as_toei5500/tk_as_toei5500_lights.png"){ tmpl_std_v3(0, 0) }
 spriteset(tk_as_toei5500_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/asakusa/tk_as_toei5500/tk_as_toei5500_lights.png"){ tmpl_std_v3(0, 25) }
+switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_lights, train_is_driving_backwards != vehicle_is_flipped){
+    1: tk_as_toei5500_lights_end;
+    tk_as_toei5500_lights_front;
+  }
 spriteset(tk_as_toei5500_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/asakusa/tk_as_toei5500/tk_as_toei5500.png"){ tmpl_std_v3(0, 0) }
 spriteset(tk_as_toei5500_wag_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/asakusa/tk_as_toei5500/tk_as_toei5500.png"){ tmpl_symm_v3(0, 25) }
 //1
-  TRAIN_CONSTRUCTOR_3(gfx_tk_as_toei5500_front, tk_as_toei5500_head_base, tk_as_toei5500_lights_front, ac_long_toshiba)
-  TRAIN_CONSTRUCTOR_3(gfx_tk_as_toei5500_end, tk_as_toei5500_head_base, tk_as_toei5500_lights_end, ac_long_toshiba)
+  TRAIN_CONSTRUCTOR_3(gfx_tk_as_toei5500_head, tk_as_toei5500_head_base, sw_tk_as_toei5500_lights, ac_long_toshiba)
   TRAIN_CONSTRUCTOR_3(gfx_tk_as_toei5500_mot, tk_as_toei5500_wag_base, ac_long_toshiba,panto_arm_n)
   TRAIN_CONSTRUCTOR_2(gfx_tk_as_toei5500_wag, tk_as_toei5500_wag_base, ac_long_toshiba)
 //
 //*livery 1
   //panto-placers
     //var 1
-      switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_panto_placer_1,position_in_vehid_chain %6){
+      switch(FEAT_TRAINS, SELF, sw_toei5500_panto_placer_main_1,position_in_vehid_chain %6){
         1: gfx_tk_as_toei5500_mot;
         4: gfx_tk_as_toei5500_mot;
         default: gfx_tk_as_toei5500_wag;
-      }
-      switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_panto_placer_1_rev,position_in_vehid_chain_from_end %6){
-        1: gfx_tk_as_toei5500_mot;
-        4: gfx_tk_as_toei5500_mot;
-        default: gfx_tk_as_toei5500_wag;
-      }
-      switch(FEAT_TRAINS, PARENT, sw_toei5500_panto_placer_main_1,vehicle_is_reversed){
-        1: sw_tk_as_toei5500_panto_placer_1_rev;
-        sw_tk_as_toei5500_panto_placer_1;
       }
     //var 2
-      switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_panto_placer_2,position_in_vehid_chain %3){
+      switch(FEAT_TRAINS, SELF, sw_toei5500_panto_placer_main_2,position_in_vehid_chain %3){
         0: gfx_tk_as_toei5500_mot;
         default: gfx_tk_as_toei5500_wag;
-      }
-      switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_panto_placer_2_rev,position_in_vehid_chain_from_end %3){
-        0: gfx_tk_as_toei5500_mot;
-        default: gfx_tk_as_toei5500_wag;
-      }
-      switch(FEAT_TRAINS, PARENT, sw_toei5500_panto_placer_main_2,vehicle_is_reversed){
-        1: sw_tk_as_toei5500_panto_placer_2_rev;
-        sw_tk_as_toei5500_panto_placer_2;
       }
     //panto controller
     switch(FEAT_TRAINS, SELF, sw_toei5500_panto_placer_main,num_vehs_in_vehid_chain){
@@ -50,13 +36,9 @@ spriteset(tk_as_toei5500_wag_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src
       sw_toei5500_panto_placer_main_1;
     }
   //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_toei5500_head_gfx_main,position_in_consist>0){
-      1: gfx_tk_as_toei5500_end;
-      gfx_tk_as_toei5500_front;
-    }
     switch(FEAT_TRAINS, SELF, sw_tk_as_toei5500_lv,vehicle_type_id){
       mu_car:sw_toei5500_panto_placer_main;
-      sw_toei5500_head_gfx_main;
+      gfx_tk_as_toei5500_head;
     }
 //post fixers
   //capacity-changer  

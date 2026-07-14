@@ -2,7 +2,8 @@
 spriteset(os_ch_6000type_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/chuo/os_ch_6000type/os_ch_6000type.png"){ tmpl_purchase_1c(0, 0) }
 
 spriteset(os_ch_6000type_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/chuo/os_ch_6000type/os_ch_6000type.png"){ tmpl_std_v3(0, 0) }
-spriteset(os_ch_6000type_front_s, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/chuo/os_ch_6000type/os_ch_6000type.png"){ tmpl_std_v3(0, 75) }
+spriteset(os_ch_6000type_front_s_def, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/chuo/os_ch_6000type/os_ch_6000type.png"){ tmpl_std_v3(0, 75) }
+spriteset(os_ch_6000type_front_s_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/chuo/os_ch_6000type/os_ch_6000type.png"){ tmpl_std_rev_v3(0, 75) }
 spriteset(os_ch_6000type_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/chuo/os_ch_6000type/os_ch_6000type.png"){ tmpl_std_rev_v3(0, 25) }
 spriteset(os_ch_6000type_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/chuo/os_ch_6000type/os_ch_6000type.png"){ tmpl_std_v3(0, 50) }
 spriteset(os_ch_6000type_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Osaka/chuo/os_ch_6000type/os_ch_6000type.png"){ tmpl_std_rev_v3(0, 50) }
@@ -11,8 +12,13 @@ spriteset(os_ch_6000type_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/
     1: os_ch_6000type_wag_rev;
     os_ch_6000type_wag;
   }
+  switch(FEAT_TRAINS, PARENT, sw_os_ch_6000type_front_s, vehicle_is_reversed){
+    1:os_ch_6000type_front_s_rev;
+    os_ch_6000type_front_s_def;
+  }
+
   switch(FEAT_TRAINS, SELF, sw_os_ch_6000type_front_gfx,num_vehs_in_consist){
-    1: os_ch_6000type_front_s;
+    1: sw_os_ch_6000type_front_s;
     os_ch_6000type_front;
   }
 //main

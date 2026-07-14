@@ -9,29 +9,22 @@ spriteset(sn_nm_1000series_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/me
 spriteset(sn_nm_1000series_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Sendai/sn_nm_1000series/sn_nm_1000series.png"){ tmpl_symm_v3(0, 75) }
 spriteset(sn_nm_1000series_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Sendai/sn_nm_1000series/sn_nm_1000series.png"){ tmpl_symm_v3(0, 50) }
 
+switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_head, train_is_driving_backwards != vehicle_is_flipped){
+    1: sn_nm_1000series_end;
+    sn_nm_1000series_front;
+  }
+
 //*livery 1
   //panto placer
-    switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_panto_placer_1,position_in_vehid_chain %3){
+    switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_panto_placer_main,position_in_vehid_chain %3){
         0: sn_nm_1000series_mot;
         sn_nm_1000series_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
-        0: sn_nm_1000series_mot;
-        sn_nm_1000series_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_sn_nm_1000series_panto_placer_main,vehicle_is_reversed){
-        1: sw_sn_nm_1000series_panto_placer_1_rev;
-        sw_sn_nm_1000series_panto_placer_1;
     }
   //front-end-fixer
     //front-end-fixer
-      switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_head_gfx_main,position_in_consist>0){
-        1: sn_nm_1000series_end;
-        sn_nm_1000series_front;
-      }
       switch(FEAT_TRAINS, SELF, sw_sn_nm_1000series_lv,vehicle_type_id){
         mu_car:sw_sn_nm_1000series_panto_placer_main;
-        sw_sn_nm_1000series_head_gfx_main;
+        sw_sn_nm_1000series_head;
       }
 //
 //post fixers
