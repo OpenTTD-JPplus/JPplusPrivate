@@ -57,11 +57,10 @@
 //
   TRAIN_CONSTRUCTOR_3(gfx_tokyu1000_front, tokyu1000_head_base, tokyu9000_lights_front, ac_triple_1_wag)
   TRAIN_CONSTRUCTOR_3(gfx_tokyu1000_end, tokyu1000_head_base, tokyu9000_lights_end, ac_triple_1_wag)
-  TRAIN_CONSTRUCTOR_4(gfx_tokyu1000_front_mot, tokyu1000_head_base, tokyu9000_lights_front, ac_triple_1_mot_rev,tokyu1000_panto_single)
-  TRAIN_CONSTRUCTOR_4(gfx_tokyu1000_end_mot, tokyu1000_head_base, tokyu9000_lights_end, ac_triple_1_mot,tokyu1000_panto_single)
+  TRAIN_CONSTRUCTOR_4(gfx_tokyu1000_front_mot, tokyu1000_head_base, tokyu9000_lights_front, ac_triple_1_mot_1_1,tokyu1000_panto_single)
+  TRAIN_CONSTRUCTOR_4(gfx_tokyu1000_end_mot, tokyu1000_head_base, tokyu9000_lights_end, ac_triple_1_mot_1_2,tokyu1000_panto_single)
 
-  TRAIN_CONSTRUCTOR_3(gfx_tokyu1000_mot, tokyu1000_car_base, ac_triple_1_mot_rev,tokyu1000_panto_single_rev)
-  TRAIN_CONSTRUCTOR_3(gfx_tokyu1000_mot_rev, tokyu1000_car_base, ac_triple_1_mot,tokyu1000_panto_single)
+  TRAIN_CONSTRUCTOR_3(gfx_tokyu1000_mot, tokyu1000_car_base, ac_triple_1_mot_1_1,tokyu1000_panto_single_rev)
   TRAIN_CONSTRUCTOR_3(gfx_tokyu1000_mot_2, tokyu1000_car_base ,ac_triple_1_mot_2,panto_arm_n)
   TRAIN_CONSTRUCTOR_2(gfx_tokyu1000_wag, tokyu1000_car_base, ac_triple_1_wag)
 //*main
@@ -76,58 +75,25 @@
     }
   //panto placer
     //var 1000 1
-      switch(FEAT_TRAINS, SELF, sw_tokyu1000_panto_placer_1,position_in_vehid_chain_from_end %2){
+      switch(FEAT_TRAINS, SELF, sw_tokyu1000_panto_placer_main_tc,position_in_vehid_chain_from_end %2){
         0: gfx_tokyu1000_mot;
         gfx_tokyu1000_wag;
       }
-      switch(FEAT_TRAINS, SELF, sw_tokyu1000_panto_placer_1_rev,position_in_vehid_chain %2){
-        0: gfx_tokyu1000_mot_rev;
-        gfx_tokyu1000_wag;
-      }
-      switch(FEAT_TRAINS, PARENT, sw_tokyu1000_panto_placer_main_tc,vehicle_is_reversed){
-        1: sw_tokyu1000_panto_placer_1_rev;
-        sw_tokyu1000_panto_placer_1;
-      }
     //var 1000 2 mot head
-      switch(FEAT_TRAINS, SELF, sw_tokyu1000_panto_placer_2,position_in_vehid_chain_from_end %5){
+      switch(FEAT_TRAINS, SELF, sw_tokyu1000_panto_placer_main_2,position_in_vehid_chain_from_end %5){
         1: gfx_tokyu1000_mot;
         4: gfx_tokyu1000_mot;
         gfx_tokyu1000_wag;
       }
-      switch(FEAT_TRAINS, SELF, sw_tokyu1000_panto_placer_2_rev,position_in_vehid_chain %5){
-        1: gfx_tokyu1000_mot_rev;
-        4: gfx_tokyu1000_mot_rev;
-        gfx_tokyu1000_wag;
-      }
-      switch(FEAT_TRAINS, PARENT, sw_tokyu1000_panto_placer_main_2,vehicle_is_reversed){
-        1: sw_tokyu1000_panto_placer_2_rev;
-        sw_tokyu1000_panto_placer_2;
-      }
     //var 1000 3 4-car
-      switch(FEAT_TRAINS, SELF, sw_tokyu1000_panto_placer_3,position_in_vehid_chain_from_end %4){
+      switch(FEAT_TRAINS, SELF, sw_tokyu1000_panto_placer_main_3,position_in_vehid_chain_from_end %4){
         0..1: gfx_tokyu1000_mot;
         gfx_tokyu1000_wag;
       }
-      switch(FEAT_TRAINS, SELF, sw_tokyu1000_panto_placer_3_rev,position_in_vehid_chain %4){
-        0..1: gfx_tokyu1000_mot_rev;
-        gfx_tokyu1000_wag;
-      }
-      switch(FEAT_TRAINS, PARENT, sw_tokyu1000_panto_placer_main_3,vehicle_is_reversed){
-        1: sw_tokyu1000_panto_placer_3_rev;
-        sw_tokyu1000_panto_placer_3;
-      }
     //var 1500
-      switch(FEAT_TRAINS, SELF, sw_tokyu1000_panto_placer_4,position_in_vehid_chain_from_end %3){
+      switch(FEAT_TRAINS, SELF, sw_tokyu1000_panto_placer_main_4,position_in_vehid_chain_from_end %3){
         0: gfx_tokyu1000_mot_2;
         gfx_tokyu1000_wag;
-      }
-      switch(FEAT_TRAINS, SELF, sw_tokyu1000_panto_placer_4_rev,position_in_vehid_chain %3){
-        0: gfx_tokyu1000_mot_2;
-        gfx_tokyu1000_wag;
-      }
-      switch(FEAT_TRAINS, PARENT, sw_tokyu1000_panto_placer_main_4,vehicle_is_reversed){
-        1: sw_tokyu1000_panto_placer_4_rev;
-        sw_tokyu1000_panto_placer_4;
       }
     //controller
       random_switch(FEAT_TRAINS, PARENT, sw_tokyu1000_panto_placer_main_0_1){
@@ -144,11 +110,11 @@
         sw_tokyu1000_panto_placer_main_tc;
       }
   //front end fixer
-    switch(FEAT_TRAINS, SELF, sw_tokyu1000_head_gfx_main_tc,position_in_consist>0){
+    switch(FEAT_TRAINS, SELF, sw_tokyu1000_head_gfx_main_tc, train_is_driving_backwards != vehicle_is_flipped){
       1: gfx_tokyu1000_end;
       gfx_tokyu1000_front;
     }
-    switch(FEAT_TRAINS, SELF, sw_tokyu1000_head_gfx_main_mc,position_in_consist>0){
+    switch(FEAT_TRAINS, SELF, sw_tokyu1000_head_gfx_main_mc, train_is_driving_backwards != vehicle_is_flipped){
       1: sw_tokyu1000_end_gfx;
       sw_tokyu1000_front_gfx;
     }
