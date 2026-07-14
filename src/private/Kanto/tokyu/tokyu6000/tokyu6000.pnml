@@ -24,50 +24,26 @@
 
 //*livery 1
   //special gfx
-    switch(FEAT_TRAINS, SELF, sw_tokyu6000_wag_gfx_1, position_in_vehid_chain>(num_vehs_in_vehid_chain/2)){
+    switch(FEAT_TRAINS, SELF, sw_tokyu6000_wag_gfx_1, position_in_vehid_chain_from_end<(num_vehs_in_vehid_chain/2)){
       1:gfx_tokyu6000_wag_rev;
       gfx_tokyu6000_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_tokyu6000_wag_rev_gfx_1, position_in_vehid_chain_from_end>(num_vehs_in_vehid_chain/2)){
-      1:gfx_tokyu6000_wag;
-      gfx_tokyu6000_wag_rev;
     }
     switch(FEAT_TRAINS,SELF,sw_tokyu6000_wag_gfx,(cargo_subtype==2||cargo_subtype==0&&current_year>2018)&&(position_in_vehid_chain==1&&vehicle_is_reversed==0)){
       1:gfx_tokyu6000_wag_qcar;
       sw_tokyu6000_wag_gfx_1;
     }
-    switch(FEAT_TRAINS,SELF,sw_tokyu6000_wag_rev_gfx,(cargo_subtype==2||cargo_subtype==0&&current_year>2018)&&(position_in_vehid_chain_from_end==1&&vehicle_is_reversed==0)){
-      1:gfx_tokyu6000_wag_qcar;
-      sw_tokyu6000_wag_rev_gfx_1;
-    }
     
-    switch(FEAT_TRAINS, SELF, sw_tokyu6000_mot_1_gfx_1, position_in_vehid_chain>(num_vehs_in_vehid_chain/2)){
-        1:gfx_tokyu6000_mot_1_rev;
-        gfx_tokyu6000_mot_1;
-    }
     switch(FEAT_TRAINS, SELF, sw_tokyu6000_mot_1_rev_gfx_1, position_in_vehid_chain_from_end>(num_vehs_in_vehid_chain/2)){
         1:gfx_tokyu6000_mot_1;
         gfx_tokyu6000_mot_1_rev;
-    }
-    switch(FEAT_TRAINS, SELF, sw_tokyu6000_mot_1_qcar_gfx, position_in_vehid_chain>(num_vehs_in_vehid_chain/2)){
-        1:gfx_tokyu6000_mot_1_qcar_rev;
-        gfx_tokyu6000_mot_1_qcar;
     }
     switch(FEAT_TRAINS, SELF, sw_tokyu6000_mot_1_qcar_rev_gfx, position_in_vehid_chain_from_end>(num_vehs_in_vehid_chain/2)){
         1:gfx_tokyu6000_mot_1_qcar;
         gfx_tokyu6000_mot_1_qcar_rev;
     }
-    switch(FEAT_TRAINS,SELF,sw_tokyu6000_mot_1_gfx,(cargo_subtype==2||cargo_subtype==0&&current_year>2018)&&position_in_vehid_chain_from_end==1){
-      1:sw_tokyu6000_mot_1_qcar_gfx;
-      sw_tokyu6000_mot_1_gfx_1;
-    }
     switch(FEAT_TRAINS,SELF,sw_tokyu6000_mot_1_rev_gfx,(cargo_subtype==2||cargo_subtype==0&&current_year>2018)&&position_in_vehid_chain==1){
       1:sw_tokyu6000_mot_1_qcar_rev_gfx;
       sw_tokyu6000_mot_1_rev_gfx_1;
-    }
-    switch(FEAT_TRAINS, SELF, sw_tokyu6000_mot_2_gfx, position_in_vehid_chain>(num_vehs_in_vehid_chain/2)){
-        1:gfx_tokyu6000_mot_2_rev;
-        gfx_tokyu6000_mot_2;
     }
     switch(FEAT_TRAINS, SELF, sw_tokyu6000_mot_2_rev_gfx, position_in_vehid_chain_from_end>(num_vehs_in_vehid_chain/2)){
         1:gfx_tokyu6000_mot_2;
@@ -75,34 +51,16 @@
     }
   //panto placer
     // 6cars
-      switch(FEAT_TRAINS, SELF, sw_tokyu6000_panto_placer_1,position_in_vehid_chain %4){
+      switch(FEAT_TRAINS, SELF, sw_tokyu6000_panto_placer_main_1,position_in_vehid_chain %4){
         0: sw_tokyu6000_mot_1_rev_gfx;
         3: sw_tokyu6000_mot_2_rev_gfx;
         sw_tokyu6000_wag_gfx;
       }
-      switch(FEAT_TRAINS, SELF, sw_tokyu6000_panto_placer_1_rev,position_in_vehid_chain_from_end %4){
-        0: sw_tokyu6000_mot_1_gfx;
-        3: sw_tokyu6000_mot_2_gfx;
-        sw_tokyu6000_wag_rev_gfx;
-      }
-      switch(FEAT_TRAINS, PARENT, sw_tokyu6000_panto_placer_main_1,vehicle_is_reversed){
-        1: sw_tokyu6000_panto_placer_1_rev;
-        sw_tokyu6000_panto_placer_1;
-    }
     // default
-      switch(FEAT_TRAINS, SELF, sw_tokyu6000_panto_placer_2,position_in_vehid_chain %6){
+      switch(FEAT_TRAINS, SELF, sw_tokyu6000_panto_placer_main_2,position_in_vehid_chain %6){
         0..1: sw_tokyu6000_mot_1_rev_gfx;
         4: sw_tokyu6000_mot_1_rev_gfx;
         sw_tokyu6000_wag_gfx;
-      }
-      switch(FEAT_TRAINS, SELF, sw_tokyu6000_panto_placer_2_rev,position_in_vehid_chain_from_end %6){
-        0..1: sw_tokyu6000_mot_1_gfx;
-        4: sw_tokyu6000_mot_1_gfx;
-        sw_tokyu6000_wag_rev_gfx;
-      }
-      switch(FEAT_TRAINS, PARENT, sw_tokyu6000_panto_placer_main_2,vehicle_is_reversed){
-        1: sw_tokyu6000_panto_placer_2_rev;
-        sw_tokyu6000_panto_placer_2;
       }
     switch(FEAT_TRAINS, SELF, sw_tokyu6000_panto_placer_main,num_vehs_in_vehid_chain){
         4: sw_tokyu6000_panto_placer_main_1;
@@ -110,7 +68,7 @@
     }
 
   //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_tokyu6000_head_gfx_main,position_in_consist>0){
+    switch(FEAT_TRAINS, SELF, sw_tokyu6000_head_gfx_main, train_is_driving_backwards != vehicle_is_flipped){
         1: gfx_tokyu6000_end;
         gfx_tokyu6000_front;
       }

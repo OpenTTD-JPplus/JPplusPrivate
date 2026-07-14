@@ -3,16 +3,16 @@
   spriteset(tokyu8090_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8090.png"){ tmpl_purchase_2c_dual(0, 150) }
   GRAPHIC_STACK_2(tokyu8090_purchase,  tokyu8090_purchase_c1, tokyu8090_purchase_c2)
 //8090
-  spriteset(gfx_tokyu8090_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8090.png"){ tmpl_std(0, 0) }
-  spriteset(gfx_tokyu8090_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8090.png"){ tmpl_std(0, 25) }
-  spriteset(gfx_tokyu8090_mot_2_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8090.png"){ tmpl_std(0, 100) }
-  spriteset(gfx_tokyu8090_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8090.png"){ tmpl_std_rev(0, 100) }
-  spriteset(gfx_tokyu8090_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8090.png"){ tmpl_std(0, 125) }
-  spriteset(gfx_tokyu8090_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8090.png"){ tmpl_std_rev(0, 125) }
-  spriteset(gfx_tokyu8090_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8090.png"){ tmpl_symm(0, 150) }
+  spriteset(gfx_tokyu8090_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8090.png"){ tmpl_std_v3(0, 0) }
+  spriteset(gfx_tokyu8090_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8090.png"){ tmpl_std_v3(0, 25) }
+  spriteset(gfx_tokyu8090_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8090.png"){ tmpl_std_rev_v3(0, 100) }
+  spriteset(gfx_tokyu8090_mot_2_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8090.png"){ tmpl_std_v3(0, 100) }
+  spriteset(gfx_tokyu8090_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8090.png"){ tmpl_std_rev_v3(0, 125) }
+  spriteset(gfx_tokyu8090_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8090.png"){ tmpl_std_v3(0, 125) }
+  spriteset(gfx_tokyu8090_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8090.png"){ tmpl_symm_v3(0, 150) }
 //8090 Oimachi
-  spriteset(gfx_tokyu8090_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8090.png"){ tmpl_std(0, 50) }
-  spriteset(gfx_tokyu8090_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8090.png"){ tmpl_std(0, 75) }
+  spriteset(gfx_tokyu8090_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8090.png"){ tmpl_std_v3(0, 50) }
+  spriteset(gfx_tokyu8090_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu8090/tokyu8090.png"){ tmpl_std_v3(0, 75) }
 //
 //*8090
   //special gfx
@@ -26,45 +26,20 @@
     }
   //panto placer
   //8 car 1
-    switch(FEAT_TRAINS, SELF, sw_tokyu8090_panto_placer,position_in_vehid_chain_from_end %2){
+    switch(FEAT_TRAINS, SELF, sw_tokyu8090_panto_placer_main_1,position_in_vehid_chain_from_end %2){
         0: gfx_tokyu8090_mot_2;
         gfx_tokyu8090_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tokyu8090_panto_placer_rev,position_in_vehid_chain %2){
-        0: gfx_tokyu8090_mot_2_rev;
-        gfx_tokyu8090_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_tokyu8090_panto_placer_main_1,vehicle_is_reversed){
-        1: sw_tokyu8090_panto_placer_rev;
-        sw_tokyu8090_panto_placer;
-    }
   //8 car 2
-    switch(FEAT_TRAINS, SELF, sw_tokyu8090_1_panto_placer,position_in_vehid_chain_from_end %5){
+    switch(FEAT_TRAINS, SELF, sw_tokyu8090_panto_placer_main_2,position_in_vehid_chain_from_end %5){
         0: gfx_tokyu8090_mot_2;
         3: gfx_tokyu8090_mot_2;
         gfx_tokyu8090_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_tokyu8090_1_panto_placer_rev,position_in_vehid_chain %5){
-        0: gfx_tokyu8090_mot_2_rev;
-        3: gfx_tokyu8090_mot_2_rev;
-        gfx_tokyu8090_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_tokyu8090_panto_placer_main_2,vehicle_is_reversed){
-        1: sw_tokyu8090_1_panto_placer_rev;
-        sw_tokyu8090_1_panto_placer;
-    }
   //5 car
-    switch(FEAT_TRAINS, SELF, sw_tokyu8090_1_panto_placer_1,position_in_vehid_chain %2){
+    switch(FEAT_TRAINS, SELF, sw_tokyu8090_panto_placer_main_3,position_in_vehid_chain %2){
         0: sw_tokyu8090_mot_gfx;
         gfx_tokyu8090_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_tokyu8090_1_panto_placer_1_rev,position_in_vehid_chain_from_end %2){
-        0: sw_tokyu8090_mot_rev_gfx;
-        gfx_tokyu8090_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_tokyu8090_panto_placer_main_3,vehicle_is_reversed){
-        1: sw_tokyu8090_1_panto_placer_1_rev;
-        sw_tokyu8090_1_panto_placer_1;
     }
   //
   random_switch(FEAT_TRAINS, PARENT, sw_tokyu8090_panto_placer_random){
@@ -77,7 +52,7 @@
   sw_tokyu8090_panto_placer_random;
   }
   //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_tokyu8090_head_gfx_main,position_in_consist>0){
+    switch(FEAT_TRAINS, SELF, sw_tokyu8090_head_gfx_main, train_is_driving_backwards != vehicle_is_flipped){
       1: gfx_tokyu8090_end;
       gfx_tokyu8090_front;
     }
@@ -88,7 +63,7 @@
 //
 //*8090 Oimachi
   //front-end-fixer
-  switch(FEAT_TRAINS, SELF, sw_tokyu8090_2_head_gfx_main,position_in_consist>0){
+  switch(FEAT_TRAINS, SELF, sw_tokyu8090_2_head_gfx_main, train_is_driving_backwards != vehicle_is_flipped){
     1: gfx_tokyu8090_2_end;
     gfx_tokyu8090_2_front;
   }
@@ -116,8 +91,8 @@ switch(FEAT_TRAINS, SELF, sw_tokyu8090_lv_desc_main, cargo_subtype){
       return CB_RESULT_NO_TEXT;
     }
   //capacity-changer
-    switch(FEAT_TRAINS, SELF, sw_tokyu8090_capacity_main, vehicle_type_id == tokyu9000){
-      1: 136;
+    switch(FEAT_TRAINS, SELF, sw_tokyu8090_capacity_main, vehicle_type_id){
+      tokyu9000: 136;
       default: 144;
     }
   //power
