@@ -10,25 +10,19 @@
 
 //lv 1
   spriteset(gfx_tokyu_deha1_head, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu_deha1/tokyu_deha1.png"){ tmpl_std_v3(0, 0) }
-  TRAIN_CONSTRUCTOR_2(gfx_tokyu_deha1_front, gfx_tokyu_deha1_head,sw_tokyu_deha1_lights)
-  TRAIN_CONSTRUCTOR_2(gfx_tokyu_deha1_end, gfx_tokyu_deha1_head,sw_tokyu_deha1_lights)
-  
+  TRAIN_CONSTRUCTOR_2(sw_tokyu_deha1_head, gfx_tokyu_deha1_head,sw_tokyu_deha1_lights)
+
   spriteset(gfx_tokyu_deha1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/tokyu/tokyu_deha1/tokyu_deha1.png"){ tmpl_symm_v3(0, 25) }
 //
 //*livery 1
   //panto placer
-    switch(FEAT_TRAINS, SELF, sw_tokyu_deha1_panto_placer_main,position_in_vehid_chain %2){
-      1: gfx_tokyu_deha1_end;
+    switch(FEAT_TRAINS, SELF, sw_tokyu_deha1_panto_placer, position_in_vehid_chain %2){
+      0: gfx_tokyu_deha1_head;
       gfx_tokyu_deha1_wag;
     }
-  //end car fixer
-    switch(FEAT_TRAINS, SELF, sw_tokyu_deha1_end_fix, position_in_vehid_chain_from_end){
-      0:gfx_tokyu_deha1_end;
-      sw_tokyu_deha1_panto_placer_main;
-    }
-    switch(FEAT_TRAINS, SELF, sw_tokyu_deha1_lv,vehicle_type_id){
-      mu_car:sw_tokyu_deha1_end_fix;
-      gfx_tokyu_deha1_front;
+    switch(FEAT_TRAINS, SELF, sw_tokyu_deha1_lv, position_in_vehid_chain==0||position_in_vehid_chain_from_end==0){
+      1: sw_tokyu_deha1_head;
+      sw_tokyu_deha1_panto_placer;
     }
 //
 //post fixers
@@ -39,5 +33,9 @@
   switch(FEAT_TRAINS, SELF, sw_tokyu_deha1_power_main,vehicle_type_id){
     mu_car:sw_tokyu_deha1_car_power_main;
     90;
+  }
+  switch(FEAT_TRAINS, SELF, sw_tokyu_deha1_attach_main, vehicle_type_id){
+    mu_car:return string(STR_MU_SAME_CAR);
+    return CB_RESULT_NO_TEXT; 
   }
 //
