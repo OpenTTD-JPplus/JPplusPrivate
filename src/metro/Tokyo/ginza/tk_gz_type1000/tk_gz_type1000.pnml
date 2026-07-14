@@ -5,17 +5,22 @@ spriteset(tk_gz_type1000_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/
 spriteset(tk_gz_type1000_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/tk_gz_type1000/tk_gz_type1000.png"){ tmpl_std_v3(0, 25) }
 spriteset(tk_gz_type1000_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/tk_gz_type1000/tk_gz_type1000.png"){ tmpl_std_rev_v3(0, 50) }
 spriteset(tk_gz_type1000_1_front_s, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/tk_gz_type1000/tk_gz_type1000.png"){ tmpl_std_v3(0, 150) }
+spriteset(tk_gz_type1000_1_front_s_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/tk_gz_type1000/tk_gz_type1000.png"){ tmpl_std_rev_v3(0, 150) }
 
 spriteset(tk_gz_type1000_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/tk_gz_type1000/tk_gz_type1000.png"){ tmpl_std_v3(0, 75) }
 spriteset(tk_gz_type1000_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/tk_gz_type1000/tk_gz_type1000.png"){ tmpl_std_v3(0, 100) }
 spriteset(tk_gz_type1000_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/tk_gz_type1000/tk_gz_type1000.png"){ tmpl_std_rev_v3(0, 125) }
 spriteset(tk_gz_type1000_2_front_s, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/tk_gz_type1000/tk_gz_type1000.png"){ tmpl_std_v3(0, 175) }
+spriteset(tk_gz_type1000_2_front_s_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Tokyo/ginza/tk_gz_type1000/tk_gz_type1000.png"){ tmpl_std_v3(0, 175) }
 //lv stuff
   switch(FEAT_TRAINS, SELF, tk_gz_type1000_front, cargo_subtype){
     0:tk_gz_type1000_1_front;    1:tk_gz_type1000_2_front;
   }
   switch(FEAT_TRAINS, SELF, tk_gz_type1000_front_s, cargo_subtype){
     0:tk_gz_type1000_1_front_s;    1:tk_gz_type1000_2_front_s;
+  }
+  switch(FEAT_TRAINS, SELF, tk_gz_type1000_front_s_rev, cargo_subtype){
+    0:tk_gz_type1000_1_front_s_rev;    1:tk_gz_type1000_2_front_s_rev;
   }
   switch(FEAT_TRAINS, SELF, tk_gz_type1000_end, cargo_subtype){
     0:tk_gz_type1000_1_end;    1:tk_gz_type1000_2_end;
@@ -25,12 +30,16 @@ spriteset(tk_gz_type1000_2_front_s, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "sr
   }
 //
 //main
+switch(FEAT_TRAINS, PARENT, tk_gz_type1000_front_s_gfx, vehicle_is_reversed){
+    1: tk_gz_type1000_front_s_rev;
+    tk_gz_type1000_front_s;
+}
 switch(FEAT_TRAINS, SELF, sw_tk_gz_type1000_end_gfx,position_in_vehid_chain_from_end){
     0: tk_gz_type1000_end;
     tk_gz_type1000_wag;
 }
 switch(FEAT_TRAINS, SELF, sw_tk_gz_type1000_front_gfx, num_vehs_in_consist){
-  1:tk_gz_type1000_front_s;
+  1:tk_gz_type1000_front_s_gfx;
   tk_gz_type1000_front;
 }
 switch(FEAT_TRAINS, SELF, sw_tk_gz_type1000_lv,vehicle_type_id){

@@ -68,32 +68,24 @@ spriteset(os_ts_70series_3_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/me
     os_ts_70series_wag_timed;
   }
 
+  switch(FEAT_TRAINS, SELF, sw_os_ts_70series_head, train_is_driving_backwards != vehicle_is_flipped){
+    1: os_ts_70series_end;
+    os_ts_70series_front;
+  }
 //*main
   //panto placer
-    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_panto_placer,position_in_vehid_chain %3){
+    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_panto_placer_main_1,position_in_vehid_chain %3){
       1: os_ts_70series_mot;
       os_ts_70series_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_panto_placer_rev,position_in_vehid_chain_from_end %3){
-      1: os_ts_70series_mot;
-      os_ts_70series_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_os_ts_70series_panto_placer_main_1,vehicle_is_reversed){
-      1: sw_os_ts_70series_panto_placer;
-      sw_os_ts_70series_panto_placer_rev;
     }
     switch(FEAT_TRAINS, PARENT, sw_os_ts_70series_panto_placer_main,num_vehs_in_vehid_chain){
       0..4: os_ts_70series_wag;
       sw_os_ts_70series_panto_placer_main_1;
     }
   //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_os_ts_70series_head_gfx_main,position_in_consist>0){
-      1: os_ts_70series_end;
-      os_ts_70series_front;
-    }
     switch(FEAT_TRAINS, SELF, sw_os_ts_70series_lv,vehicle_type_id){
       mu_car:sw_os_ts_70series_panto_placer_main;
-      sw_os_ts_70series_head_gfx_main;
+      sw_os_ts_70series_head;
     }
 //liveries
   switch(FEAT_TRAINS, SELF, sw_os_ts_70series_lv_desc_main, cargo_subtype){

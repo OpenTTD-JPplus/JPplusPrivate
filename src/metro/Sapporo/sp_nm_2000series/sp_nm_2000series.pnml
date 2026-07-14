@@ -10,19 +10,11 @@ spriteset(sp_nm_2000series_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "sr
 TRAIN_CONSTRUCTOR_2(sp_nm_2000series_front, sp_nm_2000series_end, sp_nm_2000series_lights_front)
 //*main
   //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_sp_nm_2000series_wag_gfx_def,position_in_vehid_chain %2){
+    switch(FEAT_TRAINS, SELF, sw_sp_nm_2000series_wag_gfx_main,position_in_vehid_chain %2){
       0:sp_nm_2000series_wag_rev;
       sp_nm_2000series_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_sp_nm_2000series_wag_gfx_rev,position_in_vehid_chain_from_end %2){
-      0:sp_nm_2000series_wag;
-      sp_nm_2000series_wag_rev;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_sp_nm_2000series_wag_gfx_main,vehicle_is_reversed){
-      1:sw_sp_nm_2000series_wag_gfx_rev;
-      sw_sp_nm_2000series_wag_gfx_def;
-    }
-    switch(FEAT_TRAINS, SELF, sw_sp_nm_2000series_head_gfx_main,position_in_consist>0){
+    switch(FEAT_TRAINS, SELF, sw_sp_nm_2000series_head_gfx_main, train_is_driving_backwards != vehicle_is_flipped){
       1:sp_nm_2000series_end;
       sp_nm_2000series_front;
     }

@@ -99,32 +99,15 @@ spriteset(tk_nm_eidan9000_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/m
 //*main
   //panto-placers
     //var 1
-    switch(FEAT_TRAINS, SELF, sw_tk_nm_eidan9000_panto_placer_1,position_in_vehid_chain %5){
+    switch(FEAT_TRAINS, SELF, sw_tk_nm_eidan9000_panto_placer_main_1,position_in_vehid_chain %5){
       0: tk_nm_eidan9000_mot;
       2: tk_nm_eidan9000_mot;
       tk_nm_eidan9000_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_tk_nm_eidan9000_panto_placer_1_rev,position_in_vehid_chain_from_end %5){
-      0: tk_nm_eidan9000_mot;
-      2: tk_nm_eidan9000_mot;
-      tk_nm_eidan9000_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_tk_nm_eidan9000_panto_placer_main_1,vehicle_is_reversed){
-      1: sw_tk_nm_eidan9000_panto_placer_1_rev;
-      sw_tk_nm_eidan9000_panto_placer_1;
     }
     //var 2
-    switch(FEAT_TRAINS, SELF, sw_tk_nm_eidan9000_panto_placer_2,position_in_vehid_chain %3){
+    switch(FEAT_TRAINS, SELF, sw_tk_nm_eidan9000_panto_placer_main_2,position_in_vehid_chain %3){
       1: tk_nm_eidan9000_mot;
       tk_nm_eidan9000_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_tk_nm_eidan9000_panto_placer_2_rev,position_in_vehid_chain_from_end %3){
-      1: tk_nm_eidan9000_mot;
-      tk_nm_eidan9000_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_tk_nm_eidan9000_panto_placer_main_2,vehicle_is_reversed){
-      1: sw_tk_nm_eidan9000_panto_placer_2_rev;
-      sw_tk_nm_eidan9000_panto_placer_2;
     }
     switch(FEAT_TRAINS, SELF, sw_tk_nm_eidan9000_panto_placer_main,num_vehs_in_vehid_chain){
       0..1: sw_tk_nm_eidan9000_panto_placer_main_1;
@@ -132,7 +115,7 @@ spriteset(tk_nm_eidan9000_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/m
       sw_tk_nm_eidan9000_panto_placer_main_2;
     }
   //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_tk_nm_eidan9000_head_gfx_main,position_in_consist>0){
+    switch(FEAT_TRAINS, SELF, sw_tk_nm_eidan9000_head_gfx_main, train_is_driving_backwards != vehicle_is_flipped){
       1:tk_nm_eidan9000_end;
      tk_nm_eidan9000_front;
     }

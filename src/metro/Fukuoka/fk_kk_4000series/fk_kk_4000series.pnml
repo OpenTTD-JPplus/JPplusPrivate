@@ -5,54 +5,38 @@
 //base
 spriteset(fk_kk_4000series_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Fukuoka/fk_kk_4000series/fk_kk_4000series_lights.png"){ tmpl_std_v3(0, 0) }
 spriteset(fk_kk_4000series_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Fukuoka/fk_kk_4000series/fk_kk_4000series_lights.png"){ tmpl_std_v3(0, 25) }
+
+switch(FEAT_TRAINS, SELF, sw_fk_kk_4000series_lights, train_is_driving_backwards != vehicle_is_flipped){
+  1: fk_kk_4000series_lights_end;
+  fk_kk_4000series_lights_front;
+}
+
 spriteset(fk_kk_4000series_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Fukuoka/fk_kk_4000series/fk_kk_4000series_1.png"){ tmpl_std_v3(0, 0) }
 spriteset(fk_kk_4000series_wag_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/metro/Fukuoka/fk_kk_4000series/fk_kk_4000series_1.png"){ tmpl_symm_v3(0, 25) }
 //1
-  TRAIN_CONSTRUCTOR_3(fk_kk_4000series_front, fk_kk_4000series_head_base, fk_kk_4000series_lights_front, ac_single_1_1)
-  TRAIN_CONSTRUCTOR_3(fk_kk_4000series_end, fk_kk_4000series_head_base, fk_kk_4000series_lights_end, ac_single_1_1)
-  TRAIN_CONSTRUCTOR_3(fk_kk_4000series_mot, fk_kk_4000series_wag_base, ac_single_1,panto_arm_n)
-  TRAIN_CONSTRUCTOR_2(fk_kk_4000series_wag, fk_kk_4000series_wag_base, ac_single_1)
+  TRAIN_CONSTRUCTOR_3(fk_kk_4000series_head, fk_kk_4000series_head_base, sw_fk_kk_4000series_lights, ac_single_1_1)
+  TRAIN_CONSTRUCTOR_3(fk_kk_4000series_mot, fk_kk_4000series_wag_base, ac_single_1_1,panto_arm_n)
+  TRAIN_CONSTRUCTOR_2(fk_kk_4000series_wag, fk_kk_4000series_wag_base, ac_single_1_1)
 //
 
 //main
   //panto placer
-      switch(FEAT_TRAINS, SELF, sw_fk_kk_4000series_panto_placer_1,position_in_vehid_chain %3){
+      switch(FEAT_TRAINS, SELF, sw_fk_kk_4000series_panto_placer_main_1,position_in_vehid_chain %3){
         0: fk_kk_4000series_mot;
         fk_kk_4000series_wag;
       }
-      switch(FEAT_TRAINS, SELF, sw_fk_kk_4000series_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
-        0: fk_kk_4000series_mot;
-        fk_kk_4000series_wag;
-      }
-      switch(FEAT_TRAINS, PARENT, sw_fk_kk_4000series_panto_placer_main_1,vehicle_is_reversed){
-        1: sw_fk_kk_4000series_panto_placer_1;
-        sw_fk_kk_4000series_panto_placer_1_rev;
-      }
-    //
-      switch(FEAT_TRAINS, SELF, sw_fk_kk_4000series_panto_placer_2,position_in_vehid_chain %3){
+      switch(FEAT_TRAINS, SELF, sw_fk_kk_4000series_panto_placer_main_2,position_in_vehid_chain %3){
         1: fk_kk_4000series_mot;
         fk_kk_4000series_wag;
-      }
-      switch(FEAT_TRAINS, SELF, sw_fk_kk_4000series_panto_placer_2_rev,position_in_vehid_chain_from_end %3){
-        1: fk_kk_4000series_mot;
-        fk_kk_4000series_wag;
-      }
-      switch(FEAT_TRAINS, PARENT, sw_fk_kk_4000series_panto_placer_main_2,vehicle_is_reversed){
-        1: sw_fk_kk_4000series_panto_placer_2_rev;
-        sw_fk_kk_4000series_panto_placer_2;
       }
     switch(FEAT_TRAINS, SELF, sw_fk_kk_4000series_panto_placer_main,num_vehs_in_vehid_chain){
       3: sw_fk_kk_4000series_panto_placer_main_2;
       sw_fk_kk_4000series_panto_placer_main_1;
     }
   //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_fk_kk_4000series_head_gfx_main,position_in_consist>0){
-      1: fk_kk_4000series_end;
-      fk_kk_4000series_front;
-    }
     switch(FEAT_TRAINS, SELF, sw_fk_kk_4000series_lv,vehicle_type_id){
       mu_car:sw_fk_kk_4000series_panto_placer_main;
-      sw_fk_kk_4000series_head_gfx_main;
+      fk_kk_4000series_head;
     }
 //
 //post fixers

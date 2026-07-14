@@ -38,6 +38,12 @@ GRAPHIC_STACK_2(fk_nk_3000series_purchase, fk_nk_3000series_purchase_c1, fk_nk_3
     1:fk_nk_3000series_2_end;
     fk_nk_3000series_1_end;
   }
+
+  switch(FEAT_TRAINS, SELF, sw_fk_nk_3000series_head, train_is_driving_backwards != vehicle_is_flipped){
+    1: fk_nk_3000series_end;
+    fk_nk_3000series_front;
+  }
+
   switch(FEAT_TRAINS, SELF, fk_nk_3000series_wag, cargo_subtype==2||(cargo_subtype==0&&current_year>2020)){
     1:fk_nk_3000series_2_wag;
     fk_nk_3000series_1_wag;
@@ -49,30 +55,18 @@ GRAPHIC_STACK_2(fk_nk_3000series_purchase, fk_nk_3000series_purchase_c1, fk_nk_3
 //
 //*main
   //panto placer
-    switch(FEAT_TRAINS, SELF, sw_fk_nk_3000series_panto_placer_1,position_in_vehid_chain %3){
+    switch(FEAT_TRAINS, SELF, sw_fk_nk_3000series_panto_placer_main_1,position_in_vehid_chain %3){
         1: fk_nk_3000series_mot;
         fk_nk_3000series_wag;
-    }
-    switch(FEAT_TRAINS, SELF, sw_fk_nk_3000series_panto_placer_1_rev,position_in_vehid_chain_from_end %3){
-        1: fk_nk_3000series_mot;
-        fk_nk_3000series_wag;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_fk_nk_3000series_panto_placer_main_1,vehicle_is_reversed){
-        1: sw_fk_nk_3000series_panto_placer_1_rev;
-        sw_fk_nk_3000series_panto_placer_1;
     }
     switch(FEAT_TRAINS, SELF, sw_fk_nk_3000series_panto_placer_main,num_vehs_in_vehid_chain){
         0..3: fk_nk_3000series_wag;
         sw_fk_nk_3000series_panto_placer_main_1;
     }
   //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_fk_nk_3000series_head_gfx_main,position_in_consist>0){
-      1: fk_nk_3000series_end;
-      fk_nk_3000series_front;
-    }
     switch(FEAT_TRAINS, SELF, sw_fk_nk_3000series_lv,vehicle_type_id){
       mu_car:sw_fk_nk_3000series_panto_placer_main;
-      sw_fk_nk_3000series_head_gfx_main;
+      sw_fk_nk_3000series_head;
     }
 //
 //lv desc stuff

@@ -32,47 +32,32 @@ spriteset(os_hk_66series_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/me
     1:os_hk_66series_2_wag;
     os_hk_66series_1_wag;
   }
+
+  switch(FEAT_TRAINS, SELF, sw_os_hk_66series_head, train_is_driving_backwards != vehicle_is_flipped){
+    1: os_hk_66series_end;
+    os_hk_66series_front;
+  }
 //
 //*livery 1
   //panto placer
     //var 1
-      switch(FEAT_TRAINS, SELF, sw_os_hk_66series_panto_placer_1,position_in_vehid_chain %5){
+      switch(FEAT_TRAINS, SELF, sw_os_hk_66series_panto_placer_1_main,position_in_vehid_chain %5){
           0: os_hk_66series_mot;
           os_hk_66series_wag;
-      }
-      switch(FEAT_TRAINS, SELF, sw_os_hk_66series_panto_placer_1_rev,position_in_vehid_chain_from_end %5){
-          0: os_hk_66series_mot;
-          os_hk_66series_wag;
-      }
-      switch(FEAT_TRAINS, PARENT, sw_os_hk_66series_panto_placer_1_main,vehicle_is_reversed){
-          1: sw_os_hk_66series_panto_placer_1_rev;
-          sw_os_hk_66series_panto_placer_1;
       }
     //var 2
-      switch(FEAT_TRAINS, SELF, sw_os_hk_66series_panto_placer_2,position_in_vehid_chain %3){
+      switch(FEAT_TRAINS, SELF, sw_os_hk_66series_panto_placer_2_main,position_in_vehid_chain %3){
           0: os_hk_66series_mot;
           os_hk_66series_wag;
-      }
-      switch(FEAT_TRAINS, SELF, sw_os_hk_66series_panto_placer_2_rev,position_in_vehid_chain_from_end %3){
-          0: os_hk_66series_mot;
-          os_hk_66series_wag;
-      }
-      switch(FEAT_TRAINS, PARENT, sw_os_hk_66series_panto_placer_2_main,vehicle_is_reversed){
-          1: sw_os_hk_66series_panto_placer_2_rev;
-          sw_os_hk_66series_panto_placer_2;
       }
     switch(FEAT_TRAINS,SELF,sw_os_hk_66series_panto_placer_main,num_vehs_in_vehid_chain){
       0..5:sw_os_hk_66series_panto_placer_2_main;
       sw_os_hk_66series_panto_placer_1_main;
     }
   //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_os_hk_66series_head_gfx_main,position_in_consist>0){
-      1: os_hk_66series_end;
-      os_hk_66series_front;
-    }
     switch(FEAT_TRAINS, SELF, sw_os_hk_66series_lv,vehicle_type_id){
       mu_car:sw_os_hk_66series_panto_placer_main;
-      sw_os_hk_66series_head_gfx_main;
+      sw_os_hk_66series_head;
     }
 //
 //lv selector
