@@ -1,289 +1,110 @@
 //*purchase
-  spriteset(sotetsu10000_1_front_base_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_1.png"){ tmpl_purchase_1c(0, 0) }
-  spriteset(sotetsu10000_1_car_base_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_1.png"){ tmpl_purchase_2c(0, 25) }
-  GRAPHIC_STACK_7(sotetsu10000_purchase_1, logo_sotetsu, roof_gray_med_h1_c1, sotetsu10000_1_front_base_c1, ac_long_toshiba_c1, roof_gray_med_c2, sotetsu10000_1_car_base_c2, ac_long_toshiba_c2)
+  spriteset(sotetsu10000_1_front_base_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(sotetsu10000_1_car_base_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  GRAPHIC_STACK_6(sotetsu10000_purchase_1, roof_gray_med_c1, sotetsu10000_1_front_base_c1, ac_long_toshiba_c1, roof_gray_med_c2, sotetsu10000_1_car_base_c2, ac_long_toshiba_c2)
   
-	spriteset(sotetsu10000_2_front_base_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_2.png"){ tmpl_purchase_1c(0, 0) }
-  spriteset(sotetsu10000_2_car_base_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_2.png"){ tmpl_purchase_2c(0, 25) }
-  GRAPHIC_STACK_7(sotetsu10000_purchase_2, logo_sotetsu, roof_gray_med_h1_c1, sotetsu10000_2_front_base_c1, ac_long_toshiba_c1, roof_gray_med_c2, sotetsu10000_2_car_base_c2, ac_long_toshiba_c2)
+	spriteset(sotetsu10000_2_front_base_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_2.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(sotetsu10000_2_car_base_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_2.png"){ tmpl_purchase_2c_dual(0, 25) }
+  GRAPHIC_STACK_6(sotetsu10000_purchase_2, roof_gray_med_c1, sotetsu10000_2_front_base_c1, ac_long_toshiba_c1, roof_gray_med_c2, sotetsu10000_2_car_base_c2, ac_long_toshiba_c2)
 	
 	switch(FEAT_TRAINS, PARENT, sotetsu10000_purchase, current_year){
 		0..2006: sotetsu10000_purchase_1;
 		sotetsu10000_purchase_2;
 	}
 //*lights
-spriteset(sotetsu10000_lights_rear, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_lights.png"){ tmpl_high_skirt(0, 0) }
-spriteset(sotetsu10000_lights_back, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_lights.png"){ tmpl_end_v2(0, 25) }
-spriteset(sotetsu11000_lights_rear, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu11000_lights.png"){ tmpl_high_skirt(0, 0) }
-spriteset(sotetsu11000_lights_back, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu11000_lights.png"){ tmpl_end_v2(0, 25) }
-
+spriteset(sotetsu10000_lights_rear, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(sotetsu10000_lights_back, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_lights.png"){ tmpl_std_v3(0, 25) }
+spriteset(sotetsu11000_lights_rear, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu11000_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(sotetsu11000_lights_back, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,	"gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu11000_lights.png"){ tmpl_std_v3(0, 25) }
+switch(FEAT_TRAINS, SELF, sw_sotetsu10000_lights, train_is_driving_backwards != vehicle_is_flipped){
+    1: sotetsu10000_lights_back;
+    sotetsu10000_lights_rear;
+  }
+switch(FEAT_TRAINS, SELF, sw_sotetsu11000_lights, train_is_driving_backwards != vehicle_is_flipped){
+    1: sotetsu11000_lights_back;
+    sotetsu11000_lights_rear;
+  }
 //*livery 1
-spriteset(sotetsu10000_1_front_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_1.png"){ tmpl_std(0, 0) }
-spriteset(sotetsu10000_1_end_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_1.png"){ tmpl_std_rev(0, 0) }
-spriteset(sotetsu10000_1_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_1.png"){ tmpl_symm(0, 25) }
+spriteset(sotetsu10000_1_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(sotetsu10000_1_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_1.png"){ tmpl_symm_v3(0, 25) }
 
-TRAIN_CONSTRUCTOR_4(sotetsu10000_1_front, sotetsu10000_1_front_base, roof_gray_med_h1, sotetsu10000_lights_rear, ac_long_toshiba)
-TRAIN_CONSTRUCTOR_4(sotetsu10000_1_end, sotetsu10000_1_end_base, roof_gray_med_h1_rev, sotetsu10000_lights_back, ac_long_toshiba)
+TRAIN_CONSTRUCTOR_4(sotetsu10000_1_head, sotetsu10000_1_head_base, roof_gray_med_h1, sw_sotetsu10000_lights, ac_long_toshiba)
 TRAIN_CONSTRUCTOR_3(sotetsu10000_1_wag, sotetsu10000_1_car_base, roof_gray_med, ac_long_toshiba)
 TRAIN_CONSTRUCTOR_4(sotetsu10000_1_mot, sotetsu10000_1_car_base, roof_gray_med, ac_long_toshiba, panto_arm_n_single)
 TRAIN_CONSTRUCTOR_4(sotetsu10000_1_mot_rev, sotetsu10000_1_car_base, roof_gray_med, ac_long_toshiba, panto_arm_n_single_rev)
 //*livery 2
-spriteset(sotetsu10000_2_front_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_2.png"){ tmpl_std(0, 0) }
-spriteset(sotetsu10000_2_end_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_2.png"){ tmpl_std_rev(0, 0) }
-spriteset(sotetsu10000_2_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_2.png"){ tmpl_symm(0, 25) }
+spriteset(sotetsu10000_2_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_2.png"){ tmpl_std_v3(0, 0) }
+spriteset(sotetsu10000_2_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_2.png"){ tmpl_symm_v3(0, 25) }
 
-TRAIN_CONSTRUCTOR_4(sotetsu10000_2_front, sotetsu10000_2_front_base, roof_gray_med_h1, sotetsu10000_lights_rear, ac_long_toshiba)
-TRAIN_CONSTRUCTOR_4(sotetsu10000_2_end, sotetsu10000_2_end_base, roof_gray_med_h1_rev, sotetsu10000_lights_back, ac_long_toshiba)
+TRAIN_CONSTRUCTOR_4(sotetsu10000_2_head, sotetsu10000_2_head_base, roof_gray_med_h1, sw_sotetsu10000_lights, ac_long_toshiba)
 TRAIN_CONSTRUCTOR_3(sotetsu10000_2_wag, sotetsu10000_2_car_base, roof_gray_med, ac_long_toshiba)
 TRAIN_CONSTRUCTOR_4(sotetsu10000_2_mot, sotetsu10000_2_car_base, roof_gray_med, ac_long_toshiba, panto_arm_n_single)
 TRAIN_CONSTRUCTOR_4(sotetsu10000_2_mot_rev, sotetsu10000_2_car_base, roof_gray_med, ac_long_toshiba, panto_arm_n_single_rev)
 //*livery 3
-spriteset(sotetsu10000_3_front_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_3.png"){ tmpl_std(0, 0) }
-spriteset(sotetsu10000_3_end_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_3.png"){ tmpl_std_rev(0, 0) }
+spriteset(sotetsu10000_3_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_3.png"){ tmpl_std_v3(0, 0) }
 
-TRAIN_CONSTRUCTOR_4(sotetsu10000_3_front, sotetsu10000_3_front_base, roof_gray_med_h1, sotetsu11000_lights_rear, ac_long_toshiba)
-TRAIN_CONSTRUCTOR_4(sotetsu10000_3_end, sotetsu10000_3_end_base, roof_gray_med_h1_rev, sotetsu11000_lights_back, ac_long_toshiba)
+TRAIN_CONSTRUCTOR_4(sotetsu10000_3_head, sotetsu10000_3_head_base, roof_gray_med_h1, sw_sotetsu11000_lights, ac_long_toshiba)
 //*livery 4
-spriteset(sotetsu10000_4_front_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_4.png"){ tmpl_std(0, 0) }
-spriteset(sotetsu10000_4_end_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_4.png"){ tmpl_std_rev(0, 0) }
-spriteset(sotetsu10000_4_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_4.png"){ tmpl_symm(0, 25) }
+spriteset(sotetsu10000_4_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_4.png"){ tmpl_std_v3(0, 0) }
+spriteset(sotetsu10000_4_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "gfx/private/Kanto/sotetsu/sotetsu10000/sotetsu10000_4.png"){ tmpl_symm_v3(0, 25) }
 
-TRAIN_CONSTRUCTOR_4(sotetsu10000_4_front, sotetsu10000_4_front_base, roof_gray_med_h1, sotetsu11000_lights_rear, ac_long_toshiba)
-TRAIN_CONSTRUCTOR_4(sotetsu10000_4_end, sotetsu10000_4_end_base, roof_gray_med_h1_rev, sotetsu11000_lights_back, ac_long_toshiba)
+TRAIN_CONSTRUCTOR_4(sotetsu10000_4_head, sotetsu10000_4_head_base, roof_gray_med_h1, sw_sotetsu11000_lights, ac_long_toshiba)
 TRAIN_CONSTRUCTOR_3(sotetsu10000_4_wag, sotetsu10000_4_car_base, roof_gray_med, ac_long_toshiba)
 TRAIN_CONSTRUCTOR_4(sotetsu10000_4_mot, sotetsu10000_4_car_base, roof_gray_med, ac_long_toshiba, panto_arm_n_single)
 TRAIN_CONSTRUCTOR_4(sotetsu10000_4_mot_rev, sotetsu10000_4_car_base, roof_gray_med, ac_long_toshiba, panto_arm_n_single_rev)
 //
+  switch(FEAT_TRAINS, SELF, sotetsu10000_head_timed, 1*(current_year<2007&&build_year<2020)+2*(current_year>2006&&build_year<2020)+3*(current_year<2021&&build_year>2019)+4*(current_year>2020&&build_year>2019)){
+    1:sotetsu10000_1_head;    2:sotetsu10000_2_head;    3:sotetsu10000_3_head;    4:sotetsu10000_4_head;
+  }
+  switch(FEAT_TRAINS, SELF, sotetsu10000_wag_timed,  1*(current_year<2007&&build_year<2020)+2*(current_year>2006&&build_year<2020)+3*(current_year<2021&&build_year>2019)+4*(current_year>2020&&build_year>2019)){
+    1:sotetsu10000_1_wag;    2..3:sotetsu10000_2_wag;    4:sotetsu10000_4_wag;
+  }
+  switch(FEAT_TRAINS, SELF, sotetsu10000_mot_timed,  1*(current_year<2007&&build_year<2020)+2*(current_year>2006&&build_year<2020)+3*(current_year<2021&&build_year>2019)+4*(current_year>2020&&build_year>2019)){
+    1:sotetsu10000_1_mot;    2..3:sotetsu10000_2_mot;    4:sotetsu10000_4_mot;
+  }
+
+  switch(FEAT_TRAINS, SELF, sotetsu10000_head, cargo_subtype){
+    0:sotetsu10000_head_timed;    1:sotetsu10000_1_head;    2:sotetsu10000_2_head;    3:sotetsu10000_3_head;    4:sotetsu10000_4_head;
+  }
+  switch(FEAT_TRAINS, SELF, sotetsu10000_wag, cargo_subtype){
+    0:sotetsu10000_wag_timed;    1:sotetsu10000_1_wag;    2..3:sotetsu10000_2_wag;    4:sotetsu10000_4_wag;
+  }
+  switch(FEAT_TRAINS, SELF, sotetsu10000_mot_rev, cargo_subtype){
+    0:sotetsu10000_mot_timed;    1:sotetsu10000_1_mot;    2..3:sotetsu10000_2_mot;    4:sotetsu10000_4_mot;
+  }
+//
 //*livery 1
 	//panto placer
 		//1 10
-			switch(FEAT_TRAINS, SELF, sw_sotetsu10000_1_panto_placer_1,position_in_vehid_chain %6){
-				1: sotetsu10000_1_mot_rev;
-				3: sotetsu10000_1_mot_rev;
-				sotetsu10000_1_wag;
-			}
-			switch(FEAT_TRAINS, SELF, sw_sotetsu10000_1_panto_placer_1_rev,position_in_vehid_chain_from_end %6 -1){
-				1: sotetsu10000_1_mot;
-				3: sotetsu10000_1_mot;
-				sotetsu10000_1_wag;
-			}
-			switch(FEAT_TRAINS, PARENT, sw_sotetsu10000_1_panto_placer_main_1,vehicle_is_reversed){
-				1: sw_sotetsu10000_1_panto_placer_1_rev;
-				sw_sotetsu10000_1_panto_placer_1;
+			switch(FEAT_TRAINS, SELF, sw_sotetsu10000_panto_placer_main_1,position_in_vehid_chain %6){
+				1: sotetsu10000_mot_rev;
+				3: sotetsu10000_mot_rev;
+				sotetsu10000_wag;
 			}
 		//2 8
-			switch(FEAT_TRAINS, SELF, sw_sotetsu10000_1_panto_placer_2,position_in_vehid_chain %8){
-				1: sotetsu10000_1_mot_rev;
-				5: sotetsu10000_1_mot_rev;
-				sotetsu10000_1_wag;
-			}
-			switch(FEAT_TRAINS, SELF, sw_sotetsu10000_1_panto_placer_2_rev,position_in_vehid_chain_from_end %8-1){
-				1: sotetsu10000_1_mot;
-				5: sotetsu10000_1_mot;
-				sotetsu10000_1_wag;
-			}
-			switch(FEAT_TRAINS, PARENT, sw_sotetsu10000_1_panto_placer_main_2,vehicle_is_reversed){
-				1: sw_sotetsu10000_1_panto_placer_2_rev;
-				sw_sotetsu10000_1_panto_placer_2;
+			switch(FEAT_TRAINS, SELF, sw_sotetsu10000_panto_placer_main_2,position_in_vehid_chain %8){
+				1: sotetsu10000_mot_rev;
+				5: sotetsu10000_mot_rev;
+				sotetsu10000_wag;
 			}
 		//3 3-5
-			switch(FEAT_TRAINS, SELF, sw_sotetsu10000_1_panto_placer_3,position_in_vehid_chain %5){
-				0: sotetsu10000_1_mot_rev;
-				2: sotetsu10000_1_mot_rev;
-				sotetsu10000_1_wag;
-			}
-			switch(FEAT_TRAINS, SELF, sw_sotetsu10000_1_panto_placer_3_rev,position_in_vehid_chain_from_end %5-1){
-				0: sotetsu10000_1_mot;
-				2: sotetsu10000_1_mot;
-				sotetsu10000_1_wag;
-			}
-			switch(FEAT_TRAINS, PARENT, sw_sotetsu10000_1_panto_placer_main_3,vehicle_is_reversed){
-				1: sw_sotetsu10000_1_panto_placer_3_rev;
-				sw_sotetsu10000_1_panto_placer_3;
+			switch(FEAT_TRAINS, SELF, sw_sotetsu10000_panto_placer_main_3,position_in_vehid_chain %5){
+				0: sotetsu10000_mot_rev;
+				2: sotetsu10000_mot_rev;
+				sotetsu10000_wag;
 			}
 	//panto controller
-		switch(FEAT_TRAINS, SELF, sw_sotetsu10000_1_panto_placer_main,num_vehs_in_vehid_chain+1){
-			0..5:sw_sotetsu10000_1_panto_placer_main_3;
-			8..9:sw_sotetsu10000_1_panto_placer_main_2;
-			sw_sotetsu10000_1_panto_placer_main_1;
+		switch(FEAT_TRAINS, SELF, sw_sotetsu10000_panto_placer_main,num_vehs_in_vehid_chain){
+			0..3:sw_sotetsu10000_panto_placer_main_3;
+			6..7:sw_sotetsu10000_panto_placer_main_2;
+			sw_sotetsu10000_panto_placer_main_1;
 		}
 	//front-end-fixer
-		switch(FEAT_TRAINS, SELF, sw_sotetsu10000_1_end_gfx_main,position_in_vehid_chain_from_end){
-			0: sotetsu10000_1_end;
-			default: sw_sotetsu10000_1_panto_placer_main;
+		switch(FEAT_TRAINS, SELF, sw_sotetsu10000_lv,vehicle_type_id){
+			mu_car:sw_sotetsu10000_panto_placer_main;
+			sotetsu10000_head;
 		}
-		switch(FEAT_TRAINS, SELF, sw_sotetsu10000_1_front_gfx_main,position_in_vehid_chain_from_end){
-			0: sotetsu10000_1_front;
-			default: sw_sotetsu10000_1_panto_placer_main;
-		}
-		switch(FEAT_TRAINS, SELF, sw_sotetsu10000_livery_1,vehicle_type_id){
-			100..102:sw_sotetsu10000_1_end_gfx_main;
-			sw_sotetsu10000_1_front_gfx_main;
-		}
-//*livery 2
-	//panto placer
-		//1 10
-			switch(FEAT_TRAINS, SELF, sw_sotetsu10000_2_panto_placer_1,position_in_vehid_chain %6){
-				1: sotetsu10000_2_mot_rev;
-				3: sotetsu10000_2_mot_rev;
-				sotetsu10000_2_wag;
-			}
-			switch(FEAT_TRAINS, SELF, sw_sotetsu10000_2_panto_placer_1_rev,position_in_vehid_chain_from_end %6 -1){
-				1: sotetsu10000_2_mot;
-				3: sotetsu10000_2_mot;
-				sotetsu10000_2_wag;
-			}
-			switch(FEAT_TRAINS, PARENT, sw_sotetsu10000_2_panto_placer_main_1,vehicle_is_reversed){
-				1: sw_sotetsu10000_2_panto_placer_1_rev;
-				sw_sotetsu10000_2_panto_placer_1;
-			}
-		//2 8
-			switch(FEAT_TRAINS, SELF, sw_sotetsu10000_2_panto_placer_2,position_in_vehid_chain %8){
-				1: sotetsu10000_2_mot_rev;
-				5: sotetsu10000_2_mot_rev;
-				sotetsu10000_2_wag;
-			}
-			switch(FEAT_TRAINS, SELF, sw_sotetsu10000_2_panto_placer_2_rev,position_in_vehid_chain_from_end %8-1){
-				1: sotetsu10000_2_mot;
-				5: sotetsu10000_2_mot;
-				sotetsu10000_2_wag;
-			}
-			switch(FEAT_TRAINS, PARENT, sw_sotetsu10000_2_panto_placer_main_2,vehicle_is_reversed){
-				1: sw_sotetsu10000_2_panto_placer_2_rev;
-				sw_sotetsu10000_2_panto_placer_2;
-			}
-		//3 3-5
-			switch(FEAT_TRAINS, SELF, sw_sotetsu10000_2_panto_placer_3,position_in_vehid_chain %5){
-				0: sotetsu10000_2_mot_rev;
-				2: sotetsu10000_2_mot_rev;
-				sotetsu10000_2_wag;
-			}
-			switch(FEAT_TRAINS, SELF, sw_sotetsu10000_2_panto_placer_3_rev,position_in_vehid_chain_from_end %5-1){
-				0: sotetsu10000_2_mot;
-				2: sotetsu10000_2_mot;
-				sotetsu10000_2_wag;
-			}
-			switch(FEAT_TRAINS, PARENT, sw_sotetsu10000_2_panto_placer_main_3,vehicle_is_reversed){
-				1: sw_sotetsu10000_2_panto_placer_3_rev;
-				sw_sotetsu10000_2_panto_placer_3;
-			}
-	//panto controller
-		switch(FEAT_TRAINS, SELF, sw_sotetsu10000_2_panto_placer_main,num_vehs_in_vehid_chain+1){
-			0..5:sw_sotetsu10000_2_panto_placer_main_3;
-			8..9:sw_sotetsu10000_2_panto_placer_main_2;
-			sw_sotetsu10000_2_panto_placer_main_1;
-		}
-	//front-end-fixer
-		switch(FEAT_TRAINS, SELF, sw_sotetsu10000_2_end_gfx_main,position_in_vehid_chain_from_end){
-			0: sotetsu10000_2_end;
-			default: sw_sotetsu10000_2_panto_placer_main;
-		}
-		switch(FEAT_TRAINS, SELF, sw_sotetsu10000_2_front_gfx_main,position_in_vehid_chain_from_end){
-			0: sotetsu10000_2_front;
-			default: sw_sotetsu10000_2_panto_placer_main;
-		}
-		switch(FEAT_TRAINS, SELF, sw_sotetsu10000_livery_2,vehicle_type_id){
-			100..102:sw_sotetsu10000_2_end_gfx_main;
-			sw_sotetsu10000_2_front_gfx_main;
-		}
-//*livery 3
-	//front-end-fixer
-		switch(FEAT_TRAINS, SELF, sw_sotetsu10000_3_end_gfx_main,position_in_vehid_chain_from_end){
-			0: sotetsu10000_3_end;
-			default: sw_sotetsu10000_2_panto_placer_main;
-		}
-		switch(FEAT_TRAINS, SELF, sw_sotetsu10000_3_front_gfx_main,position_in_vehid_chain_from_end){
-			0: sotetsu10000_3_front;
-			default: sw_sotetsu10000_2_panto_placer_main;
-		}
-		switch(FEAT_TRAINS, SELF, sw_sotetsu10000_livery_3,vehicle_type_id){
-			100..102:sw_sotetsu10000_3_end_gfx_main;
-			sw_sotetsu10000_3_front_gfx_main;
-		}
-//*livery 4
-	//panto placer
-		//1 10
-			switch(FEAT_TRAINS, SELF, sw_sotetsu10000_4_panto_placer_1,position_in_vehid_chain %6){
-				1: sotetsu10000_4_mot_rev;
-				3: sotetsu10000_4_mot_rev;
-				sotetsu10000_4_wag;
-			}
-			switch(FEAT_TRAINS, SELF, sw_sotetsu10000_4_panto_placer_1_rev,position_in_vehid_chain_from_end %6 -1){
-				1: sotetsu10000_4_mot;
-				3: sotetsu10000_4_mot;
-				sotetsu10000_4_wag;
-			}
-			switch(FEAT_TRAINS, PARENT, sw_sotetsu10000_4_panto_placer_main_1,vehicle_is_reversed){
-				1: sw_sotetsu10000_4_panto_placer_1_rev;
-				sw_sotetsu10000_4_panto_placer_1;
-			}
-		//2 8
-			switch(FEAT_TRAINS, SELF, sw_sotetsu10000_4_panto_placer_2,position_in_vehid_chain %8){
-				1: sotetsu10000_4_mot_rev;
-				5: sotetsu10000_4_mot_rev;
-				sotetsu10000_4_wag;
-			}
-			switch(FEAT_TRAINS, SELF, sw_sotetsu10000_4_panto_placer_2_rev,position_in_vehid_chain_from_end %8 -1){
-				1: sotetsu10000_4_mot;
-				5: sotetsu10000_4_mot;
-				sotetsu10000_4_wag;
-			}
-			switch(FEAT_TRAINS, PARENT, sw_sotetsu10000_4_panto_placer_main_2,vehicle_is_reversed){
-				1: sw_sotetsu10000_4_panto_placer_2_rev;
-				sw_sotetsu10000_4_panto_placer_2;
-			}
-		//3 3-5
-			switch(FEAT_TRAINS, SELF, sw_sotetsu10000_4_panto_placer_3,position_in_vehid_chain %5){
-				0: sotetsu10000_4_mot_rev;
-				2: sotetsu10000_4_mot_rev;
-				sotetsu10000_4_wag;
-			}
-			switch(FEAT_TRAINS, SELF, sw_sotetsu10000_4_panto_placer_3_rev,position_in_vehid_chain_from_end %5-1){
-				0: sotetsu10000_4_mot;
-				2: sotetsu10000_4_mot;
-				sotetsu10000_4_wag;
-			}
-			switch(FEAT_TRAINS, PARENT, sw_sotetsu10000_4_panto_placer_main_3,vehicle_is_reversed){
-				1: sw_sotetsu10000_4_panto_placer_3_rev;
-				sw_sotetsu10000_4_panto_placer_3;
-			}
-	//panto controller
-		switch(FEAT_TRAINS, SELF, sw_sotetsu10000_4_panto_placer_main,num_vehs_in_vehid_chain+1){
-			0..5:sw_sotetsu10000_4_panto_placer_main_3;
-			8..9:sw_sotetsu10000_4_panto_placer_main_2;
-			sw_sotetsu10000_4_panto_placer_main_1;
-		}
-	//front-end-fixer
-		switch(FEAT_TRAINS, SELF, sw_sotetsu10000_4_end_gfx_main,position_in_vehid_chain_from_end){
-			0: sotetsu10000_4_end;
-			default: sw_sotetsu10000_4_panto_placer_main;
-		}
-		switch(FEAT_TRAINS, SELF, sw_sotetsu10000_4_front_gfx_main,position_in_vehid_chain_from_end){
-			0: sotetsu10000_4_front;
-			default: sw_sotetsu10000_4_panto_placer_main;
-		}
-		switch(FEAT_TRAINS, SELF, sw_sotetsu10000_livery_4,vehicle_type_id){
-			100..102:sw_sotetsu10000_4_end_gfx_main;
-			sw_sotetsu10000_4_front_gfx_main;
-		}
-//
 //*livery logic
-	random_switch(FEAT_TRAINS, PARENT, sw_sotetsu10000_livery_0_1){
-		2:sw_sotetsu10000_livery_3;
-		1:sw_sotetsu10000_livery_4;
-	}
-	switch(FEAT_TRAINS, PARENT, sw_sotetsu10000_livery_0, current_year){
-		0..2006: sw_sotetsu10000_livery_1;
-		2007..2018:sw_sotetsu10000_livery_2;
-		sw_sotetsu10000_livery_0_1;
-	}
-	switch(FEAT_TRAINS, SELF, sw_sotetsu10000_lv, cargo_subtype){
-		0:sw_sotetsu10000_livery_0;
-		1:sw_sotetsu10000_livery_1;
-		2:sw_sotetsu10000_livery_2;
-		3:sw_sotetsu10000_livery_3;
-		4:sw_sotetsu10000_livery_4;
-	}
 	switch(FEAT_TRAINS, SELF, sw_sotetsu10000_lv_desc, cargo_subtype){
 		0:string(LV_RANDOM);
 		1:string(LV_DATED,string(LV_OLD),2002);
@@ -294,17 +115,9 @@ TRAIN_CONSTRUCTOR_4(sotetsu10000_4_mot_rev, sotetsu10000_4_car_base, roof_gray_m
 //
 //*post fixers
 	//capacity-changer
-		switch(FEAT_TRAINS, SELF, sw_sotetsu10000_capacity,position_in_vehid_chain_from_end){
-			0: 141;
-			default: 160;
-		}
-		switch(FEAT_TRAINS, SELF, sw_sotetsu10000_capacity_1,position_in_vehid_chain){
-			0: 141;
-			default: sw_sotetsu10000_capacity;
-		}
 		switch(FEAT_TRAINS, SELF, sw_sotetsu10000_capacity_main,vehicle_type_id){
-			100..102:sw_sotetsu10000_capacity;
-			sw_sotetsu10000_capacity_1;
+			mu_car:141;
+			160;
 		}
 	//power fix
 		switch(FEAT_TRAINS, SELF, sw_sotetsu10000_power_main,position_in_vehid_chain_from_end %10){
@@ -330,6 +143,8 @@ item(FEAT_TRAINS, sotetsu10000) {
 		speed: 120 km/h;
 		track_type: TR_1067_DC;
 		weight: 28 ton;
+    dual_headed:1;
+    badges: ["company/sotetsu"];
 	}
 	graphics {
 		additional_text:
@@ -344,11 +159,12 @@ item(FEAT_TRAINS, sotetsu10000) {
 		purchase: sotetsu10000_purchase;
 		// can_attach_wagon: sw_mucar_attach_vehid;
 		start_stop: sw_stop_start_3;
+    
 		
 	  SET_GRAPHICS_DOUBLE(sw_sotetsu10000_lv,//graphics
     sw_sotetsu10000_capacity_main(),//cargo capacity
     sw_sotetsu10000_power_main()*4*1342/1000,//power
     param_loading_4D,//loading speed
     sw_sotetsu10000_lv_desc,//subtype
-    mu_car_narrow,33)//car_fallback,weight
+    mu_car,33)//car_fallback,weight
 }
