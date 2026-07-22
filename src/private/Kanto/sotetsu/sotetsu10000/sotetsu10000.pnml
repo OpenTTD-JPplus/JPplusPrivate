@@ -105,7 +105,7 @@ TRAIN_CONSTRUCTOR_4(sotetsu10000_4_mot_rev, sotetsu10000_4_car_base, roof_gray_m
 			sotetsu10000_head;
 		}
 //*livery logic
-	switch(FEAT_TRAINS, SELF, sw_sotetsu10000_lv_desc, cargo_subtype){
+	switch(FEAT_TRAINS, SELF, sw_sotetsu10000_lv_desc_main, cargo_subtype){
 		0:string(LV_RANDOM);
 		1:string(LV_DATED,string(LV_OLD),2002);
 		2:string(LV_DATED,string(STR_LIVERY,string(LV_sotetsu_orange_blue)),2007);
@@ -120,51 +120,14 @@ TRAIN_CONSTRUCTOR_4(sotetsu10000_4_mot_rev, sotetsu10000_4_car_base, roof_gray_m
 			160;
 		}
 	//power fix
-		switch(FEAT_TRAINS, SELF, sw_sotetsu10000_power_main,position_in_vehid_chain_from_end %10){
-			1..2:return 95;
-			5..6:return 95;
-			8:return 95;
+		switch(FEAT_TRAINS, SELF, sw_sotetsu10000_car_power_main,position_in_vehid_chain_from_end %10){
+			0..1:return 95;
+			4..5:return 95;
+			7:return 95;
+			return 0;
+		}
+    switch(FEAT_TRAINS, SELF, sw_sotetsu10000_power_main, vehicle_type_id){
+			mu_car:sw_sotetsu10000_car_power_main;
 			return 0;
 		}
 //
-item(FEAT_TRAINS, sotetsu10000) {
-	property {
-		OVERRIDEN_TRAIN_DATA
-
-		climates_available: param_disable_sotetsu == 0 ? ALL_CLIMATES : NO_CLIMATE;
-		name: string(STR_TRAIN_NAME, string(STR_NAME_SOTETSU), "10000", string(STR_NAME_SERIES),);
-		introduction_date: date(2002, 2, 24);
-		model_life: VEHICLE_NEVER_EXPIRES;
-		vehicle_life: 35;
-		reliability_decay: 10;
-
-		cost_factor: 20;
-		running_cost_factor: 50;
-		speed: 120 km/h;
-		track_type: TR_1067_DC;
-		weight: 28 ton;
-    dual_headed:1;
-    badges: ["company/sotetsu"];
-	}
-	graphics {
-		additional_text:
-			string(STR_TRAIN_DESC,
-			string(STR_NARROWGAUGE),
-			string(STR_DENKI, string(STR_DC, 1500)),
-			string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
-			string(STR_FORMATION, string(STR_NUM_CARS_2, 8, 10)),
-			string(STR_USAGE, string(STR_COMMUTER)),
-			string(STR_OPERATOR, string(STR_SOTETSU)));
-		cargo_subtype_text:sw_sotetsu10000_lv_desc;
-		purchase: sotetsu10000_purchase;
-		// can_attach_wagon: sw_mucar_attach_vehid;
-		start_stop: sw_stop_start_3;
-    
-		
-	  SET_GRAPHICS_DOUBLE(sw_sotetsu10000_lv,//graphics
-    sw_sotetsu10000_capacity_main(),//cargo capacity
-    sw_sotetsu10000_power_main()*4*1342/1000,//power
-    param_loading_4D,//loading speed
-    sw_sotetsu10000_lv_desc,//subtype
-    mu_car,33)//car_fallback,weight
-}

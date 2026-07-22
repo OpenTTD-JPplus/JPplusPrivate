@@ -119,7 +119,7 @@ switch(FEAT_TRAINS,PARENT, sw_sotetsu7000n_panto_rev, current_year){
 			sotetsu7000n_head;
 		}
 //*livery logic
-	switch(FEAT_TRAINS, SELF, sw_sotetsu7000n_lv_desc, cargo_subtype){
+	switch(FEAT_TRAINS, SELF, sw_sotetsu7000n_lv_desc_main, cargo_subtype){
 		0:string(LV_RANDOM);
 		1:string(LV_DATED,string(STR_LIVERY,string(STR_PREFIX_OLD,string(STR_BELT,string(STR_RED)))),2004);
 		2:string(LV_DATED,string(STR_LIVERY,string(LV_sotetsu_orange_blue)),2007);
@@ -132,63 +132,17 @@ switch(FEAT_TRAINS,PARENT, sw_sotetsu7000n_panto_rev, current_year){
 			153;
 		}
 	//power fix
-		switch(FEAT_TRAINS, SELF, sw_sotetsu7000n_power_main_1,position_in_vehid_chain_from_end %10){
-			1:return 130;
-			3:return 130;
-			6:return 130;
-			7:return 130;
+    switch(FEAT_TRAINS, SELF, sw_sotetsu7000n_power_main_0,build_year>1987){
+      1:return 180;
+      return 130;
+		}
+		switch(FEAT_TRAINS, SELF, sw_sotetsu7000n_car_power_main,position_in_vehid_chain %5){
+			0:return sw_sotetsu7000n_power_main_0;
+			2:return sw_sotetsu7000n_power_main_0;
 			return 0;
 		}
-		switch(FEAT_TRAINS, SELF, sw_sotetsu7000n_power_main_2,position_in_vehid_chain_from_end %10){
-			1:return 180;
-			3:return 180;
-			6:return 180;
-			7:return 180;
+    switch(FEAT_TRAINS, SELF, sw_sotetsu7000n_power_main, vehicle_type_id){
+			mu_car:sw_sotetsu7000n_car_power_main;
 			return 0;
-		}
-		switch(FEAT_TRAINS, SELF, sw_sotetsu7000n_power_main,build_year>1987){
-		1:sw_sotetsu7000n_power_main_2;
-		sw_sotetsu7000n_power_main_1;
 		}
 //
-item(FEAT_TRAINS, sotetsu7000n) {
-	property {
-		OVERRIDEN_TRAIN_DATA
-
-		climates_available: param_disable_sotetsu == 0 ? ALL_CLIMATES : NO_CLIMATE;
-		name: string(STR_TRAIN_NAME, string(STR_NAME_SOTETSU), string(STR_NAME_NEW, "7000"), string(STR_NAME_SERIES),);
-		introduction_date: date(1986, 5, 1);
-		model_life: 2019-1986-5;
-		vehicle_life: 2019-1986;
-		reliability_decay: 10;
-
-		cost_factor: 20;
-		running_cost_factor: 49;
-		speed: 110 km/h;
-		track_type: TR_1067_DC;
-		weight: 31 ton;
-    dual_headed:1;
-    badges: ["company/sotetsu"];
-	}
-	graphics {
-		additional_text:
-			string(STR_TRAIN_DESC,
-			string(STR_NARROWGAUGE),
-			string(STR_DENKI, string(STR_DC, 1500)),
-			string(STR_LOAD_SPEED, string(STR_DOORS, 4),),
-			string(STR_FORMATION, string(STR_NUM_CARS_2, 8,10)),
-			string(STR_USAGE, string(STR_COMMUTER)),
-			string(STR_OPERATOR, string(STR_SOTETSU)));
-		cargo_subtype_text:sw_sotetsu7000n_lv_desc;
-		purchase: sotetsu7000n_purchase;
-		// can_attach_wagon: sw_mucar_attach_vehid;
-		start_stop: sw_stop_start_3;
-    
-
-	  SET_GRAPHICS_DOUBLE(sw_sotetsu7000n_lv,//graphics
-    sw_sotetsu7000n_capacity_main(),//cargo capacity
-    sw_sotetsu7000n_power_main()*4*1342/1000,//power
-    param_loading_4D,//loading speed
-    sw_sotetsu7000n_lv_desc,//subtype
-    mu_car,30)//car_fallback,weight
-}
