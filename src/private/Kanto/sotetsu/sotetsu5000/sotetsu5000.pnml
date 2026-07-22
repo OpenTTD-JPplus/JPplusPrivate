@@ -55,45 +55,12 @@
 			mu_car:130;
 			120;
 		}
+		switch(FEAT_TRAINS, SELF, sw_sotetsu5000_car_power_main,build_year){
+			0..1955:return 55;
+			return 75;
+		}
+		switch(FEAT_TRAINS, SELF, sw_sotetsu5000_power_main,vehicle_type_id){
+			mu_car:sw_sotetsu5000_car_power_main;
+			return sw_sotetsu5000_car_power_main()*2;
+		}
 //
-item(FEAT_TRAINS, sotetsu5000) {
-	property {
-		OVERRIDEN_TRAIN_DATA
-
-		climates_available: param_disable_sotetsu == 0 ? ALL_CLIMATES : NO_CLIMATE;
-		name: string(STR_TRAIN_NAME, string(STR_NAME_SOTETSU), string(STR_SHOUDAI,"5000"), string(STR_NAME_SERIES));
-		introduction_date: date(1955, 12, 1);
-		model_life: 1975-1955-5;
-		vehicle_life: 1975-1955;
-		reliability_decay: 10;
-
-		cost_factor: 18;
-		running_cost_factor: 48;
-		speed: 100 km/h;
-		track_type: TR_1067_DC;
-		weight: 31 ton;
-    dual_headed:1;
-    badges: ["company/sotetsu"];
-	}
-	graphics {
-		additional_text:
-			string(STR_TRAIN_DESC,
-			string(STR_NARROWGAUGE),
-			string(STR_DENKI, string(STR_DC, 1500)),
-			string(STR_LOAD_SPEED, string(STR_DOORS, 3),),
-			string(STR_FORMATION, string(STR_NUM_CARS_2, 2,4)),
-			string(STR_USAGE, string(STR_COMMUTER)),
-			string(STR_OPERATOR, string(STR_SOTETSU)));
-		// cargo_subtype_text:sw_sotetsu5000_lv_desc;
-		purchase: sotetsu5000_purchase;
-		// can_attach_wagon: sw_mucar_attach_vehid;
-		start_stop: sw_stop_start_2;
-    
-
-	  SET_GRAPHICS_DOUBLE(sw_sotetsu5000_lv,//graphics
-    sw_sotetsu5000_capacity_main(),//cargo capacity
-    65*4*1342/1000,//power
-    param_loading_3D,//loading speed
-    sw_empty_desc,//subtype
-    mu_car,31)//car_fallback,weight
-}
