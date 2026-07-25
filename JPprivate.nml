@@ -2309,6 +2309,14 @@ item (FEAT_BADGES, line) {
       }
       graphics {default: sprite_logo_seibu;}
   }
+  item (FEAT_BADGES, logo_odakyu) {
+      property {
+          label: "company/odakyu";
+          name: string(STR_ODAKYU);
+          flags: bitmask(BADGE_FLAG_NAME_SKIP);
+      }
+      graphics {default: sprite_logo_odakyu;}
+  }
 
   item (FEAT_BADGES, logo_sotetsu) {
       property {
@@ -2607,6 +2615,7 @@ badgetable {
   "company/minato",
   "company/tobu",
   "company/seibu",
+  "company/odakyu",
   "company/sotetsu",
   "company/keisei",
 
@@ -30834,7 +30843,941 @@ item(FEAT_TRAINS, seibu40000) {
   }
 }
 # 99 "src/_private.pnml" 2
-# 121 "src/_private.pnml"
+
+
+item(FEAT_TRAINS, odakyu9000, 2178) {}
+item(FEAT_TRAINS, odakyu8000, 2179) {}
+item(FEAT_TRAINS, odakyu1000, 2180) {}
+item(FEAT_TRAINS, odakyu2000n, 2181) {}
+item(FEAT_TRAINS, odakyu3000n, 2182) {}
+item(FEAT_TRAINS, odakyu4000n, 2183) {}
+item(FEAT_TRAINS, odakyu5000n, 2184) {}
+
+# 1 "src/private/Kanto/odakyu/items.pnml" 1
+# 1 "src/private/Kanto/odakyu/odakyu9000/odakyu9000.pnml" 1
+
+
+ spriteset(odakyu9000_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu9000/odakyu9000_lights.png"){ tmpl_std_v3(0, 0) }
+ spriteset(odakyu9000_lights_back, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu9000/odakyu9000_lights.png"){ tmpl_std_v3(0, 25) }
+  switch(FEAT_TRAINS, SELF, sw_odakyu9000_lights, train_is_driving_backwards != vehicle_is_flipped){
+    1: odakyu9000_lights_back;
+    odakyu9000_lights_front;
+  }
+
+ spriteset(odakyu9000_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu9000/odakyu9000_1.png"){ tmpl_std_v3(0, 0) }
+ spriteset(odakyu9000_end_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu9000/odakyu9000_1.png"){ tmpl_std_rev_v3(0, 0) }
+ spriteset(odakyu9000_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu9000/odakyu9000_1.png"){ tmpl_symm_v3(0, 25) }
+
+ switch(FEAT_TRAINS, SELF, odakyu9000_head, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu9000_head_base; 1: roof_gray_med; 2: sw_odakyu9000_lights; 3: ac_odakyu_wag;}
+ switch(FEAT_TRAINS, SELF, odakyu9000_head_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: roof_gray_med; 1: odakyu9000_head_base; 2: sw_odakyu9000_lights; 3: ac_odakyu_1; 4: panto_odakyu_d;}
+ switch(FEAT_TRAINS, SELF, odakyu9000_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu9000_car_base; 1: roof_gray_med; 2: ac_odakyu_1; 3: panto_odakyu_d;}
+ switch(FEAT_TRAINS, SELF, odakyu9000_mot_rev, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu9000_car_base; 1: roof_gray_med; 2: ac_odakyu_2; 3: panto_odakyu_d_rev;}
+ switch(FEAT_TRAINS, SELF, odakyu9000_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu9000_car_base; 1: roof_gray_med; 2: ac_odakyu_wag;}
+
+
+  spriteset(odakyu9000_head_base_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu9000/odakyu9000_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(odakyu9000_car_base_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu9000/odakyu9000_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  switch(FEAT_TRAINS, SELF, odakyu9000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: roof_gray_med_c1; 1: odakyu9000_head_base_c1; 2: ac_odakyu_c1; 3: panto_odakyu_c1; 4: roof_gray_med_c2; 5: odakyu9000_car_base_c2; 6: ac_odakyu_c2;}
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_odakyu9000_head_gfx,(num_vehs_in_vehid_chain==num_vehs_in_consist)||(position_in_consist!=0&&position_in_consist_from_end!=0)||position_in_consist==0){
+    1: odakyu9000_head_mot;
+     odakyu9000_head;
+   }
+    switch(FEAT_TRAINS, SELF, sw_odakyu9000_end_gfx,(num_vehs_in_vehid_chain==num_vehs_in_consist)||(position_in_consist!=0&&position_in_consist_from_end!=0)){
+    1: odakyu9000_head_mot;
+    odakyu9000_head;
+   }
+
+
+   switch(FEAT_TRAINS, SELF, sw_odakyu9000_panto_placer_main_1,position_in_vehid_chain %5){
+    0: odakyu9000_mot;
+    3: odakyu9000_mot_rev;
+    odakyu9000_wag;
+   }
+
+   switch(FEAT_TRAINS, SELF, sw_odakyu9000_panto_placer_main_2,position_in_vehid_chain %2){
+    1: odakyu9000_mot;
+    odakyu9000_wag;
+   }
+
+   switch(FEAT_TRAINS, SELF, sw_odakyu9000_panto_placer_main,num_vehs_in_vehid_chain){
+     2..3: sw_odakyu9000_panto_placer_main_2;
+    8: sw_odakyu9000_panto_placer_main_2;
+    sw_odakyu9000_panto_placer_main_1;
+   }
+
+    switch(FEAT_TRAINS, SELF, sw_odakyu9000_head_gfx_main, position_in_vehid_chain){
+      0:sw_odakyu9000_head_gfx;
+      sw_odakyu9000_end_gfx;
+    }
+  switch(FEAT_TRAINS, SELF, sw_odakyu9000_lv,vehicle_type_id){
+      mu_car:sw_odakyu9000_panto_placer_main;
+      sw_odakyu9000_head_gfx_main;
+    }
+
+
+
+  switch(FEAT_TRAINS, SELF, sw_odakyu9000_capacity_main,vehicle_type_id){
+   mu_car:144;
+   136;
+  }
+
+  switch(FEAT_TRAINS, SELF, sw_odakyu9000_car_power_main,position_in_vehid_chain_from_end %4){
+   0..1:return 140;
+   return 0;
+  }
+  switch(FEAT_TRAINS, SELF, sw_odakyu9000_power_main,vehicle_type_id){
+   mu_car:sw_odakyu9000_car_power_main;
+   return 140*2;
+  }
+# 2 "src/private/Kanto/odakyu/items.pnml" 2
+
+item(FEAT_TRAINS, odakyu9000) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_odakyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_ODAKYU), "9000", string(STR_NAME_TYPE),);
+    introduction_date: date(1972, 2, 1);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+    cost_factor: 21;
+    running_cost_factor: 51;
+    speed: 120 km/h;
+    track_type:TR_1067_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 38 ton;
+    badges: ["company/odakyu"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
+    string(STR_USAGE, string(STR_ACCESS_COMMUTER)),
+    string(STR_OPERATOR, string(STR_ODAKYU))
+
+    );
+
+    purchase: odakyu9000_purchase;
+    cargo_capacity:sw_odakyu9000_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_odakyu9000_lv;
+    power:sw_odakyu9000_power_main()*4*1342/1000;
+    purchase_power: sw_odakyu9000_car_power_main()*4*1342/1000;
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_odakyu9000_capacity_main()*param_capacity_mod/3;
+    power:sw_odakyu9000_power_main()*4*1342/1000;
+    default:sw_odakyu9000_lv;
+    weight: 35;
+
+  }
+}
+# 1 "src/private/Kanto/odakyu/odakyu8000/odakyu8000.pnml" 1
+
+ spriteset(odakyu8000_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu8000/odakyu8000_lights.png"){ tmpl_std_v3(0, 0) }
+ spriteset(odakyu8000_lights_back, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu8000/odakyu8000_lights.png"){ tmpl_std_v3(0, 25) }
+  switch(FEAT_TRAINS, SELF, sw_odakyu8000_lights, train_is_driving_backwards != vehicle_is_flipped){
+    1: odakyu8000_lights_back;
+    odakyu8000_lights_front;
+  }
+
+ spriteset(odakyu8000_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu8000/odakyu8000_1.png"){ tmpl_std_v3(0, 0) }
+ spriteset(odakyu8000_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu8000/odakyu8000_1.png"){ tmpl_symm_v3(0, 25) }
+
+ switch(FEAT_TRAINS, SELF, odakyu8000_head, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu8000_head_base; 1: roof_gray_med; 2: sw_odakyu8000_lights; 3: ac_double_1_3;}
+ switch(FEAT_TRAINS, SELF, odakyu8000_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu8000_car_base; 1: roof_gray_med; 2: ac_double_1_6; 3: panto_arm_n_single_rev;}
+ switch(FEAT_TRAINS, SELF, odakyu8000_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu8000_car_base; 1: roof_gray_med; 2: ac_double_1_1;}
+
+
+  spriteset(odakyu8000_head_base_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu8000/odakyu8000_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(odakyu8000_car_base_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu8000/odakyu8000_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  switch(FEAT_TRAINS, SELF, odakyu8000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: roof_gray_med_c1; 1: odakyu8000_head_base_c1; 2: ac_double_1_c1; 3: roof_gray_med_c2; 4: odakyu8000_car_base_c2; 5: ac_double_1_c2;}
+
+
+
+
+   switch(FEAT_TRAINS, SELF, sw_odakyu8000_panto_placer_main_1,position_in_vehid_chain %2){
+    0: odakyu8000_mot;
+    odakyu8000_wag;
+   }
+
+   switch(FEAT_TRAINS, SELF, sw_odakyu8000_panto_placer_main_2,position_in_vehid_chain %3){
+    0: odakyu8000_mot;
+    1: odakyu8000_mot;
+    odakyu8000_wag;
+   }
+
+   switch(FEAT_TRAINS, SELF, sw_odakyu8000_panto_placer_main,num_vehs_in_vehid_chain){
+    2: sw_odakyu8000_panto_placer_main_2;
+    sw_odakyu8000_panto_placer_main_1;
+   }
+
+  switch(FEAT_TRAINS, SELF, sw_odakyu8000_lv,vehicle_type_id){
+      mu_car:sw_odakyu8000_panto_placer_main;
+      odakyu8000_head;
+    }
+
+
+
+  switch(FEAT_TRAINS, SELF, sw_odakyu8000_capacity_main,vehicle_type_id){
+   mu_car: 162;
+   144;
+  }
+
+  switch(FEAT_TRAINS, SELF, sw_odakyu8000_power_main_1,position_in_vehid_chain_from_end %6){
+   0..1:return 140;
+   2:return 140;
+   return 0;
+  }
+  switch(FEAT_TRAINS, SELF, sw_odakyu8000_power_main_2,position_in_vehid_chain_from_end %6){
+   0..1:return 190;
+   2:return 190;
+   return 0;
+  }
+  switch(FEAT_TRAINS, SELF, sw_odakyu8000_car_power_main,build_year){
+   0..2003:sw_odakyu8000_power_main_1;
+   sw_odakyu8000_power_main_2;
+  }
+  switch(FEAT_TRAINS, SELF, sw_odakyu8000_power_main,vehicle_type_id){
+   mu_car:sw_odakyu8000_car_power_main;
+   return 0;
+  }
+# 62 "src/private/Kanto/odakyu/items.pnml" 2
+
+item(FEAT_TRAINS, odakyu8000) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_odakyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_ODAKYU), "8000", string(STR_NAME_TYPE),);
+    introduction_date: date(1983, 3, 22);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+    cost_factor: 22;
+    running_cost_factor: 51;
+    speed: 120 km/h;
+    track_type:TR_1067_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 34 ton;
+    badges: ["company/odakyu"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_ODAKYU))
+
+    );
+
+    purchase: odakyu8000_purchase;
+    cargo_capacity:sw_odakyu8000_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_odakyu8000_lv;
+    power:sw_odakyu8000_power_main()*4*1342/1000;
+    purchase_power: sw_odakyu8000_car_power_main()*4*1342/1000;
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_odakyu8000_capacity_main()*param_capacity_mod/3;
+    power:sw_odakyu8000_power_main()*4*1342/1000;
+    default:sw_odakyu8000_lv;
+    weight: 32;
+
+  }
+}
+# 1 "src/private/Kanto/odakyu/odakyu1000/odakyu1000.pnml" 1
+
+ spriteset(odakyu1000_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu1000/odakyu1000_lights.png"){ tmpl_std_v3(0, 0) }
+ spriteset(odakyu1000_lights_back, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu1000/odakyu1000_lights.png"){ tmpl_std_v3(0, 25) }
+  switch(FEAT_TRAINS, SELF, sw_odakyu1000_lights, train_is_driving_backwards != vehicle_is_flipped){
+    1: odakyu1000_lights_back;
+    odakyu1000_lights_front;
+  }
+
+ spriteset(odakyu1000_1_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu1000/odakyu1000_1.png"){ tmpl_std_v3(0, 0) }
+ spriteset(odakyu1000_1_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu1000/odakyu1000_1.png"){ tmpl_symm_v3(0, 25) }
+
+ switch(FEAT_TRAINS, SELF, odakyu1000_head, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu1000_1_head_base; 1: roof_gray_med; 2: sw_odakyu1000_lights; 3: ac_double_1_1;}
+ switch(FEAT_TRAINS, SELF, odakyu1000_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu1000_1_car_base; 1: roof_gray_med; 2: ac_double_1_6; 3: panto_arm_n_single_rev;}
+ switch(FEAT_TRAINS, SELF, odakyu1000_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu1000_1_car_base; 1: roof_gray_med; 2: ac_double_1_1;}
+
+
+  spriteset(odakyu1000_1_front_base_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu1000/odakyu1000_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(odakyu1000_1_car_base_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu1000/odakyu1000_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  switch(FEAT_TRAINS, SELF, odakyu1000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: roof_gray_med_c1; 1: odakyu1000_1_front_base_c1; 2: ac_double_1_c1; 3: roof_gray_med_c2; 4: odakyu1000_1_car_base_c2; 5: ac_double_1_c2;}
+
+
+
+
+   switch(FEAT_TRAINS, SELF, sw_odakyu1000_panto_placer_main_1,position_in_vehid_chain_from_end %10-1){
+    1: odakyu1000_mot;
+    2: odakyu1000_mot;
+    5: odakyu1000_mot;
+    6: odakyu1000_mot;
+    7: odakyu1000_mot;
+    odakyu1000_wag;
+   }
+
+   switch(FEAT_TRAINS, SELF, sw_odakyu1000_panto_placer_main_2,position_in_vehid_chain_from_end %6-1){
+    0: odakyu1000_mot;
+    1: odakyu1000_mot;
+    3: odakyu1000_mot;
+    4: odakyu1000_mot;
+    odakyu1000_wag;
+   }
+
+   switch(FEAT_TRAINS, SELF, sw_odakyu1000_panto_placer_main_3,position_in_vehid_chain %5){
+    1: odakyu1000_mot;
+    2: odakyu1000_mot;
+    3: odakyu1000_mot;
+    odakyu1000_wag;
+   }
+
+   switch(FEAT_TRAINS, SELF, sw_odakyu1000_panto_placer_main_4,position_in_vehid_chain %5){
+    0: odakyu1000_mot;
+    2: odakyu1000_mot;
+    3: odakyu1000_mot;
+    odakyu1000_wag;
+   }
+
+   random_switch(FEAT_TRAINS,PARENT,sw_odakyu1000_panto_placer_main_0){
+    1:sw_odakyu1000_panto_placer_main_3;
+    2:sw_odakyu1000_panto_placer_main_4;
+   }
+   switch(FEAT_TRAINS, SELF, sw_odakyu1000_panto_placer_main,num_vehs_in_vehid_chain){
+    4: sw_odakyu1000_panto_placer_main_0;
+    8: sw_odakyu1000_panto_placer_main_1;
+    sw_odakyu1000_panto_placer_main_2;
+   }
+
+    switch(FEAT_TRAINS, SELF, sw_odakyu1000_lv,vehicle_type_id){
+      mu_car:sw_odakyu1000_panto_placer_main;
+      odakyu1000_head;
+    }
+
+
+
+ switch(FEAT_TRAINS, SELF, sw_odakyu1000_capacity_main,vehicle_type_id){
+    mu_car: 157;
+    144;
+ }
+
+ switch(FEAT_TRAINS, SELF, sw_odakyu1000_power_main_1,position_in_vehid_chain_from_end %10){
+    0..1:return 175;
+    3:return 175;
+    6..7:return 175;
+    return 0;
+ }
+ switch(FEAT_TRAINS, SELF, sw_odakyu1000_power_main_2,position_in_vehid_chain_from_end %10){
+    0..1:return 190;
+    3:return 190;
+    6..7:return 190;
+    return 0;
+ }
+ switch(FEAT_TRAINS, SELF, sw_odakyu1000_car_power_main,build_year){
+  0..2015:sw_odakyu1000_power_main_1;
+  sw_odakyu1000_power_main_2;
+ }
+ switch(FEAT_TRAINS, SELF, sw_odakyu1000_power_main,vehicle_type_id){
+  mu_car:sw_odakyu1000_car_power_main;
+  return 0;
+ }
+# 122 "src/private/Kanto/odakyu/items.pnml" 2
+
+item(FEAT_TRAINS, odakyu1000) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_odakyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_ODAKYU), "1000", string(STR_NAME_TYPE));
+    introduction_date: date(1988, 3, 22);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+    cost_factor: 22;
+    running_cost_factor: 51;
+    speed: 120 km/h;
+    track_type:TR_1067_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 34 ton;
+    badges: ["company/odakyu"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_4, 4,6,8,10)),
+    string(STR_USAGE, string(STR_ACCESS_COMMUTER)),
+    string(STR_OPERATOR, string(STR_ODAKYU))
+
+    );
+
+    purchase: odakyu1000_purchase;
+    cargo_capacity:sw_odakyu1000_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_odakyu1000_lv;
+    power:sw_odakyu1000_power_main()*4*1342/1000;
+    purchase_power: sw_odakyu1000_car_power_main()*4*1342/1000;
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_odakyu1000_capacity_main()*param_capacity_mod/3;
+    power:sw_odakyu1000_power_main()*4*1342/1000;
+    default:sw_odakyu1000_lv;
+    weight: 32;
+
+  }
+}
+# 1 "src/private/Kanto/odakyu/odakyu2000n/odakyu2000n.pnml" 1
+
+ spriteset(odakyu2000n_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu2000n/odakyu2000n_lights.png"){ tmpl_std_v3(0, 0) }
+ spriteset(odakyu2000n_lights_back, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu2000n/odakyu2000n_lights.png"){ tmpl_std_v3(0, 25) }
+  switch(FEAT_TRAINS, SELF, sw_odakyu2000n_lights, train_is_driving_backwards != vehicle_is_flipped){
+    1: odakyu2000n_lights_back;
+    odakyu2000n_lights_front;
+  }
+
+ spriteset(odakyu2000n_1_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu2000n/odakyu2000n_1.png"){ tmpl_std_v3(0, 0) }
+ spriteset(odakyu2000n_1_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu2000n/odakyu2000n_1.png"){ tmpl_symm_v3(0, 25) }
+
+ switch(FEAT_TRAINS, SELF, odakyu2000n_head, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu2000n_1_head_base; 1: roof_gray_med; 2: sw_odakyu2000n_lights; 3: ac_double_1_3;}
+ switch(FEAT_TRAINS, SELF, odakyu2000n_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu2000n_1_car_base; 1: roof_gray_med; 2: ac_double_1_6; 3: panto_arm_n_single_rev;}
+ switch(FEAT_TRAINS, SELF, odakyu2000n_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu2000n_1_car_base; 1: roof_gray_med; 2: ac_double_1_1;}
+
+
+  spriteset(odakyu2000n_1_front_base_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu2000n/odakyu2000n_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(odakyu2000n_1_car_base_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu2000n/odakyu2000n_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  switch(FEAT_TRAINS, SELF, odakyu2000n_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: roof_gray_med_c1; 1: odakyu2000n_1_front_base_c1; 2: ac_double_1_c1; 3: roof_gray_med_c2; 4: odakyu2000n_1_car_base_c2; 5: ac_double_1_c2;}
+
+
+
+
+   switch(FEAT_TRAINS, SELF, sw_odakyu2000n_panto_placer_main_1,position_in_vehid_chain %6){
+    0: odakyu2000n_mot;
+    1: odakyu2000n_mot;
+    4: odakyu2000n_mot;
+    odakyu2000n_wag;
+   }
+
+   switch(FEAT_TRAINS, SELF, sw_odakyu2000n_panto_placer_main_2,position_in_vehid_chain %2){
+    0: odakyu2000n_mot;
+    odakyu2000n_wag;
+   }
+
+   switch(FEAT_TRAINS, SELF, sw_odakyu2000n_panto_placer_main,num_vehs_in_vehid_chain){
+    2: sw_odakyu2000n_panto_placer_main_1;
+    5..6: sw_odakyu2000n_panto_placer_main_1;
+    8: sw_odakyu2000n_panto_placer_main_1;
+    sw_odakyu2000n_panto_placer_main_2;
+   }
+
+  switch(FEAT_TRAINS, SELF, sw_odakyu2000n_lv,vehicle_type_id){
+      mu_car:sw_odakyu2000n_panto_placer_main;
+      odakyu2000n_head;
+    }
+
+
+
+ switch(FEAT_TRAINS, SELF, sw_odakyu2000n_capacity_main,vehicle_type_id){
+    mu_car: 158;
+    146;
+ }
+
+ switch(FEAT_TRAINS, SELF, sw_odakyu2000n_car_power_main,position_in_vehid_chain %4){
+    0..1:return 190;
+    return 0;
+ }
+ switch(FEAT_TRAINS, SELF, sw_odakyu2000n_power_main,vehicle_type_id){
+    mu_car:sw_odakyu2000n_car_power_main;
+    return 0;
+ }
+# 182 "src/private/Kanto/odakyu/items.pnml" 2
+
+item(FEAT_TRAINS, odakyu2000n) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_odakyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME_LONG, string(STR_NAME_ODAKYU), "2000", string(STR_NAME_2_GEN), string(STR_NAME_TYPE),);
+    introduction_date: date(1995, 3, 4);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+    cost_factor: 22;
+    running_cost_factor: 51;
+    speed: 120 km/h;
+    track_type:TR_1067_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 34 ton;
+    badges: ["company/odakyu"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_ODAKYU))
+
+    );
+
+    purchase: odakyu2000n_purchase;
+    cargo_capacity:sw_odakyu2000n_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_odakyu2000n_lv;
+    power:sw_odakyu2000n_power_main()*4*1342/1000;
+    purchase_power: sw_odakyu2000n_car_power_main()*4*1342/1000;
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_odakyu2000n_capacity_main()*param_capacity_mod/3;
+    power:sw_odakyu2000n_power_main()*4*1342/1000;
+    default:sw_odakyu2000n_lv;
+    weight: 32;
+
+  }
+}
+# 1 "src/private/Kanto/odakyu/odakyu3000n/odakyu3000n.pnml" 1
+
+ spriteset(odakyu3000n_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu3000n/odakyu3000n_lights.png"){ tmpl_std_v3(0, 0) }
+ spriteset(odakyu3000n_lights_back, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu3000n/odakyu3000n_lights.png"){ tmpl_std_v3(0, 25) }
+  switch(FEAT_TRAINS, SELF, sw_odakyu3000n_lights, train_is_driving_backwards != vehicle_is_flipped){
+    1: odakyu3000n_lights_back;
+    odakyu3000n_lights_front;
+  }
+
+ spriteset(odakyu3000n_1_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu3000n/odakyu3000n_1.png"){ tmpl_std_v3(0, 0) }
+ spriteset(odakyu3000n_1_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu3000n/odakyu3000n_1.png"){ tmpl_symm_v3(0, 25) }
+
+ switch(FEAT_TRAINS, SELF, odakyu3000n_head, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu3000n_1_head_base; 1: roof_gray_med; 2: sw_odakyu3000n_lights; 3: ac_single_1_1;}
+ switch(FEAT_TRAINS, SELF, odakyu3000n_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu3000n_1_car_base; 1: roof_gray_med; 2: ac_single_1_1;}
+ switch(FEAT_TRAINS, SELF, odakyu3000n_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu3000n_1_car_base; 1: roof_gray_med; 2: ac_single_1_1; 3: panto_arm_n_single;}
+
+
+  spriteset(odakyu3000n_1_front_base_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu3000n/odakyu3000n_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(odakyu3000n_1_car_base_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu3000n/odakyu3000n_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  switch(FEAT_TRAINS, SELF, odakyu3000n_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: roof_gray_med_c1; 1: odakyu3000n_1_front_base_c1; 2: ac_single_1_c1; 3: roof_gray_med_c2; 4: odakyu3000n_1_car_base_c2; 5: ac_single_1_c2;}
+
+
+
+  switch(FEAT_TRAINS, SELF, sw_odakyu3000n_panto_placer_main,position_in_vehid_chain_from_end %9-1){
+   0: odakyu3000n_mot;
+   2: odakyu3000n_mot;
+   4: odakyu3000n_mot;
+   7: odakyu3000n_mot;
+   odakyu3000n_wag;
+  }
+
+  switch(FEAT_TRAINS, SELF, sw_odakyu3000n_lv,vehicle_type_id){
+      mu_car:sw_odakyu3000n_panto_placer_main;
+      odakyu3000n_head;
+    }
+
+
+
+  switch(FEAT_TRAINS, SELF, sw_odakyu3000n_capacity_main,vehicle_type_id){
+   mu_car: 155;
+   144;
+  }
+
+  switch(FEAT_TRAINS, SELF, sw_odakyu3000n_power_main_1,position_in_vehid_chain_from_end %10){
+   0..1:return 180;
+   3:return 180;
+   5:return 180;
+   7:return 180;
+   return 0;
+  }
+  switch(FEAT_TRAINS, SELF, sw_odakyu3000n_power_main_2,position_in_vehid_chain_from_end %10){
+   0..1:return 190;
+   3:return 190;
+   5:return 190;
+   7:return 190;
+   return 0;
+  }
+  switch(FEAT_TRAINS, SELF, sw_odakyu3000n_car_power_main,build_year){
+   0..2002:sw_odakyu3000n_power_main_1;
+   sw_odakyu3000n_power_main_2;
+  }
+  switch(FEAT_TRAINS, SELF, sw_odakyu3000n_power_main,vehicle_type_id){
+   mu_car:sw_odakyu3000n_car_power_main;
+   0;
+  }
+# 242 "src/private/Kanto/odakyu/items.pnml" 2
+
+item(FEAT_TRAINS, odakyu3000n) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_odakyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME_LONG, string(STR_NAME_ODAKYU), "3000", string(STR_NAME_2_GEN), string(STR_NAME_TYPE),);
+    introduction_date: date(2002, 2, 10);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+    cost_factor: 22;
+    running_cost_factor: 51;
+    speed: 120 km/h;
+    track_type:TR_1067_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 34 ton;
+    badges: ["company/odakyu"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_3, 6,8,10)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_ODAKYU))
+
+    );
+
+    purchase: odakyu3000n_purchase;
+    cargo_capacity:sw_odakyu3000n_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_odakyu3000n_lv;
+    power:sw_odakyu3000n_power_main()*4*1342/1000;
+    purchase_power: sw_odakyu3000n_car_power_main()*4*1342/1000;
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_odakyu3000n_capacity_main()*param_capacity_mod/3;
+    power:sw_odakyu3000n_power_main()*4*1342/1000;
+    default:sw_odakyu3000n_lv;
+    weight: 32;
+
+  }
+}
+# 1 "src/private/Kanto/odakyu/odakyu4000n/odakyu4000n.pnml" 1
+
+ spriteset(odakyu4000n_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu4000n/odakyu4000n_lights.png"){ tmpl_std_v3(0, 0) }
+ spriteset(odakyu4000n_lights_back, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu4000n/odakyu4000n_lights.png"){ tmpl_std_v3(0, 25) }
+  switch(FEAT_TRAINS, SELF, sw_odakyu4000n_lights, train_is_driving_backwards != vehicle_is_flipped){
+    1: odakyu4000n_lights_back;
+    odakyu4000n_lights_front;
+  }
+
+ spriteset(odakyu4000n_1_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu4000n/odakyu4000n_1.png"){ tmpl_std_v3(0, 0) }
+ spriteset(odakyu4000n_1_end_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu4000n/odakyu4000n_1.png"){ tmpl_std_rev_v3(0, 0) }
+ spriteset(odakyu4000n_1_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu4000n/odakyu4000n_1.png"){ tmpl_symm_v3(0, 25) }
+
+ switch(FEAT_TRAINS, SELF, odakyu4000n_head, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu4000n_1_head_base; 1: roof_gray_med_h1; 2: sw_odakyu4000n_lights; 3: ac_single_1_1;}
+ switch(FEAT_TRAINS, SELF, odakyu4000n_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu4000n_1_car_base; 1: roof_gray_med; 2: ac_single_1_1;}
+ switch(FEAT_TRAINS, SELF, odakyu4000n_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu4000n_1_car_base; 1: roof_gray_med; 2: ac_single_1_1; 3: panto_arm_n_single_rev;}
+
+
+  spriteset(odakyu4000n_head_base_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu4000n/odakyu4000n_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(odakyu4000n_1_car_base_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu4000n/odakyu4000n_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  switch(FEAT_TRAINS, SELF, odakyu4000n_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: roof_gray_med_c1; 1: odakyu4000n_head_base_c1; 2: ac_single_1_c1; 3: roof_gray_med_c2; 4: odakyu4000n_1_car_base_c2; 5: ac_single_1_c2;}
+
+
+
+
+   switch(FEAT_TRAINS, SELF, sw_odakyu4000n_panto_placer_main_1,position_in_vehid_chain %6){
+    1: odakyu4000n_mot;
+    5: odakyu4000n_mot;
+    odakyu4000n_wag;
+   }
+
+   switch(FEAT_TRAINS, SELF, sw_odakyu4000n_panto_placer_main_2,position_in_vehid_chain %5){
+    0: odakyu4000n_mot;
+    2: odakyu4000n_mot;
+    odakyu4000n_wag;
+   }
+
+   switch(FEAT_TRAINS, SELF, sw_odakyu4000n_panto_placer_main,num_vehs_in_vehid_chain){
+    8: sw_odakyu4000n_panto_placer_main_1;
+    sw_odakyu4000n_panto_placer_main_2;
+   }
+
+  switch(FEAT_TRAINS, SELF, sw_odakyu4000n_lv,vehicle_type_id){
+      mu_car:sw_odakyu4000n_panto_placer_main;
+      odakyu4000n_head;
+    }
+
+
+
+  switch(FEAT_TRAINS, SELF, sw_odakyu4000n_capacity_main,vehicle_type_id){
+   mu_car: 153;
+      144;
+  }
+
+  switch(FEAT_TRAINS, SELF, sw_odakyu4000n_car_power_main,position_in_vehid_chain_from_end %6){
+   0..3:return 190;
+   return 0;
+  }
+  switch(FEAT_TRAINS, SELF, sw_odakyu4000n_power_main,vehicle_type_id){
+   mu_car:sw_odakyu4000n_car_power_main;
+   return 0;
+  }
+# 302 "src/private/Kanto/odakyu/items.pnml" 2
+
+item(FEAT_TRAINS, odakyu4000n) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_odakyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME_LONG, string(STR_NAME_ODAKYU), "4000", string(STR_NAME_2_GEN), string(STR_NAME_TYPE),);
+    introduction_date: date(2007, 9, 22);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+    cost_factor: 22;
+    running_cost_factor: 51;
+    speed: 120 km/h;
+    track_type:TR_1067_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 34 ton;
+    badges: ["company/odakyu"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
+    string(STR_USAGE, string(STR_ACCESS_COMMUTER)),
+    string(STR_OPERATOR, string(STR_ODAKYU))
+
+    );
+
+    purchase: odakyu4000n_purchase;
+    cargo_capacity:sw_odakyu4000n_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_odakyu4000n_lv;
+    power:sw_odakyu4000n_power_main()*4*1342/1000;
+    purchase_power: sw_odakyu4000n_car_power_main()*4*1342/1000;
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_odakyu4000n_capacity_main()*param_capacity_mod/3;
+    power:sw_odakyu4000n_power_main()*4*1342/1000;
+    default:sw_odakyu4000n_lv;
+    weight: 32;
+
+  }
+}
+# 1 "src/private/Kanto/odakyu/odakyu5000n/odakyu5000n.pnml" 1
+
+ spriteset(odakyu5000n_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu5000n/odakyu5000n_lights.png"){ tmpl_std_v3(0, 0) }
+ spriteset(odakyu5000n_lights_back, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu5000n/odakyu5000n_lights.png"){ tmpl_std_v3(0, 25) }
+  switch(FEAT_TRAINS, SELF, sw_odakyu5000n_lights, train_is_driving_backwards != vehicle_is_flipped){
+    1: odakyu5000n_lights_back;
+    odakyu5000n_lights_front;
+  }
+
+ spriteset(odakyu5000n_1_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu5000n/odakyu5000n_1.png"){ tmpl_std_v3(0, 0) }
+ spriteset(odakyu5000n_1_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu5000n/odakyu5000n_1.png"){ tmpl_symm_v3(0, 25) }
+
+ switch(FEAT_TRAINS, SELF, odakyu5000n_head, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu5000n_1_head_base; 1: roof_gray_med_h1; 2: sw_odakyu5000n_lights; 3: ac_single_1_1;}
+ switch(FEAT_TRAINS, SELF, odakyu5000n_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu5000n_1_car_base; 1: roof_gray_med; 2: ac_single_1_1;}
+ switch(FEAT_TRAINS, SELF, odakyu5000n_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu5000n_1_car_base; 1: roof_gray_med; 2: ac_single_1_1; 3: panto_arm_n_single;}
+
+
+  spriteset(odakyu5000n_head_base_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu5000n/odakyu5000n_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(odakyu5000n_car_base_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu5000n/odakyu5000n_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  switch(FEAT_TRAINS, SELF, odakyu5000n_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: roof_gray_med_c1; 1: odakyu5000n_head_base_c1; 2: ac_single_1_c1; 3: roof_gray_med_c2; 4: odakyu5000n_car_base_c2; 5: ac_single_1_c2;}
+
+
+
+
+   switch(FEAT_TRAINS, SELF, sw_odakyu5000n_panto_placer_main_1,position_in_vehid_chain_from_end %4){
+    0: odakyu5000n_mot;
+    1: odakyu5000n_mot;
+    odakyu5000n_wag;
+   }
+
+   switch(FEAT_TRAINS, SELF, sw_odakyu5000n_panto_placer_main_2,position_in_vehid_chain %5){
+    0: odakyu5000n_mot;
+    2: odakyu5000n_mot;
+    odakyu5000n_wag;
+   }
+
+   switch(FEAT_TRAINS, SELF, sw_odakyu5000n_panto_placer_main,num_vehs_in_vehid_chain){
+    6..8: sw_odakyu5000n_panto_placer_main_1;
+    sw_odakyu5000n_panto_placer_main_2;
+   }
+
+  switch(FEAT_TRAINS, SELF, sw_odakyu5000n_lv,vehicle_type_id){
+      mu_car:sw_odakyu5000n_panto_placer_main;
+      odakyu5000n_head;
+    }
+
+
+
+  switch(FEAT_TRAINS, SELF, sw_odakyu5000n_capacity_main,vehicle_type_id){
+   mu_car: 155;
+   144;
+  }
+
+  switch(FEAT_TRAINS, SELF, sw_odakyu5000n_car_power_main,position_in_vehid_chain %10){
+   0:return 190;
+   2..3:return 190;
+   6..7:return 190;
+   return 0;
+  }
+  switch(FEAT_TRAINS, SELF, sw_odakyu5000n_power_main,vehicle_type_id){
+   mu_car: sw_odakyu5000n_car_power_main;
+   return 0;
+  }
+# 362 "src/private/Kanto/odakyu/items.pnml" 2
+
+item(FEAT_TRAINS, odakyu5000n) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_odakyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME_LONG, string(STR_NAME_ODAKYU), "5000", string(STR_NAME_2_GEN), string(STR_NAME_TYPE),);
+    introduction_date: date(2020, 3, 26);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+    cost_factor: 22;
+    running_cost_factor: 51;
+    speed: 120 km/h;
+    track_type:TR_1067_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 34 ton;
+    badges: ["company/odakyu"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_ODAKYU))
+
+    );
+
+    purchase: odakyu5000n_purchase;
+    cargo_capacity:sw_odakyu5000n_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_4D;
+    default:sw_odakyu5000n_lv;
+    power:sw_odakyu5000n_power_main()*4*1342/1000;
+    purchase_power: sw_odakyu5000n_car_power_main()*4*1342/1000;
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_odakyu5000n_capacity_main()*param_capacity_mod/3;
+    power:sw_odakyu5000n_power_main()*4*1342/1000;
+    default:sw_odakyu5000n_lv;
+    weight: 32;
+
+  }
+}
+# 110 "src/_private.pnml" 2
+
+
+
+
+
 item(FEAT_TRAINS, sotetsu5000, 2204) {}
 item(FEAT_TRAINS, sotetsu5000n, 2205) {}
 item(FEAT_TRAINS, sotetsu6000, 2206) {}
@@ -32884,7 +33827,7 @@ item(FEAT_TRAINS, sotetsu20000) {
 
   }
 }
-# 134 "src/_private.pnml" 2
+# 128 "src/_private.pnml" 2
 
 
 
@@ -33110,7 +34053,7 @@ item(FEAT_TRAINS, twr71000) {
 
   }
 }
-# 143 "src/_private.pnml" 2
+# 137 "src/_private.pnml" 2
 
 
 item(FEAT_TRAINS, tsukuba_1000series, 2295) {}
@@ -33440,5 +34383,5 @@ item(FEAT_TRAINS, tsukuba_3000series) {
 
   }
 }
-# 149 "src/_private.pnml" 2
+# 143 "src/_private.pnml" 2
 # 16 "JPprivate.pnml" 2
