@@ -178,6 +178,66 @@ item(FEAT_TRAINS, seibu001) {
     
   }
 }
+#include "seibuDeha5560/seibuDeha5560.pnml"
+
+item(FEAT_TRAINS, seibuDeha5560) {
+  property {
+    OVERRIDEN_TRAIN_DATA
+    
+    climates_available: param_disable_seibu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_SEIBU), string(STR_NAME_DEHA, "5560"), string(STR_NAME_TYPE));
+    introduction_date: date(1928, 6, 12);
+    model_life: 35;
+    vehicle_life: 30;
+    dual_headed: 1;
+    
+    cost_factor: 13;
+    running_cost_factor: 43;
+    speed: 85 km/h;
+    track_type:TR_1067_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient:  0.2;
+    weight: 32 ton;
+    badges: ["company/seibu"];
+    
+  }
+	graphics {
+    
+    
+     
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS_REFIT, 2,3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 2)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_SEIBU))
+    
+    );
+    cargo_subtype_text: sw_seibuDeha5560_lv_desc_main;
+    purchase: seibuDeha5560_purchase;
+    cargo_capacity:110*param_capacity_mod/3;
+    loading_speed:sw_seibuDeha5560_loading_speed_main;
+    default:sw_seibuDeha5560_lv;
+    power:sw_seibuDeha5560_power_main()*4*1342/1000;
+    purchase_power: sw_seibuDeha5560_car_power_main()*4*1342/1000;
+    
+    
+    
+    
+    
+  }
+  livery_override(mu_car){
+		cargo_subtype_text:sw_seibuDeha5560_lv_desc_main;
+    loading_speed:sw_seibuDeha5560_loading_speed_main;
+    cargo_capacity:110*param_capacity_mod/3;
+    power:sw_seibuDeha5560_power_main()*4*1342/1000;
+    default:sw_seibuDeha5560_lv;
+    weight: 31;
+    
+  }
+}
 #include "seibu551/seibu551.pnml"
 
 item(FEAT_TRAINS, seibu551) {
