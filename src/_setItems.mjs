@@ -16,5 +16,6 @@ parseCompany("src/private/Kanto/tsukuba");
 parseCompany("src/private/Kanto/tokyu");
 parseCompany("src/private/Kanto/tobu");
 parseCompany("src/private/Kanto/seibu");
+parseCompany("src/private/Kanto/odakyu");
 parseCompany("src/private/Kanto/sotetsu");
 parseCompany("src/private/Kanto/keisei");
