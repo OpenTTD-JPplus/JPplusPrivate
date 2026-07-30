@@ -8,18 +8,14 @@ spriteset (keisei_AE100_1_end_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/priva
 spriteset (keisei_AE100_1_front_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/private/Kanto/keisei/keisei_AE100/keisei_AE100.png") { tmpl_std_v3(0, 50) }
 spriteset (keisei_AE100_1_end_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/private/Kanto/keisei/keisei_AE100/keisei_AE100.png") { tmpl_std_v3(0, 75) }
 spriteset (keisei_AE100_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/private/Kanto/keisei/keisei_AE100/keisei_AE100.png") { tmpl_std_v3(0, 100) }
-spriteset (keisei_AE100_1_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/private/Kanto/keisei/keisei_AE100/keisei_AE100.png") { tmpl_std_rev_v3(0, 100) }
 spriteset (keisei_AE100_1_wag_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/private/Kanto/keisei/keisei_AE100/keisei_AE100.png") { tmpl_std_v3(0, 125) }
-spriteset (keisei_AE100_1_wag_1_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/private/Kanto/keisei/keisei_AE100/keisei_AE100.png") { tmpl_std_rev_v3(0, 125) }
 spriteset (keisei_AE100_1_wag_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/private/Kanto/keisei/keisei_AE100/keisei_AE100.png") { tmpl_std_v3(0, 150) }
-spriteset (keisei_AE100_1_wag_2_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/private/Kanto/keisei/keisei_AE100/keisei_AE100.png") { tmpl_std_rev_v3(0, 150) }
 spriteset (keisei_AE100_1_wag_3, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/private/Kanto/keisei/keisei_AE100/keisei_AE100.png") { tmpl_std_v3(0, 175) }
-spriteset (keisei_AE100_1_wag_3_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/private/Kanto/keisei/keisei_AE100/keisei_AE100.png") { tmpl_std_rev_v3(0, 175) }
 
 //*livery 1
   //special gfx
   switch(FEAT_TRAINS, PARENT, sw_keisei_AE100_1_front,vehicle_is_reversed){
-      1: keisei_AE100_1_front_2;
+      1: keisei_AE100_1_front_1;
       keisei_AE100_1_front_1;
     }
   switch(FEAT_TRAINS, PARENT, sw_keisei_AE100_1_end,vehicle_is_reversed){
@@ -28,40 +24,19 @@ spriteset (keisei_AE100_1_wag_3_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/p
     }
   //panto-placers
     //var 1 (6 car)
-      switch(FEAT_TRAINS, SELF, sw_keisei_AE100_1_panto_placer_1,position_in_vehid_chain %4){
+      switch(FEAT_TRAINS, SELF, sw_keisei_AE100_1_panto_placer_main_1,position_in_vehid_chain %4){
         0: keisei_AE100_1_mot;
         2: keisei_AE100_1_mot;
         3: keisei_AE100_1_wag_2;
         keisei_AE100_1_wag_1;
       }
-      switch(FEAT_TRAINS, SELF, sw_keisei_AE100_1_panto_placer_1_rev,position_in_vehid_chain_from_end %4){
-        0: keisei_AE100_1_mot_rev;
-        2: keisei_AE100_1_mot_rev;
-        3: keisei_AE100_1_wag_2_rev;
-        keisei_AE100_1_wag_1_rev;
-      }
-      switch(FEAT_TRAINS, PARENT, sw_keisei_AE100_1_panto_placer_main_1,vehicle_is_reversed){
-        1: sw_keisei_AE100_1_panto_placer_1_rev;
-        sw_keisei_AE100_1_panto_placer_1;
-      }
     //var 2 (8 car)
-      switch(FEAT_TRAINS, SELF, sw_keisei_AE100_1_panto_placer_2,position_in_vehid_chain %7){
+      switch(FEAT_TRAINS, SELF, sw_keisei_AE100_1_panto_placer_main_2,position_in_vehid_chain %7){
         0: keisei_AE100_1_mot;
         2: keisei_AE100_1_wag_3;
         3: keisei_AE100_1_wag_2;
         5: keisei_AE100_1_mot;
         keisei_AE100_1_wag_1;
-      }
-      switch(FEAT_TRAINS, SELF, sw_keisei_AE100_1_panto_placer_2_rev,position_in_vehid_chain_from_end %7){
-        0: keisei_AE100_1_mot_rev;
-        2: keisei_AE100_1_wag_3_rev;
-        3: keisei_AE100_1_wag_2_rev;
-        5: keisei_AE100_1_mot_rev;
-        keisei_AE100_1_wag_1_rev;
-      }
-      switch(FEAT_TRAINS, PARENT, sw_keisei_AE100_1_panto_placer_main_2,vehicle_is_reversed){
-        1: sw_keisei_AE100_1_panto_placer_2_rev;
-        sw_keisei_AE100_1_panto_placer_2;
       }
     //panto controller
       switch(FEAT_TRAINS, SELF, sw_keisei_AE100_1_panto_placer_main,num_vehs_in_vehid_chain){
@@ -69,7 +44,7 @@ spriteset (keisei_AE100_1_wag_3_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/p
         sw_keisei_AE100_1_panto_placer_main_2;
       }
   //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_keisei_AE100_head_gfx_main,position_in_consist>0){
+    switch(FEAT_TRAINS, SELF, sw_keisei_AE100_head_gfx_main,train_is_driving_backwards != vehicle_is_flipped){
       1:sw_keisei_AE100_1_end;
       sw_keisei_AE100_1_front;
     }
