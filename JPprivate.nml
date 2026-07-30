@@ -531,7 +531,7 @@ template tmpl_purchase_1c(x,y) {
   [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
   [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
   [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
-  [x +120, y, 32, 17, -19, -10]
+  [x +120, y, 32, 17, -21, -10]
   [1 , 1, 1, 1, 0, 0, "gfx/misc/purchase_32.png"]
 }
 template tmpl_purchase_1c_dual(x,y) {
@@ -18426,7 +18426,7 @@ item(FEAT_TRAINS, y500, 2028) {}
 # 1 "src/private/Kanto/tokyu/items.pnml" 1
 # 1 "src/private/Kanto/tokyu/tokyu_deha1/tokyu_deha1.pnml" 1
 
-  spriteset(tokyu_deha1_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/tokyu_deha1/tokyu_deha1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(tokyu_deha1_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/tokyu_deha1/tokyu_deha1.png"){ tmpl_purchase_1c(0, 0) }
 
   spriteset(gfx_tokyu_deha1_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/tokyu_deha1/tokyu_deha1_lights.png"){ tmpl_std_v3(0, 0) }
   spriteset(gfx_tokyu_deha1_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/tokyu/tokyu_deha1/tokyu_deha1_lights.png"){ tmpl_std_rev_v3(0, 0) }
@@ -29097,6 +29097,81 @@ item(FEAT_TRAINS, seibu001) {
 
   }
 }
+# 1 "src/private/Kanto/seibu/seibuDeha100/seibuDeha100.pnml" 1
+
+  spriteset(seibuDeha100_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibuDeha100/seibuDeha100.png"){ tmpl_purchase_1c(0, 0) }
+
+  spriteset(seibuDeha100_head, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibuDeha100/seibuDeha100.png"){ tmpl_std_v3(0, 0) }
+  spriteset(seibuDeha100_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibuDeha100/seibuDeha100_lights.png"){ tmpl_std_v3(0, 0) }
+  spriteset(seibuDeha100_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibuDeha100/seibuDeha100_lights.png"){ tmpl_std_rev_v3(0, 0) }
+  switch(FEAT_TRAINS, SELF, sw_seibuDeha100_lights, train_is_driving_backwards != vehicle_is_flipped){
+    1: seibuDeha100_lights_end;
+    seibuDeha100_lights_front;
+  }
+
+
+switch(FEAT_TRAINS, SELF, sw_seibuDeha100_lv, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: seibuDeha100_head; 1: sw_seibuDeha100_lights;}
+# 185 "src/private/Kanto/seibu/items.pnml" 2
+
+item(FEAT_TRAINS, seibuDeha100) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_seibu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_SEIBU), string(STR_NAME_DEHA, "100"), string(STR_NAME_TYPE));
+    introduction_date: date(1922, 6, 1);
+    model_life: 34;
+    vehicle_life: 29;
+    dual_headed: 0;
+
+    cost_factor: 12;
+    running_cost_factor: 42;
+    speed: 75 km/h;
+    track_type:TR_1067_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 27 ton;
+    badges: ["company/seibu"];
+
+  }
+ graphics {
+    can_attach_wagon: sw_same_attach_main;
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 1,2)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_SEIBU))
+
+    );
+
+    purchase: seibuDeha100_purchase;
+    cargo_capacity:107*param_capacity_mod/3;
+
+    loading_speed:param_loading_2D;
+    default:sw_seibuDeha100_lv;
+    power:192*4*1342/1000;
+
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_2D;
+    cargo_capacity:107*param_capacity_mod/3;
+    power:192*4*1342/1000;
+    default:sw_seibuDeha100_lv;
+    weight: 27;
+
+  }
+}
 # 1 "src/private/Kanto/seibu/seibuDeha5560/seibuDeha5560.pnml" 1
 
   spriteset(seibuDeha5560_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibuDeha5560/seibu5560_1.png"){ tmpl_purchase_1c_dual(0, 0) }
@@ -29181,7 +29256,7 @@ item(FEAT_TRAINS, seibu001) {
         mu_car: sw_seibuDeha5560_car_power_main;
         85;
     }
-# 185 "src/private/Kanto/seibu/items.pnml" 2
+# 246 "src/private/Kanto/seibu/items.pnml" 2
 
 item(FEAT_TRAINS, seibuDeha5560) {
   property {
@@ -29239,6 +29314,169 @@ item(FEAT_TRAINS, seibuDeha5560) {
     power:sw_seibuDeha5560_power_main()*4*1342/1000;
     default:sw_seibuDeha5560_lv;
     weight: 31;
+
+  }
+}
+# 1 "src/private/Kanto/seibu/seibu311/seibu311.pnml" 1
+
+  spriteset(seibu311_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu311/seibu311_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(seibu311_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu311/seibu311_1.png"){ tmpl_purchase_2c_dual(88, 75) }
+  switch(FEAT_TRAINS, SELF, seibu311_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: seibu311_purchase_c1; 1: seibu311_purchase_c2;}
+
+  spriteset(seibu311_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu311/seibu311_lights.png"){ tmpl_std_v3(0, 0) }
+  spriteset(seibu311_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu311/seibu311_lights.png"){ tmpl_std_v3(0, 25) }
+  switch(FEAT_TRAINS, SELF, sw_seibu311_lights, train_is_driving_backwards != vehicle_is_flipped){
+    1: seibu311_lights_end;
+    seibu311_lights_front;
+  }
+
+  spriteset(seibu311_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu311/seibu311_1.png"){ tmpl_std_v3(0, 0) }
+  spriteset(seibu311_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu311/seibu311_1.png"){ tmpl_std_v3(0, 50) }
+  spriteset(seibu311_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu311/seibu311_1.png"){ tmpl_std_v3(0, 25) }
+  spriteset(seibu311_1_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu311/seibu311_1.png"){ tmpl_std_rev_v3(0, 75) }
+
+
+  spriteset(seibu311_2_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu311/seibu311_2.png"){ tmpl_std_v3(0, 0) }
+  spriteset(seibu311_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu311/seibu311_2.png"){ tmpl_std_v3(0, 50) }
+  spriteset(seibu311_2_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu311/seibu311_2.png"){ tmpl_std_v3(0, 25) }
+  spriteset(seibu311_2_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu311/seibu311_2.png"){ tmpl_std_rev_v3(0, 75) }
+
+
+  spriteset(seibu311_3_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu311/seibu311_3.png"){ tmpl_std_v3(0, 0) }
+  spriteset(seibu311_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu311/seibu311_3.png"){ tmpl_std_v3(0, 50) }
+  spriteset(seibu311_3_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu311/seibu311_3.png"){ tmpl_std_v3(0, 25) }
+  spriteset(seibu311_3_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu311/seibu311_3.png"){ tmpl_std_rev_v3(0, 75) }
+
+
+  spriteset(seibu311_4_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu311/seibu311_4.png"){ tmpl_std_v3(0, 0) }
+  spriteset(seibu311_4_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu311/seibu311_4.png"){ tmpl_std_v3(0, 50) }
+  spriteset(seibu311_4_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu311/seibu311_4.png"){ tmpl_std_v3(0, 25) }
+  spriteset(seibu311_4_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu311/seibu311_4.png"){ tmpl_std_rev_v3(0, 75) }
+
+  switch(FEAT_TRAINS, SELF, seibu311_front_mot_timed, current_year){
+    0..1959:seibu311_1_front_mot; seibu311_3_front_mot;
+  }
+  switch(FEAT_TRAINS, SELF, seibu311_front_timed, current_year){
+    0..1959:seibu311_1_front; seibu311_3_front;
+  }
+  switch(FEAT_TRAINS, SELF, seibu311_mot_timed, current_year){
+    0..1959:seibu311_1_mot; seibu311_3_mot;
+  }
+  switch(FEAT_TRAINS, SELF, seibu311_wag_rev_timed, current_year){
+    0..1959:seibu311_1_wag_rev; seibu311_3_wag_rev;
+  }
+
+  switch(FEAT_TRAINS, SELF, seibu311_front_mot, cargo_subtype){
+    0:seibu311_front_mot_timed; 1:seibu311_1_front_mot; 2:seibu311_2_front_mot;
+    3:seibu311_3_front_mot; seibu311_4_front_mot;
+  }
+  switch(FEAT_TRAINS, SELF, seibu311_front, cargo_subtype){
+    0:seibu311_front_timed; 1:seibu311_1_front; 2:seibu311_2_front;
+    3:seibu311_3_front; seibu311_4_front;
+  }
+  switch(FEAT_TRAINS, SELF, seibu311_mot, cargo_subtype){
+    0:seibu311_mot_timed; 1:seibu311_1_mot; 2:seibu311_2_mot;
+    3:seibu311_3_mot; seibu311_4_mot;
+  }
+  switch(FEAT_TRAINS, SELF, seibu311_wag_rev, cargo_subtype){
+    0:seibu311_wag_rev_timed; 1:seibu311_1_wag_rev; 2:seibu311_2_wag_rev;
+    3:seibu311_3_wag_rev; seibu311_4_wag_rev;
+  }
+
+
+    switch(FEAT_TRAINS, SELF, sw_seibu311_front_gfx, vehicle_is_flipped){
+        1: seibu311_front;
+        seibu311_front_mot;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_seibu311_panto_placer_main,position_in_vehid_chain %2){
+        0: seibu311_wag_rev;
+        seibu311_mot;
+    }
+
+    switch(FEAT_TRAINS, SELF, seibu311_head_light, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sw_seibu311_front_gfx; 1: sw_seibu311_lights;}
+    switch(FEAT_TRAINS, SELF, sw_seibu311_lv,vehicle_type_id){
+        mu_car:sw_seibu311_panto_placer_main;
+        seibu311_head_light;
+    }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_seibu311_lv_desc_main, cargo_subtype){
+      0:string(LV_RANDOM);
+      1:string(LV_DATED,string(STR_LIVERY,string(LV_seibu311_1)),1949);
+      2:string(LV_DATED,string(STR_LIVERY,string(LV_SEIBU_BRYELLOW)),1949);
+      3:string(LV_DATED,string(STR_LIVERY,string(LV_SEIBU_AKADEN_A)),1960);
+      4:string(LV_DATED,string(STR_LIVERY,string(LV_SEIBU_AKADEN_B)),1960);
+    }
+
+
+    switch(FEAT_TRAINS, SELF, sw_seibu311_car_power_main,position_in_vehid_chain %2){
+        1: return 85;
+        return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_seibu311_power_main,vehicle_type_id){
+        mu_car: sw_seibu311_car_power_main;
+        return 85;
+    }
+# 307 "src/private/Kanto/seibu/items.pnml" 2
+
+item(FEAT_TRAINS, seibu311) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_seibu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_SEIBU), "311", string(STR_NAME_SERIES));
+    introduction_date: date(1946, 5, 1);
+    model_life: 20;
+    vehicle_life: 15;
+    dual_headed: 1;
+
+    cost_factor: 16;
+    running_cost_factor: 46;
+    speed: 95 km/h;
+    track_type:TR_1067_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 40 ton;
+    badges: ["company/seibu"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 2,3)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_SEIBU))
+
+    );
+    cargo_subtype_text: sw_seibu311_lv_desc_main;
+    purchase: seibu311_purchase;
+    cargo_capacity:116*param_capacity_mod/3;
+    purchase_cargo_capacity:116*param_capacity_mod/3-1;
+    loading_speed:param_loading_3D;
+    default:sw_seibu311_lv;
+    power:sw_seibu311_power_main()*4*1342/1000;
+    purchase_power: sw_seibu311_car_power_main()*4*1342/1000;
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_seibu311_lv_desc_main;
+    loading_speed:param_loading_3D;
+    cargo_capacity:116*param_capacity_mod/3;
+    power:sw_seibu311_power_main()*4*1342/1000;
+    default:sw_seibu311_lv;
+    weight: 37;
 
   }
 }
@@ -29340,7 +29578,7 @@ item(FEAT_TRAINS, seibuDeha5560) {
      mu_car: sw_seibu101_car_power_main;
    return 0;
   }
-# 246 "src/private/Kanto/seibu/items.pnml" 2
+# 368 "src/private/Kanto/seibu/items.pnml" 2
 
 item(FEAT_TRAINS, seibu101) {
   property {
@@ -29497,7 +29735,7 @@ item(FEAT_TRAINS, seibu101) {
         mu_car: sw_seibu411_car_power_main;
         sw_seibu411_power_1()*2;
     }
-# 307 "src/private/Kanto/seibu/items.pnml" 2
+# 429 "src/private/Kanto/seibu/items.pnml" 2
 
 item(FEAT_TRAINS, seibu411) {
   property {
@@ -29653,7 +29891,7 @@ item(FEAT_TRAINS, seibu411) {
       mu_car: sw_seibu451_car_power_main;
       return 100;
     }
-# 368 "src/private/Kanto/seibu/items.pnml" 2
+# 490 "src/private/Kanto/seibu/items.pnml" 2
 
 item(FEAT_TRAINS, seibu451) {
   property {
@@ -29831,7 +30069,7 @@ item(FEAT_TRAINS, seibu451) {
         mu_car: sw_seibu501_car_power_main;
         return 128*2;
     }
-# 429 "src/private/Kanto/seibu/items.pnml" 2
+# 551 "src/private/Kanto/seibu/items.pnml" 2
 
 item(FEAT_TRAINS, seibu501) {
   property {
@@ -29966,7 +30204,7 @@ item(FEAT_TRAINS, seibu501) {
       0x20: sw_seibu551_name_purchase;
       return CB_RESULT_NO_TEXT;
     }
-# 490 "src/private/Kanto/seibu/items.pnml" 2
+# 612 "src/private/Kanto/seibu/items.pnml" 2
 
 item(FEAT_TRAINS, seibu551) {
   property {
@@ -30072,7 +30310,7 @@ item(FEAT_TRAINS, seibu551) {
       mu_car:sw_seibu571_panto_placer_main;
       sw_seibu571_head_gfx_main;
     }
-# 551 "src/private/Kanto/seibu/items.pnml" 2
+# 673 "src/private/Kanto/seibu/items.pnml" 2
 
 item(FEAT_TRAINS, seibu571) {
   property {
@@ -30246,12 +30484,12 @@ item(FEAT_TRAINS, seibu571) {
     }
 
     switch(FEAT_TRAINS, SELF, sw_seibu301_lv_desc_main, cargo_subtype){
-   0:string(LV_DATED,string(STR_LIVERY,string(LV_seibu301_1)));
-   1:string(LV_DATED,string(STR_LIVERY,string(LV_seibu301_2)));
-   2:string(LV_DATED,string(STR_LIVERY,string(LV_seibu301_3)));
-   3:string(LV_DATED,string(STR_LIVERY,string(LV_seibu301_4)));
-   4:string(LV_DATED,string(STR_LIVERY,string(LV_seibu301_5)));
-   5:string(LV_DATED,string(STR_LIVERY,string(LV_seibu301_6)));
+   0:string(LV_DATED,string(STR_LIVERY,string(LV_seibu301_1)),1979);
+   1:string(LV_DATED,string(STR_LIVERY,string(LV_seibu301_2)),2010);
+   2:string(LV_DATED,string(STR_LIVERY,string(LV_seibu301_3)),2018);
+   3:string(LV_DATED,string(STR_LIVERY,string(LV_seibu301_4)),2017);
+   4:string(LV_DATED,string(STR_LIVERY,string(LV_seibu301_5)),2017);
+   5:string(LV_DATED,string(STR_LIVERY,string(LV_seibu301_6)),2018);
     }
 
 
@@ -30272,7 +30510,7 @@ item(FEAT_TRAINS, seibu571) {
    mu_car: sw_seibu301_car_power_main;
    sw_seibu301_head_power_main;
   }
-# 612 "src/private/Kanto/seibu/items.pnml" 2
+# 734 "src/private/Kanto/seibu/items.pnml" 2
 
 item(FEAT_TRAINS, seibu301) {
   property {
@@ -30484,7 +30722,7 @@ item(FEAT_TRAINS, seibu301) {
    mu_car:sw_seibu2000_car_power_main;
    sw_seibu2000_head_power;
   }
-# 673 "src/private/Kanto/seibu/items.pnml" 2
+# 795 "src/private/Kanto/seibu/items.pnml" 2
 
 item(FEAT_TRAINS, seibu2000) {
   property {
@@ -30689,7 +30927,7 @@ item(FEAT_TRAINS, seibu2000) {
    mu_car:sw_seibu3000_car_power_main;
    return 0;
   }
-# 734 "src/private/Kanto/seibu/items.pnml" 2
+# 856 "src/private/Kanto/seibu/items.pnml" 2
 
 item(FEAT_TRAINS, seibu3000) {
   property {
@@ -30805,7 +31043,7 @@ item(FEAT_TRAINS, seibu3000) {
    mu_car:sw_seibu4000_car_power_main;
    return 0;
   }
-# 795 "src/private/Kanto/seibu/items.pnml" 2
+# 917 "src/private/Kanto/seibu/items.pnml" 2
 
 item(FEAT_TRAINS, seibu4000) {
   property {
@@ -30974,7 +31212,7 @@ item(FEAT_TRAINS, seibu4000) {
    mu_car:sw_seibu6000_car_power_main;
    return 0;
   }
-# 856 "src/private/Kanto/seibu/items.pnml" 2
+# 978 "src/private/Kanto/seibu/items.pnml" 2
 
 item(FEAT_TRAINS, seibu6000) {
   property {
@@ -31161,7 +31399,7 @@ item(FEAT_TRAINS, seibu6000) {
    mu_car:sw_seibu9000_car_power_main;
    return 0;
   }
-# 917 "src/private/Kanto/seibu/items.pnml" 2
+# 1039 "src/private/Kanto/seibu/items.pnml" 2
 
 item(FEAT_TRAINS, seibu9000) {
   property {
@@ -31378,7 +31616,7 @@ item(FEAT_TRAINS, seibu9000) {
    mu_car:sw_seibu20000_car_power_main;
    return 0;
   }
-# 978 "src/private/Kanto/seibu/items.pnml" 2
+# 1100 "src/private/Kanto/seibu/items.pnml" 2
 
 item(FEAT_TRAINS, seibu20000) {
   property {
@@ -31588,7 +31826,7 @@ item(FEAT_TRAINS, seibu20000) {
    mu_car:sw_seibu30000_car_power_main;
    sw_seibu30000_power_head;
   }
-# 1039 "src/private/Kanto/seibu/items.pnml" 2
+# 1161 "src/private/Kanto/seibu/items.pnml" 2
 
 item(FEAT_TRAINS, seibu30000) {
   property {
@@ -31830,7 +32068,7 @@ item(FEAT_TRAINS, seibu30000) {
    mu_car:sw_seibu40000_car_power_main;
    return 0;
   }
-# 1100 "src/private/Kanto/seibu/items.pnml" 2
+# 1222 "src/private/Kanto/seibu/items.pnml" 2
 
 item(FEAT_TRAINS, seibu40000) {
   property {
