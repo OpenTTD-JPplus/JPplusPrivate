@@ -64,9 +64,9 @@
   }
 //*livery 1
   //*special gfx
-    switch(FEAT_TRAINS, SELF, sw_seibu311_front_gfx, vehicle_is_flipped){
-        1: seibu311_front;
-        seibu311_front_mot;
+    switch(FEAT_TRAINS, SELF, sw_seibu311_front_gfx, vehicle_is_flipped==0||position_in_consist%2==0){
+        1: seibu311_front_mot;
+        seibu311_front;
     }
   //*panto placer
     switch(FEAT_TRAINS, SELF, sw_seibu311_panto_placer_main,position_in_vehid_chain %2){
@@ -92,7 +92,7 @@
 //*post fixers
   //power fix
     switch(FEAT_TRAINS, SELF, sw_seibu311_car_power_main,position_in_vehid_chain %2){
-        1: return 85;
+        0: return 85;
         return 0;
     }
     switch(FEAT_TRAINS, SELF, sw_seibu311_power_main,vehicle_type_id){
