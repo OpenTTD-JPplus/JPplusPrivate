@@ -1,11 +1,19 @@
 //purchase
   spriteset(keisei1_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei1/keisei1.png"){ tmpl_purchase_1c(-88, 0) }
 //*main
-spriteset (sw_keisei1_def, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/private/Kanto/keisei/keisei1/keisei1.png") { tmpl_std_rev_v3(0, 0) }
-spriteset (sw_keisei1_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/private/Kanto/keisei/keisei1/keisei1.png") { tmpl_std_v3(0, 0) }
-
-switch(FEAT_TRAINS, PARENT, sw_keisei1_lv, vehicle_is_reversed){
-  1:sw_keisei1_rev;
-  sw_keisei1_def;
+spriteset (keisei1_head_def, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/private/Kanto/keisei/keisei1/keisei1.png") { tmpl_std_rev_v3(0, 0) }
+spriteset (keisei1_head_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/private/Kanto/keisei/keisei1/keisei1.png") { tmpl_std_v3(0, 0) }
+switch(FEAT_TRAINS, PARENT, keisei1_head, vehicle_is_reversed){
+  1: keisei1_head_rev;
+  keisei1_head_def;
 }
+
+  spriteset(keisei1_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/keisei/keisei1/keisei1_lights.png"){ tmpl_std_rev_v3(0, 0) }
+  spriteset(keisei1_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/keisei/keisei1/keisei1_lights.png"){ tmpl_std_v3(0, 0) }
+  switch(FEAT_TRAINS, SELF, sw_keisei1_lights, train_is_driving_backwards != vehicle_is_flipped){
+    1: keisei1_lights_end;
+    keisei1_lights_front;
+  }
+  
+TRAIN_CONSTRUCTOR_2(sw_keisei1_lv,  keisei1_head,  sw_keisei1_lights)
 //
