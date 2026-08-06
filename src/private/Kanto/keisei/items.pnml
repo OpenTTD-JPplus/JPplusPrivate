@@ -556,8 +556,69 @@ item(FEAT_TRAINS, keisei200_2000) {
     climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
     name: string(STR_TRAIN_NAME, string(STR_NAME_KEISEI), "210/2100", string(STR_NAME_TYPE));
     introduction_date: date(1966, 11, 1);
-    model_life: 26;
-    vehicle_life: 21;
+    model_life: 37;
+    vehicle_life: 32;
+    dual_headed: 1;
+    
+    cost_factor: 19;
+    running_cost_factor: 48;
+    speed: 100 km/h;
+    track_type:TR_1435_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient:  0.2;
+    weight: 33 ton;
+    badges: ["company/keisei"];
+    
+  }
+	graphics {
+    
+    
+     
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,8)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_KEISEI))
+    
+    );
+    cargo_subtype_text: sw_keisei200_2000_lv_desc_main;
+    purchase: keisei200_2000_purchase;
+    cargo_capacity:130*param_capacity_mod/3;
+    purchase_cargo_capacity:130*param_capacity_mod/3-1;
+    loading_speed:param_loading_3D;
+    default:sw_keisei200_2000_lv;
+    power:sw_keisei200_2000_power_main()*4*1342/1000;
+    purchase_power: sw_keisei200_2000_car_power_main()*4*1342/1000;
+    
+    
+    sound_effect: sw_KS3000_3050_start_sound;
+    
+    
+  }
+  livery_override(mu_car){
+		cargo_subtype_text:sw_keisei200_2000_lv_desc_main;
+    loading_speed:param_loading_3D;
+    cargo_capacity:130*param_capacity_mod/3;
+    power:sw_keisei200_2000_power_main()*4*1342/1000;
+    default:sw_keisei200_2000_lv;
+    weight: 33;
+    
+  }
+}
+#include "keisei3000/keisei3000.pnml"
+
+item(FEAT_TRAINS, keisei3000) {
+  property {
+    OVERRIDEN_TRAIN_DATA
+    
+    climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME_LONG, string(STR_NAME_KEISEI), "3000/3050", string(STR_NAME_TYPE), string(STR_NAME_1_GEN));
+    introduction_date: date(1958, 5, 1);
+    model_life: 38;
+    vehicle_life: 33;
     dual_headed: 1;
     
     cost_factor: 18;
@@ -579,32 +640,154 @@ item(FEAT_TRAINS, keisei200_2000) {
     string(STR_1435),
     string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
-    string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
-    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_FORMATION, string(STR_NUM_CARS_4, 2,4,6,8)),
+    string(STR_USAGE, string(STR_ACCESS_COMMUTER)),
     string(STR_OPERATOR, string(STR_KEISEI))
     
     );
-    cargo_subtype_text: sw_keisei200_2000_lv_desc_main;
-    purchase: keisei200_2000_purchase;
-    cargo_capacity:140*param_capacity_mod/3;
-    purchase_cargo_capacity:140*param_capacity_mod/3-1;
+    cargo_subtype_text: sw_keisei3000_lv_desc_main;
+    purchase: keisei3000_purchase;
+    cargo_capacity:130*param_capacity_mod/3;
+    purchase_cargo_capacity:130*param_capacity_mod/3-1;
     loading_speed:param_loading_3D;
-    default:sw_keisei200_2000_lv;
-    power:sw_keisei200_2000_power_main()*4*1342/1000;
-    purchase_power: sw_keisei200_2000_car_power_main()*4*1342/1000;
+    default:sw_keisei3000_lv;
+    power:sw_keisei3000_power_main()*4*1342/1000;
+    purchase_power: sw_keisei3000_car_power_main()*4*1342/1000;
     
-    
-    sound_effect: sw_KS200_2000_start_sound;
+    start_stop: sw_stop_start_3;
+    sound_effect: sw_KS3000_3050_start_sound;
     
     
   }
   livery_override(mu_car){
-		cargo_subtype_text:sw_keisei200_2000_lv_desc_main;
+		cargo_subtype_text:sw_keisei3000_lv_desc_main;
     loading_speed:param_loading_3D;
-    cargo_capacity:140*param_capacity_mod/3;
-    power:sw_keisei200_2000_power_main()*4*1342/1000;
-    default:sw_keisei200_2000_lv;
+    cargo_capacity:130*param_capacity_mod/3;
+    power:sw_keisei3000_power_main()*4*1342/1000;
+    default:sw_keisei3000_lv;
     weight: 33;
+    
+  }
+}
+#include "keisei3100/keisei3100.pnml"
+
+item(FEAT_TRAINS, keisei3100) {
+  property {
+    OVERRIDEN_TRAIN_DATA
+    
+    climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_KEISEI), "3100/3150", string(STR_NAME_TYPE));
+    introduction_date: date(1960, 11, 1);
+    model_life: 52;
+    vehicle_life: 47;
+    dual_headed: 1;
+    
+    cost_factor: 18;
+    running_cost_factor: 48;
+    speed: 105 km/h;
+    track_type:TR_1435_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient:  0.2;
+    weight: 34 ton;
+    badges: ["company/keisei"];
+    
+  }
+	graphics {
+    
+    
+     
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
+    string(STR_USAGE, string(STR_ACCESS_COMMUTER)),
+    string(STR_OPERATOR, string(STR_KEISEI))
+    
+    );
+    cargo_subtype_text: sw_keisei3100_lv_desc_main;
+    purchase: keisei3100_purchase;
+    cargo_capacity:128*param_capacity_mod/3;
+    purchase_cargo_capacity:128*param_capacity_mod/3-1;
+    loading_speed:param_loading_3D;
+    default:sw_keisei3100_lv;
+    power:sw_keisei3000_power_main()*4*1342/1000;
+    purchase_power: sw_keisei3000_car_power_main()*4*1342/1000;
+    
+    start_stop: sw_stop_start_3;
+    sound_effect: sw_KS3100_start_sound;
+    
+    
+  }
+  livery_override(mu_car){
+		cargo_subtype_text:sw_keisei3100_lv_desc_main;
+    loading_speed:param_loading_3D;
+    cargo_capacity:128*param_capacity_mod/3;
+    power:sw_keisei3000_power_main()*4*1342/1000;
+    default:sw_keisei3100_lv;
+    weight: 34;
+    
+  }
+}
+#include "keisei3200/keisei3200.pnml"
+
+item(FEAT_TRAINS, keisei3200) {
+  property {
+    OVERRIDEN_TRAIN_DATA
+    
+    climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_KEISEI), "3200", string(STR_NAME_TYPE));
+    introduction_date: date(1964, 10, 1);
+    model_life: 48;
+    vehicle_life: 43;
+    dual_headed: 1;
+    
+    cost_factor: 18;
+    running_cost_factor: 48;
+    speed: 105 km/h;
+    track_type:TR_1435_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient:  0.2;
+    weight: 34 ton;
+    badges: ["company/keisei"];
+    
+  }
+	graphics {
+    
+    
+     
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
+    string(STR_USAGE, string(STR_ACCESS_COMMUTER)),
+    string(STR_OPERATOR, string(STR_KEISEI))
+    
+    );
+    cargo_subtype_text: sw_keisei3200_lv_desc_main;
+    purchase: keisei3200_purchase;
+    cargo_capacity:128*param_capacity_mod/3;
+    purchase_cargo_capacity:128*param_capacity_mod/3-1;
+    loading_speed:param_loading_3D;
+    default:sw_keisei3200_lv;
+    power:sw_keisei3200_power_main()*4*1342/1000;
+    purchase_power: sw_keisei3200_car_power_main()*4*1342/1000;
+    
+    start_stop: sw_stop_start_3;
+    sound_effect: sw_KS3200_start_sound;
+    
+    
+  }
+  livery_override(mu_car){
+		cargo_subtype_text:sw_keisei3200_lv_desc_main;
+    loading_speed:param_loading_3D;
+    cargo_capacity:128*param_capacity_mod/3;
+    power:sw_keisei3200_power_main()*4*1342/1000;
+    default:sw_keisei3200_lv;
+    weight: 34;
     
   }
 }

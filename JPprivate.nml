@@ -38328,8 +38328,317 @@ item(FEAT_TRAINS, keisei200_2000) {
     climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
     name: string(STR_TRAIN_NAME, string(STR_NAME_KEISEI), "210/2100", string(STR_NAME_TYPE));
     introduction_date: date(1966, 11, 1);
-    model_life: 26;
-    vehicle_life: 21;
+    model_life: 37;
+    vehicle_life: 32;
+    dual_headed: 1;
+
+    cost_factor: 19;
+    running_cost_factor: 48;
+    speed: 100 km/h;
+    track_type:TR_1435_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 33 ton;
+    badges: ["company/keisei"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,8)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_KEISEI))
+
+    );
+    cargo_subtype_text: sw_keisei200_2000_lv_desc_main;
+    purchase: keisei200_2000_purchase;
+    cargo_capacity:130*param_capacity_mod/3;
+    purchase_cargo_capacity:130*param_capacity_mod/3-1;
+    loading_speed:param_loading_3D;
+    default:sw_keisei200_2000_lv;
+    power:sw_keisei200_2000_power_main()*4*1342/1000;
+    purchase_power: sw_keisei200_2000_car_power_main()*4*1342/1000;
+
+
+    sound_effect: sw_KS3000_3050_start_sound;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_keisei200_2000_lv_desc_main;
+    loading_speed:param_loading_3D;
+    cargo_capacity:130*param_capacity_mod/3;
+    power:sw_keisei200_2000_power_main()*4*1342/1000;
+    default:sw_keisei200_2000_lv;
+    weight: 33;
+
+  }
+}
+# 1 "src/private/Kanto/keisei/keisei3000/keisei3000.pnml" 1
+
+  spriteset(keisei3000_purchase_c1_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(keisei3000_purchase_c2_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_1.png"){ tmpl_purchase_2c_dual(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei3000_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: keisei3000_purchase_c1_1; 1: keisei3000_purchase_c2_1;}
+  spriteset(keisei3000_purchase_c1_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_2.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(keisei3000_purchase_c2_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_2.png"){ tmpl_purchase_2c_dual(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei3000_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: keisei3000_purchase_c1_2; 1: keisei3000_purchase_c2_2;}
+  spriteset(keisei3000_purchase_c1_3, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_3.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(keisei3000_purchase_c2_3, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_3.png"){ tmpl_purchase_2c_dual(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei3000_purchase_3, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: keisei3000_purchase_c1_3; 1: keisei3000_purchase_c2_3;}
+
+  switch(FEAT_TRAINS, PARENT, keisei3000_purchase,current_year){
+    0..1958: keisei3000_purchase_1;
+    1959..1979: keisei3000_purchase_2;
+    keisei3000_purchase_3;
+  }
+
+spriteset (keisei3000_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_1.png") { tmpl_std_v3(0, 0) }
+spriteset (keisei3000_1_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_1.png") { tmpl_std_v3(0, 25) }
+spriteset (keisei3000_1_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_1.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (keisei3000_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_1.png") { tmpl_std_v3(0, 50) }
+spriteset (keisei3000_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_1.png") { tmpl_std_v3(0, 75) }
+spriteset (keisei3000_1_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_1.png") { tmpl_std_rev_v3(0, 75) }
+switch(FEAT_TRAINS, SELF, sw_keisei3000_1_panto_placer,position_in_vehid_chain %2){
+  1: keisei3000_1_end_mot;
+  keisei3000_1_end_rev;
+}
+spriteset (keisei3000_2_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_2.png") { tmpl_std_v3(0, 0) }
+spriteset (keisei3000_2_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_2.png") { tmpl_std_v3(0, 25) }
+spriteset (keisei3000_2_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_2.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (keisei3000_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_2.png") { tmpl_std_v3(0, 50) }
+spriteset (keisei3000_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_2.png") { tmpl_std_v3(0, 75) }
+spriteset (keisei3000_2_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_2.png") { tmpl_std_rev_v3(0, 75) }
+spriteset (keisei3000_2_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_2.png") { tmpl_std_rev_v3(0, 100) }
+spriteset (keisei3000_2_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_2.png") { tmpl_std_v3(0, 100) }
+spriteset (keisei3000_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_2.png") { tmpl_symm_v3(0, 125) }
+
+spriteset (keisei3000_2_front_mot_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_2_ac.png") { tmpl_std_v3(0, 0) }
+spriteset (keisei3000_2_end_mot_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_2_ac.png") { tmpl_std_v3(0, 25) }
+spriteset (keisei3000_2_end_mot_ac_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_2_ac.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (keisei3000_2_front_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_2_ac.png") { tmpl_std_v3(0, 50) }
+spriteset (keisei3000_2_end_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_2_ac.png") { tmpl_std_v3(0, 75) }
+spriteset (keisei3000_2_end_ac_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_2_ac.png") { tmpl_std_rev_v3(0, 75) }
+spriteset (keisei3000_2_mot_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_2_ac.png") { tmpl_std_rev_v3(0, 100) }
+spriteset (keisei3000_2_mot_ac_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_2_ac.png") { tmpl_std_v3(0, 100) }
+spriteset (keisei3000_2_wag_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_2_ac.png") { tmpl_symm_v3(0, 125) }
+  switch(FEAT_TRAINS, PARENT, sw_keisei3000_2_front,current_year>1988){
+    1: keisei3000_2_front_ac; keisei3000_2_front;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_keisei3000_2_end,current_year>1988){
+    1: keisei3000_2_end_ac; keisei3000_2_end;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_keisei3000_2_end_rev,current_year>1988){
+    1: keisei3000_2_end_ac_rev; keisei3000_2_end_rev;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_keisei3000_2_front_mot,current_year>1988){
+    1: keisei3000_2_front_mot_ac; keisei3000_2_front_mot;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_keisei3000_2_end_mot,current_year>1988){
+    1: keisei3000_2_end_mot_ac; keisei3000_2_end_mot;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_keisei3000_2_end_mot_rev,current_year>1988){
+    1: keisei3000_2_end_mot_ac_rev; keisei3000_2_end_mot_rev;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_keisei3000_2_mot,current_year>1988){
+    1: keisei3000_2_mot_ac; keisei3000_2_mot;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_keisei3000_2_mot_rev,current_year>1988){
+    1: keisei3000_2_mot_ac_rev; keisei3000_2_mot_rev;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_keisei3000_2_wag,current_year>1988){
+    1: keisei3000_2_wag_ac; keisei3000_2_wag;
+  }
+spriteset (keisei3000_3_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_3.png") { tmpl_std_v3(0, 0) }
+spriteset (keisei3000_3_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_3.png") { tmpl_std_v3(0, 25) }
+spriteset (keisei3000_3_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_3.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (keisei3000_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_3.png") { tmpl_std_v3(0, 50) }
+spriteset (keisei3000_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_3.png") { tmpl_std_v3(0, 75) }
+spriteset (keisei3000_3_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_3.png") { tmpl_std_rev_v3(0, 75) }
+spriteset (keisei3000_3_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_3.png") { tmpl_std_rev_v3(0, 100) }
+spriteset (keisei3000_3_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_3.png") { tmpl_std_v3(0, 100) }
+spriteset (keisei3000_3_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_3.png") { tmpl_symm_v3(0, 125) }
+
+spriteset (keisei3000_3_front_mot_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_3_ac.png") { tmpl_std_v3(0, 0) }
+spriteset (keisei3000_3_end_mot_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_3_ac.png") { tmpl_std_v3(0, 25) }
+spriteset (keisei3000_3_end_mot_ac_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_3_ac.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (keisei3000_3_front_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_3_ac.png") { tmpl_std_v3(0, 50) }
+spriteset (keisei3000_3_end_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_3_ac.png") { tmpl_std_v3(0, 75) }
+spriteset (keisei3000_3_end_ac_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_3_ac.png") { tmpl_std_rev_v3(0, 75) }
+spriteset (keisei3000_3_mot_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_3_ac.png") { tmpl_std_rev_v3(0, 100) }
+spriteset (keisei3000_3_mot_ac_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_3_ac.png") { tmpl_std_v3(0, 100) }
+spriteset (keisei3000_3_wag_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3000/keisei3000_3_ac.png") { tmpl_symm_v3(0, 125) }
+  switch(FEAT_TRAINS, PARENT, sw_keisei3000_3_front,current_year>1988){
+    1: keisei3000_3_front_ac; keisei3000_3_front;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_keisei3000_3_end,current_year>1988){
+    1: keisei3000_3_end_ac; keisei3000_3_end;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_keisei3000_3_end_rev,current_year>1988){
+    1: keisei3000_3_end_ac_rev; keisei3000_3_end_rev;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_keisei3000_3_front_mot,current_year>1988){
+    1: keisei3000_3_front_mot_ac; keisei3000_3_front_mot;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_keisei3000_3_end_mot,current_year>1988){
+    1: keisei3000_3_end_mot_ac; keisei3000_3_end_mot;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_keisei3000_3_end_mot_rev,current_year>1988){
+    1: keisei3000_3_end_mot_ac_rev; keisei3000_3_end_mot_rev;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_keisei3000_3_mot,current_year>1988){
+    1: keisei3000_3_mot_ac; keisei3000_3_mot;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_keisei3000_3_mot_rev,current_year>1988){
+    1: keisei3000_3_mot_ac_rev; keisei3000_3_mot_rev;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_keisei3000_3_wag,current_year>1988){
+    1: keisei3000_3_wag_ac; keisei3000_3_wag;
+  }
+
+  switch(FEAT_TRAINS, SELF, keisei3000_front_timed, current_year){
+    0..1958: keisei3000_1_front; 1959..1979: sw_keisei3000_2_front;
+    sw_keisei3000_3_front;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3000_front_mot_timed, current_year){
+    0..1958: keisei3000_1_front_mot; 1959..1979: sw_keisei3000_2_front_mot;
+    sw_keisei3000_3_front_mot;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3000_end_timed, current_year){
+    0..1958: keisei3000_1_end; 1959..1979: sw_keisei3000_2_end;
+    sw_keisei3000_3_end;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3000_end_rev_timed, current_year){
+    0..1958: keisei3000_1_end_rev; 1959..1979: sw_keisei3000_2_end_rev;
+    sw_keisei3000_3_end_rev;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3000_end_mot_timed, current_year){
+    0..1958: keisei3000_1_end_mot; 1959..1979: sw_keisei3000_2_end_mot;
+    sw_keisei3000_3_end_mot;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3000_end_mot_rev_timed, current_year){
+    0..1958: keisei3000_1_end_mot_rev; 1959..1979: sw_keisei3000_2_end_mot_rev;
+    sw_keisei3000_3_end_mot_rev;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3000_mot_timed, current_year){
+    0..1958: sw_keisei3000_1_panto_placer; 1959..1979: sw_keisei3000_2_mot;
+    sw_keisei3000_3_mot;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3000_mot_rev_timed, current_year){
+    0..1958: sw_keisei3000_1_panto_placer; 1959..1979: sw_keisei3000_2_mot_rev;
+    sw_keisei3000_3_mot_rev;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3000_wag_timed, current_year){
+    0..1958: sw_keisei3000_1_panto_placer; 1959..1979: sw_keisei3000_2_wag;
+    sw_keisei3000_3_wag;
+  }
+
+  switch(FEAT_TRAINS, SELF, keisei3000_front, cargo_subtype){
+    1: keisei3000_1_front; 2: sw_keisei3000_2_front; 3:sw_keisei3000_3_front;
+    keisei3000_front_timed;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3000_front_mot, cargo_subtype){
+    1: keisei3000_1_front_mot; 2: sw_keisei3000_2_front_mot; 3:sw_keisei3000_3_front_mot;
+    keisei3000_front_mot_timed;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3000_end, cargo_subtype){
+    1: keisei3000_1_end; 2: sw_keisei3000_2_end; 3:sw_keisei3000_3_end;
+    keisei3000_end_timed;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3000_end_rev, cargo_subtype){
+    1: keisei3000_1_end_rev; 2: sw_keisei3000_2_end_rev; 3:sw_keisei3000_3_end_rev;
+    keisei3000_end_rev_timed;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3000_end_mot, cargo_subtype){
+    1: keisei3000_1_end_mot; 2: sw_keisei3000_2_end_mot; 3:sw_keisei3000_3_end_mot;
+    keisei3000_end_mot_timed;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3000_end_mot_rev, cargo_subtype){
+    1: keisei3000_1_end_mot_rev; 2: sw_keisei3000_2_end_mot_rev; 3:sw_keisei3000_3_end_mot_rev;
+    keisei3000_end_mot_rev_timed;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3000_mot, cargo_subtype){
+    1: sw_keisei3000_1_panto_placer; 2: sw_keisei3000_2_mot; 3:sw_keisei3000_3_mot;
+    keisei3000_mot_timed;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3000_mot_rev, cargo_subtype){
+    1: sw_keisei3000_1_panto_placer; 2: sw_keisei3000_2_mot_rev; 3:sw_keisei3000_3_mot_rev;
+    keisei3000_mot_rev_timed;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3000_wag, cargo_subtype){
+    1: sw_keisei3000_1_panto_placer; 2: sw_keisei3000_2_wag; 3:sw_keisei3000_3_wag;
+    keisei3000_wag_timed;
+  }
+
+
+
+    switch(FEAT_TRAINS, PARENT, sw_keisei3000_front_gfx,vehicle_is_reversed){
+      1: keisei3000_front;
+      keisei3000_front_mot;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_keisei3000_end_gfx,vehicle_is_reversed){
+      1: keisei3000_end_mot;
+      keisei3000_end;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_keisei3000_panto_placer_main,position_in_vehid_chain %2){
+      1: keisei3000_mot_rev;
+      keisei3000_wag;
+    }
+
+
+      switch(FEAT_TRAINS, SELF, sw_keisei3000_fake_head_placer_gfx,position_in_vehid_chain){
+        2: keisei3000_end_rev;
+        3: keisei3000_end_mot;
+        sw_keisei3000_panto_placer_main;
+      }
+      switch(FEAT_TRAINS, SELF, sw_keisei3000_fake_head_placer_main,[(num_vehs_in_vehid_chain>3&&current_year<1978)||(num_vehs_in_vehid_chain>5)]){
+        1: sw_keisei3000_fake_head_placer_gfx;
+        sw_keisei3000_panto_placer_main;
+      }
+
+    switch(FEAT_TRAINS, SELF, sw_keisei3000_gfx_main,train_is_driving_backwards != vehicle_is_flipped){
+      1: sw_keisei3000_end_gfx;
+      sw_keisei3000_front_gfx;
+    }
+    switch(FEAT_TRAINS, SELF, sw_keisei3000_lv,vehicle_type_id){
+      mu_car: sw_keisei3000_fake_head_placer_main;
+      sw_keisei3000_gfx_main;
+    }
+
+  switch(FEAT_TRAINS, SELF, sw_keisei3000_lv_desc_main,cargo_subtype){
+    0:string(LV_RANDOM);
+    1:string(LV_DATED,string(STR_LIVERY,string(LV_KEISEI_AODEN)),1958);
+    2:string(LV_DATED,string(STR_LIVERY,string(LV_KEISEI_AKADEN)),1959);
+    3:string(LV_DATED,string(STR_LIVERY,string(LV_KEISEI_AKADEN)),1980);
+  }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_keisei3000_car_power_main,position_in_consist_from_end %2){
+      0:return 112;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_keisei3000_power_main,vehicle_type_id){
+      mu_car:sw_keisei3000_car_power_main;
+      return 112;
+    }
+# 612 "src/private/Kanto/keisei/items.pnml" 2
+
+item(FEAT_TRAINS, keisei3000) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME_LONG, string(STR_NAME_KEISEI), "3000/3050", string(STR_NAME_TYPE), string(STR_NAME_1_GEN));
+    introduction_date: date(1958, 5, 1);
+    model_life: 38;
+    vehicle_life: 33;
     dual_headed: 1;
 
     cost_factor: 18;
@@ -38351,32 +38660,699 @@ item(FEAT_TRAINS, keisei200_2000) {
     string(STR_1435),
     string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
-    string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
-    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_FORMATION, string(STR_NUM_CARS_4, 2,4,6,8)),
+    string(STR_USAGE, string(STR_ACCESS_COMMUTER)),
     string(STR_OPERATOR, string(STR_KEISEI))
 
     );
-    cargo_subtype_text: sw_keisei200_2000_lv_desc_main;
-    purchase: keisei200_2000_purchase;
-    cargo_capacity:140*param_capacity_mod/3;
-    purchase_cargo_capacity:140*param_capacity_mod/3-1;
+    cargo_subtype_text: sw_keisei3000_lv_desc_main;
+    purchase: keisei3000_purchase;
+    cargo_capacity:130*param_capacity_mod/3;
+    purchase_cargo_capacity:130*param_capacity_mod/3-1;
     loading_speed:param_loading_3D;
-    default:sw_keisei200_2000_lv;
-    power:sw_keisei200_2000_power_main()*4*1342/1000;
-    purchase_power: sw_keisei200_2000_car_power_main()*4*1342/1000;
+    default:sw_keisei3000_lv;
+    power:sw_keisei3000_power_main()*4*1342/1000;
+    purchase_power: sw_keisei3000_car_power_main()*4*1342/1000;
 
-
-    sound_effect: sw_KS200_2000_start_sound;
+    start_stop: sw_stop_start_3;
+    sound_effect: sw_KS3000_3050_start_sound;
 
 
   }
   livery_override(mu_car){
-  cargo_subtype_text:sw_keisei200_2000_lv_desc_main;
+  cargo_subtype_text:sw_keisei3000_lv_desc_main;
     loading_speed:param_loading_3D;
-    cargo_capacity:140*param_capacity_mod/3;
-    power:sw_keisei200_2000_power_main()*4*1342/1000;
-    default:sw_keisei200_2000_lv;
+    cargo_capacity:130*param_capacity_mod/3;
+    power:sw_keisei3000_power_main()*4*1342/1000;
+    default:sw_keisei3000_lv;
     weight: 33;
+
+  }
+}
+# 1 "src/private/Kanto/keisei/keisei3100/keisei3100.pnml" 1
+
+  spriteset(keisei3100_purchase_c1_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(keisei3100_purchase_c2_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_1.png"){ tmpl_purchase_2c_dual(0, 100) }
+  switch(FEAT_TRAINS, SELF, keisei3100_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: keisei3100_purchase_c1_1; 1: keisei3100_purchase_c2_1;}
+  spriteset(keisei3100_purchase_c1_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_2.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(keisei3100_purchase_c2_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_2.png"){ tmpl_purchase_2c_dual(0, 100) }
+  switch(FEAT_TRAINS, SELF, keisei3100_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: keisei3100_purchase_c1_2; 1: keisei3100_purchase_c2_2;}
+  spriteset(keisei3100_purchase_c1_3, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_2_ac.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(keisei3100_purchase_c2_3, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_2_ac.png"){ tmpl_purchase_2c_dual(0, 100) }
+  switch(FEAT_TRAINS, SELF, keisei3100_purchase_3, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: keisei3100_purchase_c1_3; 1: keisei3100_purchase_c2_3;}
+  spriteset(keisei3100_purchase_c1_4, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_3.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(keisei3100_purchase_c2_4, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_3.png"){ tmpl_purchase_2c_dual(0, 100) }
+  switch(FEAT_TRAINS, SELF, keisei3100_purchase_4, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: keisei3100_purchase_c1_4; 1: keisei3100_purchase_c2_4;}
+
+  switch(FEAT_TRAINS, SELF, keisei3100_purchase, current_year){
+    0..1980:keisei3100_purchase_1;
+    1981..1985:keisei3100_purchase_2;
+    1986..1991:keisei3100_purchase_3;
+    keisei3100_purchase_4;
+  }
+
+spriteset (keisei3100_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_1.png") { tmpl_std_v3(0, 0) }
+spriteset (keisei3100_1_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_1.png") { tmpl_std_v3(0, 25) }
+spriteset (keisei3100_1_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_1.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (keisei3100_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_1.png") { tmpl_std_v3(0, 50) }
+spriteset (keisei3100_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_1.png") { tmpl_std_v3(0, 75) }
+spriteset (keisei3100_1_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_1.png") { tmpl_std_rev_v3(0, 75) }
+spriteset (keisei3100_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_1.png") { tmpl_std_v3(0, 100) }
+spriteset (keisei3100_1_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_1.png") { tmpl_std_rev_v3(0, 100) }
+spriteset (keisei3100_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_1.png") { tmpl_symm_v3(0, 125) }
+
+spriteset (keisei3150_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_1.png") { tmpl_std_v3(0, 0) }
+spriteset (keisei3150_1_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_1.png") { tmpl_std_v3(0, 25) }
+spriteset (keisei3150_1_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_1.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (keisei3150_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_1.png") { tmpl_std_v3(0, 50) }
+spriteset (keisei3150_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_1.png") { tmpl_std_v3(0, 75) }
+spriteset (keisei3150_1_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_1.png") { tmpl_std_rev_v3(0, 75) }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_1_front_mot_gfx, build_year>1962){
+    1:keisei3150_1_front_mot; keisei3100_1_front_mot;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_1_end_mot_gfx, build_year>1962){
+    1:keisei3150_1_end_mot; keisei3100_1_end_mot;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_1_end_mot_rev_gfx, build_year>1962){
+    1:keisei3150_1_end_mot_rev; keisei3100_1_end_mot_rev;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_1_front_gfx, build_year>1962){
+    1:keisei3150_1_front; keisei3100_1_front;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_1_end_gfx, build_year>1962){
+    1:keisei3150_1_end; keisei3100_1_end;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_1_end_rev_gfx, build_year>1962){
+    1:keisei3150_1_end_rev; keisei3100_1_end_rev;
+  }
+
+spriteset (keisei3100_2_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_2.png") { tmpl_std_v3(0, 0) }
+spriteset (keisei3100_2_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_2.png") { tmpl_std_v3(0, 25) }
+spriteset (keisei3100_2_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_2.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (keisei3100_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_2.png") { tmpl_std_v3(0, 50) }
+spriteset (keisei3100_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_2.png") { tmpl_std_v3(0, 75) }
+spriteset (keisei3100_2_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_2.png") { tmpl_std_rev_v3(0, 75) }
+spriteset (keisei3100_2_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_2.png") { tmpl_std_v3(0, 100) }
+spriteset (keisei3100_2_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_2.png") { tmpl_std_rev_v3(0, 100) }
+spriteset (keisei3100_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_2.png") { tmpl_symm_v3(0, 125) }
+
+spriteset (keisei3150_2_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_2.png") { tmpl_std_v3(0, 0) }
+spriteset (keisei3150_2_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_2.png") { tmpl_std_v3(0, 25) }
+spriteset (keisei3150_2_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_2.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (keisei3150_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_2.png") { tmpl_std_v3(0, 50) }
+spriteset (keisei3150_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_2.png") { tmpl_std_v3(0, 75) }
+spriteset (keisei3150_2_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_2.png") { tmpl_std_rev_v3(0, 75) }
+
+spriteset (keisei3100_2_front_mot_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_2_ac.png") { tmpl_std_v3(0, 0) }
+spriteset (keisei3100_2_end_mot_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_2_ac.png") { tmpl_std_v3(0, 25) }
+spriteset (keisei3100_2_end_mot_ac_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_2_ac.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (keisei3100_2_front_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_2_ac.png") { tmpl_std_v3(0, 50) }
+spriteset (keisei3100_2_end_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_2_ac.png") { tmpl_std_v3(0, 75) }
+spriteset (keisei3100_2_end_ac_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_2_ac.png") { tmpl_std_rev_v3(0, 75) }
+spriteset (keisei3100_2_mot_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_2_ac.png") { tmpl_std_v3(0, 100) }
+spriteset (keisei3100_2_mot_ac_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_2_ac.png") { tmpl_std_rev_v3(0, 100) }
+spriteset (keisei3100_2_wag_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_2_ac.png") { tmpl_symm_v3(0, 125) }
+
+spriteset (keisei3150_2_front_mot_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_2_ac.png") { tmpl_std_v3(0, 0) }
+spriteset (keisei3150_2_end_mot_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_2_ac.png") { tmpl_std_v3(0, 25) }
+spriteset (keisei3150_2_end_mot_ac_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_2_ac.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (keisei3150_2_front_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_2_ac.png") { tmpl_std_v3(0, 50) }
+spriteset (keisei3150_2_end_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_2_ac.png") { tmpl_std_v3(0, 75) }
+spriteset (keisei3150_2_end_ac_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_2_ac.png") { tmpl_std_rev_v3(0, 75) }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_2_front_mot, current_year>1986){
+    1:keisei3100_2_front_mot_ac; keisei3100_2_front_mot;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_2_end_mot, current_year>1986){
+    1:keisei3100_2_end_mot_ac; keisei3100_2_end_mot;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_2_end_mot_rev, current_year>1986){
+    1:keisei3100_2_end_mot_ac_rev; keisei3100_2_end_mot_rev;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_2_front, current_year>1986){
+    1:keisei3100_2_front_ac; keisei3100_2_front;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_2_end, current_year>1986){
+    1:keisei3100_2_end_ac; keisei3100_2_end;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_2_end_rev, current_year>1986){
+    1:keisei3100_2_end_ac_rev; keisei3100_2_end_rev;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_2_mot, current_year>1986){
+    1:keisei3100_2_mot_ac; keisei3100_2_mot;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_2_mot_rev, current_year>1986){
+    1:keisei3100_2_mot_ac_rev; keisei3100_2_mot_rev;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_2_wag, current_year>1986){
+    1:keisei3100_2_wag_ac; keisei3100_2_wag;
+  }
+
+  switch(FEAT_TRAINS, SELF, sw_keisei3150_2_front_mot, current_year>1986){
+    1:keisei3150_2_front_mot_ac; keisei3150_2_front_mot;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3150_2_end_mot, current_year>1986){
+    1:keisei3150_2_end_mot_ac; keisei3150_2_end_mot;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3150_2_end_mot_rev, current_year>1986){
+    1:keisei3150_2_end_mot_ac_rev; keisei3150_2_end_mot_rev;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3150_2_front, current_year>1986){
+    1:keisei3150_2_front_ac; keisei3150_2_front;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3150_2_end, current_year>1986){
+    1:keisei3150_2_end_ac; keisei3150_2_end;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3150_2_end_rev, current_year>1986){
+    1:keisei3150_2_end_ac_rev; keisei3150_2_end_rev;
+  }
+
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_2_front_mot_gfx, build_year>1962){
+    1:sw_keisei3150_2_front_mot; sw_keisei3100_2_front_mot;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_2_end_mot_gfx, build_year>1962){
+    1:sw_keisei3150_2_end_mot; sw_keisei3100_2_end_mot;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_2_end_mot_rev_gfx, build_year>1962){
+    1:sw_keisei3150_2_end_mot_rev; sw_keisei3100_2_end_mot_rev;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_2_front_gfx, build_year>1962){
+    1:sw_keisei3150_2_front; sw_keisei3100_2_front;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_2_end_gfx, build_year>1962){
+    1:sw_keisei3150_2_end; sw_keisei3100_2_end;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_2_end_rev_gfx, build_year>1962){
+    1:sw_keisei3150_2_end_rev; sw_keisei3100_2_end_rev;
+  }
+spriteset (keisei3100_3_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_3.png") { tmpl_std_v3(0, 0) }
+spriteset (keisei3100_3_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_3.png") { tmpl_std_v3(0, 25) }
+spriteset (keisei3100_3_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_3.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (keisei3100_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_3.png") { tmpl_std_v3(0, 50) }
+spriteset (keisei3100_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_3.png") { tmpl_std_v3(0, 75) }
+spriteset (keisei3100_3_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_3.png") { tmpl_std_rev_v3(0, 75) }
+spriteset (keisei3100_3_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_3.png") { tmpl_std_v3(0, 100) }
+spriteset (keisei3100_3_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_3.png") { tmpl_std_rev_v3(0, 100) }
+spriteset (keisei3100_3_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3100_3.png") { tmpl_symm_v3(0, 125) }
+
+spriteset (keisei3150_3_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_3.png") { tmpl_std_v3(0, 0) }
+spriteset (keisei3150_3_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_3.png") { tmpl_std_v3(0, 25) }
+spriteset (keisei3150_3_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_3.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (keisei3150_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_3.png") { tmpl_std_v3(0, 50) }
+spriteset (keisei3150_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_3.png") { tmpl_std_v3(0, 75) }
+spriteset (keisei3150_3_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3100/keisei3150_3.png") { tmpl_std_rev_v3(0, 75) }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_3_front_mot_gfx, build_year>1962){
+    1:keisei3150_3_front_mot; keisei3100_3_front_mot;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_3_end_mot_gfx, build_year>1962){
+    1:keisei3150_3_end_mot; keisei3100_3_end_mot;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_3_end_mot_rev_gfx, build_year>1962){
+    1:keisei3150_3_end_mot_rev; keisei3100_3_end_mot_rev;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_3_front_gfx, build_year>1962){
+    1:keisei3150_3_front; keisei3100_3_front;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_3_end_gfx, build_year>1962){
+    1:keisei3150_3_end; keisei3100_3_end;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_3_end_rev_gfx, build_year>1962){
+    1:keisei3150_3_end_rev; keisei3100_3_end_rev;
+  }
+
+  switch(FEAT_TRAINS, SELF, keisei3100_front_mot_timed, current_year){
+    0..1980:sw_keisei3100_1_front_mot_gfx; 1981..1991:sw_keisei3100_2_front_mot_gfx;
+    sw_keisei3100_3_front_mot_gfx;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3100_end_mot_timed, current_year){
+    0..1980:sw_keisei3100_1_end_mot_gfx; 1981..1991:sw_keisei3100_2_end_mot_gfx;
+    sw_keisei3100_3_end_mot_gfx;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3100_end_mot_rev_timed, current_year){
+    0..1980:sw_keisei3100_1_end_mot_rev_gfx; 1981..1991:sw_keisei3100_2_end_mot_rev_gfx;
+    sw_keisei3100_3_end_mot_rev_gfx;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3100_front_timed, current_year){
+    0..1980:sw_keisei3100_1_front_gfx; 1981..1991:sw_keisei3100_2_front_gfx;
+    sw_keisei3100_3_front_gfx;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3100_end_timed, current_year){
+    0..1980:sw_keisei3100_1_end_gfx; 1981..1991:sw_keisei3100_2_end_gfx;
+    sw_keisei3100_3_end_gfx;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3100_end_rev_timed, current_year){
+    0..1980:sw_keisei3100_1_end_rev_gfx; 1981..1991:sw_keisei3100_2_end_rev_gfx;
+    sw_keisei3100_3_end_rev_gfx;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3100_mot_timed, current_year){
+    0..1980:keisei3100_1_mot; 1981..1991:sw_keisei3100_2_mot;
+    keisei3100_3_mot;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3100_mot_rev_timed, current_year){
+    0..1980:keisei3100_1_mot_rev; 1981..1991:sw_keisei3100_2_mot_rev;
+    keisei3100_3_mot_rev;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3100_wag_timed, current_year){
+    0..1980:keisei3100_1_wag; 1981..1991:sw_keisei3100_2_wag;
+    keisei3100_3_wag;
+  }
+
+  switch(FEAT_TRAINS, SELF, keisei3100_front_mot, cargo_subtype){
+    0:keisei3100_front_mot_timed; 1:sw_keisei3100_1_front_mot_gfx;
+    2:sw_keisei3100_2_front_mot_gfx; sw_keisei3100_3_front_mot_gfx;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3100_end_mot, cargo_subtype){
+    0:keisei3100_end_mot_timed; 1:sw_keisei3100_1_end_mot_gfx;
+    2:sw_keisei3100_2_end_mot_gfx; sw_keisei3100_3_end_mot_gfx;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3100_end_mot_rev, cargo_subtype){
+    0:keisei3100_end_mot_rev_timed; 1:sw_keisei3100_1_end_mot_rev_gfx;
+    2:sw_keisei3100_2_end_mot_rev_gfx; sw_keisei3100_3_end_mot_rev_gfx;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3100_front, cargo_subtype){
+    0:keisei3100_front_timed; 1:sw_keisei3100_1_front_gfx;
+    2:sw_keisei3100_2_front_gfx; sw_keisei3100_3_front_gfx;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3100_end, cargo_subtype){
+    0:keisei3100_end_timed; 1:sw_keisei3100_1_end_gfx;
+    2:sw_keisei3100_2_end_gfx; sw_keisei3100_3_end_gfx;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3100_end_rev, cargo_subtype){
+    0:keisei3100_end_rev_timed; 1:sw_keisei3100_1_end_rev_gfx;
+    2:sw_keisei3100_2_end_rev_gfx; sw_keisei3100_3_end_rev_gfx;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3100_mot, cargo_subtype){
+    0:keisei3100_mot_timed; 1:keisei3100_1_mot;
+    2:sw_keisei3100_2_mot; keisei3100_3_mot;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3100_mot_rev, cargo_subtype){
+    0:keisei3100_mot_rev_timed; 1:keisei3100_1_mot_rev;
+    2:sw_keisei3100_2_mot_rev; keisei3100_3_mot_rev;
+  }
+  switch(FEAT_TRAINS, SELF, keisei3100_wag, cargo_subtype){
+    0:keisei3100_wag_timed; 1:keisei3100_1_wag;
+    2:sw_keisei3100_2_wag; keisei3100_3_wag;
+  }
+
+
+
+    switch(FEAT_TRAINS, PARENT, sw_keisei3100_front, vehicle_is_reversed){
+      1:keisei3100_front;
+      keisei3100_front_mot;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_keisei3100_end, vehicle_is_reversed){
+      1:keisei3100_end_mot;
+      keisei3100_end;
+    }
+
+
+      switch(FEAT_TRAINS, SELF, sw_keisei3100_panto_placer_main,position_in_vehid_chain %2){
+        1: keisei3100_mot;
+        keisei3100_wag;
+      }
+
+
+      switch(FEAT_TRAINS, SELF, sw_keisei3100_fake_head_placer_gfx,position_in_vehid_chain){
+        2: keisei3100_end_rev;
+        3: keisei3100_end_mot;
+        sw_keisei3100_panto_placer_main;
+      }
+      switch(FEAT_TRAINS, SELF, sw_keisei3100_fake_head_placer_main,num_vehs_in_vehid_chain>5){
+        1: sw_keisei3100_fake_head_placer_gfx;
+        sw_keisei3100_panto_placer_main;
+      }
+
+    switch(FEAT_TRAINS, SELF, sw_keisei3100_gfx_main,train_is_driving_backwards != vehicle_is_flipped){
+        1: sw_keisei3100_end;
+        sw_keisei3100_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_keisei3100_lv,vehicle_type_id){
+        mu_car: sw_keisei3100_fake_head_placer_main;
+        sw_keisei3100_gfx_main;
+    }
+
+
+
+  switch(FEAT_TRAINS, SELF, sw_keisei3100_lv_desc_main,cargo_subtype){
+    0:string(LV_RANDOM);
+    1:string(LV_DATED,string(STR_LIVERY,string(LV_KEISEI_AKADEN)),1960);
+    2:string(LV_DATED,string(STR_LIVERY,string(LV_KEISEI_AKADEN)),1981);
+    3:string(LV_DATED,string(STR_LIVERY,string(LV_KEISEI_WHITE)),1992);
+  }
+# 673 "src/private/Kanto/keisei/items.pnml" 2
+
+item(FEAT_TRAINS, keisei3100) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_KEISEI), "3100/3150", string(STR_NAME_TYPE));
+    introduction_date: date(1960, 11, 1);
+    model_life: 52;
+    vehicle_life: 47;
+    dual_headed: 1;
+
+    cost_factor: 18;
+    running_cost_factor: 48;
+    speed: 105 km/h;
+    track_type:TR_1435_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 34 ton;
+    badges: ["company/keisei"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
+    string(STR_USAGE, string(STR_ACCESS_COMMUTER)),
+    string(STR_OPERATOR, string(STR_KEISEI))
+
+    );
+    cargo_subtype_text: sw_keisei3100_lv_desc_main;
+    purchase: keisei3100_purchase;
+    cargo_capacity:128*param_capacity_mod/3;
+    purchase_cargo_capacity:128*param_capacity_mod/3-1;
+    loading_speed:param_loading_3D;
+    default:sw_keisei3100_lv;
+    power:sw_keisei3000_power_main()*4*1342/1000;
+    purchase_power: sw_keisei3000_car_power_main()*4*1342/1000;
+
+    start_stop: sw_stop_start_3;
+    sound_effect: sw_KS3100_start_sound;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_keisei3100_lv_desc_main;
+    loading_speed:param_loading_3D;
+    cargo_capacity:128*param_capacity_mod/3;
+    power:sw_keisei3000_power_main()*4*1342/1000;
+    default:sw_keisei3100_lv;
+    weight: 34;
+
+  }
+}
+# 1 "src/private/Kanto/keisei/keisei3200/keisei3200.pnml" 1
+
+  spriteset(keisei3200_purchase_c1_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(keisei3200_purchase_c2_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_1.png"){ tmpl_purchase_2c_dual(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei3200_purchase_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: keisei3200_purchase_c1_1; 1: keisei3200_purchase_c2_1;}
+  spriteset(keisei3200_purchase_c1_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_2.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(keisei3200_purchase_c2_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_2.png"){ tmpl_purchase_2c_dual(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei3200_purchase_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: keisei3200_purchase_c1_2; 1: keisei3200_purchase_c2_2;}
+  spriteset(keisei3200_purchase_c1_3, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_3.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(keisei3200_purchase_c2_3, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_3.png"){ tmpl_purchase_2c_dual(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei3200_purchase_3, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: keisei3200_purchase_c1_3; 1: keisei3200_purchase_c2_3;}
+
+  switch(FEAT_TRAINS, SELF, keisei3200_purchase, current_year){
+    0..1980:keisei3200_purchase_1;
+    1981..1988:keisei3200_purchase_2;
+    keisei3200_purchase_3;
+  }
+
+spriteset (keisei3200_1_front_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_1.png") { tmpl_std_v3(0, 0) }
+spriteset (keisei3200_1_end_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_1.png") { tmpl_std_v3(0, 25) }
+spriteset (keisei3200_1_end_rev_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_1.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (keisei3200_1_mot_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_1.png") { tmpl_std_v3(0, 50) }
+spriteset (keisei3200_1_mot_rev_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_1.png") { tmpl_std_rev_v3(0, 50) }
+spriteset (keisei3200_1_mot_2_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_1.png") { tmpl_symm_v3(0, 75) }
+spriteset (keisei3200_1_wag_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_1.png") { tmpl_symm_v3(0, 100) }
+
+spriteset (keisei3200_1_front_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_1_ac.png") { tmpl_std_v3(0, 0) }
+spriteset (keisei3200_1_end_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_1_ac.png") { tmpl_std_v3(0, 25) }
+spriteset (keisei3200_1_end_ac_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_1_ac.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (keisei3200_1_mot_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_1_ac.png") { tmpl_std_v3(0, 50) }
+spriteset (keisei3200_1_mot_ac_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_1_ac.png") { tmpl_std_rev_v3(0, 50) }
+spriteset (keisei3200_1_mot_2_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_1_ac.png") { tmpl_symm_v3(0, 75) }
+spriteset (keisei3200_1_wag_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_1_ac.png") { tmpl_symm_v3(0, 100) }
+switch(FEAT_TRAINS, SELF, keisei3200_1_front, current_year>1988){
+  1:keisei3200_1_front_ac; keisei3200_1_front_1;
+}
+switch(FEAT_TRAINS, SELF, keisei3200_1_end, current_year>1988){
+  1:keisei3200_1_end_ac; keisei3200_1_end_1;
+}
+switch(FEAT_TRAINS, SELF, keisei3200_1_end_rev, current_year>1988){
+  1:keisei3200_1_end_ac_rev; keisei3200_1_end_rev_1;
+}
+switch(FEAT_TRAINS, SELF, keisei3200_1_mot, current_year>1988){
+  1:keisei3200_1_mot_ac; keisei3200_1_mot_1;
+}
+switch(FEAT_TRAINS, SELF, keisei3200_1_mot_rev, current_year>1988){
+  1:keisei3200_1_mot_ac_rev; keisei3200_1_mot_rev_1;
+}
+switch(FEAT_TRAINS, SELF, keisei3200_1_mot_2, current_year>1988){
+  1:keisei3200_1_mot_2_ac; keisei3200_1_mot_2_1;
+}
+switch(FEAT_TRAINS, SELF, keisei3200_1_wag, current_year>1988){
+  1:keisei3200_1_wag_ac; keisei3200_1_wag_1;
+}
+spriteset (keisei3200_2_front_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_2.png") { tmpl_std_v3(0, 0) }
+spriteset (keisei3200_2_end_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_2.png") { tmpl_std_v3(0, 25) }
+spriteset (keisei3200_2_end_rev_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_2.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (keisei3200_2_mot_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_2.png") { tmpl_std_v3(0, 50) }
+spriteset (keisei3200_2_mot_rev_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_2.png") { tmpl_std_rev_v3(0, 50) }
+spriteset (keisei3200_2_mot_2_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_2.png") { tmpl_symm_v3(0, 75) }
+spriteset (keisei3200_2_wag_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_2.png") { tmpl_symm_v3(0, 100) }
+
+spriteset (keisei3200_2_front_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_2_ac.png") { tmpl_std_v3(0, 0) }
+spriteset (keisei3200_2_end_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_2_ac.png") { tmpl_std_v3(0, 25) }
+spriteset (keisei3200_2_end_ac_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_2_ac.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (keisei3200_2_mot_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_2_ac.png") { tmpl_std_v3(0, 50) }
+spriteset (keisei3200_2_mot_ac_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_2_ac.png") { tmpl_std_rev_v3(0, 50) }
+spriteset (keisei3200_2_mot_2_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_2_ac.png") { tmpl_symm_v3(0, 75) }
+spriteset (keisei3200_2_wag_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_2_ac.png") { tmpl_symm_v3(0, 100) }
+switch(FEAT_TRAINS, SELF, keisei3200_2_front, current_year>1988){
+  1:keisei3200_2_front_ac; keisei3200_2_front_1;
+}
+switch(FEAT_TRAINS, SELF, keisei3200_2_end, current_year>1988){
+  1:keisei3200_2_end_ac; keisei3200_2_end_1;
+}
+switch(FEAT_TRAINS, SELF, keisei3200_2_end_rev, current_year>1988){
+  1:keisei3200_2_end_ac_rev; keisei3200_2_end_rev_1;
+}
+switch(FEAT_TRAINS, SELF, keisei3200_2_mot, current_year>1988){
+  1:keisei3200_2_mot_ac; keisei3200_2_mot_1;
+}
+switch(FEAT_TRAINS, SELF, keisei3200_2_mot_rev, current_year>1988){
+  1:keisei3200_2_mot_ac_rev; keisei3200_2_mot_rev_1;
+}
+switch(FEAT_TRAINS, SELF, keisei3200_2_mot_2, current_year>1988){
+  1:keisei3200_2_mot_2_ac; keisei3200_2_mot_2_1;
+}
+switch(FEAT_TRAINS, SELF, keisei3200_2_wag, current_year>1988){
+  1:keisei3200_2_wag_ac; keisei3200_2_wag_1;
+}
+spriteset (keisei3200_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_3.png") { tmpl_std_v3(0, 0) }
+spriteset (keisei3200_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_3.png") { tmpl_std_v3(0, 25) }
+spriteset (keisei3200_3_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_3.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (keisei3200_3_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_3.png") { tmpl_std_v3(0, 50) }
+spriteset (keisei3200_3_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_3.png") { tmpl_std_rev_v3(0, 50) }
+spriteset (keisei3200_3_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_3.png") { tmpl_symm_v3(0, 75) }
+spriteset (keisei3200_3_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_3.png") { tmpl_symm_v3(0, 100) }
+
+spriteset (keisei3200_4_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_4.png") { tmpl_std_v3(0, 0) }
+spriteset (keisei3200_4_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_4.png") { tmpl_std_v3(0, 25) }
+spriteset (keisei3200_4_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_4.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (keisei3200_4_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_4.png") { tmpl_std_v3(0, 50) }
+spriteset (keisei3200_4_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_4.png") { tmpl_std_rev_v3(0, 50) }
+spriteset (keisei3200_4_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_4.png") { tmpl_symm_v3(0, 75) }
+spriteset (keisei3200_4_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_4.png") { tmpl_symm_v3(0, 100) }
+
+spriteset (keisei3200_5_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_5.png") { tmpl_std_v3(0, 0) }
+spriteset (keisei3200_5_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_5.png") { tmpl_std_v3(0, 25) }
+spriteset (keisei3200_5_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_5.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (keisei3200_5_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_5.png") { tmpl_std_v3(0, 50) }
+spriteset (keisei3200_5_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_5.png") { tmpl_std_rev_v3(0, 50) }
+spriteset (keisei3200_5_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_5.png") { tmpl_symm_v3(0, 75) }
+spriteset (keisei3200_5_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200/keisei3200_5.png") { tmpl_symm_v3(0, 100) }
+switch(FEAT_TRAINS, SELF, sw_keisei3200_front_timed, current_year){
+    0..1979:keisei3200_1_front; 1980..1988:keisei3200_2_front;
+    keisei3200_3_front;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3200_end_timed, current_year){
+    0..1979:keisei3200_1_end; 1980..1988:keisei3200_2_end;
+    keisei3200_3_end;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3200_end_rev_timed, current_year){
+    0..1979:keisei3200_1_end_rev; 1980..1988:keisei3200_2_end_rev;
+    keisei3200_3_end_rev;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3200_mot_timed, current_year){
+    0..1979:keisei3200_1_mot; 1980..1988:keisei3200_2_mot;
+    keisei3200_3_mot;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3200_mot_rev_timed, current_year){
+    0..1979:keisei3200_1_mot_rev; 1980..1988:keisei3200_2_mot_rev;
+    keisei3200_3_mot_rev;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3200_mot_2_timed, current_year){
+    0..1979:keisei3200_1_mot_2; 1980..1988:keisei3200_2_mot_2;
+    keisei3200_3_mot_2;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3200_wag_timed, current_year){
+    0..1979:keisei3200_1_wag; 1980..1988:keisei3200_2_wag;
+    keisei3200_3_wag;
+  }
+
+  switch(FEAT_TRAINS, SELF, sw_keisei3200_front, cargo_subtype){
+    1:keisei3200_1_front; 2:keisei3200_2_front;
+    3:keisei3200_3_front; 4:keisei3200_4_front;
+    5:keisei3200_5_front;
+    sw_keisei3200_front_timed;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3200_end, cargo_subtype){
+    1:keisei3200_1_end; 2:keisei3200_2_end;
+    3:keisei3200_3_end; 4:keisei3200_4_end;
+    5:keisei3200_5_end;
+    sw_keisei3200_end_timed;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3200_end_rev, cargo_subtype){
+    1:keisei3200_1_end_rev; 2:keisei3200_2_end_rev; 3:keisei3200_3_end_rev;
+    4:keisei3200_4_end_rev; 5:keisei3200_5_end_rev;
+    sw_keisei3200_end_rev_timed;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3200_mot, cargo_subtype){
+    1:keisei3200_1_mot; 2:keisei3200_2_mot; 3:keisei3200_3_mot;
+    4:keisei3200_4_mot; 5:keisei3200_5_mot;
+    sw_keisei3200_mot_timed;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3200_mot_rev, cargo_subtype){
+    1:keisei3200_1_mot_rev; 2:keisei3200_2_mot_rev; 3:keisei3200_3_mot_rev;
+    4:keisei3200_4_mot_rev; 5:keisei3200_5_mot_rev;
+    sw_keisei3200_mot_rev_timed;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3200_mot_2, cargo_subtype){
+    1:keisei3200_1_mot_2; 2:keisei3200_2_mot_2; 3:keisei3200_3_mot_2;
+    4:keisei3200_4_mot_2; 5:keisei3200_5_mot_2;
+    sw_keisei3200_mot_2_timed;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3200_wag, cargo_subtype){
+    1:keisei3200_1_wag; 2:keisei3200_2_wag; 3:keisei3200_3_wag;
+    4:keisei3200_4_wag; 5:keisei3200_5_wag;
+    sw_keisei3200_wag_timed;
+  }
+
+
+
+      switch(FEAT_TRAINS, SELF, sw_keisei3200_panto_placer_main_1,position_in_vehid_chain %8){
+        0: sw_keisei3200_mot_rev;
+        3: sw_keisei3200_mot_2;
+        sw_keisei3200_wag;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_keisei3200_panto_placer_main_2,position_in_vehid_chain %4){
+        0: sw_keisei3200_mot_rev;
+        1: sw_keisei3200_mot;
+        sw_keisei3200_wag;
+      }
+    switch(FEAT_TRAINS, SELF, sw_keisei3200_panto_placer_main,num_vehs_in_vehid_chain){
+        4: sw_keisei3200_panto_placer_main_1;
+        sw_keisei3200_panto_placer_main_2;
+      }
+
+
+      switch(FEAT_TRAINS, SELF, sw_keisei3200_fake_head_placer_gfx,position_in_vehid_chain%4){
+        2: sw_keisei3200_end_rev;
+        3: sw_keisei3200_end;
+        sw_keisei3200_panto_placer_main;
+      }
+      switch(FEAT_TRAINS, SELF, sw_keisei3200_fake_head_placer_main,num_vehs_in_vehid_chain){
+        0..7: sw_keisei3200_panto_placer_main;
+        sw_keisei3200_fake_head_placer_gfx;
+      }
+  switch(FEAT_TRAINS, SELF, sw_keisei3200_gfx_main,position_in_vehid_chain_from_end){
+    0: sw_keisei3200_end;
+    sw_keisei3200_front;
+  }
+  switch(FEAT_TRAINS, SELF, sw_keisei3200_lv,vehicle_type_id){
+    mu_car: sw_keisei3200_fake_head_placer_main;
+    sw_keisei3200_gfx_main;
+  }
+
+
+  switch(FEAT_TRAINS, SELF, sw_keisei3200_lv_desc_main,cargo_subtype){
+    0:string(LV_RANDOM);
+    1:string(LV_DATED,string(STR_LIVERY,string(LV_KEISEI_AKADEN)),1964);
+    2:string(LV_DATED,string(STR_LIVERY,string(LV_KEISEI_AKADEN)),1980);
+    3:string(LV_DATED,string(STR_LIVERY,string(LV_KEISEI_WHITE)),1989);
+    4:string(LV_DATED,string(STR_LIVERY,string(LV_KEISEI_TEST_1)),1993);
+    5:string(LV_DATED,string(STR_LIVERY,string(LV_KEISEI_TEST_2)),1993);
+  }
+
+
+    switch(FEAT_TRAINS, SELF, sw_keisei3200_car_power_main,position_in_vehid_chain_from_end %6){
+      0..3:return 100;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_keisei3200_power_main,position_in_vehid_chain_from_end %6){
+      mu_car:sw_keisei3200_car_power_main;
+      return 100*2;
+    }
+# 734 "src/private/Kanto/keisei/items.pnml" 2
+
+item(FEAT_TRAINS, keisei3200) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_KEISEI), "3200", string(STR_NAME_TYPE));
+    introduction_date: date(1964, 10, 1);
+    model_life: 48;
+    vehicle_life: 43;
+    dual_headed: 1;
+
+    cost_factor: 18;
+    running_cost_factor: 48;
+    speed: 105 km/h;
+    track_type:TR_1435_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 34 ton;
+    badges: ["company/keisei"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
+    string(STR_USAGE, string(STR_ACCESS_COMMUTER)),
+    string(STR_OPERATOR, string(STR_KEISEI))
+
+    );
+    cargo_subtype_text: sw_keisei3200_lv_desc_main;
+    purchase: keisei3200_purchase;
+    cargo_capacity:128*param_capacity_mod/3;
+    purchase_cargo_capacity:128*param_capacity_mod/3-1;
+    loading_speed:param_loading_3D;
+    default:sw_keisei3200_lv;
+    power:sw_keisei3200_power_main()*4*1342/1000;
+    purchase_power: sw_keisei3200_car_power_main()*4*1342/1000;
+
+    start_stop: sw_stop_start_3;
+    sound_effect: sw_KS3200_start_sound;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_keisei3200_lv_desc_main;
+    loading_speed:param_loading_3D;
+    cargo_capacity:128*param_capacity_mod/3;
+    power:sw_keisei3200_power_main()*4*1342/1000;
+    default:sw_keisei3200_lv;
+    weight: 34;
 
   }
 }
@@ -38607,7 +39583,7 @@ spriteset (keisei3300_5_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Ka
       mu_car:sw_keisei3300_car_power_main;
       return 100*2;
     }
-# 612 "src/private/Kanto/keisei/items.pnml" 2
+# 795 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei3300) {
   property {
@@ -38806,7 +39782,7 @@ spriteset (keisei3500_3_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/privat
       mu_car: sw_keisei3500_car_power_main;
       default: 100*2;
     }
-# 673 "src/private/Kanto/keisei/items.pnml" 2
+# 856 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei3500) {
   property {
@@ -38963,7 +39939,7 @@ switch(FEAT_TRAINS, SELF, keisei3600_wag, cargo_subtype){
       mu_car:sw_keisei3600_car_power_main;
       return 0;
     }
-# 734 "src/private/Kanto/keisei/items.pnml" 2
+# 917 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei3600) {
   property {
@@ -39112,7 +40088,7 @@ spriteset (keisei3700_2_head, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/K
       mu_car: sw_keisei3700_car_power_main;
       return 130*2;
     }
-# 795 "src/private/Kanto/keisei/items.pnml" 2
+# 978 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei3700) {
   property {
@@ -39236,7 +40212,7 @@ spriteset (keisei3400_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kant
       mu_car: sw_keisei3400_car_power_main;
       return 140*2;
     }
-# 856 "src/private/Kanto/keisei/items.pnml" 2
+# 1039 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei3400) {
   property {
@@ -39379,7 +40355,7 @@ spriteset (keisei3000n_3_car, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/K
       0..2009: 120;
       130;
     }
-# 917 "src/private/Kanto/keisei/items.pnml" 2
+# 1100 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei3000n) {
   property {
@@ -39498,7 +40474,7 @@ switch(FEAT_TRAINS, SELF, keisei3100n_mot_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES |
       mu_car:sw_keisei3100n_car_power_main;
       return 140*2;
     }
-# 978 "src/private/Kanto/keisei/items.pnml" 2
+# 1161 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei3100n) {
   property {
