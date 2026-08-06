@@ -37018,6 +37018,125 @@ item(FEAT_TRAINS, keisei3100n, 2473) {}
 
 
 # 1 "src/private/Kanto/keisei/items.pnml" 1
+# 1 "src/private/Kanto/keisei/keisei1600/keisei1600.pnml" 1
+
+  spriteset(keisei1600_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei1600/keisei1600.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(keisei1600_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei1600/keisei1600.png"){ tmpl_purchase_2c_dual(0, 50) }
+  switch(FEAT_TRAINS, SELF, keisei1600_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: keisei1600_purchase_c1; 1: keisei1600_purchase_c2;}
+
+spriteset(keisei1600_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei1600/keisei1600_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(keisei1600_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei1600/keisei1600_lights.png"){ tmpl_std_v3(0, 25) }
+switch(FEAT_TRAINS, SELF, sw_keisei1600_lights, train_is_driving_backwards != vehicle_is_flipped){
+  1: keisei1600_lights_end;
+  keisei1600_lights_front;
+}
+spriteset (keisei1600_1_head_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei1600/keisei1600.png") { tmpl_std_v3(0, 0) }
+spriteset (keisei1600_1_head_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei1600/keisei1600.png") { tmpl_std_rev_v3(0, 0) }
+spriteset (keisei1600_1_head, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei1600/keisei1600.png") { tmpl_std_v3(0, 25) }
+spriteset (keisei1600_1_head_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei1600/keisei1600.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (keisei1600_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei1600/keisei1600.png") { tmpl_std_rev_v3(0, 50) }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_keisei1600_1_head,position_in_vehid_chain==1){
+      1: keisei1600_1_head;
+      keisei1600_1_head_mot;
+    }
+
+
+      switch(FEAT_TRAINS, SELF, sw_keisei1600_1_panto_placer_main_1,position_in_vehid_chain %3){
+        0: keisei1600_1_head_rev;
+        1: keisei1600_1_head_mot;
+        keisei1600_1_wag;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_keisei1600_1_panto_placer_main_2,position_in_vehid_chain %3){
+        1: keisei1600_1_head_mot_rev;
+        2: keisei1600_1_head_mot;
+        keisei1600_1_wag;
+      }
+    switch(FEAT_TRAINS, SELF, sw_keisei1600_1_panto_placer_main,num_vehs_in_vehid_chain){
+        2:sw_keisei1600_1_panto_placer_main_1;
+        sw_keisei1600_1_panto_placer_main_2;
+      }
+
+    switch(FEAT_TRAINS, SELF, sw_keisei1600_1_head_lights, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sw_keisei1600_1_head; 1: sw_keisei1600_lights;}
+    switch(FEAT_TRAINS, SELF, sw_keisei1600_lv,vehicle_type_id){
+      mu_car: sw_keisei1600_1_panto_placer_main;
+      sw_keisei1600_1_head_lights;
+    }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_keisei1600_car_power_main,position_in_vehid_chain %2){
+      0:return 112;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_keisei1600_power_main,vehicle_type_id){
+      mu_car:sw_keisei1600_car_power_main;
+      return 112*2;
+    }
+# 2 "src/private/Kanto/keisei/items.pnml" 2
+
+item(FEAT_TRAINS, keisei1600) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME_LONG, string(STR_NAME_KEISEI), "1600", string(STR_NAME_TYPE), string(STR_NAME_KEISEI_KAIUN));
+    introduction_date: date(1953, 5, 1);
+    model_life: 33;
+    vehicle_life: 28;
+    dual_headed: 1;
+
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 100 km/h;
+    track_type:[TR_1372_DC,TR_1435_DC]
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 33 ton;
+    badges: ["company/keisei"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_13721435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 1)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 2,3)),
+    string(STR_USAGE, string(STR_LIMITED_EXPRESS)),
+    string(STR_OPERATOR, string(STR_KEISEI))
+
+    );
+
+    purchase: keisei1600_purchase;
+    cargo_capacity:80*param_capacity_mod/3*boost_rapid_mod/2;
+    purchase_cargo_capacity:80*param_capacity_mod/3*boost_rapid_mod/2-1;
+    loading_speed:param_loading_1D;
+    default:sw_keisei1600_lv;
+    power:sw_keisei1600_power_main()*4*1342/1000;
+    purchase_power: sw_keisei1600_car_power_main()*4*1342/1000;
+
+
+    sound_effect: sw_KS1600_start_sound;
+    cargo_age_period: ltd_express_cargo_age;
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_1D;
+    cargo_capacity:80*param_capacity_mod/3*boost_rapid_mod/2;
+    power:sw_keisei1600_power_main()*4*1342/1000;
+    default:sw_keisei1600_lv;
+    weight: 33;
+
+  }
+}
 # 1 "src/private/Kanto/keisei/keisei_AE1/keisei_AE1.pnml" 1
 
   spriteset(keisei_AE1_purchase_c1_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/keisei/keisei_AE1/keisei_AE1_1.png"){ tmpl_purchase_1c_dual(0, 0) }
@@ -37120,7 +37239,7 @@ spriteset (keisei_AE1_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Ka
       mu_car:sw_keisei_AE1_car_power_main;
       0;
     }
-# 2 "src/private/Kanto/keisei/items.pnml" 2
+# 63 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei_AE1) {
   property {
@@ -37260,7 +37379,7 @@ spriteset (keisei_AE100_1_wag_3, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/privat
       mu_car:sw_keisei_AE100_car_power_main;
       130*2;
     }
-# 63 "src/private/Kanto/keisei/items.pnml" 2
+# 124 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei_AE100) {
   property {
@@ -37395,7 +37514,7 @@ spriteset (keisei_AE2_1_wag_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/
       mu_car:sw_keisei_AE2_car_power_main;
       175*2;
     }
-# 124 "src/private/Kanto/keisei/items.pnml" 2
+# 185 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei_AE2) {
   property {
@@ -37475,7 +37594,7 @@ switch(FEAT_TRAINS, PARENT, keisei1_head, vehicle_is_reversed){
   }
 
 switch(FEAT_TRAINS, SELF, sw_keisei1_lv, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: keisei1_head; 1: sw_keisei1_lights;}
-# 185 "src/private/Kanto/keisei/items.pnml" 2
+# 246 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei1) {
   property {
@@ -37623,7 +37742,7 @@ spriteset (keisei20_4_head, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kan
     3:string(LV_DATED,string(STR_LIVERY,string(LV_KEISEI_WAR)),1941);
     4:string(LV_DATED,string(STR_LIVERY,string(LV_KEISEI_AODEN)),1950);
   }
-# 246 "src/private/Kanto/keisei/items.pnml" 2
+# 307 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei20) {
   property {
@@ -37758,7 +37877,7 @@ spriteset (keisei33_3_head_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private
     2:string(LV_DATED,string(STR_LIVERY,string(LV_KEISEI_GREEN)),1924);
     3:string(LV_DATED,string(STR_LIVERY,string(LV_KEISEI_WAR)),1941);
   }
-# 307 "src/private/Kanto/keisei/items.pnml" 2
+# 368 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei33) {
   property {
@@ -37881,7 +38000,7 @@ spriteset (keisei300_3_head_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/privat
     2:string(LV_DATED,string(STR_LIVERY,string(LV_KEISEI_WAR)),1941);
     3:string(LV_DATED,string(STR_LIVERY,string(LV_KEISEI_AODEN)),1950);
   }
-# 368 "src/private/Kanto/keisei/items.pnml" 2
+# 429 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei300) {
   property {
@@ -38019,7 +38138,7 @@ spriteset (keisei200_4_head_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/privat
     3:string(LV_DATED,string(STR_LIVERY,string(LV_KEISEI_BLUE),1946));
     4:string(LV_DATED,string(STR_LIVERY,string(LV_KEISEI_AODEN),1950));
   }
-# 429 "src/private/Kanto/keisei/items.pnml" 2
+# 490 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei200) {
   property {
@@ -38175,7 +38294,7 @@ spriteset (keisei600_4_head_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/privat
       mu_car:sw_keisei600_car_power_main;
       return 110;
     }
-# 490 "src/private/Kanto/keisei/items.pnml" 2
+# 551 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei600) {
   property {
@@ -38319,7 +38438,7 @@ spriteset (keisei200_2000_2_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/pr
       mu_car:sw_keisei200_2000_car_power_main;
       return 0;
     }
-# 551 "src/private/Kanto/keisei/items.pnml" 2
+# 612 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei200_2000) {
   property {
@@ -38335,7 +38454,7 @@ item(FEAT_TRAINS, keisei200_2000) {
     cost_factor: 19;
     running_cost_factor: 48;
     speed: 100 km/h;
-    track_type:TR_1435_DC
+    track_type:[TR_1372_DC,TR_1435_DC]
      ;
     power: 1 kW;
     tractive_effort_coefficient: 0.2;
@@ -38348,7 +38467,7 @@ item(FEAT_TRAINS, keisei200_2000) {
 
 
     additional_text:string(STR_TRAIN_DESC,
-    string(STR_1435),
+    string(STR_13721435),
     string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,8)),
@@ -38628,7 +38747,7 @@ spriteset (keisei3000_3_wag_ac, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private
       mu_car:sw_keisei3000_car_power_main;
       return 112;
     }
-# 612 "src/private/Kanto/keisei/items.pnml" 2
+# 673 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei3000) {
   property {
@@ -38644,7 +38763,7 @@ item(FEAT_TRAINS, keisei3000) {
     cost_factor: 18;
     running_cost_factor: 48;
     speed: 100 km/h;
-    track_type:TR_1435_DC
+    track_type:[TR_1372_DC,TR_1435_DC]
      ;
     power: 1 kW;
     tractive_effort_coefficient: 0.2;
@@ -38657,7 +38776,7 @@ item(FEAT_TRAINS, keisei3000) {
 
 
     additional_text:string(STR_TRAIN_DESC,
-    string(STR_1435),
+    string(STR_13721435),
     string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_4, 2,4,6,8)),
@@ -38998,7 +39117,7 @@ spriteset (keisei3150_3_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/privat
     2:string(LV_DATED,string(STR_LIVERY,string(LV_KEISEI_AKADEN)),1981);
     3:string(LV_DATED,string(STR_LIVERY,string(LV_KEISEI_WHITE)),1992);
   }
-# 673 "src/private/Kanto/keisei/items.pnml" 2
+# 734 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei3100) {
   property {
@@ -39295,7 +39414,7 @@ switch(FEAT_TRAINS, SELF, sw_keisei3200_front_timed, current_year){
       mu_car:sw_keisei3200_car_power_main;
       return 100*2;
     }
-# 734 "src/private/Kanto/keisei/items.pnml" 2
+# 795 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei3200) {
   property {
@@ -39583,7 +39702,7 @@ spriteset (keisei3300_5_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Ka
       mu_car:sw_keisei3300_car_power_main;
       return 100*2;
     }
-# 795 "src/private/Kanto/keisei/items.pnml" 2
+# 856 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei3300) {
   property {
@@ -39782,7 +39901,7 @@ spriteset (keisei3500_3_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/privat
       mu_car: sw_keisei3500_car_power_main;
       default: 100*2;
     }
-# 856 "src/private/Kanto/keisei/items.pnml" 2
+# 917 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei3500) {
   property {
@@ -39939,7 +40058,7 @@ switch(FEAT_TRAINS, SELF, keisei3600_wag, cargo_subtype){
       mu_car:sw_keisei3600_car_power_main;
       return 0;
     }
-# 917 "src/private/Kanto/keisei/items.pnml" 2
+# 978 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei3600) {
   property {
@@ -40088,7 +40207,7 @@ spriteset (keisei3700_2_head, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/K
       mu_car: sw_keisei3700_car_power_main;
       return 130*2;
     }
-# 978 "src/private/Kanto/keisei/items.pnml" 2
+# 1039 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei3700) {
   property {
@@ -40212,7 +40331,7 @@ spriteset (keisei3400_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kant
       mu_car: sw_keisei3400_car_power_main;
       return 140*2;
     }
-# 1039 "src/private/Kanto/keisei/items.pnml" 2
+# 1100 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei3400) {
   property {
@@ -40355,7 +40474,7 @@ spriteset (keisei3000n_3_car, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/K
       0..2009: 120;
       130;
     }
-# 1100 "src/private/Kanto/keisei/items.pnml" 2
+# 1161 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei3000n) {
   property {
@@ -40474,7 +40593,7 @@ switch(FEAT_TRAINS, SELF, keisei3100n_mot_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES |
       mu_car:sw_keisei3100n_car_power_main;
       return 140*2;
     }
-# 1161 "src/private/Kanto/keisei/items.pnml" 2
+# 1222 "src/private/Kanto/keisei/items.pnml" 2
 
 item(FEAT_TRAINS, keisei3100n) {
   property {
