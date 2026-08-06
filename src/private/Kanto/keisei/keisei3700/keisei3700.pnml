@@ -3,19 +3,19 @@
   spriteset(keisei3700_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3700/keisei3700_1.png"){ tmpl_purchase_2c_dual(0, 25) }
   GRAPHIC_STACK_5(keisei3700_purchase, keisei3700_purchase_c1, keisei3700_purchase_c2, ac_double_1_c1, ac_double_1_c2, panto_arm_n_c2)
 //*main
-  spriteset(keisei3700_lights_o_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3700/keisei3700_lights.png"){ tmpl_std_v3(0, 0) }
+  spriteset(keisei3400_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3700/keisei3700_lights.png"){ tmpl_std_v3(0, 0) }
+	spriteset(keisei3400_lights_back, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3700/keisei3700_lights.png"){ tmpl_std_v3(0, 25) }
+  switch(FEAT_TRAINS, SELF, keisei3400_lights, train_is_driving_backwards != vehicle_is_flipped){
+    1:keisei3400_lights_back;    keisei3400_lights_front;
+  }
   spriteset(keisei3700_lights_n_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3700/keisei3700_lights_n.png"){ tmpl_std_v3(0, 0) }
-	spriteset(keisei3700_lights_o_back, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3700/keisei3700_lights.png"){ tmpl_std_v3(0, 25) }
-	spriteset(keisei3700_lights_n_back, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3700/keisei3700_lights_n.png"){ tmpl_std_v3(0, 25) }
-  switch(FEAT_TRAINS, SELF, keisei3700_lights_front, (build_year<2000&&cargo_subtype==0)||cargo_subtype==1){
-    1:keisei3700_lights_o_front;    keisei3700_lights_n_front;
+  spriteset(keisei3700_lights_n_back, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3700/keisei3700_lights_n.png"){ tmpl_std_v3(0, 25) }
+  switch(FEAT_TRAINS, SELF, keisei3700_lights, train_is_driving_backwards != vehicle_is_flipped){
+    1:keisei3700_lights_n_back;    keisei3700_lights_n_front;
   }
-  switch(FEAT_TRAINS, SELF, keisei3700_lights_back, (build_year<2000&&cargo_subtype==0)||cargo_subtype==1){
-    1:keisei3700_lights_o_back;    keisei3700_lights_n_back;
-  }
-  switch(FEAT_TRAINS, SELF, sw_keisei3700_lights, train_is_driving_backwards != vehicle_is_flipped){
-    1: keisei3700_lights_back;
-    keisei3700_lights_front;
+  switch(FEAT_TRAINS, SELF, sw_keisei3700_lights, (build_year<2000&&cargo_subtype==0)||cargo_subtype==1){
+    1: keisei3400_lights;
+    keisei3700_lights;
   }
 //
   switch(FEAT_TRAINS, SELF, keisei3700_panto_single, build_year){
@@ -79,7 +79,6 @@ spriteset (keisei3700_2_head, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/private/
   //power fix
     switch(FEAT_TRAINS, SELF, sw_keisei3700_car_power_main,position_in_vehid_chain%4){
       0..1:return 130;
-      4..5:return 130;
       return 0;
     }
     switch(FEAT_TRAINS, SELF, sw_keisei3700_power_main,vehicle_type_id){
