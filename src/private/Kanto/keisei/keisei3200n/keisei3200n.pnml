@@ -1,0 +1,92 @@
+//purchase
+  spriteset(keisei3200n_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200n/keisei3200n_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(keisei3200n_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200n/keisei3200n_1.png"){ tmpl_purchase_2c_dual(0, 50) }
+  GRAPHIC_STACK_5(keisei3200n_purchase, keisei3200n_purchase_c1, keisei3200n_purchase_c2, ac_single_1_c1, ac_single_1_c2, panto_arm_n_single_c1)
+//*main
+  spriteset(keisei3200n_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200n/keisei3200n_lights.png"){ tmpl_std_v3(0, 0) }
+	spriteset(keisei3200n_lights_back, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200n/keisei3200n_lights.png"){ tmpl_std_v3(0, 25) }
+  switch(FEAT_TRAINS, SELF, sw_keisei3200n_lights, train_is_driving_backwards != vehicle_is_flipped){
+    1: keisei3200n_lights_back;
+    keisei3200n_lights_front;
+  }
+spriteset (keisei3200n_head_f_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200n/keisei3200n_1.png") { tmpl_std_v3(0, 0) }
+spriteset (keisei3200n_head_f_base_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200n/keisei3200n_1.png") { tmpl_std_rev_v3(0, 0) }
+spriteset (keisei3200n_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200n/keisei3200n_1.png") { tmpl_std_v3(0, 25) }
+spriteset (keisei3200n_car, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/keisei/keisei3200n/keisei3200n_1.png") { tmpl_symm_v3(0, 50) }
+
+TRAIN_CONSTRUCTOR_4(keisei3200n_head_mot, keisei3200n_head_base,ac_single_1_1, panto_arm_n_single, sw_keisei3200n_lights)
+TRAIN_CONSTRUCTOR_3(keisei3200n_head, keisei3200n_head_base,ac_single_1_1, sw_keisei3200n_lights)
+TRAIN_CONSTRUCTOR_2(keisei3200n_head_f, keisei3200n_head_f_base_rev,ac_single_1_1)
+TRAIN_CONSTRUCTOR_3(keisei3200n_head_f_mot, keisei3200n_head_f_base,ac_single_1_1, panto_arm_n_single)
+TRAIN_CONSTRUCTOR_3(keisei3200n_mot, keisei3200n_car,ac_single_1_1, panto_arm_n_single)
+TRAIN_CONSTRUCTOR_2(keisei3200n_wag, keisei3200n_car,ac_single_1_1)
+//*livery 1
+  //special gfx
+    switch(FEAT_TRAINS, SELF, sw_keisei3200n_head_gfx,vehicle_is_flipped){
+        1: keisei3200n_head;
+        keisei3200n_head_mot;
+      }
+  //panto-placers
+    //var 1
+      switch(FEAT_TRAINS, SELF, sw_keisei3200n_panto_placer_main,position_in_vehid_chain %2){
+        1: keisei3200n_mot;
+        keisei3200n_wag;
+      }
+  //fake head placer
+    //4+2
+      switch(FEAT_TRAINS, SELF, sw_keisei3200n_fake_head_placer_main_1,position_in_vehid_chain){
+        2: keisei3200n_head_f;
+        sw_keisei3200n_panto_placer_main;
+      }
+    //2+4
+      switch(FEAT_TRAINS, SELF, sw_keisei3200n_fake_head_placer_main_2,position_in_vehid_chain){
+        1: keisei3200n_head_f_mot;
+        sw_keisei3200n_panto_placer_main;
+      }
+    //2+4+2
+      switch(FEAT_TRAINS, SELF, sw_keisei3200n_fake_head_placer_main_3,position_in_vehid_chain){
+        1: keisei3200n_head_f_mot;
+        4: keisei3200n_head_f;
+        sw_keisei3200n_panto_placer_main;
+      }
+    //4+4
+      switch(FEAT_TRAINS, SELF, sw_keisei3200n_fake_head_placer_main_4,position_in_vehid_chain){
+        2: keisei3200n_head_f;
+        3: keisei3200n_head_f_mot;
+        sw_keisei3200n_panto_placer_main;
+      }
+    random_switch(FEAT_TRAINS,PARENT,sw_keisei3200n_fake_head_placer_main_6cars){
+      1:sw_keisei3200n_fake_head_placer_main_1;
+      1:sw_keisei3200n_fake_head_placer_main_2;
+    }
+    random_switch(FEAT_TRAINS,PARENT,sw_keisei3200n_fake_head_placer_main_8cars){
+      1:sw_keisei3200n_fake_head_placer_main_3;
+      1:sw_keisei3200n_fake_head_placer_main_4;
+    }
+    switch(FEAT_TRAINS, SELF, sw_keisei3200n_fake_head_placer_main,num_vehs_in_vehid_chain){
+      4..5: sw_keisei3200n_fake_head_placer_main_6cars;
+      6: sw_keisei3200n_fake_head_placer_main_8cars;
+      sw_keisei3200n_panto_placer_main;
+    }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_keisei3200n_lv,vehicle_type_id){
+      mu_car: sw_keisei3200n_fake_head_placer_main;
+      sw_keisei3200n_head_gfx;
+    }
+//
+//post fixers
+    switch(FEAT_TRAINS, SELF, sw_keisei3200n_capacity_main,vehicle_type_id){
+      mu_car: 133;
+      120;
+    }
+  
+  //power fix
+    switch(FEAT_TRAINS, SELF, sw_keisei3200n_car_power_main,position_in_vehid_chain %2){
+      0:return 140;
+      return 70;
+    }
+    switch(FEAT_TRAINS, SELF, sw_keisei3200n_power_main,position_in_vehid_chain_from_end %8){
+      mu_car:sw_keisei3200n_car_power_main;
+      return 210;
+    }
+//

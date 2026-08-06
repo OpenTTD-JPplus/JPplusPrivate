@@ -1355,7 +1355,7 @@ item(FEAT_TRAINS, keisei3100n) {
     
     cost_factor: 21;
     running_cost_factor: 51;
-    speed: 130 km/h;
+    speed: 120 km/h;
     track_type:TR_1435_DC
      ;
     power: 1 kW;
@@ -1398,6 +1398,67 @@ item(FEAT_TRAINS, keisei3100n) {
     power:sw_keisei3100n_power_main()*4*1342/1000;
     default:sw_keisei3100n_lv;
     weight: 32;
+    
+  }
+}
+#include "keisei3200n/keisei3200n.pnml"
+
+item(FEAT_TRAINS, keisei3200n) {
+  property {
+    OVERRIDEN_TRAIN_DATA
+    
+    climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME_LONG, string(STR_NAME_KEISEI), "3200", string(STR_NAME_TYPE), string(STR_NAME_2_GEN));
+    introduction_date: date(2025, 2, 22);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+    
+    cost_factor: 22;
+    running_cost_factor: 52;
+    speed: 120 km/h;
+    track_type:TR_1435_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient:  0.2;
+    weight: 28 ton;
+    badges: ["company/keisei"];
+    
+  }
+	graphics {
+    
+    
+     
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_3, 4,6,8)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_KEISEI))
+    
+    );
+    
+    purchase: keisei3200n_purchase;
+    cargo_capacity:sw_keisei3200n_capacity_main()*param_capacity_mod/3;
+    purchase_cargo_capacity:sw_keisei3200n_capacity_main()*param_capacity_mod/3-1;
+    loading_speed:param_loading_3D;
+    default:sw_keisei3200n_lv;
+    power:sw_keisei3200n_power_main()*4*1342/1000;
+    purchase_power: sw_keisei3200n_car_power_main()*4*1342/1000;
+    
+    
+    
+    
+    
+  }
+  livery_override(mu_car){
+		cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_keisei3200n_capacity_main()*param_capacity_mod/3;
+    power:sw_keisei3200n_power_main()*4*1342/1000;
+    default:sw_keisei3200n_lv;
+    weight: 29;
     
   }
 }
