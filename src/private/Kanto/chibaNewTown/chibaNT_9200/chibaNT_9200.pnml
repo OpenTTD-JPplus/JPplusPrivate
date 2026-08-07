@@ -1,0 +1,35 @@
+//purchase
+  spriteset(chibaNT_9200_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaNewTown/chibaNT_9200/chibaNT_9200_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(chibaNT_9200_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaNewTown/chibaNT_9200/chibaNT_9200_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  GRAPHIC_STACK_5(chibaNT_9200_purchase, chibaNT_9200_purchase_c1, chibaNT_9200_purchase_c2, ac_single_1_c1, ac_single_1_c2, panto_arm_n_c2)
+spriteset (chibaNT_9200_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/private/Kanto/chibaNewTown/chibaNT_9200/chibaNT_9200_1.png") { tmpl_std_v3(0, 0) }
+spriteset (chibaNT_9200_car, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/private/Kanto/chibaNewTown/chibaNT_9200/chibaNT_9200_1.png") { tmpl_symm_v3(0, 25) }
+//
+  TRAIN_CONSTRUCTOR_3(chibaNT_9200_head, chibaNT_9200_head_base, sw_keisei3000n_lights, ac_single_1_1)
+  TRAIN_CONSTRUCTOR_2(chibaNT_9200_wag, chibaNT_9200_car, ac_single_1_1)
+  TRAIN_CONSTRUCTOR_3(chibaNT_9200_mot, chibaNT_9200_car, ac_single_1_1, panto_arm_n_single)
+  TRAIN_CONSTRUCTOR_3(chibaNT_9200_mot_2, chibaNT_9200_car, ac_single_1_1, panto_arm_n)
+//*livery 1
+  //panto-placers
+    //var 1
+      switch(FEAT_TRAINS, SELF, sw_chibaNT_9200_panto_placer_main_1,position_in_vehid_chain %8){
+        0: chibaNT_9200_mot_2;
+        2: chibaNT_9200_mot;
+        5: chibaNT_9200_mot_2;
+        chibaNT_9200_wag;
+      }
+    //var 2
+      switch(FEAT_TRAINS, SELF, sw_chibaNT_9200_panto_placer_main_2,position_in_vehid_chain_from_end %3){
+        0: chibaNT_9200_mot_2;
+        default: chibaNT_9200_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_chibaNT_9200_panto_placer_main,num_vehs_in_vehid_chain){
+        4..5: sw_chibaNT_9200_panto_placer_main_2;
+        sw_chibaNT_9200_panto_placer_main_1;
+      }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_chibaNT_9200_lv,vehicle_type_id){
+        mu_car: sw_chibaNT_9200_panto_placer_main;
+        chibaNT_9200_head;
+    }
+//

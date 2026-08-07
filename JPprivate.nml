@@ -2344,6 +2344,38 @@ item (FEAT_BADGES, line) {
       }
       graphics {default: sprite_logo_keisei;}
   }
+  item (FEAT_BADGES, logo_hokuso) {
+      property {
+          label: "company/hokuso";
+          name: string(STR_HOKUSO);
+          flags: bitmask(BADGE_FLAG_NAME_SKIP);
+      }
+      graphics {default: sprite_logo_hokuso;}
+  }
+  item (FEAT_BADGES, logo_shinKeisei) {
+      property {
+          label: "company/shinKeisei";
+          name: string(STR_SHIN_KEISEI);
+          flags: bitmask(BADGE_FLAG_NAME_SKIP);
+      }
+      graphics {default: sprite_logo_shin_keisei;}
+  }
+  item (FEAT_BADGES, logo_chiba_nt) {
+      property {
+          label: "company/chiba_nt";
+          name: string(STR_CHIBA_NT);
+          flags: bitmask(BADGE_FLAG_NAME_SKIP);
+      }
+      graphics {default: sprite_logo_chiba_nt;}
+  }
+  item (FEAT_BADGES, logo_chiba_kyuko) {
+      property {
+          label: "company/chiba_kyuko";
+          name: string(STR_CHIBA_KYUKO);
+          flags: bitmask(BADGE_FLAG_NAME_SKIP);
+      }
+      graphics {default: sprite_logo_chiba_e;}
+  }
   item (FEAT_BADGES, logo_shibayama) {
       property {
           label: "company/shibayama";
@@ -2637,6 +2669,10 @@ badgetable {
   "company/sotetsu",
   "company/keio",
   "company/keisei",
+  "company/shinKeisei",
+  "company/hokuso",
+  "company/chiba_nt",
+  "company/chiba_kyuko",
   "company/shibayama",
 
   "company/hankyu",
@@ -31380,6 +31416,125 @@ item(FEAT_TRAINS, seibu6000) {
 
   }
 }
+# 1 "src/private/Kanto/seibu/seibu7000/seibu7000.pnml" 1
+
+  spriteset(seibu7000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu7000/seibu7000_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(seibu7000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu7000/seibu7000_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  switch(FEAT_TRAINS, SELF, seibu7000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: seibu7000_purchase_c1; 1: ac_quad_1_wag_c1; 2: seibu7000_purchase_c2; 3: ac_quad_1_wag_c2;}
+
+  spriteset(seibu7000_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu7000/seibu7000_1.png"){ tmpl_std_v3(0, 0) }
+  spriteset(seibu7000_wag_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/seibu/seibu7000/seibu7000_1.png"){ tmpl_symm_v3(0, 25) }
+
+
+  switch(FEAT_TRAINS, SELF, seibu7000_head, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: seibu7000_head_base; 1: sw_tokyu9000_lights; 2: ac_quad_1_wag;}
+  switch(FEAT_TRAINS, SELF, seibu7000_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: seibu7000_wag_base; 1: ac_quad_1_mot; 2: panto_arm_n_single;}
+  switch(FEAT_TRAINS, SELF, seibu7000_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: seibu7000_wag_base; 1: ac_quad_1_wag;}
+
+
+
+
+      switch(FEAT_TRAINS, SELF, sw_seibu7000_panto_placer_main_1,position_in_vehid_chain %5){
+        0: seibu7000_mot;
+        2: seibu7000_mot;
+        4: seibu7000_mot;
+        seibu7000_wag;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_seibu7000_panto_placer_main_2,position_in_vehid_chain %4){
+        0: seibu7000_mot;
+        1: seibu7000_mot;
+        2: seibu7000_mot;
+        seibu7000_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_seibu7000_panto_placer_main,num_vehs_in_vehid_chain){
+        0..4: sw_seibu7000_panto_placer_main_2;
+        sw_seibu7000_panto_placer_main_1;
+      }
+
+    switch(FEAT_TRAINS, SELF, sw_seibu7000_lv,vehicle_type_id){
+      mu_car:sw_seibu7000_panto_placer_main;
+      seibu7000_head;
+    }
+
+
+    switch(FEAT_TRAINS, SELF, sw_seibu7000_car_capacity_main, position_in_vehid_chain){
+      1:149;
+      default: 150;
+    }
+    switch(FEAT_TRAINS, SELF, sw_seibu7000_capacity_main, vehicle_type_id){
+      mu_car: sw_seibu7000_car_capacity_main;
+      default: 139;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_seibu7000_car_power_main, position_in_vehid_chain%4){
+      0..1:return 170;
+      default: 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_seibu7000_power_main, vehicle_type_id){
+      mu_car: sw_seibu7000_car_power_main;
+      return 0;
+    }
+# 1161 "src/private/Kanto/seibu/items.pnml" 2
+
+item(FEAT_TRAINS, seibu7000) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_seibu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_SEIBU), "7000", string(STR_NAME_SERIES),);
+    introduction_date: date(2026, 6, 27);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+    cost_factor: 17;
+    running_cost_factor: 50;
+    speed: 105 km/h;
+    track_type:TR_1067_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 31 ton;
+    badges: ["company/seibu"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_SEIBU))
+
+    );
+
+    purchase: seibu7000_purchase;
+    cargo_capacity:sw_seibu7000_capacity_main()*param_capacity_mod/3;
+    purchase_cargo_capacity:sw_seibu7000_capacity_main()*param_capacity_mod/3-1;
+    loading_speed:param_loading_4D;
+    default:sw_seibu7000_lv;
+    power:sw_seibu7000_power_main()*4*1342/1000;
+    purchase_power: sw_seibu7000_car_power_main()*4*1342/1000;
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_seibu7000_capacity_main()*param_capacity_mod/3;
+    power:sw_seibu7000_power_main()*4*1342/1000;
+    default:sw_seibu7000_lv;
+    weight: 31;
+
+  }
+}
 # 1 "src/private/Kanto/seibu/seibu8000/seibu8000.pnml" 1
 
  spriteset(odakyu8000_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu8000/odakyu8000_lights.png"){ tmpl_std_v3(0, 0) }
@@ -31441,7 +31596,7 @@ item(FEAT_TRAINS, seibu6000) {
    mu_car:sw_seibu8000_car_power_main;
    return 0;
   }
-# 1161 "src/private/Kanto/seibu/items.pnml" 2
+# 1222 "src/private/Kanto/seibu/items.pnml" 2
 
 item(FEAT_TRAINS, seibu8000) {
   property {
@@ -31628,7 +31783,7 @@ item(FEAT_TRAINS, seibu8000) {
    mu_car:sw_seibu9000_car_power_main;
    return 0;
   }
-# 1222 "src/private/Kanto/seibu/items.pnml" 2
+# 1283 "src/private/Kanto/seibu/items.pnml" 2
 
 item(FEAT_TRAINS, seibu9000) {
   property {
@@ -31845,7 +32000,7 @@ item(FEAT_TRAINS, seibu9000) {
    mu_car:sw_seibu20000_car_power_main;
    return 0;
   }
-# 1283 "src/private/Kanto/seibu/items.pnml" 2
+# 1344 "src/private/Kanto/seibu/items.pnml" 2
 
 item(FEAT_TRAINS, seibu20000) {
   property {
@@ -32055,7 +32210,7 @@ item(FEAT_TRAINS, seibu20000) {
    mu_car:sw_seibu30000_car_power_main;
    sw_seibu30000_power_head;
   }
-# 1344 "src/private/Kanto/seibu/items.pnml" 2
+# 1405 "src/private/Kanto/seibu/items.pnml" 2
 
 item(FEAT_TRAINS, seibu30000) {
   property {
@@ -32297,7 +32452,7 @@ item(FEAT_TRAINS, seibu30000) {
    mu_car:sw_seibu40000_car_power_main;
    return 0;
   }
-# 1405 "src/private/Kanto/seibu/items.pnml" 2
+# 1466 "src/private/Kanto/seibu/items.pnml" 2
 
 item(FEAT_TRAINS, seibu40000) {
   property {
@@ -41174,9 +41329,215 @@ item(FEAT_TRAINS, keisei3200n) {
   }
 }
 # 216 "src/_private.pnml" 2
-# 263 "src/_private.pnml"
+# 254 "src/_private.pnml"
+item(FEAT_TRAINS, chibaNT_9000, 2540) {}
+item(FEAT_TRAINS, chibaNT_9100, 2541) {}
+item(FEAT_TRAINS, chibaNT_9200, 2542) {}
+item(FEAT_TRAINS, chibaNT_9800, 2543) {}
+
+# 1 "src/private/Kanto/chibaNewTown/items.pnml" 1
+# 1 "src/private/Kanto/chibaNewTown/chibaNT_9200/chibaNT_9200.pnml" 1
+
+  spriteset(chibaNT_9200_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaNewTown/chibaNT_9200/chibaNT_9200_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(chibaNT_9200_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaNewTown/chibaNT_9200/chibaNT_9200_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  switch(FEAT_TRAINS, SELF, chibaNT_9200_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: chibaNT_9200_purchase_c1; 1: chibaNT_9200_purchase_c2; 2: ac_single_1_c1; 3: ac_single_1_c2; 4: panto_arm_n_c2;}
+spriteset (chibaNT_9200_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaNewTown/chibaNT_9200/chibaNT_9200_1.png") { tmpl_std_v3(0, 0) }
+spriteset (chibaNT_9200_car, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaNewTown/chibaNT_9200/chibaNT_9200_1.png") { tmpl_symm_v3(0, 25) }
+
+  switch(FEAT_TRAINS, SELF, chibaNT_9200_head, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: chibaNT_9200_head_base; 1: sw_keisei3000n_lights; 2: ac_single_1_1;}
+  switch(FEAT_TRAINS, SELF, chibaNT_9200_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: chibaNT_9200_car; 1: ac_single_1_1;}
+  switch(FEAT_TRAINS, SELF, chibaNT_9200_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: chibaNT_9200_car; 1: ac_single_1_1; 2: panto_arm_n_single;}
+  switch(FEAT_TRAINS, SELF, chibaNT_9200_mot_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: chibaNT_9200_car; 1: ac_single_1_1; 2: panto_arm_n;}
+
+
+
+      switch(FEAT_TRAINS, SELF, sw_chibaNT_9200_panto_placer_main_1,position_in_vehid_chain %8){
+        0: chibaNT_9200_mot_2;
+        2: chibaNT_9200_mot;
+        5: chibaNT_9200_mot_2;
+        chibaNT_9200_wag;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_chibaNT_9200_panto_placer_main_2,position_in_vehid_chain_from_end %3){
+        0: chibaNT_9200_mot_2;
+        default: chibaNT_9200_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_chibaNT_9200_panto_placer_main,num_vehs_in_vehid_chain){
+        4..5: sw_chibaNT_9200_panto_placer_main_2;
+        sw_chibaNT_9200_panto_placer_main_1;
+      }
+
+    switch(FEAT_TRAINS, SELF, sw_chibaNT_9200_lv,vehicle_type_id){
+        mu_car: sw_chibaNT_9200_panto_placer_main;
+        chibaNT_9200_head;
+    }
+# 2 "src/private/Kanto/chibaNewTown/items.pnml" 2
+
+item(FEAT_TRAINS, chibaNT_9200) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_CHIBA_NT), "9200", string(STR_NAME_TYPE));
+    introduction_date: date(2013, 3, 1);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+    cost_factor: 19;
+    running_cost_factor: 51;
+    speed: 130 km/h;
+    track_type:TR_1435_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 31 ton;
+    badges: ["company/chiba_nt"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
+    string(STR_USAGE, string(STR_ACCESS_COMMUTER)),
+    string(STR_OPERATOR, string(STR_CHIBA_NT))
+
+    );
+
+    purchase: chibaNT_9200_purchase;
+    cargo_capacity:sw_keisei3000n_capacity_main()*param_capacity_mod/3;
+    purchase_cargo_capacity:sw_keisei3000n_capacity_main()*param_capacity_mod/3-1;
+    loading_speed:param_loading_4D;
+    default:sw_chibaNT_9200_lv;
+    power:sw_keisei3000n_power_main()*4*1342/1000;
+    purchase_power: sw_keisei3000n_car_power_main()*4*1342/1000;
+
+
+    sound_effect: sw_KS3000_2_start_sound;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_keisei3000n_capacity_main()*param_capacity_mod/3;
+    power:sw_keisei3000n_power_main()*4*1342/1000;
+    default:sw_chibaNT_9200_lv;
+    weight: 31;
+
+  }
+}
+# 1 "src/private/Kanto/chibaNewTown/chibaNT_9800/chibaNT_9800.pnml" 1
+
+  spriteset(chibaNT_9800_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaNewTown/chibaNT_9800/chibaNT_9800_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(chibaNT_9800_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaNewTown/chibaNT_9800/chibaNT_9800_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  switch(FEAT_TRAINS, SELF, chibaNT_9800_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: chibaNT_9800_purchase_c1; 1: chibaNT_9800_purchase_c2; 2: ac_double_1_c1; 3: ac_double_1_c2; 4: panto_arm_n_c2;}
+
+spriteset (chibaNT_9800_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaNewTown/chibaNT_9800/chibaNT_9800_1.png") { tmpl_std_v3(0, 0) }
+spriteset (chibaNT_9800_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaNewTown/chibaNT_9800/chibaNT_9800_1.png") { tmpl_symm_v3(0, 25) }
+
+  switch(FEAT_TRAINS, SELF, chibaNT_9800_head, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: chibaNT_9800_head_base; 1: keisei3400_lights; 2: ac_double_1_1;}
+  switch(FEAT_TRAINS, SELF, chibaNT_9800_car, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: chibaNT_9800_wag; 1: ac_double_1_1;}
+  switch(FEAT_TRAINS, SELF, chibaNT_9800_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: chibaNT_9800_wag; 1: ac_double_1_1; 2: panto_arm_n_single;}
+  switch(FEAT_TRAINS, SELF, chibaNT_9800_mot_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: chibaNT_9800_wag; 1: ac_double_1_9; 2: panto_arm_n;}
+
+
+
+
+      switch(FEAT_TRAINS, SELF, sw_chibaNT_9800_panto_placer_main_1,position_in_vehid_chain %8){
+        0: chibaNT_9800_mot_2;
+        2: chibaNT_9800_mot;
+        5: chibaNT_9800_mot_2;
+        chibaNT_9800_car;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_chibaNT_9800_panto_placer_main_2,position_in_vehid_chain_from_end %3){
+        0: chibaNT_9800_mot_2;
+        chibaNT_9800_car;
+      }
+      switch(FEAT_TRAINS, SELF, sw_chibaNT_9800_panto_placer_main,num_vehs_in_vehid_chain){
+        4..5: sw_chibaNT_9800_panto_placer_main_2;
+        sw_chibaNT_9800_panto_placer_main_1;
+      }
+    switch(FEAT_TRAINS, SELF, sw_chibaNT_9800_lv,vehicle_type_id){
+      mu_car: sw_chibaNT_9800_panto_placer_main;
+      chibaNT_9800_head;
+    }
+# 63 "src/private/Kanto/chibaNewTown/items.pnml" 2
+
+item(FEAT_TRAINS, chibaNT_9800) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_CHIBA_NT), "9800", string(STR_NAME_TYPE));
+    introduction_date: date(2017, 3, 21);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+    cost_factor: 19;
+    running_cost_factor: 50;
+    speed: 120 km/h;
+    track_type:TR_1435_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 32 ton;
+    badges: ["company/chiba_nt"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
+    string(STR_USAGE, string(STR_ACCESS_COMMUTER)),
+    string(STR_OPERATOR, string(STR_CHIBA_NT))
+
+    );
+
+    purchase: chibaNT_9800_purchase;
+    cargo_capacity:sw_keisei3700_capacity_main()*param_capacity_mod/3;
+    purchase_cargo_capacity:sw_keisei3700_capacity_main()*param_capacity_mod/3-1;
+    loading_speed:param_loading_4D;
+    default:sw_chibaNT_9800_lv;
+    power:sw_keisei3700_power_main()*4*1342/1000;
+    purchase_power: sw_keisei3700_car_power_main()*4*1342/1000;
+
+
+    sound_effect: sw_KS3700_start_sound;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_keisei3700_capacity_main()*param_capacity_mod/3;
+    power:sw_keisei3700_power_main()*4*1342/1000;
+    default:sw_chibaNT_9800_lv;
+    weight: 32;
+
+  }
+}
+# 260 "src/_private.pnml" 2
+
+item(FEAT_TRAINS, chibaE_1000, 2545) {}
+item(FEAT_TRAINS, chibaE_3050, 2546) {}
+item(FEAT_TRAINS, chibaE_3100, 2547) {}
+
 item(FEAT_TRAINS, shibayama3600, 2548) {}
 item(FEAT_TRAINS, shibayama3500, 2549) {}
+
 # 1 "src/private/Kanto/shibayama/items.pnml" 1
 # 1 "src/private/Kanto/shibayama/shibayama3600/shibayama3600.pnml" 1
 
@@ -41304,7 +41665,7 @@ item(FEAT_TRAINS, shibayama3600) {
   property {
     cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
 
-    climates_available: param_disable_semiPrivate == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
     name: string(STR_TRAIN_NAME, string(STR_NAME_SHIBAYAMA), "3600", string(STR_NAME_TYPE));
     introduction_date: date(2002, 10, 27);
     model_life: VEHICLE_NEVER_EXPIRES;
@@ -41330,7 +41691,7 @@ item(FEAT_TRAINS, shibayama3600) {
     string(STR_1435),
     string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
-    string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
     string(STR_USAGE, string(STR_ACCESS_COMMUTER)),
     string(STR_OPERATOR, string(STR_SHIBAYAMA))
 
@@ -41345,7 +41706,7 @@ item(FEAT_TRAINS, shibayama3600) {
     purchase_power: sw_keisei3600_car_power_main()*4*1342/1000;
 
 
-
+    sound_effect: sw_KS3600_start_sound;
 
 
   }
@@ -41423,7 +41784,7 @@ item(FEAT_TRAINS, shibayama3500) {
   property {
     cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
 
-    climates_available: param_disable_semiPrivate == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
     name: string(STR_TRAIN_NAME, string(STR_NAME_SHIBAYAMA), "3500", string(STR_NAME_TYPE));
     introduction_date: date(2013, 4, 1);
     model_life: 18;
@@ -41449,7 +41810,7 @@ item(FEAT_TRAINS, shibayama3500) {
     string(STR_1435),
     string(STR_DENKI, string(STR_DC, 1500)),
     string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
-    string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 4,8)),
     string(STR_USAGE, string(STR_COMMUTER)),
     string(STR_OPERATOR, string(STR_SHIBAYAMA))
 
@@ -41464,7 +41825,7 @@ item(FEAT_TRAINS, shibayama3500) {
     purchase_power: sw_keisei3500_car_power_main()*4*1342/1000;
 
 
-
+    sound_effect: sw_KS3500_start_sound;
 
 
   }
@@ -41478,5 +41839,5 @@ item(FEAT_TRAINS, shibayama3500) {
 
   }
 }
-# 266 "src/_private.pnml" 2
+# 269 "src/_private.pnml" 2
 # 16 "JPprivate.pnml" 2
