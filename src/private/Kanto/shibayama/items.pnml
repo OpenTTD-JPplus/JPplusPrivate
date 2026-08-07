@@ -1,0 +1,122 @@
+#include "shibayama3600/shibayama3600.pnml"
+
+item(FEAT_TRAINS, shibayama3600) {
+  property {
+    OVERRIDEN_TRAIN_DATA
+    
+    climates_available: param_disable_semiPrivate == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_SHIBAYAMA), "3600", string(STR_NAME_TYPE));
+    introduction_date: date(2002, 10, 27);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+    
+    cost_factor: 17;
+    running_cost_factor: 50;
+    speed: 110 km/h;
+    track_type:TR_1435_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient:  0.2;
+    weight: 29 ton;
+    badges: ["company/shibayama"];
+    
+  }
+	graphics {
+    
+    
+     
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
+    string(STR_USAGE, string(STR_ACCESS_COMMUTER)),
+    string(STR_OPERATOR, string(STR_SHIBAYAMA))
+    
+    );
+    cargo_subtype_text: sw_shibayama3600_lv_desc_main;
+    purchase: shibayama3600_purchase;
+    cargo_capacity:140*param_capacity_mod/3;
+    purchase_cargo_capacity:140*param_capacity_mod/3-1;
+    loading_speed:param_loading_3D;
+    default:sw_shibayama3600_lv;
+    power:sw_keisei3600_power_main()*4*1342/1000;
+    purchase_power: sw_keisei3600_car_power_main()*4*1342/1000;
+    
+    
+    
+    
+    
+  }
+  livery_override(mu_car){
+		cargo_subtype_text:sw_shibayama3600_lv_desc_main;
+    loading_speed:param_loading_3D;
+    cargo_capacity:140*param_capacity_mod/3;
+    power:sw_keisei3600_power_main()*4*1342/1000;
+    default:sw_shibayama3600_lv;
+    weight: 28;
+    
+  }
+}
+#include "shibayama3500/shibayama3500.pnml"
+
+item(FEAT_TRAINS, shibayama3500) {
+  property {
+    OVERRIDEN_TRAIN_DATA
+    
+    climates_available: param_disable_semiPrivate == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_SHIBAYAMA), "3500", string(STR_NAME_TYPE));
+    introduction_date: date(2013, 4, 1);
+    model_life: 18;
+    vehicle_life: 13;
+    dual_headed: 1;
+    
+    cost_factor: 17;
+    running_cost_factor: 50;
+    speed: 110 km/h;
+    track_type:TR_1435_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient:  0.2;
+    weight: 29 ton;
+    badges: ["company/shibayama"];
+    
+  }
+	graphics {
+    
+    
+     
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_SHIBAYAMA))
+    
+    );
+    
+    purchase: shibayama3500_purchase;
+    cargo_capacity:sw_keisei3500_capacity_main()*param_capacity_mod/3;
+    purchase_cargo_capacity:sw_keisei3500_capacity_main()*param_capacity_mod/3-1;
+    loading_speed:param_loading_3D;
+    default:sw_shibayama3500_lv;
+    power:sw_keisei3500_power_main()*4*1342/1000;
+    purchase_power: sw_keisei3500_car_power_main()*4*1342/1000;
+    
+    
+    
+    
+    
+  }
+  livery_override(mu_car){
+		cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_keisei3500_capacity_main()*param_capacity_mod/3;
+    power:sw_keisei3500_power_main()*4*1342/1000;
+    default:sw_shibayama3500_lv;
+    weight: 28;
+    
+  }
+}

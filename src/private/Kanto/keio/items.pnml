@@ -425,3 +425,64 @@ item(FEAT_TRAINS, keio5000n) {
     
   }
 }
+#include "keio2000n/keio2000n.pnml"
+
+item(FEAT_TRAINS, keio2000n) {
+  property {
+    OVERRIDEN_TRAIN_DATA
+    
+    climates_available: param_disable_keio == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME_LONG, string(STR_NAME_KEIO), "2000", string(STR_NAME_2_GEN), string(STR_NAME_SERIES),);
+    introduction_date: date(2026, 1, 31);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+    
+    cost_factor: 22;
+    running_cost_factor: 52;
+    speed: 130 km/h;
+    track_type:TR_1372_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient:  0.2;
+    weight: 30.5 ton;
+    badges: ["company/keio"];
+    
+  }
+	graphics {
+    
+    
+     
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1372),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 10)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_KEIO))
+    
+    );
+    
+    purchase: keio2000n_purchase;
+    cargo_capacity:sw_keio2000n_capacity_main()*param_capacity_mod/3;
+    purchase_cargo_capacity:sw_keio2000n_capacity_main()*param_capacity_mod/3-1;
+    loading_speed:param_loading_4D;
+    default:sw_keio2000n_lv;
+    power:sw_keio2000n_power_main()*4*1342/1000;
+    purchase_power: sw_keio2000n_car_power_main()*4*1342/1000;
+    
+    
+    
+    
+    
+  }
+  livery_override(mu_car){
+		cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_keio2000n_capacity_main()*param_capacity_mod/3;
+    power:sw_keio2000n_power_main()*4*1342/1000;
+    default:sw_keio2000n_lv;
+    weight: 30;
+    
+  }
+}

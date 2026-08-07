@@ -1,0 +1,58 @@
+//purchase
+  spriteset(shibayama3500_purchase_c1_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/shibayama/shibayama3500/shibayama3500_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(shibayama3500_purchase_c2_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/shibayama/shibayama3500/shibayama3500_1.png"){ tmpl_purchase_2c_dual(0, 50) }
+  GRAPHIC_STACK_2(shibayama3500_purchase, shibayama3500_purchase_c1_1, shibayama3500_purchase_c2_1)
+//
+spriteset (shibayama3500_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/private/Kanto/shibayama/shibayama3500/shibayama3500_1.png") { tmpl_std_v3(0, 0) }
+spriteset (shibayama3500_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/private/Kanto/shibayama/shibayama3500/shibayama3500_1.png") { tmpl_std_v3(0, 25) }
+spriteset (shibayama3500_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/private/Kanto/shibayama/shibayama3500/shibayama3500_1.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (shibayama3500_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/private/Kanto/shibayama/shibayama3500/shibayama3500_1.png") { tmpl_std_v3(0, 50) }
+spriteset (shibayama3500_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,  "src/private/Kanto/shibayama/shibayama3500/shibayama3500_1.png") { tmpl_std_rev_v3(0, 50) }
+
+//*livery 1
+  //panto-placers
+    //var 1
+      switch(FEAT_TRAINS, SELF, sw_shibayama3500_panto_placer_main,position_in_vehid_chain %2){
+        0: shibayama3500_mot_rev;
+        shibayama3500_mot;
+      }
+  //fake-head-placer
+    //var 1 4+4
+      switch(FEAT_TRAINS, SELF, sw_shibayama3500_fake_head_placer_1,position_in_vehid_chain){
+        2: shibayama3500_end_rev;
+        3: shibayama3500_end;
+        sw_shibayama3500_panto_placer_main;
+      }
+    //2+4+2 / 2+4
+      switch(FEAT_TRAINS, SELF, sw_shibayama3500_fake_head_placer_2,position_in_vehid_chain){
+        1: shibayama3500_end;
+        4: shibayama3500_end_rev;
+        sw_shibayama3500_panto_placer_main;
+      }
+    //4+2
+      switch(FEAT_TRAINS, SELF, sw_shibayama3500_fake_head_placer_3,position_in_vehid_chain){
+        2: shibayama3500_end_rev;
+        sw_shibayama3500_panto_placer_main;
+      }
+      random_switch(FEAT_TRAINS, PARENT, sw_shibayama3500_fake_head_placer_8c){
+        2: sw_shibayama3500_fake_head_placer_1;
+        1: sw_shibayama3500_fake_head_placer_2;
+      }
+      random_switch(FEAT_TRAINS, PARENT, sw_shibayama3500_fake_head_placer_6c){
+        1: sw_shibayama3500_fake_head_placer_2;
+        1: sw_shibayama3500_fake_head_placer_3;
+      }
+      switch(FEAT_TRAINS, SELF, sw_shibayama3500_fake_head_placer_main,num_vehs_in_vehid_chain){
+        0..3: sw_shibayama3500_panto_placer_main;
+        4:sw_shibayama3500_fake_head_placer_6c;
+        sw_shibayama3500_fake_head_placer_8c;
+      }
+  switch(FEAT_TRAINS, SELF, sw_shibayama3500_head, train_is_driving_backwards != vehicle_is_flipped){
+    1: shibayama3500_end;
+    shibayama3500_front;
+  }
+  switch(FEAT_TRAINS, SELF, sw_shibayama3500_lv,vehicle_type_id){
+    mu_car: sw_shibayama3500_fake_head_placer_main;
+    sw_shibayama3500_head;
+  }
+//
