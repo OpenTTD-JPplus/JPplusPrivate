@@ -1,0 +1,57 @@
+//purchase
+  spriteset(seibu7000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/seibu/seibu7000/seibu7000_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(seibu7000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/seibu/seibu7000/seibu7000_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  GRAPHIC_STACK_4(seibu7000_purchase,  seibu7000_purchase_c1,ac_quad_1_wag_c1, seibu7000_purchase_c2,ac_quad_1_wag_c2)
+//base
+  spriteset(seibu7000_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/seibu/seibu7000/seibu7000_1.png"){ tmpl_std_v3(0, 0) }
+  spriteset(seibu7000_wag_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/seibu/seibu7000/seibu7000_1.png"){ tmpl_symm_v3(0, 25) }
+//
+//livery 1
+  TRAIN_CONSTRUCTOR_3(seibu7000_head, seibu7000_head_base, sw_tokyu9000_lights, ac_quad_1_wag)
+  TRAIN_CONSTRUCTOR_3(seibu7000_mot, seibu7000_wag_base, ac_quad_1_mot,panto_arm_n_single)
+  TRAIN_CONSTRUCTOR_2(seibu7000_wag, seibu7000_wag_base, ac_quad_1_wag)
+//
+//*livery 1
+  //panto placer
+    //var 1
+      switch(FEAT_TRAINS, SELF, sw_seibu7000_panto_placer_main_1,position_in_vehid_chain %5){
+        0: seibu7000_mot;
+        2: seibu7000_mot;
+        4: seibu7000_mot;
+        seibu7000_wag;
+      }
+    //var 2 5 cars
+      switch(FEAT_TRAINS, SELF, sw_seibu7000_panto_placer_main_2,position_in_vehid_chain %4){
+        0: seibu7000_mot;
+        1: seibu7000_mot;
+        2: seibu7000_mot;
+        seibu7000_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_seibu7000_panto_placer_main,num_vehs_in_vehid_chain){
+        0..4: sw_seibu7000_panto_placer_main_2;
+        sw_seibu7000_panto_placer_main_1;
+      }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_seibu7000_lv,vehicle_type_id){
+      mu_car:sw_seibu7000_panto_placer_main;
+      seibu7000_head;
+    }
+//post fixers
+  //capacity
+    switch(FEAT_TRAINS, SELF, sw_seibu7000_car_capacity_main, position_in_vehid_chain){
+      1:149;
+      default: 150;
+    }
+    switch(FEAT_TRAINS, SELF, sw_seibu7000_capacity_main, vehicle_type_id){
+      mu_car: sw_seibu7000_car_capacity_main;
+      default: 139;
+    }
+  //power
+    switch(FEAT_TRAINS, SELF, sw_seibu7000_car_power_main, position_in_vehid_chain%4){
+      0..1:return 170;
+      default: 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_seibu7000_power_main, vehicle_type_id){
+      mu_car: sw_seibu7000_car_power_main;
+      return 0;
+    }
