@@ -1,3 +1,125 @@
+#include "chibaNT_9000/chibaNT_9000.pnml"
+
+item(FEAT_TRAINS, chibaNT_9000) {
+  property {
+    OVERRIDEN_TRAIN_DATA
+    
+    climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_CHIBA_NT), "2000/9000", string(STR_NAME_TYPE));
+    introduction_date: date(1984, 3, 19);
+    model_life: 38;
+    vehicle_life: 33;
+    dual_headed: 1;
+    
+    cost_factor: 19;
+    running_cost_factor: 48;
+    speed: 110 km/h;
+    track_type:TR_1435_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient:  0.2;
+    weight: 34 ton;
+    badges: ["company/chiba_nt"];
+    
+  }
+	graphics {
+    
+    
+     
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 6,8)),
+    string(STR_USAGE, string(STR_ACCESS_COMMUTER)),
+    string(STR_OPERATOR, string(STR_CHIBA_NT))
+    
+    );
+    
+    purchase: chibaNT_9000_purchase;
+    cargo_capacity:140*param_capacity_mod/3;
+    purchase_cargo_capacity:140*param_capacity_mod/3-1;
+    loading_speed:param_loading_3D;
+    default:sw_chibaNT_9000_lv;
+    power:sw_chibaNT_9000_power_main()*4*1342/1000;
+    purchase_power: sw_chibaNT_9000_car_power_main()*4*1342/1000;
+    
+    
+    sound_effect: sw_CNT9000_start_sound;
+    
+    
+  }
+  livery_override(mu_car){
+		cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_3D;
+    cargo_capacity:140*param_capacity_mod/3;
+    power:sw_chibaNT_9000_power_main()*4*1342/1000;
+    default:sw_chibaNT_9000_lv;
+    weight: 34;
+    
+  }
+}
+#include "chibaNT_9100/chibaNT_9100.pnml"
+
+item(FEAT_TRAINS, chibaNT_9100) {
+  property {
+    OVERRIDEN_TRAIN_DATA
+    
+    climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_CHIBA_NT), "9100", string(STR_NAME_TYPE));
+    introduction_date: date(1995, 4, 1);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+    
+    cost_factor: 20;
+    running_cost_factor: 50;
+    speed: 120 km/h;
+    track_type:TR_1435_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient:  0.2;
+    weight: 33 ton;
+    badges: ["company/chiba_nt"];
+    
+  }
+	graphics {
+    
+    
+     
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
+    string(STR_USAGE, string(STR_ACCESS_COMMUTER)),
+    string(STR_OPERATOR, string(STR_CHIBA_NT))
+    
+    );
+    
+    purchase: chibaNT_9100_purchase;
+    cargo_capacity:sw_chibaNT_9100_capacity_main()*param_capacity_mod/3;
+    purchase_cargo_capacity:sw_chibaNT_9100_capacity_main()*param_capacity_mod/3-1;
+    loading_speed:param_loading_3D;
+    default:sw_chibaNT_9100_lv;
+    power:sw_chibaNT_9100_power_main()*4*1342/1000;
+    purchase_power: sw_chibaNT_9100_car_power_main()*4*1342/1000;
+    
+    
+    sound_effect: sw_CNT9100_start_sound;
+    
+    
+  }
+  livery_override(mu_car){
+		cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_chibaNT_9100_capacity_main()*param_capacity_mod/3;
+    power:sw_chibaNT_9100_power_main()*4*1342/1000;
+    default:sw_chibaNT_9100_lv;
+    weight: 33;
+    
+  }
+}
 #include "chibaNT_9200/chibaNT_9200.pnml"
 
 item(FEAT_TRAINS, chibaNT_9200) {
@@ -29,7 +151,7 @@ item(FEAT_TRAINS, chibaNT_9200) {
     additional_text:string(STR_TRAIN_DESC,
     string(STR_1435),
     string(STR_DENKI, string(STR_DC, 1500)),
-    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
     string(STR_USAGE, string(STR_ACCESS_COMMUTER)),
     string(STR_OPERATOR, string(STR_CHIBA_NT))
@@ -39,7 +161,7 @@ item(FEAT_TRAINS, chibaNT_9200) {
     purchase: chibaNT_9200_purchase;
     cargo_capacity:sw_keisei3000n_capacity_main()*param_capacity_mod/3;
     purchase_cargo_capacity:sw_keisei3000n_capacity_main()*param_capacity_mod/3-1;
-    loading_speed:param_loading_4D;
+    loading_speed:param_loading_3D;
     default:sw_chibaNT_9200_lv;
     power:sw_keisei3000n_power_main()*4*1342/1000;
     purchase_power: sw_keisei3000n_car_power_main()*4*1342/1000;
@@ -51,7 +173,7 @@ item(FEAT_TRAINS, chibaNT_9200) {
   }
   livery_override(mu_car){
 		cargo_subtype_text:sw_empty_desc;
-    loading_speed:param_loading_4D;
+    loading_speed:param_loading_3D;
     cargo_capacity:sw_keisei3000n_capacity_main()*param_capacity_mod/3;
     power:sw_keisei3000n_power_main()*4*1342/1000;
     default:sw_chibaNT_9200_lv;
@@ -90,7 +212,7 @@ item(FEAT_TRAINS, chibaNT_9800) {
     additional_text:string(STR_TRAIN_DESC,
     string(STR_1435),
     string(STR_DENKI, string(STR_DC, 1500)),
-    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
     string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
     string(STR_USAGE, string(STR_ACCESS_COMMUTER)),
     string(STR_OPERATOR, string(STR_CHIBA_NT))
@@ -100,7 +222,7 @@ item(FEAT_TRAINS, chibaNT_9800) {
     purchase: chibaNT_9800_purchase;
     cargo_capacity:sw_keisei3700_capacity_main()*param_capacity_mod/3;
     purchase_cargo_capacity:sw_keisei3700_capacity_main()*param_capacity_mod/3-1;
-    loading_speed:param_loading_4D;
+    loading_speed:param_loading_3D;
     default:sw_chibaNT_9800_lv;
     power:sw_keisei3700_power_main()*4*1342/1000;
     purchase_power: sw_keisei3700_car_power_main()*4*1342/1000;
@@ -112,7 +234,7 @@ item(FEAT_TRAINS, chibaNT_9800) {
   }
   livery_override(mu_car){
 		cargo_subtype_text:sw_empty_desc;
-    loading_speed:param_loading_4D;
+    loading_speed:param_loading_3D;
     cargo_capacity:sw_keisei3700_capacity_main()*param_capacity_mod/3;
     power:sw_keisei3700_power_main()*4*1342/1000;
     default:sw_chibaNT_9800_lv;

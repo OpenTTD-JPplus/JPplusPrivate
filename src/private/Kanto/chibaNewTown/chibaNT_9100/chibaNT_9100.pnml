@@ -1,185 +1,73 @@
 //purchase
-  spriteset(chibaNT_9100_purchase_c1,      "gfx/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100.png"){ tmpl_purchase_1c(0, 0) }
-  spriteset(chibaNT_9100_purchase_c2,      "gfx/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100.png"){ tmpl_purchase_2c(88, 75) }
+  spriteset(chibaNT_9100_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(chibaNT_9100_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100.png"){ tmpl_purchase_2c_dual(0, 75) }
   GRAPHIC_STACK_3(chibaNT_9100_purchase, logo_chiba_nt, chibaNT_9100_purchase_c1, chibaNT_9100_purchase_c2)
 //livery 1
-spriteset (chibaNT_9100_front,       "gfx/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100.png") { tmpl_std(0, 0) }
-spriteset (chibaNT_9100_end,       "gfx/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100.png") { tmpl_std_rev(0, 25) }
-spriteset (chibaNT_9100_mot,       "gfx/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100.png") { tmpl_std(0, 50) }
-spriteset (chibaNT_9100_mot_rev,       "gfx/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100.png") { tmpl_std_rev(0, 50) }
-spriteset (chibaNT_9100_mot_2,       "gfx/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100.png") { tmpl_std(0, 75) }
-spriteset (chibaNT_9100_mot_2_rev,       "gfx/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100.png") { tmpl_std_rev(0, 75) }
-spriteset (chibaNT_9100_wag,       "gfx/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100.png") { tmpl_std(0, 100) }
-spriteset (chibaNT_9100_wag_rev,       "gfx/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100.png") { tmpl_std_rev(0, 100) }
+spriteset (chibaNT_9100_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100.png") { tmpl_std_v3(0, 0) }
+spriteset (chibaNT_9100_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100.png") { tmpl_std_v3(0, 25) }
+spriteset (chibaNT_9100_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100.png") { tmpl_std_rev_v3(0, 50) }
+spriteset (chibaNT_9100_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100.png") { tmpl_std_v3(0, 75) }
+spriteset (chibaNT_9100_mot_2_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100.png") { tmpl_std_rev_v3(0, 75) }
+spriteset (chibaNT_9100_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100.png") { tmpl_std_v3(0, 100) }
+spriteset (chibaNT_9100_wag_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaNewTown/chibaNT_9100/chibaNT_9100.png") { tmpl_std_rev_v3(0, 100) }
 
 //*livery 1
   //special gfx
-    switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_wag_1,1+position_in_vehid_chain>(num_vehs_in_vehid_chain/2)){
+    switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_wag,position_in_vehid_chain>(num_vehs_in_vehid_chain/2)){
       1:chibaNT_9100_wag_rev;
       chibaNT_9100_wag;
     }
-    switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_wag_2,position_in_vehid_chain_from_end>(num_vehs_in_vehid_chain/2)){
-      1:chibaNT_9100_wag;
-      chibaNT_9100_wag_rev;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_chibaNT_9100_wag,vehicle_is_reversed){
-      1:sw_chibaNT_9100_wag_1;
-      sw_chibaNT_9100_wag_2;
-    }
-    switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_mot_2_1,1+position_in_vehid_chain>(num_vehs_in_vehid_chain/2)){
+    switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_mot_2,position_in_vehid_chain>(num_vehs_in_vehid_chain/2)){
       1:chibaNT_9100_mot_2_rev;
       chibaNT_9100_mot_2;
     }
-    switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_mot_2_2,position_in_vehid_chain_from_end>(num_vehs_in_vehid_chain/2)){
-      1:chibaNT_9100_mot_2;
-      chibaNT_9100_mot_2_rev;
-    }
-    switch(FEAT_TRAINS, PARENT, sw_chibaNT_9100_mot_2,vehicle_is_reversed){
-      1:sw_chibaNT_9100_mot_2_1;
-      sw_chibaNT_9100_mot_2_2;
-    }
   //panto-placers
     //var 1
-      switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_panto_placer_1,position_in_vehid_chain){
+      switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_panto_placer_main_1,position_in_vehid_chain){
         0: sw_chibaNT_9100_mot_2;
         3: chibaNT_9100_mot_rev;
         5: sw_chibaNT_9100_mot_2;
         sw_chibaNT_9100_wag;
       }
-      switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_panto_placer_1_rev,position_in_vehid_chain_from_end %8-1){
-        0: sw_chibaNT_9100_mot_2;
-        3: chibaNT_9100_mot;
-        5: sw_chibaNT_9100_mot_2;
-        sw_chibaNT_9100_wag;
-      }
-      switch(FEAT_TRAINS, PARENT, sw_chibaNT_9100_panto_placer_main_1,vehicle_is_reversed){
-        1: sw_chibaNT_9100_panto_placer_1_rev;
-        sw_chibaNT_9100_panto_placer_1;
-      }
     //var 2
-      switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_panto_placer_2,position_in_vehid_chain %3){
+      switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_panto_placer_main_2,position_in_vehid_chain %3){
         1: sw_chibaNT_9100_mot_2;
         default: sw_chibaNT_9100_wag;
-      }
-      switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_panto_placer_2_rev,position_in_vehid_chain_from_end %3-1){
-        1: sw_chibaNT_9100_mot_2;
-        default: sw_chibaNT_9100_wag;
-      }
-      switch(FEAT_TRAINS, PARENT, sw_chibaNT_9100_panto_placer_main_2,vehicle_is_reversed){
-        1: sw_chibaNT_9100_panto_placer_2_rev;
-        sw_chibaNT_9100_panto_placer_2;
       }
     //var 3
-      switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_panto_placer_3,position_in_vehid_chain %2){
+      switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_panto_placer_main_3,position_in_vehid_chain %2){
         0: chibaNT_9100_mot_2;
         default: sw_chibaNT_9100_wag;
       }
-      switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_panto_placer_3_rev,position_in_vehid_chain_from_end %2-1){
-        0: chibaNT_9100_mot_2;
-        default: sw_chibaNT_9100_wag;
-      }
-      switch(FEAT_TRAINS, PARENT, sw_chibaNT_9100_panto_placer_main_3,vehicle_is_reversed){
-        1: sw_chibaNT_9100_panto_placer_3_rev;
-        sw_chibaNT_9100_panto_placer_3;
-      }
-      switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_panto_placer_main,num_vehs_in_vehid_chain+1){
-        1..4:sw_chibaNT_9100_panto_placer_main_1;
+      switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_panto_placer_main,num_vehs_in_vehid_chain){
+        0..2:sw_chibaNT_9100_panto_placer_main_1;
+        3: sw_chibaNT_9100_panto_placer_main_2;
+        4: sw_chibaNT_9100_panto_placer_main_3;
         5: sw_chibaNT_9100_panto_placer_main_2;
-        6: sw_chibaNT_9100_panto_placer_main_3;
-        7: sw_chibaNT_9100_panto_placer_main_2;
         sw_chibaNT_9100_panto_placer_main_1;
       }
   //front-end-fixer
-    switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_gfx_main,position_in_vehid_chain_from_end){
-        0: chibaNT_9100_end;
-        sw_chibaNT_9100_panto_placer_main;
-    }
-    switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_lv,vehicle_type_id){
-        mu_car: sw_chibaNT_9100_gfx_main;
+    switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_gfx_main,train_is_driving_backwards != vehicle_is_flipped){
+        1: chibaNT_9100_end;
         chibaNT_9100_front;
     }
+    switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_lv,vehicle_type_id){
+        mu_car: sw_chibaNT_9100_panto_placer_main;
+        sw_chibaNT_9100_gfx_main;
+    }
 //post fixers
-  //capacity-changer
-    switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_capacity,position_in_vehid_chain_from_end){
-      0: 121;
-      default: 132;
-    }
-    switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_capacity_1,position_in_vehid_chain){
-      0: 121;
-      default: sw_chibaNT_9100_capacity;
-    }
     switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_capacity_main,vehicle_type_id){
-      mu_car: sw_chibaNT_9100_capacity;
-      sw_chibaNT_9100_capacity_1;
+      mu_car: 132;
+      121;
     }
   //power fix
-    switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_power_main,position_in_vehid_chain_from_end %8){
-      0..1:return 130;
-      3..4:return 130;
-      5:return 130;
+    switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_car_power_main,position_in_vehid_chain %3){
+      0:return 130;
+      2:return 130;
       return 0;
     }
+    switch(FEAT_TRAINS, SELF, sw_chibaNT_9100_power_main,vehicle_type_id){
+      mu_car:sw_chibaNT_9100_car_power_main;
+      return 130*2;
+    }
 //
-
-item(FEAT_TRAINS, chibaNT_9100) {
-    property {
-        name: string(STR_TRAIN_NAME, string(STR_NAME_CHIBA_NT), "9100", string(STR_NAME_TYPE));
-        introduction_date: date(1995, 1, 1);
-        model_life: VEHICLE_NEVER_EXPIRES;
-        vehicle_life: 30;
-        reliability_decay: 10;
-
-        cargo_capacity: 1;
-        loading_speed: param_loading_3D;
-        cost_factor: 20;
-        running_cost_factor: 50;
-
-        speed: 120 km/h;
-        track_type: TR_1435_DC;
-        power: 620 kW;
-        weight: 33 ton;
-
-        climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
-        ai_special_flag: AI_FLAG_PASSENGER;
-        sprite_id: SPRITE_ID_NEW_TRAIN;
-        misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK);
-        refittable_cargo_classes: bitmask(CC_PASSENGERS);
-        non_refittable_cargo_classes: bitmask();                
-
-        running_cost_base: RUNNING_COST_ELECTRIC;
-        engine_class: ENGINE_CLASS_ELECTRIC;
-        visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
-        
-        tractive_effort_coefficient: 0.3;
-        air_drag_coefficient: 0.07;
-        bitmask_vehicle_info: 0;
-    }
-	graphics {
-        power: sw_chibaNT_9100_power_main()*4*1342/1000;
-		// cargo_subtype_text:sw_chibaNT_9100_lv_desc;
-        default: sw_chibaNT_9100_lv;
-		purchase: chibaNT_9100_purchase;
-		// can_attach_wagon: sw_mucar_attach_vehid;
-		additional_text:
-				string(STR_TRAIN_DESC,
-				string(STR_STANDARDGAUGE),
-				string(STR_DENKI, string(STR_DC, 1500)),
-				string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
-				string(STR_FORMATION, string(STR_NUM_CARS_1, 8)),
-				string(STR_USAGE, string(STR_METRO_ACCESS)),
-				string(STR_OPERATOR, string(STR_CHIBA_NT)));
-
-		start_stop: sw_stop_start_3;
-        cargo_capacity: sw_chibaNT_9100_capacity_main()*param_capacity_mod/3;
-        sound_effect: sw_CNT9100_start_sound;
-    }
-	livery_override(mu_car){
-		cargo_subtype_text:sw_empty_desc;
-        loading_speed: param_loading_3D;
-        cargo_capacity: sw_chibaNT_9100_capacity_main()*param_capacity_mod/3;
-        default: sw_chibaNT_9100_lv;
-        power: sw_chibaNT_9100_power_main()*4*1342/1000;
-        weight: 33;
-        length: 8;
-      }
-}
