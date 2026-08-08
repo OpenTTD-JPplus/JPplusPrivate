@@ -21,4 +21,5 @@ parseCompany("src/private/Kanto/sotetsu");
 parseCompany("src/private/Kanto/keio");
 parseCompany("src/private/Kanto/keisei");
 parseCompany("src/private/Kanto/chibaNewTown");
+parseCompany("src/private/Kanto/hokuso");
 parseCompany("src/private/Kanto/shibayama");
