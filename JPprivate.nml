@@ -43205,6 +43205,122 @@ item(FEAT_TRAINS, shinKeisei800n, 2507) {}
 item(FEAT_TRAINS, shinKeisei80000, 2508) {}
 
 # 1 "src/private/Kanto/shinKeisei/items.pnml" 1
+# 1 "src/private/Kanto/shinKeisei/shinKeisei33/shinKeisei33.pnml" 1
+
+  spriteset(shinKeisei33_purchase_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/shinKeisei/shinKeisei33/shinKeisei33_1.png"){ tmpl_purchase_1c(0, 0) }
+  spriteset(shinKeisei33_purchase_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/shinKeisei/shinKeisei33/shinKeisei33_2.png"){ tmpl_purchase_1c(0, 0) }
+  switch(FEAT_TRAINS, SELF, shinKeisei33_purchase,current_year){
+    0..1952:shinKeisei33_purchase_1;
+    shinKeisei33_purchase_2;
+  }
+
+  spriteset(shinKeisei33_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/shinKeisei/shinKeisei33/shinKeisei33_lights.png"){ tmpl_std_v3(0, 0) }
+  spriteset(shinKeisei33_lights_front_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/shinKeisei/shinKeisei33/shinKeisei33_lights.png"){ tmpl_std_rev_v3(0, 0) }
+  switch(FEAT_TRAINS, PARENT, sw_shinKeisei33_lights, vehicle_is_reversed){
+    1: shinKeisei33_lights_front_rev;
+    shinKeisei33_lights_front;
+  }
+  spriteset (shinKeisei33_1_head, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/shinKeisei/shinKeisei33/shinKeisei33_1.png") { tmpl_std_v3(0, 0) }
+  spriteset (shinKeisei33_1_head_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/shinKeisei/shinKeisei33/shinKeisei33_1.png") { tmpl_std_rev_v3(0, 0) }
+
+  spriteset (shinKeisei33_2_head, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/shinKeisei/shinKeisei33/shinKeisei33_2.png") { tmpl_std_v3(0, 0) }
+  spriteset (shinKeisei33_2_head_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/shinKeisei/shinKeisei33/shinKeisei33_2.png") { tmpl_std_rev_v3(0, 0) }
+  switch(FEAT_TRAINS, SELF, shinKeisei33_head_timed, current_year){
+    0..1951:shinKeisei33_1_head; shinKeisei33_2_head;
+  }
+  switch(FEAT_TRAINS, SELF, shinKeisei33_head_rev_timed, current_year){
+    0..1951:shinKeisei33_1_head_rev; shinKeisei33_2_head_rev;
+  }
+  switch(FEAT_TRAINS, SELF, shinKeisei33_head, cargo_subtype){
+    1:shinKeisei33_1_head; 1:shinKeisei33_2_head;
+    shinKeisei33_head_timed;
+  }
+  switch(FEAT_TRAINS, SELF, shinKeisei33_head_rev, cargo_subtype){
+    1:shinKeisei33_1_head_rev; 1:shinKeisei33_2_head_rev;
+    shinKeisei33_head_rev_timed;
+  }
+
+
+
+   switch(FEAT_TRAINS, SELF, sw_shinKeisei33_panto_placer_main,position_in_vehid_chain %2){
+      0: shinKeisei33_head_rev;
+      shinKeisei33_head;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_shinKeisei33_end_placer,position_in_vehid_chain_from_end==0&&num_vehs_in_vehid_chain>1){
+      1: shinKeisei33_head;
+      sw_shinKeisei33_panto_placer_main;
+    }
+    switch(FEAT_TRAINS, SELF, sw_shinKeisei33_lv, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sw_shinKeisei33_end_placer; 1: sw_shinKeisei33_lights;}
+
+
+
+  switch(FEAT_TRAINS, SELF, sw_shinKeisei33_lv_desc_main,cargo_subtype){
+    0:string(LV_RANDOM);
+    1:string(LV_DATED,string(STR_LIVERY,string(LV_KEISEI_WAR)),1947);
+    2:string(LV_DATED,string(STR_LIVERY,string(LV_DEFAULT)),1952);
+  }
+# 2 "src/private/Kanto/shinKeisei/items.pnml" 2
+
+item(FEAT_TRAINS, shinKeisei33) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_SHIN_KEISEI), "33", string(STR_NAME_TYPE));
+    introduction_date: date(1947, 6, 1);
+    model_life: 33;
+    vehicle_life: 28;
+    dual_headed: 0;
+
+    cost_factor: 18;
+    running_cost_factor: 46;
+    speed: 70 km/h;
+    track_type:[TR_1372_DC,TR_1435_DC]
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 32 ton;
+    badges: ["company/shin_keisei"];
+    length: 7;
+  }
+ graphics {
+    can_attach_wagon: sw_same_attach_main;
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_13721435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_SHIN_KEISEI))
+
+    );
+    cargo_subtype_text: sw_shinKeisei33_lv_desc_main;
+    purchase: shinKeisei33_purchase;
+    cargo_capacity:90*param_capacity_mod/3;
+
+    loading_speed:param_loading_3D;
+    default:sw_shinKeisei33_lv;
+    power:45*4*1342/1000;
+
+
+
+    sound_effect: sw_SKS33_start_sound;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_shinKeisei33_lv_desc_main;
+    loading_speed:param_loading_3D;
+    cargo_capacity:90*param_capacity_mod/3;
+    power:45*4*1342/1000;
+    default:sw_shinKeisei33_lv;
+    weight: 32;
+    length: 7;
+  }
+}
 # 1 "src/private/Kanto/shinKeisei/shinKeisei300/shinKeisei300.pnml" 1
 
   spriteset(shinKeisei300_purchase_c1_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/shinKeisei/shinKeisei300/shinKeisei300_1.png"){ tmpl_purchase_1c_dual(0, 0) }
@@ -43292,7 +43408,7 @@ switch(FEAT_TRAINS,SELF,shinKeisei300_mot_rev, cargo_subtype){
       mu_car:sw_shinKeisei300_car_power_main;
       return 100;
     }
-# 2 "src/private/Kanto/shinKeisei/items.pnml" 2
+# 63 "src/private/Kanto/shinKeisei/items.pnml" 2
 
 item(FEAT_TRAINS, shinKeisei300) {
   property {
@@ -43485,7 +43601,7 @@ switch(FEAT_TRAINS, SELF, sw_shinKeisei2000_car_power_main,position_in_vehid_cha
     shinKeisei2000:sw_shinKeisei2000_car_power_main;
     return 110;
   }
-# 63 "src/private/Kanto/shinKeisei/items.pnml" 2
+# 124 "src/private/Kanto/shinKeisei/items.pnml" 2
 
 item(FEAT_TRAINS, shinKeisei2000) {
   property {
@@ -43510,7 +43626,7 @@ item(FEAT_TRAINS, shinKeisei2000) {
 
   }
  graphics {
-
+    can_attach_wagon: sw_same_attach_main;
 
 
     additional_text:string(STR_TRAIN_DESC,
@@ -43742,7 +43858,7 @@ spriteset (shinKeisei800_2_end_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/priva
       mu_car:sw_shinKeisei800_car_power_main;
       return 120;
     }
-# 124 "src/private/Kanto/shinKeisei/items.pnml" 2
+# 185 "src/private/Kanto/shinKeisei/items.pnml" 2
 
 item(FEAT_TRAINS, shinKeisei800) {
   property {
@@ -43936,7 +44052,7 @@ switch(FEAT_TRAINS, SELF, shinKeisei8000_wag, cargo_subtype){
       0..2006: 100;
       110;
     }
-# 185 "src/private/Kanto/shinKeisei/items.pnml" 2
+# 246 "src/private/Kanto/shinKeisei/items.pnml" 2
 
 item(FEAT_TRAINS, shinKeisei8000) {
   property {
@@ -44135,7 +44251,7 @@ switch(FEAT_TRAINS, SELF, shinKeisei8800_wag, cargo_subtype){
       mu_car:sw_shinKeisei8800_car_power_main;
       return 0;
     }
-# 246 "src/private/Kanto/shinKeisei/items.pnml" 2
+# 307 "src/private/Kanto/shinKeisei/items.pnml" 2
 
 item(FEAT_TRAINS, shinKeisei8800) {
   property {
@@ -44297,7 +44413,7 @@ spriteset (shinKeisei8900_3_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/p
       mu_car:sw_shinKeisei8900_car_power_main;
       return 0;
     }
-# 307 "src/private/Kanto/shinKeisei/items.pnml" 2
+# 368 "src/private/Kanto/shinKeisei/items.pnml" 2
 
 item(FEAT_TRAINS, shinKeisei8900) {
   property {
@@ -44436,7 +44552,7 @@ spriteset (shinKeisei800n_2_car, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/privat
     2:string(LV_DATED,string(STR_LIVERY,string(LV_SHIN_KEISEI)),2014);
     3:string(LV_DATED,string(STR_LIVERY,string(LV_SHIN_KEISEI_KEISEI)),2026);
   }
-# 368 "src/private/Kanto/shinKeisei/items.pnml" 2
+# 429 "src/private/Kanto/shinKeisei/items.pnml" 2
 
 item(FEAT_TRAINS, shinKeisei800n) {
   property {
@@ -44562,7 +44678,7 @@ switch(FEAT_TRAINS, SELF, shinKeisei80000_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES
     1:string(LV_DATED,string(STR_LIVERY,string(LV_DEFAULT)),2019);
     2:string(LV_DATED,string(STR_LIVERY,string(LV_SHIN_KEISEI_KEISEI)),2026);
   }
-# 429 "src/private/Kanto/shinKeisei/items.pnml" 2
+# 490 "src/private/Kanto/shinKeisei/items.pnml" 2
 
 item(FEAT_TRAINS, shinKeisei80000) {
   property {
