@@ -25,3 +25,4 @@ parseCompany("src/private/Kanto/shinKeisei");
 parseCompany("src/private/Kanto/chibaNewTown");
 parseCompany("src/private/Kanto/hokuso");
 parseCompany("src/private/Kanto/shibayama");
+parseCompany("src/private/Kanto/chibaExpress");

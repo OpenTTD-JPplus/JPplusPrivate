@@ -43232,11 +43232,11 @@ item(FEAT_TRAINS, shinKeisei80000, 2508) {}
     0..1951:shinKeisei33_1_head_rev; shinKeisei33_2_head_rev;
   }
   switch(FEAT_TRAINS, SELF, shinKeisei33_head, cargo_subtype){
-    1:shinKeisei33_1_head; 1:shinKeisei33_2_head;
+    1:shinKeisei33_1_head; 2:shinKeisei33_2_head;
     shinKeisei33_head_timed;
   }
   switch(FEAT_TRAINS, SELF, shinKeisei33_head_rev, cargo_subtype){
-    1:shinKeisei33_1_head_rev; 1:shinKeisei33_2_head_rev;
+    1:shinKeisei33_1_head_rev; 2:shinKeisei33_2_head_rev;
     shinKeisei33_head_rev_timed;
   }
 
@@ -46004,6 +46004,362 @@ item(FEAT_TRAINS, chibaE_1000, 2545) {}
 item(FEAT_TRAINS, chibaE_3050, 2546) {}
 item(FEAT_TRAINS, chibaE_3100, 2547) {}
 
+# 1 "src/private/Kanto/ChibaExpress/items.pnml" 1
+# 1 "src/private/Kanto/ChibaExpress/chibaE_1000/chibaE_1000.pnml" 1
+
+  spriteset(chibaE_1000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/chibaExpress/chibaE_1000/chibaE_1000.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(chibaE_1000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/chibaExpress/chibaE_1000/chibaE_1000.png"){ tmpl_purchase_2c_dual(0, 50) }
+  switch(FEAT_TRAINS, SELF, chibaE_1000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: chibaE_1000_purchase_c1; 1: chibaE_1000_purchase_c2;}
+
+spriteset (chibaE_1000_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_1000/chibaE_1000.png") { tmpl_std_v3(0, 0) }
+spriteset (chibaE_1000_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_1000/chibaE_1000.png") { tmpl_std_v3(0, 25) }
+spriteset (chibaE_1000_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_1000/chibaE_1000.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (chibaE_1000_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_1000/chibaE_1000.png") { tmpl_std_v3(0, 50) }
+spriteset (chibaE_1000_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_1000/chibaE_1000.png") { tmpl_std_rev_v3(0, 50) }
+spriteset (chibaE_1000_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_1000/chibaE_1000.png") { tmpl_std_v3(0, 75) }
+
+
+
+
+      switch(FEAT_TRAINS, SELF, sw_chibaE_1000_panto_placer_main,position_in_vehid_chain %4){
+        0: chibaE_1000_mot_rev;
+        1: chibaE_1000_mot;
+        chibaE_1000_wag;
+      }
+
+
+      switch(FEAT_TRAINS, SELF, sw_chibaE_1000_fake_head_placer_gfx,position_in_vehid_chain){
+        2: chibaE_1000_end_rev;
+        3: chibaE_1000_end;
+        sw_chibaE_1000_panto_placer_main;
+      }
+      switch(FEAT_TRAINS, SELF, sw_chibaE_1000_fake_head_placer_main,num_vehs_in_vehid_chain>5){
+        1: sw_chibaE_1000_fake_head_placer_gfx;
+        sw_chibaE_1000_panto_placer_main;
+      }
+
+    switch(FEAT_TRAINS, SELF, sw_chibaE_1000_gfx_main,train_is_driving_backwards != vehicle_is_flipped){
+        1: chibaE_1000_end;
+        chibaE_1000_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_chibaE_1000_lv,vehicle_type_id){
+        mu_car: sw_chibaE_1000_fake_head_placer_main;
+        sw_chibaE_1000_gfx_main;
+    }
+# 2 "src/private/Kanto/ChibaExpress/items.pnml" 2
+
+item(FEAT_TRAINS, chibaE_1000) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_CHIBAE), "1000", string(STR_NAME_TYPE));
+    introduction_date: date(1992, 4, 1);
+    model_life: 7;
+    vehicle_life: 2;
+    dual_headed: 1;
+
+    cost_factor: 17;
+    running_cost_factor: 50;
+    speed: 100 km/h;
+    track_type:TR_1435_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 29 ton;
+    badges: ["company/chiba_kyuko"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_CHIBA_KYUKO))
+
+    );
+
+    purchase: chibaE_1000_purchase;
+    cargo_capacity:sw_keikyu1000_capacity_main()*param_capacity_mod/3;
+    purchase_cargo_capacity:sw_keikyu1000_capacity_main()*param_capacity_mod/3-1;
+    loading_speed:param_loading_3D;
+    default:sw_chibaE_1000_lv;
+    power:sw_keikyu1000_power_main()*4*1342/1000;
+    purchase_power: sw_keikyu1000_car_power_main()*4*1342/1000;
+
+
+    sound_effect: sw_KQ1000_1a_start_sound;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_keikyu1000_capacity_main()*param_capacity_mod/3;
+    power:sw_keikyu1000_power_main()*4*1342/1000;
+    default:sw_chibaE_1000_lv;
+    weight: 28;
+
+  }
+}
+# 1 "src/private/Kanto/ChibaExpress/chibaE_3050/chibaE_3050.pnml" 1
+
+  spriteset(chibaE_3050_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/chibaExpress/chibaE_3050/chibaE_3050.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(chibaE_3050_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"src/private/Kanto/chibaExpress/chibaE_3050/chibaE_3050.png"){ tmpl_purchase_2c_dual(0, 125) }
+  switch(FEAT_TRAINS, SELF, chibaE_3050_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: chibaE_3050_purchase_c1; 1: chibaE_3050_purchase_c2;}
+
+spriteset (chibaE_3050_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_3050/chibaE_3050.png") { tmpl_std_v3(0, 0) }
+spriteset (chibaE_3050_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_3050/chibaE_3050.png") { tmpl_std_v3(0, 25) }
+spriteset (chibaE_3050_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_3050/chibaE_3050.png") { tmpl_std_v3(0, 50) }
+spriteset (chibaE_3050_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_3050/chibaE_3050.png") { tmpl_std_v3(0, 75) }
+spriteset (chibaE_3050_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_3050/chibaE_3050.png") { tmpl_std_rev_v3(0, 75) }
+spriteset (chibaE_3050_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_3050/chibaE_3050.png") { tmpl_std_v3(0, 100) }
+spriteset (chibaE_3050_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_3050/chibaE_3050.png") { tmpl_symm_v3(0, 125) }
+
+
+
+    switch(FEAT_TRAINS, PARENT, sw_chibaE_3050_front, vehicle_is_reversed){
+      1:chibaE_3050_front;
+      chibaE_3050_front_mot;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_chibaE_3050_end, vehicle_is_reversed){
+      1:chibaE_3050_end_mot;
+      chibaE_3050_end;
+    }
+
+
+      switch(FEAT_TRAINS, SELF, sw_chibaE_3050_panto_placer_main,position_in_vehid_chain %2){
+        1: chibaE_3050_mot;
+        chibaE_3050_wag;
+      }
+
+
+      switch(FEAT_TRAINS, SELF, sw_chibaE_3050_fake_head_placer_gfx,position_in_vehid_chain){
+        2: chibaE_3050_end_rev;
+        3: chibaE_3050_end_mot;
+        sw_chibaE_3050_panto_placer_main;
+      }
+      switch(FEAT_TRAINS, SELF, sw_chibaE_3050_fake_head_placer_main,num_vehs_in_vehid_chain>5){
+        1: sw_chibaE_3050_fake_head_placer_gfx;
+        sw_chibaE_3050_panto_placer_main;
+      }
+
+    switch(FEAT_TRAINS, SELF, sw_chibaE_3050_gfx_main,train_is_driving_backwards != vehicle_is_flipped){
+        1: sw_chibaE_3050_end;
+        sw_chibaE_3050_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_chibaE_3050_lv,vehicle_type_id){
+        mu_car: sw_chibaE_3050_fake_head_placer_main;
+        sw_chibaE_3050_gfx_main;
+    }
+# 63 "src/private/Kanto/ChibaExpress/items.pnml" 2
+
+item(FEAT_TRAINS, chibaE_3050) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_CHIBAE), "3050", string(STR_NAME_TYPE));
+    introduction_date: date(1995, 3, 1);
+    model_life: 7;
+    vehicle_life: 2;
+    dual_headed: 1;
+
+    cost_factor: 17;
+    running_cost_factor: 50;
+    speed: 100 km/h;
+    track_type:TR_1435_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 33 ton;
+    badges: ["company/chiba_kyuko"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_CHIBA_KYUKO))
+
+    );
+
+    purchase: chibaE_3050_purchase;
+    cargo_capacity:130*param_capacity_mod/3;
+    purchase_cargo_capacity:130*param_capacity_mod/3-1;
+    loading_speed:param_loading_3D;
+    default:sw_chibaE_3050_lv;
+    power:sw_keisei3000_power_main()*4*1342/1000;
+    purchase_power: sw_keisei3000_car_power_main()*4*1342/1000;
+
+
+    sound_effect: sw_KS3000_3050_start_sound;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_3D;
+    cargo_capacity:130*param_capacity_mod/3;
+    power:sw_keisei3000_power_main()*4*1342/1000;
+    default:sw_chibaE_3050_lv;
+    weight: 33;
+
+  }
+}
+# 1 "src/private/Kanto/ChibaExpress/chibaE_3100/chibaE_3100.pnml" 1
+
+  spriteset(chibaE_3100_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_3100/chibaE_3100.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(chibaE_3100_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_3100/chibaE_3100.png"){ tmpl_purchase_2c_dual(0, 125) }
+  switch(FEAT_TRAINS, SELF, chibaE_3100_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: chibaE_3100_purchase_c1; 1: chibaE_3100_purchase_c2;}
+
+spriteset (chibaE_3100_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_3100/chibaE_3100.png") { tmpl_std_v3(0, 0) }
+spriteset (chibaE_3100_1_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_3100/chibaE_3100.png") { tmpl_std_v3(0, 25) }
+spriteset (chibaE_3100_1_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_3100/chibaE_3100.png") { tmpl_std_rev_v3(0, 25) }
+spriteset (chibaE_3100_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_3100/chibaE_3100.png") { tmpl_std_v3(0, 50) }
+spriteset (chibaE_3100_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_3100/chibaE_3100.png") { tmpl_std_rev_v3(0, 75) }
+spriteset (chibaE_3100_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_3100/chibaE_3100.png") { tmpl_std_v3(0, 100) }
+spriteset (chibaE_3100_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_3100/chibaE_3100.png") { tmpl_symm_v3(0, 125) }
+
+spriteset (chibaE_3100_2_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_3100/chibaE_3150.png") { tmpl_std_v3(0, 0) }
+spriteset (chibaE_3100_2_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_3100/chibaE_3150.png") { tmpl_std_v3(0, 25) }
+spriteset (chibaE_3100_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_3100/chibaE_3150.png") { tmpl_std_v3(0, 50) }
+spriteset (chibaE_3100_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_3100/chibaE_3150.png") { tmpl_std_v3(0, 75) }
+spriteset (chibaE_3100_2_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/chibaExpress/chibaE_3100/chibaE_3150.png") { tmpl_std_v3(0, 75) }
+
+
+
+    switch(FEAT_TRAINS, PARENT, sw_chibaE_3100_1_front, vehicle_is_reversed){
+      1:chibaE_3100_1_front;
+      chibaE_3100_1_front_mot;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_chibaE_3100_1_end, vehicle_is_reversed){
+      1:chibaE_3100_1_end_mot;
+      chibaE_3100_1_end;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_chibaE_3100_2_front, vehicle_is_reversed){
+      1:chibaE_3100_2_front;
+      chibaE_3100_2_front_mot;
+    }
+    switch(FEAT_TRAINS, PARENT, sw_chibaE_3100_2_end, vehicle_is_reversed){
+      1:chibaE_3100_2_end_mot;
+      chibaE_3100_2_end;
+    }
+
+
+      switch(FEAT_TRAINS, SELF, sw_chibaE_3100_panto_placer_main,position_in_vehid_chain %2){
+        1: chibaE_3100_mot;
+        chibaE_3100_wag;
+      }
+
+
+      switch(FEAT_TRAINS, SELF, sw_chibaE_3100_fake_head_placer_gfx,position_in_vehid_chain){
+        2: chibaE_3100_1_end;
+        3: chibaE_3100_1_end_mot_rev;
+        sw_chibaE_3100_panto_placer_main;
+      }
+      switch(FEAT_TRAINS, SELF, sw_chibaE_3100_fake_head_placer_main,num_vehs_in_vehid_chain>5){
+        1: sw_chibaE_3100_fake_head_placer_gfx;
+        sw_chibaE_3100_panto_placer_main;
+      }
+
+    switch(FEAT_TRAINS, SELF, sw_chibaE_3100_gfx_main,train_is_driving_backwards != vehicle_is_flipped){
+        1: sw_chibaE_3100_1_end;
+        sw_chibaE_3100_1_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_chibaE_3100_livery_1,vehicle_type_id){
+        mu_car: sw_chibaE_3100_fake_head_placer_main;
+        sw_chibaE_3100_gfx_main;
+    }
+
+
+    switch(FEAT_TRAINS, SELF, sw_chibaE_3150_gfx_main,train_is_driving_backwards != vehicle_is_flipped){
+        1: sw_chibaE_3100_2_end;
+        sw_chibaE_3100_2_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_chibaE_3100_livery_2,vehicle_type_id){
+        mu_car: sw_chibaE_3150_gfx_main;
+        sw_chibaE_3100_fake_head_placer_main;
+    }
+
+random_switch(FEAT_TRAINS, PARENT, sw_chibaE_3100_lv){
+  1:sw_chibaE_3100_livery_1;
+  1:sw_chibaE_3100_livery_2;
+}
+# 124 "src/private/Kanto/ChibaExpress/items.pnml" 2
+
+item(FEAT_TRAINS, chibaE_3100) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_keisei == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_CHIBAE), "3100/3150", string(STR_NAME_TYPE));
+    introduction_date: date(1996, 3, 1);
+    model_life: 7;
+    vehicle_life: 2;
+    dual_headed: 1;
+
+    cost_factor: 17;
+    running_cost_factor: 48;
+    speed: 105 km/h;
+    track_type:TR_1435_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 34 ton;
+    badges: ["company/chiba_kyuko"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 4)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_CHIBA_KYUKO))
+
+    );
+
+    purchase: chibaE_3100_purchase;
+    cargo_capacity:128*param_capacity_mod/3;
+    purchase_cargo_capacity:128*param_capacity_mod/3-1;
+    loading_speed:param_loading_3D;
+    default:sw_chibaE_3100_lv;
+    power:sw_keisei3000_power_main()*4*1342/1000;
+    purchase_power: sw_keisei3000_car_power_main()*4*1342/1000;
+
+
+    sound_effect: sw_KS3100_start_sound;
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_3D;
+    cargo_capacity:128*param_capacity_mod/3;
+    power:sw_keisei3000_power_main()*4*1342/1000;
+    default:sw_chibaE_3100_lv;
+    weight: 34;
+
+  }
+}
+# 253 "src/_private.pnml" 2
+
 item(FEAT_TRAINS, shibayama3600, 2548) {}
 item(FEAT_TRAINS, shibayama3500, 2549) {}
 
@@ -46308,5 +46664,5 @@ item(FEAT_TRAINS, shibayama3500) {
 
   }
 }
-# 256 "src/_private.pnml" 2
+# 258 "src/_private.pnml" 2
 # 16 "JPprivate.pnml" 2
