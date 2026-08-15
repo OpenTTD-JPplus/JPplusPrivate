@@ -200,7 +200,7 @@ export function setItem(data, path) {
     loading_speed:${
       doors.length <= 1 ? `param_loading_${doors}D` : `sw_${trainName}_loading_speed_main`
     };
-    default:sw_${trainName}_lv;
+    default:sw_${data.reuseGfx ? data.reuseGfx : trainName}_lv;
     power:${power};
     ${
       fixedPower
@@ -228,7 +228,7 @@ export function setItem(data, path) {
     };
     cargo_capacity:${capacity};
     power:${power};
-    default:sw_${trainName}_lv;
+    default:sw_${data.reuseGfx ? data.reuseGfx : trainName}_lv;
     weight: ${weight[1]};
     ${length ? `length: ${length};` : ""}
   }
