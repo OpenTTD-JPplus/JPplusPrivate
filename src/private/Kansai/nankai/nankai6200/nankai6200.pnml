@@ -9,14 +9,38 @@ switch(FEAT_TRAINS, SELF, sw_nankai6200_lights, train_is_driving_backwards != ve
   1: nankai6200_lights_end;
   nankai6200_lights_front;
 }
-spriteset(nankai6200_head_base_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/nankai/nankai6200/nankai6200_1.png"){ tmpl_std_v3(0, 0) }
-spriteset(nankai6200_head_base_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/nankai/nankai6200/nankai6200_1.png"){ tmpl_std_v3(0, 25) }
-switch(FEAT_TRAINS, SELF, nankai6200_head_base, current_year){
-  0..2008:nankai6200_head_base_1;  nankai6200_head_base_2;
-}
-spriteset(nankai6200_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/nankai/nankai6200/nankai6200_1.png"){ tmpl_std_v3(0, 50) }
-spriteset(nankai6200_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/nankai/nankai6200/nankai6200_1.png"){ tmpl_std_v3(0, 75) }
+spriteset(nankai6200_1_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/nankai/nankai6200/nankai6200_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(nankai6200_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/nankai/nankai6200/nankai6200_1.png"){ tmpl_std_v3(0, 25) }
+spriteset(nankai6200_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/nankai/nankai6200/nankai6200_1.png"){ tmpl_std_v3(0, 50) }
 //
+spriteset(nankai6200_2_head_base_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/nankai/nankai6200/nankai6200_2.png"){ tmpl_std_v3(0, 0) }
+spriteset(nankai6200_2_head_base_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/nankai/nankai6200/nankai6200_2.png"){ tmpl_std_v3(0, 25) }
+switch(FEAT_TRAINS, SELF, nankai6200_2_head_base, current_year){
+  0..2008:nankai6200_2_head_base_1;  nankai6200_2_head_base_2;
+}
+spriteset(nankai6200_2_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/nankai/nankai6200/nankai6200_2.png"){ tmpl_std_v3(0, 50) }
+spriteset(nankai6200_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/nankai/nankai6200/nankai6200_2.png"){ tmpl_std_v3(0, 75) }
+//
+  switch(FEAT_TRAINS, SELF, nankai6200_head_base_timed, current_year){
+    0..1985:nankai6200_1_head_base;    nankai6200_2_head_base;
+  }
+  switch(FEAT_TRAINS, SELF, nankai6200_mot_timed, current_year){
+    0..1985:nankai6200_1_mot;    nankai6200_2_mot;
+  }
+  switch(FEAT_TRAINS, SELF, nankai6200_wag_timed, current_year){
+    0..1985:nankai6200_1_wag;    nankai6200_2_wag;
+  }
+
+  switch(FEAT_TRAINS, SELF, nankai6200_head_base, cargo_subtype){
+    1:nankai6200_1_head_base;    2:nankai6200_2_head_base;    nankai6200_head_base_timed;
+  }
+  switch(FEAT_TRAINS, SELF, nankai6200_mot, cargo_subtype){
+    1:nankai6200_1_mot;    2:nankai6200_2_mot;    nankai6200_mot_timed;
+  }
+  switch(FEAT_TRAINS, SELF, nankai6200_wag, cargo_subtype){
+    1:nankai6200_1_wag;    2:nankai6200_2_wag;    nankai6200_wag_timed;
+  }
+
   TRAIN_CONSTRUCTOR_2(nankai6200_head, nankai6200_head_base, sw_nankai6200_lights)
 //main
   //panto placer
@@ -30,6 +54,12 @@ spriteset(nankai6200_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/
       nankai6200_head;
     }
 //
+//lv select
+  switch(FEAT_TRAINS, SELF, sw_nankai6200_lv_desc_main, cargo_subtype){
+    0:string(LV_RANDOM);
+    1:string(LV_DATED,string(STR_LIVERY,string(LV_METAL)),1974);
+    2:string(LV_DATED,string(STR_LIVERY,string(LV_MODERN)),1986);
+  }
 //post fixers
   //capacity-changer
     switch(FEAT_TRAINS, SELF, sw_nankai6200_capacity_main,vehicle_type_id){
