@@ -47307,6 +47307,454 @@ item(FEAT_TRAINS, shibayama3500) {
   item(FEAT_TRAINS, hankyu2000n, 2722) {}
 
 # 1 "src/private/Kansai/hankyu/items.pnml" 1
+# 1 "src/private/Kansai/hankyu/hankyu900/hankyu900.pnml" 1
+
+spriteset(hankyu900_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu900/hankyu900.png"){ tmpl_purchase_1c_dual(0, 50) }
+spriteset(hankyu900_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu900/hankyu900.png"){ tmpl_purchase_2c_dual(0, 25) }
+switch(FEAT_TRAINS, SELF, hankyu900_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: hankyu900_purchase_c1; 1: hankyu900_purchase_c2;}
+
+  spriteset(hankyu900_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu900/hankyu900.png"){ tmpl_std_v3(0, 0) }
+  spriteset(hankyu900_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu900/hankyu900.png"){ tmpl_std_v3(0, 25) }
+  spriteset(hankyu900_1_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu900/hankyu900.png"){ tmpl_std_rev_v3(0, 25) }
+  spriteset(hankyu900_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu900/hankyu900.png"){ tmpl_std_v3(0, 50) }
+  spriteset(hankyu900_1_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu900/hankyu900.png"){ tmpl_std_v3(0, 75) }
+  spriteset(hankyu900_1_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu900/hankyu900.png"){ tmpl_std_rev_v3(0, 75) }
+
+
+
+
+
+      switch(FEAT_TRAINS, PARENT, sw_hankyu900_1_front,vehicle_is_reversed){
+        1: hankyu900_1_front;
+        hankyu900_1_front_mot;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_hankyu900_1_end,vehicle_is_reversed){
+        1: hankyu900_1_end_mot;
+        hankyu900_1_end;
+      }
+
+
+    switch(FEAT_TRAINS, SELF, sw_hankyu900_1_panto_placer_main_1,position_in_vehid_chain %2){
+      0: hankyu900_1_end_rev;
+      hankyu900_1_end_mot;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_hankyu900_1_gfx_main,position_in_vehid_chain_from_end){
+      1: sw_hankyu900_1_end;
+      default: sw_hankyu900_1_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_hankyu900_lv,vehicle_type_id){
+      mu_car: sw_hankyu900_1_panto_placer_main_1;
+      default: sw_hankyu900_1_gfx_main;
+    }
+
+
+
+  switch(FEAT_TRAINS, SELF, sw_hankyu900_car_power_main,position_in_vehid_chain_from_end %2){
+    0:return 150;
+    return 0;
+  }
+  switch(FEAT_TRAINS, SELF, sw_hankyu900_power_main,vehicle_type_id){
+    mu_car: sw_hankyu900_car_power_main;
+    return 150;
+  }
+# 2 "src/private/Kansai/hankyu/items.pnml" 2
+
+item(FEAT_TRAINS, hankyu900) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_hankyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_HANKYU), "900/920/800", string(STR_NAME_TYPE));
+    introduction_date: date(1930, 6, 1);
+    model_life: 56;
+    vehicle_life: 51;
+    dual_headed: 1;
+
+    cost_factor: 18;
+    running_cost_factor: 49;
+    speed: 100 km/h;
+    track_type:TR_1435_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 30 ton;
+    badges: ["company/hankyu"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
+    string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,6)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_HANKYU))
+
+    );
+
+    purchase: hankyu900_purchase;
+    cargo_capacity:110*param_capacity_mod/3;
+    purchase_cargo_capacity:110*param_capacity_mod/3-1;
+    loading_speed:param_loading_2D;
+    default:sw_hankyu900_lv;
+    power:sw_hankyu900_power_main()*4*1342/1000;
+    purchase_power: sw_hankyu900_car_power_main()*4*1342/1000;
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_2D;
+    cargo_capacity:110*param_capacity_mod/3;
+    power:sw_hankyu900_power_main()*4*1342/1000;
+    default:sw_hankyu900_lv;
+    weight: 30;
+
+  }
+}
+# 1 "src/private/Kansai/hankyu/hankyu1000/hankyu1000.pnml" 1
+
+spriteset(hankyu1000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1000.png"){ tmpl_purchase_1c_dual(0, 50) }
+spriteset(hankyu1000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1000.png"){ tmpl_purchase_2c_dual(0, 25) }
+switch(FEAT_TRAINS, SELF, hankyu1000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: hankyu1000_purchase_c1; 1: hankyu1000_purchase_c2;}
+
+  spriteset(hankyu1000_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1000.png"){ tmpl_std_v3(0, 0) }
+  spriteset(hankyu1000_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1000.png"){ tmpl_std_v3(0, 25) }
+  spriteset(hankyu1000_1_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1000.png"){ tmpl_std_rev_v3(0, 25) }
+  spriteset(hankyu1000_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1000.png"){ tmpl_std_v3(0, 50) }
+  spriteset(hankyu1000_1_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1000.png"){ tmpl_std_v3(0, 75) }
+  spriteset(hankyu1000_1_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1000.png"){ tmpl_std_rev_v3(0, 75) }
+
+
+
+
+
+      switch(FEAT_TRAINS, PARENT, sw_hankyu1000_1_front,vehicle_is_reversed){
+        1: hankyu1000_1_front;
+        hankyu1000_1_front_mot;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_hankyu1000_1_end,vehicle_is_reversed){
+        1: hankyu1000_1_end_mot;
+        hankyu1000_1_end;
+      }
+
+
+    switch(FEAT_TRAINS, SELF, sw_hankyu1000_1_panto_placer_main_1,position_in_vehid_chain %2){
+      0: hankyu1000_1_end;
+      hankyu1000_1_end_mot_rev;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_hankyu1000_1_gfx_main, train_is_driving_backwards != vehicle_is_flipped){
+      1: sw_hankyu1000_1_end;
+      default: sw_hankyu1000_1_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_hankyu1000_lv,vehicle_type_id){
+      mu_car: sw_hankyu1000_1_panto_placer_main_1;
+      default: sw_hankyu1000_1_gfx_main;
+    }
+
+
+
+  switch(FEAT_TRAINS, SELF, sw_hankyu1000_car_power_main,position_in_vehid_chain_from_end %2){
+    0:return 75;
+    return 0;
+  }
+  switch(FEAT_TRAINS, SELF, sw_hankyu1000_power_main,vehicle_type_id){
+    mu_car: sw_hankyu1000_car_power_main;
+    return 75*2;
+  }
+# 63 "src/private/Kansai/hankyu/items.pnml" 2
+
+item(FEAT_TRAINS, hankyu1000) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_hankyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_HANKYU), "1000", string(STR_NAME_TYPE));
+    introduction_date: date(1954, 11, 1);
+    model_life: 40;
+    vehicle_life: 35;
+    dual_headed: 1;
+
+    cost_factor: 18;
+    running_cost_factor: 49;
+    speed: 100 km/h;
+    track_type:TR_1435_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 30 ton;
+    badges: ["company/hankyu"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 2,4)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_HANKYU))
+
+    );
+
+    purchase: hankyu1000_purchase;
+    cargo_capacity:120*param_capacity_mod/3;
+    purchase_cargo_capacity:120*param_capacity_mod/3-1;
+    loading_speed:param_loading_2D;
+    default:sw_hankyu1000_lv;
+    power:sw_hankyu1000_power_main()*4*1342/1000;
+    purchase_power: sw_hankyu1000_car_power_main()*4*1342/1000;
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_2D;
+    cargo_capacity:120*param_capacity_mod/3;
+    power:sw_hankyu1000_power_main()*4*1342/1000;
+    default:sw_hankyu1000_lv;
+    weight: 30;
+
+  }
+}
+# 1 "src/private/Kansai/hankyu/hankyu1000/hankyu1010.pnml" 1
+
+spriteset(hankyu1010_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1010_1.png"){ tmpl_purchase_1c_dual(0, 50) }
+spriteset(hankyu1010_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1010_1.png"){ tmpl_purchase_2c_dual(0, 125) }
+switch(FEAT_TRAINS, SELF, hankyu1010_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: hankyu1000_purchase_c1; 1: hankyu1000_purchase_c2;}
+
+  spriteset(hankyu1010_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1010_1.png"){ tmpl_std_v3(0, 0) }
+  spriteset(hankyu1010_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1010_1.png"){ tmpl_std_v3(0, 25) }
+  spriteset(hankyu1010_1_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1010_1.png"){ tmpl_std_rev_v3(0, 25) }
+  spriteset(hankyu1010_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1010_1.png"){ tmpl_std_v3(0, 50) }
+  spriteset(hankyu1010_1_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1010_1.png"){ tmpl_std_v3(0, 75) }
+  spriteset(hankyu1010_1_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1010_1.png"){ tmpl_std_rev_v3(0, 75) }
+  spriteset(hankyu1010_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1010_1.png"){ tmpl_std_v3(0, 100) }
+  spriteset(hankyu1010_1_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1010_1.png"){ tmpl_std_rev_v3(0, 100) }
+  spriteset(hankyu1010_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1010_1.png"){ tmpl_symm_v3(0, 125) }
+
+
+  spriteset(hankyu1010_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1010_2.png"){ tmpl_std_v3(0, 0) }
+  spriteset(hankyu1010_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1010_2.png"){ tmpl_std_v3(0, 25) }
+  spriteset(hankyu1010_2_end_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1010_2.png"){ tmpl_std_rev_v3(0, 25) }
+  spriteset(hankyu1010_2_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1010_2.png"){ tmpl_std_v3(0, 50) }
+  spriteset(hankyu1010_2_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1010_2.png"){ tmpl_std_v3(0, 75) }
+  spriteset(hankyu1010_2_end_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1010_2.png"){ tmpl_std_rev_v3(0, 75) }
+  spriteset(hankyu1010_2_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1010_2.png"){ tmpl_std_rev_v3(0, 100) }
+  spriteset(hankyu1010_2_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1010_2.png"){ tmpl_std_v3(0, 100) }
+  spriteset(hankyu1010_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu1000/hankyu1010_2.png"){ tmpl_symm_v3(0, 125) }
+
+
+
+
+
+
+      switch(FEAT_TRAINS, PARENT, sw_hankyu1010_1_front,vehicle_is_reversed){
+        1: hankyu1010_1_front;
+        hankyu1010_1_front_mot;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_hankyu1010_1_end,vehicle_is_reversed){
+        1: hankyu1010_1_end_mot;
+        hankyu1010_1_end;
+      }
+
+
+    switch(FEAT_TRAINS, SELF, sw_hankyu1010_1_panto_placer_main_1,position_in_vehid_chain %3){
+      2: hankyu1010_1_mot;
+      hankyu1010_1_wag;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_hankyu1010_1_panto_placer_main_2,position_in_vehid_chain %2){
+      0: hankyu1010_1_end_rev;
+      hankyu1010_1_end_mot;
+    }
+
+
+      switch(FEAT_TRAINS, SELF, sw_hankyu1010_1_fake_head_placer_main_1,position_in_vehid_chain){
+        2: hankyu1010_1_end_rev;
+        3: hankyu1010_1_end_mot;
+        sw_hankyu1010_1_panto_placer_main_1;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_hankyu1010_1_fake_head_placer_main_2,position_in_vehid_chain){
+        1: hankyu1010_1_end_rev;
+        2: hankyu1010_1_end_mot;
+        sw_hankyu1010_1_panto_placer_main_1;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_hankyu1010_1_fake_head_placer_main_3,position_in_vehid_chain){
+        2: hankyu1010_1_end_mot;
+        sw_hankyu1010_1_panto_placer_main_1;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_hankyu1010_1_fake_head_placer_main_4,position_in_vehid_chain){
+        0: hankyu1010_1_end_rev;
+        1: hankyu1010_1_end_mot;
+        sw_hankyu1010_1_panto_placer_main_1;
+      }
+
+      random_switch(FEAT_TRAINS, PARENT, sw_hankyu1010_1_fake_head_placer_main_0) {
+        1: sw_hankyu1010_1_fake_head_placer_main_1;
+        1: sw_hankyu1010_1_fake_head_placer_main_2;
+        1: sw_hankyu1010_1_fake_head_placer_main_3;
+      }
+      switch(FEAT_TRAINS, SELF, sw_hankyu1010_1_fake_head_placer_main_0_1,num_vehs_in_vehid_chain){
+        0..3: sw_hankyu1010_1_fake_head_placer_main_4;
+        4: sw_hankyu1010_1_fake_head_placer_main_2;
+        sw_hankyu1010_1_fake_head_placer_main_0;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_hankyu1010_1_fake_head_placer_main, current_date>1976){
+        1: sw_hankyu1010_1_fake_head_placer_main_0_1;
+        sw_hankyu1010_1_panto_placer_main_2;
+      }
+
+    switch(FEAT_TRAINS, SELF, sw_hankyu1010_1_gfx_main, train_is_driving_backwards != vehicle_is_flipped){
+      1: sw_hankyu1010_1_end;
+      default: sw_hankyu1010_1_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_hankyu1010_livery_1,vehicle_type_id){
+      mu_car: sw_hankyu1010_1_fake_head_placer_main;
+      default: sw_hankyu1010_1_gfx_main;
+    }
+
+
+
+      switch(FEAT_TRAINS, PARENT, sw_hankyu1010_2_front,vehicle_is_reversed){
+        1: hankyu1010_2_front;
+        hankyu1010_2_front_mot;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_hankyu1010_2_end,vehicle_is_reversed){
+        1: hankyu1010_2_end_mot;
+        hankyu1010_2_end;
+      }
+
+
+    switch(FEAT_TRAINS, SELF, sw_hankyu1010_2_panto_placer_main_1,position_in_vehid_chain %3){
+      1: hankyu1010_2_mot;
+      hankyu1010_2_wag;
+    }
+
+
+      switch(FEAT_TRAINS, SELF, sw_hankyu1010_2_fake_head_placer_main_1,position_in_vehid_chain){
+        0: hankyu1010_2_end_rev;
+        1: hankyu1010_2_end_mot;
+        sw_hankyu1010_2_panto_placer_main_1;
+      }
+
+    switch(FEAT_TRAINS, SELF, sw_hankyu1010_2_gfx_main, train_is_driving_backwards != vehicle_is_flipped){
+      1: sw_hankyu1010_2_end;
+      default: sw_hankyu1010_2_front;
+    }
+    switch(FEAT_TRAINS, SELF, sw_hankyu1010_livery_2,vehicle_type_id){
+      mu_car: sw_hankyu1010_2_fake_head_placer_main_1;
+      default: sw_hankyu1010_2_gfx_main;
+    }
+
+  random_switch(FEAT_TRAINS, PARENT, sw_hankyu1010_livery_0_0){
+    3: sw_hankyu1010_livery_1;
+    1: sw_hankyu1010_livery_2;
+  }
+  switch(FEAT_TRAINS, PARENT, sw_hankyu1010_livery_0, current_year>1976){
+    1:sw_hankyu1010_livery_0_0;
+    sw_hankyu1010_livery_1;
+  }
+
+  switch(FEAT_TRAINS, SELF, sw_hankyu1010_lv, cargo_subtype){
+    0:sw_hankyu1010_livery_0;
+    1:sw_hankyu1010_livery_1;
+    2:sw_hankyu1010_livery_2;
+  }
+  switch(FEAT_TRAINS, SELF, sw_hankyu1010_lv_desc_main,cargo_subtype){
+    0:string(LV_RANDOM);
+    1:string(LV_DATED,string(STR_LIVERY,string(LV_DEFAULT)),1956);
+    2:string(LV_DATED,string(STR_LIVERY,string(LV_RENEW)),1976);
+  }
+
+
+
+  switch(FEAT_TRAINS, SELF, sw_hankyu1010_car_power_main,position_in_vehid_chain_from_end %2){
+    0:return 150;
+    return 0;
+  }
+  switch(FEAT_TRAINS, SELF, sw_hankyu1010_power_main,vehicle_type_id){
+    mu_car: sw_hankyu1010_car_power_main;
+    return 150;
+  }
+# 124 "src/private/Kansai/hankyu/items.pnml" 2
+
+item(FEAT_TRAINS, hankyu1010) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_hankyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_HANKYU), "1010/1100", string(STR_NAME_SERIES));
+    introduction_date: date(1956, 11, 1);
+    model_life: 33;
+    vehicle_life: 28;
+    dual_headed: 1;
+    variant_group: hankyu1000;
+    cost_factor: 18;
+    running_cost_factor: 49;
+    speed: 100 km/h;
+    track_type:TR_1435_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 31 ton;
+    badges: ["company/hankyu"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
+    string(STR_FORMATION, string(STR_NUM_CARS_4, 2,4,5,6)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_HANKYU))
+
+    );
+    cargo_subtype_text: sw_hankyu1010_lv_desc_main;
+    purchase: hankyu1010_purchase;
+    cargo_capacity:120*param_capacity_mod/3;
+    purchase_cargo_capacity:120*param_capacity_mod/3-1;
+    loading_speed:param_loading_2D;
+    default:sw_hankyu1010_lv;
+    power:sw_hankyu1010_power_main()*4*1342/1000;
+    purchase_power: sw_hankyu1010_car_power_main()*4*1342/1000;
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_hankyu1010_lv_desc_main;
+    loading_speed:param_loading_2D;
+    cargo_capacity:120*param_capacity_mod/3;
+    power:sw_hankyu1010_power_main()*4*1342/1000;
+    default:sw_hankyu1010_lv;
+    weight: 31;
+
+  }
+}
 # 1 "src/private/Kansai/hankyu/hankyu2000/hankyu2000.pnml" 1
 
 spriteset(hankyu2000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hankyu/hankyu2000/hankyu2000_1.png"){ tmpl_purchase_1c_dual(0, 50) }
@@ -47469,7 +47917,7 @@ switch(FEAT_TRAINS, SELF, hankyu2000_wag, cargo_subtype){
       0x20: sw_hankyu2000_name_purchase;
       return CB_RESULT_NO_TEXT;
     }
-# 2 "src/private/Kansai/hankyu/items.pnml" 2
+# 185 "src/private/Kansai/hankyu/items.pnml" 2
 
 item(FEAT_TRAINS, hankyu2000) {
   property {
@@ -47677,7 +48125,7 @@ switch(FEAT_TRAINS, SELF, hankyu2300_wag, cargo_subtype){
     mu_car: sw_hankyu2300_car_power_main;
     return 150;
   }
-# 63 "src/private/Kansai/hankyu/items.pnml" 2
+# 246 "src/private/Kansai/hankyu/items.pnml" 2
 
 item(FEAT_TRAINS, hankyu2300) {
   property {
@@ -47883,7 +48331,7 @@ switch(FEAT_TRAINS, SELF, hankyu2800_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES
     mu_car: sw_hankyu2800_car_power_main;
     return 150;
   }
-# 124 "src/private/Kansai/hankyu/items.pnml" 2
+# 307 "src/private/Kansai/hankyu/items.pnml" 2
 
 item(FEAT_TRAINS, hankyu2800) {
   property {
@@ -48200,7 +48648,7 @@ switch(FEAT_TRAINS, SELF, hankyu3000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES
     mu_car: sw_hankyu3000_car_power_main;
     return 170;
   }
-# 185 "src/private/Kansai/hankyu/items.pnml" 2
+# 368 "src/private/Kansai/hankyu/items.pnml" 2
 
 item(FEAT_TRAINS, hankyu3000) {
   property {
@@ -48490,7 +48938,7 @@ switch(FEAT_TRAINS, SELF, hankyu5000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES
       0x20: sw_hankyu5000_name_purchase;
       return CB_RESULT_NO_TEXT;
     }
-# 246 "src/private/Kansai/hankyu/items.pnml" 2
+# 429 "src/private/Kansai/hankyu/items.pnml" 2
 
 item(FEAT_TRAINS, hankyu5000) {
   property {
@@ -48708,7 +49156,7 @@ item(FEAT_TRAINS, hankyu5000) {
     mu_car: sw_hankyu5300_car_power_main;
     return 140*2;
   }
-# 307 "src/private/Kansai/hankyu/items.pnml" 2
+# 490 "src/private/Kansai/hankyu/items.pnml" 2
 
 item(FEAT_TRAINS, hankyu5300) {
   property {
@@ -48893,7 +49341,7 @@ item(FEAT_TRAINS, hankyu5300) {
     mu_car: sw_hankyu6000_car_power_main;
     return 140*2;
   }
-# 368 "src/private/Kansai/hankyu/items.pnml" 2
+# 551 "src/private/Kansai/hankyu/items.pnml" 2
 
 item(FEAT_TRAINS, hankyu6000) {
   property {
@@ -49008,7 +49456,7 @@ item(FEAT_TRAINS, hankyu6000) {
     mu_car: sw_hankyu6300_car_power_main;
     return 140*2;
   }
-# 429 "src/private/Kansai/hankyu/items.pnml" 2
+# 612 "src/private/Kansai/hankyu/items.pnml" 2
 
 item(FEAT_TRAINS, hankyu6300) {
   property {
@@ -49091,7 +49539,7 @@ item(FEAT_TRAINS, hankyu6300) {
     mu_car: sw_hankyu7000_car_power_main;
     return 150*2;
   }
-# 490 "src/private/Kansai/hankyu/items.pnml" 2
+# 673 "src/private/Kansai/hankyu/items.pnml" 2
 
 item(FEAT_TRAINS, hankyu7000) {
   property {
@@ -49271,7 +49719,7 @@ item(FEAT_TRAINS, hankyu7000) {
     mu_car: sw_hankyu8000_car_power_main;
     sw_hankyu8000_power_head_main;
   }
-# 551 "src/private/Kansai/hankyu/items.pnml" 2
+# 734 "src/private/Kansai/hankyu/items.pnml" 2
 
 item(FEAT_TRAINS, hankyu8000) {
   property {
@@ -49397,7 +49845,7 @@ item(FEAT_TRAINS, hankyu8000) {
     mu_car: sw_hankyu9000_car_power_main;
     return 200*2;
   }
-# 612 "src/private/Kansai/hankyu/items.pnml" 2
+# 795 "src/private/Kansai/hankyu/items.pnml" 2
 
 item(FEAT_TRAINS, hankyu9000) {
   property {
@@ -49512,7 +49960,7 @@ switch(FEAT_TRAINS, SELF, hankyu1000n_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITE
     mu_car: sw_hankyu1000n_car_power_main;
     return 0;
   }
-# 673 "src/private/Kansai/hankyu/items.pnml" 2
+# 856 "src/private/Kansai/hankyu/items.pnml" 2
 
 item(FEAT_TRAINS, hankyu1000n) {
   property {
@@ -49627,7 +50075,7 @@ switch(FEAT_TRAINS, SELF, hankyu2000n_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITE
     mu_car: sw_hankyu2000n_car_power_main;
     return 0;
   }
-# 734 "src/private/Kansai/hankyu/items.pnml" 2
+# 917 "src/private/Kansai/hankyu/items.pnml" 2
 
 item(FEAT_TRAINS, hankyu2000n) {
   property {
