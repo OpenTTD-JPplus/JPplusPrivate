@@ -290,6 +290,15 @@ grf {
      def_value: 0;
      }
    }
+ param 27 {
+  param_disable_nankai {
+     type: bool;
+     name: string(STR_PARAM_DISABLE_NANKAI);
+     desc: string(STR_PARAM_DISABLE_NANKAI);
+     bit: 0;
+     def_value: 0;
+     }
+   }
 }
 
 
@@ -2039,6 +2048,7 @@ spriteset (sprite_logo_line_osaka_imazato, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"g
 
 spriteset (sprite_logo_kintetsu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_osaka_m.png") { tmpl_badge(0, 0) }
 spriteset (sprite_logo_hankyu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_osaka_m.png") { tmpl_badge(0, 15) }
+spriteset (sprite_logo_nankai, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_osaka_m.png") { tmpl_badge(0, 30) }
 
 spriteset (sprite_logo_kyoto_subway, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/m_operators_kyoto.png") { tmpl_badge_metro(0,0) }
 spriteset (sprite_logo_line_kyoto_karasuma, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/m_lines_kyoto.png") { tmpl_badge_line(0, 0) }
@@ -2361,6 +2371,14 @@ item (FEAT_BADGES, line) {
       }
       graphics {default: sprite_logo_kintetsu;}
   }
+  item (FEAT_BADGES, logo_nankai) {
+      property {
+          label: "company/nankai";
+          name: string(STR_NANKAI);
+          flags: bitmask(BADGE_FLAG_NAME_SKIP);
+      }
+      graphics {default: sprite_logo_nankai;}
+  }
 
 
   item (FEAT_BADGES, tokyo_ginza) {
@@ -2638,6 +2656,7 @@ badgetable {
 
   "company/hankyu",
   "company/kintetsu",
+  "company/nankai",
 
   "line/tokyo_ginza",
   "line/tokyo_maru",
@@ -50627,4 +50646,224 @@ item(FEAT_TRAINS, hankyu2000n) {
   }
 }
 # 286 "src/_private.pnml" 2
+
+item(FEAT_TRAINS, nankai6200, 2825) {}
+item(FEAT_TRAINS, nankai8200, 2827) {}
+
+# 1 "src/private/Kansai/nankai/items.pnml" 1
+# 1 "src/private/Kansai/nankai/nankai6200/nankai6200.pnml" 1
+
+  spriteset(nankai6200_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/nankai/nankai6200/nankai6200_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(nankai6200_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/nankai/nankai6200/nankai6200_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  switch(FEAT_TRAINS, SELF, nankai6200_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: nankai6200_purchase_c1; 1: nankai6200_purchase_c2;}
+
+spriteset(nankai6200_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/nankai/nankai6200/nankai6200_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(nankai6200_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/nankai/nankai6200/nankai6200_lights.png"){ tmpl_std_v3(0, 25) }
+switch(FEAT_TRAINS, SELF, sw_nankai6200_lights, train_is_driving_backwards != vehicle_is_flipped){
+  1: nankai6200_lights_end;
+  nankai6200_lights_front;
+}
+spriteset(nankai6200_head_base_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/nankai/nankai6200/nankai6200_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(nankai6200_head_base_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/nankai/nankai6200/nankai6200_1.png"){ tmpl_std_v3(0, 25) }
+switch(FEAT_TRAINS, SELF, nankai6200_head_base, current_year){
+  0..2008:nankai6200_head_base_1; nankai6200_head_base_2;
+}
+spriteset(nankai6200_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/nankai/nankai6200/nankai6200_1.png"){ tmpl_std_v3(0, 50) }
+spriteset(nankai6200_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/nankai/nankai6200/nankai6200_1.png"){ tmpl_std_v3(0, 75) }
+
+  switch(FEAT_TRAINS, SELF, nankai6200_head, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: nankai6200_head_base; 1: sw_nankai6200_lights;}
+
+
+      switch(FEAT_TRAINS, SELF, sw_nankai6200_panto_placer_main,position_in_vehid_chain %2){
+        0: nankai6200_mot;
+        nankai6200_wag;
+      }
+
+    switch(FEAT_TRAINS, SELF, sw_nankai6200_lv,vehicle_type_id){
+      mu_car:sw_nankai6200_panto_placer_main;
+      nankai6200_head;
+    }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_nankai6200_capacity_main,vehicle_type_id){
+        mu_car:170;
+        160;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_nankai6200_car_power_main,position_in_vehid_chain_from_end %6){
+      0..3:return 145;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_nankai6200_power_main,vehicle_type_id){
+      mu_car: sw_nankai6200_car_power_main;
+      return 0;
+    }
+# 2 "src/private/Kansai/nankai/items.pnml" 2
+
+item(FEAT_TRAINS, nankai6200) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_nankai == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_NANKAI), "6200", string(STR_NAME_SERIES));
+    introduction_date: date(1974, 11, 22);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 110 km/h;
+    track_type:TR_1067_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 34 ton;
+    badges: ["company/nankai"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 4,6)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_NANKAI))
+
+    );
+
+    purchase: nankai6200_purchase;
+    cargo_capacity:sw_nankai6200_capacity_main()*param_capacity_mod/3;
+    purchase_cargo_capacity:sw_nankai6200_capacity_main()*param_capacity_mod/3-1;
+    loading_speed:param_loading_4D;
+    default:sw_nankai6200_lv;
+    power:sw_nankai6200_power_main()*4*1342/1000;
+    purchase_power: sw_nankai6200_car_power_main()*4*1342/1000;
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_nankai6200_capacity_main()*param_capacity_mod/3;
+    power:sw_nankai6200_power_main()*4*1342/1000;
+    default:sw_nankai6200_lv;
+    weight: 34;
+
+  }
+}
+# 1 "src/private/Kansai/nankai/nankai8200/nankai8200.pnml" 1
+
+  spriteset(nankai8200_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/nankai/nankai8200/nankai8200_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(nankai8200_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/nankai/nankai8200/nankai8200_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  switch(FEAT_TRAINS, SELF, nankai8200_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: nankai8200_purchase_c1; 1: nankai8200_purchase_c2;}
+
+spriteset(nankai8200_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/nankai/nankai8200/nankai8200_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(nankai8200_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/nankai/nankai8200/nankai8200_lights.png"){ tmpl_std_v3(0, 25) }
+switch(FEAT_TRAINS, SELF, sw_nankai8200_lights, train_is_driving_backwards != vehicle_is_flipped){
+  1: nankai8200_lights_end;
+  nankai8200_lights_front;
+}
+spriteset(nankai8200_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/nankai/nankai8200/nankai8200_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(nankai8200_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/nankai/nankai8200/nankai8200_1.png"){ tmpl_std_v3(0, 25) }
+spriteset(nankai8200_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/nankai/nankai8200/nankai8200_1.png"){ tmpl_std_v3(0, 50) }
+
+  switch(FEAT_TRAINS, SELF, nankai8200_head, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: nankai8200_head_base; 1: sw_nankai8200_lights;}
+
+
+      switch(FEAT_TRAINS, SELF, sw_nankai8200_panto_placer_main,position_in_vehid_chain %2){
+        0: nankai8200_mot;
+        nankai8200_wag;
+      }
+
+    switch(FEAT_TRAINS, SELF, sw_nankai8200_lv,vehicle_type_id){
+      mu_car:sw_nankai8200_panto_placer_main;
+      nankai8200_head;
+    }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_nankai8200_capacity_main,vehicle_type_id){
+        mu_car:170;
+        160;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_nankai8200_car_power_main,position_in_vehid_chain_from_end %6){
+      0..3:return 160;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_nankai8200_power_main,vehicle_type_id){
+      mu_car: sw_nankai8200_car_power_main;
+      return 0;
+    }
+# 63 "src/private/Kansai/nankai/items.pnml" 2
+
+item(FEAT_TRAINS, nankai8200) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_nankai == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_NANKAI), "8200", string(STR_NAME_SERIES));
+    introduction_date: date(1983, 03, 10);
+    model_life: 37;
+    vehicle_life: 32;
+    dual_headed: 1;
+
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 115 km/h;
+    track_type:TR_1067_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 34 ton;
+    badges: ["company/nankai"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 6)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_NANKAI))
+
+    );
+
+    purchase: nankai8200_purchase;
+    cargo_capacity:sw_nankai8200_capacity_main()*param_capacity_mod/3;
+    purchase_cargo_capacity:sw_nankai8200_capacity_main()*param_capacity_mod/3-1;
+    loading_speed:param_loading_4D;
+    default:sw_nankai8200_lv;
+    power:sw_nankai8200_power_main()*4*1342/1000;
+    purchase_power: sw_nankai8200_car_power_main()*4*1342/1000;
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_nankai8200_capacity_main()*param_capacity_mod/3;
+    power:sw_nankai8200_power_main()*4*1342/1000;
+    default:sw_nankai8200_lv;
+    weight: 34;
+
+  }
+}
+# 291 "src/_private.pnml" 2
 # 16 "JPprivate.pnml" 2

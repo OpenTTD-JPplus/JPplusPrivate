@@ -1,0 +1,44 @@
+// purchase
+  spriteset(nankai8200_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/nankai/nankai8200/nankai8200_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(nankai8200_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/nankai/nankai8200/nankai8200_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  GRAPHIC_STACK_2(nankai8200_purchase,  nankai8200_purchase_c1, nankai8200_purchase_c2)
+//base
+spriteset(nankai8200_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/nankai/nankai8200/nankai8200_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(nankai8200_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/nankai/nankai8200/nankai8200_lights.png"){ tmpl_std_v3(0, 25) }
+switch(FEAT_TRAINS, SELF, sw_nankai8200_lights, train_is_driving_backwards != vehicle_is_flipped){
+  1: nankai8200_lights_end;
+  nankai8200_lights_front;
+}
+spriteset(nankai8200_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/nankai/nankai8200/nankai8200_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(nankai8200_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/nankai/nankai8200/nankai8200_1.png"){ tmpl_std_v3(0, 25) }
+spriteset(nankai8200_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/nankai/nankai8200/nankai8200_1.png"){ tmpl_std_v3(0, 50) }
+//
+  TRAIN_CONSTRUCTOR_2(nankai8200_head, nankai8200_head_base, sw_nankai8200_lights)
+//main
+  //panto placer
+      switch(FEAT_TRAINS, SELF, sw_nankai8200_panto_placer_main,position_in_vehid_chain %2){
+        0: nankai8200_mot;
+        nankai8200_wag;
+      }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_nankai8200_lv,vehicle_type_id){
+      mu_car:sw_nankai8200_panto_placer_main;
+      nankai8200_head;
+    }
+//
+//post fixers
+  //capacity-changer
+    switch(FEAT_TRAINS, SELF, sw_nankai8200_capacity_main,vehicle_type_id){
+        mu_car:170;
+        160;
+    }
+  //power
+    switch(FEAT_TRAINS, SELF, sw_nankai8200_car_power_main,position_in_vehid_chain_from_end %6){
+      0..3:return 160;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_nankai8200_power_main,vehicle_type_id){
+      mu_car: sw_nankai8200_car_power_main;
+      return 0;
+    }
+//
