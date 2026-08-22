@@ -1,0 +1,91 @@
+// purchase
+  spriteset(hanshin5000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/hanshin/hanshin5000/hanshin5000.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(hanshin5000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/hanshin/hanshin5000/hanshin5000.png"){ tmpl_purchase_2c_dual(0, 25) }
+  GRAPHIC_STACK_2(hanshin5000_purchase,  hanshin5000_purchase_c1, hanshin5000_purchase_c2)
+//base
+spriteset(hanshin5000_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/hanshin/hanshin5000/hanshin5000_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(hanshin5000_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/hanshin/hanshin5000/hanshin5000_lights.png"){ tmpl_std_v3(0, 25) }
+switch(FEAT_TRAINS, SELF, sw_hanshin5000_lights, train_is_driving_backwards != vehicle_is_flipped){
+  1: hanshin5000_lights_end;
+  hanshin5000_lights_front;
+}
+spriteset(hanshin5000_head_mot_base_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/hanshin/hanshin5000/hanshin5000.png"){ tmpl_std_v3(0, 0) }
+spriteset(hanshin5000_head_mot_base_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/hanshin/hanshin5000/hanshin5000.png"){ tmpl_std_v3(0, 25) }
+spriteset(hanshin5000_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/hanshin/hanshin5000/hanshin5000.png"){ tmpl_std_v3(0, 50) }
+spriteset(hanshin5000_head_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/hanshin/hanshin5000/hanshin5000.png"){ tmpl_std_rev_v3(0, 50) }
+
+spriteset(hanshin5000_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/hanshin/hanshin5000/hanshin5000.png"){ tmpl_std_rev_v3(0, 75) }
+spriteset(hanshin5000_mot_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/hanshin/hanshin5000/hanshin5000.png"){ tmpl_std_v3(0, 100) }
+spriteset(hanshin5000_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/hanshin/hanshin5000/hanshin5000.png"){ tmpl_std_v3(0, 125) }
+spriteset(hanshin5000_mot_2_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/hanshin/hanshin5000/hanshin5000.png"){ tmpl_std_rev_v3(0, 125) }
+//
+  TRAIN_CONSTRUCTOR_2(hanshin5000_head_mot_1, hanshin5000_head_mot_base_1, sw_hanshin5000_lights)
+  TRAIN_CONSTRUCTOR_2(hanshin5000_head_mot_2, hanshin5000_head_mot_base_2, sw_hanshin5000_lights)
+  TRAIN_CONSTRUCTOR_2(hanshin5000_head, hanshin5000_head_base, sw_hanshin5000_lights)
+//main
+    //5001
+      switch(FEAT_TRAINS, SELF, sw_hanshin5000_1, vehicle_is_flipped){
+        1:hanshin5000_head;
+        hanshin5000_head_mot_2;
+      }
+      switch(FEAT_TRAINS, SELF, sw_hanshin5000_panto_placer_main_1,position_in_vehid_chain %2){
+        1: hanshin5000_head_mot_base_2;
+        hanshin5000_head_rev;
+      }
+    //5001n
+      switch(FEAT_TRAINS, SELF, sw_hanshin5000_panto_placer_main_2,position_in_vehid_chain %2){
+        1: hanshin5000_mot_1;
+        hanshin5000_wag;
+      }
+    switch(FEAT_TRAINS, SELF, sw_hanshin5000_panto_placer_main_12, current_year){
+      0..1997:sw_hanshin5000_panto_placer_main_1;      sw_hanshin5000_panto_placer_main_2;
+    }
+    //5131/5331
+      switch(FEAT_TRAINS, SELF, sw_hanshin5000_panto_placer_main_3,position_in_vehid_chain %2){
+        1: hanshin5000_mot_2;
+        hanshin5000_wag;
+      }
+    random_switch(FEAT_TRAINS,PARENT,sw_hanshin5000_panto_placer_main){
+      1:sw_hanshin5000_panto_placer_main_12;
+      1:sw_hanshin5000_panto_placer_main_3;
+    }
+    switch(FEAT_TRAINS, SELF, sw_hanshin5000_5001_5331,vehicle_type_id){
+      mu_car:sw_hanshin5000_panto_placer_main;
+      sw_hanshin5000_1;
+    }
+    //5311
+      switch(FEAT_TRAINS, SELF, sw_hanshin5000_panto_placer_main_4,position_in_vehid_chain %2){
+        0: hanshin5000_mot_2_rev;
+        hanshin5000_mot_2;
+      }
+    switch(FEAT_TRAINS, SELF, sw_hanshin5000_5311,vehicle_type_id){
+      mu_car:sw_hanshin5000_panto_placer_main_4;
+      hanshin5000_head_mot_1;
+    }
+    //5131+5311
+      switch(FEAT_TRAINS, SELF, sw_hanshin5000_5131, vehicle_is_flipped){
+        1:hanshin5000_head;
+        hanshin5000_head_mot_1;
+      }
+      switch(FEAT_TRAINS, SELF, sw_hanshin5000_5131_5311,vehicle_type_id){
+        mu_car:sw_hanshin5000_panto_placer_main_4;
+        sw_hanshin5000_5131;
+      }
+    //
+    random_switch(FEAT_TRAINS,PARENT,sw_hanshin5000_lv){
+      2:sw_hanshin5000_5001_5331;
+      1:sw_hanshin5000_5311;
+      1:sw_hanshin5000_5131_5311;
+    }
+//
+//post fixers
+  //power
+    switch(FEAT_TRAINS, SELF, sw_hanshin5000_car_power_main,position_in_vehid_chain_from_end %6){
+      0..3:return 90;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_hanshin5000_power_main,vehicle_type_id){
+      mu_car: sw_hanshin5000_car_power_main;
+      return 90*2;
+    }
+//

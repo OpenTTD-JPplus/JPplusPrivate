@@ -51023,5 +51023,258 @@ item(FEAT_TRAINS, hanshin2000) {
 
   }
 }
+# 1 "src/private/Kansai/hanshin/hanshin3801/hanshin3801.pnml" 1
+
+  spriteset(hanshin3801_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hanshin/hanshin2000/hanshin2000.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(hanshin3801_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hanshin/hanshin3801/hanshin3801.png"){ tmpl_purchase_2c_dual(0, 0) }
+  switch(FEAT_TRAINS, SELF, hanshin3801_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: hanshin3801_purchase_c1; 1: hanshin3801_purchase_c2;}
+
+spriteset(hanshin3801_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hanshin/hanshin3801/hanshin3801.png"){ tmpl_std_v3(0, 0) }
+
+  switch(FEAT_TRAINS, SELF, hanshin3801_head, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: hanshin3801_head_base; 1: sw_hanshin2000_lights;}
+
+
+      switch(FEAT_TRAINS, SELF, sw_hanshin3801_panto_placer_main,position_in_vehid_chain_from_end %4){
+        0: hanshin2000_mot_2_1;
+        2: hanshin2000_mot_2_2;
+        hanshin2000_wag;
+      }
+
+    switch(FEAT_TRAINS, SELF, sw_hanshin3801_head, position_in_vehid_chain){
+      1:hanshin3801_head;
+      hanshin2000_head;
+    }
+    switch(FEAT_TRAINS, SELF, sw_hanshin3801_lv,vehicle_type_id){
+      mu_car:sw_hanshin3801_panto_placer_main;
+      sw_hanshin3801_head;
+    }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_hanshin3801_car_power_main,position_in_vehid_chain_from_end %6){
+      0..3:return 130;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_hanshin3801_head_power_main,position_in_vehid_chain){
+      1:return 130;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_hanshin3801_power_main,vehicle_type_id){
+      mu_car: sw_hanshin3801_car_power_main;
+      sw_hanshin3801_head_power_main;
+    }
+# 63 "src/private/Kansai/hanshin/items.pnml" 2
+
+item(FEAT_TRAINS, hanshin3801) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_hanshin == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_HANSHIN), "3801/3901/8701/8901/7890/7990", string(STR_NAME_SERIES));
+    introduction_date: date(1974, 3, 22);
+    model_life: 39;
+    vehicle_life: 34;
+    dual_headed: 1;
+
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 110 km/h;
+    track_type:TR_1067_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 34 ton;
+    badges: ["company/hanshin"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_3, 2,4,6)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_HANSHIN))
+
+    );
+
+    purchase: hanshin3801_purchase;
+    cargo_capacity:sw_hanshin2000_capacity_main()*param_capacity_mod/3;
+    purchase_cargo_capacity:sw_hanshin2000_capacity_main()*param_capacity_mod/3-1;
+    loading_speed:param_loading_3D;
+    default:sw_hanshin3801_lv;
+    power:sw_hanshin3801_power_main()*4*1342/1000;
+    purchase_power: sw_hanshin3801_car_power_main()*4*1342/1000;
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_3D;
+    cargo_capacity:sw_hanshin2000_capacity_main()*param_capacity_mod/3;
+    power:sw_hanshin3801_power_main()*4*1342/1000;
+    default:sw_hanshin3801_lv;
+    weight: 34;
+
+  }
+}
+# 1 "src/private/Kansai/hanshin/hanshin5000/hanshin5000.pnml" 1
+
+  spriteset(hanshin5000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hanshin/hanshin5000/hanshin5000.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(hanshin5000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hanshin/hanshin5000/hanshin5000.png"){ tmpl_purchase_2c_dual(0, 25) }
+  switch(FEAT_TRAINS, SELF, hanshin5000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: hanshin5000_purchase_c1; 1: hanshin5000_purchase_c2;}
+
+spriteset(hanshin5000_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hanshin/hanshin5000/hanshin5000_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(hanshin5000_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hanshin/hanshin5000/hanshin5000_lights.png"){ tmpl_std_v3(0, 25) }
+switch(FEAT_TRAINS, SELF, sw_hanshin5000_lights, train_is_driving_backwards != vehicle_is_flipped){
+  1: hanshin5000_lights_end;
+  hanshin5000_lights_front;
+}
+spriteset(hanshin5000_head_mot_base_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hanshin/hanshin5000/hanshin5000.png"){ tmpl_std_v3(0, 0) }
+spriteset(hanshin5000_head_mot_base_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hanshin/hanshin5000/hanshin5000.png"){ tmpl_std_v3(0, 25) }
+spriteset(hanshin5000_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hanshin/hanshin5000/hanshin5000.png"){ tmpl_std_v3(0, 50) }
+spriteset(hanshin5000_head_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hanshin/hanshin5000/hanshin5000.png"){ tmpl_std_rev_v3(0, 50) }
+
+spriteset(hanshin5000_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hanshin/hanshin5000/hanshin5000.png"){ tmpl_std_rev_v3(0, 75) }
+spriteset(hanshin5000_mot_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hanshin/hanshin5000/hanshin5000.png"){ tmpl_std_v3(0, 100) }
+spriteset(hanshin5000_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hanshin/hanshin5000/hanshin5000.png"){ tmpl_std_v3(0, 125) }
+spriteset(hanshin5000_mot_2_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/hanshin/hanshin5000/hanshin5000.png"){ tmpl_std_rev_v3(0, 125) }
+
+  switch(FEAT_TRAINS, SELF, hanshin5000_head_mot_1, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: hanshin5000_head_mot_base_1; 1: sw_hanshin5000_lights;}
+  switch(FEAT_TRAINS, SELF, hanshin5000_head_mot_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: hanshin5000_head_mot_base_2; 1: sw_hanshin5000_lights;}
+  switch(FEAT_TRAINS, SELF, hanshin5000_head, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: hanshin5000_head_base; 1: sw_hanshin5000_lights;}
+
+
+      switch(FEAT_TRAINS, SELF, sw_hanshin5000_1, vehicle_is_flipped){
+        1:hanshin5000_head;
+        hanshin5000_head_mot_2;
+      }
+      switch(FEAT_TRAINS, SELF, sw_hanshin5000_panto_placer_main_1,position_in_vehid_chain %2){
+        1: hanshin5000_head_mot_base_2;
+        hanshin5000_head_rev;
+      }
+
+      switch(FEAT_TRAINS, SELF, sw_hanshin5000_panto_placer_main_2,position_in_vehid_chain %2){
+        1: hanshin5000_mot_1;
+        hanshin5000_wag;
+      }
+    switch(FEAT_TRAINS, SELF, sw_hanshin5000_panto_placer_main_12, current_year){
+      0..1997:sw_hanshin5000_panto_placer_main_1; sw_hanshin5000_panto_placer_main_2;
+    }
+
+      switch(FEAT_TRAINS, SELF, sw_hanshin5000_panto_placer_main_3,position_in_vehid_chain %2){
+        1: hanshin5000_mot_2;
+        hanshin5000_wag;
+      }
+    random_switch(FEAT_TRAINS,PARENT,sw_hanshin5000_panto_placer_main){
+      1:sw_hanshin5000_panto_placer_main_12;
+      1:sw_hanshin5000_panto_placer_main_3;
+    }
+    switch(FEAT_TRAINS, SELF, sw_hanshin5000_5001_5331,vehicle_type_id){
+      mu_car:sw_hanshin5000_panto_placer_main;
+      sw_hanshin5000_1;
+    }
+
+      switch(FEAT_TRAINS, SELF, sw_hanshin5000_panto_placer_main_4,position_in_vehid_chain %2){
+        0: hanshin5000_mot_2_rev;
+        hanshin5000_mot_2;
+      }
+    switch(FEAT_TRAINS, SELF, sw_hanshin5000_5311,vehicle_type_id){
+      mu_car:sw_hanshin5000_panto_placer_main_4;
+      hanshin5000_head_mot_1;
+    }
+
+      switch(FEAT_TRAINS, SELF, sw_hanshin5000_5131, vehicle_is_flipped){
+        1:hanshin5000_head;
+        hanshin5000_head_mot_1;
+      }
+      switch(FEAT_TRAINS, SELF, sw_hanshin5000_5131_5311,vehicle_type_id){
+        mu_car:sw_hanshin5000_panto_placer_main_4;
+        sw_hanshin5000_5131;
+      }
+
+    random_switch(FEAT_TRAINS,PARENT,sw_hanshin5000_lv){
+      2:sw_hanshin5000_5001_5331;
+      1:sw_hanshin5000_5311;
+      1:sw_hanshin5000_5131_5311;
+    }
+
+
+
+    switch(FEAT_TRAINS, SELF, sw_hanshin5000_car_power_main,position_in_vehid_chain_from_end %6){
+      0..3:return 90;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_hanshin5000_power_main,vehicle_type_id){
+      mu_car: sw_hanshin5000_car_power_main;
+      return 90*2;
+    }
+# 124 "src/private/Kansai/hanshin/items.pnml" 2
+
+item(FEAT_TRAINS, hanshin5000) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_hanshin == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_HANSHIN), "5001~5311", string(STR_NAME_SERIES));
+    introduction_date: date(1977, 3, 14);
+    model_life: 53;
+    vehicle_life: 48;
+    dual_headed: 1;
+
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 110 km/h;
+    track_type:TR_1067_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 37 ton;
+    badges: ["company/hanshin"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 3)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 2,4)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_HANSHIN))
+
+    );
+
+    purchase: hanshin5000_purchase;
+    cargo_capacity:131*param_capacity_mod/3;
+    purchase_cargo_capacity:131*param_capacity_mod/3-1;
+    loading_speed:param_loading_3D;
+    default:sw_hanshin5000_lv;
+    power:sw_hanshin5000_power_main()*4*1342/1000;
+    purchase_power: sw_hanshin5000_car_power_main()*4*1342/1000;
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_3D;
+    cargo_capacity:131*param_capacity_mod/3;
+    power:sw_hanshin5000_power_main()*4*1342/1000;
+    default:sw_hanshin5000_lv;
+    weight: 36;
+
+  }
+}
 # 298 "src/_private.pnml" 2
 # 16 "JPprivate.pnml" 2
