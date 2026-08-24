@@ -51520,6 +51520,7 @@ item(FEAT_TRAINS, hanshin5000) {
 
 
   item(FEAT_TRAINS, semboku100, 3200) {}
+  item(FEAT_TRAINS, semboku3000, 3201) {}
 
 # 1 "src/private/Kansai/semboku/items.pnml" 1
 # 1 "src/private/Kansai/semboku/semboku100/semboku100.pnml" 1
@@ -51700,7 +51701,272 @@ item(FEAT_TRAINS, semboku100) {
 
   }
 }
-# 306 "src/_private.pnml" 2
+# 1 "src/private/Kansai/semboku/semboku3000/semboku3000.pnml" 1
+
+  spriteset(semboku3000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/semboku3000_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(semboku3000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/semboku3000_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  switch(FEAT_TRAINS, SELF, semboku3000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: semboku3000_purchase_c1; 1: semboku3000_purchase_c2;}
+
+spriteset(semboku3000_lights_front_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/semboku3000_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(semboku3000_lights_end_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/semboku3000_lights.png"){ tmpl_std_v3(0, 25) }
+spriteset(semboku3000_lights_front_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/semboku3000_lights.png"){ tmpl_std_v3(0, 50) }
+spriteset(semboku3000_lights_end_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/semboku3000_lights.png"){ tmpl_std_v3(0, 75) }
+switch(FEAT_TRAINS, SELF, sw_semboku3000_lights_1, train_is_driving_backwards != vehicle_is_flipped){
+  1: semboku3000_lights_end_1;
+  semboku3000_lights_front_1;
+}
+switch(FEAT_TRAINS, SELF, sw_semboku3000_lights_2, train_is_driving_backwards != vehicle_is_flipped){
+  1: semboku3000_lights_end_2;
+  semboku3000_lights_front_2;
+}
+switch(FEAT_TRAINS, SELF, sw_semboku3000_lights, current_year<1989){
+  1:sw_semboku3000_lights_1; sw_semboku3000_lights_2;
+}
+spriteset(semboku3000_1_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/semboku3000_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(semboku3000_1_head_base_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/semboku3000_1.png"){ tmpl_std_rev_v3(0, 0) }
+spriteset(semboku3000_1_head_base_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/semboku3000_1.png"){ tmpl_std_v3(0, 25) }
+spriteset(semboku3000_1_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/semboku3000_1.png"){ tmpl_std_v3(0, 50) }
+spriteset(semboku3000_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/semboku3000_1.png"){ tmpl_std_v3(0, 75) }
+
+
+spriteset(semboku3000_2_head_1_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/semboku3000_2.png"){ tmpl_std_v3(0, 0) }
+spriteset(semboku3000_2_head_1_base_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/semboku3000_2.png"){ tmpl_std_rev_v3(0, 0) }
+spriteset(semboku3000_2_head_1_base_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/semboku3000_2.png"){ tmpl_std_v3(0, 25) }
+
+spriteset(semboku3000_2_head_2_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/semboku3000_2.png"){ tmpl_std_v3(0, 50) }
+spriteset(semboku3000_2_head_2_base_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/semboku3000_2.png"){ tmpl_std_v3(0, 75) }
+
+spriteset(semboku3000_2_head_3_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/semboku3000_2.png"){ tmpl_std_v3(0, 100) }
+spriteset(semboku3000_2_head_3_base_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/semboku3000_2.png"){ tmpl_std_v3(0, 125) }
+
+spriteset(semboku3000_2_head_4_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/semboku3000_2.png"){ tmpl_std_v3(0, 150) }
+spriteset(semboku3000_2_head_4_base_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/semboku3000_2.png"){ tmpl_std_v3(0, 175) }
+
+spriteset(semboku3000_2_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/semboku3000_2.png"){ tmpl_std_v3(0, 200) }
+spriteset(semboku3000_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/semboku3000_2.png"){ tmpl_std_v3(0, 225) }
+switch(FEAT_TRAINS, SELF, semboku3000_2_head_1_base_main,(position_in_vehid_chain==0&&num_vehs_in_vehid_chain==2)||(position_in_vehid_chain==1&&num_vehs_in_vehid_chain==3)){
+  1:semboku3000_2_head_1_base_mot;
+  semboku3000_2_head_1_base;
+}
+switch(FEAT_TRAINS, SELF, semboku3000_2_head_2_base_main,(position_in_vehid_chain==0&&num_vehs_in_vehid_chain==2)||(position_in_vehid_chain==1&&num_vehs_in_vehid_chain==3)){
+  1:semboku3000_2_head_2_base_mot;
+  semboku3000_2_head_2_base;
+}
+switch(FEAT_TRAINS, SELF, semboku3000_2_head_3_base_main,(position_in_vehid_chain==0&&num_vehs_in_vehid_chain==2)||(position_in_vehid_chain==1&&num_vehs_in_vehid_chain==3)){
+  1:semboku3000_2_head_3_base_mot;
+  semboku3000_2_head_3_base;
+}
+switch(FEAT_TRAINS, SELF, semboku3000_2_head_4_base_main,(position_in_vehid_chain==0&&num_vehs_in_vehid_chain==2)||(position_in_vehid_chain==1&&num_vehs_in_vehid_chain==3)){
+  1:semboku3000_2_head_4_base_mot;
+  semboku3000_2_head_4_base;
+}
+random_switch(FEAT_TRAINS,PARENT,semboku3000_2_head_base_2000){
+  1:semboku3000_2_head_1_base_main;
+  1:semboku3000_2_head_2_base_main;
+}
+random_switch(FEAT_TRAINS,PARENT,semboku3000_2_head_base_2008){
+  1:semboku3000_2_head_3_base_main;
+  1:semboku3000_2_head_4_base_main;
+}
+switch(FEAT_TRAINS, SELF, semboku3000_2_head_base, current_year){
+  0..1999:semboku3000_2_head_1_base; 2000..2007:semboku3000_2_head_base_2000; semboku3000_2_head_base_2008;
+}
+
+spriteset(semboku3000_3_head_1_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/nankai3000_1.png"){ tmpl_std_v3(0, 0) }
+
+spriteset(semboku3000_3_head_2_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/nankai3000_1.png"){ tmpl_std_v3(0, 25) }
+random_switch(FEAT_TRAINS,PARENT,semboku3000_3_head_base){
+  1: semboku3000_3_head_1_base;
+  1: semboku3000_3_head_2_base;
+}
+spriteset(semboku3000_3_head_base_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/nankai3000_1.png"){ tmpl_std_v3(0, 50) }
+spriteset(semboku3000_3_head_mot_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/nankai3000_1.png"){ tmpl_std_v3(0, 75) }
+spriteset(semboku3000_3_head_f, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/nankai3000_1.png"){ tmpl_std_rev_v3(0, 100) }
+spriteset(semboku3000_3_head_f_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/nankai3000_1.png"){ tmpl_std_v3(0, 100) }
+spriteset(semboku3000_3_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/nankai3000_1.png"){ tmpl_std_v3(0, 125) }
+spriteset(semboku3000_3_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/semboku/semboku3000/nankai3000_1.png"){ tmpl_std_v3(0, 150) }
+
+  switch(FEAT_TRAINS, SELF, semboku3000_head_base_timed, current_year){
+    0..1986:semboku3000_1_head_base; semboku3000_2_head_base;
+  }
+  switch(FEAT_TRAINS, SELF, semboku3000_head_base_mot_timed, current_year){
+    0..1986:semboku3000_1_head_base_mot; semboku3000_2_head_base;
+  }
+  switch(FEAT_TRAINS, SELF, semboku3000_head_base_rev_timed, current_year){
+    0..1986:semboku3000_1_head_base_rev; semboku3000_2_head_1_base_rev;
+  }
+  switch(FEAT_TRAINS, SELF, semboku3000_head_base_mot_f_timed, current_year){
+    0..1986:semboku3000_1_head_base_mot; semboku3000_2_head_1_base_mot;
+  }
+  switch(FEAT_TRAINS, SELF, semboku3000_mot_timed, current_year){
+    0..1986:semboku3000_1_mot; semboku3000_2_mot;
+  }
+  switch(FEAT_TRAINS, SELF, semboku3000_wag_timed, current_year){
+    0..1986:semboku3000_1_wag; semboku3000_2_wag;
+  }
+
+  switch(FEAT_TRAINS, SELF, semboku3000_head_base, cargo_subtype){
+    1:semboku3000_1_head_base; 2:semboku3000_2_head_base; 3:semboku3000_3_head_base; semboku3000_head_base_timed;
+  }
+  switch(FEAT_TRAINS, SELF, semboku3000_head_base_mot, cargo_subtype){
+    1:semboku3000_1_head_base_mot; 2:semboku3000_2_head_base; 3:semboku3000_3_head_base_mot; semboku3000_head_base_mot_timed;
+  }
+
+  switch(FEAT_TRAINS, SELF, semboku3000_head_f, cargo_subtype){
+    1:semboku3000_1_head_base_rev; 2:semboku3000_2_head_1_base_rev; 3:semboku3000_3_head_f; semboku3000_head_base_rev_timed;
+  }
+  switch(FEAT_TRAINS, SELF, semboku3000_head_mot_f_0, cargo_subtype){
+    1:semboku3000_1_head_base_mot; 2:semboku3000_2_head_1_base_mot; 3:semboku3000_3_head_mot_f; semboku3000_head_base_mot_f_timed;
+  }
+  switch(FEAT_TRAINS, SELF, semboku3000_head_f_rev, cargo_subtype){
+    1:semboku3000_1_head_base; 2:semboku3000_2_head_base; 3:semboku3000_3_head_f_rev; semboku3000_head_base_timed;
+  }
+
+  switch(FEAT_TRAINS, SELF, semboku3000_mot, cargo_subtype){
+    1:semboku3000_1_mot; 2:semboku3000_2_mot; 3:semboku3000_3_mot; semboku3000_mot_timed;
+  }
+  switch(FEAT_TRAINS, SELF, semboku3000_wag, cargo_subtype){
+    1:semboku3000_1_wag; 2:semboku3000_2_wag; 3:semboku3000_3_wag; semboku3000_wag_timed;
+  }
+
+
+
+      switch(FEAT_TRAINS, SELF, sw_semboku3000_panto_placer_main_1,position_in_vehid_chain %5){
+        0: semboku3000_mot;
+        2: semboku3000_mot;
+        semboku3000_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_semboku3000_panto_placer_main,position_in_vehid_chain %2){
+        0: semboku3000_mot;
+        semboku3000_wag;
+      }
+  switch(FEAT_TRAINS, SELF, semboku3000_head_mot_f, position_in_vehid_chain_from_end){
+    0:semboku3000_head_mot_f_0; semboku3000_head_f_rev;
+  }
+
+      switch(FEAT_TRAINS, SELF, sw_semboku3000_fake_head_placer_main_6_2,position_in_vehid_chain){
+        4: semboku3000_head_f;
+        5: semboku3000_head_mot_f;
+        sw_semboku3000_panto_placer_main_1;
+      }
+      switch(FEAT_TRAINS, SELF, sw_semboku3000_fake_head_placer_main_4_4,position_in_vehid_chain){
+        2: semboku3000_head_f;
+        3: semboku3000_head_f_rev;
+        sw_semboku3000_panto_placer_main;
+      }
+      random_switch(FEAT_TRAINS,PARENT,sw_semboku3000_fake_head_placer_main_0){
+        2:sw_semboku3000_fake_head_placer_main_4_4;
+        1:sw_semboku3000_fake_head_placer_main_6_2;
+      }
+      switch(FEAT_TRAINS, SELF, sw_semboku3000_fake_head_placer_main_t, current_year){
+        0..1980:sw_semboku3000_panto_placer_main;
+        sw_semboku3000_fake_head_placer_main_0;
+      }
+      switch(FEAT_TRAINS, SELF, sw_semboku3000_fake_head_placer_main,num_vehs_in_vehid_chain){
+        0..5:sw_semboku3000_panto_placer_main;
+        6..7:sw_semboku3000_fake_head_placer_main_t;
+        sw_semboku3000_fake_head_placer_main_6_2;
+      }
+
+
+    switch(FEAT_TRAINS, SELF, semboku3000_head_base_main,(position_in_vehid_chain==0&&num_vehs_in_vehid_chain==2)||(position_in_vehid_chain==1&&num_vehs_in_vehid_chain==3)){
+      1:semboku3000_head_base_mot;
+      semboku3000_head_base;
+    }
+    switch(FEAT_TRAINS, SELF, semboku3000_head, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: semboku3000_head_base_main; 1: sw_semboku3000_lights;}
+    switch(FEAT_TRAINS, SELF, sw_semboku3000_lv,vehicle_type_id){
+      mu_car:sw_semboku3000_fake_head_placer_main;
+      semboku3000_head;
+    }
+
+
+  switch(FEAT_TRAINS, SELF, sw_semboku3000_lv_desc_main, cargo_subtype){
+    0:string(LV_RANDOM);
+    1:string(LV_DATED,string(STR_LIVERY,string(LV_DEFAULT)),1975);
+    2:string(LV_DATED,string(STR_LIVERY,string(LV_MODERN)),1987);
+    3:string(LV_DATED,string(LV_semboku3000_3),2012);
+  }
+
+
+    switch(FEAT_TRAINS, SELF, sw_semboku3000_capacity_main,vehicle_type_id){
+        mu_car:155;
+        144;
+    }
+
+    switch(FEAT_TRAINS, SELF, sw_semboku3000_car_power_main,position_in_vehid_chain_from_end %6){
+      0..4:return 145;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_semboku3000_head_power_main,num_vehs_in_vehid_chain<4){
+      1:return 145*2;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_semboku3000_power_main,vehicle_type_id){
+      mu_car: sw_semboku3000_car_power_main;
+      sw_semboku3000_head_power_main;
+    }
+# 63 "src/private/Kansai/semboku/items.pnml" 2
+
+item(FEAT_TRAINS, semboku3000) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_nankai == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_NANKAI_SEMBOKU), "3000", string(STR_NAME_SERIES));
+    introduction_date: date(1975, 3, 25);
+    model_life: 36;
+    vehicle_life: 31;
+    dual_headed: 1;
+
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 110 km/h;
+    track_type:TR_1067_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 24 ton;
+    badges: ["company/semboku"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_4, 2,4,6,8)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_SEMBOKU))
+
+    );
+    cargo_subtype_text: sw_semboku3000_lv_desc_main;
+    purchase: semboku3000_purchase;
+    cargo_capacity:sw_semboku3000_capacity_main()*param_capacity_mod/3;
+    purchase_cargo_capacity:sw_semboku3000_capacity_main()*param_capacity_mod/3-1;
+    loading_speed:param_loading_4D;
+    default:sw_semboku3000_lv;
+    power:sw_semboku3000_power_main()*4*1342/1000;
+    purchase_power: sw_semboku3000_car_power_main()*4*1342/1000;
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_semboku3000_lv_desc_main;
+    loading_speed:param_loading_4D;
+    cargo_capacity:sw_semboku3000_capacity_main()*param_capacity_mod/3;
+    power:sw_semboku3000_power_main()*4*1342/1000;
+    default:sw_semboku3000_lv;
+    weight: 24;
+
+  }
+}
+# 307 "src/_private.pnml" 2
 
 
 
@@ -51842,5 +52108,5 @@ item(FEAT_TRAINS, kotoden1200) {
 
   }
 }
-# 315 "src/_private.pnml" 2
+# 316 "src/_private.pnml" 2
 # 16 "JPprivate.pnml" 2
