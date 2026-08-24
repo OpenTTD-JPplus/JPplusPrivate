@@ -2060,6 +2060,9 @@ spriteset (sprite_logo_hankyu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_o
 spriteset (sprite_logo_nankai, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_osaka_m.png") { tmpl_badge(0, 30) }
 spriteset (sprite_logo_hanshin, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_osaka_m.png") { tmpl_badge(0, 45) }
 
+spriteset (sprite_logo_iyotetsu, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_shikoku.png") { tmpl_badge(0, 0) }
+spriteset (sprite_logo_kotoden, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/p_operators_shikoku.png") { tmpl_badge(0, 15) }
+
 spriteset (sprite_logo_kyoto_subway, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/m_operators_kyoto.png") { tmpl_badge_metro(0,0) }
 spriteset (sprite_logo_line_kyoto_karasuma, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/m_lines_kyoto.png") { tmpl_badge_line(0, 0) }
 spriteset (sprite_logo_line_kyoto_tozai, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,"gfx/logos/m_lines_kyoto.png") { tmpl_badge_line(15, 0) }
@@ -2398,6 +2401,23 @@ item (FEAT_BADGES, line) {
       graphics {default: sprite_logo_hanshin;}
   }
 
+  item (FEAT_BADGES, logo_iyotetsu) {
+      property {
+          label: "company/iyotetsu";
+          name: string(STR_IYOTETSU);
+          flags: bitmask(BADGE_FLAG_NAME_SKIP);
+      }
+      graphics {default: sprite_logo_iyotetsu;}
+  }
+  item (FEAT_BADGES, logo_kotoden) {
+      property {
+          label: "company/kotoden";
+          name: string(STR_KOTODEN);
+          flags: bitmask(BADGE_FLAG_NAME_SKIP);
+      }
+      graphics {default: sprite_logo_kotoden;}
+  }
+
 
   item (FEAT_BADGES, tokyo_ginza) {
     property {
@@ -2676,6 +2696,9 @@ badgetable {
   "company/kintetsu",
   "company/nankai",
   "company/hanshin",
+
+  "company/iyotetsu",
+  "company/kotoden",
 
   "line/tokyo_ginza",
   "line/tokyo_maru",
@@ -51342,4 +51365,147 @@ item(FEAT_TRAINS, hanshin5000) {
   }
 }
 # 299 "src/_private.pnml" 2
+
+
+
+
+
+
+
+  item(FEAT_TRAINS, kotoden1200, 4022) {}
+
+# 1 "src/private/Shikoku/kotoden/items.pnml" 1
+# 1 "src/private/Shikoku/kotoden/kotoden1200/kotoden1200.pnml" 1
+
+  spriteset(kotoden1200_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_1.png"){ tmpl_purchase_1c_dual(0, 75) }
+  spriteset(kotoden1200_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_1.png"){ tmpl_purchase_2c_dual(88, 0) }
+  switch(FEAT_TRAINS, SELF, kotoden1200_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: kotoden1200_purchase_c1; 1: kotoden1200_purchase_c2;}
+
+spriteset(kotoden1200_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_1.png"){ tmpl_std_rev_v3(0, 0) }
+spriteset(kotoden1200_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_1.png"){ tmpl_std_rev_v3(0, 25) }
+spriteset(kotoden1200_1_head_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_1.png"){ tmpl_std_v3(0, 25) }
+spriteset(kotoden1200_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_1.png"){ tmpl_std_v3(0, 50) }
+spriteset(kotoden1200_1_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_1.png"){ tmpl_std_v3(0, 75) }
+
+spriteset(kotoden1200_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_2.png"){ tmpl_std_rev_v3(0, 0) }
+spriteset(kotoden1200_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_2.png"){ tmpl_std_rev_v3(0, 25) }
+spriteset(kotoden1200_2_head_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_2.png"){ tmpl_std_v3(0, 25) }
+spriteset(kotoden1200_2_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_2.png"){ tmpl_std_v3(0, 50) }
+spriteset(kotoden1200_2_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_2.png"){ tmpl_std_v3(0, 75) }
+
+spriteset(kotoden1200_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_3.png"){ tmpl_std_rev_v3(0, 0) }
+spriteset(kotoden1200_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_3.png"){ tmpl_std_rev_v3(0, 25) }
+spriteset(kotoden1200_3_head_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_3.png"){ tmpl_std_v3(0, 25) }
+spriteset(kotoden1200_3_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_3.png"){ tmpl_std_v3(0, 50) }
+spriteset(kotoden1200_3_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_3.png"){ tmpl_std_v3(0, 75) }
+
+
+  switch(FEAT_TRAINS, SELF, kotoden1200_front, cargo_subtype){
+    0:kotoden1200_1_front; 1:kotoden1200_2_front; kotoden1200_3_front;
+  }
+  switch(FEAT_TRAINS, SELF, kotoden1200_end, cargo_subtype){
+    0:kotoden1200_1_end; 1:kotoden1200_2_end; kotoden1200_3_end;
+  }
+  switch(FEAT_TRAINS, SELF, kotoden1200_head_rev, cargo_subtype){
+    0:kotoden1200_1_head_rev; 1:kotoden1200_2_head_rev; kotoden1200_3_head_rev;
+  }
+  switch(FEAT_TRAINS, SELF, kotoden1200_front_mot, cargo_subtype){
+    0:kotoden1200_1_front_mot; 1:kotoden1200_2_front_mot; kotoden1200_3_front_mot;
+  }
+  switch(FEAT_TRAINS, SELF, kotoden1200_end_mot, cargo_subtype){
+    0:kotoden1200_1_end_mot; 1:kotoden1200_2_end_mot; kotoden1200_3_end_mot;
+  }
+
+
+
+      switch(FEAT_TRAINS, SELF, sw_kotoden1200_panto_placer_main,position_in_vehid_chain %2){
+        0: kotoden1200_head_rev;
+        kotoden1200_end_mot;
+      }
+
+      switch(FEAT_TRAINS, PARENT, sw_kotoden1200_front_main,vehicle_is_reversed){
+        1: kotoden1200_front;
+        kotoden1200_front_mot;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_kotoden1200_end_main,vehicle_is_reversed){
+        1: kotoden1200_end_mot;
+        kotoden1200_end;
+      }
+      switch(FEAT_TRAINS, SELF, sw_kotoden1200_head_main, train_is_driving_backwards != vehicle_is_flipped){
+        1: sw_kotoden1200_end_main;
+        sw_kotoden1200_front_main;
+      }
+    switch(FEAT_TRAINS, SELF, sw_kotoden1200_lv,vehicle_type_id){
+      mu_car:sw_kotoden1200_panto_placer_main;
+      sw_kotoden1200_head_main;
+    }
+
+
+  switch(FEAT_TRAINS, SELF, sw_kotoden1200_lv_desc_main, cargo_subtype){
+    0:string(LV_DATED,string(STR_LIVERY,string(LV_kotoden1200_1)),2003);
+    1:string(LV_DATED,string(STR_LIVERY,string(LV_kotoden1200_2)),2003);
+    2:string(LV_DATED,string(STR_LIVERY,string(LV_kotoden1200_3)),2020);
+  }
+# 2 "src/private/Shikoku/kotoden/items.pnml" 2
+
+item(FEAT_TRAINS, kotoden1200) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+
+    climates_available: param_disable_semiPrivate == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_KOTODEN), "1200/1250", string(STR_NAME_TYPE));
+    introduction_date: date(2003, 3, 1);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 1;
+
+    cost_factor: 18;
+    running_cost_factor: 48;
+    speed: 100 km/h;
+    track_type:TR_1435_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 35 ton;
+    badges: ["company/kotoden"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 4)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 2)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_KOTODEN))
+
+    );
+    cargo_subtype_text: sw_kotoden1200_lv_desc_main;
+    purchase: kotoden1200_purchase;
+    cargo_capacity:139*param_capacity_mod/3;
+    purchase_cargo_capacity:139*param_capacity_mod/3-1;
+    loading_speed:param_loading_4D;
+    default:sw_kotoden1200_lv;
+    power:150*4*1342/1000;
+
+
+
+
+
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_kotoden1200_lv_desc_main;
+    loading_speed:param_loading_4D;
+    cargo_capacity:139*param_capacity_mod/3;
+    power:150*4*1342/1000;
+    default:sw_kotoden1200_lv;
+    weight: 35;
+
+  }
+}
+# 309 "src/_private.pnml" 2
 # 16 "JPprivate.pnml" 2

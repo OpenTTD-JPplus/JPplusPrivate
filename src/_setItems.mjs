@@ -29,3 +29,4 @@ parseCompany("src/private/Kanto/chibaExpress");
 parseCompany("src/private/Kansai/hankyu");
 parseCompany("src/private/Kansai/nankai");
 parseCompany("src/private/Kansai/hanshin");
+parseCompany("src/private/Shikoku/kotoden");

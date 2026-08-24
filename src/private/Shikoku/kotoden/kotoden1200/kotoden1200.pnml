@@ -1,0 +1,71 @@
+// purchase
+  spriteset(kotoden1200_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_1.png"){ tmpl_purchase_1c_dual(0, 75) }
+  spriteset(kotoden1200_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_1.png"){ tmpl_purchase_2c_dual(88, 0) }
+  GRAPHIC_STACK_2(kotoden1200_purchase,  kotoden1200_purchase_c1, kotoden1200_purchase_c2)
+//base
+spriteset(kotoden1200_1_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_1.png"){ tmpl_std_rev_v3(0, 0) }
+spriteset(kotoden1200_1_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_1.png"){ tmpl_std_rev_v3(0, 25) }
+spriteset(kotoden1200_1_head_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_1.png"){ tmpl_std_v3(0, 25) }
+spriteset(kotoden1200_1_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_1.png"){ tmpl_std_v3(0, 50) }
+spriteset(kotoden1200_1_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_1.png"){ tmpl_std_v3(0, 75) }
+
+spriteset(kotoden1200_2_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_2.png"){ tmpl_std_rev_v3(0, 0) }
+spriteset(kotoden1200_2_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_2.png"){ tmpl_std_rev_v3(0, 25) }
+spriteset(kotoden1200_2_head_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_2.png"){ tmpl_std_v3(0, 25) }
+spriteset(kotoden1200_2_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_2.png"){ tmpl_std_v3(0, 50) }
+spriteset(kotoden1200_2_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_2.png"){ tmpl_std_v3(0, 75) }
+
+spriteset(kotoden1200_3_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_3.png"){ tmpl_std_rev_v3(0, 0) }
+spriteset(kotoden1200_3_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_3.png"){ tmpl_std_rev_v3(0, 25) }
+spriteset(kotoden1200_3_head_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_3.png"){ tmpl_std_v3(0, 25) }
+spriteset(kotoden1200_3_front_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_3.png"){ tmpl_std_v3(0, 50) }
+spriteset(kotoden1200_3_end_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Shikoku/kotoden/kotoden1200/kotoden1200_3.png"){ tmpl_std_v3(0, 75) }
+
+//
+  switch(FEAT_TRAINS, SELF, kotoden1200_front, cargo_subtype){
+    0:kotoden1200_1_front;    1:kotoden1200_2_front;    kotoden1200_3_front;
+  }
+  switch(FEAT_TRAINS, SELF, kotoden1200_end, cargo_subtype){
+    0:kotoden1200_1_end;    1:kotoden1200_2_end;    kotoden1200_3_end;
+  }
+  switch(FEAT_TRAINS, SELF, kotoden1200_head_rev, cargo_subtype){
+    0:kotoden1200_1_head_rev;    1:kotoden1200_2_head_rev;    kotoden1200_3_head_rev;
+  }
+  switch(FEAT_TRAINS, SELF, kotoden1200_front_mot, cargo_subtype){
+    0:kotoden1200_1_front_mot;    1:kotoden1200_2_front_mot;    kotoden1200_3_front_mot;
+  }
+  switch(FEAT_TRAINS, SELF, kotoden1200_end_mot, cargo_subtype){
+    0:kotoden1200_1_end_mot;    1:kotoden1200_2_end_mot;    kotoden1200_3_end_mot;
+  }
+
+//main
+  //panto placer
+      switch(FEAT_TRAINS, SELF, sw_kotoden1200_panto_placer_main,position_in_vehid_chain %2){
+        0: kotoden1200_head_rev;
+        kotoden1200_end_mot;
+      }
+  //front-end-fixer
+      switch(FEAT_TRAINS, PARENT, sw_kotoden1200_front_main,vehicle_is_reversed){
+        1: kotoden1200_front;
+        kotoden1200_front_mot;
+      }
+      switch(FEAT_TRAINS, PARENT, sw_kotoden1200_end_main,vehicle_is_reversed){
+        1: kotoden1200_end_mot;
+        kotoden1200_end;
+      }
+      switch(FEAT_TRAINS, SELF, sw_kotoden1200_head_main, train_is_driving_backwards != vehicle_is_flipped){
+        1: sw_kotoden1200_end_main;
+        sw_kotoden1200_front_main;
+      }
+    switch(FEAT_TRAINS, SELF, sw_kotoden1200_lv,vehicle_type_id){
+      mu_car:sw_kotoden1200_panto_placer_main;
+      sw_kotoden1200_head_main;
+    }
+//
+//lv select
+  switch(FEAT_TRAINS, SELF, sw_kotoden1200_lv_desc_main, cargo_subtype){
+    0:string(LV_DATED,string(STR_LIVERY,string(LV_kotoden1200_1)),2003);
+    1:string(LV_DATED,string(STR_LIVERY,string(LV_kotoden1200_2)),2003);
+    2:string(LV_DATED,string(STR_LIVERY,string(LV_kotoden1200_3)),2020);
+  }
+//
