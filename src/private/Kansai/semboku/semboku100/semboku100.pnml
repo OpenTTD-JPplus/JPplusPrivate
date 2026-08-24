@@ -1,0 +1,117 @@
+// purchase
+  spriteset(semboku100_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/semboku/semboku100/semboku100_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(semboku100_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/semboku/semboku100/semboku100_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  GRAPHIC_STACK_2(semboku100_purchase,  semboku100_purchase_c1, semboku100_purchase_c2)
+//base
+spriteset(semboku100_lights_front_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/semboku/semboku100/semboku100_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(semboku100_lights_end_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/semboku/semboku100/semboku100_lights.png"){ tmpl_std_v3(0, 25) }
+spriteset(semboku100_lights_front_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/semboku/semboku100/semboku100_lights.png"){ tmpl_std_v3(0, 50) }
+spriteset(semboku100_lights_end_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/semboku/semboku100/semboku100_lights.png"){ tmpl_std_v3(0, 75) }
+switch(FEAT_TRAINS, SELF, sw_semboku100_lights_1, train_is_driving_backwards != vehicle_is_flipped){
+  1: semboku100_lights_end_1;
+  semboku100_lights_front_1;
+}
+switch(FEAT_TRAINS, SELF, sw_semboku100_lights_2, train_is_driving_backwards != vehicle_is_flipped){
+  1: semboku100_lights_end_2;
+  semboku100_lights_front_2;
+}
+switch(FEAT_TRAINS, SELF, sw_semboku100_lights, current_year<1989){
+  1:sw_semboku100_lights_1;  sw_semboku100_lights_2;
+}
+spriteset(semboku100_1_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/semboku/semboku100/semboku100_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(semboku100_1_head_base_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/semboku/semboku100/semboku100_1.png"){ tmpl_std_v3(0, 25) }
+spriteset(semboku100_1_head_base_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/semboku/semboku100/semboku100_1.png"){ tmpl_std_rev_v3(0, 25) }
+spriteset(semboku100_1_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/semboku/semboku100/semboku100_1.png"){ tmpl_std_v3(0, 50) }
+//
+spriteset(semboku100_2_head_1_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/semboku/semboku100/semboku100_2.png"){ tmpl_std_v3(0, 0) }
+spriteset(semboku100_2_head_1_base_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/semboku/semboku100/semboku100_2.png"){ tmpl_std_v3(0, 25) }
+spriteset(semboku100_2_head_1_base_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/semboku/semboku100/semboku100_2.png"){ tmpl_std_rev_v3(0, 25) }
+spriteset(semboku100_2_head_2_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/semboku/semboku100/semboku100_2.png"){ tmpl_std_v3(0, 50) }
+spriteset(semboku100_2_head_2_base_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/semboku/semboku100/semboku100_2.png"){ tmpl_std_v3(0, 75) }
+spriteset(semboku100_2_head_2_base_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/semboku/semboku100/semboku100_2.png"){ tmpl_std_rev_v3(0, 75) }
+spriteset(semboku100_2_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/semboku/semboku100/semboku100_2.png"){ tmpl_std_v3(0, 100) }
+switch(FEAT_TRAINS, SELF, semboku100_2_head_base, current_year){
+  0..1988:semboku100_2_head_1_base;  semboku100_2_head_2_base;
+}
+switch(FEAT_TRAINS, SELF, semboku100_2_head_base_mot, current_year){
+  0..1988:semboku100_2_head_1_base_mot;  semboku100_2_head_2_base_mot;
+}
+switch(FEAT_TRAINS, SELF, semboku100_2_head_base_mot_rev, current_year){
+  0..1988:semboku100_2_head_1_base_mot_rev;  semboku100_2_head_2_base_mot_rev;
+}
+//
+  switch(FEAT_TRAINS, SELF, semboku100_head_base_timed, current_year){
+    0..1986:semboku100_1_head_base;    semboku100_2_head_base;
+  }
+  switch(FEAT_TRAINS, SELF, semboku100_head_base_mot_timed, current_year){
+    0..1986:semboku100_1_head_base_mot;    semboku100_2_head_base_mot;
+  }
+  switch(FEAT_TRAINS, SELF, semboku100_head_base_mot_rev_timed, current_year){
+    0..1986:semboku100_1_head_base_mot_rev;    semboku100_2_head_base_mot_rev;
+  }
+  switch(FEAT_TRAINS, SELF, semboku100_wag_timed, current_year){
+    0..1986:semboku100_1_wag;    semboku100_2_wag;
+  }
+
+  switch(FEAT_TRAINS, SELF, semboku100_head_base, cargo_subtype){
+    1:semboku100_1_head_base;    2:semboku100_2_head_base;    semboku100_head_base_timed;
+  }
+  switch(FEAT_TRAINS, SELF, semboku100_head_base_mot, cargo_subtype){
+    1:semboku100_1_head_base_mot;    2:semboku100_2_head_base_mot;    semboku100_head_base_mot_timed;
+  }
+  switch(FEAT_TRAINS, SELF, semboku100_head_base_mot_rev, cargo_subtype){
+    1:semboku100_1_head_base_mot_rev;    2:semboku100_2_head_base_mot_rev;    semboku100_head_base_mot_rev_timed;
+  }
+  switch(FEAT_TRAINS, SELF, semboku100_wag, cargo_subtype){
+    1:semboku100_1_wag;    2:semboku100_2_wag;    semboku100_wag_timed;
+  }
+
+//main
+  //panto placer
+      switch(FEAT_TRAINS, SELF, sw_semboku100_panto_placer_main_1,position_in_vehid_chain %4){
+        2: semboku100_head_base_mot_rev;
+        3: semboku100_head_base_mot;
+        semboku100_wag;
+      }
+      switch(FEAT_TRAINS, SELF, sw_semboku100_panto_placer_main,num_vehs_in_vehid_chain){
+        0..3: semboku100_wag;
+        7..8: semboku100_wag;
+        sw_semboku100_panto_placer_main_1;
+      }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, semboku100_head_base_main,(position_in_vehid_chain==1&&num_vehs_in_vehid_chain==2)||position_in_vehid_chain==2||(position_in_vehid_chain_from_end==0&&num_vehs_in_consist==6)){
+      1:semboku100_head_base;
+      semboku100_head_base_mot;
+    }
+    TRAIN_CONSTRUCTOR_2(semboku100_head, semboku100_head_base_main, sw_semboku100_lights)
+    switch(FEAT_TRAINS, SELF, sw_semboku100_lv,vehicle_type_id){
+      mu_car:sw_semboku100_panto_placer_main;
+      semboku100_head;
+    }
+//
+//lv select
+  switch(FEAT_TRAINS, SELF, sw_semboku100_lv_desc_main, cargo_subtype){
+    0:string(LV_RANDOM);
+    1:string(LV_DATED,string(STR_LIVERY,string(LV_DEFAULT)),1971);
+    2:string(LV_DATED,string(STR_LIVERY,string(LV_MODERN)),1987);
+  }
+//post fixers
+  //capacity-changer
+    switch(FEAT_TRAINS, SELF, sw_semboku100_capacity_main,vehicle_type_id){
+        mu_car:155;
+        144;
+    }
+  //power
+    switch(FEAT_TRAINS, SELF, sw_semboku100_car_power_main,position_in_vehid_chain_from_end %4){
+      2..3:return 145;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_semboku100_head_power_main,position_in_vehid_chain==1&&num_vehs_in_vehid_chain==2){
+      1:return 0;
+      return 145;
+    }
+    switch(FEAT_TRAINS, SELF, sw_semboku100_power_main,vehicle_type_id){
+      mu_car: sw_semboku100_car_power_main;
+      sw_semboku100_head_power_main;
+    }
+//

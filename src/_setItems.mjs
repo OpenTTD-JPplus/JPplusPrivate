@@ -26,7 +26,10 @@ parseCompany("src/private/Kanto/chibaNewTown");
 parseCompany("src/private/Kanto/hokuso");
 parseCompany("src/private/Kanto/shibayama");
 parseCompany("src/private/Kanto/chibaExpress");
+
 parseCompany("src/private/Kansai/hankyu");
 parseCompany("src/private/Kansai/nankai");
 parseCompany("src/private/Kansai/hanshin");
+parseCompany("src/private/Kansai/semboku");
+
 parseCompany("src/private/Shikoku/kotoden");
