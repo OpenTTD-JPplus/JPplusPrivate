@@ -27,6 +27,7 @@ parseCompany("src/private/Kanto/hokuso");
 parseCompany("src/private/Kanto/shibayama");
 parseCompany("src/private/Kanto/chibaExpress");
 
+parseCompany("src/private/Kansai/kintetsu");
 parseCompany("src/private/Kansai/hankyu");
 parseCompany("src/private/Kansai/nankai");
 parseCompany("src/private/Kansai/hanshin");
