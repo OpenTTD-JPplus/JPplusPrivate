@@ -12929,7 +12929,7 @@ item(FEAT_TRAINS, kintetsu7000) {
     cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); refittable_cargo_classes: bitmask(CC_PASSENGERS); running_cost_base: RUNNING_COST_ELECTRIC; engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
 
     climates_available: param_disable_osaka == 0 ? ALL_CLIMATES : NO_CLIMATE;
-    name: string(STR_TRAIN_NAME, string(STR_NAME_KINTETSU), "7000", string(STR_NAME_TYPE));
+    name: string(STR_TRAIN_NAME, string(STR_NAME_KINTETSU), "7000", string(STR_NAME_SERIES));
     introduction_date: date(1984, 10, 1);
     model_life: VEHICLE_NEVER_EXPIRES;
     vehicle_life: 30;
@@ -47363,9 +47363,36 @@ item(FEAT_TRAINS, shibayama3500) {
 # 1 "src/private/Kansai/kintetsu/items.pnml" 1
 # 1 "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000.pnml" 1
 
-  spriteset(kintetsu8000_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_1.png"){ tmpl_purchase_1c_dual(0, 0) }
-  spriteset(kintetsu8000_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_1.png"){ tmpl_purchase_2c_dual(0, 25) }
-  switch(FEAT_TRAINS, SELF, kintetsu8000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: kintetsu8000_purchase_c1; 1: ac_long_toshiba_c1; 2: kintetsu8000_purchase_c2; 3: ac_long_toshiba_c2;}
+  spriteset(kintetsu8000_purchase_rf_1_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_roof_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(kintetsu8000_purchase_rf_1_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_roof_1.png"){ tmpl_purchase_2c_dual(0, 50) }
+
+  spriteset(kintetsu8000_purchase_rf_2_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_roof_2.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(kintetsu8000_purchase_rf_2_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_roof_2.png"){ tmpl_purchase_2c_dual(0, 50) }
+  switch(FEAT_TRAINS, SELF, kintetsu8000_purchase_rf_c1, current_year){
+   0..1972:kintetsu8000_purchase_rf_1_c1; kintetsu8000_purchase_rf_2_c1;
+  }
+  switch(FEAT_TRAINS, SELF, kintetsu8000_purchase_rf_c2, current_year){
+   0..1972:kintetsu8000_purchase_rf_1_c2; kintetsu8000_purchase_rf_2_c2;
+  }
+  spriteset(kintetsu8000_1_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_1.png"){ tmpl_purchase_1c_dual(0, 25) }
+  spriteset(kintetsu8000_1_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_1.png"){ tmpl_purchase_2c_dual(0, 50) }
+
+  spriteset(kintetsu8000_2_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_2.png"){ tmpl_purchase_1c_dual(0, 25) }
+  spriteset(kintetsu8000_2_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_2.png"){ tmpl_purchase_2c_dual(0, 50) }
+
+  spriteset(kintetsu8000_3_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_3.png"){ tmpl_purchase_1c_dual(0, 25) }
+  spriteset(kintetsu8000_3_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_3.png"){ tmpl_purchase_2c_dual(0, 50) }
+
+  switch(FEAT_TRAINS, SELF, kintetsu8000_purchase_c1, current_year){
+    0..1968:kintetsu8000_1_purchase_c1; 1969..1987:kintetsu8000_2_purchase_c1;
+    kintetsu8000_3_purchase_c1;
+  }
+  switch(FEAT_TRAINS, SELF, kintetsu8000_purchase_c2, current_year){
+    0..1968:kintetsu8000_1_purchase_c2; 1969..1987:kintetsu8000_2_purchase_c2;
+    kintetsu8000_3_purchase_c2;
+  }
+
+  switch(FEAT_TRAINS, SELF, kintetsu8000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8,) ]) { 0: kintetsu8000_purchase_c1; 1: kintetsu8000_purchase_c2; 2: kintetsu8000_purchase_rf_c1; 3: kintetsu8000_purchase_rf_c2;}
 
 spriteset(kintetsu8000_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_lights.png"){ tmpl_std_v3(0, 0) }
 spriteset(kintetsu8000_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_lights.png"){ tmpl_std_v3(0, 25) }
@@ -47377,21 +47404,76 @@ switch(FEAT_TRAINS, SELF, sw_kintetsu8000_lights, position_in_consist==0||positi
   1: sw_kintetsu8000_lights_1;
   gfx_empty;
 }
-spriteset(kintetsu8000_head_base_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_1.png"){ tmpl_std_v3(0, 0) }
-spriteset(kintetsu8000_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_1.png"){ tmpl_std_v3(0, 25) }
-spriteset(kintetsu8000_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu9000/kintetsu9000_1.png"){ tmpl_symm_v3(0, 50) }
-spriteset(kintetsu8000_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu9000/kintetsu9000_1.png"){ tmpl_symm_v3(88, 50) }
-spriteset(kintetsu8000_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu9000/kintetsu9000_1.png"){ tmpl_std_v3(0, 75) }
+spriteset(kintetsu8000_rf_1_mc, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_roof_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(kintetsu8000_rf_1_tc, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_roof_1.png"){ tmpl_std_v3(0, 25) }
+spriteset(kintetsu8000_rf_1_m2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_roof_1.png"){ tmpl_symm_v3(88, 50) }
+spriteset(kintetsu8000_rf_1_m, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_roof_1.png"){ tmpl_std_v3(0, 75) }
+spriteset(kintetsu8000_rf_1_t, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_roof_1.png"){ tmpl_symm_v3(0, 50) }
+
+spriteset(kintetsu8000_rf_2_mc, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_roof_2.png"){ tmpl_std_v3(0, 0) }
+spriteset(kintetsu8000_rf_2_tc, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_roof_2.png"){ tmpl_std_v3(0, 25) }
+spriteset(kintetsu8000_rf_2_m2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_roof_2.png"){ tmpl_symm_v3(88, 50) }
+spriteset(kintetsu8000_rf_2_m, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_roof_2.png"){ tmpl_std_v3(0, 75) }
+spriteset(kintetsu8000_rf_2_t, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_roof_2.png"){ tmpl_symm_v3(0, 50) }
+
+switch(FEAT_TRAINS, SELF, kintetsu8000_rf_mc, current_year){
+  0..1972:kintetsu8000_rf_1_mc; kintetsu8000_rf_2_mc;
+}
+switch(FEAT_TRAINS, SELF, kintetsu8000_rf_tc, current_year){
+  0..1972:kintetsu8000_rf_1_tc; kintetsu8000_rf_2_tc;
+}
+switch(FEAT_TRAINS, SELF, kintetsu8000_rf_m2, current_year){
+  0..1972:kintetsu8000_rf_1_m2; kintetsu8000_rf_2_m2;
+}
+switch(FEAT_TRAINS, SELF, kintetsu8000_rf_m, current_year){
+  0..1972:kintetsu8000_rf_1_m; kintetsu8000_rf_2_m;
+}
+switch(FEAT_TRAINS, SELF, kintetsu8000_rf_t, current_year){
+  0..1972:kintetsu8000_rf_1_t; kintetsu8000_rf_2_t;
+}
+
+spriteset(kintetsu8000_1_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_1.png"){ tmpl_std_v3(0, 25) }
+spriteset(kintetsu8000_1_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_1.png"){ tmpl_symm_v3(0, 50) }
+
+spriteset(kintetsu8000_2_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_2.png"){ tmpl_std_v3(0, 25) }
+spriteset(kintetsu8000_2_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_2.png"){ tmpl_symm_v3(0, 50) }
+
+spriteset(kintetsu8000_3_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_3.png"){ tmpl_std_v3(0, 25) }
+spriteset(kintetsu8000_3_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_3.png"){ tmpl_symm_v3(0, 50) }
+
+switch(FEAT_TRAINS, SELF, kintetsu8000_head_base_timed, current_year){
+  0..1968:kintetsu8000_1_head_base; 1969..1987:kintetsu8000_2_head_base;
+  kintetsu8000_3_head_base;
+}
+switch(FEAT_TRAINS, SELF, kintetsu8000_car_base_timed, current_year){
+  0..1968:kintetsu8000_1_car_base; 1969..1987:kintetsu8000_2_car_base;
+  kintetsu8000_3_car_base;
+}
+
+switch(FEAT_TRAINS, SELF, kintetsu8000_head_base, cargo_subtype){
+  1:kintetsu8000_1_head_base; 2:kintetsu8000_2_head_base; 3:kintetsu8000_3_head_base;
+  kintetsu8000_head_base_timed;
+}
+switch(FEAT_TRAINS, SELF, kintetsu8000_car_base, cargo_subtype){
+  1:kintetsu8000_1_car_base; 2:kintetsu8000_2_car_base; 3:kintetsu8000_3_car_base;
+  kintetsu8000_car_base_timed;
+}
+
+  switch(FEAT_TRAINS, SELF, kintetsu8000_head_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: kintetsu8000_head_base; 1: kintetsu8000_rf_mc; 2: sw_kintetsu8000_lights;}
+  switch(FEAT_TRAINS, SELF, kintetsu8000_head, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: kintetsu8000_head_base; 1: kintetsu8000_rf_tc; 2: sw_kintetsu8000_lights;}
+  switch(FEAT_TRAINS, SELF, kintetsu8000_mot_2, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: kintetsu8000_car_base; 1: kintetsu8000_rf_m2;}
+  switch(FEAT_TRAINS, SELF, kintetsu8000_mot, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: kintetsu8000_car_base; 1: kintetsu8000_rf_m;}
+  switch(FEAT_TRAINS, SELF, kintetsu8000_wag, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: kintetsu8000_car_base; 1: kintetsu8000_rf_t;}
 
 
 
     switch(FEAT_TRAINS, SELF, sw_kintetsu8000_head_2,vehicle_is_flipped){
-      1:kintetsu8000_head_base;
-      kintetsu8000_head_base_mot;
+      1:kintetsu8000_head;
+      kintetsu8000_head_mot;
     }
-    switch(FEAT_TRAINS, SELF, sw_kintetsu8000_head_main,num_vehs_in_vehid_chain==2&&position_in_vehid_chain==0||num_vehs_in_vehid_chain==3&&position_in_vehid_chain==1){
+    switch(FEAT_TRAINS, SELF, sw_kintetsu8000_head_main,num_vehs_in_vehid_chain>1){
       1:sw_kintetsu8000_head_2;
-      kintetsu8000_head_base;
+      kintetsu8000_head;
     }
 
       switch(FEAT_TRAINS, SELF, sw_kintetsu8000_panto_placer_main,position_in_vehid_chain %4){
@@ -47400,12 +47482,18 @@ spriteset(kintetsu8000_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kan
         kintetsu8000_wag;
       }
 
-    switch(FEAT_TRAINS, SELF, sw_kintetsu8000_head_lights, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: sw_kintetsu8000_head_main; 1: sw_kintetsu8000_lights;}
     switch(FEAT_TRAINS, SELF, sw_kintetsu8000_lv,vehicle_type_id){
       mu_car:sw_kintetsu8000_panto_placer_main;
-      sw_kintetsu8000_head_lights;
+      sw_kintetsu8000_head_main;
     }
 
+
+  switch(FEAT_TRAINS, SELF, sw_kintetsu8000_lv_desc_main, cargo_subtype){
+    0: string(LV_RANDOM);
+    1: string(LV_DATED,string(LV_KINTETSU_BEIGE),1964);
+    2: string(LV_DATED,string(LV_KINTETSU_RED),1969);
+    3: string(LV_DATED,string(LV_TWO_TONE),1988);
+  }
 
 
     switch(FEAT_TRAINS, SELF, sw_kintetsu8000_capacity_main,vehicle_type_id){
@@ -47462,7 +47550,7 @@ item(FEAT_TRAINS, kintetsu8000) {
     string(STR_OPERATOR, string(STR_KINTETSU))
 
     );
-
+    cargo_subtype_text: sw_kintetsu8000_lv_desc_main;
     purchase: kintetsu8000_purchase;
     cargo_capacity:sw_kintetsu8000_capacity_main()*param_capacity_mod/3;
     purchase_cargo_capacity:sw_kintetsu8000_capacity_main()*param_capacity_mod/3-1;
@@ -47477,7 +47565,7 @@ item(FEAT_TRAINS, kintetsu8000) {
 
   }
   livery_override(mu_car){
-  cargo_subtype_text:sw_empty_desc;
+  cargo_subtype_text:sw_kintetsu8000_lv_desc_main;
     loading_speed:param_loading_4D;
     cargo_capacity:sw_kintetsu8000_capacity_main()*param_capacity_mod/3;
     power:sw_kintetsu8000_power_main()*4*1342/1000;
