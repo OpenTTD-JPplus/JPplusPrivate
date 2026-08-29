@@ -1,0 +1,30 @@
+// purchase
+  spriteset(kintetsu6820_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu21/kintetsu9020_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(kintetsu6820_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu21/kintetsu9020_1.png"){ tmpl_purchase_2c_dual(0, 50) }
+  GRAPHIC_STACK_4(kintetsu6820_purchase,  kintetsu6820_purchase_c1,ac_long_toshiba_c1, kintetsu6820_purchase_c2,ac_long_toshiba_c2)
+//base
+
+//main
+  //head gfx
+    switch(FEAT_TRAINS, SELF, sw_kintetsu6820_head_2,vehicle_is_flipped){
+      1:kintetsu9020_head_base_mot;
+      kintetsu9020_head_base;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kintetsu6820_head_main,num_vehs_in_vehid_chain>1){
+      1:sw_kintetsu6820_head_2;
+      kintetsu9020_head_base;
+    }
+  //panto placer
+      switch(FEAT_TRAINS, SELF, sw_kintetsu6820_panto_placer_main,position_in_vehid_chain %6){
+        0: kintetsu9020_mot;
+        1: kintetsu9020_mot;
+        3: kintetsu9020_mot_2;
+        kintetsu9020_wag;
+      }
+  //front-end-fixer
+    TRAIN_CONSTRUCTOR_2(sw_kintetsu6820_head_lights, sw_kintetsu6820_head_main, sw_kintetsu21_lights)
+    switch(FEAT_TRAINS, SELF, sw_kintetsu6820_lv,vehicle_type_id){
+      mu_car:sw_kintetsu6820_panto_placer_main;
+      sw_kintetsu6820_head_lights;
+    }
+//

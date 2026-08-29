@@ -1,0 +1,35 @@
+// purchase
+  spriteset(kintetsu9020_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu21/kintetsu9020_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(kintetsu9020_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu21/kintetsu9020_1.png"){ tmpl_purchase_2c_dual(0, 50) }
+  GRAPHIC_STACK_4(kintetsu9020_purchase,  kintetsu9020_purchase_c1,ac_long_toshiba_c1, kintetsu9020_purchase_c2,ac_long_toshiba_c2)
+//base
+spriteset(kintetsu9020_head_base_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu21/kintetsu9020_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(kintetsu9020_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu21/kintetsu9020_1.png"){ tmpl_std_v3(0, 25) }
+spriteset(kintetsu9020_wag, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu9000/kintetsu9000_1.png"){ tmpl_symm_v3(0, 50) }
+spriteset(kintetsu9020_mot_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu9000/kintetsu9000_1.png"){ tmpl_symm_v3(88, 50) }
+spriteset(kintetsu9020_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu9000/kintetsu9000_1.png"){ tmpl_std_v3(0, 75) }
+
+//main
+  //head gfx
+    switch(FEAT_TRAINS, SELF, sw_kintetsu9020_head_2,vehicle_is_flipped){
+      1:kintetsu9020_head_base;
+      kintetsu9020_head_base_mot;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kintetsu9020_head_main,num_vehs_in_vehid_chain==2&&position_in_vehid_chain==0||num_vehs_in_vehid_chain==3&&position_in_vehid_chain==1){
+      1:sw_kintetsu9020_head_2;
+      kintetsu9020_head_base;
+    }
+  //panto placer
+      switch(FEAT_TRAINS, SELF, sw_kintetsu9020_panto_placer_main,position_in_vehid_chain %6){
+        0: kintetsu9020_mot;
+        1: kintetsu9020_mot;
+        3: kintetsu9020_mot_2;
+        kintetsu9020_wag;
+      }
+  //front-end-fixer
+    TRAIN_CONSTRUCTOR_2(sw_kintetsu9020_head_lights, sw_kintetsu9020_head_main, sw_kintetsu21_lights)
+    switch(FEAT_TRAINS, SELF, sw_kintetsu9020_lv,vehicle_type_id){
+      mu_car:sw_kintetsu9020_panto_placer_main;
+      sw_kintetsu9020_head_lights;
+    }
+//
