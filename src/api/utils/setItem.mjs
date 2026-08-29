@@ -194,9 +194,9 @@ export function setItem(data, path) {
     ${variantSimple ? "" : `${data.variantGroup ? `name: sw_${variantGroup}_name;` : ""} `}
     additional_text:${formatDescString(data, usage, operator)}
     ${data.hasLiveryDesc ? `cargo_subtype_text: sw_${trainName}_lv_desc_main;` : ""}
-    purchase: ${trainName}_purchase;
+    purchase: ${data.reuseGfx ? data.reuseGfx : trainName}_purchase;
     cargo_capacity:${capacity};
-    ${isDualHeaded ? `purchase_cargo_capacity:${capacity}-1;` : ""}
+    ${isDualHeaded ? `purchase_cargo_capacity:${capacity};` : ""}
     loading_speed:${
       doors.length <= 1 ? `param_loading_${doors}D` : `sw_${trainName}_loading_speed_main`
     };

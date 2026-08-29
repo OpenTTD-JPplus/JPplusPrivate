@@ -1,0 +1,56 @@
+//purchase
+  spriteset(kintetsu8a_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu1a/kintetsu8a_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(kintetsu8a_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu1a/kintetsu8a_1.png"){ tmpl_purchase_2c_dual(0, 25) }
+  GRAPHIC_STACK_4(kintetsu8a_purchase,  kintetsu8a_purchase_c1,ac_long_toshiba_c1, kintetsu8a_purchase_c2,ac_long_toshiba_c2)
+//base
+spriteset(kintetsu8a_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu1a/kintetsu8a_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(kintetsu8a_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu1a/kintetsu8a_lights.png"){ tmpl_std_v3(0, 25) }
+switch(FEAT_TRAINS, SELF, sw_kintetsu8a_lights_1, train_is_driving_backwards != vehicle_is_flipped){
+  1: kintetsu8a_lights_end;
+  kintetsu8a_lights_front;
+}
+switch(FEAT_TRAINS, SELF, sw_kintetsu8a_lights, position_in_consist==0||position_in_vehid_chain==0){
+  1: sw_kintetsu8a_lights_1;
+  gfx_empty;
+}
+spriteset(kintetsu8a_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu1a/kintetsu8a_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(kintetsu8a_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu1a/kintetsu8a_1.png"){ tmpl_symm_v3(0, 25) }
+//1
+  TRAIN_CONSTRUCTOR_4(kintetsu8a_head_mot, kintetsu8a_head_base, sw_kintetsu8a_lights, ac_long_toshiba, panto_arm_n_single)
+  TRAIN_CONSTRUCTOR_3(kintetsu8a_head, kintetsu8a_head_base, sw_kintetsu8a_lights, ac_long_toshiba)
+  TRAIN_CONSTRUCTOR_3(kintetsu8a_mot, kintetsu8a_car_base, ac_long_toshiba,panto_arm_n_single)
+  TRAIN_CONSTRUCTOR_2(kintetsu8a_wag, kintetsu8a_car_base, ac_long_toshiba)
+//
+
+//main
+  //panto placer
+      switch(FEAT_TRAINS, SELF, sw_kintetsu8a_panto_placer_main,position_in_vehid_chain %2){
+        1: kintetsu8a_mot;
+        kintetsu8a_wag;
+      }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, kintetsu8a_head_main,vehicle_is_flipped){
+      1:kintetsu8a_head;
+      kintetsu8a_head_mot;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kintetsu8a_lv,vehicle_type_id){
+      mu_car:sw_kintetsu8a_panto_placer_main;
+      kintetsu8a_head_main;
+    }
+//
+//post fixers
+  //capacity-changer
+    switch(FEAT_TRAINS, SELF, sw_kintetsu8a_capacity_main,vehicle_type_id){
+        mu_car:130;
+        120;
+    }
+  //power
+    switch(FEAT_TRAINS, SELF, sw_kintetsu8a_car_power_main,position_in_vehid_chain %2){
+      0:return 250;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kintetsu8a_power_main,vehicle_type_id){
+      mu_car: sw_kintetsu8a_car_power_main;
+      250;
+    }
+//
