@@ -1,0 +1,94 @@
+// purchase
+  switch(FEAT_TRAINS, SELF, kintetsu2400_purchase_rf_c1, current_year){
+   0..1980:kintetsu8000_purchase_rf_1_c1;  kintetsu8000_purchase_rf_2_c1;
+  }
+  switch(FEAT_TRAINS, SELF, kintetsu2400_purchase_rf_c2, current_year){
+   0..1980:kintetsu8000_purchase_rf_1_c2;  kintetsu8000_purchase_rf_2_c2;
+  }
+  switch(FEAT_TRAINS, SELF, kintetsu2400_purchase_c1, current_year){
+    0..1985:kintetsu8000_2_purchase_c1;    kintetsu8000_3_purchase_c1;
+  }
+  switch(FEAT_TRAINS, SELF, kintetsu2400_purchase_c2, current_year){
+    0..1985:kintetsu8000_2_purchase_c2;    kintetsu8000_3_purchase_c2;
+  }
+  
+  GRAPHIC_STACK_4(kintetsu2400_purchase,  kintetsu2400_purchase_c1, kintetsu2400_purchase_c2, kintetsu2400_purchase_rf_c1, kintetsu2400_purchase_rf_c2)
+//base
+
+switch(FEAT_TRAINS, SELF, kintetsu2400_rf_mc, current_year){
+  0..1980:kintetsu8000_rf_1_mc;  kintetsu8000_rf_2_mc;
+}
+switch(FEAT_TRAINS, SELF, kintetsu2400_rf_tc, current_year){
+  0..1980:kintetsu8000_rf_1_tc;  kintetsu8000_rf_2_tc;
+}
+switch(FEAT_TRAINS, SELF, kintetsu2400_rf_m2, current_year){
+  0..1980:kintetsu8000_rf_1_m2;  kintetsu8000_rf_2_m2;
+}
+switch(FEAT_TRAINS, SELF, kintetsu2400_rf_t, current_year){
+  0..1980:kintetsu8000_rf_1_t;  kintetsu8000_rf_2_t_long;
+}
+
+switch(FEAT_TRAINS, SELF, kintetsu2400_head_base_timed, current_year){
+  0..1985:kintetsu8000_2_head_base;  kintetsu8000_3_head_base;
+}
+switch(FEAT_TRAINS, SELF, kintetsu2400_car_base_timed, current_year){
+  0..1985:kintetsu8000_2_car_base;  kintetsu8000_3_car_base;
+}
+
+switch(FEAT_TRAINS, SELF, kintetsu2400_head_base, cargo_subtype){
+  1:kintetsu8000_2_head_base;  2:kintetsu8000_3_head_base;
+  kintetsu2400_head_base_timed;
+}
+switch(FEAT_TRAINS, SELF, kintetsu2400_car_base, cargo_subtype){
+  1:kintetsu8000_2_car_base;  2:kintetsu8000_3_car_base;
+  kintetsu2400_car_base_timed;
+}
+//
+  TRAIN_CONSTRUCTOR_3(kintetsu2400_head_mot, kintetsu2400_head_base, kintetsu2400_rf_mc, sw_kintetsu8000_lights)
+  TRAIN_CONSTRUCTOR_3(kintetsu2400_head, kintetsu2400_head_base, kintetsu2400_rf_tc, sw_kintetsu8000_lights)
+  TRAIN_CONSTRUCTOR_2(kintetsu2400_mot_2, kintetsu2400_car_base, kintetsu2400_rf_m2)
+  TRAIN_CONSTRUCTOR_2(kintetsu2400_wag, kintetsu2400_car_base, kintetsu2400_rf_t)
+
+//main
+  //head gfx
+    switch(FEAT_TRAINS, SELF, sw_kintetsu2400_head_main_1,vehicle_is_flipped){
+      1:kintetsu2400_head;
+      kintetsu2400_head_mot;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kintetsu2400_head_main,position_in_consist%2){
+      0:kintetsu2400_head_mot;
+      sw_kintetsu2400_head_main_1;
+    }
+  //panto placer
+      switch(FEAT_TRAINS, SELF, sw_kintetsu2400_panto_placer_main,position_in_vehid_chain %3){
+        1: kintetsu2400_mot_2;
+        kintetsu2400_wag;
+      }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_kintetsu2400_lv,vehicle_type_id){
+      mu_car:sw_kintetsu2400_panto_placer_main;
+      sw_kintetsu2400_head_main;
+    }
+//
+//lv desc
+  switch(FEAT_TRAINS, SELF, sw_kintetsu2400_lv_desc_main, cargo_subtype){
+    0: string(LV_RANDOM);
+    1: string(LV_DATED,string(LV_KINTETSU_RED),1966);
+    2: string(LV_DATED,string(LV_TWO_TONE),1986);
+  }
+//post fixers
+  //capacity-changer
+    switch(FEAT_TRAINS, SELF, sw_kintetsu2400_capacity_main,vehicle_type_id){
+        mu_car:150;
+        130;
+    }
+  //power
+    switch(FEAT_TRAINS, SELF, sw_kintetsu2400_car_power_main,position_in_vehid_chain %2){
+      0:return 155;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kintetsu2400_power_main,vehicle_type_id){
+      mu_car: sw_kintetsu2400_car_power_main;
+      return 155;
+    }
+//
