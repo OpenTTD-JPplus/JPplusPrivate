@@ -1,3 +1,64 @@
+#include "kintetsu800/kintetsu800.pnml"
+
+item(FEAT_TRAINS, kintetsu800) {
+  property {
+    OVERRIDEN_TRAIN_DATA
+    
+    climates_available: param_disable_kintetsu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_KINTETSU), "800/880", string(STR_NAME_SERIES));
+    introduction_date: date(1955, 3, 1);
+    model_life: 42;
+    vehicle_life: 37;
+    dual_headed: 1;
+    
+    cost_factor: 19;
+    running_cost_factor: 49;
+    speed: 110 km/h;
+    track_type:TR_1435_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient:  0.2;
+    weight: 36 ton;
+    badges: ["company/kintetsu"];
+    
+  }
+	graphics {
+    
+    
+     
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1435),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
+    string(STR_FORMATION, string(STR_NUM_CARS_2, 3,4)),
+    string(STR_USAGE, string(STR_EXPRESS)),
+    string(STR_OPERATOR, string(STR_KINTETSU))
+    
+    );
+    cargo_subtype_text: sw_kintetsu800_lv_desc_main;
+    purchase: kintetsu800_purchase;
+    cargo_capacity:sw_kintetsu800_capacity_main()*param_capacity_mod/3;
+    purchase_cargo_capacity:sw_kintetsu800_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_2D;
+    default:sw_kintetsu800_lv;
+    power:sw_kintetsu800_power_main()*4*1342/1000;
+    purchase_power: sw_kintetsu800_car_power_main()*4*1342/1000;
+    
+    
+    
+    
+    
+  }
+  livery_override(mu_car){
+		cargo_subtype_text:sw_kintetsu800_lv_desc_main;
+    loading_speed:param_loading_2D;
+    cargo_capacity:sw_kintetsu800_capacity_main()*param_capacity_mod/3;
+    power:sw_kintetsu800_power_main()*4*1342/1000;
+    default:sw_kintetsu800_lv;
+    weight: 36;
+    
+  }
+}
 #include "kintetsu8000/kintetsu8000.pnml"
 
 item(FEAT_TRAINS, kintetsu8000) {
