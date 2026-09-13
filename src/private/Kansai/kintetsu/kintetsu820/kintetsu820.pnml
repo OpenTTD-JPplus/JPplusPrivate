@@ -1,0 +1,80 @@
+// purchase
+  spriteset(kintetsu820_purchase_rf_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_roof_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(kintetsu820_purchase_rf_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_roof_1.png"){ tmpl_purchase_2c_dual(0, 50) }
+
+  spriteset(kintetsu820_purchase_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu820/kintetsu820_1.png"){ tmpl_purchase_1c_dual(0, 25) }
+  spriteset(kintetsu820_purchase_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu820/kintetsu820_1.png"){ tmpl_purchase_2c_dual(0, 50) }
+  
+  GRAPHIC_STACK_4(kintetsu820_purchase,  kintetsu820_purchase_c1, kintetsu820_purchase_c2, kintetsu820_purchase_rf_c1, kintetsu820_purchase_rf_c2)
+//base
+spriteset(kintetsu820_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_lights.png"){ tmpl_std_v3(0, 0) }
+spriteset(kintetsu820_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_lights.png"){ tmpl_std_v3(0, 25) }
+switch(FEAT_TRAINS, SELF, sw_kintetsu820_lights_1, train_is_driving_backwards != vehicle_is_flipped){
+  1: kintetsu820_lights_end;
+  kintetsu820_lights_front;
+}
+switch(FEAT_TRAINS, SELF, sw_kintetsu820_lights, position_in_consist==0||position_in_consist_from_end==0){
+  1: sw_kintetsu820_lights_1;
+  gfx_empty;
+}
+spriteset(kintetsu820_rf_mc, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_roof_1.png"){ tmpl_std_v3(0, 0) }
+spriteset(kintetsu820_rf_tc, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_roof_1.png"){ tmpl_std_v3(0, 25) }
+spriteset(kintetsu820_rf_m, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_roof_1.png"){ tmpl_std_v3(0, 75) }
+spriteset(kintetsu820_rf_t, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu8000/kintetsu8000_roof_1.png"){ tmpl_symm_v3(0, 50) }
+
+spriteset(kintetsu820_1_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu820/kintetsu820_1.png"){ tmpl_std_v3(0, 25) }
+spriteset(kintetsu820_1_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu820/kintetsu820_1.png"){ tmpl_symm_v3(0, 50) }
+
+spriteset(kintetsu820_2_head_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu820/kintetsu820_2.png"){ tmpl_std_v3(0, 25) }
+spriteset(kintetsu820_2_car_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kansai/kintetsu/kintetsu820/kintetsu820_2.png"){ tmpl_symm_v3(0, 50) }
+
+switch(FEAT_TRAINS, SELF, kintetsu820_head_base, cargo_subtype){
+  0:kintetsu820_1_head_base;  1:kintetsu820_2_head_base;
+}
+switch(FEAT_TRAINS, SELF, kintetsu820_car_base, cargo_subtype){
+  0:kintetsu820_1_car_base;  1:kintetsu820_2_car_base;
+}
+//
+  TRAIN_CONSTRUCTOR_3(kintetsu820_head_mot, kintetsu820_head_base, kintetsu820_rf_mc, sw_kintetsu820_lights)
+  TRAIN_CONSTRUCTOR_3(kintetsu820_head, kintetsu820_head_base, kintetsu820_rf_tc, sw_kintetsu820_lights)
+  TRAIN_CONSTRUCTOR_2(kintetsu820_mot, kintetsu820_car_base, kintetsu820_rf_m)
+  TRAIN_CONSTRUCTOR_2(kintetsu820_wag, kintetsu820_car_base, kintetsu820_rf_t)
+
+//main
+  //head gfx
+    switch(FEAT_TRAINS, SELF, sw_kintetsu820_head_main,vehicle_is_flipped){
+      1:kintetsu820_head;
+      kintetsu820_head_mot;
+    }
+  //panto placer
+      switch(FEAT_TRAINS, SELF, sw_kintetsu820_panto_placer_main,position_in_vehid_chain %2){
+        1: kintetsu820_mot;
+        kintetsu820_wag;
+      }
+  //front-end-fixer
+    switch(FEAT_TRAINS, SELF, sw_kintetsu820_lv,vehicle_type_id){
+      mu_car:sw_kintetsu820_panto_placer_main;
+      sw_kintetsu820_head_main;
+    }
+//
+//lv desc
+  switch(FEAT_TRAINS, SELF, sw_kintetsu820_lv_desc_main, cargo_subtype){
+    0: string(LV_DATED,string(LV_KINTETSU_BEIGE),1961);
+    1: string(LV_DATED,string(LV_TWO_TONE),1985);
+  }
+//post fixers
+  //capacity-changer
+    switch(FEAT_TRAINS, SELF, sw_kintetsu820_capacity_main,vehicle_type_id){
+        mu_car:150;
+        130;
+    }
+  //power
+    switch(FEAT_TRAINS, SELF, sw_kintetsu820_car_power_main,position_in_vehid_chain_from_end %3){
+      1:return 125;
+      return 0;
+    }
+    switch(FEAT_TRAINS, SELF, sw_kintetsu820_power_main,vehicle_type_id){
+      mu_car: sw_kintetsu820_car_power_main;
+      125;
+    }
+//
