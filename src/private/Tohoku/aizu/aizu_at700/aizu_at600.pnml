@@ -1,0 +1,27 @@
+// purchase
+  spriteset(aizu_at600_purchase, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Tohoku/aizu/aizu_at700/aizu_at600.png"){ tmpl_purchase_1c(0, 0) }
+//base
+  spriteset(aizu_at600_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Tohoku/aizu/aizu_at700/aizu_at600_700_lights.png"){ tmpl_std_v3(0, 0) }
+  spriteset(aizu_at600_lights_end, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Tohoku/aizu/aizu_at700/aizu_at600_700_lights.png"){ tmpl_std_rev_v3(0, 0) }
+  switch(FEAT_TRAINS, SELF, sw_aizu_at600_lights_0, train_is_driving_backwards != vehicle_is_flipped){
+    1: aizu_at600_lights_end;
+    aizu_at600_lights_front;
+  }
+  switch(FEAT_TRAINS, SELF, sw_aizu_at600_lights, position_in_consist == 0 || position_in_consist_from_end==0){
+    1: sw_aizu_at600_lights_0;
+    gfx_empty;
+  }
+
+spriteset(aizu_at600_head, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Tohoku/aizu/aizu_at700/aizu_at600.png"){ tmpl_std_v3(0, 0) }
+
+//*at 600
+  TRAIN_CONSTRUCTOR_2(sw_aizu_at600_lv,  aizu_at600_head,  sw_aizu_at600_lights)
+//
+  switch (FEAT_TRAINS, SELF, sw_aizu_at600_name_purchase, getbits(extra_callback_info1, 8, 8)) { 
+    1: return CB_RESULT_NO_TEXT; 
+    return string(STR_NAME_AIZU);
+    } 
+  switch (FEAT_TRAINS, SELF, sw_aizu_at600_name, getbits(extra_callback_info1, 0, 8)) { 
+    0x20: sw_aizu_at600_name_purchase; 
+    return CB_RESULT_NO_TEXT;
+}

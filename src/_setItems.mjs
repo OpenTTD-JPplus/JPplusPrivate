@@ -34,3 +34,5 @@ parseCompany("src/private/Kansai/hanshin");
 parseCompany("src/private/Kansai/semboku");
 
 parseCompany("src/private/Shikoku/kotoden");
+
+parseCompany("src/private/Tohoku/aizu");

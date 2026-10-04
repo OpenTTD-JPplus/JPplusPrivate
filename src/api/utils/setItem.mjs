@@ -69,6 +69,7 @@ function formatCurrentString(string) {
     return `string(STR_ACDC, ${arr[1]},${hzNumeric},1500)`;
   }
   if (string.includes("AC")) return `string(STR_AC, ${arr[1]},${arr[2]})`;
+  if (string.includes("DIESEL")) return `string(STR_DIESEL)`;
 
   return `string(STR_DC, ${arr[1]})`;
 }
@@ -79,6 +80,7 @@ function formatTrackType(string) {
   if (string.includes("METRO")) return "METRO";
   if (string.includes("AC") && string.includes("DC")) return "ACDC";
   if (string.includes("AC")) return "AC";
+  if (string.includes("DIESEL")) return "NE";
   return "DC";
 }
 
