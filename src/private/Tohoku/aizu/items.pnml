@@ -1,16 +1,77 @@
+#include "aizu_at700/aizu_at500.pnml"
+
+item(FEAT_TRAINS, aizu_at500) {
+  property {
+    OVERRIDEN_TRAIN_DATA
+    engine_class: ENGINE_CLASS_DIESEL;    visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_DIESEL, 2, DISABLE_WAGON_POWER);    
+    climates_available: param_disable_semiPrivate == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME, string(STR_NAME_AIZU), "AT-500/550", string(STR_NAME_TYPE));
+    introduction_date: date(2004, 3, 25);
+    model_life: VEHICLE_NEVER_EXPIRES;
+    vehicle_life: 30;
+    dual_headed: 0;
+    variant_group: aizu_at500;
+    cost_factor: 13;
+    running_cost_factor: 43;
+    speed: 95 km/h;
+    track_type:TR_1067_NE
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient:  0.2;
+    weight: 30 ton;
+    badges: ["company/aizu"];
+    
+  }
+	graphics {
+    can_attach_wagon: sw_same_attach_main;
+    
+    name: sw_aizu_at500_name; 
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DIESEL)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 2)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 1)),
+    string(STR_USAGE, string(STR_COMMUTER)),
+    string(STR_OPERATOR, string(STR_AIZU))
+    
+    );
+    
+    purchase: aizu_at500_purchase;
+    cargo_capacity:115*param_capacity_mod/3;
+    
+    loading_speed:param_loading_2D;
+    default:sw_aizu_at500_lv;
+    power:257*4*1342/1000;
+    
+    
+    
+    
+    
+    
+  }
+  livery_override(mu_car){
+		cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_2D;
+    cargo_capacity:115*param_capacity_mod/3;
+    power:257*4*1342/1000;
+    default:sw_aizu_at500_lv;
+    weight: 30;
+    
+  }
+}
 #include "aizu_at700/aizu_at600.pnml"
 
 item(FEAT_TRAINS, aizu_at600) {
   property {
     OVERRIDEN_TRAIN_DATA
-    
+    engine_class: ENGINE_CLASS_DIESEL;    visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_DIESEL, 2, DISABLE_WAGON_POWER);    
     climates_available: param_disable_semiPrivate == 0 ? ALL_CLIMATES : NO_CLIMATE;
     name: string(STR_TRAIN_NAME, string(STR_NAME_AIZU), "AT-600/650", string(STR_NAME_TYPE));
     introduction_date: date(2005, 12, 20);
     model_life: VEHICLE_NEVER_EXPIRES;
     vehicle_life: 30;
     dual_headed: 0;
-    variant_group: aizu_at600;
+    variant_group: aizu_at500;
     cost_factor: 14;
     running_cost_factor: 44;
     speed: 100 km/h;
@@ -25,7 +86,7 @@ item(FEAT_TRAINS, aizu_at600) {
 	graphics {
     can_attach_wagon: sw_same_attach_main;
     
-    name: sw_aizu_at600_name; 
+    name: sw_aizu_at500_name; 
     additional_text:string(STR_TRAIN_DESC,
     string(STR_1067),
     string(STR_DENKI, string(STR_DIESEL)),
@@ -64,14 +125,14 @@ item(FEAT_TRAINS, aizu_at600) {
 item(FEAT_TRAINS, aizu_at700) {
   property {
     OVERRIDEN_TRAIN_DATA
-    
+    engine_class: ENGINE_CLASS_DIESEL;    visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_DIESEL, 2, DISABLE_WAGON_POWER);    
     climates_available: param_disable_semiPrivate == 0 ? ALL_CLIMATES : NO_CLIMATE;
     name: string(STR_TRAIN_NAME, string(STR_NAME_AIZU), "AT-700/750", string(STR_NAME_TYPE));
     introduction_date: date(2010, 5, 30);
     model_life: VEHICLE_NEVER_EXPIRES;
     vehicle_life: 30;
     dual_headed: 0;
-    variant_group: aizu_at600;
+    variant_group: aizu_at500;
     cost_factor: 15;
     running_cost_factor: 45;
     speed: 100 km/h;
@@ -86,7 +147,7 @@ item(FEAT_TRAINS, aizu_at700) {
 	graphics {
     can_attach_wagon: sw_same_attach_main;
     
-    name: sw_aizu_at600_name; 
+    name: sw_aizu_at500_name; 
     additional_text:string(STR_TRAIN_DESC,
     string(STR_1067),
     string(STR_DENKI, string(STR_DIESEL)),

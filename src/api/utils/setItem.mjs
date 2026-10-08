@@ -163,6 +163,8 @@ export function setItem(data, path) {
   str += `item(FEAT_TRAINS, ${trainName}) {
   property {
     OVERRIDEN_TRAIN_DATA
+    engine_class: ENGINE_CLASS_${current === "DIESEL" ? "DIESEL" : "ELECTRIC"};\
+    visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_${current === "DIESEL" ? "DIESEL" : "ELECTRIC"}, 2, DISABLE_WAGON_POWER);\
     
     climates_available: param_disable_${groupType} == 0 ? ALL_CLIMATES : NO_CLIMATE;
     name: ${descName};
