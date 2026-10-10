@@ -190,7 +190,7 @@ export function setItem(data, path) {
     badges: ["company/${data.operator[0].toLowerCase()}"${
       data.metroLine ? `${handleMetroBadgeExeptions(data.metroLine).toLowerCase()}` : ""
     }];
-    ${length ? `length: ${length};` : ""}
+    ${length ? `length: ${data.headLength ? data.headLength : length};` : ""}
   }
 	graphics {
     ${data.attachLogic ? `can_attach_wagon: sw_same_attach_main;` : ""}
