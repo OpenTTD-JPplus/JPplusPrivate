@@ -44,7 +44,7 @@ item(FEAT_TRAINS, odakyu3000) {
     power:sw_odakyu3000_power_main()*4*1342/1000;
     purchase_power: sw_odakyu3000_car_power_main()*4*1342/1000;
     
-    
+    start_stop: sw_stop_start_3;
     
     cargo_age_period: ltd_express_cargo_age;
     
@@ -56,6 +56,67 @@ item(FEAT_TRAINS, odakyu3000) {
     power:sw_odakyu3000_power_main()*4*1342/1000;
     default:sw_odakyu3000_lv;
     weight: 18;
+    length: 7;
+  }
+}
+#include "odakyu3100/odakyu3100.pnml"
+
+item(FEAT_TRAINS, odakyu3100) {
+  property {
+    OVERRIDEN_TRAIN_DATA
+    engine_class: ENGINE_CLASS_ELECTRIC;    visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);    
+    climates_available: param_disable_odakyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME_LONG, string(STR_NAME_ODAKYU), "3100", string(STR_NAME_TYPE), string(STR_NAME_ODAKYU_NEWSUPEREXPRESS));
+    introduction_date: date(1963, 3, 16);
+    model_life: 42;
+    vehicle_life: 37;
+    dual_headed: 1;
+    
+    cost_factor: 21;
+    running_cost_factor: 51;
+    speed: 125 km/h;
+    track_type:TR_1067_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient:  0.2;
+    weight: 21 ton;
+    badges: ["company/odakyu"];
+    length: 8;
+  }
+	graphics {
+    
+    
+     
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 1)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 11)),
+    string(STR_USAGE, string(STR_LIMITED_EXPRESS)),
+    string(STR_OPERATOR, string(STR_ODAKYU))
+    
+    );
+    
+    purchase: odakyu3100_purchase;
+    cargo_capacity:sw_odakyu3100_capacity_main()*param_capacity_mod/3;
+    purchase_cargo_capacity:sw_odakyu3100_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_1D;
+    default:sw_odakyu3100_lv;
+    power:sw_odakyu3100_power_main()*4*1342/1000;
+    purchase_power: sw_odakyu3100_car_power_main()*4*1342/1000;
+    
+    start_stop: sw_stop_start_3;
+    
+    cargo_age_period: ltd_express_cargo_age;
+    
+  }
+  livery_override(mu_car){
+		cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_1D;
+    cargo_capacity:sw_odakyu3100_capacity_main()*param_capacity_mod/3;
+    power:sw_odakyu3100_power_main()*4*1342/1000;
+    default:sw_odakyu3100_lv;
+    weight: 20;
     length: 7;
   }
 }

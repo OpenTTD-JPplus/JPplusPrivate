@@ -1,0 +1,125 @@
+//*lights
+	spriteset(odakyu3100_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/odakyu/odakyu3100/odakyu3100_1_lights.png"){ tmpl_std_v3(0, 0) }
+	spriteset(odakyu3100_lights_back, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/odakyu/odakyu3100/odakyu3100_1_lights.png"){ tmpl_std_v3(0, 25) }
+  switch(FEAT_TRAINS, SELF, sw_odakyu3100_lights, train_is_driving_backwards != vehicle_is_flipped){
+    1: odakyu3100_lights_back;
+    odakyu3100_lights_front;
+  }
+//*AC
+	spriteset(odakyu3100_head_ac_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/odakyu/odakyu3100/odakyu3100_ac_addon.png"){ tmpl_std_v3(0, 0) }
+	spriteset(odakyu3100_wag_ac_base, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/odakyu/odakyu3100/odakyu3100_ac_addon.png"){ tmpl_std_v3(0, 25) }
+	spriteset(odakyu3100_wag_ac_base_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/odakyu/odakyu3100/odakyu3100_ac_addon.png"){ tmpl_std_7_rev_v3(0, 25) }
+  switch(FEAT_TRAINS, SELF, odakyu3100_head_ac, current_year){
+    0..1976:gfx_empty;    odakyu3100_head_ac_base;
+  }
+  switch(FEAT_TRAINS, SELF, odakyu3100_wag_ac_def, current_year){
+    0..1976:gfx_empty;    odakyu3100_wag_ac_base;
+  }
+  switch(FEAT_TRAINS, SELF, odakyu3100_wag_ac_rev, current_year){
+    0..1976:gfx_empty;    odakyu3100_wag_ac_base_rev;
+  }
+  switch(FEAT_TRAINS, SELF, odakyu3100_wag_ac, position_in_vehid_chain<num_vehs_in_vehid_chain/2){
+    1:odakyu3100_wag_ac_def; odakyu3100_wag_ac_rev; 
+  }
+//*livery 1
+	spriteset(odakyu3100_head, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/odakyu/odakyu3100/odakyu3100_1.png"){ tmpl_std_v3(0, 0) }
+	spriteset(odakyu3100_wag_1_def, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/odakyu/odakyu3100/odakyu3100_1.png"){ tmpl_std_v3(0, 25) }
+	spriteset(odakyu3100_wag_1_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/odakyu/odakyu3100/odakyu3100_1.png"){ tmpl_std_7_rev_v3(0, 25) }
+	spriteset(odakyu3100_mot_def, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/odakyu/odakyu3100/odakyu3100_1.png"){ tmpl_std_v3(0, 50) }
+	spriteset(odakyu3100_mot_rev_gfx, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/odakyu/odakyu3100/odakyu3100_1.png"){ tmpl_std_7_rev_v3(0, 50) }
+	spriteset(odakyu3100_wag_2_def, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/odakyu/odakyu3100/odakyu3100_1.png"){ tmpl_std_v3(0, 75) }
+	spriteset(odakyu3100_wag_2_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/odakyu/odakyu3100/odakyu3100_1.png"){ tmpl_std_7_rev_v3(0, 75) }
+	spriteset(odakyu3100_wag_3_def, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/odakyu/odakyu3100/odakyu3100_1.png"){ tmpl_std_v3(0, 100) }
+	spriteset(odakyu3100_wag_3_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/odakyu/odakyu3100/odakyu3100_1.png"){ tmpl_std_7_rev_v3(0, 100) }
+
+  switch(FEAT_TRAINS, SELF, odakyu3100_wag_1_base, position_in_vehid_chain<num_vehs_in_vehid_chain/2){
+    1: odakyu3100_wag_1_def;    odakyu3100_wag_1_rev;
+  }
+  switch(FEAT_TRAINS, SELF, odakyu3100_mot_base, position_in_vehid_chain<num_vehs_in_vehid_chain/2){
+    1: odakyu3100_mot_def;    odakyu3100_mot_rev_gfx;
+  }
+  switch(FEAT_TRAINS, SELF, odakyu3100_mot_base_rev, position_in_vehid_chain<num_vehs_in_vehid_chain/2){
+    1: odakyu3100_mot_rev_gfx;    odakyu3100_mot_def;
+  }
+  switch(FEAT_TRAINS, SELF, odakyu3100_wag_2_base, position_in_vehid_chain<num_vehs_in_vehid_chain/2){
+    1: odakyu3100_wag_2_def;    odakyu3100_wag_2_rev;
+  }
+  switch(FEAT_TRAINS, SELF, odakyu3100_wag_3_base, position_in_vehid_chain<num_vehs_in_vehid_chain/2){
+    1: odakyu3100_wag_3_def;    odakyu3100_wag_3_rev;
+  }
+  TRAIN_CONSTRUCTOR_2(odakyu3100_wag_1, odakyu3100_wag_1_base, odakyu3100_wag_ac)
+  TRAIN_CONSTRUCTOR_2(odakyu3100_mot, odakyu3100_mot_base, odakyu3100_wag_ac)
+  TRAIN_CONSTRUCTOR_2(odakyu3100_mot_rev, odakyu3100_mot_base_rev, odakyu3100_wag_ac)
+  TRAIN_CONSTRUCTOR_2(odakyu3100_wag_2, odakyu3100_wag_2_base, odakyu3100_wag_ac)
+  TRAIN_CONSTRUCTOR_2(odakyu3100_wag_3, odakyu3100_wag_3_base, odakyu3100_wag_ac)
+
+  // switch(FEAT_TRAINS, SELF, odakyu3100_head, cargo_subtype){
+  //   1:odakyu3100_1_head;    2:odakyu3100_2_head;    odakyu3100_head_timed;
+  // }
+  // switch(FEAT_TRAINS, SELF, odakyu3100_mot, cargo_subtype){
+  //   1:odakyu3100_1_mot;    2:odakyu3100_2_mot;    odakyu3100_mot_timed;
+  // }
+  // switch(FEAT_TRAINS, SELF, odakyu3100_mot_rev, cargo_subtype){
+  //   1:odakyu3100_1_mot_rev;    2:odakyu3100_2_mot_rev;    odakyu3100_mot_rev_timed;
+  // }
+  // switch(FEAT_TRAINS, SELF, odakyu3100_wag_1, cargo_subtype){
+  //   1:odakyu3100_1_wag_1;    2:odakyu3100_2_wag_1;    odakyu3100_wag_1_timed;
+  // }
+  // switch(FEAT_TRAINS, SELF, odakyu3100_wag_2, cargo_subtype){
+  //   1:odakyu3100_1_wag_2;    2:odakyu3100_2_wag_2;    odakyu3100_wag_2_timed;
+  // }
+//
+//*purchase
+  spriteset(odakyu3100_front_base_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/odakyu/odakyu3100/odakyu3100_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(odakyu3100_car_base_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP,      "src/private/Kanto/odakyu/odakyu3100/odakyu3100_1.png"){ tmpl_purchase_2c_dual(0, 50) }
+  
+  GRAPHIC_STACK_2(odakyu3100_purchase, odakyu3100_front_base_c1, odakyu3100_car_base_c2)
+
+//
+
+  TRAIN_CONSTRUCTOR_3(sw_odakyu3100_head, odakyu3100_head, sw_odakyu3100_lights, odakyu3100_head_ac)
+//*livery 1
+	//panto placer
+		//1 (11)
+			switch(FEAT_TRAINS, SELF, sw_odakyu3100_panto_placer_main,position_in_vehid_chain %8){
+				0: odakyu3100_mot;
+				1: odakyu3100_wag_2;
+				2: odakyu3100_wag_3;
+				3: odakyu3100_mot_rev;
+				5: odakyu3100_mot_rev;
+				6: odakyu3100_wag_3;
+				7: odakyu3100_wag_2;
+				odakyu3100_wag_1;
+			}
+	//front-end-fixer
+		switch(FEAT_TRAINS, SELF, sw_odakyu3100_lv,vehicle_type_id){
+			mu_car:sw_odakyu3100_panto_placer_main;
+      sw_odakyu3100_head;
+    }
+  //lv desc
+		// switch(FEAT_TRAINS, SELF, sw_odakyu3100_lv_desc_main,cargo_subtype){
+    //   0:string(LV_RANDOM);
+    //   1:string(LV_DATED,string(STR_LIVERY,string(LV_DEFAULT)),1957);
+    //   2:string(LV_DATED,string(STR_LIVERY,string(STR_RENEWAL)),1984);
+    // }
+//
+//post fixers
+//capacity-changer
+	switch(FEAT_TRAINS, SELF, sw_odakyu3100_car_capacity_main,position_in_vehid_chain%5){
+    1..2:36;
+    44;
+	}
+	switch(FEAT_TRAINS, SELF, sw_odakyu3100_capacity_main,vehicle_type_id){
+    mu_car: sw_odakyu3100_car_capacity_main;
+    default: 50;
+	}
+//power fix
+	switch(FEAT_TRAINS, SELF, sw_odakyu3100_car_power_main,position_in_vehid_chain %11){
+    0..9:return 110;
+    return 0;
+	}
+	switch(FEAT_TRAINS, SELF, sw_odakyu3100_power_main,vehicle_type_id){
+    mu_car:sw_odakyu3100_car_power_main;
+    return 110*2;
+	}
+//
