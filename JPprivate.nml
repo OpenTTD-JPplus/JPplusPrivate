@@ -32577,6 +32577,7 @@ item(FEAT_TRAINS, seibu40000) {
   item(FEAT_TRAINS, odakyu3100, 2152) {}
   item(FEAT_TRAINS, odakyu7000, 2153) {}
   item(FEAT_TRAINS, odakyu10000, 2154) {}
+  item(FEAT_TRAINS, odakyu20000, 2155) {}
 
   item(FEAT_TRAINS, odakyu9000, 2178) {}
   item(FEAT_TRAINS, odakyu8000, 2179) {}
@@ -33375,6 +33376,136 @@ item(FEAT_TRAINS, odakyu10000) {
     length: 7;
   }
 }
+# 1 "src/private/Kanto/odakyu/odakyu20000/odakyu20000.pnml" 1
+
+ spriteset(odakyu20000_lights_front, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu20000/odakyu20000_lights.png"){ tmpl_std_v3(0, 0) }
+ spriteset(odakyu20000_lights_back, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu20000/odakyu20000_lights.png"){ tmpl_std_v3(0, 25) }
+  switch(FEAT_TRAINS, SELF, sw_odakyu20000_lights, train_is_driving_backwards != vehicle_is_flipped){
+    1: odakyu20000_lights_back;
+    odakyu20000_lights_front;
+  }
+
+ spriteset(odakyu20000_head, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu20000/odakyu20000_1.png"){ tmpl_long(0, 0) }
+ spriteset(odakyu20000_wag_1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu20000/odakyu20000_1.png"){ tmpl_std_v3(0, 75) }
+ spriteset(odakyu20000_wag_1_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu20000/odakyu20000_1.png"){ tmpl_std_rev_v3(0, 75) }
+ spriteset(odakyu20000_mot, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu20000/odakyu20000_1.png"){ tmpl_std_v3(0, 50) }
+ spriteset(odakyu20000_mot_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu20000/odakyu20000_1.png"){ tmpl_std_rev_v3(0, 50) }
+ spriteset(odakyu20000_wag_2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu20000/odakyu20000_1.png"){ tmpl_std_v3(0, 25) }
+ spriteset(odakyu20000_wag_2_rev, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu20000/odakyu20000_1.png"){ tmpl_std_rev_v3(0, 25) }
+
+  switch(FEAT_TRAINS, SELF, sw_odakyu20000_wag_1, position_in_vehid_chain_from_end<2){
+    0: odakyu20000_wag_1; odakyu20000_wag_1_rev;
+  }
+  switch(FEAT_TRAINS, SELF, sw_odakyu20000_mot, position_in_vehid_chain_from_end<2){
+    0: odakyu20000_mot; odakyu20000_mot_rev;
+  }
+
+
+  spriteset(odakyu20000_1_front_base_c1, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu20000/odakyu20000_1.png"){ tmpl_purchase_1c_dual(0, 0) }
+  spriteset(odakyu20000_1_car_base_c2, ZOOM_LEVEL_NORMAL, BIT_DEPTH_32BPP, "src/private/Kanto/odakyu/odakyu20000/odakyu20000_1.png"){ tmpl_purchase_2c_dual(0, 75) }
+  switch(FEAT_TRAINS, SELF, odakyu20000_purchase, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu20000_1_front_base_c1; 1: odakyu20000_1_car_base_c2;}
+
+
+  switch(FEAT_TRAINS, SELF, sw_odakyu20000_head, [ STORE_TEMP(CB_FLAG_MORE_SPRITES | PALETTE_USE_DEFAULT, 0x100), getbits(extra_callback_info1, 8, 8) ]) { 0: odakyu20000_head; 1: sw_odakyu20000_lights;}
+
+
+
+   switch(FEAT_TRAINS, SELF, sw_odakyu20000_panto_placer_main,position_in_vehid_chain %5){
+    0: sw_odakyu20000_mot;
+    1: odakyu20000_wag_2;
+    2: odakyu20000_wag_2_rev;
+    4: sw_odakyu20000_mot;
+    sw_odakyu20000_wag_1;
+   }
+
+  switch(FEAT_TRAINS, SELF, sw_odakyu20000_lv,vehicle_type_id){
+   mu_car:sw_odakyu20000_panto_placer_main;
+      sw_odakyu20000_head;
+    }
+
+
+
+ switch(FEAT_TRAINS, SELF, sw_odakyu20000_car_capacity_main,position_in_vehid_chain%5){
+    1:50;
+    2:44;
+    3:68;
+    60;
+ }
+ switch(FEAT_TRAINS, SELF, sw_odakyu20000_capacity_main,vehicle_type_id){
+    mu_car: sw_odakyu20000_car_capacity_main;
+    default: 60;
+ }
+
+ switch(FEAT_TRAINS, SELF, sw_odakyu20000_car_power_main,position_in_vehid_chain %9){
+    1..2:return 0;
+    4:return 0;
+    return 140;
+ }
+ switch(FEAT_TRAINS, SELF, sw_odakyu20000_power_main,vehicle_type_id){
+    mu_car:sw_odakyu20000_car_power_main;
+    return 140*2;
+ }
+# 246 "src/private/Kanto/odakyu/items.pnml" 2
+
+item(FEAT_TRAINS, odakyu20000) {
+  property {
+    cargo_capacity: 1; ai_special_flag: AI_FLAG_PASSENGER; sprite_id: SPRITE_ID_NEW_TRAIN; misc_flags: bitmask(TRAIN_FLAG_MU, TRAIN_FLAG_SPRITE_STACK, VEHICLE_FLAG_SYNC_VARIANT_RELIABILITY); running_cost_base: RUNNING_COST_ELECTRIC; refittable_cargo_classes: bitmask(CC_PASSENGERS); bitmask_vehicle_info: 0; power: 1 kW; reliability_decay: 2;
+    engine_class: ENGINE_CLASS_ELECTRIC; visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_ELECTRIC, 2, DISABLE_WAGON_POWER);
+    climates_available: param_disable_odakyu == 0 ? ALL_CLIMATES : NO_CLIMATE;
+    name: string(STR_TRAIN_NAME_LONG, string(STR_NAME_ODAKYU), "20000", string(STR_NAME_TYPE), string(STR_NAME_ODAKYU_RSE));
+    introduction_date: date(1991, 3, 16);
+    model_life: 26;
+    vehicle_life: 21;
+    dual_headed: 1;
+
+    cost_factor: 22;
+    running_cost_factor: 51;
+    speed: 130 km/h;
+    track_type:TR_1067_DC
+     ;
+    power: 1 kW;
+    tractive_effort_coefficient: 0.2;
+    weight: 42 ton;
+    badges: ["company/odakyu"];
+
+  }
+ graphics {
+
+
+
+    additional_text:string(STR_TRAIN_DESC,
+    string(STR_1067),
+    string(STR_DENKI, string(STR_DC, 1500)),
+    string(STR_LOAD_SPEED, string(STR_DOORS, 1)),
+    string(STR_FORMATION, string(STR_NUM_CARS_1, 7)),
+    string(STR_USAGE, string(STR_LIMITED_EXPRESS)),
+    string(STR_OPERATOR, string(STR_ODAKYU))
+
+    );
+
+    purchase: odakyu20000_purchase;
+    cargo_capacity:sw_odakyu20000_capacity_main()*param_capacity_mod/3;
+    purchase_cargo_capacity:sw_odakyu20000_capacity_main()*param_capacity_mod/3;
+    loading_speed:param_loading_1D;
+    default:sw_odakyu20000_lv;
+    power:sw_odakyu20000_power_main()*4*1342/1000;
+    purchase_power: sw_odakyu20000_car_power_main()*4*1342/1000;
+
+
+
+    cargo_age_period: ltd_express_cargo_age;
+
+  }
+  livery_override(mu_car){
+  cargo_subtype_text:sw_empty_desc;
+    loading_speed:param_loading_1D;
+    cargo_capacity:sw_odakyu20000_capacity_main()*param_capacity_mod/3;
+    power:sw_odakyu20000_power_main()*4*1342/1000;
+    default:sw_odakyu20000_lv;
+    weight: 41;
+
+  }
+}
 # 1 "src/private/Kanto/odakyu/odakyu9000/odakyu9000.pnml" 1
 
 
@@ -33453,7 +33584,7 @@ item(FEAT_TRAINS, odakyu10000) {
    mu_car:sw_odakyu9000_car_power_main;
    return 140*2;
   }
-# 246 "src/private/Kanto/odakyu/items.pnml" 2
+# 307 "src/private/Kanto/odakyu/items.pnml" 2
 
 item(FEAT_TRAINS, odakyu9000) {
   property {
@@ -33577,7 +33708,7 @@ item(FEAT_TRAINS, odakyu9000) {
    mu_car:sw_odakyu8000_car_power_main;
    return 0;
   }
-# 307 "src/private/Kanto/odakyu/items.pnml" 2
+# 368 "src/private/Kanto/odakyu/items.pnml" 2
 
 item(FEAT_TRAINS, odakyu8000) {
   property {
@@ -33735,7 +33866,7 @@ item(FEAT_TRAINS, odakyu8000) {
   mu_car:sw_odakyu1000_car_power_main;
   return 0;
  }
-# 368 "src/private/Kanto/odakyu/items.pnml" 2
+# 429 "src/private/Kanto/odakyu/items.pnml" 2
 
 item(FEAT_TRAINS, odakyu1000) {
   property {
@@ -33859,7 +33990,7 @@ item(FEAT_TRAINS, odakyu1000) {
     mu_car:sw_odakyu2000n_car_power_main;
     return 0;
  }
-# 429 "src/private/Kanto/odakyu/items.pnml" 2
+# 490 "src/private/Kanto/odakyu/items.pnml" 2
 
 item(FEAT_TRAINS, odakyu2000n) {
   property {
@@ -33985,7 +34116,7 @@ item(FEAT_TRAINS, odakyu2000n) {
    mu_car:sw_odakyu3000n_car_power_main;
    0;
   }
-# 490 "src/private/Kanto/odakyu/items.pnml" 2
+# 551 "src/private/Kanto/odakyu/items.pnml" 2
 
 item(FEAT_TRAINS, odakyu3000n) {
   property {
@@ -34108,7 +34239,7 @@ item(FEAT_TRAINS, odakyu3000n) {
    mu_car:sw_odakyu4000n_car_power_main;
    return 0;
   }
-# 551 "src/private/Kanto/odakyu/items.pnml" 2
+# 612 "src/private/Kanto/odakyu/items.pnml" 2
 
 item(FEAT_TRAINS, odakyu4000n) {
   property {
@@ -34232,7 +34363,7 @@ item(FEAT_TRAINS, odakyu4000n) {
    mu_car: sw_odakyu5000n_car_power_main;
    return 0;
   }
-# 612 "src/private/Kanto/odakyu/items.pnml" 2
+# 673 "src/private/Kanto/odakyu/items.pnml" 2
 
 item(FEAT_TRAINS, odakyu5000n) {
   property {
@@ -34293,7 +34424,7 @@ item(FEAT_TRAINS, odakyu5000n) {
 
   }
 }
-# 113 "src/_private.pnml" 2
+# 114 "src/_private.pnml" 2
 
 
 
@@ -36337,7 +36468,7 @@ item(FEAT_TRAINS, sotetsu20000) {
 
   }
 }
-# 132 "src/_private.pnml" 2
+# 133 "src/_private.pnml" 2
 
 
 
@@ -36563,7 +36694,7 @@ item(FEAT_TRAINS, twr71000) {
 
   }
 }
-# 139 "src/_private.pnml" 2
+# 140 "src/_private.pnml" 2
 
 
   item(FEAT_TRAINS, tsukuba_1000series, 2295) {}
@@ -36896,8 +37027,8 @@ item(FEAT_TRAINS, tsukuba_3000series) {
 
   }
 }
-# 145 "src/_private.pnml" 2
-# 153 "src/_private.pnml"
+# 146 "src/_private.pnml" 2
+# 154 "src/_private.pnml"
   item(FEAT_TRAINS, keio1000n, 2259) {}
 
   item(FEAT_TRAINS, keio5000, 2262) {}
@@ -38165,7 +38296,7 @@ item(FEAT_TRAINS, keio2000n) {
 
   }
 }
-# 164 "src/_private.pnml" 2
+# 165 "src/_private.pnml" 2
 
 
   item(FEAT_TRAINS, keikyu1, 2400) {}
@@ -40678,7 +40809,7 @@ item(FEAT_TRAINS, keikyu1000n) {
 
   }
 }
-# 184 "src/_private.pnml" 2
+# 185 "src/_private.pnml" 2
 
 
   item(FEAT_TRAINS, keisei1500, 2450) {}
@@ -44690,7 +44821,7 @@ item(FEAT_TRAINS, keisei3200n) {
 
   }
 }
-# 213 "src/_private.pnml" 2
+# 214 "src/_private.pnml" 2
 
 
   item(FEAT_TRAINS, shinKeisei33, 2500) {}
@@ -46238,7 +46369,7 @@ item(FEAT_TRAINS, shinKeisei80000) {
 
   }
 }
-# 226 "src/_private.pnml" 2
+# 227 "src/_private.pnml" 2
 
 
   item(FEAT_TRAINS, hokuso7000, 2520) {}
@@ -47032,7 +47163,7 @@ item(FEAT_TRAINS, hokuso7500) {
 
   }
 }
-# 236 "src/_private.pnml" 2
+# 237 "src/_private.pnml" 2
 
 
   item(FEAT_TRAINS, chibaNT_9000, 2540) {}
@@ -47497,7 +47628,7 @@ item(FEAT_TRAINS, chibaNT_9800) {
 
   }
 }
-# 244 "src/_private.pnml" 2
+# 245 "src/_private.pnml" 2
 
   item(FEAT_TRAINS, chibaE_1000, 2545) {}
   item(FEAT_TRAINS, chibaE_3050, 2546) {}
@@ -47857,7 +47988,7 @@ item(FEAT_TRAINS, chibaE_3100) {
 
   }
 }
-# 250 "src/_private.pnml" 2
+# 251 "src/_private.pnml" 2
 
   item(FEAT_TRAINS, shibayama3600, 2548) {}
   item(FEAT_TRAINS, shibayama3500, 2549) {}
@@ -48163,8 +48294,8 @@ item(FEAT_TRAINS, shibayama3500) {
 
   }
 }
-# 255 "src/_private.pnml" 2
-# 263 "src/_private.pnml"
+# 256 "src/_private.pnml" 2
+# 264 "src/_private.pnml"
   item(FEAT_TRAINS, kintetsu6820, 2857) {}
   item(FEAT_TRAINS, kintetsu6a, 2858) {}
 
@@ -50436,7 +50567,7 @@ item(FEAT_TRAINS, kintetsu1a) {
 
   }
 }
-# 289 "src/_private.pnml" 2
+# 290 "src/_private.pnml" 2
 
 
   item(FEAT_TRAINS, hankyu1, 2900) {}
@@ -53778,7 +53909,7 @@ item(FEAT_TRAINS, hankyu2000n) {
 
   }
 }
-# 315 "src/_private.pnml" 2
+# 316 "src/_private.pnml" 2
 
 
   item(FEAT_TRAINS, nankai6200, 2975) {}
@@ -54213,7 +54344,7 @@ item(FEAT_TRAINS, nankai9000) {
 
   }
 }
-# 322 "src/_private.pnml" 2
+# 323 "src/_private.pnml" 2
 
 
   item(FEAT_TRAINS, hanshin2000, 3013) {}
@@ -54605,7 +54736,7 @@ item(FEAT_TRAINS, hanshin5000) {
 
   }
 }
-# 329 "src/_private.pnml" 2
+# 330 "src/_private.pnml" 2
 
 
 
@@ -55074,7 +55205,7 @@ item(FEAT_TRAINS, semboku3000) {
 
   }
 }
-# 338 "src/_private.pnml" 2
+# 339 "src/_private.pnml" 2
 
 
   item(FEAT_TRAINS, aizu_at500, 3505) {}
@@ -55307,7 +55438,7 @@ item(FEAT_TRAINS, aizu_at700) {
 
   }
 }
-# 345 "src/_private.pnml" 2
+# 346 "src/_private.pnml" 2
 
 
   item(FEAT_TRAINS, aizu600, 3505) {}
@@ -55451,5 +55582,5 @@ item(FEAT_TRAINS, kotoden1200) {
 
   }
 }
-# 356 "src/_private.pnml" 2
+# 357 "src/_private.pnml" 2
 # 16 "JPprivate.pnml" 2
